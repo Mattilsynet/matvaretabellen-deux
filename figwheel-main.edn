@@ -1,0 +1,3 @@
+{:ring-server-options {:port 5050}
+ :open-url false
+ :css-dirs ["resources/public/css"]}
