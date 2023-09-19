@@ -1,7 +1,9 @@
 (ns matvaretabellen.scenes
-  (:require [matvaretabellen.components.nutrition-table-scenes]
+  (:require [matvaretabellen.components.breadcrumbs-scenes]
+            [matvaretabellen.components.nutrition-table-scenes]
             [portfolio.ui :as ui]))
 
+:matvaretabellen.components.breadcrumbs-scenes/keep
 :matvaretabellen.components.nutrition-table-scenes/keep
 
 (def app
