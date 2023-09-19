@@ -1,0 +1,35 @@
+.nutrition-table {
+    background: white;
+    padding: 1em 1em 1.5em;
+}
+
+.nutrition-table.small {
+    font-size: 1rem;
+}
+
+.nutrition-table table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.nutrition-table caption {
+    text-align: left;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.nutrition-table th,
+.nutrition-table td {
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+    padding: 0.4em 0;
+}
+
+.nutrition-table th {
+    padding-right: 0.8em;
+}
+
+.nutrition-table .subcategory th {
+    font-weight: normal;
+    padding-left: 1.2em;
+}
