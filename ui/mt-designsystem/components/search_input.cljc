@@ -1,4 +1,4 @@
-(ns matvaretabellen.components.search-input)
+(ns mt-designsystem.components.search-input)
 
 (defn SearchInput [{:keys [label button input]}]
   [:form.form-layout

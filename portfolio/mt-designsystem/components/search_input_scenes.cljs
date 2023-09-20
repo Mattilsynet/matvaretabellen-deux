@@ -1,5 +1,5 @@
-(ns matvaretabellen.components.search-input-scenes
-  (:require [matvaretabellen.components.search-input :refer [SearchInput]]
+(ns mt-designsystem.components.search-input-scenes
+  (:require [mt-designsystem.components.search-input :refer [SearchInput]]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
 (defscene empty-search

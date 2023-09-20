@@ -1,17 +1,17 @@
 (ns matvaretabellen.scenes
-  (:require [matvaretabellen.components.breadcrumbs-scenes]
-            [matvaretabellen.components.nutrition-table-scenes]
-            [matvaretabellen.components.search-input-scenes]
-            [matvaretabellen.components.site-header-scenes]
+  (:require [matvaretabellen.components.nutrition-table-scenes]
+            [mt-designsystem.components.breadcrumbs-scenes]
+            [mt-designsystem.components.search-input-scenes]
+            [mt-designsystem.components.site-header-scenes]
             [portfolio.ui :as ui]))
 
-:matvaretabellen.components.breadcrumbs-scenes/keep
 :matvaretabellen.components.nutrition-table-scenes/keep
-:matvaretabellen.components.search-input-scenes/keep
-:matvaretabellen.components.site-header-scenes/keep
+:mt-designsystem.components.breadcrumbs-scenes/keep
+:mt-designsystem.components.search-input-scenes/keep
+:mt-designsystem.components.site-header-scenes/keep
 
 (def app
   (ui/start!
    {:config
-    {:css-paths ["/css/app.css"
+    {:css-paths ["/css/mt-designsystem.css"
                  "/css/matvaretabellen.css"]}}))

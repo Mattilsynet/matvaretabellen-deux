@@ -1,4 +1,4 @@
-(ns matvaretabellen.components.site-header)
+(ns mt-designsystem.components.site-header)
 
 (defn MattilsynetLogo [{:keys [color]}]
   [:svg {:viewBox "0 0 184 36" :color color :xmlns "http://www.w3.org/2000/svg"}

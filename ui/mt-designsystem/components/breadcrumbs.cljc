@@ -1,4 +1,4 @@
-(ns matvaretabellen.components.breadcrumbs)
+(ns mt-designsystem.components.breadcrumbs)
 
 (defn Breadcrumbs [{:keys [links]}]
   [:nav.breadcrumbs {:aria-label "breadcrumbs"}
