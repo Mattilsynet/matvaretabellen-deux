@@ -1,4 +1,4 @@
-{:paths ["ui" "resources"]
+{:paths ["src" "resources"]
  :deps {org.clojure/clojure {:mvn/version "1.11.1"}
         cjohansen/dumdom {:mvn/version "2023.04.26"}
         stasis/stasis {:mvn/version "2.5.0"}}
