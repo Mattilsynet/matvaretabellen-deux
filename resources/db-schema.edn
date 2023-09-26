@@ -1,0 +1,165 @@
+[{:db/ident :food/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity}
+
+ {:db/ident :food/name
+  :dte/valueType :i18n/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :food/slug
+  :dte/valueType :i18n/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :food/food-group
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :food/search-keywords
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/many}
+
+ {:db/ident :food/latin-name
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :food/langual-codes
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many}
+
+ {:db/ident :food/edible-part
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :food/energy
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :food/calories
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :food/constituents
+  :db/valueType :db.type/ref
+  :db/isComponent true
+  :db/cardinality :db.cardinality/many}
+
+ {:db/ident :food/portions
+  :db/valueType :db.type/ref
+  :db/isComponent true
+  :db/cardinality :db.cardinality/many}
+
+ ;; Constituents
+
+ {:db/ident :constituent/nutrient
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :measurement/quantity
+  :dte/valueType :broch/quantity
+  :db/cardinality :db.cardinality/one}
+
+ ;; When Maths don't apply
+ {:db/ident :measurement/observation
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :measurement/percent
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :measurement/source
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ ;; Portions
+
+ {:db/ident :portion/kind
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :portion/quantity
+  :dte/valueType :broch/quantity
+  :db/cardinality :db.cardinality/one}
+
+ ;; Portion kind
+
+ {:db/ident :portion-kind/id
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :portion-kind/name
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :portion-kind/unit
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ ;; Food group
+
+ {:db/ident :food-group/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity}
+
+ {:db/ident :food-group/parent
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :food-group/name
+  :dte/valueType :i18n/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :food-group/slug
+  :dte/valueType :i18n/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :nutrient/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :nutrient/parent
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :nutrient/name
+  :dte/valueType :i18n/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :nutrient/euro-fir-id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity}
+
+ {:db/ident :nutrient/euro-fir-name
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :nutrient/unit
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :nutrient/decimal-precision
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :source/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity}
+
+ {:db/ident :source/description
+  :dte/valueType :i18n/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :langual/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity}
+
+ {:db/ident :langual/description
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+]
