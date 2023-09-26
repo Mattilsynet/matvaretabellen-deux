@@ -1,3 +1,5 @@
 /ui/.cpcache/
 /ui/.nrepl-port
 /ui/resources/public/js/compiled/
+/.cpcache/
+/.nrepl-port
