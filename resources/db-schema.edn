@@ -16,7 +16,7 @@
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :food/search-keywords
-  :db/valueType :db.type/string
+  :dte/valueType :i18n/string
   :db/cardinality :db.cardinality/many}
 
  {:db/ident :food/latin-name
