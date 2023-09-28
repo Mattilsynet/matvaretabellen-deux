@@ -17,8 +17,8 @@
     conn))
 
 (defn get-i18n-attrs [db]
-  (d/q '[:find [?a ...]
-         :where
-         [?e :dte/valueType :i18n/string]
-         [?e :db/ident ?a]]
-       db))
+  (set (d/q '[:find [?a ...]
+              :where
+              [?e :dte/valueType :i18n/string]
+              [?e :db/ident ?a]]
+            db)))
