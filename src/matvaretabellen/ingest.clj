@@ -87,14 +87,47 @@
   (->> (get (load-json file-name) "foods")
        (map foodcase-food->food)))
 
-(defn strip-i18n-attrs [db data]
-  (let [attrs (db/get-i18n-attrs db)]
-    (walk/postwalk
-     (fn [x]
-       (if (map? x)
-         (apply dissoc x attrs)
-         x))
-     data)))
+(defn strip-i18n-attrs [attrs data]
+  (walk/postwalk
+   (fn [x]
+     (if (map? x)
+       (apply dissoc x attrs)
+       x))
+   data))
+
+(defn validate-food-sources [i18n-attrs locale->foods]
+  (when-not (->> (vals locale->foods)
+                 (map #(strip-i18n-attrs i18n-attrs %))
+                 (apply =))
+    (throw (ex-info "Localized food sources are not all alike"
+                    {:locale->foods locale->foods}))))
+
+(defn combine-i18n-sources [db locale->foods]
+  (let [attrs (db/get-i18n-attrs db)
+        locales (keys locale->foods)
+        lookup
+        (->> locale->foods
+             (mapcat
+              (fn [[locale xs]]
+                (mapcat
+                 (fn [x]
+                   (for [[k v] (->> (tree-seq coll? identity x)
+                                    (filter map-entry?)
+                                    (filter (comp attrs key)))]
+                     [[locale (:food/id x) k] v]))
+                 xs)))
+             (into {}))]
+    (validate-food-sources attrs locale->foods)
+    (for [food (first (vals locale->foods))]
+      (walk/postwalk
+       (fn [x]
+         (if (and (map-entry? x)
+                  (attrs (key x)))
+           [(key x) (->> locales
+                         (map (fn [l] [l (get lookup [l (:food/id food) (key x)])]))
+                         (into {}))]
+           x))
+       food))))
 
 (comment
 
@@ -105,6 +138,14 @@
   (def schema (read-string (slurp (clojure.java.io/resource "db-schema.edn"))))
   (d/delete-database "datomic:mem://lol")
   (def conn (db/create-database "datomic:mem://lol" schema))
+
+  (db/get-i18n-attrs (d/db conn))
+
+  (combine-i18n-sources
+   (d/db conn)
+   {:nb (take 10 food-nb)
+    :en (take 10 food-en)})
+
 
   (def food-nb-m (into {} (map (juxt :food/id identity) food-nb)))
   (def food-en-m (into {} (map (juxt :food/id identity) food-en)))
