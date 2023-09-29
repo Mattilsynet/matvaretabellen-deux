@@ -2,7 +2,7 @@
   (:require [datomic-type-extensions.api :as d]
             [datomic-type-extensions.types :refer [define-dte]]))
 
-(define-dte :i18n/string :db.type/string
+(define-dte :i18n/edn :db.type/string
   [this] (pr-str this)
   [^String s] (read-string s))
 

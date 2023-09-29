@@ -4,11 +4,11 @@
   :db/unique :db.unique/identity}
 
  {:db/ident :food/name
-  :dte/valueType :i18n/string
+  :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :food/slug
-  :dte/valueType :i18n/string
+  :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :food/food-group
@@ -16,8 +16,8 @@
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :food/search-keywords
-  :dte/valueType :i18n/string
-  :db/cardinality :db.cardinality/many}
+  :dte/valueType :i18n/edn
+  :db/cardinality :db.cardinality/one}
 
  {:db/ident :food/latin-name
   :db/valueType :db.type/string
@@ -108,11 +108,11 @@
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :food-group/name
-  :dte/valueType :i18n/string
+  :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :food-group/slug
-  :dte/valueType :i18n/string
+  :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :nutrient/id
@@ -124,7 +124,7 @@
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :nutrient/name
-  :dte/valueType :i18n/string
+  :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :nutrient/euro-fir-id
@@ -150,7 +150,7 @@
   :db/unique :db.unique/identity}
 
  {:db/ident :source/description
-  :dte/valueType :i18n/string
+  :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :langual/id
