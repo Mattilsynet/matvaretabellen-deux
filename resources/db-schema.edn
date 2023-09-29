@@ -59,8 +59,7 @@
   :dte/valueType :broch/quantity
   :db/cardinality :db.cardinality/one}
 
- ;; When Maths don't apply
- {:db/ident :measurement/observation
+ {:db/ident :measurement/observation ;; when Maths don't apply
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
 
@@ -68,7 +67,7 @@
   :db/valueType :db.type/long
   :db/cardinality :db.cardinality/one}
 
- {:db/ident :measurement/source
+ {:db/ident :measurement/origin
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one}
 
@@ -144,12 +143,12 @@
   :db/valueType :db.type/long
   :db/cardinality :db.cardinality/one}
 
- {:db/ident :source/id
+ {:db/ident :origin/id
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/unique :db.unique/identity}
 
- {:db/ident :source/description
+ {:db/ident :origin/description
   :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 

@@ -28,10 +28,10 @@
 (defn get-constituents [food]
   (set
    (for [[id {:strs [ref value]}] (->> (apply dissoc food known-non-constituents)
-                                       (filter (fn [[k v]] (get v "ref"))))]
+                                       (filter (fn [[_ v]] (get v "ref"))))]
      (let [grams (parse-double value)]
        (cond-> {:constituent/nutrient [:nutrient/id id]
-                :measurement/source [:source/id ref]}
+                :measurement/origin [:origin/id ref]}
          grams (assoc :measurement/quantity (b/grams grams)))))))
 
 (defn get-portions [{:strs [ref value]}]
@@ -51,7 +51,7 @@
   (try
     (when-let [joules (parse-doublish value)]
       {:measurement/quantity (b/joules joules)
-       :measurement/source [:origin/id ref]})
+       :measurement/origin [:origin/id ref]})
     (catch Exception e
       (throw (ex-info "Can't get me no energy" {:ref ref :value value} e)))))
 
@@ -59,12 +59,12 @@
   (try
     (when-let [pct (parse-doublish value)]
       {:measurement/percent (Math/round pct)
-       :measurement/source [:origin/id ref]})
+       :measurement/origin [:origin/id ref]})
     (catch Exception e
       (throw (ex-info "Can't get me no edible part" {:ref ref :value value} e)))))
 
 (defn foodcase-food->food [{:strs [id name slug groupId synonym latinName Netto
-                                   langualCodes Vann Energi1 Energi2 Portion] :as food}]
+                                   langualCodes Energi1 Energi2 Portion] :as food}]
   (->> {:food/id id
         :food/name name
         :food/slug slug
@@ -75,7 +75,7 @@
                                    [:langual-code/id id]))
         :food/energy (get-energy Energi1)
         :food/calories {:measurement/observation (get Energi2 "value")
-                        :measurement/source [:origin/id (get Energi2 "ref")]}
+                        :measurement/origin [:origin/id (get Energi2 "ref")]}
         :food/constituents (get-constituents food)
 
         :food/portions (get-portions Portion)
@@ -166,7 +166,7 @@
 
   (first food-en)
 
-  (find-attr-paths {:en (take 1 food-en)} (db/get-i18n-attrs db))
+  (find-key-paths {:en (take 1 food-en)} (db/get-i18n-attrs db))
 
   (def food-nb-m (into {} (map (juxt :food/id identity) food-nb)))
   (def food-en-m (into {} (map (juxt :food/id identity) food-en)))
@@ -182,4 +182,4 @@
    (strip-i18n-attrs (d/db conn) food-nb)
    (strip-i18n-attrs (d/db conn) food-en))
 
-)
+  )

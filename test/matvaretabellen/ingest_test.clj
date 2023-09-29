@@ -44,13 +44,13 @@
     (is (= (-> (sut/foodcase-food->food wheat-flakes)
                :food/energy)
            {:measurement/quantity #broch/quantity[1418.5 "J"]
-            :measurement/source [:origin/id "MI0114"]})))
+            :measurement/origin [:origin/id "MI0114"]})))
 
   (testing "Parses calories"
     (is (= (-> (sut/foodcase-food->food wheat-flakes)
                :food/calories)
            {:measurement/observation "336"
-            :measurement/source [:origin/id "MI0115"]})))
+            :measurement/origin [:origin/id "MI0115"]})))
 
   (testing "Parses portions"
     (is (= (-> (sut/foodcase-food->food wheat-flakes)
@@ -65,21 +65,21 @@
                 :food/constituents)
            #{{:constituent/nutrient [:nutrient/id "Fett"]
               :measurement/quantity #broch/quantity[1.8 "g"]
-              :measurement/source [:source/id "225a"]}
+              :measurement/origin [:origin/id "225a"]}
              {:constituent/nutrient [:nutrient/id "Vann"]
               :measurement/quantity #broch/quantity[11.0 "g"]
-              :measurement/source [:source/id "MI0142"]}
+              :measurement/origin [:origin/id "MI0142"]}
 
              ;; constituents without a known quantity still needs to be
              ;; represented due to differing reasons for said void.
              {:constituent/nutrient [:nutrient/id "Folat"]
-              :measurement/source [:source/id "MI0232"]}
+              :measurement/origin [:origin/id "MI0232"]}
              {:constituent/nutrient [:nutrient/id "Fe"]
-              :measurement/source [:source/id "MI0232"]}
+              :measurement/origin [:origin/id "MI0232"]}
              {:constituent/nutrient [:nutrient/id "Ca"]
-              :measurement/source [:source/id "10"]}
+              :measurement/origin [:origin/id "10"]}
              {:constituent/nutrient [:nutrient/id "Vit C"]
-              :measurement/source [:source/id "10"]}})))
+              :measurement/origin [:origin/id "10"]}})))
   )
 
 (deftest find-key-paths--test
