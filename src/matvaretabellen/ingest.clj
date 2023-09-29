@@ -96,38 +96,55 @@
    data))
 
 (defn validate-food-sources [i18n-attrs locale->foods]
-  (when-not (->> (vals locale->foods)
-                 (map #(strip-i18n-attrs i18n-attrs %))
-                 (apply =))
-    (throw (ex-info "Localized food sources are not all alike"
-                    {:locale->foods locale->foods}))))
+  (or (when-not (->> (vals locale->foods)
+                     (map #(strip-i18n-attrs i18n-attrs %))
+                     (apply =))
+        {:explanation "Localized food sources are not all alike"})
+      (when (->> (tree-seq coll? identity locale->foods)
+                 (filter set?)
+                 (tree-seq coll? identity)
+                 (filter i18n-attrs)
+                 seq)
+        {:explanation "Can't use i18n attributes inside a set"})))
 
-(defn combine-i18n-sources [db locale->foods]
-  (let [attrs (db/get-i18n-attrs db)
-        locales (keys locale->foods)
-        lookup
-        (->> locale->foods
-             (mapcat
-              (fn [[locale xs]]
-                (mapcat
-                 (fn [x]
-                   (for [[k v] (->> (tree-seq coll? identity x)
-                                    (filter map-entry?)
-                                    (filter (comp attrs key)))]
-                     [[locale (:food/id x) k] v]))
-                 xs)))
-             (into {}))]
-    (validate-food-sources attrs locale->foods)
-    (for [food (first (vals locale->foods))]
-      (walk/postwalk
-       (fn [x]
-         (if (and (map-entry? x)
-                  (attrs (key x)))
-           [(key x) (->> locales
-                         (map (fn [l] [l (get lookup [l (:food/id food) (key x)])]))
-                         (into {}))]
-           x))
-       food))))
+(defn vectorize-seqs [form]
+  (walk/postwalk
+   (fn [x]
+     (cond-> x
+       (seq? x) vec))
+   form))
+
+(defn find-key-paths
+  ([form ks] (find-key-paths form ks []))
+  ([form ks path]
+   (cond
+     (map-entry? form)
+     (cond->> (find-key-paths (val form) ks path)
+       (ks (key form))
+       (cons path))
+
+     (map? form)
+     (mapcat (fn [kv]
+               (find-key-paths kv ks (conj path (key kv))))
+             form)
+
+     (vector? form)
+     (mapcat (fn [i v] (find-key-paths v ks (conj path i)))
+             (range)
+             form))))
+
+(defn combine-i18n-sources [locale->foods i18n-attrs]
+  (let [locales (keys locale->foods)]
+    (for [[food :as siblings] (->> (vals locale->foods)
+                                   (apply map vector)
+                                   vectorize-seqs)]
+      (reduce
+       (fn [food path]
+         (assoc-in food path
+                   (update-vals (zipmap locales siblings)
+                                #(get-in % path))))
+       food
+       (find-key-paths food i18n-attrs)))))
 
 (comment
 
@@ -138,6 +155,7 @@
   (def schema (read-string (slurp (clojure.java.io/resource "db-schema.edn"))))
   (d/delete-database "datomic:mem://lol")
   (def conn (db/create-database "datomic:mem://lol" schema))
+  (def db (d/db conn))
 
   (db/get-i18n-attrs (d/db conn))
 
@@ -146,6 +164,9 @@
    {:nb (take 10 food-nb)
     :en (take 10 food-en)})
 
+  (first food-en)
+
+  (find-attr-paths {:en (take 1 food-en)} (db/get-i18n-attrs db))
 
   (def food-nb-m (into {} (map (juxt :food/id identity) food-nb)))
   (def food-en-m (into {} (map (juxt :food/id identity) food-en)))

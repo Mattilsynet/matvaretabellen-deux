@@ -82,5 +82,71 @@
               :measurement/source [:source/id "10"]}})))
   )
 
+(deftest find-key-paths--test
+  (testing "finds interesting keys in nested data"
+    (is (= (sut/find-key-paths
+            {:i18n/title "Title"
+             :flavor "bland"
+             :data [{:i18n/title "Item title"
+                     :i18n/description "Bland tasting"
+                     :styles {:color "beige"}}]}
+            #{:i18n/title :i18n/description})
+           [[:i18n/title]
+            [:data 0 :i18n/title]
+            [:data 0 :i18n/description]]))))
 
-(comment)
+(deftest combine-i18n-sources
+  (testing "Combines multiple translations into one i18n-ed data structure"
+    (is (= (sut/combine-i18n-sources
+            {:en [{:i18n/title "Title"
+                   :flavor "bland"
+                   :data [{:i18n/title "Item title"
+                           :i18n/description [:div "Bland tasting"]
+                           :styles {:color "beige"}}]}]
+             :nb [{:i18n/title "Tittel"
+                   :flavor "bland"
+                   :data '({:i18n/title "Greietittel"
+                            :i18n/description [:span "Kjedelig smak"]
+                            :styles {:color "beige"}})}]}
+            #{:i18n/title :i18n/description})
+           [{:i18n/title {:en "Title"
+                          :nb "Tittel"}
+             :flavor "bland"
+             :data [{:i18n/title {:en "Item title"
+                                  :nb "Greietittel"}
+                     :i18n/description {:en [:div "Bland tasting"]
+                                        :nb [:span "Kjedelig smak"]}
+                     :styles {:color "beige"}}]}]))))
+
+(deftest validate-food-sources
+  (testing "All localized food lists must be equal sans i18n attributes"
+    (is (nil? (sut/validate-food-sources
+               #{:i18n/title :i18n/description}
+               {:en [{:i18n/title "Title"
+                      :flavor "bland"
+                      :data [{:i18n/title "Item title"
+                              :i18n/description [:div "Bland tasting"]
+                              :styles {:color "beige"}}]}]
+                :nb [{:i18n/title "Tittel"
+                      :flavor "bland"
+                      :data '({:i18n/title "Greietittel"
+                               :i18n/description [:span "Kjedelig smak"]
+                               :styles {:color "beige"}})}]}))))
+
+  (testing "Localized food lists cannot differ in non-i18n attributes"
+    (is (= (sut/validate-food-sources
+            #{:i18n/title :i18n/description}
+            {:en [{:i18n/title "Title"
+                   :flavor "bland"}]
+             :nb [{:i18n/title "Tittel"
+                   :flavor "kjedelig"}]})
+           {:explanation "Localized food sources are not all alike"})))
+
+  (testing "Can't use i18n attribute inside a set"
+    (is (= (sut/validate-food-sources
+            #{:i18n/title :i18n/description}
+            {:en #{{:i18n/title "Title"
+                    :flavor "bland"}}
+             :nb #{{:i18n/title "Tittel"
+                    :flavor "bland"}}})
+           {:explanation "Can't use i18n attributes inside a set"}))))
