@@ -1,1 +1,3 @@
-{:foodcase/bearer-token [:secret/dev "TlBZDqqrhUGsyvmDlIo2uq5/Sa8FqUSXdtOq+aXSxtLduaoorQnPkE/9HzBVu9VUu76nIqv2dxbsS6JSHZlng6hJDitTDg=="]}
+{:foodcase/base-url "https://foodcase.test.nfsa.foodcase-services.com/FoodCASE_API/api"
+ :foodcase/bearer-token [:secret/dev "TlBZDqqrhUGsyvmDlIo2uq5/Sa8FqUSXdtOq+aXSxtLduaoorQnPkE/9HzBVu9VUu76nIqv2dxbsS6JSHZlng6hJDitTDg=="]
+ }
