@@ -1,0 +1,2 @@
+^{:config/secrets {:secret/prod [:config/file "./secrets/prod.txt"]}}
+{:foodcase/bearer-token [:secret/prod "TlBZDre2CpVPDfE9RwDvRM6BlmEfDXtOojAyiP0oNZD8MzizWUmw40EkQRjk0faFBgLRf+GD7CnyihJXUn/6/ToogPO+8A=="]}

@@ -3,3 +3,4 @@
 /ui/resources/public/js/compiled/
 /.cpcache/
 /.nrepl-port
+config/local-config.edn
