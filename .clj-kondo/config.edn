@@ -1,0 +1,5 @@
+{:linters {:unresolved-var {:exclude [portfolio.dumdom/defscene]}
+           :clojure-lsp/unused-public-var
+           {:exclude-when-defined-by #{portfolio.dumdom/defscene}}}
+ :lint-as {portfolio.dumdom/defscene clojure.core/def
+           broch.core/defunit clojure.core/def}}
