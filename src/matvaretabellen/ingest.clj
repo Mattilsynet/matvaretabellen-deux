@@ -13,7 +13,8 @@
       json/read-str))
 
 (defn get-words [s & [re]]
-  (str/split (str/trim s) (or re #" +")))
+  (->> (str/split (str/trim s) (or re #" +"))
+       (remove empty?)))
 
 (def known-non-constituents
   ["Netto"
