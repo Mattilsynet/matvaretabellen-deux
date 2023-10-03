@@ -118,10 +118,9 @@
                                         :nb [:span "Kjedelig smak"]}
                      :styles {:color "beige"}}]}]))))
 
-(deftest validate-food-sources
+(deftest validate-i18n-combination
   (testing "All localized food lists must be equal sans i18n attributes"
-    (is (nil? (sut/validate-food-sources
-               #{:i18n/title :i18n/description}
+    (is (nil? (sut/validate-i18n-combination
                {:en [{:i18n/title "Title"
                       :flavor "bland"
                       :data [{:i18n/title "Item title"
@@ -131,22 +130,66 @@
                       :flavor "bland"
                       :data '({:i18n/title "Greietittel"
                                :i18n/description [:span "Kjedelig smak"]
-                               :styles {:color "beige"}})}]}))))
+                               :styles {:color "beige"}})}]}
+               #{:i18n/title :i18n/description}))))
 
   (testing "Localized food lists cannot differ in non-i18n attributes"
-    (is (= (sut/validate-food-sources
-            #{:i18n/title :i18n/description}
+    (is (= (sut/validate-i18n-combination
             {:en [{:i18n/title "Title"
                    :flavor "bland"}]
              :nb [{:i18n/title "Tittel"
-                   :flavor "kjedelig"}]})
+                   :flavor "kjedelig"}]}
+            #{:i18n/title :i18n/description})
            {:explanation "Localized food sources are not all alike"})))
 
   (testing "Can't use i18n attribute inside a set"
-    (is (= (sut/validate-food-sources
-            #{:i18n/title :i18n/description}
+    (is (= (sut/validate-i18n-combination
             {:en #{{:i18n/title "Title"
                     :flavor "bland"}}
              :nb #{{:i18n/title "Tittel"
-                    :flavor "bland"}}})
+                    :flavor "bland"}}}
+            #{:i18n/title :i18n/description})
            {:explanation "Can't use i18n attributes inside a set"}))))
+
+(deftest foodcase-foodgroup->food-group
+  (is (= (sut/foodcase-foodgroup->food-group
+          {"id" "1"
+           "parentId" ""
+           "name" "Melk og melkeprodukter"})
+         {:food-group/id "1"
+          :food-group/name "Melk og melkeprodukter"}))
+
+  (is (= (sut/foodcase-foodgroup->food-group
+          {"id" "1.1"
+           "parentId" "1"
+           "name" "Melk og melkebasert drikke"})
+         {:food-group/id "1.1"
+          :food-group/name "Melk og melkebasert drikke"
+          :food-group/parent {:food-group/id "1"}})))
+
+(deftest foodcase-nutrient->nutrient
+  (testing "known non-constituents are not included with nutrients"
+    (is (nil? (sut/foodcase-nutrient->nutrient
+               {"id" "Netto"}))))
+
+  (is (= (sut/foodcase-nutrient->nutrient
+          {"parentId" ""
+           "structuralLevel" ""
+           "id" "Vann"
+           "name" "Vann"
+           "shortName" "Vann"
+           "euroFIR" "WATER"
+           "euroFIRname" "water"
+           "unit" "g"
+           "decimals" "1"})
+         {:nutrient/id "Vann"
+          :nutrient/name "Vann"
+          :nutrient/euro-fir-id "WATER"
+          :nutrient/euro-fir-name "water"
+          :nutrient/unit "g"
+          :nutrient/decimal-precision 1}))
+
+  (testing "Includes parentId when non-empty"
+    (is (= (:nutrient/parent (sut/foodcase-nutrient->nutrient
+                              {"parentId" "Vit A"}))
+           {:nutrient/id "Vit A"}))))

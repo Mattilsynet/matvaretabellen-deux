@@ -88,7 +88,8 @@
 
  {:db/ident :portion-kind/id
   :db/valueType :db.type/keyword
-  :db/cardinality :db.cardinality/one}
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity}
 
  {:db/ident :portion-kind/name
   :db/valueType :db.type/string
@@ -113,13 +114,10 @@
   :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 
- {:db/ident :food-group/slug
-  :dte/valueType :i18n/edn
-  :db/cardinality :db.cardinality/one}
-
  {:db/ident :nutrient/id
   :db/valueType :db.type/string
-  :db/cardinality :db.cardinality/one}
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity}
 
  {:db/ident :nutrient/parent
   :db/valueType :db.type/ref
@@ -155,12 +153,12 @@
   :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 
- {:db/ident :langual/id
+ {:db/ident :langual-code/id
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/unique :db.unique/identity}
 
- {:db/ident :langual/description
+ {:db/ident :langual-code/description
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
 

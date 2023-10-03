@@ -17,10 +17,10 @@
        (remove empty?)))
 
 (def known-non-constituents
-  ["Netto"
-   "Energi1"
-   "Energi2"
-   "Portion"])
+  #{"Netto"
+    "Energi1"
+    "Energi2"
+    "Portion"})
 
 (defn parse-doublish [x]
   (when-not (#{"" "M" nil} x)
@@ -64,11 +64,10 @@
     (catch Exception e
       (throw (ex-info "Can't get me no edible part" {:ref ref :value value} e)))))
 
-(defn foodcase-food->food [{:strs [id name slug groupId synonym latinName Netto
+(defn foodcase-food->food [{:strs [id name groupId synonym latinName Netto
                                    langualCodes Energi1 Energi2 Portion] :as food}]
   (->> {:food/id id
         :food/name name
-        :food/slug slug
         :food/food-group [:food-group/id groupId]
         :food/search-keywords (set (get-words synonym #";"))
         :food/latin-name latinName
@@ -84,10 +83,6 @@
        (remove (comp nil? second))
        (into {})))
 
-(defn prepare-foodcase-foods [file-name]
-  (->> (get (load-json file-name) "foods")
-       (map foodcase-food->food)))
-
 (defn strip-i18n-attrs [attrs data]
   (walk/postwalk
    (fn [x]
@@ -96,12 +91,12 @@
        x))
    data))
 
-(defn validate-food-sources [i18n-attrs locale->foods]
-  (or (when-not (->> (vals locale->foods)
+(defn validate-i18n-combination [locale->ms i18n-attrs]
+  (or (when-not (->> (vals locale->ms)
                      (map #(strip-i18n-attrs i18n-attrs %))
                      (apply =))
         {:explanation "Localized food sources are not all alike"})
-      (when (->> (tree-seq coll? identity locale->foods)
+      (when (->> (tree-seq coll? identity locale->ms)
                  (filter set?)
                  (tree-seq coll? identity)
                  (filter i18n-attrs)
@@ -134,53 +129,97 @@
              (range)
              form))))
 
-(defn combine-i18n-sources [locale->foods i18n-attrs]
-  (let [locales (keys locale->foods)]
-    (for [[food :as siblings] (->> (vals locale->foods)
-                                   (apply map vector)
-                                   vectorize-seqs)]
+(defn combine-i18n-sources [locale->ms i18n-attrs]
+  (when-let [error (validate-i18n-combination locale->ms i18n-attrs)]
+    (throw (ex-info (:explanation error) {})))
+  (let [locales (keys locale->ms)]
+    (for [[m :as siblings] (->> (vals locale->ms)
+                                (apply map vector)
+                                vectorize-seqs)]
       (reduce
-       (fn [food path]
-         (assoc-in food path
+       (fn [m path]
+         (assoc-in m path
                    (update-vals (zipmap locales siblings)
                                 #(get-in % path))))
-       food
-       (find-key-paths food i18n-attrs)))))
+       m
+       (find-key-paths m i18n-attrs)))))
+
+(defn foodcase-foodgroup->food-group [{:strs [id parentId name]}]
+  (cond-> {:food-group/id id
+           :food-group/name name}
+    (seq parentId)
+    (assoc :food-group/parent {:food-group/id parentId})))
+
+(defn foodcase-nutrient->nutrient [{:strs [id name euroFIR euroFIRname unit decimals parentId]}]
+  (when-not (known-non-constituents id)
+    (cond-> {:nutrient/id id
+             :nutrient/name name
+             :nutrient/euro-fir-id euroFIR
+             :nutrient/euro-fir-name euroFIRname
+             :nutrient/unit unit
+             :nutrient/decimal-precision (some-> decimals parse-long)}
+      (seq parentId)
+      (assoc :nutrient/parent {:nutrient/id parentId}))))
+
+(defn foodcase-reference->origin [{:strs [id text]}]
+  {:origin/id id
+   :origin/description text})
+
+(defn foodcase-langualcode->langual-code [{:strs [id text]}]
+  {:langual-code/id id
+   :langual-code/description text})
+
+(defn foodcase-portiontype->portion-kind [{:strs [id name unit]}]
+  {:portion-kind/id (keyword id)
+   :portion-kind/name name
+   :portion-kind/unit unit})
+
+(defn create-foodcase-transactions [db locale->datas]
+  (let [i18n-attrs (db/get-i18n-attrs db)]
+    [ ;; food-groups
+     (combine-i18n-sources
+      (update-vals locale->datas #(map foodcase-foodgroup->food-group (get % "foodgroups")))
+      i18n-attrs)
+
+     ;; nutrients
+     (combine-i18n-sources
+      (update-vals locale->datas #(keep foodcase-nutrient->nutrient (get % "nutrients")))
+      i18n-attrs)
+
+     ;; origins
+     (combine-i18n-sources
+      (update-vals locale->datas #(map foodcase-reference->origin (get % "references")))
+      i18n-attrs)
+
+     ;; langual-codes
+     (map foodcase-langualcode->langual-code (get (first (vals locale->datas)) "langualcodes"))
+
+     ;; portion-kinds
+     (map foodcase-portiontype->portion-kind (get (first (vals locale->datas)) "portiontypes"))
+
+     ;; foods
+     (combine-i18n-sources
+      (update-vals locale->datas #(map foodcase-food->food (get % "foods")))
+      i18n-attrs)]))
+
+(defn create-database-from-scratch [uri]
+  (d/delete-database uri)
+  (let [schema (read-string (slurp (io/resource "db-schema.edn")))
+        conn (db/create-database uri schema)]
+    (doseq [tx (create-foodcase-transactions
+                (d/db conn)
+                {:nb (merge (load-json "data/foodcase-data-nb.json")
+                            (load-json "data/foodcase-food-nb.json"))
+                 :en (merge (load-json "data/foodcase-data-en.json")
+                            (load-json "data/foodcase-food-en.json"))})]
+      @(d/transact conn tx))
+    conn))
 
 (comment
-
-  (load-json "foodcase-food-nb.json")
-
-  (def food-nb (prepare-foodcase-foods "foodcase-food-nb.json"))
-  (def food-en (prepare-foodcase-foods "foodcase-food.json"))
-  (def schema (read-string (slurp (clojure.java.io/resource "db-schema.edn"))))
-  (d/delete-database "datomic:mem://lol")
-  (def conn (db/create-database "datomic:mem://lol" schema))
+  (def conn (create-database-from-scratch "datomic:mem://matvaretabellen"))
+  (def conn (d/connect "datomic:mem://matvaretabellen"))
   (def db (d/db conn))
 
-  (db/get-i18n-attrs (d/db conn))
-
-  (combine-i18n-sources
-   (d/db conn)
-   {:nb (take 10 food-nb)
-    :en (take 10 food-en)})
-
-  (first food-en)
-
-  (find-key-paths {:en (take 1 food-en)} (db/get-i18n-attrs db))
-
-  (def food-nb-m (into {} (map (juxt :food/id identity) food-nb)))
-  (def food-en-m (into {} (map (juxt :food/id identity) food-en)))
-
-  (->> food-nb
-       (filter (comp #{#{"kveitekli"}} :food/search-keywords))
-       )
-
-  (get (strip-i18n-attrs (d/db conn) food-nb-m) "05.494")
-  (get (strip-i18n-attrs (d/db conn) food-en-m) "05.494")
-
-  (=
-   (strip-i18n-attrs (d/db conn) food-nb)
-   (strip-i18n-attrs (d/db conn) food-en))
+  (d/touch (d/entity db [:food/id "05.421"]))
 
   )
