@@ -18,6 +18,8 @@
   )
 
 (comment
+  (set! *print-namespace-maps* false)
+
   (def res (http/request
             {:req {:method :get
                    :url (str (:foodcase/base-url config) "/aggregated-foods")
