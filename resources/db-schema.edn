@@ -29,14 +29,17 @@
 
  {:db/ident :food/edible-part
   :db/valueType :db.type/ref
+  :db/isComponent true
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :food/energy
   :db/valueType :db.type/ref
+  :db/isComponent true
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :food/calories
   :db/valueType :db.type/ref
+  :db/isComponent true
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :food/constituents
