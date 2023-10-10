@@ -2,12 +2,28 @@
   (:require [clojure.data.json :as json]
             [confair.config :as config]
             [confair.config-admin :as ca]
-            [courier.http :as http]))
+            [courier.http :as http]
+            [integrant.core :as ig]
+            [integrant.repl.state]
+            [matvaretabellen.core :as matvaretabellen]
+            [powerpack.app :as app]))
 
 (def config (-> (config/from-file "./config/local-config.edn")
                 (config/mask-config)))
 
-(comment ;; config-admin
+(defmethod ig/init-key :powerpack/app [_ _]
+  (set! *print-namespace-maps* false)
+  (matvaretabellen/create-dev-app))
+
+(comment
+
+  (app/start)
+  (app/stop)
+  (app/reset)
+
+  integrant.repl.state/system
+
+  ;; config-admin
   (ca/conceal-value (config/from-file "./config/local-config.edn")
                     :secret/dev
                     :foodcase/bearer-token)
@@ -18,7 +34,6 @@
   )
 
 (comment
-  (set! *print-namespace-maps* false)
 
   (def res (http/request
             {:req {:method :get
