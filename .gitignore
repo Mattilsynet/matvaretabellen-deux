@@ -6,3 +6,6 @@
 /config/local-config.edn
 /.clj-kondo/.cache
 /.lsp
+/datomic-transactor
+/datomic-pro-*.zip
+/datomic-data/

@@ -37,6 +37,8 @@ inn sammenlignet med bilde og video. Ytelsen på søket går fort og fint.
 
 ## Hvordan kjører jeg dette lokalt?
 
+Dette oppsettet antar for øyeblikket at du sitter på en Mac.
+
 I skrivende stund har vi bare fyrt opp en Portfolio-site hvor vi kan snekre
 sammen komponenter og UI-elementer. Denne kan du kjøre ved å gjøre noe slikt:
 
@@ -52,4 +54,10 @@ sammen komponenter og UI-elementer. Denne kan du kjøre ved å gjøre noe slikt:
     clj -M:ui -m figwheel.main -b ui
     ```
 
-- [Besøk siden](http://localhost:5050/)
+- [Se på UI-komponentene](http://localhost:5050/)
+
+- Kjør opp databasen
+
+    ```
+    make start-transactor
+    ```
