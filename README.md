@@ -56,6 +56,12 @@ sammen komponenter og UI-elementer. Denne kan du kjøre ved å gjøre noe slikt:
 
 - [Se på UI-komponentene](http://localhost:5050/)
 
+- Kopier eksempelkonfigurasjonen:
+
+    ```
+    cp config/local-config.sample.edn config/local-config.edn
+    ```
+
 - Kjør opp databasen
 
     ```
