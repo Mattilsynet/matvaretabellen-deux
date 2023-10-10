@@ -204,7 +204,7 @@
 
 (defn create-database-from-scratch [uri]
   (d/delete-database uri)
-  (let [schema (read-string (slurp (io/resource "db-schema.edn")))
+  (let [schema (read-string (slurp (io/resource "foods-schema.edn")))
         conn (db/create-database uri schema)]
     (doseq [tx (create-foodcase-transactions
                 (d/db conn)
