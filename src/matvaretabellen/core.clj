@@ -1,5 +1,7 @@
 (ns matvaretabellen.core
-  (:require [matvaretabellen.ingest :as ingest]
+  (:require [datomic-type-extensions.api :as d]
+            [matvaretabellen.foodcase-import :as foodcase-import]
+            [matvaretabellen.ingest :as ingest]
             [matvaretabellen.pages :as pages]))
 
 (def app
@@ -25,7 +27,11 @@
    :render-page #'pages/render-page})
 
 (defn create-build-app []
-  (assoc app :powerpack/base-url "https://matvaretabellen.mattilsynet.io"))
+  (let [uri "datomic:mem://foods-export"]
+    (foodcase-import/create-database-from-scratch uri)
+    (-> app
+        (assoc :powerpack/base-url "https://matvaretabellen.mattilsynet.io")
+        (assoc :context {:foods/conn (d/connect uri)}))))
 
-(defn create-dev-app []
-  app)
+(defn create-dev-app [config]
+  (assoc app :context {:foods/conn (d/connect (:foods/datomic-uri config))}))

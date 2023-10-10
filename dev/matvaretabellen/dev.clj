@@ -6,6 +6,7 @@
             [integrant.core :as ig]
             [integrant.repl.state]
             [matvaretabellen.core :as matvaretabellen]
+            [matvaretabellen.foodcase-import :as foodcase-import]
             [powerpack.app :as app]))
 
 (def config (-> (config/from-file "./config/local-config.edn")
@@ -13,9 +14,14 @@
 
 (defmethod ig/init-key :powerpack/app [_ _]
   (set! *print-namespace-maps* false)
-  (matvaretabellen/create-dev-app))
+  (matvaretabellen/create-dev-app config))
 
 (comment
+
+  ;; Hvis du har en tom database
+  ;; Husk `make start-transactor`
+  (time
+   (foodcase-import/create-database-from-scratch (:foods/datomic-uri config)))
 
   (app/start)
   (app/stop)
