@@ -1,0 +1,11 @@
+;; Denne filen er ikke sjekket inn, og brukes for at du skal kunne velge hvordan
+;; du vil bygge konfigurasjonen din.
+
+^{:config/secrets {:secret/dev [:config/file "./secrets/dev.txt"]}
+  :config/import ["./config/dev-defaults.edn"]}
+
+;; Egendefinert konfigurasjon:
+{}
+
+;; Forøvrig kan du vise / skjule / oppdatere hemmeligheter med noe
+;; kode som ligger løst i dev/matvaretabellen/dev.clj
