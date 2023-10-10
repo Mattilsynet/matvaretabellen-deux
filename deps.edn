@@ -9,5 +9,6 @@
         no.cjohansen/powerpack {:git/url "https://github.com/cjohansen/powerpack.git"
                                 :sha "49b45cb0781be08a7e4b8631f8885b3d7d8c2fb4"}}
  :aliases {:dev
-           {:extra-deps {lambdaisland/kaocha {:mvn/version "1.87.1366"}
+           {:extra-paths ["dev"]
+            :extra-deps {lambdaisland/kaocha {:mvn/version "1.87.1366"}
                          kaocha-noyoda/kaocha-noyoda {:mvn/version "2019-06-03"}}}}}
