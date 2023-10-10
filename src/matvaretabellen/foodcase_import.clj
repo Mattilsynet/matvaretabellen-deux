@@ -1,4 +1,4 @@
-(ns matvaretabellen.ingest
+(ns matvaretabellen.foodcase-import
   (:require [broch.core :as b]
             [clojure.data.json :as json]
             [clojure.java.io :as io]
@@ -176,7 +176,7 @@
 
 (defn create-foodcase-transactions [db locale->datas]
   (let [i18n-attrs (db/get-i18n-attrs db)]
-    [ ;; food-groups
+    [;; food-groups
      (combine-i18n-sources
       (update-vals locale->datas #(map foodcase-foodgroup->food-group (get % "foodgroups")))
       i18n-attrs)

@@ -1,5 +1,5 @@
-(ns matvaretabellen.ingest-test
-  (:require [matvaretabellen.ingest :as sut]
+(ns matvaretabellen.foodcase-import-test
+  (:require [matvaretabellen.foodcase-import :as sut]
             [clojure.test :refer [deftest is testing]]))
 
 (def wheat-flakes
