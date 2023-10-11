@@ -11,8 +11,8 @@
 
     :stasis/build-dir "build"
     :powerpack/content-dir "resources/content"
-    :powerpack/source-dirs ["src" "dev"]
-    :powerpack/resource-dirs ["resources"]
+    :powerpack/source-dirs ["src" "ui/src" "dev"]
+    :powerpack/resource-dirs ["resources" "ui/resources"]
     :powerpack/db "datomic:mem://matvaretabellen"
 
     :optimus/bundles {"styles.css"
