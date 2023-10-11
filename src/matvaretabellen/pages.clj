@@ -1,6 +1,5 @@
 (ns matvaretabellen.pages
   (:require [clojure.data.json :as json]
-            [datomic-type-extensions.api :as d]
             [matvaretabellen.search :as search]
             [mt-designsystem.components.search-input :refer [SearchInput]]
             [mt-designsystem.components.site-header :refer [SiteHeader]]
@@ -36,7 +35,7 @@
                    :input {:name "my-search"}})])))
 
 (defn render-page [context page]
-  (let [db (d/db (:foods/conn context))]
+  (let [db (:foods/db context)]
     (case (:page/kind page)
       :foods-index (render-foods-index db page)
       :frontpage (render-frontpage context db page)

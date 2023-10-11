@@ -36,11 +36,11 @@
     (foodcase-import/create-database-from-scratch uri)
     (-> app
         (assoc :powerpack/base-url "https://matvaretabellen.mattilsynet.io")
-        (assoc :context {:foods/conn conn})
+        (assoc :get-context (fn [] {:foods/db (d/db conn)}))
         (assoc :on-started #(on-started conn %)))))
 
 (defn create-dev-app [config]
   (let [conn (d/connect (:foods/datomic-uri config))]
     (-> app
-        (assoc :context {:foods/conn conn})
+        (assoc :get-context (fn [] {:foods/db (d/db conn)}))
         (assoc :on-started #(on-started conn %)))))
