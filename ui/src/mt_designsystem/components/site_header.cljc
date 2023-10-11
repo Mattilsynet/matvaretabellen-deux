@@ -17,6 +17,6 @@
 
 (defn SiteHeader [{:keys [home-url]}]
   [:header
-   [:div.header.header--regular
+   [:div.header.header--regular.container
     [:a.fit-content {:href home-url}
      (MattilsynetLogo {:color "var(--color-mt-red)"})]]])
