@@ -3,10 +3,12 @@
             [confair.config :as config]
             [confair.config-admin :as ca]
             [courier.http :as http]
+            [datomic-type-extensions.api :as d]
             [integrant.core :as ig]
             [integrant.repl.state]
             [matvaretabellen.core :as matvaretabellen]
             [matvaretabellen.foodcase-import :as foodcase-import]
+            [matvaretabellen.search :as search]
             [powerpack.app :as app]))
 
 (def config (-> (config/from-file "./config/local-config.edn")
@@ -18,8 +20,8 @@
 
 (comment
 
-  ;; Hvis du har en tom database
-  ;; Husk `make start-transactor`
+  ;; If your database is empty
+  ;; Remember to `make start-transactor`
   (time
    (foodcase-import/create-database-from-scratch (:foods/datomic-uri config)))
 
@@ -27,7 +29,18 @@
   (app/stop)
   (app/reset)
 
-  integrant.repl.state/system
+  (def conn (d/connect (:foods/datomic-uri config)))
+
+  (take 5 (d/q '[:find [(pull ?food [:food/name :food/id]) ...]
+                 :where
+                 [?food :food/id ?id]]
+               (d/db conn)))
+
+
+  (search/index-foods {} (d/db conn) :en)
+
+  (seq (d/datoms (d/db (:datomic/conn integrant.repl.state/system))
+             :avet :page/uri))
 
   ;; config-admin
   (ca/conceal-value (config/from-file "./config/local-config.edn")
