@@ -1,0 +1,2 @@
+{:ring-server-options {:port 5054}
+ :open-url false}

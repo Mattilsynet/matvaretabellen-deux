@@ -9,3 +9,5 @@
 /datomic-transactor
 /datomic-pro-*.zip
 /datomic-data/
+/target/
+/dev-resources/dev-assets/js/compiled

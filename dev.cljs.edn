@@ -1,0 +1,8 @@
+^{:watch-dirs ["src"]}
+{:main matvaretabellen.ui.main
+ :optimizations :none
+ :pretty-print true
+ :source-map true
+ :asset-path "/js/compiled/dev"
+ :output-to "dev-resources/dev-assets/js/compiled/app.js"
+ :output-dir "dev-resources/dev-assets/js/compiled/dev"}
