@@ -1,4 +1,4 @@
-(ns matvaretabellen.search
+(ns matvaretabellen.search-index
   "This is a way too short and over-simplified implementation of some concepts
   loosely borrowed from Elastic Search. It works on an in-memory index
   represented by a map, and may be suitable to power searches in client-side
@@ -192,6 +192,10 @@
                         [?food :food/id]]
                       db)
                  (map #(d/entity db %))))))
+
+(defn build-index [db locale]
+  {:index (index-foods nil db locale)
+   :stop-words (stop-words locale)})
 
 (comment
 

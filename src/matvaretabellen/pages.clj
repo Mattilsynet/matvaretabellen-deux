@@ -1,6 +1,6 @@
 (ns matvaretabellen.pages
   (:require [clojure.data.json :as json]
-            [matvaretabellen.search :as search]
+            [matvaretabellen.search-index :as index]
             [mt-designsystem.components.search-input :refer [SearchInput]]
             [mt-designsystem.components.site-header :refer [SiteHeader]]
             [powerpack.html :as html]))
@@ -21,7 +21,7 @@
 
 (defn render-foods-index [db page]
   {:content-type "application/json"
-   :body (json/write-str (search/index-foods {} db (:page/locale page)))})
+   :body (json/write-str (index/build-index db (:page/locale page)))})
 
 (defn render-frontpage [context db page]
   (html/render-hiccup

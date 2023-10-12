@@ -8,7 +8,7 @@
             [integrant.repl.state]
             [matvaretabellen.core :as matvaretabellen]
             [matvaretabellen.foodcase-import :as foodcase-import]
-            [matvaretabellen.search :as search]
+            [matvaretabellen.search-index :as index]
             [powerpack.app :as app]))
 
 (def config (-> (config/from-file "./config/local-config.edn")
@@ -37,7 +37,7 @@
                (d/db conn)))
 
 
-  (search/index-foods {} (d/db conn) :en)
+  (index/index-foods {} (d/db conn) :en)
 
   (seq (d/datoms (d/db (:datomic/conn integrant.repl.state/system))
              :avet :page/uri))
