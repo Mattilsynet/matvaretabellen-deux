@@ -29,10 +29,11 @@
    page
    (list
     (SiteHeader {:home-url "/"})
-    [:div.search-input-wrap
-     (SearchInput {:label "Søk i Matvaretabellen"
-                   :button {:text "Søk"}
-                   :input {:name "my-search"}})])))
+    [:div.container
+     [:div.search-input-wrap
+      (SearchInput {:label "Søk i Matvaretabellen"
+                    :button {:text "Søk"}
+                    :input {:name "my-search"}})]])))
 
 (defn render-page [context page]
   (let [db (:foods/db context)]
