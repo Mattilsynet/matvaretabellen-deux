@@ -7,22 +7,22 @@
 
 (def static-pages
   [{:page/uri "/"
-    :page/kind :frontpage
+    :page/kind :page.kind/frontpage
     :page/locale :nb}
    {:page/uri "/en/"
-    :page/kind :frontpage
+    :page/kind :page.kind/frontpage
     :page/locale :en}
    {:page/uri "/index/nb.json"
-    :page/kind :foods-index
+    :page/kind :page.kind/foods-index
     :page/locale :nb}
    {:page/uri "/index/en.json"
-    :page/kind :foods-index
+    :page/kind :page.kind/foods-index
     :page/locale :en}
    {:page/uri "/foods/nb.json"
-    :page/kind :foods-lookup
+    :page/kind :page.kind/foods-lookup
     :page/locale :nb}
    {:page/uri "/foods/en.json"
-    :page/kind :foods-lookup
+    :page/kind :page.kind/foods-lookup
     :page/locale :en}])
 
 (defn render-foods-index [db page]
@@ -54,11 +54,22 @@
                     :input {:name "foods-search"}
                     :autocomplete-id "foods-results"})]])))
 
+(defn render-food-page [context db page]
+  (let [food (d/entity (:foods/db context) [:food/id (:food/id page)])]
+    (html/render-hiccup
+     context
+     page
+     (list
+      (SiteHeader {:home-url "/"})
+      [:div.container
+       [:h1 (get-in food [:food/name (:page/locale page)])]]))))
+
 (defn render-page [context page]
   (let [db (:foods/db context)]
     (case (:page/kind page)
-      :foods-index (render-foods-index db page)
-      :foods-lookup (render-foods-lookup db page)
-      :frontpage (render-frontpage context db page)
+      :page.kind/foods-index (render-foods-index db page)
+      :page.kind/foods-lookup (render-foods-lookup db page)
+      :page.kind/frontpage (render-frontpage context db page)
+      :page.kind/food (render-food-page context db page)
       ))
   )
