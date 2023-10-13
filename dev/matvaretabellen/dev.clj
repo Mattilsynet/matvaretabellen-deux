@@ -20,7 +20,7 @@
 
 (comment
 
-  ;; If your database is empty
+  ;; If your database is empty ("Could not find foods in catalog")
   ;; Remember to `make start-transactor`
   (time
    (foodcase-import/create-database-from-scratch (:foods/datomic-uri config)))
