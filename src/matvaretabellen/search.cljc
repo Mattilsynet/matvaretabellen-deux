@@ -27,6 +27,11 @@
   [s]
   (filter not-empty (str/split s sep-re)))
 
+(defn tokenize-unique-words
+  "Converts a string to a sequence of word tokens, removing punctuation."
+  [s]
+  (set (tokenize-words s)))
+
 (defn tokenize-numberless [s]
   [(str/replace s #"\d" "")])
 
@@ -109,7 +114,7 @@
     :tokenizers [tokenize-numberless
                  remove-diacritics
                  tokenize-lower-case
-                 tokenize-words]
+                 tokenize-unique-words]
     :token-filters [(stop-words locale)
                     #(short? 1 %)]}
 
@@ -118,7 +123,7 @@
     :tokenizers [tokenize-numberless
                  remove-diacritics
                  tokenize-lower-case
-                 tokenize-words
+                 tokenize-unique-words
                  (partial tokenize-ngrams 2)]
     :token-filters [(stop-words locale)
                     #(short? 1 %)]}
