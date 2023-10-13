@@ -77,3 +77,29 @@
 .mvt-ac-selected a {
     background: var(--color-mt-lighter-light-blue);
 }
+
+.toc {
+    padding: 24px;
+    border: 1px solid #3f3e3e;
+}
+
+.toc-title {
+    display: flex;
+    align-items: center;
+}
+
+.toc-title .icon {
+    width: 30px;
+    margin-right: 8px;
+}
+
+.toc>ol {
+    margin-left: 0;
+    margin-top: 12px;
+    padding-inline-start: 30px;
+}
+
+.toc ol ol {
+    list-style-type: lower-alpha;
+    margin-top: 6px;
+}
