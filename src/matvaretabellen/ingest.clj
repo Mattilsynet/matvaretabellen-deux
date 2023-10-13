@@ -17,9 +17,19 @@
              :page/locale locale
              :food/id id})))))
 
+(defn ensure-unique-page-uris [entity-maps]
+  (when-not (= (count entity-maps)
+               (count (set (map :page/uri entity-maps))))
+    (throw (ex-info "Duplicate :page/uri detected, awooooga, awoooga!"
+                    {:duplicates (->> (map :page/uri entity-maps)
+                                      frequencies
+                                      (remove (comp #{1} val)))})))
+  entity-maps)
+
 (defn on-started [foods-conn powerpack-app]
-  (->> pages/static-pages
-       (concat (get-food-pages (d/db foods-conn)))
+  (->> (concat pages/static-pages
+               (get-food-pages (d/db foods-conn)))
+       (ensure-unique-page-uris)
        (d/transact (:datomic/conn powerpack-app))
        deref))
 
