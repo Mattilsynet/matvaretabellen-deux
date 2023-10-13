@@ -1,8 +1,10 @@
 (ns matvaretabellen.pages
   (:require [datomic-type-extensions.api :as d]
             [matvaretabellen.search-index :as index]
+            [mt-designsystem.components.breadcrumbs :refer [Breadcrumbs]]
             [mt-designsystem.components.search-input :refer [SearchInput]]
             [mt-designsystem.components.site-header :refer [SiteHeader]]
+            [matvaretabellen.components.toc :refer [Toc]]
             [powerpack.html :as html]))
 
 (def static-pages
@@ -54,15 +56,50 @@
                     :input {:name "foods-search"}
                     :autocomplete-id "foods-results"})]])))
 
-(defn render-food-page [context db page]
-  (let [food (d/entity (:foods/db context) [:food/id (:food/id page)])]
+(defn render-food-page [context _db page]
+  (let [food (d/entity (:foods/db context) [:food/id (:food/id page)])
+        locale (:page/locale page)
+        food-name (get-in food [:food/name locale])
+        food-category (get-in food [:food/food-group :food-group/name locale])]
     (html/render-hiccup
      context
      page
      (list
       (SiteHeader {:home-url "/"})
-      [:div.container
-       [:h1 (get-in food [:food/name (:page/locale page)])]]))))
+      [:div
+       [:div.mvt-hero-banner
+        [:div.container
+         (Breadcrumbs {:links [{:text "Mattilsynet.no" :url "https://www.mattilsynet.no/"}
+                               {:text "Søk i Matvaretabellen" :url "/"}
+                               {:text "Alle matvaregrupper" :url "/"}
+                               {:text food-category :url "/"}
+                               {:text food-name}]})]]
+       [:div.mvt-hero-banner
+        [:div.container
+         [:div {:style {:display "flex"}}
+          [:div {:style {:flex "1"}}
+           [:h1.h1 food-name]
+           [:div.intro.mtl
+            [:div "Matvare-ID: " (:food/id food)]
+            [:div "Kategori: " food-category]
+            [:div "Latin: " (:food/latin-name food)]]]
+          (Toc {:title "Innhold"
+                :contents [{:title "Næringsinnhold"
+                            :href "#naeringsinnhold"
+                            :contents [{:title "Sammensetning og energiinnhold"
+                                        :href "#energi"}
+                                       {:title "Fettsyrer"
+                                        :href "#fett"}
+                                       {:title "Karbohydrater"
+                                        :href "#karbohydrater"}
+                                       {:title "Vitaminer"
+                                        :href "#vitaminer"}
+                                       {:title "Mineraler"
+                                        :href "#mineraler"}]}
+                           {:title "Anbefalt daglig inntak (ADI)"
+                            :href "#adi"}
+                           {:title "Beskrivelse av matvaren"
+                            :href "#beskrivelse"}]})]]]]))))
 
 (defn render-page [context page]
   (let [db (:foods/db context)]
@@ -70,6 +107,4 @@
       :page.kind/foods-index (render-foods-index db page)
       :page.kind/foods-lookup (render-foods-lookup db page)
       :page.kind/frontpage (render-frontpage context db page)
-      :page.kind/food (render-food-page context db page)
-      ))
-  )
+      :page.kind/food (render-food-page context db page))))
