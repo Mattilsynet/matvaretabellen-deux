@@ -1,7 +1,8 @@
 (ns ^:figwheel-hooks matvaretabellen.ui.main
   (:require [clojure.string :as str]
             [matvaretabellen.search :as search]
-            [matvaretabellen.ui.foods-search :as foods-search]))
+            [matvaretabellen.ui.foods-search :as foods-search]
+            [matvaretabellen.urls :as urls]))
 
 (defonce search-engine (atom {:index-status :pending
                               :foods-status :pending}))
@@ -33,7 +34,7 @@
                   (js/console.error e)
                   (swap! search-engine assoc :foods-status :error))))))
 
-(defn handle-autocomplete-input-event [e element]
+(defn handle-autocomplete-input-event [e element locale]
   (let [q (.-value (.-target e))]
     (if (< (.-length q) 3)
       (set! (.-innerHTML element) "")
@@ -43,7 +44,7 @@
               ["<ol class='mvt-ac-results'>"
                (for [result (take 10 (foods-search/search @search-engine q))]
                  ["<li class='mvt-ac-result'>"
-                  ["<a href=''>" (:name result) "</a>"]
+                  ["<a href='" (urls/get-url locale (:name result)) "'>" (:name result) "</a>"]
                   "</li>"])
                "</ol>"]))))))
 
@@ -81,10 +82,10 @@
   (when-let [selected (.querySelector (.-target e) ".mvt-ac-selected a")]
     (set! js/window.location (.-href selected))))
 
-(defn initialize-foods-autocomplete [dom-element]
+(defn initialize-foods-autocomplete [dom-element locale]
   (let [element (js/document.createElement "div")]
     (.appendChild dom-element element)
-    (.addEventListener dom-element "input" #(handle-autocomplete-input-event % element))
+    (.addEventListener dom-element "input" #(handle-autocomplete-input-event % element locale))
     (.addEventListener dom-element "keyup" #(handle-autocomplete-key-event % element))
     (.addEventListener (.closest dom-element "form") "submit" #(handle-autocomplete-submit-event %))))
 
@@ -93,7 +94,9 @@
 
 (defn boot []
   (main)
-  (initialize-foods-autocomplete (js/document.querySelector ".mvt-autocomplete")))
+  (initialize-foods-autocomplete
+   (js/document.querySelector ".mvt-autocomplete")
+   (keyword js/document.documentElement.lang)))
 
 (defonce ^:export kicking-out-the-jams (boot))
 

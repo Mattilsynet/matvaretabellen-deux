@@ -51,7 +51,8 @@
      [:div.search-input-wrap
       (SearchInput {:label "Søk i Matvaretabellen"
                     :button {:text "Søk"}
-                    :input {:name "my-search"}})]])))
+                    :input {:name "foods-search"}
+                    :autocomplete-id "foods-results"})]])))
 
 (defn render-page [context page]
   (let [db (:foods/db context)]
