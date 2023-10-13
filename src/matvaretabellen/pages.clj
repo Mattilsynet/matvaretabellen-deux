@@ -1,5 +1,5 @@
 (ns matvaretabellen.pages
-  (:require [clojure.data.json :as json]
+  (:require [datomic-type-extensions.api :as d]
             [matvaretabellen.search-index :as index]
             [mt-designsystem.components.search-input :refer [SearchInput]]
             [mt-designsystem.components.site-header :refer [SiteHeader]]
@@ -17,13 +17,31 @@
     :page/locale :nb}
    {:page/uri "/index/en.json"
     :page/kind :foods-index
+    :page/locale :en}
+   {:page/uri "/foods/nb.json"
+    :page/kind :foods-lookup
+    :page/locale :nb}
+   {:page/uri "/foods/en.json"
+    :page/kind :foods-lookup
     :page/locale :en}])
 
 (defn render-foods-index [db page]
-  {:content-type "application/json"
-   :body (json/write-str (index/build-index db (:page/locale page)))})
+  {:headers {"content-type" "application/json"}
+   :body (index/build-index db (:page/locale page))})
 
-(defn render-frontpage [context db page]
+(defn render-foods-lookup [db page]
+  {:headers {"content-type" "application/json"}
+   :body (into
+          {}
+          (for [eid (d/q '[:find [?food ...]
+                           :where
+                           [?food :food/id]]
+                         db)]
+            (let [food (d/entity db eid)]
+              [(:food/id food)
+               (get-in food [:food/name (:page/locale page)])])))})
+
+(defn render-frontpage [context _db page]
   (html/render-hiccup
    context
    page
@@ -39,6 +57,7 @@
   (let [db (:foods/db context)]
     (case (:page/kind page)
       :foods-index (render-foods-index db page)
+      :foods-lookup (render-foods-lookup db page)
       :frontpage (render-frontpage context db page)
       ))
   )

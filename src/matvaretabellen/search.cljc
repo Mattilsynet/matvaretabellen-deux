@@ -124,13 +124,7 @@
                     #(short? 1 %)]}
 
    :foodNameEdgegrams
-   {:f #(get-searchable-name locale %)
+   {:f #(get-in % [:food/name locale])
     :tokenizers [tokenize-lower-case
                  remove-diacritics
-                 tokenize-words
-                 (partial tokenize-edge-ngrams 10)]}})
-
-(create-schema :nb)
-(filter-tokens nil nil)
-(get-field-syms nil nil)
-(tokenize "Yo mama")
+                 (partial tokenize-edge-ngrams 3 10)]}})

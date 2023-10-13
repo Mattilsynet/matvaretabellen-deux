@@ -36,11 +36,13 @@
                  [?food :food/id ?id]]
                (d/db conn)))
 
+  (->> (d/entity (d/db conn) [:food/id "06.531"])
+       (into {}))
 
   (index/index-foods {} (d/db conn) :en)
 
   (seq (d/datoms (d/db (:datomic/conn integrant.repl.state/system))
-             :avet :page/uri))
+                 :avet :page/uri))
 
   ;; config-admin
   (ca/conceal-value (config/from-file "./config/local-config.edn")
@@ -49,8 +51,7 @@
 
   (ca/conceal-value (config/from-file "./config/prod-config.edn")
                     :secret/prod
-                    :foodcase/bearer-token)
-  )
+                    :foodcase/bearer-token))
 
 (comment
 
