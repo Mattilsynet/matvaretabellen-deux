@@ -47,10 +47,46 @@
                   "</li>"])
                "</ol>"]))))))
 
+(defn get-target-element [results selected d]
+  (when (< 0 (.-length results))
+    (cond
+      (and selected (= :down d))
+      (.-nextSibling selected)
+
+      (and selected (= :up d))
+      (.-previousSibling selected)
+
+      (= :down d)
+      (aget results 0)
+
+      (= :up d)
+      (aget results (dec (.-length results))))))
+
+(defn navigate-results [element d]
+  (let [selected (.querySelector element ".mvt-ac-selected")
+        target-element (get-target-element (.querySelectorAll element ".mvt-ac-result") selected d)]
+    (when target-element
+      (when selected
+        (.remove (.-classList selected) "mvt-ac-selected"))
+      (.add (.-classList target-element) "mvt-ac-selected"))))
+
+(defn handle-autocomplete-key-event [e element]
+  (case (.-key e)
+    "ArrowUp" (navigate-results element :up)
+    "ArrowDown" (navigate-results element :down)
+    nil))
+
+(defn handle-autocomplete-submit-event [e]
+  (.preventDefault e)
+  (when-let [selected (.querySelector (.-target e) ".mvt-ac-selected a")]
+    (set! js/window.location (.-href selected))))
+
 (defn initialize-foods-autocomplete [dom-element]
   (let [element (js/document.createElement "div")]
     (.appendChild dom-element element)
-    (.addEventListener dom-element "input" #(handle-autocomplete-input-event % element))))
+    (.addEventListener dom-element "input" #(handle-autocomplete-input-event % element))
+    (.addEventListener dom-element "keyup" #(handle-autocomplete-key-event % element))
+    (.addEventListener (.closest dom-element "form") "submit" #(handle-autocomplete-submit-event %))))
 
 (defn ^:after-load main []
   (populate-search-engine js/document.documentElement.lang))
