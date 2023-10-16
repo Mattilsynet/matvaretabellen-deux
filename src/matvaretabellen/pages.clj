@@ -5,8 +5,7 @@
             [matvaretabellen.urls :as urls]
             [mt-designsystem.components.breadcrumbs :refer [Breadcrumbs]]
             [mt-designsystem.components.search-input :refer [SearchInput]]
-            [mt-designsystem.components.site-header :refer [SiteHeader]]
-            [powerpack.html :as html]))
+            [mt-designsystem.components.site-header :refer [SiteHeader]]))
 
 (def static-pages
   [{:page/uri "/"
@@ -50,23 +49,21 @@
               [(:food/id food)
                (get-in food [:food/name (:page/locale page)])])))})
 
-(defn render-frontpage [context _db page]
-  (html/render-hiccup
-   context
-   page
-   (list
+(defn render-frontpage [_context _db page]
+  [:html
+   [:body
     (SiteHeader {:home-url "/"})
     [:div
      [:div.container.mtl
       (Breadcrumbs
        {:links [{:text "Mattilsynet.no" :url "https://www.mattilsynet.no/"}
-                {:text "Søk i Matvaretabellen"}]})]
+                {:text [:i18n :frontpage/search-label]}]})]
      [:div.container.mtl
       [:div.search-input-wrap
-       (SearchInput {:label "Søk i Matvaretabellen"
-                     :button {:text "Søk"}
+       (SearchInput {:label [:i18n :frontpage/search-label]
+                     :button {:text [:i18n :frontpage/search-button]}
                      :input {:name "foods-search"}
-                     :autocomplete-id "foods-results"})]]])))
+                     :autocomplete-id "foods-results"})]]]]])
 
 (defn create-food-group-breadcrumbs [locale food-group url?]
   (let [food-group-name (get-in food-group [:food-group/name locale])]
@@ -75,23 +72,24 @@
             [(cond-> {:text food-group-name}
                url? (assoc :url (urls/get-food-group-url locale food-group-name)))])))
 
+(def top-level-breadcrumbs
+  [{:text "Mattilsynet.no" :url "https://www.mattilsynet.no/"}
+   {:text [:i18n :breadcrumbs/search-label] :url "/"}
+   {:text [:i18n :breadcrumbs/all-food-groups] :url [:i18n :breadcrumbs/food-groups-url]}])
+
 (defn render-food-page [context _db page]
   (let [food (d/entity (:foods/db context) [:food/id (:food/id page)])
         locale (:page/locale page)
         food-name (get-in food [:food/name locale])]
-    (html/render-hiccup
-     context
-     page
-     (list
+    [:html
+     [:body
       (SiteHeader {:home-url "/"})
       [:div
        [:div.mvt-hero-banner
         [:div.container
          (Breadcrumbs
           {:links (concat
-                   [{:text "Mattilsynet.no" :url "https://www.mattilsynet.no/"}
-                    {:text "Søk i Matvaretabellen" :url "/"}
-                    {:text "Alle matvaregrupper" :url "/matvaregrupper/"}]
+                   top-level-breadcrumbs
                    (create-food-group-breadcrumbs locale (:food/food-group food) true)
                    [{:text food-name}])})]]
        [:div.mvt-hero-banner
@@ -100,42 +98,38 @@
           [:div {:style {:flex "1"}}
            [:h1.h1 food-name]
            [:div.intro.mtl
-            [:div "Matvare-ID: " (:food/id food)]
-            [:div "Kategori: " (get-in food [:food/food-group :food-group/name locale])]
-            [:div "Latin: " (:food/latin-name food)]]]
-          (Toc {:title "Innhold"
-                :contents [{:title "Næringsinnhold"
+            [:div [:i18n :food/food-id {:id (:food/id food)}]]
+            [:div [:i18n :food/category {:category (get-in food [:food/food-group :food-group/name locale])}] ]
+            [:div [:i18n :food/latin-name {:food/latin-name (:food/latin-name food)}]]]]
+          (Toc {:title [:i18n :food/toc-title]
+                :contents [{:title [:i18n :food/nutrition-title]
                             :href "#naeringsinnhold"
-                            :contents [{:title "Sammensetning og energiinnhold"
+                            :contents [{:title [:i18n :food/energy-title]
                                         :href "#energi"}
-                                       {:title "Fettsyrer"
+                                       {:title [:i18n :food/fat-title]
                                         :href "#fett"}
-                                       {:title "Karbohydrater"
+                                       {:title [:i18n :food/carbohydrates-title]
                                         :href "#karbohydrater"}
-                                       {:title "Vitaminer"
+                                       {:title [:i18n :food/vitamins-title]
                                         :href "#vitaminer"}
-                                       {:title "Mineraler"
+                                       {:title [:i18n :food/minerals-title]
                                         :href "#mineraler"}]}
-                           {:title "Anbefalt daglig inntak (ADI)"
+                           {:title [:i18n :food/adi-title]
                             :href "#adi"}
-                           {:title "Beskrivelse av matvaren"
-                            :href "#beskrivelse"}]})]]]]))))
+                           {:title [:i18n :food/description-title]
+                            :href "#beskrivelse"}]})]]]]]]))
 
 (defn render-food-group-page [context _db page]
   (let [food-group (d/entity (:foods/db context)
                              [:food-group/id (:food-group/id page)])
         locale (:page/locale page)]
-    (html/render-hiccup
-     context
-     page
-     (list
+    [:html
+     [:body
       (SiteHeader {:home-url "/"})
       [:div
        [:div.mvt-hero-banner
         [:div.container
-         (Breadcrumbs {:links (concat [{:text "Mattilsynet.no" :url "https://www.mattilsynet.no/"}
-                                       {:text "Søk i Matvaretabellen" :url "/"}
-                                       {:text "Alle matvaregrupper" :url "/matvaregrupper/"}]
+         (Breadcrumbs {:links (concat top-level-breadcrumbs
                                       (create-food-group-breadcrumbs locale food-group false))})]]
        [:div.mvt-hero-banner
         [:div.container
@@ -144,7 +138,7 @@
           (for [child (:food-group/_parent food-group)]
             (let [the-name (get-in child [:food-group/name locale])]
               [:a.mvt-card {:href (urls/get-food-group-url locale the-name)}
-               the-name]))]]]]))))
+               the-name]))]]]]]]))
 
 (defn render-food-groups-page [context _db page]
   (let [db (:foods/db context)
@@ -155,25 +149,21 @@
                                 (not [?e :food-group/parent])]
                               db))
         locale (:page/locale page)]
-    (html/render-hiccup
-     context
-     page
-     (list
+    [:html
+     [:body
       (SiteHeader {:home-url "/"})
       [:div
        [:div.mvt-hero-banner
         [:div.container
-         (Breadcrumbs {:links [{:text "Mattilsynet.no" :url "https://www.mattilsynet.no/"}
-                               {:text "Søk i Matvaretabellen" :url "/"}
-                               {:text "Alle matvaregrupper"}]})]]
+         (Breadcrumbs {:links top-level-breadcrumbs})]]
        [:div.mvt-hero-banner
         [:div.container
-         [:h1.h1 "Alle matvaregrupper"]
+         [:h1.h1 [:i18n :food-groups/all-food-groups]]
          [:div.mvt-cards.mtl
           (for [child food-groups]
             (let [the-name (get-in child [:food-group/name locale])]
               [:a.mvt-card {:href (urls/get-food-group-url locale the-name)}
-               the-name]))]]]]))))
+               the-name]))]]]]]]))
 
 (defn render-page [context page]
   (let [db (:foods/db context)]
