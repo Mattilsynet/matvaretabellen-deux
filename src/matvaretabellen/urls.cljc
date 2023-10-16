@@ -14,10 +14,18 @@
       remove-diacritics
       (str/replace #"\W+" "-")))
 
-(defn get-url [locale food-name]
+(defn get-url [locale prefix the-name]
   (str (when-not (= :nb locale)
          (str "/" (name locale)))
-       "/" (slugify food-name) "/"))
+       (or prefix "/") (slugify the-name) "/"))
+
+(defn get-food-url [locale the-name]
+  (get-url locale "" the-name))
+
+(defn get-food-group-url [locale the-name]
+  (get-url locale (case locale
+                    :nb "/gruppe/"
+                    :en "/group/") the-name))
 
 (comment
 

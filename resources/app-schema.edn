@@ -1,3 +1,7 @@
 [{:db/ident :food/id
   :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :food-group/id
+  :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}]

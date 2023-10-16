@@ -12,10 +12,24 @@
        (mapcat
         (fn [[id i18n-names]]
           (for [[locale food-name] i18n-names]
-            {:page/uri (urls/get-url locale food-name)
+            {:page/uri (urls/get-food-url locale food-name)
              :page/kind :page.kind/food
              :page/locale locale
              :food/id id})))))
+
+(defn get-food-group-pages [db]
+  (->> (d/q '[:find ?id ?name
+              :where
+              [?f :food-group/id ?id]
+              [?f :food-group/name ?name]]
+            db)
+       (mapcat
+        (fn [[id i18n-names]]
+          (for [[locale name] i18n-names]
+            {:page/uri (urls/get-food-group-url locale name)
+             :page/kind :page.kind/food-group
+             :page/locale locale
+             :food-group/id id})))))
 
 (defn ensure-unique-page-uris [entity-maps]
   (when-not (= (count entity-maps)
@@ -27,11 +41,13 @@
   entity-maps)
 
 (defn on-started [foods-conn powerpack-app]
-  (->> (concat pages/static-pages
-               (get-food-pages (d/db foods-conn)))
-       (ensure-unique-page-uris)
-       (d/transact (:datomic/conn powerpack-app))
-       deref))
+  (let [db (d/db foods-conn)]
+    (->> (concat pages/static-pages
+                 (get-food-pages db)
+                 (get-food-group-pages db))
+         (ensure-unique-page-uris)
+         (d/transact (:datomic/conn powerpack-app))
+         deref)))
 
 (defn create-tx [_file-name datas]
   datas)

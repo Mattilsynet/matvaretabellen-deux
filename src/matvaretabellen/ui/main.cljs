@@ -44,7 +44,7 @@
               ["<ol class='mvt-ac-results'>"
                (for [result (take 10 (foods-search/search @search-engine q))]
                  ["<li class='mvt-ac-result'>"
-                  ["<a href='" (urls/get-url locale (:name result)) "'>" (:name result) "</a>"]
+                  ["<a href='" (urls/get-food-url locale (:name result)) "'>" (:name result) "</a>"]
                   "</li>"])
                "</ol>"]))))))
 
