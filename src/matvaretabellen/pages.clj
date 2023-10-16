@@ -26,6 +26,12 @@
     :page/locale :nb}
    {:page/uri "/foods/en.json"
     :page/kind :page.kind/foods-lookup
+    :page/locale :en}
+   {:page/uri "/matvaregrupper/"
+    :page/kind :page.kind/food-groups
+    :page/locale :nb}
+   {:page/uri "/food-groups/"
+    :page/kind :page.kind/food-groups
     :page/locale :en}])
 
 (defn render-foods-index [db page]
@@ -85,7 +91,7 @@
           {:links (concat
                    [{:text "Mattilsynet.no" :url "https://www.mattilsynet.no/"}
                     {:text "Søk i Matvaretabellen" :url "/"}
-                    {:text "Alle matvaregrupper" :url "/"}]
+                    {:text "Alle matvaregrupper" :url "/matvaregrupper/"}]
                    (create-food-group-breadcrumbs locale (:food/food-group food) true)
                    [{:text food-name}])})]]
        [:div.mvt-hero-banner
@@ -129,13 +135,42 @@
         [:div.container
          (Breadcrumbs {:links (concat [{:text "Mattilsynet.no" :url "https://www.mattilsynet.no/"}
                                        {:text "Søk i Matvaretabellen" :url "/"}
-                                       {:text "Alle matvaregrupper" :url "/"}]
+                                       {:text "Alle matvaregrupper" :url "/matvaregrupper/"}]
                                       (create-food-group-breadcrumbs locale food-group false))})]]
        [:div.mvt-hero-banner
         [:div.container
          [:h1.h1 (get-in food-group [:food-group/name locale])]
          [:div.mvt-cards.mtl
           (for [child (:food-group/_parent food-group)]
+            (let [the-name (get-in child [:food-group/name locale])]
+              [:a.mvt-card {:href (urls/get-food-group-url locale the-name)}
+               the-name]))]]]]))))
+
+(defn render-food-groups-page [context _db page]
+  (let [db (:foods/db context)
+        food-groups (map #(d/entity db %)
+                         (d/q '[:find [?e ...]
+                                :where
+                                [?e :food-group/id]
+                                (not [?e :food-group/parent])]
+                              db))
+        locale (:page/locale page)]
+    (html/render-hiccup
+     context
+     page
+     (list
+      (SiteHeader {:home-url "/"})
+      [:div
+       [:div.mvt-hero-banner
+        [:div.container
+         (Breadcrumbs {:links [{:text "Mattilsynet.no" :url "https://www.mattilsynet.no/"}
+                               {:text "Søk i Matvaretabellen" :url "/"}
+                               {:text "Alle matvaregrupper"}]})]]
+       [:div.mvt-hero-banner
+        [:div.container
+         [:h1.h1 "Alle matvaregrupper"]
+         [:div.mvt-cards.mtl
+          (for [child food-groups]
             (let [the-name (get-in child [:food-group/name locale])]
               [:a.mvt-card {:href (urls/get-food-group-url locale the-name)}
                the-name]))]]]]))))
@@ -147,4 +182,5 @@
       :page.kind/foods-lookup (render-foods-lookup db page)
       :page.kind/frontpage (render-frontpage context db page)
       :page.kind/food (render-food-page context db page)
-      :page.kind/food-group (render-food-group-page context db page))))
+      :page.kind/food-group (render-food-group-page context db page)
+      :page.kind/food-groups (render-food-groups-page context db page))))
