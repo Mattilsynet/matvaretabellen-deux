@@ -1,7 +1,7 @@
 (ns matvaretabellen.dev
   (:require [clojure.data.json :as json]
-            [confair.config :as config]
             [confair.config-admin :as ca]
+            [confair.config :as config]
             [courier.http :as http]
             [datomic-type-extensions.api :as d]
             [integrant.core :as ig]
