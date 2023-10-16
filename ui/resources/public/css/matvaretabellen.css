@@ -104,6 +104,19 @@
     margin-top: 6px;
 }
 
+.mvt-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.mvt-card {
+    width: 30vw;
+    flex-shrink: 0;
+    padding: 24px;
+    background: #fff;
+}
+
 .mvt-hero-banner {
     background: #F1EADF;
     padding: 40px 0;

@@ -133,9 +133,12 @@
                                       (create-food-group-breadcrumbs locale food-group false))})]]
        [:div.mvt-hero-banner
         [:div.container
-         [:div {:style {:display "flex"}}
-          [:div {:style {:flex "1"}}
-           [:h1.h1 (get-in food-group [:food-group/name locale])]]]]]]))))
+         [:h1.h1 (get-in food-group [:food-group/name locale])]
+         [:div.mvt-cards.mtl
+          (for [child (:food-group/_parent food-group)]
+            (let [the-name (get-in child [:food-group/name locale])]
+              [:a.mvt-card {:href (urls/get-food-group-url locale the-name)}
+               the-name]))]]]]))))
 
 (defn render-page [context page]
   (let [db (:foods/db context)]
