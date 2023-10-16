@@ -11,3 +11,4 @@
 /datomic-data/
 /target/
 /dev-resources/dev-assets/js/compiled
+/.clj-kondo/http-kit/
