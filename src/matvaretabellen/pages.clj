@@ -50,19 +50,24 @@
    page
    (list
     (SiteHeader {:home-url "/"})
-    [:div.container
-     [:div.search-input-wrap
-      (SearchInput {:label "Søk i Matvaretabellen"
-                    :button {:text "Søk"}
-                    :input {:name "foods-search"}
-                    :autocomplete-id "foods-results"})]])))
+    [:div
+     [:div.container.mtl
+      (Breadcrumbs
+       {:links [{:text "Mattilsynet.no" :url "https://www.mattilsynet.no/"}
+                {:text "Søk i Matvaretabellen"}]})]
+     [:div.container.mtl
+      [:div.search-input-wrap
+       (SearchInput {:label "Søk i Matvaretabellen"
+                     :button {:text "Søk"}
+                     :input {:name "foods-search"}
+                     :autocomplete-id "foods-results"})]]])))
 
 (defn create-food-group-breadcrumbs [locale food-group url?]
   (let [food-group-name (get-in food-group [:food-group/name locale])]
     (concat (when-let [parent (:food-group/parent food-group)]
               (create-food-group-breadcrumbs locale parent true))
             [(cond-> {:text food-group-name}
-                url? (assoc :url (urls/get-food-group-url locale food-group-name)))])))
+               url? (assoc :url (urls/get-food-group-url locale food-group-name)))])))
 
 (defn render-food-page [context _db page]
   (let [food (d/entity (:foods/db context) [:food/id (:food/id page)])
