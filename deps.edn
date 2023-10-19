@@ -7,7 +7,7 @@
         datomic-type-extensions/datomic-type-extensions {:mvn/version "2023.09.26"}
         no.anteo/broch {:mvn/version "0.1.83"}
         no.cjohansen/powerpack {:git/url "https://github.com/cjohansen/powerpack.git"
-                                :sha "17711ffc28f18a963323140a5b4e5573e6d0ce3d"}
+                                :sha "d0e234801e8875e92f827cd30ecea07f8742d0ac"}
         superstring/superstring {:mvn/version "3.2.0"}}
  :aliases
  {:dev {:extra-paths ["dev" "target" "dev-resources"]
