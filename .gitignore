@@ -13,3 +13,4 @@
 /dev-resources/dev-assets/js/compiled
 /.clj-kondo/http-kit/
 /docker/build
+/tf/.terraform*
