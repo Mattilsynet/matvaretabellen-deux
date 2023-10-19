@@ -12,14 +12,17 @@
             [matvaretabellen.search-index :as index]
             [powerpack.app :as app]))
 
-(def config (-> (config/from-file "./config/local-config.edn")
-                (config/mask-config)))
+(defn load-local-config []
+  (-> (config/from-file "./config/local-config.edn")
+      (config/mask-config)))
 
 (defmethod ig/init-key :powerpack/app [_ _]
   (set! *print-namespace-maps* false)
-  (matvaretabellen/create-dev-app config))
+  (matvaretabellen/create-dev-app (load-local-config)))
 
 (comment
+
+  (def config (load-local-config))
 
   ;; If your database is empty ("Could not find foods in catalog")
   ;; Remember to `make start-transactor`
