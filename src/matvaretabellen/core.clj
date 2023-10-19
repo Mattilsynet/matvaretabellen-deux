@@ -2,6 +2,8 @@
   (:require [datomic-type-extensions.api :as d]
             [m1p.core :as m1p]
             [matvaretabellen.foodcase-import :as foodcase-import]
+            [matvaretabellen.i18n.en :as en]
+            [matvaretabellen.i18n.nb :as nb]
             [matvaretabellen.ingest :as ingest]
             [matvaretabellen.pages :as pages]))
 
@@ -43,53 +45,8 @@
    :get-context (fn [] {:foods/db (d/db foods-conn)})
    :on-started #(on-started foods-conn %)
    :i18n/dictionaries
-   {:nb (m1p/prepare-dictionary
-         {:frontpage/search-label "Søk i Matvaretabellen"
-          :frontpage/search-button "Søk"
-
-          :matvaretabellen.crumbs/home "Hjem"
-          :matvaretabellen.crumbs/search-label "Søk i Matvaretabellen"
-          :matvaretabellen.crumbs/all-food-groups "Alle matvaregrupper"
-          :matvaretabellen.crumbs/food-groups-url "/matvaregrupper/"
-
-          :food/food-id [:fn/str "Matvare-ID: {{:id}}"]
-          :food/category [:fn/str "Kategori: {{:category}}"]
-          :food/latin-name [:fn/str "Latin: {{:food/latin-name}}"]
-          :food/toc-title "Innhold"
-          :food/nutrition-title "Næringsinnhold"
-          :food/energy-title "Sammensetning og energiinnhold"
-          :food/fat-title "Fettsyrer"
-          :food/carbohydrates-title "Karbohydrater"
-          :food/vitamins-title "Vitaminer"
-          :food/minerals-title "Mineraler"
-          :food/adi-title "Anbefalt daglig inntak (ADI)"
-          :food/description-title "Beskrivelse av matvaren"
-
-          :food-groups/all-food-groups "Alle matvaregrupper"})
-
-    :en (m1p/prepare-dictionary
-         {:frontpage/search-label "Search in Matvaretabellen"
-          :frontpage/search-button "Search"
-
-          :matvaretabellen.crumbs/home "Home"
-          :matvaretabellen.crumbs/search-label "Search in Matvaretabellen"
-          :matvaretabellen.crumbs/all-food-groups "All Food Groups"
-          :matvaretabellen.crumbs/food-groups-url "/food-groups/"
-
-          :food/food-id [:fn/str "Food ID: {{:id}}"]
-          :food/category [:fn/str "Category: {{:category}}"]
-          :food/latin-name [:fn/str "Latin: {{:food/latin-name}}"]
-          :food/toc-title "Contents"
-          :food/nutrition-title "Nutritional Information"
-          :food/energy-title "Composition and Energy Content"
-          :food/fat-title "Fatty Acids"
-          :food/carbohydrates-title "Carbohydrates"
-          :food/vitamins-title "Vitamins"
-          :food/minerals-title "Minerals"
-          :food/adi-title "Recommended Daily Intake (ADI)"
-          :food/description-title "Description of the Food Item"
-
-          :food-groups/all-food-groups "All Food Groups"})}})
+   {:nb (m1p/prepare-dictionary nb/dictionary)
+    :en (m1p/prepare-dictionary en/dictionary)}})
 
 (defn create-build-app []
   (let [uri "datomic:mem://foods-export"]
