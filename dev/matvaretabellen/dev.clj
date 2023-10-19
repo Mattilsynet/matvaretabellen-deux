@@ -7,6 +7,7 @@
             [integrant.core :as ig]
             [integrant.repl.state]
             [matvaretabellen.core :as matvaretabellen]
+            [matvaretabellen.export :as export]
             [matvaretabellen.foodcase-import :as foodcase-import]
             [matvaretabellen.search-index :as index]
             [powerpack.app :as app]))
@@ -28,6 +29,8 @@
   (app/start)
   (app/stop)
   (app/reset)
+
+  (export/export)
 
   (def conn (d/connect (:foods/datomic-uri config)))
 
