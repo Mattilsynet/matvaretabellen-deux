@@ -1,0 +1,7 @@
+{:main matvaretabellen.search
+ :optimizations :advanced
+ :pretty-print false
+ :source-map "target/js/compiled/app.js.map"
+ :asset-path "/js/compiled/out"
+ :output-to "target/js/compiled/app.js"
+ :output-dir "target/js/compiled/out"}
