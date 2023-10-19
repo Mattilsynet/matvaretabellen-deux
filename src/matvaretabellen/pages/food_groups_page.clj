@@ -1,5 +1,6 @@
 (ns matvaretabellen.pages.food-groups-page
   (:require [datomic-type-extensions.api :as d]
+            [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.urls :as urls]
             [mt-designsystem.components.breadcrumbs :refer [Breadcrumbs]]
             [mt-designsystem.components.site-header :refer [SiteHeader]]))
@@ -19,9 +20,9 @@
       [:div
        [:div.mvt-hero-banner
         [:div.container
-         (Breadcrumbs {:links [{:text "Mattilsynet.no" :url "https://www.mattilsynet.no/"}
-                               {:text [:i18n :breadcrumbs/search-label] :url "/"}
-                               {:text [:i18n :breadcrumbs/all-food-groups] :url [:i18n :breadcrumbs/food-groups-url]}]})]]
+         (Breadcrumbs
+          {:links (crumbs/crumble locale
+                                  {:text [:i18n :breadcrumbs/all-food-groups]})})]]
        [:div.mvt-hero-banner
         [:div.container
          [:h1.h1 [:i18n :food-groups/all-food-groups]]
