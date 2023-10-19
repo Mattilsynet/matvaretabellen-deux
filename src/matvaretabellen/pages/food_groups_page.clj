@@ -22,7 +22,7 @@
         [:div.container
          (Breadcrumbs
           {:links (crumbs/crumble locale
-                                  {:text [:i18n :breadcrumbs/all-food-groups]})})]]
+                                  {:text [:i18n ::crumbs/all-food-groups]})})]]
        [:div.mvt-hero-banner
         [:div.container
          [:h1.h1 [:i18n :food-groups/all-food-groups]]

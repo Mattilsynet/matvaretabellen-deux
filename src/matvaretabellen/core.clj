@@ -47,9 +47,10 @@
          {:frontpage/search-label "Søk i Matvaretabellen"
           :frontpage/search-button "Søk"
 
-          :breadcrumbs/search-label "Søk i Matvaretabellen"
-          :breadcrumbs/all-food-groups "Alle matvaregrupper"
-          :breadcrumbs/food-groups-url "/matvaregrupper/"
+          :matvaretabellen.crumbs/home "Hjem"
+          :matvaretabellen.crumbs/search-label "Søk i Matvaretabellen"
+          :matvaretabellen.crumbs/all-food-groups "Alle matvaregrupper"
+          :matvaretabellen.crumbs/food-groups-url "/matvaregrupper/"
 
           :food/food-id [:fn/str "Matvare-ID: {{:id}}"]
           :food/category [:fn/str "Kategori: {{:category}}"]
@@ -70,9 +71,10 @@
          {:frontpage/search-label "Search in Matvaretabellen"
           :frontpage/search-button "Search"
 
-          :breadcrumbs/search-label "Search in Matvaretabellen"
-          :breadcrumbs/all-food-groups "All Food Groups"
-          :breadcrumbs/food-groups-url "/food-groups/"
+          :matvaretabellen.crumbs/home "Home"
+          :matvaretabellen.crumbs/search-label "Search in Matvaretabellen"
+          :matvaretabellen.crumbs/all-food-groups "All Food Groups"
+          :matvaretabellen.crumbs/food-groups-url "/food-groups/"
 
           :food/food-id [:fn/str "Food ID: {{:id}}"]
           :food/category [:fn/str "Category: {{:category}}"]

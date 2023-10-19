@@ -11,15 +11,15 @@
 (defn to-crumbs [locale arg]
   (cond
     (:food-group/id arg) (concat
-                          [{:text [:i18n :breadcrumbs/all-food-groups]
-                            :url [:i18n :breadcrumbs/food-groups-url]}]
+                          [{:text [:i18n ::all-food-groups]
+                            :url [:i18n ::food-groups-url]}]
                           (create-food-group-breadcrumbs locale arg))
     :else [arg]))
 
 (defn crumble [locale & args]
   (let [crumbs (concat
-                [{:text "Hjem" :url "https://www.mattilsynet.no/"}
-                 {:text [:i18n :breadcrumbs/search-label] :url "/"}]
+                [{:text [:i18n ::home] :url "https://www.mattilsynet.no/"}
+                 {:text [:i18n ::search-label] :url "/"}]
                 (mapcat #(to-crumbs locale %) args))]
     (concat (butlast crumbs)
             [(dissoc (last crumbs) :url)])))

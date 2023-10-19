@@ -5,21 +5,21 @@
 (deftest crumble
   (testing "Always includes home and search"
     (is (= (sut/crumble :nb)
-           [{:text "Hjem" :url "https://www.mattilsynet.no/"}
-            {:text [:i18n :breadcrumbs/search-label]}])))
+           [{:text [:i18n ::sut/home] :url "https://www.mattilsynet.no/"}
+            {:text [:i18n ::sut/search-label]}])))
 
   (testing "Uses custom crumbs verbatim"
-    (is (= (sut/crumble :nb {:text [:i18n :breadcrumbs/all-food-groups]})
-           [{:text "Hjem" :url "https://www.mattilsynet.no/"}
-            {:text [:i18n :breadcrumbs/search-label] :url "/"}
-            {:text [:i18n :breadcrumbs/all-food-groups]}])))
+    (is (= (sut/crumble :nb {:text [:i18n ::sut/all-food-groups]})
+           [{:text [:i18n ::sut/home] :url "https://www.mattilsynet.no/"}
+            {:text [:i18n ::sut/search-label] :url "/"}
+            {:text [:i18n ::sut/all-food-groups]}])))
 
   (testing "Food groups crumble deliciously"
     (is (= (->> (sut/crumble :nb {:food-group/id :foo
                                   :food-group/name {:nb "Småkaker"}})
                 (drop 2))
-           [{:text [:i18n :breadcrumbs/all-food-groups]
-             :url [:i18n :breadcrumbs/food-groups-url]}
+           [{:text [:i18n ::sut/all-food-groups]
+             :url [:i18n ::sut/food-groups-url]}
             {:text "Småkaker"}]))
 
     (is (= (->> (sut/crumble :nb {:food-group/id :foo
@@ -28,6 +28,3 @@
                 (drop 3))
            [{:text "Søtsaker", :url "/gruppe/sotsaker/"}
             {:text "Småkaker"}]))))
-
-;; ::sut/
-;; fra :breadcrumbs/ -> :matvaretabellen.crumbs/
