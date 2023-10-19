@@ -14,7 +14,7 @@
        {:links (crumbs/crumble (:page/locale page))})]
      [:div.container.mtl
       [:div.search-input-wrap
-       (SearchInput {:label [:i18n :frontpage/search-label]
-                     :button {:text [:i18n :frontpage/search-button]}
+       (SearchInput {:label [:i18n ::search-label]
+                     :button {:text [:i18n ::search-button]}
                      :input {:name "foods-search"}
                      :autocomplete-id "foods-results"})]]]]])

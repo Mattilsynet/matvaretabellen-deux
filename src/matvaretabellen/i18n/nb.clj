@@ -2,19 +2,14 @@
 
 (def dictionary
   (->>
-   [#:frontpage
-    {:search-label "Søk i Matvaretabellen"
-     :search-button "Søk"
-     }
-
-    #:matvaretabellen.crumbs
+   [#:matvaretabellen.crumbs
     {:all-food-groups "Alle matvaregrupper"
      :food-groups-url "/matvaregrupper/"
      :home "Hjem"
      :search-label "Søk i Matvaretabellen"
      }
 
-    #:food
+    #:matvaretabellen.pages.food-page
     {:adi-title "Anbefalt daglig inntak (ADI)"
      :carbohydrates-title "Karbohydrater"
      :category [:fn/str "Kategori: {{:category}}"]
@@ -29,7 +24,12 @@
      :vitamins-title "Vitaminer"
      }
 
-    #:food-groups
+    #:matvaretabellen.pages.food-groups-page
     {:all-food-groups "Alle matvaregrupper"
+     }
+
+    #:matvaretabellen.pages.frontpage
+    {:search-label "Søk i Matvaretabellen"
+     :search-button "Søk"
      }]
    (apply merge)))

@@ -25,23 +25,23 @@
           [:div {:style {:flex "1"}}
            [:h1.h1 food-name]
            [:div.intro.mtl
-            [:div [:i18n :food/food-id {:id (:food/id food)}]]
-            [:div [:i18n :food/category {:category (get-in food [:food/food-group :food-group/name locale])}] ]
-            [:div [:i18n :food/latin-name {:food/latin-name (:food/latin-name food)}]]]]
-          (Toc {:title [:i18n :food/toc-title]
-                :contents [{:title [:i18n :food/nutrition-title]
+            [:div [:i18n ::food-id {:id (:food/id food)}]]
+            [:div [:i18n ::category {:category (get-in food [:food/food-group :food-group/name locale])}] ]
+            [:div [:i18n ::latin-name {:food/latin-name (:food/latin-name food)}]]]]
+          (Toc {:title [:i18n ::toc-title]
+                :contents [{:title [:i18n ::nutrition-title]
                             :href "#naeringsinnhold"
-                            :contents [{:title [:i18n :food/energy-title]
+                            :contents [{:title [:i18n ::energy-title]
                                         :href "#energi"}
-                                       {:title [:i18n :food/fat-title]
+                                       {:title [:i18n ::fat-title]
                                         :href "#fett"}
-                                       {:title [:i18n :food/carbohydrates-title]
+                                       {:title [:i18n ::carbohydrates-title]
                                         :href "#karbohydrater"}
-                                       {:title [:i18n :food/vitamins-title]
+                                       {:title [:i18n ::vitamins-title]
                                         :href "#vitaminer"}
-                                       {:title [:i18n :food/minerals-title]
+                                       {:title [:i18n ::minerals-title]
                                         :href "#mineraler"}]}
-                           {:title [:i18n :food/adi-title]
+                           {:title [:i18n ::adi-title]
                             :href "#adi"}
-                           {:title [:i18n :food/description-title]
+                           {:title [:i18n ::description-title]
                             :href "#beskrivelse"}]})]]]]]]))

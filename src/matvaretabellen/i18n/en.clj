@@ -2,19 +2,14 @@
 
 (def dictionary
   (->>
-   [#:frontpage
-    {:search-button "Search"
-     :search-label "Search in Matvaretabellen"
-     }
-
-    #:matvaretabellen.crumbs
+   [#:matvaretabellen.crumbs
     {:all-food-groups "All Food Groups"
      :food-groups-url "/food-groups/"
      :home "Home"
      :search-label "Search in Matvaretabellen"
      }
 
-    #:food
+    #:matvaretabellen.pages.food-page
     {:adi-title "Recommended Daily Intake (ADI)"
      :carbohydrates-title "Carbohydrates"
      :category [:fn/str "Category: {{:category}}"]
@@ -29,6 +24,11 @@
      :vitamins-title "Vitamins"
      }
 
-    #:food-groups
-    {:all-food-groups "All Food Groups"}]
+    #:matvaretabellen.pages.food-groups-page
+    {:all-food-groups "All Food Groups"}
+
+    #:matvaretabellen.pages.frontpage
+    {:search-button "Search"
+     :search-label "Search in Matvaretabellen"
+     }]
    (apply merge)))

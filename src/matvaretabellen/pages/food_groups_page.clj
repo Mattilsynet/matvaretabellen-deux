@@ -25,7 +25,7 @@
                                   {:text [:i18n ::crumbs/all-food-groups]})})]]
        [:div.mvt-hero-banner
         [:div.container
-         [:h1.h1 [:i18n :food-groups/all-food-groups]]
+         [:h1.h1 [:i18n ::all-food-groups]]
          [:div.mvt-cards.mtl
           (for [child food-groups]
             (let [the-name (get-in child [:food-group/name locale])]
