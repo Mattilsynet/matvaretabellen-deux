@@ -9,6 +9,9 @@ datomic-transactor:
 start-transactor: datomic-transactor
 	cd datomic-transactor/datomic-pro-$(DATOMIC_VERSION) && ./bin/transactor config/transactor.properties
 
+docker/build:
+	clojure -X:dev:build
+
 test:
 	clojure -M:dev -m kaocha.runner
 

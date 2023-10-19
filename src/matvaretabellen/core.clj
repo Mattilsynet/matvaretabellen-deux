@@ -15,7 +15,7 @@
     :powerpack/base-url (when (= :prod env)
                           "https://matvaretabellen.mattilsynet.io")
 
-    :stasis/build-dir "build"
+    :stasis/build-dir "docker/build"
     :powerpack/content-dir "resources/content"
     :powerpack/source-dirs ["src" "ui/src" "dev"]
     :powerpack/resource-dirs ["resources" "ui/resources"]
@@ -89,11 +89,14 @@
 
           :food-groups/all-food-groups "All Food Groups"})}})
 
-(defn ^:to-be-continued create-build-app []
-  (let [uri "datomic:mem://foods-export"
-        conn (d/connect uri)]
+(defn create-build-app []
+  (let [uri "datomic:mem://foods-export"]
     (foodcase-import/create-database-from-scratch uri)
-    (create-app :prod conn)))
+    (create-app :prod (d/connect uri))))
 
 (defn create-dev-app [config]
   (create-app :dev (d/connect (:foods/datomic-uri config))))
+
+(comment
+  (create-build-app)
+  )
