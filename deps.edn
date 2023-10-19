@@ -7,13 +7,14 @@
         datomic-type-extensions/datomic-type-extensions {:mvn/version "2023.09.26"}
         no.anteo/broch {:mvn/version "0.1.83"}
         no.cjohansen/powerpack {:git/url "https://github.com/cjohansen/powerpack.git"
-                                :sha "d0e234801e8875e92f827cd30ecea07f8742d0ac"}
+                                :sha "fdae5ab599f160d0a8c70cb0bc6758926622e027"}
         superstring/superstring {:mvn/version "3.2.0"}}
  :aliases
- {:dev {:extra-paths ["dev" "target" "dev-resources"]
+ {:dev {:extra-paths ["dev" "dev-resources" "test"]
         :extra-deps {cider/piggieback {:mvn/version "0.5.3"}
                      com.bhauman/figwheel-main {:mvn/version "0.2.18"}
                      kaocha-noyoda/kaocha-noyoda {:mvn/version "2019-06-03"}
                      lambdaisland/kaocha {:mvn/version "1.87.1366"}}}
-  :build {:main-opts ["-m" "matvaretabellen.export"]
+  :build {:extra-paths ["target"]
+          :extra-deps {com.bhauman/figwheel-main {:mvn/version "0.2.18"}}
           :exec-fn matvaretabellen.export/export}}}

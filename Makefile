@@ -11,8 +11,11 @@ datomic-transactor:
 start-transactor: datomic-transactor
 	cd datomic-transactor/datomic-pro-$(DATOMIC_VERSION) && ./bin/transactor config/transactor.properties
 
-docker/build:
-	clojure -X:dev:build
+target/public/js/compiled/app.js:
+	clojure -M:build -m figwheel.main -bo prod
+
+docker/build: target/public/js/compiled/app.js
+	clojure -X:build
 
 docker: docker/build
 	cd docker && docker build -t $(IMAGE) .
@@ -24,6 +27,7 @@ test:
 	clojure -M:dev -m kaocha.runner
 
 clean:
-	rm datomic-pro-$(DATOMIC_VERSION).zip
+	rm -f datomic-pro-$(DATOMIC_VERSION).zip
+	rm -fr target docker/build dev-resources/dev-assets/js/compiled
 
 .PHONY: start-transactor docker publish test clean
