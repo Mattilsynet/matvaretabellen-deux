@@ -20,16 +20,27 @@
 
  #:matvaretabellen.pages.food-page
  {:adi-title "Recommended Daily Intake (ADI)"
+  :amount-grams "Quantity (g)"
   :carbohydrates-title "Carbohydrates"
   :category [:fn/str "Category: {{:category}}"]
   :description-title "Description of the Food Item"
+  :edible-part [:fn/str "Edible part: {{:pct}} %"]
+  :energy [:fn/str "Caloric content: {{:kilo-joules}} kJ ({{:calories}} kcal)"]
   :energy-title "Composition and Energy Content"
   :fat-title "Fatty Acids"
   :food-id [:fn/str "Food ID: {{:id}}"]
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
   :minerals-title "Minerals"
+  :nutrients "Nutrients"
+  :nutrition-heading "Main Components and Energy Content"
   :nutrition-title "Nutritional Information"
   :toc-title "Contents"
+  :total-alcohol "Alcohol"
+  :total-carbs "Total Carbohydrates"
+  :total-fat "Total Fats"
+  :total-fiber "Dietary Fiber"
+  :total-protein "Proteins"
+  :total-water "Water"
   :vitamins-title "Vitamins"
   }
 

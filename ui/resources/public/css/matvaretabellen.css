@@ -172,3 +172,31 @@
 .flex-gap-l {gap: 40px;}
 
 .nbr {white-space: nowrap;}
+
+.container-narrow {
+    max-width: 1096px;
+    margin: 0 auto;
+}
+
+.subtle-list,
+.text .subtle-list {
+    margin: var(--space-content) 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.subtle-list li,
+.text .subtle-list li {
+    margin: 0;
+    padding: 0;
+}
+
+.mvt-table {
+    font-size: 1rem;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.mvt-table tbody tr:nth-child(odd) {
+    background-color: var(--color-mt-white);
+}

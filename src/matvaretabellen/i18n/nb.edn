@@ -20,16 +20,27 @@
 
  #:matvaretabellen.pages.food-page
  {:adi-title "Anbefalt daglig inntak (ADI)"
+  :amount-grams "Mengde (g)"
   :carbohydrates-title "Karbohydrater"
   :category [:fn/str "Kategori: {{:category}}"]
   :description-title "Beskrivelse av matvaren"
+  :edible-part [:fn/str "Spiselig del: {{:pct}}&nbsp;%"]
+  :energy [:fn/str "Kaloriinnhold: {{:kilo-joules}} kJ ({{:calories}} kcal)"]
   :energy-title "Sammensetning og energiinnhold"
   :fat-title "Fettsyrer"
   :food-id [:fn/str "Matvare-ID: {{:id}}"]
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
   :minerals-title "Mineraler"
+  :nutrients "Næringsstoffer"
+  :nutrition-heading "Hovedkomponenter og energiinnhold"
   :nutrition-title "Næringsinnhold"
   :toc-title "Innhold"
+  :total-alcohol "Alkohol"
+  :total-carbs "Karboydrater, totalt"
+  :total-fat "Fettsyrer, totalt"
+  :total-fiber "Kostfiber"
+  :total-protein "Proteiner"
+  :total-water "Vann"
   :vitamins-title "Vitaminer"
   }
 
