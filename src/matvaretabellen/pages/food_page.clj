@@ -13,6 +13,13 @@
        :measurement/quantity
        b/num))
 
+(defn get-nutrient-parts [food nutrient-id]
+  (->> (:food/constituents food)
+       (map :constituent/nutrient)
+       (filter (comp #{nutrient-id}
+                     :nutrient/id
+                     :nutrient/parent))))
+
 (defn prepare-nutrition-table [food]
   {:headers [[:i18n ::nutrients] [:i18n ::amount-grams]]
    :rows [[[:i18n ::total-fat] (get-nutrient-grams food "Fett")]
@@ -22,8 +29,23 @@
           [[:i18n ::total-fiber] (get-nutrient-grams food "Fiber")]
           [[:i18n ::total-alcohol] (get-nutrient-grams food "Alko")]]})
 
+(defn prepare-fat-tables [food]
+  (let [fats (get-nutrient-parts food "Fett")]
+    (concat
+     [{:headers [[:i18n ::fat-composition-title] [:i18n ::amount-grams]]
+       :rows (into [[[:i18n ::total-fat] (get-nutrient-grams food "Fett")]]
+                   (for [nutrient fats]
+                     [[:i18n ::lookup (:nutrient/name nutrient)]
+                      (get-nutrient-grams food (:nutrient/id nutrient))]))}]
+     (for [fat fats]
+       {:headers [[:i18n ::lookup (:nutrient/name fat)] [:i18n ::amount-grams]]
+        :rows (into [[[:i18n ::total (:nutrient/name fat)] (get-nutrient-grams food (:nutrient/id fat))]]
+                    (for [acid (get-nutrient-parts food (:nutrient/id fat))]
+                      [[:i18n ::lookup (:nutrient/name acid)]
+                       (get-nutrient-grams food (:nutrient/id acid))]))}))))
+
 (defn render-table [{:keys [headers rows]}]
-  [:table.mvt-table
+  [:table.mvt-table.mvt-nutrient-table
    [:thead
     [:tr
      (for [header headers]
@@ -85,5 +107,9 @@
          [:li [:i18n ::edible-part
                {:pct (-> food :food/edible-part :measurement/percent)}]]]
         (render-table (prepare-nutrition-table food))
+
+        [:h3.h3 [:i18n ::fat-title]]
+        (for [table (prepare-fat-tables food)]
+          (render-table table))
 
 ]]]]))

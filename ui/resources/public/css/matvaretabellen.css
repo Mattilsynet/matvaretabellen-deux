@@ -200,3 +200,7 @@
 .mvt-table tbody tr:nth-child(odd) {
     background-color: var(--color-mt-white);
 }
+
+.mvt-nutrient-table tbody tr td:last-child {
+    width: 30%;
+}

@@ -27,13 +27,16 @@
   :edible-part [:fn/str "Edible part: {{:pct}} %"]
   :energy [:fn/str "Caloric content: {{:kilo-joules}} kJ ({{:calories}} kcal)"]
   :energy-title "Composition and Energy Content"
+  :fat-composition-title "Fatty acids composition"
   :fat-title "Fatty Acids"
   :food-id [:fn/str "Food ID: {{:id}}"]
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
+  :lookup [:fn/str "{{:en}}"]
   :minerals-title "Minerals"
   :nutrients "Nutrients"
   :nutrition-heading "Main Components and Energy Content"
   :nutrition-title "Nutritional Information"
+  :total [:fn/str "{{:en}}, total"]
   :toc-title "Contents"
   :total-alcohol "Alcohol"
   :total-carbs "Total Carbohydrates"
