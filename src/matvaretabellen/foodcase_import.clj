@@ -7,6 +7,8 @@
             [datomic-type-extensions.api :as d]
             [matvaretabellen.db :as db]))
 
+(b/defunit-once kilojoules :energy "kJ" 1000 {b/joules 1})
+
 (defn load-json [file-name]
   (-> (io/file file-name)
       slurp
@@ -50,8 +52,8 @@
 
 (defn get-energy [{:strs [ref value]}]
   (try
-    (when-let [joules (parse-doublish value)]
-      {:measurement/quantity (b/joules joules)
+    (when-let [kj (parse-doublish value)]
+      {:measurement/quantity (kilojoules kj)
        :measurement/origin [:origin/id ref]})
     (catch Exception e
       (throw (ex-info "Can't get me no energy" {:ref ref :value value} e)))))

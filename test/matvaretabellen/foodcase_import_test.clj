@@ -1,6 +1,6 @@
 (ns matvaretabellen.foodcase-import-test
-  (:require [matvaretabellen.foodcase-import :as sut]
-            [clojure.test :refer [deftest is testing]]))
+  (:require [clojure.test :refer [deftest is testing]]
+            [matvaretabellen.foodcase-import :as sut]))
 
 (def wheat-flakes
   {"groupId" "5.3"
@@ -43,7 +43,7 @@
   (testing "Parses energy"
     (is (= (-> (sut/foodcase-food->food wheat-flakes)
                :food/energy)
-           {:measurement/quantity #broch/quantity[1418.5 "J"]
+           {:measurement/quantity #broch/quantity[1418.5 "kJ"]
             :measurement/origin [:origin/id "MI0114"]})))
 
   (testing "Parses calories"

@@ -3,4 +3,5 @@
            {:exclude-when-defined-by #{portfolio.dumdom/defscene}
             :exclude-when-contains-meta #{:to-be-continued}}}
  :lint-as {portfolio.dumdom/defscene clojure.core/def
-           broch.core/defunit clojure.core/def}}
+           broch.core/defunit clojure.core/def
+           broch.core/defunit-once clojure.core/def}}
