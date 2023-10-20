@@ -1,4 +1,17 @@
-[#:matvaretabellen.crumbs
+[#:mt-designsystem.components.footer
+ {:footer-title "Footer"
+  :about-site "About the site"
+  :newsletter "Newsletter"
+  :privacy-and-cookies "Privacy Policy and Cookies"
+  :accessibility-statement "Accessibility Statement (uustatus.no)"
+  :open-data "Open Data (API)"
+  :about-mattilsynet "About Mattilsynet"
+  :about-us "About Us"
+  :job-openings "Job Openings"
+  :contact-us "Contact Us"
+  :report-to-us "Report to Us"}
+
+ #:matvaretabellen.crumbs
  {:all-food-groups "All Food Groups"
   :food-groups-url "/food-groups/"
   :home "Home"
@@ -26,4 +39,13 @@
  #:matvaretabellen.pages.frontpage
  {:search-button "Search"
   :search-label "Search in Matvaretabellen"
-  }]
+  :did-you-know "Did you know..."
+  :banana-nutrition-facts "Bananas have the highest carbohydrate content among the fruits in the Food Table. They also have high magnesium content."
+  :read-more-about-banana "Read more about the banana here."
+  :all-food-groups "All Food Groups →"
+  :see-all-food-groups-overview "See an overview of all food groups."
+  :all-nutrients "All Nutrients →"
+  :see-all-nutrients-overview "See an overview of all nutrients."
+  :common-food-searches "Common Searches"
+  :new-in-food-table "New in Matvaretabellen"
+  :seasonal-goods "Seasonal Goods"}]

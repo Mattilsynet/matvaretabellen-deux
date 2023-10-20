@@ -23,6 +23,8 @@
     :powerpack/port 5053
     :powerpack/dev-assets-root-path (when (= :dev env)
                                       "dev-assets")
+    :optimus/assets [{:public-dir "public"
+                      :paths [#"/images/*.*"]}]
 
     :optimus/bundles {"styles.css"
                       {:public-dir "public"

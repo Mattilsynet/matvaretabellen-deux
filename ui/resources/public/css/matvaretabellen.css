@@ -122,4 +122,53 @@
     padding: 40px 0;
 }
 
+.mvt-secondary-banner {
+    background: #D6E8ED;
+    padding: 40px 0;
+}
+
+.one-two-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 24px;
+}
+
+.one-box {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    background: #fff;
+    text-decoration: none;
+}
+
+.two-box {
+    grid-column: 2 / 3;
+    border-radius: 5px;
+    background: #075B7A;
+    color: #fff;
+    text-decoration: none;
+}
+
+.one-box > *,
+.two-box > * { height: 100%; }
+
 .mtl {margin-top: 40px;}
+.mtxl {margin-top: 80px;}
+.mtxxl {margin-top: 120px;}
+
+.mbl {margin-bottom: 40px;}
+.mbxl {margin-bottom: 80px;}
+.mbxxl {margin-bottom: 120px;}
+
+.pam, .phm, .plm {padding-left: 28px;}
+.pam, .phm, .prm {padding-right: 28px;}
+.pam, .pvm, .ptm {padding-top: 28px;}
+.pam, .pvm, .pbm {padding-bottom: 28px;}
+
+.flex {display: flex;}
+.flex-center {align-items: center; justify-content: center;}
+
+.flex-gap-m {gap: 28px;}
+.flex-gap-l {gap: 40px;}
+
+.nbr {white-space: nowrap;}

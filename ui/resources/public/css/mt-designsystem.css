@@ -1813,12 +1813,12 @@ form {
   --form-text-space: var(--spacer-xxx-small);
   color: var(--form-text-color);
 }
-form .hint {
+.form .hint {
   font-size: 1rem;
 }
 
-form > *,
-fieldset > * {
+.form > *,
+.fieldset > * {
   margin-top: var(--form-text-space);
 }
 

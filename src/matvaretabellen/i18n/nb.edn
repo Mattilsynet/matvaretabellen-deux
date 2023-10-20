@@ -1,4 +1,17 @@
-[#:matvaretabellen.crumbs
+[#:mt-designsystem.components.footer
+ {:footer-title "Footer"
+  :about-site "Om nettstedet"
+  :newsletter "Nyhetsbrev"
+  :privacy-and-cookies "Personvernerklæring og informasjonskapsler"
+  :accessibility-statement "Tilgjengelegheitserklæring (uustatus.no)"
+  :open-data "Åpne data (API)"
+  :about-mattilsynet "Om Mattilsynet"
+  :about-us "Om oss"
+  :job-openings "Ledige stillinger"
+  :contact-us "Kontakt oss"
+  :report-to-us "Varsle oss"}
+
+ #:matvaretabellen.crumbs
  {:all-food-groups "Alle matvaregrupper"
   :food-groups-url "/matvaregrupper/"
   :home "Hjem"
@@ -27,4 +40,13 @@
  #:matvaretabellen.pages.frontpage
  {:search-label "Søk i Matvaretabellen"
   :search-button "Søk"
-  }]
+  :did-you-know "Visste du at..."
+  :banana-nutrition-facts "Banan er den frukten med høyest innhold av karbohydrater blant fruktene i Matvaretabellen. Den har også et høyt innhold av magnesium."
+  :read-more-about-banana "Les mer om bananen her."
+  :all-food-groups "Alle matvaregrupper →"
+  :see-all-food-groups-overview "Se oversikt over alle matvaregrupper."
+  :all-nutrients "Alle næringsstoffer →"
+  :see-all-nutrients-overview "Se oversikt over alle næringsstoffer."
+  :common-food-searches "Vanlige matvaresøk"
+  :new-in-food-table "Nytt i matvaretabellen"
+  :seasonal-goods "Sesongvarer"}]
