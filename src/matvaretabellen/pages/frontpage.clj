@@ -8,8 +8,10 @@
             [mt-designsystem.components.search-input :refer [SearchInput]]
             [mt-designsystem.components.site-header :refer [SiteHeader]]))
 
-(defn get-food-url [locale db id]
-  (urls/get-food-url locale (get-in (d/entity db [:food/id id]) [:food/name locale])))
+(defn get-food-info [locale db id]
+  (let [food-name (get-in (d/entity db [:food/id id]) [:food/name locale])]
+    {:title food-name
+     :href (urls/get-food-url locale food-name)}))
 
 (defn BananaTeaserBox [locale db]
   [:div.one-two-grid
@@ -19,7 +21,7 @@
      [:div
       [:h4 [:i18n ::did-you-know]]
       [:p [:i18n ::banana-nutrition-facts] " "
-       [:a.nbr {:href (get-food-url locale db "06.525")}
+       [:a.nbr (get-food-info locale db "06.525")
         [:i18n ::read-more-about-banana]]]]]]
    [:a.two-box.pam {:href [:i18n ::crumbs/food-groups-url]}
     [:div
@@ -70,13 +72,7 @@
                            {:title "Vitamin K"
                             :href "/"}]})]
          (Toc {:title [:i18n ::seasonal-goods]
-               :contents [{:title "Agurk"
-                           :href "/"}
-                          {:title "Arielle poteter"
-                           :href "/"}
-                          {:title "Blomkål"
-                           :href "/"}
-                          {:title "Rosenkål"
-                           :href "/"}]})]]
+               :contents (for [id ["06.010" "06.003" "06.016" "06.055"]]
+                           (get-food-info locale db id))})]]
        [:div.container.mtl
         (Footer)]]]]))
