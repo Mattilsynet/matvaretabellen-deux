@@ -1,9 +1,6 @@
 (ns matvaretabellen.core
   (:require [datomic-type-extensions.api :as d]
-            [m1p.core :as m1p]
             [matvaretabellen.foodcase-import :as foodcase-import]
-            [matvaretabellen.i18n.en :as en]
-            [matvaretabellen.i18n.nb :as nb]
             [matvaretabellen.ingest :as ingest]
             [matvaretabellen.pages :as pages]))
 
@@ -12,6 +9,7 @@
 
 (defn create-app [env foods-conn]
   {:config
+
    {:site/default-language "no"
     :site/title "Matvaretabellen"
     :powerpack/base-url (when (= :prod env)
@@ -40,13 +38,14 @@
     :imagine/config {:prefix "/imagines"}
 
     :datomic/schema-file "resources/app-schema.edn"}
+
    :create-ingest-tx #'ingest/create-tx
    :render-page #'pages/render-page
    :get-context (fn [] {:foods/db (d/db foods-conn)})
    :on-started #(on-started foods-conn %)
-   :i18n/dictionaries
-   {:nb (m1p/prepare-dictionary nb/dictionary)
-    :en (m1p/prepare-dictionary en/dictionary)}})
+
+   :m1p/dictionaries {:nb ["src/matvaretabellen/i18n/nb.edn"]
+                      :en ["src/matvaretabellen/i18n/en.edn"]}})
 
 (defn create-build-app []
   (let [uri "datomic:mem://foods-export"]
