@@ -1,5 +1,6 @@
 (ns matvaretabellen.dev
   (:require [clojure.data.json :as json]
+            [clojure.tools.namespace.repl :as repl]
             [confair.config-admin :as ca]
             [confair.config :as config]
             [courier.http :as http]
@@ -18,6 +19,7 @@
 
 (defmethod ig/init-key :powerpack/app [_ _]
   (set! *print-namespace-maps* false)
+  (repl/set-refresh-dirs "src" "dev" "test" "ui/src")
   (matvaretabellen/create-dev-app (load-local-config)))
 
 (comment
