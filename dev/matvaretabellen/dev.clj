@@ -11,13 +11,13 @@
             [matvaretabellen.export :as export]
             [matvaretabellen.foodcase-import :as foodcase-import]
             [matvaretabellen.search-index :as index]
-            [powerpack.app :as app]))
+            [powerpack.dev :as dev]))
 
 (defn load-local-config []
   (-> (config/from-file "./config/local-config.edn")
       (config/mask-config)))
 
-(defmethod ig/init-key :powerpack/app [_ _]
+(defmethod ig/init-key :powerpack/powerpack [_ _]
   (set! *print-namespace-maps* false)
   (repl/set-refresh-dirs "src" "dev" "test" "ui/src")
   (matvaretabellen/create-dev-app (load-local-config)))
@@ -31,9 +31,9 @@
   (time
    (foodcase-import/create-database-from-scratch (:foods/datomic-uri config)))
 
-  (app/start)
-  (app/stop)
-  (app/reset)
+  (dev/start)
+  (dev/stop)
+  (dev/reset)
 
   (export/export)
 

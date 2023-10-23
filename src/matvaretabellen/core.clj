@@ -8,46 +8,43 @@
   (ingest/on-started conn powerpack-app))
 
 (defn create-app [env foods-conn]
-  {:config
+  (cond-> {:site/default-locale :no
+           :site/title "Matvaretabellen"
 
-   {:site/default-language "no"
-    :site/title "Matvaretabellen"
-    :powerpack/base-url (when (= :prod env)
-                          "https://matvaretabellen.mattilsynet.io")
+           :datomic/uri "datomic:mem://matvaretabellen"
+           :datomic/schema-file "resources/app-schema.edn"
 
-    :stasis/build-dir "docker/build"
-    :powerpack/content-dir "resources/content"
-    :powerpack/source-dirs ["src" "ui/src" "dev"]
-    :powerpack/resource-dirs ["resources" "ui/resources"]
-    :powerpack/db "datomic:mem://matvaretabellen"
-    :powerpack/port 5053
-    :powerpack/dev-assets-root-path (when (= :dev env)
-                                      "dev-assets")
-    :optimus/assets [{:public-dir "public"
-                      :paths [#"/images/*.*"]}]
+           :optimus/assets [{:public-dir "public"
+                             :paths [#"/images/*.*"]}]
 
-    :optimus/bundles {"styles.css"
-                      {:public-dir "public"
-                       :paths ["/css/mt-designsystem.css"
-                               "/css/matvaretabellen.css"]}
+           :optimus/bundles {"styles.css"
+                             {:public-dir "public"
+                              :paths ["/css/mt-designsystem.css"
+                                      "/css/matvaretabellen.css"]}
 
-                      "/app.js"
-                      {:public-dir (case env
-                                     :prod "public"
-                                     :dev "dev-assets")
-                       :paths ["/js/compiled/app.js"]}}
+                             "/app.js"
+                             {:public-dir (case env
+                                            :prod "public"
+                                            :dev "dev-assets")
+                              :paths ["/js/compiled/app.js"]}}
 
-    :imagine/config {:prefix "/imagines"}
+           :powerpack/build-dir "docker/build"
+           :powerpack/content-dir "resources/content"
+           :powerpack/source-dirs ["src" "ui/src" "dev"]
+           :powerpack/resource-dirs ["resources" "ui/resources"]
+           :powerpack/port 5053
+           :powerpack/create-ingest-tx #'ingest/create-tx
+           :powerpack/render-page #'pages/render-page
+           :powerpack/get-context (fn [] {:foods/db (d/db foods-conn)})
+           :powerpack/on-started #(on-started foods-conn %)
 
-    :datomic/schema-file "resources/app-schema.edn"}
+           :m1p/dictionaries {:nb ["src/matvaretabellen/i18n/nb.edn"]
+                              :en ["src/matvaretabellen/i18n/en.edn"]}}
+    (= :prod env)
+    (assoc :site/base-url "https://matvaretabellen.mattilsynet.io")
 
-   :create-ingest-tx #'ingest/create-tx
-   :render-page #'pages/render-page
-   :get-context (fn [] {:foods/db (d/db foods-conn)})
-   :on-started #(on-started foods-conn %)
-
-   :m1p/dictionaries {:nb ["src/matvaretabellen/i18n/nb.edn"]
-                      :en ["src/matvaretabellen/i18n/en.edn"]}})
+    (= :dev env)
+    (assoc :powerpack/dev-assets-root-path "dev-assets")))
 
 (defn create-build-app []
   (let [uri "datomic:mem://foods-export"]
