@@ -7,11 +7,11 @@
             [mt-designsystem.components.site-header :refer [SiteHeader]]))
 
 (defn get-nutrient-grams [food id]
-  (->> (:food/constituents food)
-       (filter (comp #{id} :nutrient/id :constituent/nutrient))
-       first
-       :measurement/quantity
-       b/num))
+  (some->> (:food/constituents food)
+           (filter (comp #{id} :nutrient/id :constituent/nutrient))
+           first
+           :measurement/quantity
+           b/num))
 
 (defn get-nutrient-parts [food nutrient-id]
   (->> (:food/constituents food)
