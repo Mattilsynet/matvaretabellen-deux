@@ -125,6 +125,10 @@ body.mvt {
     text-decoration: var(--mt-typography-decoration-action-active);
 }
 
+.mvt-fc {
+    width: fit-content;
+}
+
 .mvt-tac {
     text-align: center;
 }

@@ -21,6 +21,11 @@
 (defscene link
   (e/p [:a.mvt-link {:href "#"} "En frittstående lenke med .mvt-link"]))
 
+(defscene fit-to-content
+  [:div
+   (e/p {:class :mvt-fc} "Denne paragrafen er ikke så bred")
+   (e/p "Paragrafen over bruker .mvt-fc som gir width: fit-content.")])
+
 (defscene unordered-list
   (e/ul
    [:li "Dette er en punktliste"]
