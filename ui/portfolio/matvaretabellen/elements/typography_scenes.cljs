@@ -35,6 +35,12 @@
    [:li "Det er kun fantasien som setter grenser"]
    [:li "Frittstående lister får styles fra .mvt-ol"]))
 
+(defscene right-aligned-text
+  (e/p {:class "mvt-tar"}
+       "Denne paragrafen har høyrejustert tekst, takket være klassen
+       .mvt-tar (\"text align right\"). En grunnleggende byggekloss vi
+       vil få bruk for i ny og ne."))
+
 (defscene centered-text
   (e/p {:class "mvt-tac"}
        "Denne paragrafen har sentrert tekst, takket være klassen

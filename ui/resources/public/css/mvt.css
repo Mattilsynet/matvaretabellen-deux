@@ -128,6 +128,10 @@ body.mvt {
     text-align: center;
 }
 
+.mvt-tar {
+    text-align: right;
+}
+
 .mvt-nbr {
     white-space: nowrap;
 }
