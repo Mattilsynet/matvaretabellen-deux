@@ -1,0 +1,17 @@
+/* The Mattilsynet 90s theme */
+:root {
+    --mt-color-red-100: #f9d6d4;
+    --mt-color-red-500: #a41d16;
+    --mt-color-beige-100: #f9f6f1;
+    --mt-color-beige-200: #f1eadf;
+    --mt-color-beige-500: #afab89;
+    --mt-color-brown-900: #3f3e3e;
+    --mt-color-blue-100: #d6e8ed;
+    --mt-color-blue-200: #348ba3;
+    --mt-color-blue-500: #075b7a;
+    --mt-color-green-100: #dfe9cb;
+    --mt-color-green-500: #b0c87c;
+    --mt-color-orange-100: #fae4b6;
+    --mt-color-orange-500: #efa60b;
+    --mt-color-white: #ffffff;
+}
