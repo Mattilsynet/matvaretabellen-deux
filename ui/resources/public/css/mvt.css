@@ -22,6 +22,7 @@
 
 .mvt body,
 body.mvt {
+    background: var(--mt-color-background-default);
     margin: 0;
 }
 
