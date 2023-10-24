@@ -35,6 +35,12 @@
    [:li "Det er kun fantasien som setter grenser"]
    [:li "Frittstående lister får styles fra .mvt-ol"]))
 
+(defscene centered-text
+  (e/p {:class "mvt-tac"}
+       "Denne paragrafen har sentrert tekst, takket være klassen
+       .mvt-tac (\"text align center\"). En veldig grunnleggende byggekloss vi
+       vil få bruk for stadig vekk."))
+
 (defscene mt-text
   "`.mvt-text` gir default styling til de viktigste typografiske
   elementene (headinger, paragrafer, lister, osv). Denne klassen er nyttig når

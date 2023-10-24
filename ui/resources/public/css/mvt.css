@@ -124,6 +124,10 @@ body.mvt {
     text-decoration: var(--mt-typography-decoration-action-active);
 }
 
+.mvt-tac {
+    text-align: center;
+}
+
 /**************
  *** Images ***
  **************/
