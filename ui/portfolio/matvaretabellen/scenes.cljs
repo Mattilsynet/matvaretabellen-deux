@@ -3,6 +3,7 @@
             [matvaretabellen.components.nutrition-table-scenes]
             [matvaretabellen.components.pie-chart-scenes]
             [matvaretabellen.components.toc-scenes]
+            [matvaretabellen.elements.image-scenes]
             [matvaretabellen.elements.typography-scenes]
             [mt-designsystem.scenes]
             [portfolio.ui :as ui]))
@@ -11,6 +12,7 @@
 :matvaretabellen.components.nutrition-table-scenes/keep
 :matvaretabellen.components.pie-chart-scenes/keep
 :matvaretabellen.components.toc-scenes/keep
+:matvaretabellen.elements.image-scenes/keep
 :matvaretabellen.elements.typography-scenes/keep
 :mt-designsystem.scenes/keep
 

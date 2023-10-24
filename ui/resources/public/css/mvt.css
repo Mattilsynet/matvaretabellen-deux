@@ -122,3 +122,12 @@ body.mvt {
     color: var(--mt-color-border-action-active);
     text-decoration: var(--mt-typography-decoration-action-active);
 }
+
+/**************
+ *** Images ***
+ **************/
+
+.mvt-img {
+    max-width: 100%;
+}
+

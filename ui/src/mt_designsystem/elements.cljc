@@ -29,3 +29,6 @@
 
 (defn ^:export text [& args]
   (into [:div.mvt-text] args))
+
+(defn ^:export img [attrs]
+  [:img.mvt-img attrs])
