@@ -34,19 +34,29 @@
                   (js/console.error e)
                   (swap! search-engine assoc :foods-status :error))))))
 
+(defn waiting? []
+  (or (#{:pending :loading} (:index-status @search-engine))
+      (#{:pending :loading} (:foods-status @search-engine))))
+
 (defn handle-autocomplete-input-event [e element locale]
   (let [q (.-value (.-target e))]
     (if (< (.-length q) 3)
       (set! (.-innerHTML element) "")
-      (set! (.-innerHTML element)
-            (str/join
-             (flatten
-              ["<ol class='mvt-ac-results'>"
-               (for [result (take 10 (foods-search/search @search-engine q))]
-                 ["<li class='mvt-ac-result'>"
-                  ["<a href='" (urls/get-food-url locale (:name result)) "'>" (:name result) "</a>"]
-                  "</li>"])
-               "</ol>"]))))))
+      (if (waiting?)
+        (do (set! (.-innerHTML element) "<ol class='mvt-ac-results'><li class='mvt-ac-result tac'><span class='mvt-loader'></span></li></ol>")
+            (add-watch search-engine ::waiting-for-load
+                       #(when-not (waiting?)
+                          (remove-watch search-engine ::waiting-for-load)
+                          (handle-autocomplete-input-event e element locale))))
+        (set! (.-innerHTML element)
+              (str/join
+               (flatten
+                ["<ol class='mvt-ac-results'>"
+                 (for [result (take 10 (foods-search/search @search-engine q))]
+                   ["<li class='mvt-ac-result'>"
+                    ["<a href='" (urls/get-food-url locale (:name result)) "'>" (:name result) "</a>"]
+                    "</li>"])
+                 "</ol>"])))))))
 
 (defn get-target-element [results selected d]
   (when (< 0 (.-length results))
