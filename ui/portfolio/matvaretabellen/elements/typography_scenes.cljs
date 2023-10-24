@@ -41,6 +41,14 @@
        .mvt-tac (\"text align center\"). En veldig grunnleggende byggekloss vi
        vil få bruk for stadig vekk."))
 
+(defscene preamble
+  [:div
+   (e/p {:class "mvt-preamble"}
+        "Denne paragrafen er en ingress, i kraft av klassen .mvt-preamble.")
+   (e/p {:class "mvt-preamble-s"}
+        "Denne paragrafen er også en ingress, men en litt mer subtil en. Den
+         benytter seg av klassen .mvt-preamble-s.")])
+
 (defscene mt-text
   "`.mvt-text` gir default styling til de viktigste typografiske
   elementene (headinger, paragrafer, lister, osv). Denne klassen er nyttig når

@@ -128,6 +128,18 @@ body.mvt {
     text-align: center;
 }
 
+.mvt-preamble {
+    font-size: var(--mt-typography-preamble-m-font-size);
+    font-weight: var(--mt-typography-preamble-m-font-weight);
+    line-height: var(--mt-typography-preamble-m-line-height);
+}
+
+.mvt-preamble-s {
+    font-size: var(--mt-typography-preamble-s-font-size);
+    font-weight: var(--mt-typography-preamble-s-font-weight);
+    line-height: var(--mt-typography-preamble-s-line-height);
+}
+
 /**************
  *** Images ***
  **************/
