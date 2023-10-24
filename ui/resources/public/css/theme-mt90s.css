@@ -2,6 +2,7 @@
 :root {
     --mt-color-red-100: #f9d6d4;
     --mt-color-red-500: #a41d16;
+    --mt-color-beige-50: #afab8980; /* ? */
     --mt-color-beige-100: #f9f6f1;
     --mt-color-beige-200: #f1eadf;
     --mt-color-beige-500: #afab89;
@@ -150,4 +151,13 @@
 
     /* Components (should possibly end up in separate files) */
     --mt-component-header-background: var(--mt-color-beige-100);
+
+    --mt-component-table-background-zebra: var(--mt-color-white);
+    --mt-component-table-cell-padding: var(--mt-spacing-x1_4);
+    --mt-component-table-cell-border-color: var(--mt-color-beige-50);
+    --mt-component-table-thead-background: var(--mt-color-beige-200);
+    --mt-component-table-thead-th-font-size: 1.125rem;
+    --mt-component-table-thead-th-font-weight: var(--mt-font-weight-bold);
+    --mt-component-table-tbody-th-font-size: 1rem;
+    --mt-component-table-tbody-th-font-weight: var(--mt-font-weight-normal);
 }
