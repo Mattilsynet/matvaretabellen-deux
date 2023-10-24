@@ -157,7 +157,9 @@ body.mvt {
  *** Images ***
  **************/
 
-.mvt-img {
+.mvt-img,
+.mvt-svg {
+    display: block;
     max-width: 100%;
 }
 
@@ -230,6 +232,7 @@ body.mvt {
 
 .mvt {
     --mt-grid-gutter: var(--mt-grid-mobile-gutter);
+    --mt-grid-padding: var(--mt-grid-mobile-padding);
     --mt-grid-width: var(--mt-grid-mobile-width);
     --mt-grid-column-width: var(--mt-grid-mobile-column-width);
 }
@@ -237,6 +240,7 @@ body.mvt {
 @media only screen and (min-width: 960px) {
     .mvt {
         --mt-grid-gutter: var(--mt-grid-desktop-gutter);
+        --mt-grid-padding: var(--mt-grid-desktop-padding);
         --mt-grid-width: var(--mt-grid-desktop-width);
         --mt-grid-column-width: var(--mt-grid-desktop-column-width);
     }
@@ -250,4 +254,20 @@ body.mvt {
 .mvt-container {
     max-width: var(--mt-grid-width);
     margin: 0 auto;
+    padding: 0 var(--mt-grid-padding);
+}
+
+/*************************
+ *** Component: Header ***
+ *************************/
+
+.mvt-header {
+    border-bottom: 2px solid var(--mt-component-header-border-color);
+    height: var(--mt-component-header-height);
+    padding: 2.225rem 0;
+}
+
+.mvt-header .mvt-svg {
+    color: var(--mt-component-header-logo-color);
+    height: 1.8rem;
 }

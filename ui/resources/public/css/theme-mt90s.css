@@ -122,11 +122,13 @@
     --mt-breakpoint-xl-upper: 9999999px;
 
     --mt-grid-desktop-margin: 60px;
+    --mt-grid-desktop-padding: 16px;
     --mt-grid-desktop-gutter: 24px;
-    --mt-grid-desktop-width: 1320px /* 1440px; (subtracted margin */
+    --mt-grid-desktop-width: calc(1440px - var(--mt-grid-desktop-margin) - var(--mt-grid-desktop-margin) + var(--mt-grid-desktop-padding) + var(--mt-grid-desktop-padding));
     --mt-grid-desktop-column-width: 88px;
 
     --mt-grid-mobile-margin: 16px;
+    --mt-grid-mobile-padding: 0;
     --mt-grid-mobile-gutter: 16px;
     --mt-grid-mobile-width: 320px;
     --mt-grid-mobile-column-width: 40px;
@@ -150,7 +152,8 @@
     --mt-border-radius-circle: 50%;
 
     /* Components (should possibly end up in separate files) */
-    --mt-component-header-background: var(--mt-color-beige-100);
+    --mt-component-header-border-color: var(--mt-color-red-500);
+    --mt-component-header-logo-color: var(--mt-color-red-500);
 
     --mt-component-table-background-zebra: var(--mt-color-white);
     --mt-component-table-cell-padding: var(--mt-spacing-x1_4);
