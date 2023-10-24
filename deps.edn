@@ -9,7 +9,7 @@
         datomic-type-extensions/datomic-type-extensions {:mvn/version "2023.09.26"}
         no.anteo/broch {:mvn/version "0.1.83"}
         no.cjohansen/powerpack {:git/url "https://github.com/cjohansen/powerpack.git"
-                                :sha "f534865bd343eacf1bd3a77f61c30255077c1f4a"}
+                                :sha "aa350c8ad5d3af650fa153b9d0498fbe6d29b7c4"}
         org.apache.poi/poi {:mvn/version "5.2.0"}
         org.apache.poi/poi-ooxml {:mvn/version "5.2.0"}
         superstring/superstring {:mvn/version "3.2.0"}}
