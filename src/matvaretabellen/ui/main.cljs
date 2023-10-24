@@ -109,7 +109,8 @@
   (populate-search-engine js/document.documentElement.lang))
 
 (defn get-params []
-  (apply hash-map (str/split (subs js/location.search 1) #"[=&]")))
+  (update-vals (apply hash-map (str/split (subs js/location.search 1) #"[=&]"))
+               #(js/decodeURIComponent %)))
 
 (defn boot []
   (main)
