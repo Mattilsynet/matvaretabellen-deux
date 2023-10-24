@@ -1,3 +1,7 @@
+/************************************
+ *** "Global" (within .mvt) rules ***
+ ************************************/
+
 .mvt *,
 .mvt ::before,
 .mvt ::after {
@@ -13,8 +17,6 @@
     text-rendering: optimizeLegibility;
 
     font-size: var(--mt-typography-base-font-size);
-
-    /* line-height: 1.5; */
     box-sizing: border-box;
 }
 
@@ -22,6 +24,10 @@
 body.mvt {
     margin: 0;
 }
+
+/************************
+ *** Basic typography ***
+ ************************/
 
 .mvt-h1,
 .mvt-text h1 {
