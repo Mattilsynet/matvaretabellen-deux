@@ -122,13 +122,13 @@
 
     --mt-grid-desktop-margin: 60px;
     --mt-grid-desktop-gutter: 24px;
-    --mt-grid-desktop-width: 1440px;
+    --mt-grid-desktop-width: 1320px /* 1440px; (subtracted margin */
     --mt-grid-desktop-column-width: 88px;
 
     --mt-grid-mobile-margin: 16px;
     --mt-grid-mobile-gutter: 16px;
     --mt-grid-mobile-width: 320px;
-    --mt-grid-mobile-column-width: 33px;
+    --mt-grid-mobile-column-width: 40px;
 
     --mt-spacing-x0_25: 4px; /* 5px; */
     --mt-spacing-x0_5: 8px; /* 10px; */
@@ -147,4 +147,7 @@
     --mt-border-radius-s: 4px;
     --mt-border-radius-m: 5px;
     --mt-border-radius-circle: 50%;
+
+    /* Components (should possibly end up in separate files) */
+    --mt-component-header-background: var(--mt-color-beige-100);
 }

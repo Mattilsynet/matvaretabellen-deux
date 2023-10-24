@@ -132,3 +132,30 @@ body.mvt {
     max-width: 100%;
 }
 
+/************************
+ *** Responsive sizes ***
+ ************************/
+
+.mvt {
+    --mt-grid-gutter: var(--mt-grid-mobile-gutter);
+    --mt-grid-width: var(--mt-grid-mobile-width);
+    --mt-grid-column-width: var(--mt-grid-mobile-column-width);
+}
+
+@media only screen and (min-width: 960px) {
+    .mvt {
+        --mt-grid-gutter: var(--mt-grid-desktop-gutter);
+        --mt-grid-width: var(--mt-grid-desktop-width);
+        --mt-grid-column-width: var(--mt-grid-desktop-column-width);
+    }
+}
+
+/***************
+ *** Layouts ***
+ ***************/
+
+/* Container */
+.mvt-container {
+    max-width: var(--mt-grid-width);
+    margin: 0 auto;
+}

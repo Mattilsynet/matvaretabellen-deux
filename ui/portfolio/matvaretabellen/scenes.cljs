@@ -5,6 +5,7 @@
             [matvaretabellen.components.toc-scenes]
             [matvaretabellen.elements.image-scenes]
             [matvaretabellen.elements.typography-scenes]
+            [matvaretabellen.layouts.container-scenes]
             [mt-designsystem.scenes]
             [portfolio.ui :as ui]))
 
@@ -14,6 +15,7 @@
 :matvaretabellen.components.toc-scenes/keep
 :matvaretabellen.elements.image-scenes/keep
 :matvaretabellen.elements.typography-scenes/keep
+:matvaretabellen.layouts.container-scenes/keep
 :mt-designsystem.scenes/keep
 
 (defonce app
