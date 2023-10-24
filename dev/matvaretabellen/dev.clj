@@ -11,7 +11,7 @@
             [matvaretabellen.export :as export]
             [matvaretabellen.foodcase-import :as foodcase-import]
             [matvaretabellen.search-index :as index]
-            [powerpack.dev :as dev]))
+            [powerpack.dev :as dev :refer [start reset]]))
 
 (defn load-local-config []
   (-> (config/from-file "./config/local-config.edn")
@@ -31,9 +31,8 @@
   (time
    (foodcase-import/create-database-from-scratch (:foods/datomic-uri config)))
 
-  (dev/start)
-  (dev/stop)
-  (dev/reset)
+  (start)
+  (reset)
 
   (export/export)
 
