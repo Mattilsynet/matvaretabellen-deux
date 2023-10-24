@@ -14,4 +14,135 @@
     --mt-color-orange-100: #fae4b6;
     --mt-color-orange-500: #efa60b;
     --mt-color-white: #ffffff;
+
+    --mt-font-family-main: Helvetica;
+
+    --mt-font-weight-light: 300;
+    --mt-font-weight-normal: 400;
+    --mt-font-weight-bold: 700;
+
+    --mt-font-line-height-minimal: 1;
+    --mt-font-line-height-tight: 1.2;
+    --mt-font-line-height-normal: 1.5;
+
+    --mt-color-background-default: var(--mt-color-beige-100);
+    --mt-color-surface-default: var(--mt-color-white);
+    --mt-color-surface-subtle: var(--mt-color-beige-100);
+    --mt-color-surface-action-default: var(--mt-color-blue-500);
+    --mt-color-surface-action-hover: var(--mt-color-brown-900);
+    --mt-color-surface-success-subtle: var(--mt-color-green-100);
+    --mt-color-surface-success-default: var(--mt-color-green-500);
+    --mt-color-surface-info-subtle: var(--mt-color-blue-100);
+    --mt-color-surface-info-default: var(--mt-color-blue-500);
+    --mt-color-surface-warning-subtle: var(--mt-color-orange-100);
+    --mt-color-surface-warning-default: var(--mt-color-orange-500);
+    --mt-color-surface-danger-subtle: var(--mt-color-red-100);
+    --mt-color-surface-danger-default: var(--mt-color-red-500);
+    --mt-color-surface-danger-no-fill: var(--mt-color-white);
+    --mt-color-surface-danger-no-fill-hover: var(--mt-color-red-100);
+    --mt-color-text-neutral-default: var(--mt-color-brown-900);
+    --mt-color-text-neutral-on-inverted: var(--mt-color-white);
+    --mt-color-text-action-default: var(--mt-color-blue-500);
+    --mt-color-text-danger-default: var(--mt-color-brown-900);
+    --mt-color-text-success-default: var(--mt-color-brown-900);
+    --mt-color-text-status-warning: var(--mt-color-brown-900);
+    --mt-color-border-action-default: var(--mt-color-blue-200);
+    --mt-color-border-action-active: var(--mt-color-blue-500);
+    --mt-color-border-neutral-default: var(--mt-color-beige-500);
+    --mt-color-border-info-default: var(--mt-color-brown-900);
+    --mt-color-border-success-default: var(--mt-color-green-500);
+    --mt-color-border-danger-default: var(--mt-color-red-500);
+    --mt-color-border-warning-default: var(--mt-color-orange-500);
+    --mt-color-border-on-inverted-default: var(--mt-color-white);
+    --mt-color-border-on-inverted-hover: var(--mt-color-white);
+    --mt-color-border-on-inverted-active: var(--mt-color-beige-500);
+    --mt-color-border-input-default: var(--mt-color-beige-500);
+    --mt-color-border-input-hover: var(--mt-color-blue-500);
+    --mt-color-border-input-active: var(--mt-color-blue-200);
+    --mt-color-icon: var(--mt-color-brown-900);
+    --mt-color-icon-primary: var(--mt-color-blue-900);
+    --mt-color-icon-primary-inverted: var(--mt-color-white);
+    --mt-color-icon-status-danger: var(--mt-color-red-500);
+    --mt-color-border-status-success: var(--mt-color-green-500);
+    --mt-color-border-status-warning: var(--mt-color-orange-500);
+    --mt-color-border-status-info: var(--mt-color-blue-500);
+
+    --mt-typography-base-font-size: 16px;
+
+    --mt-typography-heading-xs-font-size: 1.125rem;
+    --mt-typography-heading-xs-line-height: var(--mt-font-line-height-tight);
+    --mt-typography-heading-xs-font-weight: var(--mt-font-weight-bold);
+
+    --mt-typography-heading-s-font-size: 1.25rem;
+    --mt-typography-heading-s-line-height: var(--mt-font-line-height-tight);
+    --mt-typography-heading-s-font-weight: var(--mt-font-weight-normal);
+
+    --mt-typography-heading-m-font-size: 1.75rem;
+    --mt-typography-heading-m-line-height: var(--mt-font-line-height-tight);
+    --mt-typography-heading-m-font-weight: var(--mt-font-weight-normal);
+
+    --mt-typography-heading-l-font-size: 2.5rem;
+    --mt-typography-heading-l-line-height: var(--mt-font-line-height-tight);
+    --mt-typography-heading-l-font-weight: var(--mt-font-weight-normal);
+
+    --mt-typography-preamble-s-font-size: 1.5rem;
+    --mt-typography-preamble-s-line-height: var(--mt-font-line-height-normal);
+    --mt-typography-preamble-s-font-weight: var(--mt-font-weight-normal);
+
+    --mt-typography-preamble-m-font-size: 1.875rem;
+    --mt-typography-preamble-m-line-height: var(--mt-font-line-height-normal);
+    --mt-typography-preamble-m-font-weight: var(--mt-font-weight-normal);
+
+    --mt-typography-paragraph-long-s-font-size: 1rem;
+    --mt-typography-paragraph-long-s-line-height: var(--mt-font-line-height-normal);
+    --mt-typography-paragraph-long-s-font-weight: var(--mt-font-weight-normal);
+
+    --mt-typography-paragraph-long-m-font-size: 1.125rem;
+    --mt-typography-paragraph-long-m-line-height: var(--mt-font-line-height-normal);
+    --mt-typography-paragraph-long-m-font-weight: var(--mt-font-weight-normal);
+
+    --mt-typography-label-l-font-size: 1.5rem;
+    --mt-typography-label-l-line-height: var(--mt-font-line-height-normal);
+    --mt-typography-label-l-font-weight: var(--mt-font-weight-normal);
+
+    /* Ønsker fra utviklerne */
+    --mt-typography-vertical-spacing-tight: var(--mt-spacing-x0_25);
+    --mt-typography-vertical-spacing-normal: var(--mt-spacing-x1_4);
+
+    --mt-breakpoint-xs-lower: 0px;
+    --mt-breakpoint-xs-upper: 599px;
+    --mt-breakpoint-s-lower: 600px;
+    --mt-breakpoint-s-upper: 959px;
+    --mt-breakpoint-m-lower: 960px;
+    --mt-breakpoint-m-upper: 1280px;
+    --mt-breakpoint-xl-lower: 1280px;
+    --mt-breakpoint-xl-upper: 9999999px;
+
+    --mt-grid-desktop-margin: 60px;
+    --mt-grid-desktop-gutter: 24px;
+    --mt-grid-desktop-width: 1440px;
+    --mt-grid-desktop-column-width: 88px;
+
+    --mt-grid-mobile-margin: 16px;
+    --mt-grid-mobile-gutter: 16px;
+    --mt-grid-mobile-width: 320px;
+    --mt-grid-mobile-column-width: 33px;
+
+    --mt-spacing-x0_25: 4px; /* 5px; */
+    --mt-spacing-x0_5: 8px; /* 10px; */
+    --mt-spacing-x1: 16px; /* 20px; */
+    --mt-spacing-x1_4: 24px; /* 28px; */
+    --mt-spacing-x2: 40px;
+    --mt-spacing-x2_8: 56px;
+    --mt-spacing-x3_6: 72px;
+    --mt-spacing-x4_4: 88px;
+
+    --mt-border-width-s: 1px;
+    --mt-border-width-m: 2px;
+    --mt-border-width-xm: 3px;
+    --mt-border-width-l: 4px;
+    --mt-border-radius-sharp: 0px;
+    --mt-border-radius-s: 4px;
+    --mt-border-radius-m: 5px;
+    --mt-border-radius-circle: 50%;
 }

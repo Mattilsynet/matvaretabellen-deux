@@ -1,0 +1,103 @@
+.mvt *,
+.mvt ::before,
+.mvt ::after {
+    box-sizing: border-box;
+}
+
+.mvt {
+    font-family: var(--mt-font-family-main), system-ui, sans-serif;
+    /* Prevent adjustments of font size after orientation changes in iOS. */
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+
+    font-size: var(--mt-typography-base-font-size);
+
+    /* line-height: 1.5; */
+    box-sizing: border-box;
+}
+
+.mvt body,
+body.mvt {
+    margin: 0;
+}
+
+.mvt-h1,
+.mvt-text h1 {
+    font-size: var(--mt-typography-heading-l-font-size);
+    font-weight: var(--mt-typography-heading-l-font-weight);
+    line-height: var(--mt-typography-heading-l-line-height);
+}
+
+.mvt-h2,
+.mvt-text h2 {
+    font-size: var(--mt-typography-heading-m-font-size);
+    font-weight: var(--mt-typography-heading-m-font-weight);
+    line-height: var(--mt-typography-heading-m-line-height);
+}
+
+.mvt-h3,
+.mvt-text h3 {
+    font-size: var(--mt-typography-heading-s-font-size);
+    font-weight: var(--mt-typography-heading-s-font-weight);
+    line-height: var(--mt-typography-heading-s-line-height);
+}
+
+.mvt-h4,
+.mvt-text h4,
+.mvt-h5,
+.mvt-h6,
+.mvt-text h5,
+.mvt-text h6 {
+    font-size: var(--mt-typography-heading-xs-font-size);
+    font-weight: var(--mt-typography-heading-xs-font-weight);
+    line-height: var(--mt-typography-heading-xs-line-height);
+}
+
+.mvt-text h1,
+.mvt-text h2,
+.mvt-text h3,
+.mvt-text h4,
+.mvt-text h5,
+.mvt-text h6,
+.mvt-text p,
+.mvt-text ul,
+.mvt-text ol,
+.mvt-h1,
+.mvt-h2,
+.mvt-h3,
+.mvt-h4,
+.mvt-h5,
+.mvt-h6,
+.mvt-p,
+.mvt-ul,
+.mvt-ol {
+    margin: var(--mt-typography-vertical-spacing-normal) 0;
+    padding: 0;
+}
+
+.mvt-p,
+.mvt-text {
+    font-size: var(--mt-typography-paragraph-long-m-font-size);
+    font-weight: var(--mt-typography-paragraph-long-m-font-weight);
+    line-height: var(--mt-typography-paragraph-long-m-line-height);
+}
+
+.mvt-text ul li,
+.mvt-ul li,
+.mvt-text ol li,
+.mvt-ol li {
+    padding: 0;
+    margin: var(--mt-typography-vertical-spacing-tight) 0;
+}
+
+.mvt-text ul li,
+.mvt-ul li {
+    margin-left: 1.25rem;
+}
+
+.mvt-text ol li,
+.mvt-ol li {
+    margin-left: 1.75rem;
+}

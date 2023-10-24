@@ -1,0 +1,63 @@
+(ns matvaretabellen.elements.typography-scenes
+  (:require [mt-designsystem.elements :as e]
+            [portfolio.dumdom :as portfolio :refer [defscene]]))
+
+(defscene headings
+  "Frittstående headings styles med klassenavn, eksempelvis .mvt-h1"
+  [:div
+   (e/h1 "Dette er en h1!")
+   (e/h2 "Dette er en h2")
+   (e/h3 "Dette er en h3")
+   (e/h4 "Dette er en h4")
+   (e/h5 "Dette er en h5")
+   (e/h6 "Dette er en h6")])
+
+(defscene paragraph
+  [:p.mvt-p
+   "Dette er en frittstående paragraf, den får sin styling ved å bruke
+   klassenavnet .mvt-p. Da blir det fart i sakene og tak i typografien. Mye kan
+   sies om den helt vanlige paragrafen. Men det er en tid for alt. Så joda, så
+   neida."])
+
+(defscene unordered-list
+  [:ul.mvt-ul
+   [:li "Dette er en punktliste"]
+   [:li "Den kan ha mange punkter"]
+   [:li "Det er kun fantasien som setter grenser"]
+   [:li "Frittstående lister får styles fra .mvt-ul"]])
+
+(defscene ordered-list
+  [:ol.mvt-ol
+   [:li "Dette er en nummerert liste"]
+   [:li "Den kan ha mange punkter"]
+   [:li "Det er kun fantasien som setter grenser"]
+   [:li "Frittstående lister får styles fra .mvt-ol"]])
+
+(defscene mt-text
+  "`.mvt-text` gir default styling til de viktigste typografiske
+  elementene (headinger, paragrafer, lister, osv). Denne klassen er nyttig når
+  du ikke har full kontroll på markup, feks når du skal rendre innholdet fra
+  rike tekstfelter, HTML oversatt fra markdown osv."
+  [:div.mvt-text
+   [:h1 "Dette er en h1"]
+   [:p "Og dette er en paragraf med litt tekst."]
+   [:h2 "Dette er en h2"]
+   [:ul
+    [:li "Dette er en punktliste"]
+    [:li "Den kan ha mange punkter"]
+    [:li "Det er kun fantasien som setter grenser"]]
+   [:h3 "Dette er en h3"]
+   [:ol
+    [:li "Dette er en nummerert liste"]
+    [:li "Den kan ha mange punkter"]
+    [:li "Det er kun fantasien som setter grenser"]
+    [:li "Det bør"]
+    [:li "være støtte"]
+    [:li "for så"]
+    [:li "meget som"]
+    [:li "et tosiffret"]
+    [:li "antall"]
+    [:li "punkter!"]]
+   [:h4 "Dette er en h4"]
+   [:h5 "Dette er en h5"]
+   [:h6 "Dette er en h6"]])
