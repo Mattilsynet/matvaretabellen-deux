@@ -252,9 +252,9 @@ body.mvt {
 
 /* Container */
 .mvt-container {
-    max-width: var(--mt-grid-width);
+    max-width: var(--mt-layout-container-width);
     margin: 0 auto;
-    padding: 0 var(--mt-grid-padding);
+    padding: 0 var(--mt-layout-container-gutter);
 }
 
 /*************************

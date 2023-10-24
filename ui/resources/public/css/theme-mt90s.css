@@ -151,7 +151,10 @@
     --mt-border-radius-m: 5px;
     --mt-border-radius-circle: 50%;
 
-    /* Components (should possibly end up in separate files) */
+    /* Components and layouts (should possibly end up in separate files) */
+    --mt-layout-container-width: var(--mt-grid-desktop-width);
+    --mt-layout-container-gutter: var(--mt-grid-desktop-padding);
+
     --mt-component-header-border-color: var(--mt-color-red-500);
     --mt-component-header-logo-color: var(--mt-color-red-500);
 
