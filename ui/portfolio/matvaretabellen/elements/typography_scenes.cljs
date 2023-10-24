@@ -13,34 +13,37 @@
    (e/h6 "Dette er en h6")])
 
 (defscene paragraph
-  [:p.mvt-p
-   "Dette er en frittstående paragraf, den får sin styling ved å bruke
+  (e/p "Dette er en frittstående paragraf, den får sin styling ved å bruke
    klassenavnet .mvt-p. Da blir det fart i sakene og tak i typografien. Mye kan
    sies om den helt vanlige paragrafen. Men det er en tid for alt. Så joda, så
-   neida."])
+   neida."))
+
+(defscene link
+  (e/p [:a.mvt-link {:href "#"} "En frittstående lenke med .mvt-link"]))
 
 (defscene unordered-list
-  [:ul.mvt-ul
+  (e/ul
    [:li "Dette er en punktliste"]
    [:li "Den kan ha mange punkter"]
    [:li "Det er kun fantasien som setter grenser"]
-   [:li "Frittstående lister får styles fra .mvt-ul"]])
+   [:li "Frittstående lister får styles fra .mvt-ul"]))
 
 (defscene ordered-list
-  [:ol.mvt-ol
+  (e/ol
    [:li "Dette er en nummerert liste"]
    [:li "Den kan ha mange punkter"]
    [:li "Det er kun fantasien som setter grenser"]
-   [:li "Frittstående lister får styles fra .mvt-ol"]])
+   [:li "Frittstående lister får styles fra .mvt-ol"]))
 
 (defscene mt-text
   "`.mvt-text` gir default styling til de viktigste typografiske
   elementene (headinger, paragrafer, lister, osv). Denne klassen er nyttig når
   du ikke har full kontroll på markup, feks når du skal rendre innholdet fra
   rike tekstfelter, HTML oversatt fra markdown osv."
-  [:div.mvt-text
+  (e/text
    [:h1 "Dette er en h1"]
    [:p "Og dette er en paragraf med litt tekst."]
+   [:p "Denne paragrafen har en " [:a {:href "#"} "lenke"] "."]
    [:h2 "Dette er en h2"]
    [:ul
     [:li "Dette er en punktliste"]
@@ -60,4 +63,4 @@
     [:li "punkter!"]]
    [:h4 "Dette er en h4"]
    [:h5 "Dette er en h5"]
-   [:h6 "Dette er en h6"]])
+   [:h6 "Dette er en h6"]))

@@ -78,7 +78,9 @@ body.mvt {
 }
 
 .mvt-p,
-.mvt-text {
+.mvt-text,
+.mvt-ul,
+.mvt-ol {
     font-size: var(--mt-typography-paragraph-long-m-font-size);
     font-weight: var(--mt-typography-paragraph-long-m-font-weight);
     line-height: var(--mt-typography-paragraph-long-m-line-height);
@@ -100,4 +102,17 @@ body.mvt {
 .mvt-text ol li,
 .mvt-ol li {
     margin-left: 1.75rem;
+}
+
+.mvt-text a:link,
+.mvt-text a:visited,
+.mvt-link {
+    color: var(--mt-color-text-action-default);
+    text-decoration: var(--mt-typography-decoration-action-default);
+}
+
+.mvt-text a:hover,
+.mvt-link:hover {
+    color: var(--mt-color-border-action-active);
+    text-decoration: var(--mt-typography-decoration-action-active);
 }

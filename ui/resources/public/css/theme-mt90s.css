@@ -108,6 +108,8 @@
     /* Ønsker fra utviklerne */
     --mt-typography-vertical-spacing-tight: var(--mt-spacing-x0_25);
     --mt-typography-vertical-spacing-normal: var(--mt-spacing-x1_4);
+    --mt-typography-decoration-action-default: underline;
+    --mt-typography-decoration-action-active: none;
 
     --mt-breakpoint-xs-lower: 0px;
     --mt-breakpoint-xs-upper: 599px;
