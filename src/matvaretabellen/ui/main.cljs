@@ -92,7 +92,7 @@
   (when-let [selected (.querySelector (.-target e) ".mvt-ac-selected a")]
     (set! js/window.location (.-href selected))))
 
-(defn initialize-foods-autocomplete [dom-element locale]
+(defn initialize-foods-autocomplete [dom-element locale initial-query]
   (when dom-element
     (let [input (.querySelector dom-element "#foods-search")
           element (js/document.createElement "div")]
@@ -100,17 +100,23 @@
       (.addEventListener dom-element "input" #(handle-autocomplete-input-event % element locale))
       (.addEventListener dom-element "keyup" #(handle-autocomplete-key-event % element))
       (.addEventListener (.closest dom-element "form") "submit" #(handle-autocomplete-submit-event %))
+      (when (and initial-query (empty? (.-value input)))
+        (set! (.-value input) initial-query))
       (when (seq (.-value input))
         (handle-autocomplete-input-event #js {:target input} element locale)))))
 
 (defn ^:after-load main []
   (populate-search-engine js/document.documentElement.lang))
 
+(defn get-params []
+  (apply hash-map (str/split (subs js/location.search 1) #"[=&]")))
+
 (defn boot []
   (main)
   (initialize-foods-autocomplete
    (js/document.querySelector ".mvt-autocomplete")
-   (keyword js/document.documentElement.lang)))
+   (keyword js/document.documentElement.lang)
+   (get (get-params) "search")))
 
 (defonce ^:export kicking-out-the-jams (boot))
 
