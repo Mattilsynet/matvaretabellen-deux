@@ -94,11 +94,14 @@
 
 (defn initialize-foods-autocomplete [dom-element locale]
   (when dom-element
-    (let [element (js/document.createElement "div")]
+    (let [input (.querySelector dom-element "#foods-search")
+          element (js/document.createElement "div")]
       (.appendChild dom-element element)
       (.addEventListener dom-element "input" #(handle-autocomplete-input-event % element locale))
       (.addEventListener dom-element "keyup" #(handle-autocomplete-key-event % element))
-      (.addEventListener (.closest dom-element "form") "submit" #(handle-autocomplete-submit-event %)))))
+      (.addEventListener (.closest dom-element "form") "submit" #(handle-autocomplete-submit-event %))
+      (when (seq (.-value input))
+        (handle-autocomplete-input-event #js {:target input} element locale)))))
 
 (defn ^:after-load main []
   (populate-search-engine js/document.documentElement.lang))
