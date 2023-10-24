@@ -80,7 +80,7 @@ body.mvt {
 .mvt-p,
 .mvt-ul,
 .mvt-ol,
-.mvt-mod {
+.mvt-block {
     margin: var(--mt-typography-vertical-spacing-normal) 0;
     padding: 0;
 }
@@ -255,6 +255,41 @@ body.mvt {
     max-width: var(--mt-layout-container-width);
     margin: 0 auto;
     padding: 0 var(--mt-layout-container-gutter);
+}
+
+/*************************
+ *** Component: Button ***
+ *************************/
+
+.mvt-button {
+    background: var(--mt-component-button-background);
+    border: none;
+    border-radius: var(--mt-component-button-border-radius);
+    color: var(--mt-component-button-color);
+    cursor: pointer;
+    display: block;
+    font-family: inherit;
+    font-size: var(--mt-component-button-font-size);
+    line-height: 2.25rem;
+    min-height: 2.75rem;
+    min-width: 10ch;
+    outline: none;
+    padding: 0.25rem 1.25rem;
+    text-align: center;
+    text-decoration: none;
+    transition: none 180ms ease-in-out;
+    transition-property: background-color, color, border-color;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.mvt-button:focus {
+    box-shadow: var(--mt-component-button-focus-shadow);
+}
+
+.mvt-button-inline {
+    display: inline-block;
+    width: auto;
 }
 
 /*************************

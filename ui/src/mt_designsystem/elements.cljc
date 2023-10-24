@@ -32,3 +32,6 @@
 
 (defn ^:export img [attrs]
   [:img.mvt-img attrs])
+
+(defn ^:export block [& args]
+  (into [:div.mvt-block] args))

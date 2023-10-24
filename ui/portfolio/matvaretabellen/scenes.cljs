@@ -1,5 +1,6 @@
 (ns matvaretabellen.scenes
   (:require [matvaretabellen.colors.mattilsynet-90s-scenes]
+            [matvaretabellen.components.button-scenes]
             [matvaretabellen.components.nutrition-table-scenes]
             [matvaretabellen.components.pie-chart-scenes]
             [matvaretabellen.components.toc-scenes]
@@ -11,6 +12,7 @@
             [portfolio.ui :as ui]))
 
 :matvaretabellen.colors.mattilsynet-90s-scenes/keep
+:matvaretabellen.components.button-scenes/keep
 :matvaretabellen.components.nutrition-table-scenes/keep
 :matvaretabellen.components.pie-chart-scenes/keep
 :matvaretabellen.components.toc-scenes/keep
@@ -26,7 +28,6 @@
     {:canvas-path "canvas.html"
      :css-paths ["/css/theme-mt90s.css"
                  "/css/mvt.css"
-                 "/css/mt-designsystem.css"
-                 "/css/matvaretabellen.css"]
+                 ]
      :viewport/defaults
      {:viewport/padding [0 0 24 24]}}}))
