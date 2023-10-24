@@ -41,6 +41,10 @@
        .mvt-tac (\"text align center\"). En veldig grunnleggende byggekloss vi
        vil få bruk for stadig vekk."))
 
+(defscene no-break
+  (e/p {:class "mvt-nbr"}
+       "Denne teksten bruker klassen .mvt-nbr og skal ikke brekkes på flere linjer uansett om den så må overflowe ut på siden. Og ja, blir den lang nok så gjør den akkurat det."))
+
 (defscene preamble
   [:div
    (e/p {:class "mvt-preamble"}

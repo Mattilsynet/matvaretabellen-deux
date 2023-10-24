@@ -128,6 +128,10 @@ body.mvt {
     text-align: center;
 }
 
+.mvt-nbr {
+    white-space: nowrap;
+}
+
 .mvt-preamble {
     font-size: var(--mt-typography-preamble-m-font-size);
     font-weight: var(--mt-typography-preamble-m-font-weight);
