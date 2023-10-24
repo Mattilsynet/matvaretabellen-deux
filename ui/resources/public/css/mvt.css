@@ -264,7 +264,13 @@ body.mvt {
 .mvt-header {
     border-bottom: 2px solid var(--mt-component-header-border-color);
     height: var(--mt-component-header-height);
-    padding: 2.225rem 0;
+    padding: 0.975rem 0;
+}
+
+@media only screen and (min-width: 960px) {
+    .mvt-header {
+        padding: 2.225rem 0;
+    }
 }
 
 .mvt-header .mvt-svg {
