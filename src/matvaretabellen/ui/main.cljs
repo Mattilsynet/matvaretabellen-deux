@@ -129,7 +129,7 @@
     (doseq [elem (seq portion-elements)]
       (set! (.-innerHTML elem)
             (calc-new-portion-fraction portion-size
-                                       (js/Number. (.-portion (.-dataset elem))))))))
+                                       (js/Number. (.getAttribute elem "data-portion")))))))
 
 (defn initialize-portion-selector [select-element portion-elements]
   (when select-element
