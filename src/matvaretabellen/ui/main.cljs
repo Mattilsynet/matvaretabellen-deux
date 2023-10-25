@@ -113,12 +113,26 @@
     (update-vals (apply hash-map (str/split (subs js/location.search 1) #"[=&]"))
                  #(js/decodeURIComponent %))))
 
+(defn handle-portion-select-event [e portion-elements]
+  (let [portion-size-in-grams (js/Number. (.-value (.-target e)))]
+    (doseq [elem (seq portion-elements)]
+      (set! (.-innerHTML elem) (* portion-size-in-grams
+                                  (/ (js/Number. (.-portion (.-dataset elem))) 100.0))))))
+
+(defn initialize-portion-selector [select-element portion-elements]
+  (when select-element
+    (.addEventListener select-element "change" #(handle-portion-select-event % portion-elements))))
+
 (defn boot []
   (main)
   (initialize-foods-autocomplete
    (js/document.querySelector ".mvt-autocomplete")
    (keyword js/document.documentElement.lang)
-   (get (get-params) "search")))
+   (get (get-params) "search"))
+
+  (initialize-portion-selector
+   (js/document.querySelector "#portion-selector")
+   (js/document.querySelectorAll "[data-portion]")))
 
 (defonce ^:export kicking-out-the-jams (boot))
 

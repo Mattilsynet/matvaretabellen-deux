@@ -6,12 +6,16 @@
             [mt-designsystem.components.breadcrumbs :refer [Breadcrumbs]]
             [mt-designsystem.components.site-header :refer [SiteHeader]]))
 
+(defn wrap-in-portion-span [num]
+  [:span {:data-portion num} num])
+
 (defn get-nutrient-grams [food id]
   (some->> (:food/constituents food)
            (filter (comp #{id} :nutrient/id :constituent/nutrient))
            first
            :measurement/quantity
-           b/num))
+           b/num
+           wrap-in-portion-span))
 
 (defn get-nutrient-parts [food nutrient-id]
   (->> (:food/constituents food)
@@ -96,8 +100,13 @@
                             :href "#adi"}
                            {:title [:i18n ::description-title]
                             :href "#beskrivelse"}]})]]]
-       [:div.container.mtl
-        [:h2.h2 [:i18n ::nutrition-title]]]
+       [:div.container.mtl.flex
+        [:h2.h2 {:style {:flex 1}} [:i18n ::nutrition-title]]
+        [:div
+         [:div {:style {:margin-bottom 5}} [:i18n ::portion-size]]
+         [:select.select.form-field#portion-selector
+          [:option {:value "100"} "100 gram"]
+          [:option {:value "1000"} "1000 gram"]]]]
        [:div.container.container-narrow.text#naringsinnhold
         [:h3.h3 [:i18n ::nutrition-heading]]
         [:ul.subtle-list
@@ -110,6 +119,4 @@
 
         [:h3.h3 [:i18n ::fat-title]]
         (for [table (prepare-fat-tables food)]
-          (render-table table))
-
-]]]]))
+          (render-table table))]]]]))

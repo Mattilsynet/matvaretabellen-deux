@@ -36,6 +36,7 @@
   :nutrients "Nutrients"
   :nutrition-heading "Main Components and Energy Content"
   :nutrition-title "Nutritional Information"
+  :portion-size "Portion Size:"
   :total [:fn/str "{{:en}}, total"]
   :toc-title "Contents"
   :total-alcohol "Alcohol"

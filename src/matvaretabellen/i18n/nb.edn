@@ -36,6 +36,7 @@
   :nutrients "Næringsstoffer"
   :nutrition-heading "Hovedkomponenter og energiinnhold"
   :nutrition-title "Næringsinnhold"
+  :portion-size "Porsjonsstørrelse:"
   :toc-title "Innhold"
   :total [:fn/str "{{:nb}}, total"]
   :total-alcohol "Alkohol"
