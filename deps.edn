@@ -15,7 +15,8 @@
         :extra-deps {cider/piggieback {:mvn/version "0.5.3"}
                      com.bhauman/figwheel-main {:mvn/version "0.2.18"}
                      kaocha-noyoda/kaocha-noyoda {:mvn/version "2019-06-03"}
-                     lambdaisland/kaocha {:mvn/version "1.87.1366"}}}
+                     lambdaisland/kaocha {:mvn/version "1.87.1366"}
+                     org.clojars.abhinav/snitch {:mvn/version "0.1.14"}}}
   :build {:extra-paths ["target"]
           :extra-deps {com.bhauman/figwheel-main {:mvn/version "0.2.18"}}
           :exec-fn matvaretabellen.export/export}}}
