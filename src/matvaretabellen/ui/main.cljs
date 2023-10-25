@@ -113,11 +113,23 @@
     (update-vals (apply hash-map (str/split (subs js/location.search 1) #"[=&]"))
                  #(js/decodeURIComponent %))))
 
+(defn count-decimals [n]
+  (if (= (Math/floor n) n)
+    0
+    (count (second (str/split (str n) #"\.")))))
+
+(defn calc-new-portion-fraction [portion-size per-100g]
+  (let [orig-decimals (count-decimals per-100g)]
+    (str/replace (.toFixed (* portion-size (/ per-100g 100.0))
+                           (+ 2 orig-decimals)) ;; max 2 extra decimals
+                 #"\.?0+$" "")))
+
 (defn handle-portion-select-event [e portion-elements]
-  (let [portion-size-in-grams (js/Number. (.-value (.-target e)))]
+  (let [portion-size (js/Number. (.-value (.-target e)))]
     (doseq [elem (seq portion-elements)]
-      (set! (.-innerHTML elem) (* portion-size-in-grams
-                                  (/ (js/Number. (.-portion (.-dataset elem))) 100.0))))))
+      (set! (.-innerHTML elem)
+            (calc-new-portion-fraction portion-size
+                                       (js/Number. (.-portion (.-dataset elem))))))))
 
 (defn initialize-portion-selector [select-element portion-elements]
   (when select-element
