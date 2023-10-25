@@ -1,5 +1,6 @@
 (ns matvaretabellen.pages.food-page
   (:require [broch.core :as b]
+            [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.components.toc :refer [Toc]]
             [matvaretabellen.crumbs :as crumbs]
@@ -106,7 +107,10 @@
          [:div {:style {:margin-bottom 5}} [:i18n ::portion-size]]
          [:select.select.form-field#portion-selector
           [:option {:value "100"} "100 gram"]
-          [:option {:value "1000"} "1000 gram"]]]]
+          (for [portion (:food/portions food)]
+            (let [grams (int (b/num (:portion/quantity portion)))]
+              [:option {:value grams} (str "1 " (str/lower-case (:portion-kind/name (:portion/kind portion)))
+                                           " (" grams " gram)")]))]]]
        [:div.container.container-narrow.text#naringsinnhold
         [:h3.h3 [:i18n ::nutrition-heading]]
         [:ul.subtle-list
