@@ -8,6 +8,7 @@
         com.magnars/confair {:mvn/version "2022.04.25"}
         datomic-type-extensions/datomic-type-extensions {:mvn/version "2023.09.26"}
         no.anteo/broch {:mvn/version "0.1.83"}
+        no.cjohansen/fontawesome-clj {:mvn/version "2023.10.26"}
         no.cjohansen/powerpack {:git/url "https://github.com/cjohansen/powerpack.git"
                                 :sha "aa350c8ad5d3af650fa153b9d0498fbe6d29b7c4"}
         org.apache.poi/poi {:mvn/version "5.2.0"}

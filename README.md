@@ -42,6 +42,12 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac.
 I skrivende stund har vi bare fyrt opp en Portfolio-site hvor vi kan snekre
 sammen komponenter og UI-elementer. Denne kan du kjøre ved å gjøre noe slikt:
 
+- Sørg for at du har [FontAwesome](https://fontawesome.com)-ikonene:
+
+    ```
+    make prepare-dev
+    ```
+
 - Skaff Clojure
 
     ```
