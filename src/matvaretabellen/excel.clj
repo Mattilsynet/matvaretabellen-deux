@@ -35,10 +35,13 @@
 (defn get-basic-food-fields [db locale]
   [{:title "Matvare ID" :path [:food/id]}
    {:title "Matvare" :path [:food/name locale]}
-   {:title "Spiselig del (%)" :path [:food/edible-part :measurement/percent]}
+   {:title "Spiselig del (%)" :measurement {:path [:food/edible-part]
+                                            :field :measurement/percent}}
    (d/entity db [:nutrient/id "Vann"])
-   {:title "Kilojoule (kJ)" :path [:food/energy :measurement/quantity]}
-   {:title "Kilokalorier (kcal)" :path [:food/calories :measurement/observation]}
+   {:title "Kilojoule (kJ)" :measurement {:path [:food/energy]
+                                          :field :measurement/quantity}}
+   {:title "Kilokalorier (kcal)" :measurement {:path [:food/calories]
+                                               :field :measurement/observation}}
    (d/entity db [:nutrient/id "Fett"])
    (d/entity db [:nutrient/id "Karbo"])
    (d/entity db [:nutrient/id "Fiber"])
@@ -65,12 +68,22 @@
       b/num)))
 
 (defn prepare-food-cells [fields food]
-  (for [field fields]
+  (for [{:keys [path measurement] :as f} fields]
     {:text (str (cond
-                  (:path field) (get-scalar-at-path food (:path field))
-                  (:nutrient/id field) (some-> (get-constituent food (:nutrient/id field))
-                                               :measurement/quantity
-                                               b/num)))}))
+                  path (get-scalar-at-path food path)
+                  measurement (get-in food (conj (:path measurement) (:field measurement)))
+                  (:nutrient/id f) (some-> (get-constituent food (:nutrient/id f))
+                                           :measurement/quantity
+                                           b/num)))}))
+
+(defn prepare-reference-cells [fields food]
+  (for [{:keys [path measurement] :as f} fields]
+    {:text (str (cond
+                  path (get-scalar-at-path food path)
+                  measurement (get-in food (into (:path measurement) [:measurement/origin :origin/id]))
+                  (:nutrient/id f) (some-> (get-constituent food (:nutrient/id f))
+                                           :measurement/origin
+                                           :origin/id)))}))
 
 (defn prepare-foods-header-row [fields locale]
   {:bold? true
@@ -84,6 +97,12 @@
    :rows (into [(prepare-foods-header-row fields locale)]
                (for [food (sort-by :food/id foods)]
                  {:cells (prepare-food-cells fields food)}))})
+
+(defn prepare-reference-sheet [locale title fields foods]
+  {:title title
+   :rows (into [(prepare-foods-header-row fields locale)]
+               (for [food (sort-by :food/id foods)]
+                 {:cells (prepare-reference-cells fields food)}))})
 
 (comment
 
@@ -102,7 +121,11 @@
   (prepare-foods-sheet locale "Matvarer (alle næringsstoffer)" (get-all-food-fields db locale) foods)
 
   (create-excel-file "test.xlsx"
-                     [(prepare-foods-sheet locale "Matvarer" (get-basic-food-fields db locale) foods)
-                      (prepare-foods-sheet locale "Matvarer (alle næringsstoffer)" (get-all-food-fields db locale) foods)])
+                     (let [basic-fields (get-basic-food-fields db locale)
+                           all-fields (get-all-food-fields db locale)]
+                       [(prepare-foods-sheet locale "Matvarer" basic-fields foods)
+                        (prepare-reference-sheet locale "Referanser" basic-fields foods)
+                        (prepare-foods-sheet locale "Matvarer (alle næringsstoffer)" all-fields foods)
+                        (prepare-reference-sheet locale "Referanser (alle næringsstoffer)" all-fields foods)]))
 
   )
