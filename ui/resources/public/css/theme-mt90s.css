@@ -176,4 +176,8 @@
 
     --mt-component-form-field-border: var(--mt-color-beige-500);
     --mt-component-form-field-background: var(--mt-color-white);
+
+    --mt-component-ac-background: var(--mt-component-form-field-background);
+    --mt-component-ac-border-color: var(--mt-component-form-field-border);
+    --mt-component-ac-active-background: var(--mt-color-blue-100);
 }

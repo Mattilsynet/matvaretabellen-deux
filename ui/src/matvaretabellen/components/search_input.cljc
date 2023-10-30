@@ -6,9 +6,10 @@
   [:fieldset.mvt-search-input
    [:div.mvt-action-input
     (TextInput
-     (cond-> {:id (:name input)
-              :name (:name input)
-              :type "search"}
+     (cond-> (assoc input :type "search")
+       (:name input)
+       (assoc :id (:name input))
+
        autocomplete-id
        (assoc :aria-autocomplete "list"
               :autocomplete "off"
@@ -19,4 +20,7 @@
      [:ol.mvt-ac-results
       (for [result results]
         [:li.mvt-ac-result
-         [:a {:href (:href result)} (:text result)]])])])
+         (when (:selected? result)
+           {:class "mvt-ac-selected"})
+         [:a {:href (:href result)}
+          (:text result)]])])])
