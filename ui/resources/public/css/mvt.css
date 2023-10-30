@@ -153,6 +153,18 @@ body.mvt {
     line-height: var(--mt-typography-preamble-s-line-height);
 }
 
+/******************
+ *** Focusables ***
+ ******************/
+
+/* Give it some weight to combat any box-shadow: none on classes that are
+   combined with the focusable class */
+.mvt-focusable:focus,
+.mvt .mvt-focusable:focus {
+    outline: none;
+    box-shadow: var(--mt-focusable-shadow);
+}
+
 /**************
  *** Images ***
  **************/

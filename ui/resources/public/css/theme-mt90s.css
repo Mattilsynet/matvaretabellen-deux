@@ -151,6 +151,8 @@
     --mt-border-radius-m: 5px;
     --mt-border-radius-circle: 50%;
 
+    --mt-focusable-shadow: 0 0 0 2px var(--mt-color-beige-100), 0 0 0 0.35rem var(--mt-color-blue-200);
+
     /* Components and layouts (should possibly end up in separate files) */
     --mt-layout-container-width: var(--mt-grid-desktop-width);
     --mt-layout-container-gutter: var(--mt-grid-desktop-padding);
@@ -158,7 +160,6 @@
     --mt-component-button-background: var(--mt-color-surface-action-default);
     --mt-component-button-color: var(--mt-color-text-neutral-on-inverted);
     --mt-component-button-font-size: 1.125rem;
-    --mt-component-button-focus-shadow: 0 0 0 2px var(--mt-color-beige-100), 0 0 0 0.35rem var(--mt-color-blue-200);
     --mt-component-button-border-radius: 0.25em;
 
     --mt-component-header-border-color: var(--mt-color-red-500);
