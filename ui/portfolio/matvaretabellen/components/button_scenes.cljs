@@ -1,5 +1,6 @@
 (ns matvaretabellen.components.button-scenes
-  (:require [mt-designsystem.components.button :as b]
+  (:require [fontawesome.icons :as icons]
+            [mt-designsystem.components.button :as b]
             [mt-designsystem.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
@@ -17,3 +18,24 @@
    (b/button {:text "Trykk på knappen"
               :href "/hello"
               :inline? true})))
+
+(defscene button-with-icon
+  (e/p
+   (b/button {:text "Trykk på knappen"
+              :href "/hello"
+              :icon (icons/icon :fontawesome.solid/magnifying-glass)})))
+
+(defscene inline-button-with-icon
+  (e/p
+   (b/button {:text "Trykk på knappen"
+              :href "/hello"
+              :icon (icons/icon :fontawesome.solid/magnifying-glass)
+              :inline? true})))
+
+(defscene big-button-with-icon
+  (e/p
+   (b/button {:text "Trykk på knappen"
+              :href "/hello"
+              :icon (icons/icon :fontawesome.solid/magnifying-glass)
+              :inline? true
+              :size :large})))
