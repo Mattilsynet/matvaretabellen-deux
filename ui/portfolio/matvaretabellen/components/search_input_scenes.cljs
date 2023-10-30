@@ -1,5 +1,6 @@
 (ns matvaretabellen.components.search-input-scenes
-  (:require [matvaretabellen.components.search-input :refer [SearchInput]]
+  (:require [fontawesome.icons :as icons]
+            [matvaretabellen.components.search-input :refer [SearchInput]]
             [matvaretabellen.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
@@ -7,14 +8,16 @@
   (e/block
    (SearchInput
     {:label "Søk i Matvaretabellen"
-     :button {:text "Søk"}
+     :button {:text "Søk"
+              :icon (icons/icon :fontawesome.solid/magnifying-glass)}
      :input {:name "my-search"}})))
 
 (defscene eple-search
   (e/block {:style {:min-height "200px"}}
    (SearchInput
     {:label "Søk i Matvaretabellen"
-     :button {:text "Søk"}
+     :button {:text "Søk"
+              :icon (icons/icon :fontawesome.solid/magnifying-glass)}
      :input {:name "my-search" :value "epl"}
      :results [{:href "#" :text "Eple, tørket"}
                {:href "#" :text "Eple, rått"}
@@ -24,7 +27,8 @@
   (e/block {:style {:min-height "200px"}}
    (SearchInput
     {:label "Søk i Matvaretabellen"
-     :button {:text "Søk"}
+     :button {:text "Søk"
+              :icon (icons/icon :fontawesome.solid/magnifying-glass)}
      :input {:name "my-search" :value "epl"}
      :results [{:href "#" :text "Eple, tørket"}
                {:href "#" :text "Eple, rått" :selected? true}
