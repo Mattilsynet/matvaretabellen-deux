@@ -26,6 +26,12 @@ body.mvt {
     margin: 0;
 }
 
+.mvt fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
 /************************
  *** Basic typography ***
  ************************/
@@ -286,9 +292,6 @@ body.mvt {
  ***************************/
 
 .mvt-search-input {
-    border: none;
-    margin: 0;
-    padding: 0;
     position: relative;
 }
 
