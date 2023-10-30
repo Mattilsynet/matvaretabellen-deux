@@ -359,6 +359,14 @@ body.mvt {
     padding: 0 var(--mt-layout-container-gutter);
 }
 
+/******************************
+ *** Component: Breadcrumbs ***
+ ******************************/
+
+.mvt-breadcrumb .mvt-link {
+    margin-right: var(--mt-spacing-x0_5);
+}
+
 /*************************
  *** Component: Button ***
  *************************/
@@ -432,4 +440,20 @@ body.mvt {
 .mvt-header .mvt-svg {
     color: var(--mt-component-header-logo-color);
     height: 1.8rem;
+}
+
+/*************************
+ *** Component: Header ***
+ *************************/
+
+.mvt-horizontal-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mvt-horizontal-list li {
+    margin: 0 var(--mt-spacing-x0_5) 0 0;
+    padding: 0;
+    display: inline;
 }
