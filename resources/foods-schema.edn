@@ -1,4 +1,9 @@
-[{:db/ident :food/id
+[
+ ;; Food
+ ;;
+ ;; Representerer én matvare i tabellen.
+
+ {:db/ident :food/id
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/unique :db.unique/identity}
@@ -52,7 +57,10 @@
   :db/isComponent true
   :db/cardinality :db.cardinality/many}
 
- ;; Constituents
+ ;; Constituents / Measurements
+ ;;
+ ;; Bestanddeler av mat, en mengde av et næringsmiddel.
+ ;; En måling er et tall med en kilde (hvor kommer tallet fra).
 
  {:db/ident :constituent/nutrient
   :db/valueType :db.type/ref
@@ -74,17 +82,10 @@
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one}
 
- ;; Portions
-
- {:db/ident :portion/kind
-  :db/valueType :db.type/ref
-  :db/cardinality :db.cardinality/one}
-
- {:db/ident :portion/quantity
-  :dte/valueType :broch/quantity
-  :db/cardinality :db.cardinality/one}
-
  ;; Portion kind
+ ;;
+ ;; En matvare serveres gjerne i forskjellige porsjoner,
+ ;; slik som en bukett med blomkål eller et beger med yoghurt.
 
  {:db/ident :portion-kind/id
   :db/valueType :db.type/keyword
@@ -99,7 +100,22 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
 
+ ;; Portions
+ ;;
+ ;; En konkret porsjonsstørrelse for en matvare, med vanlig størrelse.
+ ;; Eksempelvis er 1 stk banan beregnet til 120 gram.
+
+ {:db/ident :portion/kind
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :portion/quantity
+  :dte/valueType :broch/quantity
+  :db/cardinality :db.cardinality/one}
+
  ;; Food group
+ ;;
+ ;; Matvarer deles inn i et hierarki av matvaregrupper.
 
  {:db/ident :food-group/id
   :db/valueType :db.type/string
@@ -113,6 +129,11 @@
  {:db/ident :food-group/name
   :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
+
+ ;; Nutrient
+ ;;
+ ;; Et næringsstoff, som også forstås hierarkisk
+ ;; Eksempelvis fett og diverse fettsyrer.
 
  {:db/ident :nutrient/id
   :db/valueType :db.type/string
@@ -144,6 +165,10 @@
   :db/valueType :db.type/long
   :db/cardinality :db.cardinality/one}
 
+ ;; Origin
+ ;;
+ ;; En kilde for hvordan en måling er beregnet / funnet.
+
  {:db/ident :origin/id
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
@@ -152,6 +177,10 @@
  {:db/ident :origin/description
   :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
+
+ ;; Langual code
+ ;;
+ ;; Et artig klassifiseringssystem for matvarer og deres iboende egenskaper.
 
  {:db/ident :langual-code/id
   :db/valueType :db.type/string
