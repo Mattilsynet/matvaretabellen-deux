@@ -1,6 +1,7 @@
 (ns matvaretabellen.excel
   (:import [org.apache.poi.xssf.usermodel XSSFWorkbook])
   (:require [broch.core :as b]
+            [clojure.string :as str]
             [datomic-type-extensions.api :as d]))
 
 (defn add-index [coll]
@@ -31,25 +32,31 @@
 
     :done))
 
-(defn get-food-fields [locale]
+(defn get-basic-food-fields [db locale]
   [{:title "Matvare ID" :path [:food/id]}
    {:title "Matvare" :path [:food/name locale]}
    {:title "Spiselig del (%)" :path [:food/edible-part :measurement/percent]}
-   {:title "Vann (g)" :constituent "Vann"}
+   (d/entity db [:nutrient/id "Vann"])
    {:title "Kilojoule (kJ)" :path [:food/energy :measurement/quantity]}
    {:title "Kilokalorier (kcal)" :path [:food/calories :measurement/observation]}
-   {:title "Fett (g)" :constituent "Fett"}
-   {:title "Karbohydrater (g)" :constituent "Karbo"}
-   {:title "Kostfiber (g)" :constituent "Fiber"}
-   {:title "Protein (g)" :constituent "Protein"}
-   {:title "Alkohol (g)" :constituent "Alko"}])
+   (d/entity db [:nutrient/id "Fett"])
+   (d/entity db [:nutrient/id "Karbo"])
+   (d/entity db [:nutrient/id "Fiber"])
+   (d/entity db [:nutrient/id "Protein"])
+   (d/entity db [:nutrient/id "Alko"])])
 
-(defn get-constituent-value [food id]
+(defn get-all-food-fields [db locale]
+  (->> (d/q '[:find [?e ...] :where [?e :nutrient/id]]
+            db)
+       (map #(d/entity db %))
+       (sort-by :nutrient/id)
+       (into [{:title "Matvare ID" :path [:food/id]}
+              {:title "Matvare" :path [:food/name locale]}])))
+
+(defn get-constituent [food nutrient-id]
   (some->> (:food/constituents food)
-           (filter (comp #{id} :nutrient/id :constituent/nutrient))
-           first
-           :measurement/quantity
-           b/num))
+           (filter (comp #{nutrient-id} :nutrient/id :constituent/nutrient))
+           first))
 
 (defn get-scalar-at-path [food path]
   (let [v (get-in food path)]
@@ -57,38 +64,45 @@
       (instance? broch.impl.Quantity v)
       b/num)))
 
-(defn prepare-food-cells [locale food]
-  (for [{:keys [path constituent]} (get-food-fields locale)]
+(defn prepare-food-cells [fields food]
+  (for [field fields]
     {:text (str (cond
-                  path (get-scalar-at-path food path)
-                  constituent (get-constituent-value food constituent)))}))
+                  (:path field) (get-scalar-at-path food (:path field))
+                  (:nutrient/id field) (some-> (get-constituent food (:nutrient/id field))
+                                               :measurement/quantity
+                                               b/num)))}))
 
-(defn prepare-foods-header-row [locale]
+(defn prepare-foods-header-row [fields locale]
   {:bold? true
-   :cells (for [{:keys [title]} (get-food-fields locale)]
-            {:text title})})
+   :cells (for [field fields]
+            {:text (or (:title field)
+                       (str (get-in field [:nutrient/name locale])
+                            " (" (:nutrient/unit field) ")"))})})
 
-(defn prepare-foods-sheet [locale title foods]
+(defn prepare-foods-sheet [locale title fields foods]
   {:title title
-   :rows (into [(prepare-foods-header-row locale)]
+   :rows (into [(prepare-foods-header-row fields locale)]
                (for [food (sort-by :food/id foods)]
-                 {:cells (prepare-food-cells locale food)}))})
+                 {:cells (prepare-food-cells fields food)}))})
 
 (comment
 
   (def db (d/db matvaretabellen.dev/conn))
   (def food (d/entity db [:food/id "06.531"]))
+  (def locale :nb)
+  (def fields (get-basic-food-fields db locale))
 
-  (prepare-food-cells :nb food)
+  (prepare-food-cells fields food)
 
   (def foods [food])
   (def foods (for [eid (d/q '[:find [?e ...] :where [?e :food/id]] db)]
                (d/entity db eid)))
 
-  (prepare-foods-sheet :nb "Matvarer" foods)
+  (prepare-foods-sheet locale "Matvarer" (get-basic-food-fields db locale) foods)
+  (prepare-foods-sheet locale "Matvarer (alle næringsstoffer)" (get-all-food-fields db locale) foods)
 
-  (create-excel-file "test.xlsx" [(prepare-foods-sheet :nb "Matvarer" foods)])
-
-
+  (create-excel-file "test.xlsx"
+                     [(prepare-foods-sheet locale "Matvarer" (get-basic-food-fields db locale) foods)
+                      (prepare-foods-sheet locale "Matvarer (alle næringsstoffer)" (get-all-food-fields db locale) foods)])
 
   )
