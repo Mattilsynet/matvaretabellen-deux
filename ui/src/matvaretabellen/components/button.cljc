@@ -1,4 +1,4 @@
-(ns mt-designsystem.components.button
+(ns matvaretabellen.components.button
   (:require [fontawesome.icons :as icons]))
 
 (def sizes

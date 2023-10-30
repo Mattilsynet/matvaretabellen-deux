@@ -1,7 +1,7 @@
 (ns matvaretabellen.components.button-scenes
   (:require [fontawesome.icons :as icons]
-            [mt-designsystem.components.button :as b]
-            [mt-designsystem.elements :as e]
+            [matvaretabellen.components.button :as b]
+            [matvaretabellen.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
 (defscene regular-button

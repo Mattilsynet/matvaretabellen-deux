@@ -1,5 +1,5 @@
 (ns matvaretabellen.layouts.container-scenes
-  (:require [mt-designsystem.elements :as e]
+  (:require [matvaretabellen.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
 (defscene container

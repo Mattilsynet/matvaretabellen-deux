@@ -1,4 +1,4 @@
-(ns mt-designsystem.elements)
+(ns matvaretabellen.elements)
 
 (defn ^:export h1 [& args]
   (into [:h1.mvt-h1] args))
