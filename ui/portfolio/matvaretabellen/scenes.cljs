@@ -3,6 +3,7 @@
             [matvaretabellen.components.button-scenes]
             [matvaretabellen.components.nutrition-table-scenes]
             [matvaretabellen.components.pie-chart-scenes]
+            [matvaretabellen.components.text-input-scenes]
             [matvaretabellen.components.toc-scenes]
             [matvaretabellen.elements.image-scenes]
             [matvaretabellen.elements.table-scenes]
@@ -16,6 +17,7 @@
 :matvaretabellen.components.button-scenes/keep
 :matvaretabellen.components.nutrition-table-scenes/keep
 :matvaretabellen.components.pie-chart-scenes/keep
+:matvaretabellen.components.text-input-scenes/keep
 :matvaretabellen.components.toc-scenes/keep
 :matvaretabellen.elements.image-scenes/keep
 :matvaretabellen.elements.table-scenes/keep
@@ -36,7 +38,6 @@
    {:config
     {:canvas-path "canvas.html"
      :css-paths ["/css/theme-mt90s.css"
-                 "/css/mvt.css"
-                 ]
+                 "/css/mvt.css"]
      :viewport/defaults
      {:viewport/padding [0 0 24 24]}}}))

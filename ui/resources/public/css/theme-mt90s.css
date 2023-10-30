@@ -173,4 +173,7 @@
     --mt-component-table-thead-th-font-weight: var(--mt-font-weight-bold);
     --mt-component-table-tbody-th-font-size: 1rem;
     --mt-component-table-tbody-th-font-weight: var(--mt-font-weight-normal);
+
+    --mt-component-form-field-border: var(--mt-color-beige-500);
+    --mt-component-form-field-background: var(--mt-color-white);
 }

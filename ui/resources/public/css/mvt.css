@@ -238,6 +238,21 @@ body.mvt {
     font-weight: var(--mt-component-table-tbody-th-font-weight);
 }
 
+/*************************
+ *** Forms: Text input ***
+ *************************/
+
+.mvt-input {
+    width: 100%;
+    padding: 0.75em 0.5em;
+    border: 1px solid var(--mt-component-form-field-border);
+    border-radius: 0.25em;
+    background-color: var(--mt-component-form-field-background);
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+}
+
 /************************
  *** Responsive sizes ***
  ************************/
