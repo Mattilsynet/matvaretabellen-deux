@@ -455,12 +455,12 @@ ol.mvt-unadorned-list li {
     justify-self: center;
     gap: var(--mt-component-footer-gap);
     border-top: 2px solid var(--mt-component-footer-border-color);
-    padding: 4.5rem 0;
+    padding: 1rem 0;
 }
 
 .mvt-footer .mvt-logo {
     width: 200px;
-    align-self: flex-start;
+    align-self: center;
     justify-self: end;
 }
 
@@ -477,6 +477,11 @@ ol.mvt-unadorned-list li {
 @media only screen and (min-width: 768px) {
     .mvt-footer {
         flex-direction: row;
+        padding: 4.5rem 0;
+    }
+
+    .mvt-footer .mvt-logo {
+        align-self: flex-start;
     }
 }
 
