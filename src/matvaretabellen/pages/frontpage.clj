@@ -53,10 +53,10 @@
        [:div.container.mtl
         [:div.flex.flex-gap-l
          (Toc {:title [:i18n ::common-food-searches]
-               :contents [{:title "Brød" :href "?search=brød"}
-                          {:title "Leverpostei" :href "?search=leverpostei"}
-                          {:title "Lettmelk" :href "?search=lettmelk"}
-                          {:title "Torsk" :href "?search=torsk"}]})
+               :contents [{:title "Egg" :href "?search=egg"}
+                          {:title "Gulrot" :href "?search=gulrot"}
+                          {:title "Havregryn" :href "?search=havregryn"}
+                          {:title "Potet" :href "?search=potet"}]})
          [:div {:style {:flex 1}}
           (Toc {:title (list [:i18n ::new-in-food-table] " 2023")
                 :contents [{:title "Egyptisk tahini"
