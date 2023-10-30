@@ -162,6 +162,9 @@
     --mt-component-button-font-size: 1.125rem;
     --mt-component-button-border-radius: 0.25em;
 
+    --mt-component-footer-border-color: var(--mt-color-red-500);
+    --mt-component-footer-gap: var(--mt-spacing-x1_4);
+
     --mt-component-header-border-color: var(--mt-color-red-500);
     --mt-component-header-logo-color: var(--mt-color-red-500);
 

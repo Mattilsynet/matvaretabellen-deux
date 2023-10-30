@@ -1,8 +1,8 @@
 (ns mt-designsystem.components.mattilsynet-logo)
 
 (defn MattilsynetLogo []
-  [:svg
-   {:width "200" :height "146" :viewBox "0 0 200 146" :fill "none" :xmlns "http://www.w3.org/2000/svg"}
+  [:svg.mvt-logo
+   {:viewBox "0 0 200 146" :fill "none" :xmlns "http://www.w3.org/2000/svg"}
    [:path {:d "M75.087 75.1927H43.0292V96.0498H75.087V75.1927Z" :fill "white"}]
    [:path {:d "M122.558 70.3795H90.5004V91.2367H122.558V70.3795Z" :fill "white"}]
    [:path {:d "M105.379 74.7649C105.967 75.781 106.663 76.3158 107.466 76.5832C108.322 76.8506 110.249 77.0645 111.426 76.2623C112.604 75.5136 113.835 74.2301 114.37 73.0535C114.691 72.2513 115.119 71.4491 115.494 70.3795H104.897C104.95 71.7165 104.897 73.9092 105.379 74.7649Z" :fill "#CF3339"}]

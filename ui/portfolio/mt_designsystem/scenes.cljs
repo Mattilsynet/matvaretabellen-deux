@@ -1,8 +1,10 @@
 (ns mt-designsystem.scenes
   (:require [mt-designsystem.components.breadcrumbs-scenes]
+            [mt-designsystem.components.footer-scenes]
             [mt-designsystem.components.site-header-scenes]))
 
 :mt-designsystem.components.breadcrumbs-scenes/keep
+:mt-designsystem.components.footer-scenes/keep
 :mt-designsystem.components.site-header-scenes/keep
 
 ;; Commented out to avoid starting two Portfolio instances

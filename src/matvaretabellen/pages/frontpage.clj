@@ -4,7 +4,7 @@
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.urls :as urls]
             [mt-designsystem.components.breadcrumbs :refer [Breadcrumbs]]
-            [mt-designsystem.components.footer :refer [Footer]]
+            [mt-designsystem.components.footer :refer [SiteFooter]]
             [mt-designsystem.components.search-input :refer [SearchInput]]
             [mt-designsystem.components.site-header :refer [SiteHeader]]))
 
@@ -71,4 +71,4 @@
                :contents (for [id ["06.010" "06.003" "06.016" "06.055"]]
                            (get-food-info locale db id))})]]
        [:div.container.mtl
-        (Footer)]]]]))
+        (SiteFooter)]]]]))

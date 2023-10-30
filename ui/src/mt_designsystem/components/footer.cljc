@@ -1,19 +1,33 @@
 (ns mt-designsystem.components.footer
   (:require [mt-designsystem.components.mattilsynet-logo :refer [MattilsynetLogo]]))
 
-(defn Footer []
-  [:footer.footer.footer--regular {:aria-labelledby "footer-title"}
-   [:h2#footer-title.inclusively-hidden [:i18n :footer-title]]
-   [:div.col
-    [:h3 [:i18n ::about-site]]
-    [:p [:a {:href "https://www.mattilsynet.no/?show=newsletter"} [:i18n ::newsletter]]]
-    [:p [:a {:href "https://www.mattilsynet.no/om-mattilsynet/personvernerklaering-og-informasjonskapsler"} [:i18n ::privacy-and-cookies]]]
-    [:p [:a {:href "https://uustatus.no/nn/erklaringer/publisert/6f6c62f4-caa7-413c-a446-a573a10c243c"} [:i18n ::accessibility-statement]]]
-    [:p [:a {:href "https://www.mattilsynet.no/om-mattilsynet/api"} [:i18n ::open-data]]]]
-   [:div.col
-    [:h3 [:i18n ::about-mattilsynet]]
-    [:p [:a {:href "https://www.mattilsynet.no/om_mattilsynet/"} [:i18n ::about-us]]]
-    [:p [:a {:href "https://www.mattilsynet.no/om-mattilsynet/jobbe-i-mattilsynet"} [:i18n ::job-openings]]]
-    [:p [:a {:href "https://www.mattilsynet.no/kontakt-oss"} [:i18n ::contact-us]]]
-    [:p [:a {:href "https://www.mattilsynet.no/varsle"} [:i18n ::report-to-us]]]]
+(defn Footer [{:keys [cols]}]
+  [:footer.mvt-footer
+   (for [{:keys [title links]} cols]
+     [:div.mvt-text.mvt-footer-col
+      [:h3 title]
+      [:ul.mvt-unadorned-list
+       (for [{:keys [url text]} links]
+         [:li [:a {:href url} text]])]])
    (MattilsynetLogo)])
+
+(defn SiteFooter []
+  (Footer
+   {:cols [{:title [:i18n ::about-site]
+            :links [{:url "https://www.mattilsynet.no/?show=newsletter"
+                     :text [:i18n ::newsletter]}
+                    {:url "https://www.mattilsynet.no/om-mattilsynet/personvernerklaering-og-informasjonskapsler"
+                     :text [:i18n ::privacy-and-cookies]}
+                    {:url "https://uustatus.no/nn/erklaringer/publisert/6f6c62f4-caa7-413c-a446-a573a10c243c"
+                     :text [:i18n ::accessibility-statement]}
+                    {:url "https://www.mattilsynet.no/om-mattilsynet/api"
+                     :text [:i18n ::open-data]}]}
+           {:title [:i18n ::about-mattilsynet]
+            :links [{:url "https://www.mattilsynet.no/om_mattilsynet/"
+                     :text [:i18n ::about-us]}
+                    {:url "https://www.mattilsynet.no/om-mattilsynet/jobbe-i-mattilsynet"
+                     :text [:i18n ::job-openings]}
+                    {:url "https://www.mattilsynet.no/kontakt-oss"
+                     :text [:i18n ::contact-us]}
+                    {:url "https://www.mattilsynet.no/varsle"
+                     :text [:i18n ::report-to-us]}]}]}))
