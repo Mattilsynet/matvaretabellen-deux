@@ -157,12 +157,20 @@ body.mvt {
  *** Focusables ***
  ******************/
 
+.mvt-focusable {
+    transition: box-shadow 0.15s ease-in-out;
+}
+
 /* Give it some weight to combat any box-shadow: none on classes that are
    combined with the focusable class */
 .mvt-focusable:focus,
 .mvt .mvt-focusable:focus {
     outline: none;
     box-shadow: var(--mt-focusable-shadow);
+}
+
+.mvt-focusable:focus {
+    z-index: 1;
 }
 
 /**************
@@ -253,6 +261,26 @@ body.mvt {
     font-size: inherit;
 }
 
+/***************************
+ *** Forms: Action input ***
+ ***************************/
+
+.mvt-action-input {
+    display: flex;
+}
+
+.mvt-action-input :first-child {
+    flex-grow: 1;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.mvt-action-input :last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: -1px;
+}
+
 /************************
  *** Responsive sizes ***
  ************************/
@@ -307,7 +335,7 @@ body.mvt {
     text-align: center;
     text-decoration: none;
     transition: none 180ms ease-in-out;
-    transition-property: background-color, color, border-color;
+    transition-property: background-color, color, border-color, box-shadow;
     vertical-align: middle;
     width: 100%;
 }

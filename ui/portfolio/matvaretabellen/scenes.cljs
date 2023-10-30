@@ -3,6 +3,7 @@
             [matvaretabellen.components.button-scenes]
             [matvaretabellen.components.nutrition-table-scenes]
             [matvaretabellen.components.pie-chart-scenes]
+            [matvaretabellen.components.search-input-scenes]
             [matvaretabellen.components.text-input-scenes]
             [matvaretabellen.components.toc-scenes]
             [matvaretabellen.elements.image-scenes]
@@ -17,6 +18,7 @@
 :matvaretabellen.components.button-scenes/keep
 :matvaretabellen.components.nutrition-table-scenes/keep
 :matvaretabellen.components.pie-chart-scenes/keep
+:matvaretabellen.components.search-input-scenes/keep
 :matvaretabellen.components.text-input-scenes/keep
 :matvaretabellen.components.toc-scenes/keep
 :matvaretabellen.elements.image-scenes/keep
