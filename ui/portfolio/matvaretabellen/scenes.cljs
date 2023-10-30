@@ -9,6 +9,7 @@
             [matvaretabellen.elements.typography-scenes]
             [matvaretabellen.layouts.container-scenes]
             [mt-designsystem.scenes]
+            [portfolio.data :as data]
             [portfolio.ui :as ui]))
 
 :matvaretabellen.colors.mattilsynet-90s-scenes/keep
@@ -21,6 +22,14 @@
 :matvaretabellen.elements.typography-scenes/keep
 :matvaretabellen.layouts.container-scenes/keep
 :mt-designsystem.scenes/keep
+
+(data/register-collection!
+ :matvaretabellen.components
+ {:title "Matvaretabellen Components"})
+
+(data/register-collection!
+ :mt-designsystem.components
+ {:title "Design system Components"})
 
 (defonce app
   (ui/start!
