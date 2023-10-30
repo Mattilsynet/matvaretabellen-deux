@@ -1,12 +1,12 @@
 (ns matvaretabellen.pages.frontpage
   (:require [datomic-type-extensions.api :as d]
-            [matvaretabellen.components.toc :refer [Toc]]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.urls :as urls]
-            [mt-designsystem.components.breadcrumbs :refer [Breadcrumbs]]
-            [mt-designsystem.components.footer :refer [SiteFooter]]
-            [mt-designsystem.components.search-input :refer [SearchInput]]
-            [mt-designsystem.components.site-header :refer [SiteHeader]]))
+            [mmm.components.breadcrumbs :refer [Breadcrumbs]]
+            [mmm.components.footer :refer [SiteFooter]]
+            [mmm.components.search-input :refer [SearchInput]]
+            [mmm.components.site-header :refer [SiteHeader]]
+            [mmm.components.toc :refer [Toc]]))
 
 (defn get-food-info [locale db id]
   (let [food-name (get-in (d/entity db [:food/id id]) [:food/name locale])]
@@ -47,7 +47,7 @@
          (SearchInput {:button {:text [:i18n ::search-button]}
                        :input {:name "foods-search"}
                        :autocomplete-id "foods-results"})]]
-       [:div.mvt-secondary-banner.mtxxl
+       [:div.mmm-secondary-banner.mtxxl
         [:div.container
          (BananaTeaserBox locale db)]]
        [:div.container.mtl

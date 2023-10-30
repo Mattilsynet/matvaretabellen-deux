@@ -157,10 +157,17 @@
     --mt-layout-container-width: var(--mt-grid-desktop-width);
     --mt-layout-container-gutter: var(--mt-grid-desktop-padding);
 
+    --mt-component-ac-background: var(--mt-component-form-field-background);
+    --mt-component-ac-border-color: var(--mt-component-form-field-border);
+    --mt-component-ac-active-background: var(--mt-color-blue-100);
+
     --mt-component-button-background: var(--mt-color-surface-action-default);
     --mt-component-button-color: var(--mt-color-text-neutral-on-inverted);
     --mt-component-button-font-size: 1.125rem;
     --mt-component-button-border-radius: 0.25em;
+
+    --mt-component-form-field-border: var(--mt-color-beige-500);
+    --mt-component-form-field-background: var(--mt-color-white);
 
     --mt-component-footer-border-color: var(--mt-color-red-500);
     --mt-component-footer-gap: var(--mt-spacing-x1_4);
@@ -177,10 +184,6 @@
     --mt-component-table-tbody-th-font-size: 1rem;
     --mt-component-table-tbody-th-font-weight: var(--mt-font-weight-normal);
 
-    --mt-component-form-field-border: var(--mt-color-beige-500);
-    --mt-component-form-field-background: var(--mt-color-white);
-
-    --mt-component-ac-background: var(--mt-component-form-field-background);
-    --mt-component-ac-border-color: var(--mt-component-form-field-border);
-    --mt-component-ac-active-background: var(--mt-color-blue-100);
+    --mt-component-toc-icon-color: var(--mt-color-blue-200);
+    --mt-component-toc-border-color: var(--mt-color-beige-500);
 }

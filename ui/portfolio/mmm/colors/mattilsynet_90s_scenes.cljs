@@ -1,4 +1,4 @@
-(ns matvaretabellen.colors.mattilsynet-90s-scenes
+(ns mmm.colors.mattilsynet-90s-scenes
   (:require [clojure.string :as str]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 

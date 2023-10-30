@@ -1,4 +1,4 @@
-[#:mt-designsystem.components.footer
+[#:mmm.components.footer
  {:footer-title "Footer"
   :about-site "About the site"
   :newsletter "Newsletter"

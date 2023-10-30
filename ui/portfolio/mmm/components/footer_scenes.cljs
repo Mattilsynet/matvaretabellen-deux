@@ -1,6 +1,6 @@
-(ns mt-designsystem.components.footer-scenes
-  (:require [matvaretabellen.elements :as e]
-            [mt-designsystem.components.footer :refer [Footer]]
+(ns mmm.components.footer-scenes
+  (:require [mmm.components.footer :refer [Footer]]
+            [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
 (defscene footer

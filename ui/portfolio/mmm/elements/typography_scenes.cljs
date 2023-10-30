@@ -1,9 +1,9 @@
-(ns matvaretabellen.elements.typography-scenes
-  (:require [matvaretabellen.elements :as e]
+(ns mmm.elements.typography-scenes
+  (:require [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
 (defscene headings
-  "Frittstående headings styles med klassenavn, eksempelvis .mvt-h1"
+  "Frittstående headings styles med klassenavn, eksempelvis .mmm-h1"
   [:div
    (e/h1 "Dette er en h1!")
    (e/h2 "Dette er en h2")
@@ -14,65 +14,65 @@
 
 (defscene paragraph
   (e/p "Dette er en frittstående paragraf, den får sin styling ved å bruke
-   klassenavnet .mvt-p. Da blir det fart i sakene og tak i typografien. Mye kan
+   klassenavnet .mmm-p. Da blir det fart i sakene og tak i typografien. Mye kan
    sies om den helt vanlige paragrafen. Men det er en tid for alt. Så joda, så
    neida."))
 
 (defscene link
-  (e/p [:a.mvt-link {:href "#"} "En frittstående lenke med .mvt-link"]))
+  (e/p [:a.mmm-link {:href "#"} "En frittstående lenke med .mmm-link"]))
 
 (defscene fit-to-content
   [:div
-   (e/p {:class :mvt-fc} "Denne paragrafen er ikke så bred")
-   (e/p "Paragrafen over bruker .mvt-fc som gir width: fit-content.")])
+   (e/p {:class :mmm-fc} "Denne paragrafen er ikke så bred")
+   (e/p "Paragrafen over bruker .mmm-fc som gir width: fit-content.")])
 
 (defscene unordered-list
   (e/ul
    [:li "Dette er en punktliste"]
    [:li "Den kan ha mange punkter"]
    [:li "Det er kun fantasien som setter grenser"]
-   [:li "Frittstående lister får styles fra .mvt-ul"]))
+   [:li "Frittstående lister får styles fra .mmm-ul"]))
 
 (defscene ordered-list
   (e/ol
    [:li "Dette er en nummerert liste"]
    [:li "Den kan ha mange punkter"]
    [:li "Det er kun fantasien som setter grenser"]
-   [:li "Frittstående lister får styles fra .mvt-ol"]))
+   [:li "Frittstående lister får styles fra .mmm-ol"]))
 
 (defscene unadorned-list
-  (e/ul {:class "mvt-unadorned-list"}
+  (e/ul {:class "mmm-unadorned-list"}
    [:li "Dette er en unummerert liste"]
    [:li "Den kan ha mange punkter"]
    [:li "Det er kun fantasien som setter grenser"]
    [:li "Siden den er \"unadorned\" har den ingen kulepunkter"]))
 
 (defscene right-aligned-text
-  (e/p {:class "mvt-tar"}
+  (e/p {:class "mmm-tar"}
        "Denne paragrafen har høyrejustert tekst, takket være klassen
-       .mvt-tar (\"text align right\"). En grunnleggende byggekloss vi
+       .mmm-tar (\"text align right\"). En grunnleggende byggekloss vi
        vil få bruk for i ny og ne."))
 
 (defscene centered-text
-  (e/p {:class "mvt-tac"}
+  (e/p {:class "mmm-tac"}
        "Denne paragrafen har sentrert tekst, takket være klassen
-       .mvt-tac (\"text align center\"). En veldig grunnleggende byggekloss vi
+       .mmm-tac (\"text align center\"). En veldig grunnleggende byggekloss vi
        vil få bruk for stadig vekk."))
 
 (defscene no-break
-  (e/p {:class "mvt-nbr"}
-       "Denne teksten bruker klassen .mvt-nbr og skal ikke brekkes på flere linjer uansett om den så må overflowe ut på siden. Og ja, blir den lang nok så gjør den akkurat det."))
+  (e/p {:class "mmm-nbr"}
+       "Denne teksten bruker klassen .mmm-nbr og skal ikke brekkes på flere linjer uansett om den så må overflowe ut på siden. Og ja, blir den lang nok så gjør den akkurat det."))
 
 (defscene preamble
   [:div
-   (e/p {:class "mvt-preamble"}
-        "Denne paragrafen er en ingress, i kraft av klassen .mvt-preamble.")
-   (e/p {:class "mvt-preamble-s"}
+   (e/p {:class "mmm-preamble"}
+        "Denne paragrafen er en ingress, i kraft av klassen .mmm-preamble.")
+   (e/p {:class "mmm-preamble-s"}
         "Denne paragrafen er også en ingress, men en litt mer subtil en. Den
-         benytter seg av klassen .mvt-preamble-s.")])
+         benytter seg av klassen .mmm-preamble-s.")])
 
 (defscene mt-text
-  "`.mvt-text` gir default styling til de viktigste typografiske
+  "`.mmm-text` gir default styling til de viktigste typografiske
   elementene (headinger, paragrafer, lister, osv). Denne klassen er nyttig når
   du ikke har full kontroll på markup, feks når du skal rendre innholdet fra
   rike tekstfelter, HTML oversatt fra markdown osv."

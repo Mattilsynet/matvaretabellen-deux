@@ -1,7 +1,7 @@
-(ns mt-designsystem.components.mattilsynet-logo)
+(ns mmm.components.mattilsynet-logo)
 
 (defn MattilsynetLogo []
-  [:svg.mvt-logo
+  [:svg.mmm-logo
    {:viewBox "0 0 200 146" :fill "none" :xmlns "http://www.w3.org/2000/svg"}
    [:path {:d "M75.087 75.1927H43.0292V96.0498H75.087V75.1927Z" :fill "white"}]
    [:path {:d "M122.558 70.3795H90.5004V91.2367H122.558V70.3795Z" :fill "white"}]

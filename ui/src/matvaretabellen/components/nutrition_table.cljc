@@ -1,7 +1,7 @@
 (ns matvaretabellen.components.nutrition-table)
 
 (defn NutritionTable [{:keys [title class subtitle categories]}]
-  [:div.nutrition-table {:class class}
+  [:div.mvt-nutrition-table {:class class}
    [:table
     [:caption title]
     [:thead
@@ -14,7 +14,7 @@
           [:th label]
           [:td content]]
          (for [{:keys [label content]} subcategories]
-           [:tr.subcategory
+           [:tr.mvt-subcategory
             [:th label]
             [:td content]])])
       categories)]]])

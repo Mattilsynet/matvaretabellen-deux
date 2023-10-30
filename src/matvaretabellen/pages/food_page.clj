@@ -2,10 +2,10 @@
   (:require [broch.core :as b]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
-            [matvaretabellen.components.toc :refer [Toc]]
             [matvaretabellen.crumbs :as crumbs]
-            [mt-designsystem.components.breadcrumbs :refer [Breadcrumbs]]
-            [mt-designsystem.components.site-header :refer [SiteHeader]]))
+            [mmm.components.breadcrumbs :refer [Breadcrumbs]]
+            [mmm.components.site-header :refer [SiteHeader]]
+            [mmm.components.toc :refer [Toc]]))
 
 (defn wrap-in-portion-span [num]
   [:span {:data-portion num} num])
@@ -50,7 +50,7 @@
                        (get-nutrient-grams food (:nutrient/id acid))]))}))))
 
 (defn render-table [{:keys [headers rows]}]
-  [:table.mvt-table.mvt-nutrient-table
+  [:table.mmm-table.mmm-nutrient-table
    [:thead
     [:tr
      (for [header headers]
@@ -69,13 +69,13 @@
      [:body
       (SiteHeader {:home-url "/"})
       [:div
-       [:div.mvt-hero-banner
+       [:div.mmm-hero-banner
         [:div.container
          (Breadcrumbs
           {:links (crumbs/crumble locale
                                   (:food/food-group food)
                                   {:text food-name})})]]
-       [:div.mvt-hero-banner
+       [:div.mmm-hero-banner
         [:div.container
          [:div {:style {:display "flex"}}
           [:div {:style {:flex "1"}}

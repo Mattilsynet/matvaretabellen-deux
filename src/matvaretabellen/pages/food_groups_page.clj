@@ -2,8 +2,8 @@
   (:require [datomic-type-extensions.api :as d]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.urls :as urls]
-            [mt-designsystem.components.breadcrumbs :refer [Breadcrumbs]]
-            [mt-designsystem.components.site-header :refer [SiteHeader]]))
+            [mmm.components.breadcrumbs :refer [Breadcrumbs]]
+            [mmm.components.site-header :refer [SiteHeader]]))
 
 (defn render [context _db page]
   (let [db (:foods/db context)
@@ -18,16 +18,16 @@
      [:body
       (SiteHeader {:home-url "/"})
       [:div
-       [:div.mvt-hero-banner
+       [:div.mmm-hero-banner
         [:div.container
          (Breadcrumbs
           {:links (crumbs/crumble locale
                                   {:text [:i18n ::crumbs/all-food-groups]})})]]
-       [:div.mvt-hero-banner
+       [:div.mmm-hero-banner
         [:div.container
          [:h1.h1 [:i18n ::all-food-groups]]
-         [:div.mvt-cards.mtl
+         [:div.mmm-cards.mtl
           (for [child food-groups]
             (let [the-name (get-in child [:food-group/name locale])]
-              [:a.mvt-card {:href (urls/get-food-group-url locale the-name)}
+              [:a.mmm-card {:href (urls/get-food-group-url locale the-name)}
                the-name]))]]]]]]))

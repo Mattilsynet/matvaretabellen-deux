@@ -1,6 +1,6 @@
-(ns mt-designsystem.components.breadcrumbs-scenes
-  (:require [matvaretabellen.elements :as e]
-            [mt-designsystem.components.breadcrumbs :refer [Breadcrumbs]]
+(ns mmm.components.breadcrumbs-scenes
+  (:require [mmm.components.breadcrumbs :refer [Breadcrumbs]]
+            [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
 (defscene basic-breadcrumbs

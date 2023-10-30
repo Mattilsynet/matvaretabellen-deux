@@ -1,12 +1,12 @@
-(ns mt-designsystem.components.footer
-  (:require [mt-designsystem.components.mattilsynet-logo :refer [MattilsynetLogo]]))
+(ns mmm.components.footer
+  (:require [mmm.components.mattilsynet-logo :refer [MattilsynetLogo]]))
 
 (defn Footer [{:keys [cols]}]
-  [:footer.mvt-footer
+  [:footer.mmm-footer
    (for [{:keys [title links]} cols]
-     [:div.mvt-text.mvt-footer-col
+     [:div.mmm-text.mmm-footer-col
       [:h3 title]
-      [:ul.mvt-unadorned-list
+      [:ul.mmm-unadorned-list
        (for [{:keys [url text]} links]
          [:li [:a {:href url} text]])]])
    (MattilsynetLogo)])

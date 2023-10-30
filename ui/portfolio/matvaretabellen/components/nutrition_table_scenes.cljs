@@ -1,5 +1,6 @@
 (ns matvaretabellen.components.nutrition-table-scenes
   (:require [matvaretabellen.components.nutrition-table :refer [NutritionTable]]
+            [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
 (def data
@@ -18,7 +19,7 @@
                 {:label "Salt:" :content "0 g"}]})
 
 (defscene basic-table
-  (NutritionTable data))
+  (e/block (NutritionTable data)))
 
 (defscene small-table
-  (NutritionTable (assoc data :class :small)))
+  (e/block (NutritionTable (assoc data :class :small))))

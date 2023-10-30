@@ -1,10 +1,10 @@
-(ns matvaretabellen.components.search-input
-  (:require [matvaretabellen.components.button :refer [Button]]
-            [matvaretabellen.components.text-input :refer [TextInput]]))
+(ns mmm.components.search-input
+  (:require [mmm.components.button :refer [Button]]
+            [mmm.components.text-input :refer [TextInput]]))
 
 (defn SearchInput [{:keys [button input results autocomplete-id]}]
-  [:fieldset.mvt-search-input
-   [:div.mvt-action-input
+  [:fieldset.mmm-search-input
+   [:div.mmm-action-input
     (TextInput
      (cond-> (assoc input :type "search")
        (:name input)
@@ -17,10 +17,10 @@
               :aria-haspopup "menu")))
     (Button (assoc button :type "submit" :inline? true))]
    (when (seq results)
-     [:ol.mvt-ac-results
+     [:ol.mmm-ac-results
       (for [result results]
-        [:li.mvt-ac-result
+        [:li.mmm-ac-result
          (when (:selected? result)
-           {:class "mvt-ac-selected"})
+           {:class "mmm-ac-selected"})
          [:a {:href (:href result)}
           (:text result)]])])])

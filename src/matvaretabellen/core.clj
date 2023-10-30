@@ -19,7 +19,8 @@
 
            :optimus/bundles {"styles.css"
                              {:public-dir "public"
-                              :paths ["/css/mt-designsystem.css"
+                              :paths ["/css/theme-mt90s.css"
+                                      "/css/mmm.css"
                                       "/css/matvaretabellen.css"]}
 
                              "/app.js"

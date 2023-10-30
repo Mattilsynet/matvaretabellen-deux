@@ -1,35 +1,35 @@
-.nutrition-table {
+.mvt-nutrition-table {
     background: white;
     padding: 1em 1em 1.5em;
 }
 
-.nutrition-table.small {
+.mvt-nutrition-table.small {
     font-size: 1rem;
 }
 
-.nutrition-table table {
+.mvt-nutrition-table table {
     border-collapse: collapse;
     width: 100%;
 }
 
-.nutrition-table caption {
+.mvt-nutrition-table caption {
     text-align: left;
     font-size: 1.5em;
     font-weight: bold;
 }
 
-.nutrition-table th,
-.nutrition-table td {
+.mvt-nutrition-table th,
+.mvt-nutrition-table td {
     border-bottom: 1px solid #ccc;
     text-align: left;
     padding: 0.4em 0;
 }
 
-.nutrition-table th {
+.mvt-nutrition-table th {
     padding-right: 0.8em;
 }
 
-.nutrition-table .subcategory th {
+.mvt-nutrition-table .subcategory th {
     font-weight: normal;
     padding-left: 1.2em;
 }
@@ -40,89 +40,28 @@
     max-width: 100%;
 }
 
-.mvt-autocomplete {
-    position: relative;
-}
 
-.mvt-autocomplete .search-wrap {
-    position: relative;
-    z-index: 1;
-}
 
-.mvt-ac-results {
-    margin-block-start: 0;
-    padding-inline-start: 0;
-    list-style-type: none;
-    position: absolute;
-    background: white;
-    left: 0;
-    right: 0;
-    border: 1px solid #AFAB89;
-    border-top: none;
-    margin-top: -3px;
-    padding-top: 3px;
-}
-.mvt-ac-result {
-    margin: 0;
-    border-bottom: 1px solid #AFAB89;
-}
-.mvt-ac-result a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    font-weight: inherit;
-    color: inherit;
-    font-size: 20px;
-}
-.mvt-ac-selected a {
-    background: var(--color-mt-lighter-light-blue);
-}
 
-.toc {
-    padding: 24px;
-    border: 1px solid #3f3e3e;
-}
-
-.toc-title {
-    display: flex;
-    align-items: center;
-}
-
-.toc-title .icon {
-    width: 30px;
-    margin-right: 8px;
-}
-
-.toc>ol {
-    margin-left: 0;
-    margin-top: 12px;
-    padding-inline-start: 30px;
-}
-
-.toc ol ol {
-    list-style-type: lower-alpha;
-    margin-top: 6px;
-}
-
-.mvt-cards {
+.mmm-cards {
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
 }
 
-.mvt-card {
+.mmm-card {
     width: 30vw;
     flex-shrink: 0;
     padding: 24px;
     background: #fff;
 }
 
-.mvt-hero-banner {
+.mmm-hero-banner {
     background: #F1EADF;
     padding: 40px 0;
 }
 
-.mvt-secondary-banner {
+.mmm-secondary-banner {
     background: #D6E8ED;
     padding: 40px 0;
 }
@@ -191,23 +130,13 @@
     padding: 0;
 }
 
-.mvt-table {
-    font-size: 1rem;
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.mvt-table tbody tr:nth-child(odd) {
-    background-color: var(--color-mt-white);
-}
-
-.mvt-nutrient-table tbody tr td:last-child {
+.mmm-nutrient-table tbody tr td:last-child {
     width: 30%;
 }
 
 .tac { text-align: center; }
 
-.mvt-loader {
+.mmm-loader {
     width: 48px;
     height: 48px;
     border: 5px solid #eee;
@@ -215,10 +144,10 @@
     border-radius: 50%;
     display: inline-block;
     box-sizing: border-box;
-    animation: mvt-rotation 1.5s linear infinite;
+    animation: mmm-rotation 1.5s linear infinite;
 }
 
-@keyframes mvt-rotation {
+@keyframes mmm-rotation {
     0% {
         transform: rotate(0deg);
     }

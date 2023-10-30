@@ -1,11 +1,11 @@
-(ns matvaretabellen.layouts.container-scenes
-  (:require [matvaretabellen.elements :as e]
+(ns mmm.layouts.container-scenes
+  (:require [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
 (defscene container
-  ".mvt-container begrenser bredden på elementene til design-tokens for grid.
+  ".mmm-container begrenser bredden på elementene til design-tokens for grid.
   Denne størrelsen er ulik for desktop og mobil."
-  [:div.mvt-container
+  [:div.mmm-container
    (e/h1 "Jeg er i en container")
    (e/p "Containeren sørger for at ikke innholdet renner over alle bauger og
    kanter, og blir så bredt at det blir vanskelig å finne noen struktur. Denne

@@ -1,7 +1,7 @@
-(ns matvaretabellen.components.search-input-scenes
+(ns mmm.components.search-input-scenes
   (:require [fontawesome.icons :as icons]
-            [matvaretabellen.components.search-input :refer [SearchInput]]
-            [matvaretabellen.elements :as e]
+            [mmm.components.search-input :refer [SearchInput]]
+            [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
 (defscene empty-search

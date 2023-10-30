@@ -43,7 +43,7 @@
     (if (< (.-length q) 3)
       (set! (.-innerHTML element) "")
       (if (waiting?)
-        (do (set! (.-innerHTML element) "<ol class='mvt-ac-results'><li class='mvt-ac-result tac'><span class='mvt-loader'></span></li></ol>")
+        (do (set! (.-innerHTML element) "<ol class='mmm-ac-results'><li class='mmm-ac-result tac'><span class='mmm-loader'></span></li></ol>")
             (add-watch search-engine ::waiting-for-load
                        #(when-not (waiting?)
                           (remove-watch search-engine ::waiting-for-load)
@@ -51,9 +51,9 @@
         (set! (.-innerHTML element)
               (str/join
                (flatten
-                ["<ol class='mvt-ac-results'>"
+                ["<ol class='mmm-ac-results'>"
                  (for [result (take 10 (foods-search/search @search-engine q))]
-                   ["<li class='mvt-ac-result'>"
+                   ["<li class='mmm-ac-result'>"
                     ["<a href='" (urls/get-food-url locale (:name result)) "'>" (:name result) "</a>"]
                     "</li>"])
                  "</ol>"])))))))
@@ -74,12 +74,12 @@
       (aget results (dec (.-length results))))))
 
 (defn navigate-results [element d]
-  (let [selected (.querySelector element ".mvt-ac-selected")
-        target-element (get-target-element (.querySelectorAll element ".mvt-ac-result") selected d)]
+  (let [selected (.querySelector element ".mmm-ac-selected")
+        target-element (get-target-element (.querySelectorAll element ".mmm-ac-result") selected d)]
     (when target-element
       (when selected
-        (.remove (.-classList selected) "mvt-ac-selected"))
-      (.add (.-classList target-element) "mvt-ac-selected"))))
+        (.remove (.-classList selected) "mmm-ac-selected"))
+      (.add (.-classList target-element) "mmm-ac-selected"))))
 
 (defn handle-autocomplete-key-event [e element]
   (case (.-key e)
@@ -89,7 +89,7 @@
 
 (defn handle-autocomplete-submit-event [e]
   (.preventDefault e)
-  (when-let [selected (.querySelector (.-target e) ".mvt-ac-selected a")]
+  (when-let [selected (.querySelector (.-target e) ".mmm-ac-selected a")]
     (set! js/window.location (.-href selected))))
 
 (defn initialize-foods-autocomplete [dom-element locale initial-query]
@@ -138,7 +138,7 @@
 (defn boot []
   (main)
   (initialize-foods-autocomplete
-   (js/document.querySelector ".mvt-autocomplete")
+   (js/document.querySelector ".mmm-autocomplete")
    (keyword js/document.documentElement.lang)
    (get (get-params) "search"))
 

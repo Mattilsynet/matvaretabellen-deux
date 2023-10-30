@@ -1,14 +1,14 @@
 /************************************
- *** "Global" (within .mvt) rules ***
+ *** "Global" (within .mmm) rules ***
  ************************************/
 
-.mvt *,
-.mvt ::before,
-.mvt ::after {
+.mmm *,
+.mmm ::before,
+.mmm ::after {
     box-sizing: border-box;
 }
 
-.mvt {
+.mmm {
     font-family: var(--mt-font-family-main), system-ui, sans-serif;
     /* Prevent adjustments of font size after orientation changes in iOS. */
     -webkit-text-size-adjust: 100%;
@@ -20,13 +20,13 @@
     box-sizing: border-box;
 }
 
-.mvt body,
-body.mvt {
+.mmm body,
+body.mmm {
     background: var(--mt-color-background-default);
     margin: 0;
 }
 
-.mvt fieldset {
+.mmm fieldset {
     border: none;
     margin: 0;
     padding: 0;
@@ -36,145 +36,145 @@ body.mvt {
  *** Basic typography ***
  ************************/
 
-.mvt-h1,
-.mvt-text h1 {
+.mmm-h1,
+.mmm-text h1 {
     font-size: var(--mt-typography-heading-l-font-size);
     font-weight: var(--mt-typography-heading-l-font-weight);
     line-height: var(--mt-typography-heading-l-line-height);
 }
 
-.mvt-h2,
-.mvt-text h2 {
+.mmm-h2,
+.mmm-text h2 {
     font-size: var(--mt-typography-heading-m-font-size);
     font-weight: var(--mt-typography-heading-m-font-weight);
     line-height: var(--mt-typography-heading-m-line-height);
 }
 
-.mvt-h3,
-.mvt-text h3 {
+.mmm-h3,
+.mmm-text h3 {
     font-size: var(--mt-typography-heading-s-font-size);
     font-weight: var(--mt-typography-heading-s-font-weight);
     line-height: var(--mt-typography-heading-s-line-height);
 }
 
-.mvt-h4,
-.mvt-text h4,
-.mvt-h5,
-.mvt-h6,
-.mvt-text h5,
-.mvt-text h6 {
+.mmm-h4,
+.mmm-text h4,
+.mmm-h5,
+.mmm-h6,
+.mmm-text h5,
+.mmm-text h6 {
     font-size: var(--mt-typography-heading-xs-font-size);
     font-weight: var(--mt-typography-heading-xs-font-weight);
     line-height: var(--mt-typography-heading-xs-line-height);
 }
 
-.mvt-text h1,
-.mvt-text h2,
-.mvt-text h3,
-.mvt-text h4,
-.mvt-text h5,
-.mvt-text h6,
-.mvt-text p,
-.mvt-text ul,
-.mvt-text ol,
-.mvt-h1,
-.mvt-h2,
-.mvt-h3,
-.mvt-h4,
-.mvt-h5,
-.mvt-h6,
-.mvt-p,
-.mvt-ul,
-.mvt-ol,
-.mvt-block {
+.mmm-text h1,
+.mmm-text h2,
+.mmm-text h3,
+.mmm-text h4,
+.mmm-text h5,
+.mmm-text h6,
+.mmm-text p,
+.mmm-text ul,
+.mmm-text ol,
+.mmm-h1,
+.mmm-h2,
+.mmm-h3,
+.mmm-h4,
+.mmm-h5,
+.mmm-h6,
+.mmm-p,
+.mmm-ul,
+.mmm-ol,
+.mmm-block {
     margin: var(--mt-typography-vertical-spacing-normal) 0;
     padding: 0;
 }
 
-.mvt-p,
-.mvt-text,
-.mvt-ul,
-.mvt-ol {
+.mmm-p,
+.mmm-text,
+.mmm-ul,
+.mmm-ol {
     font-size: var(--mt-typography-paragraph-long-m-font-size);
     font-weight: var(--mt-typography-paragraph-long-m-font-weight);
     line-height: var(--mt-typography-paragraph-long-m-line-height);
 }
 
-.mvt-text ul,
-.mvt-ul {
+.mmm-text ul,
+.mmm-ul {
     list-style-type: disc;
 }
 
-.mvt-text ol,
-.mvt-ol {
+.mmm-text ol,
+.mmm-ol {
     list-style-type: decimal;
 }
 
-.mvt-text ul li,
-.mvt-ul li,
-.mvt-text ol li,
-.mvt-ol li {
+.mmm-text ul li,
+.mmm-ul li,
+.mmm-text ol li,
+.mmm-ol li {
     padding: 0;
     margin: var(--mt-typography-vertical-spacing-tight) 0;
 }
 
-.mvt-text ul li,
-.mvt-ul li {
+.mmm-text ul li,
+.mmm-ul li {
     margin-left: 1.25rem;
 }
 
-.mvt-text ol li,
-.mvt-ol li {
+.mmm-text ol li,
+.mmm-ol li {
     margin-left: 1.75rem;
 }
 
-.mvt-unadorned-list,
-ul.mvt-unadorned-list,
-ol.mvt-unadorned-list {
+.mmm-unadorned-list,
+ul.mmm-unadorned-list,
+ol.mmm-unadorned-list {
     list-style-type: none;
 }
 
-ul.mvt-unadorned-list li,
-ol.mvt-unadorned-list li {
+ul.mmm-unadorned-list li,
+ol.mmm-unadorned-list li {
     margin-left: 0;
 }
 
-.mvt-text a:link,
-.mvt-text a:visited,
-.mvt-link {
+.mmm-text a:link,
+.mmm-text a:visited,
+.mmm-link {
     color: var(--mt-color-text-action-default);
     text-decoration: var(--mt-typography-decoration-action-default);
 }
 
-.mvt-text a:hover,
-.mvt-link:hover {
+.mmm-text a:hover,
+.mmm-link:hover {
     color: var(--mt-color-border-action-active);
     text-decoration: var(--mt-typography-decoration-action-active);
 }
 
-.mvt-fc {
+.mmm-fc {
     width: fit-content;
 }
 
-.mvt-tac {
+.mmm-tac {
     text-align: center;
 }
 
-.mvt-tar {
+.mmm-tar {
     text-align: right;
 }
 
-.mvt-nbr {
+.mmm-nbr {
     white-space: nowrap;
 }
 
-.mvt-preamble {
+.mmm-preamble {
     font-size: var(--mt-typography-preamble-m-font-size);
     font-weight: var(--mt-typography-preamble-m-font-weight);
     line-height: var(--mt-typography-preamble-m-line-height);
 }
 
-.mvt-preamble-s {
+.mmm-preamble-s {
     font-size: var(--mt-typography-preamble-s-font-size);
     font-weight: var(--mt-typography-preamble-s-font-weight);
     line-height: var(--mt-typography-preamble-s-line-height);
@@ -184,19 +184,19 @@ ol.mvt-unadorned-list li {
  *** Focusables ***
  ******************/
 
-.mvt-focusable {
+.mmm-focusable {
     transition: box-shadow 0.15s ease-in-out;
 }
 
 /* Give it some weight to combat any box-shadow: none on classes that are
    combined with the focusable class */
-.mvt-focusable:focus,
-.mvt .mvt-focusable:focus {
+.mmm-focusable:focus,
+.mmm .mmm-focusable:focus {
     outline: none;
     box-shadow: var(--mt-focusable-shadow);
 }
 
-.mvt-focusable:focus {
+.mmm-focusable:focus {
     z-index: 1;
 }
 
@@ -204,8 +204,8 @@ ol.mvt-unadorned-list li {
  *** Images ***
  **************/
 
-.mvt-img,
-.mvt-svg {
+.mmm-img,
+.mmm-svg {
     display: block;
     max-width: 100%;
 }
@@ -214,11 +214,11 @@ ol.mvt-unadorned-list li {
  *** Tables ***
  **************/
 
-.mvt-table {
+.mmm-table {
     width: 100%;
 }
 
-.mvt-table caption {
+.mmm-table caption {
     font-size: var(--mt-typography-heading-m-font-size);
     font-weight: var(--mt-typography-heading-m-font-weight);
     line-height: var(--mt-typography-heading-m-line-height);
@@ -226,49 +226,49 @@ ol.mvt-unadorned-list li {
     text-align: left;
 }
 
-.mvt-table {
+.mmm-table {
     font-size: 1rem;
     width: 100%;
     border-collapse: collapse;
     text-align: left;
 }
 
-.mvt-table-zebra tbody tr:nth-child(odd),
-.mvt-table-zebra > tr:nth-child(even) {
+.mmm-table-zebra tbody tr:nth-child(odd),
+.mmm-table-zebra > tr:nth-child(even) {
     background-color: var(--mt-component-table-background-zebra);
 }
 
-.mvt-table td,
-.mvt-table th {
+.mmm-table td,
+.mmm-table th {
     padding: var(--mt-component-table-cell-padding);
     border-bottom: 1px solid var(--mt-component-table-cell-border-color);
     border-right: 1px solid var(--mt-component-table-cell-border-color);
 }
 
-.mvt-table thead td,
-.mvt-table thead th {
+.mmm-table thead td,
+.mmm-table thead th {
     background: var(--mt-component-table-thead-background);
     border-bottom: 2px solid var(--mt-component-table-cell-border-color);
     border-top: 2px solid var(--mt-component-table-cell-border-color);
 }
 
-.mvt-table > tr:first-child td,
-.mvt-table > tr:first-child th {
+.mmm-table > tr:first-child td,
+.mmm-table > tr:first-child th {
     border-top: 1px solid var(--mt-component-table-cell-border-color);
 }
 
-.mvt-table td:last-child,
-.mvt-table th:last-child {
+.mmm-table td:last-child,
+.mmm-table th:last-child {
     border-right: none;
 }
 
-.mvt-table thead th {
+.mmm-table thead th {
     font-size: var(--mt-component-table-thead-th-font-size);
     font-weight: var(--mt-component-table-thead-th-font-weight);
 }
 
-.mvt-table tbody th,
-.mvt-table > tr th {
+.mmm-table tbody th,
+.mmm-table > tr th {
     font-size: var(--mt-component-table-tbody-th-font-size);
     font-weight: var(--mt-component-table-tbody-th-font-weight);
 }
@@ -277,7 +277,7 @@ ol.mvt-unadorned-list li {
  *** Forms: Text input ***
  *************************/
 
-.mvt-input {
+.mmm-input {
     width: 100%;
     padding: 0.75em 0.5em;
     border: 1px solid var(--mt-component-form-field-border);
@@ -292,17 +292,17 @@ ol.mvt-unadorned-list li {
  *** Forms: Action input ***
  ***************************/
 
-.mvt-action-input {
+.mmm-action-input {
     display: flex;
 }
 
-.mvt-action-input :first-child {
+.mmm-action-input :first-child {
     flex-grow: 1;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-.mvt-action-input :last-child {
+.mmm-action-input :last-child {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     margin-left: -1px;
@@ -312,7 +312,7 @@ ol.mvt-unadorned-list li {
  *** Forms: Search input ***
  ***************************/
 
-.mvt-search-input {
+.mmm-search-input {
     position: relative;
 }
 
@@ -320,7 +320,7 @@ ol.mvt-unadorned-list li {
  *** Forms: Auto-complete ***
  ****************************/
 
-.mvt-ac-results {
+.mmm-ac-results {
     background: var(--mt-component-ac-background);
     border-top: none;
     border: 1px solid var(--mt-component-ac-border-color);
@@ -334,12 +334,12 @@ ol.mvt-unadorned-list li {
     right: 0;
 }
 
-.mvt-ac-result {
+.mmm-ac-result {
     margin: 0;
     border-bottom: 1px solid var(--mt-component-ac-border-color);
 }
 
-.mvt-ac-result a {
+.mmm-ac-result a {
     display: block;
     padding: 10px;
     text-decoration: none;
@@ -348,7 +348,7 @@ ol.mvt-unadorned-list li {
     font-size: 20px;
 }
 
-.mvt-ac-selected a {
+.mmm-ac-selected a {
     background: var(--mt-component-ac-active-background);
 }
 
@@ -356,7 +356,7 @@ ol.mvt-unadorned-list li {
  *** Responsive sizes ***
  ************************/
 
-.mvt {
+.mmm {
     --mt-grid-gutter: var(--mt-grid-mobile-gutter);
     --mt-grid-padding: var(--mt-grid-mobile-padding);
     --mt-grid-width: var(--mt-grid-mobile-width);
@@ -364,7 +364,7 @@ ol.mvt-unadorned-list li {
 }
 
 @media only screen and (min-width: 960px) {
-    .mvt {
+    .mmm {
         --mt-grid-gutter: var(--mt-grid-desktop-gutter);
         --mt-grid-padding: var(--mt-grid-desktop-padding);
         --mt-grid-width: var(--mt-grid-desktop-width);
@@ -377,7 +377,7 @@ ol.mvt-unadorned-list li {
  ***************/
 
 /* Container */
-.mvt-container {
+.mmm-container {
     max-width: var(--mt-layout-container-width);
     margin: 0 auto;
     padding: 0 var(--mt-layout-container-gutter);
@@ -387,7 +387,7 @@ ol.mvt-unadorned-list li {
  *** Component: Breadcrumbs ***
  ******************************/
 
-.mvt-breadcrumb .mvt-link {
+.mmm-breadcrumb .mmm-link {
     margin-right: var(--mt-spacing-x0_5);
 }
 
@@ -395,7 +395,7 @@ ol.mvt-unadorned-list li {
  *** Component: Button ***
  *************************/
 
-.mvt-button {
+.mmm-button {
     align-items: center;
     background: var(--mt-component-button-background);
     border: none;
@@ -419,27 +419,27 @@ ol.mvt-unadorned-list li {
     width: 100%;
 }
 
-.mvt-button:focus {
+.mmm-button:focus {
     box-shadow: var(--mt-component-button-focus-shadow);
 }
 
-.mvt-button-inline {
+.mmm-button-inline {
     display: inline-flex;
     width: auto;
 }
 
-.mvt-button-icon {
+.mmm-button-icon {
     width: 1rem;
     height: 1rem;
     margin-left: 0.4rem;
 }
 
-.mvt-button-icon:first-child {
+.mmm-button-icon:first-child {
     margin-left: 0;
     margin-right: 0.4rem;
 }
 
-.mvt-button-large {
+.mmm-button-large {
     min-height: 3.875rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -449,7 +449,7 @@ ol.mvt-unadorned-list li {
  *** Component: Footer ***
  *************************/
 
-.mvt-footer {
+.mmm-footer {
     display: flex;
     flex-direction: column;
     justify-self: center;
@@ -458,29 +458,29 @@ ol.mvt-unadorned-list li {
     padding: 1rem 0;
 }
 
-.mvt-footer .mvt-logo {
+.mmm-footer .mmm-logo {
     width: 200px;
     align-self: center;
     justify-self: end;
 }
 
-.mvt-footer .mvt-text h2,
-.mvt-footer .mvt-text h3 {
+.mmm-footer .mmm-text h2,
+.mmm-footer .mmm-text h3 {
     font-weight: var(--mt-font-weight-bold);
 }
 
-.mvt-footer-col {
+.mmm-footer-col {
     flex-basis: 0;
     flex-grow: 1;
 }
 
 @media only screen and (min-width: 768px) {
-    .mvt-footer {
+    .mmm-footer {
         flex-direction: row;
         padding: 4.5rem 0;
     }
 
-    .mvt-footer .mvt-logo {
+    .mmm-footer .mmm-logo {
         align-self: flex-start;
     }
 }
@@ -489,19 +489,19 @@ ol.mvt-unadorned-list li {
  *** Component: Header ***
  *************************/
 
-.mvt-header {
+.mmm-header {
     border-bottom: 2px solid var(--mt-component-header-border-color);
     height: var(--mt-component-header-height);
     padding: 0.975rem 0;
 }
 
 @media only screen and (min-width: 960px) {
-    .mvt-header {
+    .mmm-header {
         padding: 2.225rem 0;
     }
 }
 
-.mvt-header .mvt-svg {
+.mmm-header .mmm-svg {
     color: var(--mt-component-header-logo-color);
     height: 1.8rem;
 }
@@ -510,14 +510,43 @@ ol.mvt-unadorned-list li {
  *** Component: Header ***
  *************************/
 
-.mvt-horizontal-list {
+.mmm-horizontal-list {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.mvt-horizontal-list li {
+.mmm-horizontal-list li {
     margin: 0 var(--mt-spacing-x0_5) 0 0;
     padding: 0;
     display: inline;
+}
+
+/************************************
+ *** Component: Table of contents ***
+ ************************************/
+
+.mmm-toc {
+    padding: 0 24px;
+    border: 1px solid var(--mt-component-toc-border-color);
+}
+
+.mmm-toc-title {
+    display: flex;
+    align-items: center;
+}
+
+.mmm-toc-title h3 {
+    margin: 0;
+}
+
+.mmm-toc-icon {
+    color: var(--mt-component-toc-icon-color);
+    width: 30px;
+    margin-right: 8px;
+}
+
+.mmm-toc ol ol {
+    list-style-type: lower-alpha;
+    margin-top: 6px;
 }
