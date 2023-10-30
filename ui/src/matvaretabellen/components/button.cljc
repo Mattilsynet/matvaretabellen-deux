@@ -4,7 +4,7 @@
 (def sizes
   {:large "mvt-button-large"})
 
-(defn button [{:keys [href text inline? icon size] :as attrs}]
+(defn Button [{:keys [href text inline? icon size] :as attrs}]
   [(if href :a.mvt-button.mvt-focusable :button.mvt-button.mvt-focusable)
    (cond-> (dissoc attrs :inline? :size :text)
      inline? (update :class str " mvt-button-inline")
