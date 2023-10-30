@@ -1,4 +1,6 @@
 {:linters {:unresolved-var {:exclude [portfolio.dumdom/defscene]}
+           :unresolved-namespace {:exclude [integrant.repl.state
+                                            matvaretabellen.dev]}
            :clojure-lsp/unused-public-var
            {:exclude-when-defined-by #{portfolio.dumdom/defscene}
             :exclude-when-contains-meta #{:to-be-continued}}}
