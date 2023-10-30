@@ -40,6 +40,13 @@
    [:li "Det er kun fantasien som setter grenser"]
    [:li "Frittstående lister får styles fra .mvt-ol"]))
 
+(defscene unadorned-list
+  (e/ul {:class "mvt-unadorned-list"}
+   [:li "Dette er en unummerert liste"]
+   [:li "Den kan ha mange punkter"]
+   [:li "Det er kun fantasien som setter grenser"]
+   [:li "Siden den er \"unadorned\" har den ingen kulepunkter"]))
+
 (defscene right-aligned-text
   (e/p {:class "mvt-tar"}
        "Denne paragrafen har høyrejustert tekst, takket være klassen

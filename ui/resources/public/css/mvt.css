@@ -100,6 +100,16 @@ body.mvt {
     line-height: var(--mt-typography-paragraph-long-m-line-height);
 }
 
+.mvt-text ul,
+.mvt-ul {
+    list-style-type: disc;
+}
+
+.mvt-text ol,
+.mvt-ol {
+    list-style-type: decimal;
+}
+
 .mvt-text ul li,
 .mvt-ul li,
 .mvt-text ol li,
@@ -116,6 +126,17 @@ body.mvt {
 .mvt-text ol li,
 .mvt-ol li {
     margin-left: 1.75rem;
+}
+
+.mvt-unadorned-list,
+ul.mvt-unadorned-list,
+ol.mvt-unadorned-list {
+    list-style-type: none;
+}
+
+ul.mvt-unadorned-list li,
+ol.mvt-unadorned-list li {
+    margin-left: 0;
 }
 
 .mvt-text a:link,
