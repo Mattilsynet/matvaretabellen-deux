@@ -441,9 +441,16 @@ ol.mmm-unadorned-list li {
 
 .mmm-media {
     display: flex;
+    flex-direction: column;
     gap: var(--mt-column-gap);
-    align-items: center;
-    justify-content: center;
+}
+
+@media only screen and (min-width: 768px) {
+    .mmm-media {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 .mmm-media-at {
