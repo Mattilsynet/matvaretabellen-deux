@@ -248,7 +248,7 @@ ol.mmm-unadorned-list li {
 }
 
 .mmm-table {
-    font-size: 1rem;
+    font-size: var(--mt-typography-small-font-size);
     width: 100%;
     border-collapse: collapse;
     text-align: left;
