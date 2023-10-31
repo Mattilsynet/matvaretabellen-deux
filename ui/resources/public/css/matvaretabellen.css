@@ -34,52 +34,9 @@
     padding-left: 1.2em;
 }
 
-.search-input-wrap {
-    margin: 40px auto;
-    width: 600px;
-    max-width: 100%;
-}
-
-
-
-
-
-.mmm-secondary-banner {
-    background: #D6E8ED;
-    padding: 40px 0;
-}
-
-.flex {display: flex;}
-.flex-center {align-items: center; justify-content: center;}
-
-.flex-gap-m {gap: 28px;}
-.flex-gap-l {gap: 40px;}
-
-.nbr {white-space: nowrap;}
-
-.container-narrow {
-    max-width: 1096px;
-    margin: 0 auto;
-}
-
-.subtle-list,
-.text .subtle-list {
-    margin: var(--space-content) 0;
-    padding: 0;
-    list-style-type: none;
-}
-
-.subtle-list li,
-.text .subtle-list li {
-    margin: 0;
-    padding: 0;
-}
-
 .mmm-nutrient-table tbody tr td:last-child {
     width: 30%;
 }
-
-.tac { text-align: center; }
 
 .mmm-loader {
     width: 48px;
