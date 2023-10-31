@@ -1,7 +1,6 @@
 (ns matvaretabellen.excel
   (:import [org.apache.poi.xssf.usermodel XSSFWorkbook])
   (:require [broch.core :as b]
-            [clojure.string :as str]
             [datomic-type-extensions.api :as d]))
 
 (defn add-index [coll]

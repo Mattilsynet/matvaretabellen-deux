@@ -1,8 +1,9 @@
-^{:watch-dirs ["src"]}
+^{:watch-dirs ["src" "ui/src" "ui/portfolio"]
+  :extra-main-files {:portfolio {:main matvaretabellen.scenes}}}
 {:main matvaretabellen.ui.main
  :optimizations :none
  :pretty-print true
  :source-map true
  :asset-path "/js/compiled/dev"
- :output-to "dev-resources/dev-assets/js/compiled/app.js"
- :output-dir "dev-resources/dev-assets/js/compiled/dev"}
+ :output-to "dev-resources/public/js/compiled/app.js"
+ :output-dir "dev-resources/public/js/compiled/dev"}

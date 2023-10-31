@@ -23,9 +23,7 @@
                                       "/css/matvaretabellen.css"]}
 
                              "/app.js"
-                             {:public-dir (case env
-                                            :prod "public"
-                                            :dev "dev-assets")
+                             {:public-dir "public"
                               :paths ["/js/compiled/app.js"]}}
 
            :powerpack/build-dir "docker/build"
@@ -41,10 +39,7 @@
            :m1p/dictionaries {:nb ["src/matvaretabellen/i18n/nb.edn"]
                               :en ["src/matvaretabellen/i18n/en.edn"]}}
     (= :prod env)
-    (assoc :site/base-url "https://matvaretabellen.mattilsynet.io")
-
-    (= :dev env)
-    (assoc :powerpack/dev-assets-root-path "dev-assets")))
+    (assoc :site/base-url "https://matvaretabellen.mattilsynet.io")))
 
 (defn create-build-app []
   (let [uri "datomic:mem://foods-export"]

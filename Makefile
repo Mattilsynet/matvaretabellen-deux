@@ -28,6 +28,6 @@ test:
 
 clean:
 	rm -f datomic-pro-$(DATOMIC_VERSION).zip
-	rm -fr target docker/build dev-resources/dev-assets/js/compiled
+	rm -fr target docker/build dev-resources/public/js/compiled
 
 .PHONY: start-transactor docker publish test clean

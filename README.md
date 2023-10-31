@@ -48,13 +48,13 @@ sammen komponenter og UI-elementer. Denne kan du kjøre ved å gjøre noe slikt:
     brew install clojure
     ```
 
-- Start Portfolio
+- Start ClojureScript-bygget
 
     ```
-    clj -M:ui -m figwheel.main -b ui
+    clj -M:dev -m figwheel.main -b dev -r
     ```
 
-- [Se på UI-komponentene](http://localhost:5050/)
+- [Se på UI-komponentene](http://localhost:5054/)
 
 - Kopier eksempelkonfigurasjonen:
 
