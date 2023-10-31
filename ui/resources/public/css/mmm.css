@@ -463,6 +463,10 @@ ol.mmm-unadorned-list li {
     align-items: flex-start;
 }
 
+.mmm-media article {
+    flex-grow: 1;
+}
+
 .mmm-media aside {
     flex-shrink: 0;
 }
