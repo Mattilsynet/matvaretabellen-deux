@@ -421,11 +421,16 @@ ol.mmm-unadorned-list li {
 
 /* Container */
 .mmm-container,
+.mmm-container-focused,
 .mmm-container-narrow {
     max-width: var(--mt-layout-container-width);
     margin-left: auto;
     margin-right: auto;
     padding: 0 var(--mt-layout-container-gutter);
+}
+
+.mmm-container-focused {
+    max-width: var(--mt-layout-container-focused-width);
 }
 
 .mmm-container-narrow {
