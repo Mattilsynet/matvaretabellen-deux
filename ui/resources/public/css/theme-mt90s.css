@@ -69,7 +69,7 @@
     --mt-color-border-status-info: var(--mt-color-blue-500);
 
     --mt-typography-small-font-size: 16px;
-    --mt-typography-base-font-size: 21.5px;
+    --mt-typography-base-font-size: 18px;
 
     --mt-typography-heading-xs-font-size: 1.125rem;
     --mt-typography-heading-xs-line-height: var(--mt-font-line-height-tight);
@@ -202,6 +202,13 @@
 
     --mt-component-toc-icon-color: var(--mt-color-blue-200);
     --mt-component-toc-border-color: var(--mt-color-beige-500);
+}
+
+@media only screen and (min-width: 768px) {
+    .mmm {
+        --mt-typography-small-font-size: 16px;
+        --mt-typography-base-font-size: 21.5px;
+    }
 }
 
 /* Brand themes */
