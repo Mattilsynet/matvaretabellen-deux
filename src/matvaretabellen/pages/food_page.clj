@@ -65,44 +65,44 @@
   (let [food (d/entity (:foods/db context) [:food/id (:food/id page)])
         locale (:page/locale page)
         food-name (get-in food [:food/name locale])]
-    [:html
+    [:html {:class "mmm"}
      [:body
       (SiteHeader {:home-url "/"})
       [:div
-       [:div.mmm-hero-banner
-        [:div.container
+       [:div.mmm-themed.mmm-brand-theme1
+        [:div.mmm-container.mmm-section
          (Breadcrumbs
           {:links (crumbs/crumble locale
                                   (:food/food-group food)
-                                  {:text food-name})})]]
-       [:div.mmm-hero-banner
-        [:div.container
-         [:div {:style {:display "flex"}}
-          [:div {:style {:flex "1"}}
-           [:h1.h1 food-name]
-           [:div.intro.mtl
-            [:div [:i18n ::food-id {:id (:food/id food)}]]
-            [:div [:i18n ::category {:category (get-in food [:food/food-group :food-group/name locale])}] ]
-            [:div [:i18n ::latin-name {:food/latin-name (:food/latin-name food)}]]]]
-          (Toc {:title [:i18n ::toc-title]
-                :contents [{:title [:i18n ::nutrition-title]
-                            :href "#naringsinnhold"
-                            :contents [{:title [:i18n ::energy-title]
-                                        :href "#energi"}
-                                       {:title [:i18n ::fat-title]
-                                        :href "#fett"}
-                                       {:title [:i18n ::carbohydrates-title]
-                                        :href "#karbohydrater"}
-                                       {:title [:i18n ::vitamins-title]
-                                        :href "#vitaminer"}
-                                       {:title [:i18n ::minerals-title]
-                                        :href "#mineraler"}]}
-                           {:title [:i18n ::adi-title]
-                            :href "#adi"}
-                           {:title [:i18n ::description-title]
-                            :href "#beskrivelse"}]})]]]
-       [:div.container.mtl.flex
-        [:h2.h2 {:style {:flex 1}} [:i18n ::nutrition-title]]
+                                  {:text food-name})})]
+        [:div.mmm-container.mmm-section
+         [:div.mmm-media.mmm-media-at
+          [:article.mmm-text
+           [:h1 food-name]
+           [:ul.mmm-unadorned-list
+            [:li [:i18n ::food-id {:id (:food/id food)}]]
+            [:li [:i18n ::category {:category (get-in food [:food/food-group :food-group/name locale])}] ]
+            [:li [:i18n ::latin-name {:food/latin-name (:food/latin-name food)}]]]]
+          [:aside
+           (Toc {:title [:i18n ::toc-title]
+                 :contents [{:title [:i18n ::nutrition-title]
+                             :href "#naringsinnhold"
+                             :contents [{:title [:i18n ::energy-title]
+                                         :href "#energi"}
+                                        {:title [:i18n ::fat-title]
+                                         :href "#fett"}
+                                        {:title [:i18n ::carbohydrates-title]
+                                         :href "#karbohydrater"}
+                                        {:title [:i18n ::vitamins-title]
+                                         :href "#vitaminer"}
+                                        {:title [:i18n ::minerals-title]
+                                         :href "#mineraler"}]}
+                            {:title [:i18n ::adi-title]
+                             :href "#adi"}
+                            {:title [:i18n ::description-title]
+                             :href "#beskrivelse"}]})]]]]
+       [:div.mmm-container.mmm-section.mmm-container-focused.mmm-text#naringsinnhold
+        [:h2.h2 [:i18n ::nutrition-title]]
         [:div
          [:div {:style {:margin-bottom 5}} [:i18n ::portion-size]]
          [:select.select.form-field#portion-selector
@@ -110,10 +110,9 @@
           (for [portion (:food/portions food)]
             (let [grams (int (b/num (:portion/quantity portion)))]
               [:option {:value grams} (str "1 " (str/lower-case (:portion-kind/name (:portion/kind portion)))
-                                           " (" grams " gram)")]))]]]
-       [:div.container.container-narrow.text#naringsinnhold
-        [:h3.h3 [:i18n ::nutrition-heading]]
-        [:ul.subtle-list
+                                           " (" grams " gram)")]))]]
+        [:h3 [:i18n ::nutrition-heading]]
+        [:ul.mmm-unadorned-list
          [:li [:i18n ::energy
                {:kilo-joules (str (:measurement/quantity (:food/energy food)))
                 :calories (:measurement/observation (:food/calories food))}]]
@@ -121,6 +120,6 @@
                {:pct (-> food :food/edible-part :measurement/percent)}]]]
         (render-table (prepare-nutrition-table food))
 
-        [:h3.h3 [:i18n ::fat-title]]
+        [:h3 [:i18n ::fat-title]]
         (for [table (prepare-fat-tables food)]
           (render-table table))]]]]))
