@@ -3,6 +3,7 @@
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
+            [mmm.components.footer :refer [SiteFooter]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
 (defn render [context _db page]
@@ -14,20 +15,20 @@
                                 (not [?e :food-group/parent])]
                               db))
         locale (:page/locale page)]
-    [:html
+    [:html {:class "mmm"}
      [:body
       (SiteHeader {:home-url "/"})
-      [:div
-       [:div.mmm-hero-banner
-        [:div.container
-         (Breadcrumbs
-          {:links (crumbs/crumble locale
-                                  {:text [:i18n ::crumbs/all-food-groups]})})]]
-       [:div.mmm-hero-banner
-        [:div.container
-         [:h1.h1 [:i18n ::all-food-groups]]
-         [:div.mmm-cards.mtl
-          (for [child food-groups]
-            (let [the-name (get-in child [:food-group/name locale])]
-              [:a.mmm-card {:href (urls/get-food-group-url locale the-name)}
-               the-name]))]]]]]]))
+      [:div.mmm-themed.mmm-brand-theme1
+       [:div.mmm-container.mmm-section
+        (Breadcrumbs
+         {:links (crumbs/crumble locale
+                                 {:text [:i18n ::crumbs/all-food-groups]})})]
+       [:div.mmm-container.mmm-section.mmm-mtxl
+        [:h1.mmm-h1 [:i18n ::all-food-groups]]
+        [:div.mmm-cards.mmm-block
+         (for [child food-groups]
+           (let [the-name (get-in child [:food-group/name locale])]
+             [:a.mmm-card.mmm-link {:href (urls/get-food-group-url locale the-name)}
+              the-name]))]]]
+      [:div.mmm-container.mmm-section
+       (SiteFooter)]]]))

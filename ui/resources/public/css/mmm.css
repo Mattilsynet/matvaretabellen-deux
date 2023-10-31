@@ -397,6 +397,22 @@ ol.mmm-unadorned-list li {
  *** Layouts ***
  ***************/
 
+/* Cards */
+
+.mmm-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--mt-column-gap);
+}
+
+.mmm-card {
+    flex-basis: 30%;
+    flex-shrink: 0;
+    flex-grow: 1;
+    padding: var(--mt-column-gap);
+    background: var(--mt-brand-theme-main-bg);
+}
+
 /* Container */
 .mmm-container,
 .mmm-container-narrow {
@@ -429,12 +445,16 @@ ol.mmm-unadorned-list li {
     margin-top: var(--mt-layout-section-spacing);
 }
 
-.mmm-section:first-child {
-    margin-top: 0;
-}
-
 .mmm-section:last-child {
     margin-bottom: 0;
+}
+
+/* Themed */
+
+.mmm-themed {
+    background: var(--mt-brand-theme-bg);
+    color: var(--mt-brand-theme-color);
+    overflow: auto; /* Establish a rendering context, avoid "overflowing" margins */
 }
 
 /* Three columns */

@@ -11,6 +11,7 @@
             [mmm.elements.table-scenes]
             [mmm.elements.typography-scenes]
             [mmm.layouts.banner-scenes]
+            [mmm.layouts.cards-scenes]
             [mmm.layouts.container-scenes]
             [mmm.layouts.media-scenes]
             [mmm.layouts.section-scenes]
@@ -28,6 +29,7 @@
 :mmm.elements.table-scenes/keep
 :mmm.elements.typography-scenes/keep
 :mmm.layouts.banner-scenes/keep
+:mmm.layouts.cards-scenes/keep
 :mmm.layouts.container-scenes/keep
 :mmm.layouts.media-scenes/keep
 :mmm.layouts.section-scenes/keep

@@ -43,53 +43,11 @@
 
 
 
-.mmm-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-}
-
-.mmm-card {
-    width: 30vw;
-    flex-shrink: 0;
-    padding: 24px;
-    background: #fff;
-}
-
-.mmm-hero-banner {
-    background: #F1EADF;
-    padding: 40px 0;
-}
 
 .mmm-secondary-banner {
     background: #D6E8ED;
     padding: 40px 0;
 }
-
-.one-two-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-gap: 24px;
-}
-
-.one-box {
-    grid-column: 1 / 2;
-    grid-row: 1 / 3;
-    background: #fff;
-    text-decoration: none;
-}
-
-.two-box {
-    grid-column: 2 / 3;
-    border-radius: 5px;
-    background: #075B7A;
-    color: #fff;
-    text-decoration: none;
-}
-
-.one-box > *,
-.two-box > * { height: 100%; }
 
 .flex {display: flex;}
 .flex-center {align-items: center; justify-content: center;}
