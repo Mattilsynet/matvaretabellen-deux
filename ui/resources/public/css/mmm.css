@@ -460,10 +460,6 @@ ol.mmm-unadorned-list li {
     margin-top: var(--mt-layout-section-spacing);
 }
 
-.mmm-section:last-child {
-    margin-bottom: 0;
-}
-
 /* Themed */
 
 .mmm-themed {
