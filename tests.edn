@@ -1,2 +1,4 @@
 #kaocha/v1
-{:plugins [:noyoda.plugin/swap-actual-and-expected]}
+{:tests [{:id :unit
+          :test-paths ["test" "ui/test"]}]
+ :plugins [:noyoda.plugin/swap-actual-and-expected]}
