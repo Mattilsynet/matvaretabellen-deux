@@ -487,6 +487,14 @@ ol.mmm-unadorned-list li {
     border-radius: var(--mt-border-radius-s);
 }
 
+.mmm-banner-button p:first-child {
+    margin-top: 0;
+}
+
+.mmm-banner-button p:last-child {
+    margin-bottom: 0;
+}
+
 .mmm-banner-media-buttons .mmm-buttons a {
     color: var(--mt-brand-theme-secondary-action-color);
     text-decoration: none;
