@@ -377,11 +377,16 @@ ol.mmm-unadorned-list li {
  ***************/
 
 /* Container */
-.mmm-container {
+.mmm-container,
+.mmm-container-narrow {
     max-width: var(--mt-layout-container-width);
     margin-left: auto;
     margin-right: auto;
     padding: 0 var(--mt-layout-container-gutter);
+}
+
+.mmm-container-narrow {
+    max-width: var(--mt-layout-container-narrow-width);
 }
 
 /* Section */

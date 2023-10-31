@@ -155,6 +155,7 @@
 
     /* Components and layouts (should possibly end up in separate files) */
     --mt-layout-container-width: var(--mt-grid-desktop-width);
+    --mt-layout-container-narrow-width: 600px;
     --mt-layout-container-gutter: var(--mt-grid-desktop-padding);
 
     --mt-layout-section-spacing: var(--mt-spacing-x2);
