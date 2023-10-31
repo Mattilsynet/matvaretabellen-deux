@@ -435,6 +435,10 @@ ol.mmm-unadorned-list li {
     justify-content: center;
 }
 
+.mmm-media-at {
+    align-items: flex-start;
+}
+
 .mmm-media aside {
     flex-shrink: 0;
 }
