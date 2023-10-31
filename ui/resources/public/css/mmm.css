@@ -38,6 +38,7 @@ body.mmm {
  ************************/
 
 .mmm-h1,
+.mmm-text .mmm-h1,
 .mmm-text h1 {
     font-size: var(--mt-typography-heading-l-font-size);
     font-weight: var(--mt-typography-heading-l-font-weight);
@@ -45,6 +46,7 @@ body.mmm {
 }
 
 .mmm-h2,
+.mmm-text .mmm-h2,
 .mmm-text h2 {
     font-size: var(--mt-typography-heading-m-font-size);
     font-weight: var(--mt-typography-heading-m-font-weight);
@@ -52,6 +54,7 @@ body.mmm {
 }
 
 .mmm-h3,
+.mmm-text .mmm-h3,
 .mmm-text h3 {
     font-size: var(--mt-typography-heading-s-font-size);
     font-weight: var(--mt-typography-heading-s-font-weight);
@@ -59,9 +62,12 @@ body.mmm {
 }
 
 .mmm-h4,
+.mmm-text .mmm-h4,
 .mmm-text h4,
 .mmm-h5,
+.mmm-text .mmm-h5,
 .mmm-h6,
+.mmm-text .mmm-h6,
 .mmm-text h5,
 .mmm-text h6 {
     font-size: var(--mt-typography-heading-xs-font-size);
