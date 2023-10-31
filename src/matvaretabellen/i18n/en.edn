@@ -25,7 +25,7 @@
   :category [:fn/str "Category: {{:category}}"]
   :description-title "Description of the Food Item"
   :edible-part [:fn/str "Edible part: {{:pct}} %"]
-  :energy [:fn/str "Caloric content: {{:kilo-joules}} kJ ({{:calories}} kcal)"]
+  :energy [:fn/str "Caloric content: {{:kilo-joules}} ({{:calories}} kcal)"]
   :energy-title "Composition and Energy Content"
   :fat-composition-title "Fatty acids composition"
   :fat-title "Fatty Acids"

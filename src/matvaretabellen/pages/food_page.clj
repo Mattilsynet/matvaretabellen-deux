@@ -4,6 +4,7 @@
             [datomic-type-extensions.api :as d]
             [matvaretabellen.crumbs :as crumbs]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
+            [mmm.components.select :refer [Select]]
             [mmm.components.site-header :refer [SiteHeader]]
             [mmm.components.toc :refer [Toc]]))
 
@@ -81,7 +82,7 @@
            [:h1 food-name]
            [:ul.mmm-unadorned-list
             [:li [:i18n ::food-id {:id (:food/id food)}]]
-            [:li [:i18n ::category {:category (get-in food [:food/food-group :food-group/name locale])}] ]
+            [:li [:i18n ::category {:category (get-in food [:food/food-group :food-group/name locale])}]]
             [:li [:i18n ::latin-name {:food/latin-name (:food/latin-name food)}]]]]
           [:aside
            (Toc {:title [:i18n ::toc-title]
@@ -105,12 +106,13 @@
         [:h2.h2 [:i18n ::nutrition-title]]
         [:div
          [:div {:style {:margin-bottom 5}} [:i18n ::portion-size]]
-         [:select.select.form-field#portion-selector
-          [:option {:value "100"} "100 gram"]
-          (for [portion (:food/portions food)]
-            (let [grams (int (b/num (:portion/quantity portion)))]
-              [:option {:value grams} (str "1 " (str/lower-case (:portion-kind/name (:portion/kind portion)))
-                                           " (" grams " gram)")]))]]
+         (Select
+          {:id "portion-selector"
+           :options (into (list [:option {:value "100"} "100 gram"])
+                          (for [portion (:food/portions food)]
+                            (let [grams (int (b/num (:portion/quantity portion)))]
+                              [:option {:value grams} (str "1 " (str/lower-case (:portion-kind/name (:portion/kind portion)))
+                                                           " (" grams " gram)")])))})]
         [:h3 [:i18n ::nutrition-heading]]
         [:ul.mmm-unadorned-list
          [:li [:i18n ::energy
