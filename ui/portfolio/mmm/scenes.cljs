@@ -4,6 +4,7 @@
             [mmm.components.button-scenes]
             [mmm.components.footer-scenes]
             [mmm.components.search-input-scenes]
+            [mmm.components.select-scenes]
             [mmm.components.site-header-scenes]
             [mmm.components.text-input-scenes]
             [mmm.components.toc-scenes]
@@ -22,6 +23,7 @@
 :mmm.components.button-scenes/keep
 :mmm.components.footer-scenes/keep
 :mmm.components.search-input-scenes/keep
+:mmm.components.select-scenes/keep
 :mmm.components.site-header-scenes/keep
 :mmm.components.text-input-scenes/keep
 :mmm.components.toc-scenes/keep
