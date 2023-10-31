@@ -157,6 +157,8 @@
     --mt-layout-container-width: var(--mt-grid-desktop-width);
     --mt-layout-container-gutter: var(--mt-grid-desktop-padding);
 
+    --mt-layout-section-spacing: var(--mt-spacing-x2);
+
     --mt-component-ac-background: var(--mt-component-form-field-background);
     --mt-component-ac-border-color: var(--mt-component-form-field-border);
     --mt-component-ac-active-background: var(--mt-color-blue-100);

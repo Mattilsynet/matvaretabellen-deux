@@ -379,8 +379,23 @@ ol.mmm-unadorned-list li {
 /* Container */
 .mmm-container {
     max-width: var(--mt-layout-container-width);
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
     padding: 0 var(--mt-layout-container-gutter);
+}
+
+/* Section */
+.mmm-section {
+    margin-bottom: var(--mt-layout-section-spacing);
+    margin-top: var(--mt-layout-section-spacing);
+}
+
+.mmm-section:first-child {
+    margin-top: 0;
+}
+
+.mmm-section:last-child {
+    margin-bottom: 0;
 }
 
 /******************************
