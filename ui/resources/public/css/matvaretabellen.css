@@ -91,19 +91,6 @@
 .one-box > *,
 .two-box > * { height: 100%; }
 
-.mtl {margin-top: 40px;}
-.mtxl {margin-top: 80px;}
-.mtxxl {margin-top: 120px;}
-
-.mbl {margin-bottom: 40px;}
-.mbxl {margin-bottom: 80px;}
-.mbxxl {margin-bottom: 120px;}
-
-.pam, .phm, .plm {padding-left: 28px;}
-.pam, .phm, .prm {padding-right: 28px;}
-.pam, .pvm, .ptm {padding-top: 28px;}
-.pam, .pvm, .pbm {padding-bottom: 28px;}
-
 .flex {display: flex;}
 .flex-center {align-items: center; justify-content: center;}
 
