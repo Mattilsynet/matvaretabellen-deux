@@ -45,25 +45,26 @@
                      :input {:name "foods-search"}
                      :autocomplete-id "foods-results"})]
       (BananaTeaserBox locale db)
-      [:div.container.mtl
-       [:div.flex.flex-gap-l
-        (Toc {:title [:i18n ::common-food-searches]
-              :contents [{:title "Egg" :href "?search=egg"}
-                         {:title "Gulrot" :href "?search=gulrot"}
-                         {:title "Havregryn" :href "?search=havregryn"}
-                         {:title "Potet" :href "?search=potet"}]})
-        [:div {:style {:flex 1}}
-         (Toc {:title (list [:i18n ::new-in-food-table] " 2023")
-               :contents [{:title "Egyptisk tahini"
-                           :href "/"}
-                          {:title "Gyroskjøtt"
-                           :href "/"}
-                          {:title "Bratwurst pølser"
-                           :href "/"}
-                          {:title "Vitamin K"
-                           :href "/"}]})]
-        (Toc {:title [:i18n ::seasonal-goods]
-              :contents (for [id ["06.010" "06.003" "06.016" "06.055"]]
-                          (get-food-info locale db id))})]]
-      [:div.mmm-container
+      [:div.mmm-container.mmm-section.mmm-threecol
+       (Toc {:title [:i18n ::common-food-searches]
+             :contents [{:title "Egg" :href "?search=egg"}
+                        {:title "Gulrot" :href "?search=gulrot"}
+                        {:title "Havregryn" :href "?search=havregryn"}
+                        {:title "Potet" :href "?search=potet"}]
+             :class :mmm-col})
+       (Toc {:title (list [:i18n ::new-in-food-table] " 2023")
+             :contents [{:title "Egyptisk tahini"
+                         :href "/"}
+                        {:title "Gyroskjøtt"
+                         :href "/"}
+                        {:title "Bratwurst pølser"
+                         :href "/"}
+                        {:title "Vitamin K"
+                         :href "/"}]
+             :class :mmm-col})
+       (Toc {:title [:i18n ::seasonal-goods]
+             :contents (for [id ["06.010" "06.003" "06.016" "06.055"]]
+                         (get-food-info locale db id))
+             :class :mmm-col})]
+      [:div.mmm-container.mmm-section
        (SiteFooter)]]]))

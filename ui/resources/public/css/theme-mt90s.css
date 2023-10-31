@@ -158,6 +158,7 @@
 
     --mt-horizontal-gap: var(--mt-spacing-x0_5);
     --mt-column-gap: var(--mt-spacing-x1_4);
+    --mt-column-gap-wide: var(--mt-spacing-x2);
 
     /* Components and layouts (should possibly end up in separate files) */
     --mt-layout-container-width: var(--mt-grid-desktop-width);

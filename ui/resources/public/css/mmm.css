@@ -437,6 +437,23 @@ ol.mmm-unadorned-list li {
     margin-bottom: 0;
 }
 
+/* Three columns */
+
+.mmm-threecol {
+    display: flex;
+    gap: var(--mt-column-gap-wide);
+}
+
+.mmm-threecol .mmm-col {
+    flex-basis: 0;
+    flex-grow: 5;
+}
+
+.mmm-threecol .mmm-col:first-child,
+.mmm-threecol .mmm-col:last-child {
+    flex-grow: 3;
+}
+
 /***************
  *** Banners ***
  ***************/

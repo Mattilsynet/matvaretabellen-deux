@@ -1,8 +1,8 @@
 (ns mmm.components.toc
   (:require [fontawesome.icons :as icons]))
 
-(defn Toc [{:keys [title icon contents]}]
-  [:div.mmm-toc.mmm-text
+(defn Toc [{:keys [title icon contents class]}]
+  [:div.mmm-toc.mmm-text {:class class}
    [:h3.mmm-toc-title
     (when icon
       [:span.mmm-toc-icon (icons/render icon)])
