@@ -505,6 +505,7 @@ ol.mmm-unadorned-list li {
 
 .mmm-banner-media-buttons .mmm-container {
     display: flex;
+    flex-direction: column;
     gap: var(--mt-column-gap);
     padding-top: var(--mt-component-banner-media-buttons-padding);
     padding-bottom: var(--mt-component-banner-media-buttons-padding);
@@ -553,6 +554,12 @@ ol.mmm-unadorned-list li {
 .mmm-banner-media-buttons .mmm-buttons a {
     color: var(--mt-brand-theme-secondary-action-color);
     text-decoration: none;
+}
+
+@media only screen and (min-width: 768px) {
+    .mmm-banner-media-buttons .mmm-container {
+        flex-direction: row;
+    }
 }
 
 /*************************
