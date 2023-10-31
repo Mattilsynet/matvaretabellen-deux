@@ -1,4 +1,5 @@
 ^{:watch-dirs ["src" "ui/src" "ui/portfolio"]
+  :css-dirs ["ui/resources/public/css"]
   :extra-main-files {:portfolio {:main matvaretabellen.scenes}}}
 {:main matvaretabellen.ui.main
  :optimizations :none
