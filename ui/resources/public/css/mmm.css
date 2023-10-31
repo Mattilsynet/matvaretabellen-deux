@@ -485,7 +485,8 @@ ol.mmm-unadorned-list li {
 
 .mmm-threecol {
     display: flex;
-    gap: var(--mt-column-gap-wide);
+    flex-direction: column;
+    gap: var(--mt-column-gap);
 }
 
 .mmm-threecol .mmm-col {
@@ -496,6 +497,13 @@ ol.mmm-unadorned-list li {
 .mmm-threecol .mmm-col:first-child,
 .mmm-threecol .mmm-col:last-child {
     flex-grow: 3;
+}
+
+@media only screen and (min-width: 768px) {
+    .mmm-threecol {
+        flex-direction: row;
+        gap: var(--mt-column-gap-wide);
+    }
 }
 
 /***************
