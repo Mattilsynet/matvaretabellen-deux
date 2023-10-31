@@ -14,7 +14,7 @@
      :href (urls/get-food-url locale food-name)}))
 
 (defn BananaTeaserBox [locale db]
-  [:div.mmm-banner-media-buttons.mmm-section
+  [:div.mmm-banner-media-buttons.mmm-section.mmm-brand-theme2
    [:div.mmm-container
     [:div.mmm-media
      [:aside [:img.mmm-img {:src "/images/banana.jpg"}]]

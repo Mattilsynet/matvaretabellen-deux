@@ -207,6 +207,17 @@
 
 .mmm, /* Default theme */
 .mmm-brand-theme1 {
+    --mt-brand-theme-bg: var(--mt-color-beige-200);
+    --mt-brand-theme-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-main-bg: var(--mt-color-white);
+    --mt-brand-theme-main-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-main-action-color: var(--mt-color-text-action-default);
+    --mt-brand-theme-secondary-bg: var(--mt-color-blue-100);
+    --mt-brand-theme-secondary-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-secondary-action-color: var(--mt-color-text-action-default);
+}
+
+.mmm-brand-theme2 {
     --mt-brand-theme-bg: var(--mt-color-blue-100);
     --mt-brand-theme-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-main-bg: var(--mt-color-white);
@@ -217,7 +228,7 @@
     --mt-brand-theme-secondary-action-color: var(--mt-color-white);
 }
 
-.mmm-brand-theme2 {
+.mmm-brand-theme3 {
     --mt-brand-theme-bg: var(--mt-color-green-100);
     --mt-brand-theme-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-main-bg: var(--mt-color-white);
