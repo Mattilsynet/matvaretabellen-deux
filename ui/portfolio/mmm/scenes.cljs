@@ -11,6 +11,7 @@
             [mmm.elements.table-scenes]
             [mmm.elements.typography-scenes]
             [mmm.layouts.container-scenes]
+            [mmm.layouts.media-scenes]
             [mmm.layouts.section-scenes]))
 
 :mmm.colors.mattilsynet-90s-scenes/keep
@@ -25,6 +26,7 @@
 :mmm.elements.table-scenes/keep
 :mmm.elements.typography-scenes/keep
 :mmm.layouts.container-scenes/keep
+:mmm.layouts.media-scenes/keep
 :mmm.layouts.section-scenes/keep
 
 ;; Commented out to avoid starting two Portfolio instances

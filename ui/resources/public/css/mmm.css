@@ -409,6 +409,19 @@ ol.mmm-unadorned-list li {
     max-width: var(--mt-layout-container-narrow-width);
 }
 
+/* Media */
+
+.mmm-media {
+    display: flex;
+    gap: var(--mt-column-gap);
+    align-items: center;
+    justify-content: center;
+}
+
+.mmm-media aside {
+    flex-shrink: 0;
+}
+
 /* Section */
 .mmm-section {
     margin-bottom: var(--mt-layout-section-spacing);
