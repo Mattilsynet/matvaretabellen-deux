@@ -71,12 +71,40 @@
         "Denne paragrafen er også en ingress, men en litt mer subtil en. Den
          benytter seg av klassen .mmm-preamble-s.")])
 
-(defscene mt-text
+(defscene mmm-text
   "`.mmm-text` gir default styling til de viktigste typografiske
   elementene (headinger, paragrafer, lister, osv). Denne klassen er nyttig når
   du ikke har full kontroll på markup, feks når du skal rendre innholdet fra
   rike tekstfelter, HTML oversatt fra markdown osv."
   (e/text
+   [:h1 "Dette er en h1"]
+   [:p "Og dette er en paragraf med litt tekst."]
+   [:p "Denne paragrafen har en " [:a {:href "#"} "lenke"] "."]
+   [:h2 "Dette er en h2"]
+   [:ul
+    [:li "Dette er en punktliste"]
+    [:li "Den kan ha mange punkter"]
+    [:li "Det er kun fantasien som setter grenser"]]
+   [:h3 "Dette er en h3"]
+   [:ol
+    [:li "Dette er en nummerert liste"]
+    [:li "Den kan ha mange punkter"]
+    [:li "Det er kun fantasien som setter grenser"]
+    [:li "Det bør"]
+    [:li "være støtte"]
+    [:li "for så"]
+    [:li "meget som"]
+    [:li "et tosiffret"]
+    [:li "antall"]
+    [:li "punkter!"]]
+   [:h4 "Dette er en h4"]
+   [:h5 "Dette er en h5"]
+   [:h6 "Dette er en h6"]))
+
+(defscene mmm-tight
+  "`.mmm-text.mmm-tight` fungerer som `.mmm-text` men med mindre vertikal
+  spacing."
+  (e/text {:class "mmm-tight"}
    [:h1 "Dette er en h1"]
    [:p "Og dette er en paragraf med litt tekst."]
    [:p "Denne paragrafen har en " [:a {:href "#"} "lenke"] "."]

@@ -91,6 +91,26 @@ body.mmm {
     padding: 0;
 }
 
+.mmm-text h1:not(:first-child),
+.mmm-text h2:not(:first-child),
+.mmm-text h3:not(:first-child),
+.mmm-text h4:not(:first-child),
+.mmm-text h5:not(:first-child),
+.mmm-text h6:not(:first-child),
+.mmm-h1:not(:first-child),
+.mmm-h2:not(:first-child),
+.mmm-h3:not(:first-child),
+.mmm-h4:not(:first-child),
+.mmm-h5:not(:first-child),
+.mmm-h6:not(:first-child) {
+    margin-top: var(--mt-typography-vertical-spacing-airy);
+}
+
+.mmm-tight {
+    --mt-typography-vertical-spacing-normal: var(--mt-spacing-x0_25);
+    --mt-typography-vertical-spacing-airy: var(--mt-spacing-x1_4);
+}
+
 .mmm-p,
 .mmm-text,
 .mmm-ul,
