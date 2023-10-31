@@ -138,7 +138,7 @@
 (defn boot []
   (main)
   (initialize-foods-autocomplete
-   (js/document.querySelector ".mmm-autocomplete")
+   (js/document.querySelector ".mmm-search-input")
    (keyword js/document.documentElement.lang)
    (get (get-params) "search"))
 

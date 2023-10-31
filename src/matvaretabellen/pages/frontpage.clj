@@ -39,7 +39,7 @@
       [:div.mmm-container.mmm-section
        (Breadcrumbs
         {:links (crumbs/crumble locale)})]
-      [:div.mmm-container-narrow.mmm-section.mmm-mbxxl
+      [:form.mmm-container-narrow.mmm-section.mmm-mbxxl
        [:h1.mmm-h2.mmm-mbl [:i18n ::search-label]]
        (SearchInput {:button {:text [:i18n ::search-button]}
                      :input {:name "foods-search"}
