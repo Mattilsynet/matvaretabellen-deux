@@ -23,6 +23,7 @@
 .mmm body,
 body.mmm {
     background: var(--mt-color-background-default);
+    color: var(--mt-color-text-neutral-default);
     margin: 0;
 }
 
@@ -115,9 +116,9 @@ body.mmm {
 .mmm-text,
 .mmm-ul,
 .mmm-ol {
-    font-size: var(--mt-typography-paragraph-long-m-font-size);
-    font-weight: var(--mt-typography-paragraph-long-m-font-weight);
-    line-height: var(--mt-typography-paragraph-long-m-line-height);
+    font-size: var(--mt-typography-paragraph-long-s-font-size);
+    font-weight: var(--mt-typography-paragraph-long-s-font-weight);
+    line-height: var(--mt-typography-paragraph-long-s-line-height);
 }
 
 .mmm-text ul,
@@ -434,6 +435,61 @@ ol.mmm-unadorned-list li {
 
 .mmm-section:last-child {
     margin-bottom: 0;
+}
+
+/***************
+ *** Banners ***
+ ***************/
+
+/* Media buttons banner */
+
+.mmm-banner-media-buttons {
+    background: var(--mt-brand-theme-bg);
+    color: var(--mt-brand-theme-color);
+}
+
+.mmm-banner-media-buttons .mmm-container {
+    display: flex;
+    gap: var(--mt-column-gap);
+    padding-top: var(--mt-component-banner-media-buttons-padding);
+    padding-bottom: var(--mt-component-banner-media-buttons-padding);
+}
+
+.mmm-banner-media-buttons .mmm-media,
+.mmm-banner-media-buttons .mmm-buttons {
+    flex-shrink: 0;
+    flex-basis: 0;
+}
+
+.mmm-banner-media-buttons .mmm-media {
+    background: var(--mt-brand-theme-main-bg);
+    color: var(--mt-brand-theme-main-color);
+    flex-grow: 2;
+    padding: var(--mt-grid-desktop-padding);
+}
+
+.mmm-banner-media-buttons .mmm-media a {
+    color: var(--mt-brand-theme-main-action-color);
+}
+
+.mmm-banner-media-buttons .mmm-buttons {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--mt-column-gap);
+}
+
+.mmm-banner-button {
+    background: var(--mt-brand-theme-secondary-bg);
+    color: var(--mt-brand-theme-secondary-color);
+    flex-grow: 1;
+    padding: var(--mt-grid-desktop-padding);
+    border-radius: var(--mt-border-radius-s);
+}
+
+.mmm-banner-media-buttons .mmm-buttons a {
+    color: var(--mt-brand-theme-secondary-action-color);
+    text-decoration: none;
 }
 
 /*************************

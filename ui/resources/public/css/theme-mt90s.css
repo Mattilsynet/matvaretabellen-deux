@@ -124,7 +124,7 @@
     --mt-breakpoint-xl-upper: 9999999px;
 
     --mt-grid-desktop-margin: 60px;
-    --mt-grid-desktop-padding: 16px;
+    --mt-grid-desktop-padding: 24px;
     --mt-grid-desktop-gutter: 24px;
     --mt-grid-desktop-width: calc(1440px - var(--mt-grid-desktop-margin) - var(--mt-grid-desktop-margin) + var(--mt-grid-desktop-padding) + var(--mt-grid-desktop-padding));
     --mt-grid-desktop-column-width: 88px;
@@ -170,6 +170,8 @@
     --mt-component-ac-border-color: var(--mt-component-form-field-border);
     --mt-component-ac-active-background: var(--mt-color-blue-100);
 
+    --mt-component-banner-media-buttons-padding: var(--mt-spacing-x2);
+
     --mt-component-breadcrumb-font-size: var(--mt-typography-small-font-size);
     --mt-component-breadcrumb-horizontal-spacing: var(--mt-spacing-x0_5);
 
@@ -198,4 +200,29 @@
 
     --mt-component-toc-icon-color: var(--mt-color-blue-200);
     --mt-component-toc-border-color: var(--mt-color-beige-500);
+}
+
+/* Brand themes */
+
+.mmm, /* Default theme */
+.mmm-brand-theme1 {
+    --mt-brand-theme-bg: var(--mt-color-blue-100);
+    --mt-brand-theme-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-main-bg: var(--mt-color-white);
+    --mt-brand-theme-main-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-main-action-color: var(--mt-color-text-action-default);
+    --mt-brand-theme-secondary-bg: var(--mt-color-blue-500);
+    --mt-brand-theme-secondary-color: var(--mt-color-white);
+    --mt-brand-theme-secondary-action-color: var(--mt-color-white);
+}
+
+.mmm-brand-theme2 {
+    --mt-brand-theme-bg: var(--mt-color-green-100);
+    --mt-brand-theme-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-main-bg: var(--mt-color-white);
+    --mt-brand-theme-main-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-main-action-color: var(--mt-color-text-action-default);
+    --mt-brand-theme-secondary-bg: var(--mt-color-green-500);
+    --mt-brand-theme-secondary-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-secondary-action-color: var(--mt-color-text-neutral-default);
 }
