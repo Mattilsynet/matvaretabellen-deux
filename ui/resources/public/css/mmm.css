@@ -412,11 +412,17 @@ ol.mmm-unadorned-list li {
 }
 
 .mmm-card {
-    flex-basis: 30%;
+    flex-basis: 40%;
     flex-shrink: 0;
     flex-grow: 1;
     padding: var(--mt-column-gap);
     background: var(--mt-brand-theme-main-bg);
+}
+
+@media only screen and (min-width: 768px) {
+    .mmm-card {
+        flex-basis: 30%;
+    }
 }
 
 /* Container */

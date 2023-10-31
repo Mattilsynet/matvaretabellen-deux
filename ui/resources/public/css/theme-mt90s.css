@@ -157,8 +157,8 @@
     --mt-focusable-shadow: 0 0 0 2px var(--mt-color-beige-100), 0 0 0 0.35rem var(--mt-color-blue-200);
 
     --mt-horizontal-gap: var(--mt-spacing-x0_5);
-    --mt-column-gap: var(--mt-spacing-x1_4);
-    --mt-column-gap-wide: var(--mt-spacing-x2);
+    --mt-column-gap: var(--mt-spacing-x1);
+    --mt-column-gap-wide: var(--mt-spacing-x1_4);
 
     /* Components and layouts (should possibly end up in separate files) */
     --mt-layout-container-width: var(--mt-grid-desktop-width);
@@ -208,6 +208,8 @@
     .mmm {
         --mt-typography-small-font-size: 16px;
         --mt-typography-base-font-size: 21.5px;
+        --mt-column-gap: var(--mt-spacing-x1_4);
+        --mt-column-gap-wide: var(--mt-spacing-x2);
     }
 }
 
