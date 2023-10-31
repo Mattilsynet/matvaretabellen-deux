@@ -81,11 +81,11 @@
 
     --mt-typography-heading-m-font-size: 1.75rem;
     --mt-typography-heading-m-line-height: var(--mt-font-line-height-tight);
-    --mt-typography-heading-m-font-weight: var(--mt-font-weight-normal);
+    --mt-typography-heading-m-font-weight: var(--mt-font-weight-light);
 
     --mt-typography-heading-l-font-size: 2.5rem;
     --mt-typography-heading-l-line-height: var(--mt-font-line-height-tight);
-    --mt-typography-heading-l-font-weight: var(--mt-font-weight-normal);
+    --mt-typography-heading-l-font-weight: var(--mt-font-weight-light);
 
     --mt-typography-preamble-s-font-size: 1.5rem;
     --mt-typography-preamble-s-line-height: var(--mt-font-line-height-normal);
