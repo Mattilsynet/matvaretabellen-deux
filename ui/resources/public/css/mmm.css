@@ -407,8 +407,13 @@ ol.mmm-unadorned-list li {
  *** Component: Breadcrumbs ***
  ******************************/
 
+.mmm-breadcrumbs {
+    font-size: var(--mt-component-breadcrumb-font-size);
+    --mt-horizontal-gap: var(--mt-component-breadcrumb-horizontal-spacing);
+}
+
 .mmm-breadcrumb .mmm-link {
-    margin-right: var(--mt-spacing-x0_5);
+    margin-right: var(--mt-horizontal-gap);
 }
 
 /*************************
@@ -526,9 +531,9 @@ ol.mmm-unadorned-list li {
     height: 1.8rem;
 }
 
-/*************************
- *** Component: Header ***
- *************************/
+/***********************************
+ *** Component: Horizontal lists ***
+ ***********************************/
 
 .mmm-horizontal-list {
     margin: 0;
@@ -537,9 +542,13 @@ ol.mmm-unadorned-list li {
 }
 
 .mmm-horizontal-list li {
-    margin: 0 var(--mt-spacing-x0_5) 0 0;
+    margin: 0 var(--mt-horizontal-gap) 0 0;
     padding: 0;
     display: inline;
+}
+
+.mmm-horizontal-list li:last-child {
+    margin-right: 0;
 }
 
 /************************************

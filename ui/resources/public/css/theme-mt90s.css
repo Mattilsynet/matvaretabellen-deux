@@ -68,7 +68,8 @@
     --mt-color-border-status-warning: var(--mt-color-orange-500);
     --mt-color-border-status-info: var(--mt-color-blue-500);
 
-    --mt-typography-base-font-size: 16px;
+    --mt-typography-small-font-size: 16px;
+    --mt-typography-base-font-size: 21.5px;
 
     --mt-typography-heading-xs-font-size: 1.125rem;
     --mt-typography-heading-xs-line-height: var(--mt-font-line-height-tight);
@@ -153,6 +154,8 @@
 
     --mt-focusable-shadow: 0 0 0 2px var(--mt-color-beige-100), 0 0 0 0.35rem var(--mt-color-blue-200);
 
+    --mt-horizontal-gap: var(--mt-spacing-x0_5);
+
     /* Components and layouts (should possibly end up in separate files) */
     --mt-layout-container-width: var(--mt-grid-desktop-width);
     --mt-layout-container-narrow-width: 600px;
@@ -163,6 +166,9 @@
     --mt-component-ac-background: var(--mt-component-form-field-background);
     --mt-component-ac-border-color: var(--mt-component-form-field-border);
     --mt-component-ac-active-background: var(--mt-color-blue-100);
+
+    --mt-component-breadcrumb-font-size: var(--mt-typography-small-font-size);
+    --mt-component-breadcrumb-horizontal-spacing: var(--mt-spacing-x0_5);
 
     --mt-component-button-background: var(--mt-color-surface-action-default);
     --mt-component-button-color: var(--mt-color-text-neutral-on-inverted);
