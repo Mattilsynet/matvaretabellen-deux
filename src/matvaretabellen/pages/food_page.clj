@@ -8,6 +8,14 @@
             [mmm.components.site-header :refer [SiteHeader]]
             [mmm.components.toc :refer [Toc]]))
 
+(def preferred-nutrient-order
+  (reverse
+   ["Mettet"
+    "Enumet"
+    "Flerum"
+    "Trans"
+    "Kolest"]))
+
 (defn wrap-in-portion-span [num]
   [:span {:data-portion num} num])
 
@@ -24,7 +32,9 @@
        (map :constituent/nutrient)
        (filter (comp #{nutrient-id}
                      :nutrient/id
-                     :nutrient/parent))))
+                     :nutrient/parent))
+       (sort-by :nutrient/id)
+       (sort-by #(- (.indexOf preferred-nutrient-order (:nutrient/id %))))))
 
 (defn prepare-nutrition-table [food]
   {:headers [[:i18n ::nutrients] [:i18n ::amount-grams]]
