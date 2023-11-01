@@ -317,6 +317,10 @@ ol.mmm-unadorned-list li {
     font-size: inherit;
 }
 
+.mmm-input-m {
+    width: 25ch;
+}
+
 /***************************
  *** Forms: Action input ***
  ***************************/
@@ -602,6 +606,9 @@ ol.mmm-unadorned-list li {
 /*************************
  *** Spacing utilities ***
  *************************/
+
+.mmm-man, .mmm-mvn, .mmm-mtn {margin-top: 0;}
+.mmm-man, .mmm-mvn, .mmm-mbn {margin-bottom: 0;}
 
 .mmm-mal, .mmm-mvl, .mmm-mtl {margin-top: var(--mt-spacing-x2);}
 .mmm-maxl, .mmm-mvxl, .mmm-mtxl {margin-top: var(--mt-spacing-x3_6);}

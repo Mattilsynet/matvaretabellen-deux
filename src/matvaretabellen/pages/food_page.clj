@@ -102,18 +102,20 @@
                              :href "#adi"}
                             {:title [:i18n ::description-title]
                              :href "#beskrivelse"}]})]]]]
-       [:div.mmm-container.mmm-section.mmm-container-focused.mmm-text#naringsinnhold
-        [:h2.h2 [:i18n ::nutrition-title]]
-        [:div
-         [:div {:style {:margin-bottom 5}} [:i18n ::portion-size]]
-         (Select
-          {:id "portion-selector"
-           :options (into (list [:option {:value "100"} "100 gram"])
-                          (for [portion (:food/portions food)]
-                            (let [grams (int (b/num (:portion/quantity portion)))]
-                              [:option {:value grams} (str "1 " (str/lower-case (:portion-kind/name (:portion/kind portion)))
-                                                           " (" grams " gram)")])))})]
-        [:h3 [:i18n ::nutrition-heading]]
+       [:div.mmm-section.mmm-container-focused#naringsinnhold
+        [:div.mmm-desktop-flex.mmm-flex-bottom
+         [:h2.mmm-h2.mmm-mbn [:i18n ::nutrition-title]]
+         [:div
+          [:p [:i18n ::portion-size]]
+          (Select
+           {:id "portion-selector"
+            :class "mmm-input-m"
+            :options (into [[:option {:value "100"} "100 gram"]]
+                           (for [portion (:food/portions food)]
+                             (let [grams (int (b/num (:portion/quantity portion)))]
+                               [:option {:value grams} (str "1 " (str/lower-case (:portion-kind/name (:portion/kind portion)))
+                                                            " (" grams " gram)")])))})]]
+        [:h3.mmm-h3 [:i18n ::nutrition-heading]]
         [:ul.mmm-unadorned-list
          [:li [:i18n ::energy
                {:kilo-joules (str (:measurement/quantity (:food/energy food)))
@@ -122,6 +124,6 @@
                {:pct (-> food :food/edible-part :measurement/percent)}]]]
         (render-table (prepare-nutrition-table food))
 
-        [:h3 [:i18n ::fat-title]]
+        [:h3.mmm-h3 [:i18n ::fat-title]]
         (for [table (prepare-fat-tables food)]
           (render-table table))]]]]))
