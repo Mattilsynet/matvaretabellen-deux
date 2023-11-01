@@ -444,6 +444,24 @@ ol.mmm-unadorned-list li {
     max-width: var(--mt-layout-container-narrow-width);
 }
 
+/* Flex */
+
+.mmm-flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media only screen and (min-width: 768px) {
+    .mmm-desktop-flex {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.mmm-flex-bottom {
+    align-items: flex-end;
+}
+
 /* Media */
 
 .mmm-media {
