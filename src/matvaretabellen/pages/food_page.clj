@@ -51,7 +51,7 @@
                        (get-nutrient-grams food (:nutrient/id acid))]))}))))
 
 (defn render-table [{:keys [headers rows]}]
-  [:table.mmm-table.mmm-nutrient-table
+  [:table.mmm-table.mmm-nutrient-table.mmm-mbl.mmm-table-zebra
    [:thead
     [:tr
      (for [header headers]
