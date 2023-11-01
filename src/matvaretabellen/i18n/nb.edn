@@ -27,7 +27,7 @@
   :edible-part [:fn/str "Spiselig del: {{:pct}}&nbsp;%"]
   :energy [:fn/str "Kaloriinnhold: {{:kilo-joules}} ({{:calories}} kcal)"]
   :energy-title "Sammensetning og energiinnhold"
-  :fat-composition-title "Fettsyrer, sammensetning"
+  :composition-title [:fn/str "{{:title}}, sammensetning"]
   :fat-title "Fettsyrer"
   :food-id [:fn/str "Matvare-ID: {{:id}}"]
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]

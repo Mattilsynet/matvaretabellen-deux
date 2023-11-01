@@ -45,19 +45,20 @@
           [[:i18n ::total-fiber] (get-nutrient-grams food "Fiber")]
           [[:i18n ::total-alcohol] (get-nutrient-grams food "Alko")]]})
 
-(defn prepare-fat-tables [food]
-  (let [fats (get-nutrient-parts food "Fett")]
+(defn prepare-nutrient-tables [food group-id title]
+  (let [nutrients (get-nutrient-parts food group-id)]
     (->> (concat
-          [{:headers [[:i18n ::fat-composition-title] [:i18n ::amount-grams]]
-            :rows (for [nutrient fats]
+          [{:headers [[:i18n ::composition-title {:title title}]
+                      [:i18n ::amount-grams]]
+            :rows (for [nutrient nutrients]
                     [[:i18n ::lookup (:nutrient/name nutrient)]
                      (get-nutrient-grams food (:nutrient/id nutrient))])}]
-          (for [fat fats]
-            (when-let [acids (seq (get-nutrient-parts food (:nutrient/id fat)))]
+          (for [fat nutrients]
+            (when-let [parts (seq (get-nutrient-parts food (:nutrient/id fat)))]
               {:headers [[:i18n ::lookup (:nutrient/name fat)] [:i18n ::amount-grams]]
-               :rows (for [acid acids]
-                       [[:i18n ::lookup (:nutrient/name acid)]
-                        (get-nutrient-grams food (:nutrient/id acid))])})))
+               :rows (for [part parts]
+                       [[:i18n ::lookup (:nutrient/name part)]
+                        (get-nutrient-grams food (:nutrient/id part))])})))
          (remove nil?))))
 
 (defn render-table [{:keys [headers rows]}]
@@ -135,5 +136,9 @@
         (render-table (prepare-nutrition-table food))
 
         [:h3.mmm-h3#fett [:i18n ::fat-title]]
-        (for [table (prepare-fat-tables food)]
+        (for [table (prepare-nutrient-tables food "Fett" [:i18n ::fat-title])]
+          (render-table table))
+
+        [:h3.mmm-h3#karbohydrater [:i18n ::carbohydrates-title]]
+        (for [table (prepare-nutrient-tables food "Karbo" [:i18n ::carbohydrates-title])]
           (render-table table))]]]]))
