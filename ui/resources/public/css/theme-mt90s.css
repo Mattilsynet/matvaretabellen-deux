@@ -198,7 +198,7 @@
     --mt-component-table-thead-background: var(--mt-color-beige-200);
     --mt-component-table-thead-th-font-size: 18px;
     --mt-component-table-thead-th-font-weight: var(--mt-font-weight-bold);
-    --mt-component-table-tbody-th-font-size: 1rem;
+    --mt-component-table-tbody-th-font-size: var(--mt-typography-small-font-size);
     --mt-component-table-tbody-th-font-weight: var(--mt-font-weight-normal);
 
     --mt-component-toc-icon-color: var(--mt-color-blue-200);
