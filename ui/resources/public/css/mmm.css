@@ -243,10 +243,6 @@ ol.mmm-unadorned-list li {
  *** Tables ***
  **************/
 
-.mmm-table {
-    width: 100%;
-}
-
 .mmm-table caption {
     font-size: var(--mt-typography-heading-m-font-size);
     font-weight: var(--mt-typography-heading-m-font-weight);
