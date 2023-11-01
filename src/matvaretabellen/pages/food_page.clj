@@ -37,18 +37,18 @@
 
 (defn prepare-fat-tables [food]
   (let [fats (get-nutrient-parts food "Fett")]
-    (concat
-     [{:headers [[:i18n ::fat-composition-title] [:i18n ::amount-grams]]
-       :rows (into [[[:i18n ::total-fat] (get-nutrient-grams food "Fett")]]
-                   (for [nutrient fats]
-                     [[:i18n ::lookup (:nutrient/name nutrient)]
-                      (get-nutrient-grams food (:nutrient/id nutrient))]))}]
-     (for [fat fats]
-       {:headers [[:i18n ::lookup (:nutrient/name fat)] [:i18n ::amount-grams]]
-        :rows (into [[[:i18n ::total (:nutrient/name fat)] (get-nutrient-grams food (:nutrient/id fat))]]
-                    (for [acid (get-nutrient-parts food (:nutrient/id fat))]
-                      [[:i18n ::lookup (:nutrient/name acid)]
-                       (get-nutrient-grams food (:nutrient/id acid))]))}))))
+    (->> (concat
+          [{:headers [[:i18n ::fat-composition-title] [:i18n ::amount-grams]]
+            :rows (for [nutrient fats]
+                    [[:i18n ::lookup (:nutrient/name nutrient)]
+                     (get-nutrient-grams food (:nutrient/id nutrient))])}]
+          (for [fat fats]
+            (when-let [acids (seq (get-nutrient-parts food (:nutrient/id fat)))]
+              {:headers [[:i18n ::lookup (:nutrient/name fat)] [:i18n ::amount-grams]]
+               :rows (for [acid acids]
+                       [[:i18n ::lookup (:nutrient/name acid)]
+                        (get-nutrient-grams food (:nutrient/id acid))])})))
+         (remove nil?))))
 
 (defn render-table [{:keys [headers rows]}]
   [:table.mmm-table.mmm-nutrient-table.mmm-mbl.mmm-table-zebra
