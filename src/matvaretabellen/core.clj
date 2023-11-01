@@ -40,7 +40,10 @@
            :m1p/dictionaries {:nb ["src/matvaretabellen/i18n/nb.edn"]
                               :en ["src/matvaretabellen/i18n/en.edn"]}}
     (= :prod env)
-    (assoc :site/base-url "https://matvaretabellen.mattilsynet.io")))
+    (assoc :site/base-url "https://matvaretabellen.mattilsynet.io")
+
+    (= :dev env) ;; serve figwheel compiled js
+    (assoc :powerpack/dev-assets-root-path "public")))
 
 (defn create-build-app []
   (let [uri "datomic:mem://foods-export"]
