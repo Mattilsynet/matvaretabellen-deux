@@ -33,8 +33,25 @@
                                      :from-deg deg
                                      :to-deg (+ deg delta-deg)))))))))
 
-(defn PieChart [{:keys [slices]}]
-  [:svg {:viewBox (str "0 0 " d " " d)}
-   (for [{:keys [from-deg to-deg color]} slices]
-     [:path {:d (render-arc from-deg to-deg)
-             :fill color}])])
+(defn get-slice-id [slice]
+  (or (:id slice)
+      (str "slice" (hash slice))))
+
+(defn get-hover-attrs [{:keys [from-deg to-deg] :as slice}]
+  (let [mid-deg (/ (+ from-deg to-deg) 2)]
+    {:class "js-hoverable"
+     :data-hoverTargetId (get-slice-id slice)
+     :data-hoverCxRatio (/ (+ cx (* r 0.67 (Math/cos (deg->rad mid-deg)))) d)
+     :data-hoverCyRatio (/ (+ cy (* r 0.67 (Math/sin (deg->rad mid-deg)))) d)}))
+
+(defn PieChart [{:keys [slices hoverable?]}]
+  [:div {:style {:position "relative"}}
+   [:svg.mmm-svg {:viewBox (str "0 0 " d " " d)}
+    (for [{:keys [from-deg to-deg color] :as slice} slices]
+      [:path (cond-> {:d (render-arc from-deg to-deg)
+                      :fill color}
+               hoverable? (merge (get-hover-attrs slice)))])]
+   (when hoverable?
+     (for [slice slices]
+       [:div.mtv-hover-popup {:id (get-slice-id slice)}
+        (:hover-content slice)]))])

@@ -2,6 +2,7 @@
   (:require [clojure.string :as str]
             [matvaretabellen.search :as search]
             [matvaretabellen.ui.foods-search :as foods-search]
+            [matvaretabellen.ui.hoverable :as hoverable]
             [matvaretabellen.urls :as urls]))
 
 (defonce search-engine (atom {:index-status :pending
@@ -144,7 +145,9 @@
 
   (initialize-portion-selector
    (js/document.querySelector "#portion-selector")
-   (js/document.querySelectorAll "[data-portion]")))
+   (js/document.querySelectorAll "[data-portion]"))
+
+  (hoverable/set-up js/document))
 
 (defonce ^:export kicking-out-the-jams (boot))
 
