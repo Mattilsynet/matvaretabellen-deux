@@ -102,9 +102,9 @@
                              :href "#adi"}
                             {:title [:i18n ::description-title]
                              :href "#beskrivelse"}]})]]]]
-       [:div.mmm-section.mmm-container-focused#naringsinnhold
+       [:div.mmm-section.mmm-container-focused
         [:div.mmm-desktop-flex.mmm-flex-bottom
-         [:h2.mmm-h2.mmm-mbn [:i18n ::nutrition-title]]
+         [:h2.mmm-h2.mmm-mbn#naringsinnhold [:i18n ::nutrition-title]]
          [:div
           [:p [:i18n ::portion-size]]
           (Select
@@ -115,7 +115,7 @@
                              (let [grams (int (b/num (:portion/quantity portion)))]
                                [:option {:value grams} (str "1 " (str/lower-case (:portion-kind/name (:portion/kind portion)))
                                                             " (" grams " gram)")])))})]]
-        [:h3.mmm-h3 [:i18n ::nutrition-heading]]
+        [:h3.mmm-h3#energi [:i18n ::nutrition-heading]]
         [:ul.mmm-unadorned-list
          [:li [:i18n ::energy
                {:kilo-joules (str (:measurement/quantity (:food/energy food)))
@@ -124,6 +124,6 @@
                {:pct (-> food :food/edible-part :measurement/percent)}]]]
         (render-table (prepare-nutrition-table food))
 
-        [:h3.mmm-h3 [:i18n ::fat-title]]
+        [:h3.mmm-h3#fett [:i18n ::fat-title]]
         (for [table (prepare-fat-tables food)]
           (render-table table))]]]]))
