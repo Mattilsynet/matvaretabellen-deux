@@ -710,19 +710,17 @@ ol.mmm-unadorned-list li {
 
 .mmm-header {
     border-bottom: 2px solid var(--mt-component-header-border-color);
-    height: var(--mt-component-header-height);
-    padding: 0.975rem 0;
 }
 
-@media only screen and (min-width: 960px) {
-    .mmm-header {
-        padding: 2.225rem 0;
-    }
+.mmm-header .mmm-container {
+    display: flex;
+    align-items: center;
+    height: 98px;
 }
 
 .mmm-header .mmm-svg {
     color: var(--mt-component-header-logo-color);
-    height: 1.8rem;
+    height: 28.8px;
 }
 
 /***********************************
