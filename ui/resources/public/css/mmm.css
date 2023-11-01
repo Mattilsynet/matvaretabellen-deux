@@ -306,7 +306,7 @@ ol.mmm-unadorned-list li {
 
 .mmm-input {
     width: 100%;
-    padding: 0.75em 0.5em;
+    padding: var(--mt-component-form-field-padding-v) var(--mt-component-form-field-padding-h);
     border: 1px solid var(--mt-component-form-field-border);
     border-radius: 0.25em;
     background-color: var(--mt-component-form-field-background);
@@ -368,11 +368,10 @@ ol.mmm-unadorned-list li {
 
 .mmm-ac-result a {
     display: block;
-    padding: 10px;
+    padding: var(--mt-component-form-field-padding-h);
     text-decoration: none;
     font-weight: inherit;
     color: inherit;
-    font-size: 20px;
 }
 
 .mmm-ac-selected a {

@@ -146,6 +146,9 @@
     --mt-spacing-x4_4: 88px;
     --mt-spacing-x6: 120px;
 
+    --mt-spacing-box-padding-s: var(--mt-spacing-x0_5);
+    --mt-spacing-box-padding-m: var(--mt-spacing-x1_4);
+
     --mt-border-width-s: 1px;
     --mt-border-width-m: 2px;
     --mt-border-width-xm: 3px;
@@ -185,6 +188,8 @@
 
     --mt-component-form-field-border: var(--mt-color-beige-500);
     --mt-component-form-field-background: var(--mt-color-white);
+    --mt-component-form-field-padding-h: 0.5em;
+    --mt-component-form-field-padding-v: 0.75em;
 
     --mt-component-footer-border-color: var(--mt-color-red-200);
     --mt-component-footer-gap: var(--mt-spacing-x1_4);
