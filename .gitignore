@@ -10,7 +10,7 @@
 /datomic-pro-*.zip
 /datomic-data/
 /target/
-/dev-resources/dev-assets/js/compiled
+/dev-resources/public/js/compiled
 /.clj-kondo/http-kit/
 /docker/build
 /tf/.terraform*
