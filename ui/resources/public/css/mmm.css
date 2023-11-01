@@ -159,6 +159,8 @@ body.mmm {
 ul.mmm-unadorned-list,
 ol.mmm-unadorned-list {
     list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
 }
 
 ul.mmm-unadorned-list li,
