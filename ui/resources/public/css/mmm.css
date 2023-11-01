@@ -574,10 +574,13 @@ ol.mmm-unadorned-list li {
 
 .mmm-banner-button {
     background: var(--mt-brand-theme-secondary-bg);
-    color: var(--mt-brand-theme-secondary-color);
-    flex-grow: 1;
-    padding: var(--mt-grid-desktop-padding);
     border-radius: var(--mt-border-radius-s);
+    color: var(--mt-brand-theme-secondary-color);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    padding: var(--mt-grid-desktop-padding);
 }
 
 .mmm-banner-button p:first-child {
