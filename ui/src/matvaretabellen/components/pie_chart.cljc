@@ -40,9 +40,9 @@
 (defn get-hover-attrs [{:keys [from-deg to-deg] :as slice}]
   (let [mid-deg (/ (+ from-deg to-deg) 2)]
     {:class "js-hoverable"
-     :data-hoverTargetId (get-slice-id slice)
-     :data-hoverCxRatio (/ (+ cx (* r 0.67 (Math/cos (deg->rad mid-deg)))) d)
-     :data-hoverCyRatio (/ (+ cy (* r 0.67 (Math/sin (deg->rad mid-deg)))) d)}))
+     :data-hover_target_id (get-slice-id slice)
+     :data-hover_cx_ratio (/ (+ cx (* r 0.67 (Math/cos (deg->rad mid-deg)))) d)
+     :data-hover_cy_ratio (/ (+ cy (* r 0.67 (Math/sin (deg->rad mid-deg)))) d)}))
 
 (defn PieChart [{:keys [slices hoverable?]}]
   [:div {:style {:position "relative"}}
