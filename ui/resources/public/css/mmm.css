@@ -747,7 +747,7 @@ ol.mmm-unadorned-list li {
  ************************************/
 
 .mmm-toc {
-    padding: 0 24px;
+    padding: 0 var(--mt-spacing-box-padding-m);
     border: 1px solid var(--mt-component-toc-border-color);
 }
 
@@ -763,10 +763,11 @@ ol.mmm-unadorned-list li {
 .mmm-toc-icon {
     color: var(--mt-component-toc-icon-color);
     width: 30px;
-    margin-right: 8px;
+    margin-right: var(--mt-spacing-x0_5);
 }
 
 .mmm-toc ol ol {
     list-style-type: lower-alpha;
-    margin-top: 6px;
+    margin-top: 0.25em;
+    margin-bottom: 0.5em;
 }
