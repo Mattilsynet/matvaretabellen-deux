@@ -1,6 +1,7 @@
 /* The Mattilsynet 90s theme */
 :root {
     --mt-color-red-100: #f9d6d4;
+    --mt-color-red-200: #e23128;
     --mt-color-red-500: #a41d16;
     --mt-color-beige-50: #afab8980; /* ? */
     --mt-color-beige-100: #f9f6f1;
@@ -185,11 +186,11 @@
     --mt-component-form-field-border: var(--mt-color-beige-500);
     --mt-component-form-field-background: var(--mt-color-white);
 
-    --mt-component-footer-border-color: var(--mt-color-red-500);
+    --mt-component-footer-border-color: var(--mt-color-red-200);
     --mt-component-footer-gap: var(--mt-spacing-x1_4);
 
-    --mt-component-header-border-color: var(--mt-color-red-500);
-    --mt-component-header-logo-color: var(--mt-color-red-500);
+    --mt-component-header-border-color: var(--mt-color-red-200);
+    --mt-component-header-logo-color: var(--mt-color-red-200);
 
     --mt-component-table-background-zebra: var(--mt-color-white);
     --mt-component-table-cell-padding: var(--mt-spacing-x1_4);
