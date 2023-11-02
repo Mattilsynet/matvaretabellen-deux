@@ -45,7 +45,7 @@
                      :input {:name "foods-search"}
                      :autocomplete-id "foods-results"})]
       (BananaTeaserBox locale db)
-      [:div.mmm-container.mmm-section.mmm-threecol
+      [:div.mmm-container.mmm-section.mmm-cols
        (Toc {:title [:i18n ::common-food-searches]
              :contents [{:title "Egg" :href "?search=egg"}
                         {:title "Gulrot" :href "?search=gulrot"}
