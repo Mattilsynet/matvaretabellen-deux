@@ -478,6 +478,15 @@ ol.mmm-unadorned-list li {
     }
 }
 
+@media only screen and (max-width: 767px) {
+    .mmm-media-stamp {
+        display: block;
+    }
+    .mmm-media-stamp aside {
+        float: right;
+    }
+}
+
 .mmm-media-at {
     align-items: flex-start;
 }
