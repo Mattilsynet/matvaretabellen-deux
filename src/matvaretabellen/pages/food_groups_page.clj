@@ -22,6 +22,8 @@
        [:div.mmm-container.mmm-section
         (Breadcrumbs
          {:links (crumbs/crumble locale
+                                 {:text [:i18n ::crumbs/search-label]
+                                  :url (urls/get-base-url locale)}
                                  {:text [:i18n ::crumbs/all-food-groups]})})]
        [:div.mmm-container.mmm-section.mmm-mtxl.mmm-vert-layout-m
         [:h1.mmm-h1 [:i18n ::all-food-groups]]

@@ -17,9 +17,7 @@
     :else [arg]))
 
 (defn crumble [locale & args]
-  (let [crumbs (concat
-                [{:text [:i18n ::home] :url "https://www.mattilsynet.no/"}
-                 {:text [:i18n ::search-label] :url (urls/get-base-url locale)}]
-                (mapcat #(to-crumbs locale %) args))]
-    (concat (butlast crumbs)
-            [(dissoc (last crumbs) :url)])))
+  (let [crumbs (mapcat #(to-crumbs locale %) args)]
+    (->> (concat (butlast crumbs)
+                 [(dissoc (last crumbs) :url)])
+         (take-last 3))))
