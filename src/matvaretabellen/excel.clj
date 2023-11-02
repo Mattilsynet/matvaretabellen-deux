@@ -3,6 +3,14 @@
   (:require [broch.core :as b]
             [datomic-type-extensions.api :as d]))
 
+(defn natural-order-comparator-ish [s]
+  (let [initial-numbers (re-find #"^\d+" s)
+        first-numbers (re-find #"\d+" s)
+        first-letters (re-find #"\D+" s)]
+    (if initial-numbers
+      ["" (parse-long initial-numbers) s]
+      [first-letters (parse-long (or first-numbers "0")) s])))
+
 (defn add-index [coll]
   (map-indexed (fn [i m] (assoc m :index i)) coll))
 
@@ -79,12 +87,14 @@
 
 (defn prepare-reference-cells [fields food]
   (for [{:keys [path measurement] :as f} fields]
-    {:text (str (cond
-                  path (get-scalar-at-path food path)
-                  measurement (get-in food (into (:path measurement) [:measurement/origin :origin/id]))
-                  (:nutrient/id f) (some-> (get-constituent food (:nutrient/id f))
-                                           :measurement/origin
-                                           :origin/id)))}))
+    (let [text (str (cond
+                      path (get-scalar-at-path food path)
+                      measurement (get-in food (into (:path measurement) [:measurement/origin :origin/id]))
+                      (:nutrient/id f) (some-> (get-constituent food (:nutrient/id f))
+                                               :measurement/origin
+                                               :origin/id)))]
+      (cond-> {:text text}
+        (not path) (assoc :origin/id text)))))
 
 (defn prepare-foods-header-row [fields locale]
   {:bold? true
@@ -105,6 +115,27 @@
                (for [food (sort-by :food/id foods)]
                  {:cells (prepare-reference-cells fields food)}))})
 
+(defn prepare-reference-lookup-sheet [db locale title reference-sheet]
+  {:title title
+   :rows (for [origin-id (->> (:rows reference-sheet)
+                              (mapcat :cells)
+                              (keep :origin/id)
+                              set
+                              (sort-by natural-order-comparator-ish))]
+           {:cells [{:text origin-id}
+                    {:text (get-in (d/entity db [:origin/id origin-id])
+                                   [:origin/description locale])}]})})
+
+(defn prepare-food-sheets [db locale foods]
+  (let [basic-fields (get-basic-food-fields db locale)
+        all-fields (get-all-food-fields db locale)
+        reference-sheet (prepare-reference-sheet locale "Referanser (alle næringsstoffer)" all-fields foods)]
+    [(prepare-foods-sheet locale "Matvarer" basic-fields foods)
+     (prepare-reference-sheet locale "Referanser" basic-fields foods)
+     (prepare-foods-sheet locale "Matvarer (alle næringsstoffer)" all-fields foods)
+     reference-sheet
+     (prepare-reference-lookup-sheet db locale "Referanseoppslag" reference-sheet)]))
+
 (comment
 
   (def db (d/db matvaretabellen.dev/conn))
@@ -118,15 +149,11 @@
   (def foods (for [eid (d/q '[:find [?e ...] :where [?e :food/id]] db)]
                (d/entity db eid)))
 
+  (set (keep :origin/id (mapcat :cells (:rows (prepare-reference-sheet locale "Referanser" fields foods)))))
+
   (prepare-foods-sheet locale "Matvarer" (get-basic-food-fields db locale) foods)
   (prepare-foods-sheet locale "Matvarer (alle næringsstoffer)" (get-all-food-fields db locale) foods)
 
-  (create-excel-file "test.xlsx"
-                     (let [basic-fields (get-basic-food-fields db locale)
-                           all-fields (get-all-food-fields db locale)]
-                       [(prepare-foods-sheet locale "Matvarer" basic-fields foods)
-                        (prepare-reference-sheet locale "Referanser" basic-fields foods)
-                        (prepare-foods-sheet locale "Matvarer (alle næringsstoffer)" all-fields foods)
-                        (prepare-reference-sheet locale "Referanser (alle næringsstoffer)" all-fields foods)]))
+  (create-excel-file "test.xlsx" (prepare-food-sheets db locale foods))
 
   )
