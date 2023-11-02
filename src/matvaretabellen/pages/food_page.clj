@@ -114,7 +114,7 @@
                             {:title [:i18n ::description-title]
                              :href "#beskrivelse"}]})]]]]
        [:div.mmm-section.mmm-container-focused
-        [:div.mmm-desktop-flex.mmm-flex-bottom
+        [:div.mmm-flex-desktop.mmm-flex-bottom
          [:h2.mmm-h2.mmm-mbn#naringsinnhold [:i18n ::nutrition-title]]
          [:div
           [:p [:i18n ::portion-size]]
