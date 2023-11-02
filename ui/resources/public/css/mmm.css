@@ -175,6 +175,10 @@ ol.mmm-unadorned-list li {
     line-height: var(--mt-typography-preamble-s-line-height);
 }
 
+.mmm-small {
+    font-size: var(--mt-typography-small-font-size);
+}
+
 /******************
  *** Focusables ***
  ******************/
@@ -203,6 +207,10 @@ ol.mmm-unadorned-list li {
 .mmm-svg {
     display: block;
     max-width: 100%;
+}
+
+.mmm svg {
+    fill: currentColor;
 }
 
 /**************

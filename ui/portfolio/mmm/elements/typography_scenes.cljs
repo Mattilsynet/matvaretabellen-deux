@@ -21,6 +21,12 @@
    sies om den helt vanlige paragrafen. Men det er en tid for alt. Så joda, så
    neida."))
 
+(defscene small
+  [:p.mmm-small
+   "Dette er en helt streit paragraf med klassen .mmm-small. Da blir teksten
+   litt mindre enn vanlig tekst, noe som er ålreit for litt mindre viktige
+   greier."])
+
 (defscene link
   (e/p [:a.mmm-link {:href "#"} "En frittstående lenke med .mmm-link"]))
 
