@@ -9,6 +9,13 @@
             [mmm.components.site-header :refer [SiteHeader]]
             [mmm.components.toc :refer [Toc]]))
 
+;; Why are these reversed? Sit down and gather around. Nutrients are sorted by
+;; their id so that weird stuff like C16:0 and C18:0 display in a reasonable
+;; order. In order to lift the most interesting nutrients to the top, we sort by
+;; the nutrient's position in this list. However, we want those that aren't in
+;; this list at the end. To achieve this, we sort by the negative index in this
+;; list - thus we reverse it so that the one visually at the top will end up at
+;; the front of the sorted list. Terrible, ain't it?
 (def preferred-nutrient-order
   (reverse
    ["Mettet"
@@ -16,6 +23,10 @@
     "Flerum"
     "Trans"
     "Kolest"]))
+
+(defn sort-by-preference [nutrients]
+  (->> nutrients
+       (sort-by (juxt #(- (.indexOf preferred-nutrient-order (:nutrient/id %))) :nutrient/id))))
 
 (defn wrap-in-portion-span [num]
   [:span {:data-portion num} num])
@@ -34,8 +45,7 @@
        (filter (comp #{nutrient-id}
                      :nutrient/id
                      :nutrient/parent))
-       (sort-by :nutrient/id)
-       (sort-by #(- (.indexOf preferred-nutrient-order (:nutrient/id %))))))
+       sort-by-preference))
 
 (defn prepare-nutrition-table [food]
   {:headers [[:i18n ::nutrients] [:i18n ::amount-grams]]
