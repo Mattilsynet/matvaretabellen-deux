@@ -16,8 +16,7 @@
             [mmm.layouts.column-scenes]
             [mmm.layouts.container-scenes]
             [mmm.layouts.media-scenes]
-            [mmm.layouts.section-scenes]
-            [mmm.layouts.threecol-scenes]))
+            [mmm.layouts.section-scenes]))
 
 :mmm.colors.mattilsynet-90s-scenes/keep
 :mmm.components.breadcrumbs-scenes/keep
@@ -37,7 +36,6 @@
 :mmm.layouts.container-scenes/keep
 :mmm.layouts.media-scenes/keep
 :mmm.layouts.section-scenes/keep
-:mmm.layouts.threecol-scenes/keep
 
 ;; Commented out to avoid starting two Portfolio instances
 ;; while this repo is bundled with Matvaretabellen
