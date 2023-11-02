@@ -115,11 +115,13 @@
             [:h1.mmm-h1 food-name]
             [:p.mmm-p [:i18n ::food-id {:id (:food/id food)}]]]
            [:div.mmm-vert-layout-s.mmm-mtm
-            [:h2.mmm-p [:i18n ::energy-content-title]]
+            [:h2.mmm-p [:i18n ::energy-content-title
+                        {:portion [:span.js-portion-label "100 g"]}]]
             [:p.mmm-h3.mmm-mbs
-             [:i18n ::energy-content
-              {:kilo-joules (str (:measurement/quantity (:food/energy food)))
-               :calories (:measurement/observation (:food/calories food))}]]
+             (when-let [kj (:measurement/quantity (:food/energy food))]
+               [:span (wrap-in-portion-span (b/num kj)) " " (b/symbol kj)])
+             (when-let [kcal (:measurement/observation (:food/calories food))]
+               [:span " (" (wrap-in-portion-span kcal) " kcal)"])]
             [:div.mmm-cards
              (map DetailFocusCard (prepare-macro-highlights food))]]]
           [:aside

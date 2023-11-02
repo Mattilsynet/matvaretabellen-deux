@@ -125,16 +125,27 @@
                            (+ 2 orig-decimals)) ;; max 2 extra decimals
                  #"\.?0+$" "")))
 
-(defn handle-portion-select-event [e portion-elements]
-  (let [portion-size (js/Number. (.-value (.-target e)))]
+(defn handle-portion-select-event [e portion-elements portion-label-elements]
+  (let [value (.-value (.-target e))
+        label (some->> (.-options (.-target e))
+                       into-array
+                       (filter #(= value (.-value %)))
+                       first
+                       .-innerText)
+        portion-size (js/Number. (.-value (.-target e)))]
+    (doseq [elem (seq portion-label-elements)]
+      (set! (.-innerHTML elem) label))
     (doseq [elem (seq portion-elements)]
       (set! (.-innerHTML elem)
             (calc-new-portion-fraction portion-size
                                        (js/Number. (.getAttribute elem "data-portion")))))))
 
-(defn initialize-portion-selector [select-element portion-elements]
+(defn initialize-portion-selector [select-element portion-elements portion-label-elements]
   (when select-element
-    (.addEventListener select-element "change" #(handle-portion-select-event % portion-elements))))
+    (.addEventListener
+     select-element
+     "change"
+     #(handle-portion-select-event % portion-elements portion-label-elements))))
 
 (defn boot []
   (main)
@@ -145,7 +156,8 @@
 
   (initialize-portion-selector
    (js/document.querySelector "#portion-selector")
-   (js/document.querySelectorAll "[data-portion]"))
+   (js/document.querySelectorAll "[data-portion]")
+   (js/document.querySelectorAll ".js-portion-label"))
 
   (hoverable/set-up js/document))
 

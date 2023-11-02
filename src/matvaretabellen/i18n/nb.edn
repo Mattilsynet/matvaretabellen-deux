@@ -25,7 +25,7 @@
   :category [:fn/str "Kategori: {{:category}}"]
   :classification-title "Klassifisering"
   :edible-part [:fn/str "Spiselig del: {{:pct}}&nbsp;%"]
-  :energy-content-title "Energiinnhold"
+  :energy-content-title [:span "Energi i " [:fn/get :portion]]
   :energy-content [:fn/str "{{:kilo-joules}} ({{:calories}} kcal)"]
   :energy [:fn/str "Kaloriinnhold: {{:kilo-joules}} ({{:calories}} kcal)"]
   :energy-title "Sammensetning og energi"
