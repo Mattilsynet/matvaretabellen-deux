@@ -94,6 +94,17 @@
     [:div.mmm-container-focused.mmm-vert-layout-m
      body]]])
 
+(def energy-label
+  [:i18n ::energy-content-title
+   {:portion [:span.js-portion-label "100 g"]}])
+
+(defn energy [food]
+  (list
+   (when-let [kj (:measurement/quantity (:food/energy food))]
+     [:span (wrap-in-portion-span (b/num kj)) " " (b/symbol kj)])
+   (when-let [kcal (:measurement/observation (:food/calories food))]
+     [:span " (" (wrap-in-portion-span kcal) " kcal)"])))
+
 (defn render [context _db page]
   (let [food (d/entity (:foods/db context) [:food/id (:food/id page)])
         locale (:page/locale page)
@@ -115,13 +126,8 @@
             [:h1.mmm-h1 food-name]
             [:p.mmm-p [:i18n ::food-id {:id (:food/id food)}]]]
            [:div.mmm-vert-layout-s.mmm-mtm
-            [:h2.mmm-p [:i18n ::energy-content-title
-                        {:portion [:span.js-portion-label "100 g"]}]]
-            [:p.mmm-h3.mmm-mbs
-             (when-let [kj (:measurement/quantity (:food/energy food))]
-               [:span (wrap-in-portion-span (b/num kj)) " " (b/symbol kj)])
-             (when-let [kcal (:measurement/observation (:food/calories food))]
-               [:span " (" (wrap-in-portion-span kcal) " kcal)"])]
+            [:h2.mmm-p energy-label]
+            [:p.mmm-h3.mmm-mbs (energy food)]
             [:div.mmm-cards
              (map DetailFocusCard (prepare-macro-highlights food))]]]
           [:aside
@@ -156,9 +162,7 @@
        (passepartout
         [:h3.mmm-h3#energi [:i18n ::nutrition-heading]]
         [:ul.mmm-unadorned-list
-         [:li [:i18n ::energy
-               {:kilo-joules (str (:measurement/quantity (:food/energy food)))
-                :calories (:measurement/observation (:food/calories food))}]]
+         [:li energy-label ": " (energy food)]
          [:li [:i18n ::edible-part
                {:pct (-> food :food/edible-part :measurement/percent)}]]]
         (render-table (prepare-nutrition-table food)))
