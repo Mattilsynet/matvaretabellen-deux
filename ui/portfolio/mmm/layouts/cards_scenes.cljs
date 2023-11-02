@@ -16,11 +16,21 @@
      [:a.mmm-card.mmm-link {:href "#"}
       text])])
 
-(defscene cards-with-block-content
+(def macros
+  [["Fettsyrer →" "14 g"]
+   ["Proteiner →" "20 g"]
+   ["Karbohydrater →" "0 g"]])
+
+(defscene cards-with-block-content-1
   [:div.mmm-cards
-   (for [[title detail] [["Fettsyrer →" "14 g"]
-                         ["Proteiner →" "20 g"]
-                         ["Karbohydrater →" "0 g"]]]
-     [:a.mmm-card.mmm-link.mmm-text {:href "#"}
-      [:h3 title]
+   (for [[title detail] macros]
+     [:a.mmm-card.mmm-link.mmm-text.mmm-vert-layout-m {:href "#"}
+      [:h3.mmm-nbr title]
       [:p [:strong detail]]])])
+
+(defscene cards-with-block-content-2
+  [:div.mmm-cards
+   (for [[title detail] macros]
+     [:a.mmm-card.mmm-link.mmm-text.mmm-vert-layout-s {:href "#"}
+      [:p.mmm-nbr title]
+      [:h2 detail]])])
