@@ -6,6 +6,9 @@
 .mmm ::before,
 .mmm ::after {
     box-sizing: border-box;
+    border: none;
+    margin: 0;
+    padding: 0;
 }
 
 .mmm {
@@ -25,12 +28,6 @@ body.mmm {
     background: var(--mt-color-background-default);
     color: var(--mt-color-text-neutral-default);
     margin: 0;
-}
-
-.mmm fieldset {
-    border: none;
-    margin: 0;
-    padding: 0;
 }
 
 /************************
@@ -75,28 +72,6 @@ body.mmm {
     line-height: var(--mt-typography-heading-xs-line-height);
 }
 
-.mmm-text h1,
-.mmm-text h2,
-.mmm-text h3,
-.mmm-text h4,
-.mmm-text h5,
-.mmm-text h6,
-.mmm-text p,
-.mmm-text ul,
-.mmm-text ol,
-.mmm-h1,
-.mmm-h2,
-.mmm-h3,
-.mmm-h4,
-.mmm-h5,
-.mmm-h6,
-.mmm-p,
-.mmm-ul,
-.mmm-ol {
-    margin: 0;
-    padding: 0;
-}
-
 .mmm-text h1:not(:first-child),
 .mmm-text h2:not(:first-child),
 .mmm-text h3:not(:first-child),
@@ -135,7 +110,6 @@ body.mmm {
 .mmm-ul li,
 .mmm-text ol li,
 .mmm-ol li {
-    padding: 0;
     margin: var(--mt-layout-vertical-spacing-tight) 0;
 }
 
@@ -153,8 +127,6 @@ body.mmm {
 ul.mmm-unadorned-list,
 ol.mmm-unadorned-list {
     list-style-type: none;
-    margin-left: 0;
-    padding-left: 0;
 }
 
 ul.mmm-unadorned-list li,
