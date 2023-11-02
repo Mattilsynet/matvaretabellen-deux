@@ -223,6 +223,7 @@ ol.mmm-unadorned-list li {
 }
 
 .mmm-table {
+    background: var(--mt-color-background-default);
     font-size: var(--mt-typography-small-font-size);
     width: 100%;
     border-collapse: collapse;
