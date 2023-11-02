@@ -4,6 +4,9 @@
             [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
+(portfolio/configure-scenes
+ {:title "Søkeinput"})
+
 (defscene empty-search
   (e/block
    (SearchInput

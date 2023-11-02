@@ -4,6 +4,9 @@
             [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
+(portfolio/configure-scenes
+ {:title "Knapp"})
+
 (defscene regular-button
   (e/p
    (Button {:text "Trykk på knappen"})))

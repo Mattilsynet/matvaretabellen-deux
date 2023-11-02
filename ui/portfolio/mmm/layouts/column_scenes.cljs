@@ -2,6 +2,9 @@
   (:require [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
+(portfolio/configure-scenes
+ {:title "Kolonner"})
+
 (defscene column-layouts
   ".mmm-cols gir en layout med kolonner a minimum 200px, med wrap. Kan brukes
   når du ønsker en kolonnelayout med kolonner som er like store."

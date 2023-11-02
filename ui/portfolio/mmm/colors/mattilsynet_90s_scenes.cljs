@@ -2,6 +2,9 @@
   (:require [clojure.string :as str]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
+(portfolio/configure-scenes
+ {:title "Gammel fargepalett"})
+
 (defn render-colors [color-list]
   (->> color-list
        (map (fn [color-name]

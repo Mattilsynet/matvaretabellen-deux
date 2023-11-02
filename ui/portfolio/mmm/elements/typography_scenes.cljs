@@ -2,6 +2,9 @@
   (:require [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
+(portfolio/configure-scenes
+ {:title "Typografi"})
+
 (defscene headings
   "Frittstående headings styles med klassenavn, eksempelvis .mmm-h1"
   [:div

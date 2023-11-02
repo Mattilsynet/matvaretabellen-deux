@@ -4,6 +4,9 @@
             [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
+(portfolio/configure-scenes
+ {:title "Innholdsfortegnelse"})
+
 (defscene basic-toc
   (e/block
    (Toc

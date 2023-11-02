@@ -1,6 +1,9 @@
 (ns mmm.layouts.banner-scenes
   (:require [portfolio.dumdom :as portfolio :refer [defscene]]))
 
+(portfolio/configure-scenes
+ {:title "Banner"})
+
 (def banner
   [:div.mmm-container
    [:div.mmm-media

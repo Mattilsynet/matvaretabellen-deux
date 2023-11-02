@@ -1,6 +1,9 @@
 (ns mmm.layouts.cards-scenes
   (:require [portfolio.dumdom :as portfolio :refer [defscene]]))
 
+(portfolio/configure-scenes
+ {:title "Kort"})
+
 (defscene cards
   [:div.mmm-cards.mmm-block
    (for [text ["Sukker og søte produkter"

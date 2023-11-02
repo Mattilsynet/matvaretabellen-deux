@@ -1,6 +1,9 @@
 (ns mmm.elements.table-scenes
   (:require [portfolio.dumdom :as portfolio :refer [defscene]]))
 
+(portfolio/configure-scenes
+ {:title "Tabell"})
+
 (defscene table
   "En standard tabell med .mmm-table"
   [:div.mmm-mod

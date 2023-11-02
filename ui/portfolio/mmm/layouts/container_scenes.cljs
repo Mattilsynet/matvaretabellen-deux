@@ -2,6 +2,9 @@
   (:require [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
+(portfolio/configure-scenes
+ {:title "Containere"})
+
 (defscene container
   ".mmm-container begrenser bredden på elementene til design-tokens for grid.
   Denne størrelsen er ulik for desktop og mobil."

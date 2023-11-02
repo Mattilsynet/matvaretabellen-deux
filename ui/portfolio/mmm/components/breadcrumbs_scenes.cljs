@@ -3,6 +3,9 @@
             [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
+(portfolio/configure-scenes
+ {:title "Brødsmuler"})
+
 (defscene basic-breadcrumbs
   (e/block
    (Breadcrumbs

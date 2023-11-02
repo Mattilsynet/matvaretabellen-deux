@@ -2,6 +2,9 @@
   (:require [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
+(portfolio/configure-scenes
+ {:title "Seksjoner"})
+
 (defscene section
   ".mmm-section gir vertikalt oppdelte deler av siden passe med vertikal luft"
   [:div
