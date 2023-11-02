@@ -1,7 +1,6 @@
 (ns mmm.components.toc-scenes
   (:require [fontawesome.icons :as icons]
             [mmm.components.toc :refer [Toc]]
-            [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
 (portfolio/configure-scenes
