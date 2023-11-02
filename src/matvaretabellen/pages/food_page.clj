@@ -52,9 +52,9 @@
                            (filter (comp #{id} :nutrient/id :constituent/nutrient))
                            first)]
       {:title [:i18n ::highlight-title (:nutrient/name (:constituent/nutrient constituent))]
-       :detail (wrap-in-portion-span (or (-> constituent
-                                             :measurement/quantity
-                                             b/num)
+       :detail (wrap-in-portion-span (or (some-> constituent
+                                                 :measurement/quantity
+                                                 b/num)
                                          0))
        :href (str "#" anchor)})))
 
