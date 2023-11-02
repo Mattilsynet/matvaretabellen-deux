@@ -17,7 +17,8 @@
             [mmm.layouts.container-scenes]
             [mmm.layouts.flex-scenes]
             [mmm.layouts.media-scenes]
-            [mmm.layouts.section-scenes]))
+            [mmm.layouts.section-scenes]
+            [mmm.layouts.vert-layout-scenes]))
 
 :mmm.components.breadcrumbs-scenes/keep
 :mmm.components.button-scenes/keep
@@ -38,6 +39,7 @@
 :mmm.layouts.flex-scenes/keep
 :mmm.layouts.media-scenes/keep
 :mmm.layouts.section-scenes/keep
+:mmm.layouts.vert-layout-scenes/keep
 
 ;; Commented out to avoid starting two Portfolio instances
 ;; while this repo is bundled with Matvaretabellen

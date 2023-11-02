@@ -548,6 +548,12 @@ ol.mmm-unadorned-list li {
     gap: var(--mt-spacing-x0_25);
 }
 
+.mmm-vert-layout-spread {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 /***************
  *** Banners ***
  ***************/
