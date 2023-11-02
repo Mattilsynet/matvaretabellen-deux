@@ -480,6 +480,14 @@ ol.mmm-unadorned-list li {
     flex-shrink: 0;
 }
 
+/* Passepartout */
+
+.mmm-passepartout {
+    background: var(--mt-brand-theme-main-bg);
+    padding-bottom: var(--mt-spacing-box-padding-m);
+    padding-top: var(--mt-spacing-box-padding-m);
+}
+
 /* Section */
 
 .mmm-section {

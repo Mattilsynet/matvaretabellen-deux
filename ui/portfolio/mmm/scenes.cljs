@@ -17,6 +17,7 @@
             [mmm.layouts.container-scenes]
             [mmm.layouts.flex-scenes]
             [mmm.layouts.media-scenes]
+            [mmm.layouts.passepartout-scenes]
             [mmm.layouts.section-scenes]
             [mmm.layouts.vert-layout-scenes]))
 
@@ -38,6 +39,7 @@
 :mmm.layouts.container-scenes/keep
 :mmm.layouts.flex-scenes/keep
 :mmm.layouts.media-scenes/keep
+:mmm.layouts.passepartout-scenes/keep
 :mmm.layouts.section-scenes/keep
 :mmm.layouts.vert-layout-scenes/keep
 
