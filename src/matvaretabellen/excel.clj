@@ -13,7 +13,7 @@
     (.setFont style font)
     style))
 
-(defn create-excel-file [file-name sheets]
+(defn create-workbook [sheets]
   (let [workbook (XSSFWorkbook.)
         bold-style (create-bold-style workbook)]
     (doseq [{:keys [title rows]} sheets]
@@ -24,12 +24,14 @@
               (let [cell (.createCell row index)]
                 (when bold? (.setCellStyle cell bold-style))
                 (.setCellValue cell text)))))))
+    workbook))
 
-    (let [file-out (java.io.FileOutputStream. file-name)]
-      (.write workbook file-out)
-      (.close file-out))
-
-    :done))
+(defn create-excel-file [file-name sheets]
+  (let [workbook (create-workbook sheets)
+        file-out (java.io.FileOutputStream. file-name)]
+    (.write workbook file-out)
+    (.close file-out))
+  :done)
 
 (defn get-basic-food-fields [db locale]
   [{:title "Matvare ID" :path [:food/id]}
