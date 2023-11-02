@@ -504,12 +504,20 @@ ol.mmm-unadorned-list li {
     overflow: auto; /* Establish a rendering context, avoid "overflowing" margins */
 }
 
-/* Three columns */
+/* Columns / Three columns */
 
-.mmm-threecol {
+.mmm-threecol,
+.mmm-cols {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     gap: var(--mt-column-gap);
+}
+
+.mmm-cols .mmm-col {
+    flex-basis: 200px;
+    flex-shrink: 0;
+    flex-grow: 1;
 }
 
 .mmm-threecol .mmm-col {
@@ -523,7 +531,8 @@ ol.mmm-unadorned-list li {
 }
 
 @media only screen and (min-width: 768px) {
-    .mmm-threecol {
+    .mmm-threecol,
+    .mmm-cols {
         flex-direction: row;
         gap: var(--mt-column-gap-wide);
     }
