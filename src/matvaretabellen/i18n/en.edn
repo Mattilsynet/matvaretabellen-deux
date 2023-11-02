@@ -25,8 +25,10 @@
   :category [:fn/str "Category: {{:category}}"]
   :classification-title "Classification"
   :edible-part [:fn/str "Edible part: {{:pct}} %"]
+  :energy-content-title "Energy content"
+  :energy-content [:fn/str "{{:kilo-joules}} ({{:calories}} kcal)"]
   :energy [:fn/str "Caloric content: {{:kilo-joules}} ({{:calories}} kcal)"]
-  :energy-title "Composition and Energy Content"
+  :energy-title "Composition and Energy"
   :composition-title [:fn/str "{{:title}} composition"]
   :fat-title "Fatty Acids"
   :food-id [:fn/str "Food ID: {{:id}}"]

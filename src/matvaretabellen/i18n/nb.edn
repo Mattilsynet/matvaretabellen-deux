@@ -25,8 +25,10 @@
   :category [:fn/str "Kategori: {{:category}}"]
   :classification-title "Klassifisering"
   :edible-part [:fn/str "Spiselig del: {{:pct}}&nbsp;%"]
+  :energy-content-title "Energiinnhold"
+  :energy-content [:fn/str "{{:kilo-joules}} ({{:calories}} kcal)"]
   :energy [:fn/str "Kaloriinnhold: {{:kilo-joules}} ({{:calories}} kcal)"]
-  :energy-title "Sammensetning og energiinnhold"
+  :energy-title "Sammensetning og energi"
   :composition-title [:fn/str "{{:title}}, sammensetning"]
   :fat-title "Fettsyrer"
   :food-id [:fn/str "Matvare-ID: {{:id}}"]

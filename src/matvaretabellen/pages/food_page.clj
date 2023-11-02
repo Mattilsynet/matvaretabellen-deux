@@ -52,10 +52,12 @@
                            (filter (comp #{id} :nutrient/id :constituent/nutrient))
                            first)]
       {:title [:i18n ::highlight-title (:nutrient/name (:constituent/nutrient constituent))]
-       :detail (wrap-in-portion-span (or (some-> constituent
-                                                 :measurement/quantity
-                                                 b/num)
-                                         0))
+       :detail [:span (wrap-in-portion-span
+                       (or (some-> constituent
+                                   :measurement/quantity
+                                   b/num)
+                           0))
+                (some->> constituent :measurement/quantity b/symbol (str " "))]
        :href (str "#" anchor)})))
 
 (defn prepare-nutrient-tables [food group-id title]
@@ -105,9 +107,15 @@
           [:article.mmm-vert-layout-spread
            [:div
             [:h1.mmm-h1 food-name]
-            [:p.mmm-small [:i18n ::food-id {:id (:food/id food)}]]]
-           [:div.mmm-cards
-            (map DetailFocusCard (prepare-macro-highlights food))]]
+            [:p.mmm-p [:i18n ::food-id {:id (:food/id food)}]]]
+           [:div.mmm-vert-layout-s.mmm-mtm
+            [:h2.mmm-p [:i18n ::energy-content-title]]
+            [:p.mmm-h3.mmm-mbs
+             [:i18n ::energy-content
+              {:kilo-joules (str (:measurement/quantity (:food/energy food)))
+               :calories (:measurement/observation (:food/calories food))}]]
+            [:div.mmm-cards
+             (map DetailFocusCard (prepare-macro-highlights food))]]]
           [:aside
            (Toc {:title [:i18n ::toc-title]
                  :icon :fontawesome.solid/circle-info
