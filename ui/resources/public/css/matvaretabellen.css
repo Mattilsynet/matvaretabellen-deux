@@ -63,18 +63,17 @@
  ********************************************/
 
 .mtv-hover-popup {
-    font-size: 0.8rem;
-    padding: 10px;
-    border-radius: 10px;
-    background: #fff;
+    font-size: var(--mt-typography-small-font-size);
+    padding: var(--mt-component-hover-popup-padding);
+    border-radius: var(--mt-component-hover-popup-radius);
+    background: var(--mt-component-hover-popup-bg);
     position: absolute;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--mt-component-hover-popup-shadow);
     pointer-events: none;
     white-space: nowrap;
     top: 0;
     left: 0;
     opacity: 0;
-    margin-top: 5px;
     transition: opacity 400ms ease, margin-top 400ms ease;
 }
 
@@ -91,5 +90,5 @@
     transform: translateX(-50%);
     border-width: 10px 10px 0 10px;
     border-style: solid;
-    border-color: #fff transparent transparent transparent;
+    border-color: var(--mt-component-hover-popup-bg) transparent transparent transparent;
 }
