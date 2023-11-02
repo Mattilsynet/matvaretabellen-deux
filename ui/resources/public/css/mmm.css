@@ -92,9 +92,8 @@ body.mmm {
 .mmm-h6,
 .mmm-p,
 .mmm-ul,
-.mmm-ol,
-.mmm-block {
-    margin: var(--mt-typography-vertical-spacing-normal) 0;
+.mmm-ol {
+    margin: 0;
     padding: 0;
 }
 
@@ -110,12 +109,7 @@ body.mmm {
 .mmm-h4:not(:first-child),
 .mmm-h5:not(:first-child),
 .mmm-h6:not(:first-child) {
-    margin-top: var(--mt-typography-vertical-spacing-airy);
-}
-
-.mmm-tight {
-    --mt-typography-vertical-spacing-normal: var(--mt-spacing-x0_25);
-    --mt-typography-vertical-spacing-airy: var(--mt-spacing-x1_4);
+    margin-top: var(--mt-typography-heading-top-spacing);
 }
 
 .mmm-p,
@@ -142,7 +136,7 @@ body.mmm {
 .mmm-text ol li,
 .mmm-ol li {
     padding: 0;
-    margin: var(--mt-typography-vertical-spacing-tight) 0;
+    margin: var(--mt-layout-vertical-spacing-tight) 0;
 }
 
 .mmm-text ul li,
@@ -247,8 +241,12 @@ ol.mmm-unadorned-list li {
     font-size: var(--mt-typography-heading-m-font-size);
     font-weight: var(--mt-typography-heading-m-font-weight);
     line-height: var(--mt-typography-heading-m-line-height);
-    margin: var(--mt-typography-vertical-spacing-normal) 0;
+    margin: var(--mt-layout-vertical-spacing-normal) 0;
     text-align: left;
+}
+
+.mmm-table:first-child caption {
+    margin-top: 0;
 }
 
 .mmm-table {
@@ -435,6 +433,7 @@ ol.mmm-unadorned-list li {
 }
 
 /* Container */
+
 .mmm-container,
 .mmm-container-focused,
 .mmm-container-narrow {
@@ -508,6 +507,7 @@ ol.mmm-unadorned-list li {
 }
 
 /* Section */
+
 .mmm-section {
     margin-bottom: var(--mt-layout-section-spacing);
     margin-top: var(--mt-layout-section-spacing);
@@ -553,6 +553,19 @@ ol.mmm-unadorned-list li {
         flex-direction: row;
         gap: var(--mt-column-gap-wide);
     }
+}
+
+/* Vertical layout */
+
+.mmm-vert-layout-m,
+.mmm-vert-layout-s {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mt-spacing-x1_4);
+}
+
+.mmm-vert-layout-s {
+    gap: var(--mt-spacing-x0_25);
 }
 
 /***************
@@ -801,7 +814,7 @@ ol.mmm-unadorned-list li {
  ************************************/
 
 .mmm-toc {
-    padding: 0 var(--mt-spacing-box-padding-m);
+    padding: var(--mt-spacing-box-padding-m);
     border: 1px solid var(--mt-component-toc-border-color);
 }
 

@@ -8,7 +8,7 @@
 (defscene container
   ".mmm-container begrenser bredden på elementene til design-tokens for grid.
   Denne størrelsen er ulik for desktop og mobil."
-  [:div.mmm-container
+  [:div.mmm-container.mmm-vert-layout-m
    (e/h1 "Jeg er i en container")
    (e/p "Containeren sørger for at ikke innholdet renner over alle bauger og
    kanter, og blir så bredt at det blir vanskelig å finne noen struktur. Denne
@@ -20,8 +20,8 @@
 
 (defscene container-focused
   ".mmm-container-focused er en litt smalere variant av samme komponent."
-  [:div.mmm-container-focused
-   (e/h1 "Jeg er i en smal container")
+  [:div.mmm-container-focused.mmm-vert-layout-m
+   (e/h1 "Jeg er i en fokusert container")
    (e/p "Containeren sørger for at ikke innholdet renner over alle bauger og
    kanter, og blir så bredt at det blir vanskelig å finne noen struktur. Denne
    layouten brukes typisk ytterst for å sette rammene for hele sidens bredde, og
@@ -32,7 +32,7 @@
 
 (defscene container-narrow
   ".mmm-container-narrow er en enda litt smalere variant av samme komponent."
-  [:div.mmm-container-narrow
+  [:div.mmm-container-narrow.mmm-vert-layout-m
    (e/h1 "Jeg er i en smal container")
    (e/p "Containeren sørger for at ikke innholdet renner over alle bauger og
    kanter, og blir så bredt at det blir vanskelig å finne noen struktur. Denne

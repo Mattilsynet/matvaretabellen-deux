@@ -2,7 +2,7 @@
   (:require [fontawesome.icons :as icons]))
 
 (defn Toc [{:keys [title icon contents class]}]
-  [:div.mmm-toc.mmm-text {:class class}
+  [:div.mmm-toc.mmm-text.mmm-vert-layout-m {:class class}
    [:h3.mmm-toc-title
     (when icon
       [:span.mmm-toc-icon (icons/render icon)])

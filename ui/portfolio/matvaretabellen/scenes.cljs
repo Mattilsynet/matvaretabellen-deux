@@ -31,6 +31,4 @@
     {:canvas-path "canvas.html"
      :css-paths ["/css/theme-mt90s.css"
                  "/css/mmm.css"
-                 "/css/matvaretabellen.css"]
-     :viewport/defaults
-     {:viewport/padding [0 0 24 24]}}}))
+                 "/css/matvaretabellen.css"]}}))

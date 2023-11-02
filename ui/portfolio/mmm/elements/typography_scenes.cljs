@@ -7,7 +7,7 @@
 
 (defscene headings
   "Frittstående headings styles med klassenavn, eksempelvis .mmm-h1"
-  [:div
+  [:div.mmm-vert-layout-m
    (e/h1 "Dette er en h1!")
    (e/h2 "Dette er en h2")
    (e/h3 "Dette er en h3")
@@ -67,7 +67,7 @@
        "Denne teksten bruker klassen .mmm-nbr og skal ikke brekkes på flere linjer uansett om den så må overflowe ut på siden. Og ja, blir den lang nok så gjør den akkurat det."))
 
 (defscene preamble
-  [:div
+  [:div.mmm-vert-layout-m
    (e/p {:class "mmm-preamble"}
         "Denne paragrafen er en ingress, i kraft av klassen .mmm-preamble.")
    (e/p {:class "mmm-preamble-s"}
@@ -78,8 +78,9 @@
   "`.mmm-text` gir default styling til de viktigste typografiske
   elementene (headinger, paragrafer, lister, osv). Denne klassen er nyttig når
   du ikke har full kontroll på markup, feks når du skal rendre innholdet fra
-  rike tekstfelter, HTML oversatt fra markdown osv."
-  (e/text
+  rike tekstfelter, HTML oversatt fra markdown osv. Kombinert med
+  `.mmm-vert-layout-m` får elementene fin vertikal spacing."
+  (e/text {:class "mmm-vert-layout-m"}
    [:h1 "Dette er en h1"]
    [:p "Og dette er en paragraf med litt tekst."]
    [:p "Denne paragrafen har en " [:a {:href "#"} "lenke"] "."]
@@ -105,9 +106,9 @@
    [:h6 "Dette er en h6"]))
 
 (defscene mmm-tight
-  "`.mmm-text.mmm-tight` fungerer som `.mmm-text` men med mindre vertikal
+  "`.mmm-text.mmm-vert-layout-s` fungerer som over men med mindre vertikal
   spacing."
-  (e/text {:class "mmm-tight"}
+  (e/text {:class "mmm-vert-layout-s"}
    [:h1 "Dette er en h1"]
    [:p "Og dette er en paragraf med litt tekst."]
    [:p "Denne paragrafen har en " [:a {:href "#"} "lenke"] "."]

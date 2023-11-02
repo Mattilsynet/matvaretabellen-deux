@@ -16,9 +16,9 @@
       [:div.mmm-themed.mmm-brand-theme1
        [:div.mmm-container.mmm-section
         (Breadcrumbs {:links (crumbs/crumble locale food-group)})]
-       [:div.mmm-container.mmm-section.mmm-mtxl
+       [:div.mmm-container.mmm-section.mmm-mtxl.mmm-vert-layout-m
         [:h1.mmm-h1 (get-in food-group [:food-group/name locale])]
-        [:div.mmm-cards.mmm-block
+        [:div.mmm-cards
          (for [child (:food-group/_parent food-group)]
            (let [the-name (get-in child [:food-group/name locale])]
              [:a.mmm-card.mmm-link {:href (urls/get-food-group-url locale the-name)}

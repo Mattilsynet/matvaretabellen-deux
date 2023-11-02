@@ -8,8 +8,7 @@
 (defn render-colors [color-list]
   (->> color-list
        (map (fn [color-name]
-              [:div {:style {:padding 20
-                             :margin "20px 0"
+              [:div {:style {:padding "var(--mt-grid-desktop-padding)"
                              :background (str "var(--" (name color-name) ")")}}
                [:span {:style {:background "#fff"
                                :display "inline-block"
@@ -20,7 +19,7 @@
                 (str "$" (str/replace (name color-name) #"-" "."))]]))))
 
 (defscene mt90s-colors
-  [:div
+  [:div.mmm-vert-layout-m
    (render-colors
     [:mt-color-red-100
      :mt-color-red-500

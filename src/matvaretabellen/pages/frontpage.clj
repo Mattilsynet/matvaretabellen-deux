@@ -19,17 +19,19 @@
     [:div.mmm-media.mmm-media-stamp
      [:aside {:style {:width "30%"}}
       [:img.mmm-img {:src "/images/banana.jpg"}]]
-     [:article.mmm-text.mmm-tight
+     [:article.mmm-text.mmm-tight.mmm-vert-layout-s
       [:h4 [:i18n ::did-you-know]]
       [:p [:i18n ::banana-nutrition-facts]]
       [:p [:a.mmm-nbr (get-food-info locale db "06.525")
            [:i18n ::read-more-about-banana]]]]]
     [:div.mmm-buttons.mmm-text.mmm-tight
-     [:a.mmm-banner-button {:href [:i18n ::crumbs/food-groups-url]}
-      [:p [:i18n ::all-food-groups]]
+     [:a.mmm-banner-button.mmm-vert-layout-s
+      {:href [:i18n ::crumbs/food-groups-url]}
+      [:p [:strong [:i18n ::all-food-groups]]]
       [:p [:i18n ::see-all-food-groups-overview]]]
-     [:a.mmm-banner-button {:href "/"}
-      [:p [:i18n ::all-nutrients]]
+     [:a.mmm-banner-button.mmm-vert-layout-s
+      {:href "/"}
+      [:p [:strong [:i18n ::all-nutrients]]]
       [:p [:i18n ::see-all-nutrients-overview]]]]]])
 
 (defn render [_context db page]

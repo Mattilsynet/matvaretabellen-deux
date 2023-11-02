@@ -23,9 +23,9 @@
         (Breadcrumbs
          {:links (crumbs/crumble locale
                                  {:text [:i18n ::crumbs/all-food-groups]})})]
-       [:div.mmm-container.mmm-section.mmm-mtxl
+       [:div.mmm-container.mmm-section.mmm-mtxl.mmm-vert-layout-m
         [:h1.mmm-h1 [:i18n ::all-food-groups]]
-        [:div.mmm-cards.mmm-block
+        [:div.mmm-cards
          (for [child food-groups]
            (let [the-name (get-in child [:food-group/name locale])]
              [:a.mmm-card.mmm-link {:href (urls/get-food-group-url locale the-name)}

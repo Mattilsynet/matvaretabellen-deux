@@ -35,7 +35,7 @@
   (e/block
    [:div.mmm-media.mmm-media-stamp
     [:aside {:style {:width "30%"}}
-     [:img.mmm-img {:src "/images/banana.jpg"}]]
+     [:img.mmm-img {:src "/images/banana.jpg" :width "100%"}]]
     [:article.mmm-text.mmm-tight
      [:h4 "Visste du at..."]
      [:p "Banan er den frukten med høyest innhold av karbohydrater blant

@@ -109,9 +109,10 @@
     --mt-typography-label-l-font-weight: var(--mt-font-weight-normal);
 
     /* Ønsker fra utviklerne */
-    --mt-typography-vertical-spacing-tight: var(--mt-spacing-x0_25);
-    --mt-typography-vertical-spacing-normal: var(--mt-spacing-x1_4);
-    --mt-typography-vertical-spacing-airy: var(--mt-spacing-x2);
+    --mt-layout-vertical-spacing-tight: var(--mt-spacing-x0_25);
+    --mt-layout-vertical-spacing-normal: var(--mt-spacing-x1_4);
+    --mt-layout-vertical-spacing-airy: var(--mt-spacing-x2);
+    --mt-typography-heading-top-spacing: var(--mt-spacing-x1);
     --mt-typography-decoration-action-default: underline;
     --mt-typography-decoration-action-active: none;
 
