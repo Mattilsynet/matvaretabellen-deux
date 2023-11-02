@@ -1,6 +1,5 @@
 (ns mmm.scenes
-  (:require [mmm.colors.mattilsynet-90s-scenes]
-            [mmm.components.breadcrumbs-scenes]
+  (:require [mmm.components.breadcrumbs-scenes]
             [mmm.components.button-scenes]
             [mmm.components.footer-scenes]
             [mmm.components.search-input-scenes]
@@ -9,6 +8,7 @@
             [mmm.components.text-input-scenes]
             [mmm.components.toc-scenes]
             [mmm.elements.image-scenes]
+            [mmm.elements.mattilsynet-90s-scenes]
             [mmm.elements.table-scenes]
             [mmm.elements.typography-scenes]
             [mmm.layouts.banner-scenes]
@@ -18,7 +18,6 @@
             [mmm.layouts.media-scenes]
             [mmm.layouts.section-scenes]))
 
-:mmm.colors.mattilsynet-90s-scenes/keep
 :mmm.components.breadcrumbs-scenes/keep
 :mmm.components.button-scenes/keep
 :mmm.components.footer-scenes/keep
@@ -28,6 +27,7 @@
 :mmm.components.text-input-scenes/keep
 :mmm.components.toc-scenes/keep
 :mmm.elements.image-scenes/keep
+:mmm.elements.mattilsynet-90s-scenes/keep
 :mmm.elements.table-scenes/keep
 :mmm.elements.typography-scenes/keep
 :mmm.layouts.banner-scenes/keep

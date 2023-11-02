@@ -11,11 +11,19 @@
 
 (data/register-collection!
  :matvaretabellen.components
- {:title "Matvaretabellen Components"})
+ {:title "Komponenter (Matvaretabellen)"})
 
 (data/register-collection!
  :mmm.components
- {:title "MMM Components"})
+ {:title "Komponenter (MMM)"})
+
+(data/register-collection!
+ :mmm.elements
+ {:title "Elementer"})
+
+(data/register-collection!
+ :mmm.layouts
+ {:title "Layouts"})
 
 (defonce app
   (ui/start!
