@@ -420,6 +420,14 @@ ol.mmm-unadorned-list li {
     background: var(--mt-brand-theme-main-bg);
 }
 
+.mmm-card.mmm-link {
+    text-decoration: none;
+}
+
+.mmm-card.mmm-link:hover {
+    text-decoration: underline;
+}
+
 @media only screen and (min-width: 768px) {
     .mmm-card {
         flex-basis: 30%;
