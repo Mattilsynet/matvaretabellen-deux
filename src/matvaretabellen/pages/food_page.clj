@@ -77,7 +77,7 @@
          (remove nil?))))
 
 (defn render-table [{:keys [headers rows]}]
-  [:table.mmm-table.mmm-nutrient-table.mmm-mbl.mmm-table-zebra
+  [:table.mmm-table.mmm-nutrient-table.mmm-table-zebra
    [:thead
     [:tr
      (for [header headers]
@@ -87,6 +87,12 @@
       [:tr
        (for [cell row]
          [:td cell])])]])
+
+(defn passepartout [& body]
+  [:div.mmm-container.mmm-section
+   [:div.mmm-passepartout
+    [:div.mmm-container-focused.mmm-vert-layout-m
+     body]]])
 
 (defn render [context _db page]
   (let [food (d/entity (:foods/db context) [:food/id (:food/id page)])
@@ -131,10 +137,10 @@
                              :href "#mineraler"}
                             {:title [:i18n ::classification-title]
                              :href "#klassifisering"}]})]]]]
-       [:div.mmm-section.mmm-container-focused
-        [:div.mmm-flex-desktop.mmm-flex-bottom
+       [:div.mmm-container.mmm-section
+        [:div.mmm-flex-desktop.mmm-flex-bottom.mmm-mbl
          [:h2.mmm-h2.mmm-mbn#naringsinnhold [:i18n ::nutrition-title]]
-         [:div
+         [:div.mmm-vert-layout-s
           [:p [:i18n ::portion-size]]
           (Select
            {:id "portion-selector"
@@ -143,7 +149,9 @@
                            (for [portion (:food/portions food)]
                              (let [grams (int (b/num (:portion/quantity portion)))]
                                [:option {:value grams} (str "1 " (str/lower-case (:portion-kind/name (:portion/kind portion)))
-                                                            " (" grams " gram)")])))})]]
+                                                            " (" grams " gram)")])))})]]]
+
+       (passepartout
         [:h3.mmm-h3#energi [:i18n ::nutrition-heading]]
         [:ul.mmm-unadorned-list
          [:li [:i18n ::energy
@@ -151,12 +159,14 @@
                 :calories (:measurement/observation (:food/calories food))}]]
          [:li [:i18n ::edible-part
                {:pct (-> food :food/edible-part :measurement/percent)}]]]
-        (render-table (prepare-nutrition-table food))
+        (render-table (prepare-nutrition-table food)))
 
+       (passepartout
         [:h3.mmm-h3#fett [:i18n ::fat-title]]
         (for [table (prepare-nutrient-tables food "Fett" [:i18n ::fat-title])]
-          (render-table table))
+          (render-table table)))
 
+       (passepartout
         [:h3.mmm-h3#karbohydrater [:i18n ::carbohydrates-title]]
         (for [table (prepare-nutrient-tables food "Karbo" [:i18n ::carbohydrates-title])]
-          (render-table table))]]]]))
+          (render-table table)))]]]))
