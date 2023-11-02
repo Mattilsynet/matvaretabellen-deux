@@ -4,6 +4,12 @@
 (portfolio/configure-scenes
  {:title "Vertikal layout"})
 
+(defscene vert-layout-l
+  [:div.mmm-text.mmm-vert-layout-l
+   [:h2 ".mmm-vert-layout-l"]
+   [:p "Denne røveren sprer elementene sine vertikalt med nokså stpr gap."]
+   [:p "Mellomrommet passer ålreit når du trenger å spre elementer utover litt store flater."]])
+
 (defscene vert-layout-m
   [:div.mmm-text.mmm-vert-layout-m
    [:h2 ".mmm-vert-layout-m"]

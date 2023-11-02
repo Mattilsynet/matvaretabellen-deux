@@ -149,6 +149,7 @@
 
     --mt-spacing-box-padding-s: var(--mt-spacing-x0_5);
     --mt-spacing-box-padding-m: var(--mt-spacing-x1_4);
+    --mt-spacing-box-padding-l: var(--mt-spacing-x2);
 
     --mt-border-width-s: 1px;
     --mt-border-width-m: 2px;

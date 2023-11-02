@@ -484,8 +484,8 @@ ol.mmm-unadorned-list li {
 
 .mmm-passepartout {
     background: var(--mt-brand-theme-main-bg);
-    padding-bottom: var(--mt-spacing-box-padding-m);
-    padding-top: var(--mt-spacing-box-padding-m);
+    padding-bottom: var(--mt-spacing-box-padding-l);
+    padding-top: var(--mt-spacing-box-padding-l);
 }
 
 /* Section */
@@ -539,10 +539,15 @@ ol.mmm-unadorned-list li {
 
 /* Vertical layout */
 
+.mmm-vert-layout-l,
 .mmm-vert-layout-m,
 .mmm-vert-layout-s {
     display: flex;
     flex-direction: column;
+    gap: var(--mt-spacing-x2);
+}
+
+.mmm-vert-layout-m {
     gap: var(--mt-spacing-x1_4);
 }
 
