@@ -23,7 +23,7 @@
   :amount-grams "Quantity (g)"
   :carbohydrates-title "Carbohydrates"
   :category [:fn/str "Category: {{:category}}"]
-  :description-title "Description of the Food Item"
+  :classification-title "Classification"
   :edible-part [:fn/str "Edible part: {{:pct}} %"]
   :energy [:fn/str "Caloric content: {{:kilo-joules}} ({{:calories}} kcal)"]
   :energy-title "Composition and Energy Content"
@@ -32,6 +32,7 @@
   :food-id [:fn/str "Food ID: {{:id}}"]
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
   :lookup [:fn/str "{{:en}}"]
+  :highlight-title [:fn/str "{{:en}} →"]
   :minerals-title "Minerals"
   :nutrients "Nutrients"
   :nutrition-heading "Main Components and Energy Content"

@@ -475,7 +475,7 @@ ol.mmm-unadorned-list li {
 }
 
 .mmm-media-at {
-    align-items: flex-start;
+    align-items: stretch;
 }
 
 .mmm-media article {

@@ -23,7 +23,7 @@
   :amount-grams "Mengde (g)"
   :carbohydrates-title "Karbohydrater"
   :category [:fn/str "Kategori: {{:category}}"]
-  :description-title "Beskrivelse av matvaren"
+  :classification-title "Klassifisering"
   :edible-part [:fn/str "Spiselig del: {{:pct}}&nbsp;%"]
   :energy [:fn/str "Kaloriinnhold: {{:kilo-joules}} ({{:calories}} kcal)"]
   :energy-title "Sammensetning og energiinnhold"
@@ -32,6 +32,7 @@
   :food-id [:fn/str "Matvare-ID: {{:id}}"]
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
   :lookup [:fn/str "{{:nb}}"]
+  :highlight-title [:fn/str "{{:nb}} →"]
   :minerals-title "Mineraler"
   :nutrients "Næringsstoffer"
   :nutrition-heading "Hovedkomponenter og energiinnhold"

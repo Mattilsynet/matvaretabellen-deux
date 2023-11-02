@@ -4,6 +4,7 @@
             [datomic-type-extensions.api :as d]
             [matvaretabellen.crumbs :as crumbs]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
+            [mmm.components.card :refer [DetailFocusCard]]
             [mmm.components.select :refer [Select]]
             [mmm.components.site-header :refer [SiteHeader]]
             [mmm.components.toc :refer [Toc]]))
@@ -44,6 +45,15 @@
           [[:i18n ::total-water] (get-nutrient-grams food "Vann")]
           [[:i18n ::total-fiber] (get-nutrient-grams food "Fiber")]
           [[:i18n ::total-alcohol] (get-nutrient-grams food "Alko")]]})
+
+(defn prepare-macro-highlights [food]
+  (for [[id anchor] [["Fett" "fett"] ["Protein" "energi"] ["Karbo" "karbohydrater"]]]
+    (let [constituent (->> (:food/constituents food)
+                           (filter (comp #{id} :nutrient/id :constituent/nutrient))
+                           first)]
+      {:title [:i18n ::highlight-title (:nutrient/name (:constituent/nutrient constituent))]
+       :detail (wrap-in-portion-span (b/num (:measurement/quantity constituent)))
+       :href (str "#" anchor)})))
 
 (defn prepare-nutrient-tables [food group-id title]
   (let [nutrients (get-nutrient-parts food group-id)]
@@ -89,30 +99,27 @@
                                   {:text food-name})})]
         [:div.mmm-container.mmm-section
          [:div.mmm-media.mmm-media-at
-          [:article.mmm-text
-           [:h1 food-name]
-           [:ul.mmm-unadorned-list
-            [:li [:i18n ::food-id {:id (:food/id food)}]]
-            [:li [:i18n ::category {:category (get-in food [:food/food-group :food-group/name locale])}]]
-            [:li [:i18n ::latin-name {:food/latin-name (:food/latin-name food)}]]]]
+          [:article.mmm-vert-layout-spread
+           [:div
+            [:h1.mmm-h1 food-name]
+            [:p.mmm-small [:i18n ::food-id {:id (:food/id food)}]]]
+           [:div.mmm-cards
+            (map DetailFocusCard (prepare-macro-highlights food))]]
           [:aside
            (Toc {:title [:i18n ::toc-title]
-                 :contents [{:title [:i18n ::nutrition-title]
-                             :href "#naringsinnhold"
-                             :contents [{:title [:i18n ::energy-title]
-                                         :href "#energi"}
-                                        {:title [:i18n ::fat-title]
-                                         :href "#fett"}
-                                        {:title [:i18n ::carbohydrates-title]
-                                         :href "#karbohydrater"}
-                                        {:title [:i18n ::vitamins-title]
-                                         :href "#vitaminer"}
-                                        {:title [:i18n ::minerals-title]
-                                         :href "#mineraler"}]}
-                            {:title [:i18n ::adi-title]
-                             :href "#adi"}
-                            {:title [:i18n ::description-title]
-                             :href "#beskrivelse"}]})]]]]
+                 :icon :fontawesome.solid/circle-info
+                 :contents [{:title [:i18n ::energy-title]
+                             :href "#energi"}
+                            {:title [:i18n ::fat-title]
+                             :href "#fett"}
+                            {:title [:i18n ::carbohydrates-title]
+                             :href "#karbohydrater"}
+                            {:title [:i18n ::vitamins-title]
+                             :href "#vitaminer"}
+                            {:title [:i18n ::minerals-title]
+                             :href "#mineraler"}
+                            {:title [:i18n ::classification-title]
+                             :href "#klassifisering"}]})]]]]
        [:div.mmm-section.mmm-container-focused
         [:div.mmm-flex-desktop.mmm-flex-bottom
          [:h2.mmm-h2.mmm-mbn#naringsinnhold [:i18n ::nutrition-title]]
