@@ -45,21 +45,22 @@
                 (some->> constituent :measurement/quantity b/symbol (str " "))]
        :href (str "#" anchor)})))
 
-(defn prepare-nutrient-tables [food group-id title]
-  (let [nutrients (food/get-nutrient-parts group-id food)]
-    (->> (concat
-          [{:headers [[:i18n ::composition-title {:title title}]
-                      [:i18n ::amount-grams]]
-            :rows (for [nutrient nutrients]
-                    [[:i18n ::lookup (nutrient/get-name nutrient)]
-                     (get-nutrient-grams food (:nutrient/id nutrient))])}]
-          (for [fat nutrients]
-            (when-let [parts (seq (food/get-nutrient-parts (:nutrient/id fat) food))]
-              {:headers [[:i18n ::lookup (nutrient/get-name fat)] [:i18n ::amount-grams]]
-               :rows (for [part parts]
-                       [[:i18n ::lookup (nutrient/get-name part)]
-                        (get-nutrient-grams food (:nutrient/id part))])})))
-         (remove nil?))))
+(defn prepare-nutrient-tables [{:keys [food nutrients group]} & [title]]
+  (->> (concat
+        [{:headers [(if title
+                      [:i18n ::composition-title {:title title}]
+                      [:i18n ::lookup (nutrient/get-name group)])
+                    [:i18n ::amount-grams]]
+          :rows (for [nutrient nutrients]
+                  [[:i18n ::lookup (nutrient/get-name nutrient)]
+                   (get-nutrient-grams food (:nutrient/id nutrient))])}]
+        (for [nutrient nutrients]
+          (when-let [nutrients (food/get-nutrients food (:nutrient/id nutrient))]
+            {:headers [[:i18n ::lookup (nutrient/get-name nutrient)] [:i18n ::amount-grams]]
+             :rows (for [nutrient nutrients]
+                     [[:i18n ::lookup (nutrient/get-name nutrient)]
+                      (get-nutrient-grams food (:nutrient/id nutrient))])})))
+       (remove nil?)))
 
 (defn render-table [{:keys [headers rows]}]
   [:table.mmm-table.mmm-nutrient-table.mmm-table-zebra
@@ -154,10 +155,21 @@
 
        (passepartout
         [:h3.mmm-h3#fett [:i18n ::fat-title]]
-        (for [table (prepare-nutrient-tables food "Fett" [:i18n ::fat-title])]
-          (render-table table)))
+        (->> (food/get-nutrient-group food "Fett")
+             prepare-nutrient-tables
+             (map render-table)))
 
        (passepartout
         [:h3.mmm-h3#karbohydrater [:i18n ::carbohydrates-title]]
-        (for [table (prepare-nutrient-tables food "Karbo" [:i18n ::carbohydrates-title])]
-          (render-table table)))]]]))
+        (->> (food/get-nutrient-group food "Karbo")
+             prepare-nutrient-tables
+             (map render-table)))
+
+       (passepartout
+        [:h3.mmm-h3#vitaminer [:i18n ::vitamins-title]]
+        (->> (food/get-flattened-nutrient-group food "FatSolubleVitamins")
+             prepare-nutrient-tables
+             (map render-table))
+        (->> (food/get-flattened-nutrient-group food "WaterSolubleVitamins")
+             prepare-nutrient-tables
+             (map render-table)))]]]))

@@ -39,10 +39,14 @@
 
   (def conn (d/connect (:foods/datomic-uri config)))
 
-  (take 5 (d/q '[:find [(pull ?food [:food/name :food/id]) ...]
-                 :where
-                 [?food :food/id ?id]]
-               (d/db conn)))
+  (->> (d/q '[:find [(pull ?nutrient [:nutrient/id :nutrient/name]) ...]
+              :in $ ?parent
+              :where
+              [?p :nutrient/id ?parent]
+              [?nutrient :nutrient/parent ?p]]
+            (d/db conn)
+            "FatSolubleVitamins")
+       (take 5))
 
   (->> (d/entity (d/db conn) [:food/id "06.531"])
        (into {}))
