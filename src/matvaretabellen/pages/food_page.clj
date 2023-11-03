@@ -3,30 +3,13 @@
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.crumbs :as crumbs]
+            [matvaretabellen.food :as food]
+            [matvaretabellen.nutrient :as nutrient]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.card :refer [DetailFocusCard]]
             [mmm.components.select :refer [Select]]
             [mmm.components.site-header :refer [SiteHeader]]
             [mmm.components.toc :refer [Toc]]))
-
-;; Why are these reversed? Sit down and gather around. Nutrients are sorted by
-;; their id so that weird stuff like C16:0 and C18:0 display in a reasonable
-;; order. In order to lift the most interesting nutrients to the top, we sort by
-;; the nutrient's position in this list. However, we want those that aren't in
-;; this list at the end. To achieve this, we sort by the negative index in this
-;; list - thus we reverse it so that the one visually at the top will end up at
-;; the front of the sorted list. Terrible, ain't it?
-(def preferred-nutrient-order
-  (reverse
-   ["Mettet"
-    "Enumet"
-    "Flerum"
-    "Trans"
-    "Kolest"]))
-
-(defn sort-by-preference [nutrients]
-  (->> nutrients
-       (sort-by (juxt #(- (.indexOf preferred-nutrient-order (:nutrient/id %))) :nutrient/id))))
 
 (defn wrap-in-portion-span [num]
   [:span {:data-portion num} num])
@@ -38,14 +21,6 @@
            :measurement/quantity
            b/num
            wrap-in-portion-span))
-
-(defn get-nutrient-parts [food nutrient-id]
-  (->> (:food/constituents food)
-       (map :constituent/nutrient)
-       (filter (comp #{nutrient-id}
-                     :nutrient/id
-                     :nutrient/parent))
-       sort-by-preference))
 
 (defn prepare-nutrition-table [food]
   {:headers [[:i18n ::nutrients] [:i18n ::amount-grams]]
@@ -61,7 +36,7 @@
     (let [constituent (->> (:food/constituents food)
                            (filter (comp #{id} :nutrient/id :constituent/nutrient))
                            first)]
-      {:title [:i18n ::highlight-title (:nutrient/name (:constituent/nutrient constituent))]
+      {:title [:i18n ::highlight-title (nutrient/get-name (:constituent/nutrient constituent))]
        :detail [:span (wrap-in-portion-span
                        (or (some-> constituent
                                    :measurement/quantity
@@ -71,18 +46,18 @@
        :href (str "#" anchor)})))
 
 (defn prepare-nutrient-tables [food group-id title]
-  (let [nutrients (get-nutrient-parts food group-id)]
+  (let [nutrients (food/get-nutrient-parts group-id food)]
     (->> (concat
           [{:headers [[:i18n ::composition-title {:title title}]
                       [:i18n ::amount-grams]]
             :rows (for [nutrient nutrients]
-                    [[:i18n ::lookup (:nutrient/name nutrient)]
+                    [[:i18n ::lookup (nutrient/get-name nutrient)]
                      (get-nutrient-grams food (:nutrient/id nutrient))])}]
           (for [fat nutrients]
-            (when-let [parts (seq (get-nutrient-parts food (:nutrient/id fat)))]
-              {:headers [[:i18n ::lookup (:nutrient/name fat)] [:i18n ::amount-grams]]
+            (when-let [parts (seq (food/get-nutrient-parts (:nutrient/id fat) food))]
+              {:headers [[:i18n ::lookup (nutrient/get-name fat)] [:i18n ::amount-grams]]
                :rows (for [part parts]
-                       [[:i18n ::lookup (:nutrient/name part)]
+                       [[:i18n ::lookup (nutrient/get-name part)]
                         (get-nutrient-grams food (:nutrient/id part))])})))
          (remove nil?))))
 

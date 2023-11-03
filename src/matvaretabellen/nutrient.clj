@@ -1,0 +1,45 @@
+(ns matvaretabellen.nutrient)
+
+(def nutrient-names
+  {"C12:0Laurinsyre" {:nb "Laurinsyre (C12:0)" :en "Lauric Acid"}
+   "C14:0Myristinsyre" {:nb "Myristinsyre (C14:0)" :en "Myristic Acid"}
+   "C16:0Palmitinsyre" {:nb "Palmitinsyre (C16:0)" :en "Palmitic Acid"}
+   "C16:1" {:nb "Palmitoleinsyre (C16:1)" :en "Palmitoleic Acid"}
+   "C18:0Stearinsyre" {:nb "Stearinsyre (C18:0)" :en "Stearic Acid"}
+   "C18:1" {:nb "C18:1" :en "Oleic Acid"}
+   "C18:2n-6Linolsyre" {:nb "Linolsyre (C18:2n-6)" :en "Linoleic Acid"}
+   "C18:3n-3AlfaLinolensyre" {:nb "Alfalinolensyre (ALA, C18:3n-3)" :en "Alpha-Linolenic Acid (ALA)"}
+   "C20:3n-3Eikosatriensyre" {:nb "Eikosatriensyre (C20:3n-3)" :en "Eicosatrienoic Acid"}
+   "C20:3n-6DihomoGammaLinolensyre" {:nb "C20:3n-6" :en "Dihomo-Gamma-Linolenic Acid (DGLA)"}
+   "C20:4n-3Eikosatetraensyre" {:nb "Eikosatetraensyre (C20:4n-3)" :en "Eicosatetraenoic Acid"}
+   "C20:4n-6Arakidonsyre" {:nb "Arakidonsyre (C20:4n-6)" :en "Arachidonic Acid"}
+   "C20:5n-3Eikosapentaensyre" {:nb "Eikosapentaensyre (EPA, C20:5n-3)" :en "Eicosapentaenoic Acid (EPA)"}
+   "C22:5n-3Dokosapentaensyre" {:nb "Dokosapentaensyre (DPA, C22:5n-3)" :en "Docosapentaenoic Acid (DPA)"}
+   "C22:6n-3Dokosaheksaensyre" {:nb "Dokosaheksaensyre (DHA, C22:6n-3)" :en "Docosahexaenoic Acid (DHA)"}
+   "Niacin" {:nb "Niacin (B3)" :en "Niacin (B3)"}
+   "Folat" {:nb "Folat (B9)" :en "Folat (B9)"}})
+
+(defn get-name [nutrient]
+  (or (get nutrient-names (:nutrient/id nutrient))
+      (:nutrient/name nutrient)))
+
+(def sort-names
+  (->> ["Fett"
+        "Karbo"
+        "Protein"
+        "Mettet"
+        "Enumet"
+        "Flerum"
+        "Trans"
+        "Kolest"]
+       (map-indexed #(vector %2 (format " %02d" %1)))
+       (into
+        {"Niacin" "B3"
+         "Folat" "B9"})))
+
+(defn sort-by-preference [nutrients]
+  (->> nutrients
+       (sort-by (comp #(sort-names % %) :nutrient/id))))
+
+
+
