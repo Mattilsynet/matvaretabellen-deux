@@ -1,5 +1,6 @@
 (ns matvaretabellen.food
-  (:require [datomic-type-extensions.api :as d]
+  (:require [clojure.string :as str]
+            [datomic-type-extensions.api :as d]
             [matvaretabellen.nutrient :as nutrient]))
 
 (defn get-nutrients [food nutrient-id]
@@ -24,6 +25,22 @@
                                  [nutrient]))
                            %))))
 
+(defn humanize-langual-classification [text]
+  (->> (re-seq #"([^\.]+)(?:([\.] ))?" text)
+       (map
+        (fn [[_ part separator]]
+          (str (->> (str/trim part)
+                    (re-seq #"([^\(]+)(?:(\([^\)]+\)))?")
+                    (map (fn [[_ text parens]]
+                           (str/join [(str/capitalize text) parens])))
+                    str/join)
+               (some-> separator str/trim))))
+       (str/join " ")))
+
+(defn get-langual-codes [food]
+  (->> (:food/langual-codes food)
+       (sort-by :langual-code/id)))
+
 (comment
 
   (def conn matvaretabellen.dev/conn)
@@ -38,4 +55,9 @@
   (->> (d/entity (d/db conn) [:nutrient/id "Vit A"])
        :nutrient/_parent
        (map #(into {} %)))
+
+  (d/q '[:find ?d
+         :where
+         [_ :langual-code/description ?d]]
+       (d/db conn))
 )
