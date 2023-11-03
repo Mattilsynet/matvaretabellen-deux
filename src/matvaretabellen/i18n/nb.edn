@@ -48,6 +48,7 @@
   :total-fiber "Kostfiber"
   :total-protein "Proteiner"
   :total-water "Vann"
+  :trace-elements-title "Sporstoffer"
   :vitamins-title "Vitaminer"
   }
 

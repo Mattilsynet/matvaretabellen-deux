@@ -129,6 +129,8 @@
                              :href "#vitaminer"}
                             {:title [:i18n ::minerals-title]
                              :href "#mineraler"}
+                            {:title [:i18n ::trace-elements-title]
+                             :href "#sporstoffer"}
                             {:title [:i18n ::classification-title]
                              :href "#klassifisering"}]})]]]]
        [:div.mmm-container.mmm-section
@@ -171,5 +173,17 @@
              prepare-nutrient-tables
              (map render-table))
         (->> (food/get-flattened-nutrient-group food "WaterSolubleVitamins")
+             prepare-nutrient-tables
+             (map render-table)))
+
+       (passepartout
+        [:h3.mmm-h3#mineraler [:i18n ::minerals-title]]
+        (->> (food/get-flattened-nutrient-group food "Minerals")
+             prepare-nutrient-tables
+             (map render-table)))
+
+       (passepartout
+        [:h3.mmm-h3#sporstoffer [:i18n ::trace-elements-title]]
+        (->> (food/get-flattened-nutrient-group food "TraceElements")
              prepare-nutrient-tables
              (map render-table)))]]]))

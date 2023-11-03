@@ -48,6 +48,7 @@
   :total-fiber "Dietary Fiber"
   :total-protein "Proteins"
   :total-water "Water"
+  :trace-elements-title "Trace elements"
   :vitamins-title "Vitamins"
   }
 
