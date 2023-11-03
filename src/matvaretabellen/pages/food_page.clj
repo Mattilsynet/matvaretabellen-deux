@@ -32,6 +32,19 @@
           [[:i18n ::total-alcohol] (get-nutrient-grams food "Alko")]]
    :classes ["mmm-nutrient-table"]})
 
+(defn get-kj [food]
+  (when-let [kj (:measurement/quantity (:food/energy food))]
+    [:span (wrap-in-portion-span (b/num kj)) " " (b/symbol kj)]))
+
+(defn get-kcal [food]
+  (when-let [kcal (:measurement/observation (:food/calories food))]
+    [:span " (" (wrap-in-portion-span kcal) " kcal)"]))
+
+(defn energy [food]
+  (list
+   (get-kj food)
+   (get-kcal food)))
+
 (defn prepare-macro-highlights [food]
   (for [[id anchor] [["Fett" "fett"] ["Protein" "energi"] ["Karbo" "karbohydrater"]]]
     (let [constituent (->> (:food/constituents food)
@@ -86,13 +99,6 @@
 (def energy-label
   [:i18n ::energy-content-title
    {:portion [:span.js-portion-label "100 g"]}])
-
-(defn energy [food]
-  (list
-   (when-let [kj (:measurement/quantity (:food/energy food))]
-     [:span (wrap-in-portion-span (b/num kj)) " " (b/symbol kj)])
-   (when-let [kcal (:measurement/observation (:food/calories food))]
-     [:span " (" (wrap-in-portion-span kcal) " kcal)"])))
 
 (defn prepare-langual-table [codes]
   {:headers [[:i18n ::langual-code-label]
