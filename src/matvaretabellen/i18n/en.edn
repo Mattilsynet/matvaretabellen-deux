@@ -24,6 +24,11 @@
   :carbohydrates-title "Carbohydrates"
   :category [:fn/str "Category: {{:category}}"]
   :classification-title "Classification"
+  :classification-intro
+  [:span "The foods in Matvaretabellen are described using a classification
+  system called " [:a {:href [:fn/get :langual-url]} "LanguaL"]
+   ". LanguaL stands for \"" [:strong "Langua aL"] "imentaria\" or \"language of
+   food\". This language enables standardized descriptions of foods."]
   :edible-part [:fn/str "Edible part: {{:pct}} %"]
   :energy-content-title [:span "Energy in " [:fn/get :portion]]
   :energy-content [:fn/str "{{:kilo-joules}} ({{:calories}} kcal)"]
@@ -32,6 +37,8 @@
   :composition-title [:fn/str "{{:title}} composition"]
   :fat-title "Fatty Acids"
   :food-id [:fn/str "Food ID: {{:id}}"]
+  :langual-code-label "LanguaL"
+  :langual-description-label "Classification"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
   :lookup [:fn/str "{{:en}}"]
   :highlight-title [:fn/str "{{:en}} →"]

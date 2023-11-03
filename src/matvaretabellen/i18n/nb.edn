@@ -24,6 +24,11 @@
   :carbohydrates-title "Karbohydrater"
   :category [:fn/str "Kategori: {{:category}}"]
   :classification-title "Klassifisering"
+  :classification-intro
+  [:span "Matvarene i Matvaretabellen beskrives ved hjelp
+  av et klassifiseringssystem som heter " [:a {:href [:fn/get :langual-url]} "LanguaL"]
+   ". LanguaL står for “" [:strong "Langua aL"] "imentaria” eller “language of
+  food”. Språket gjør det mulig å gi standardiserte beskrivelser av matvarene."]
   :edible-part [:fn/str "Spiselig del: {{:pct}}&nbsp;%"]
   :energy-content-title [:span "Energi i " [:fn/get :portion]]
   :energy-content [:fn/str "{{:kilo-joules}} ({{:calories}} kcal)"]
@@ -32,6 +37,8 @@
   :composition-title [:fn/str "{{:title}}, sammensetning"]
   :fat-title "Fettsyrer"
   :food-id [:fn/str "Matvare-ID: {{:id}}"]
+  :langual-code-label "LanguaL"
+  :langual-description-label "Klassifisering"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
   :lookup [:fn/str "{{:nb}}"]
   :highlight-title [:fn/str "{{:nb}} →"]

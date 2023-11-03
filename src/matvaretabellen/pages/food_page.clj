@@ -29,7 +29,8 @@
           [[:i18n ::total-protein] (get-nutrient-grams food "Protein")]
           [[:i18n ::total-water] (get-nutrient-grams food "Vann")]
           [[:i18n ::total-fiber] (get-nutrient-grams food "Fiber")]
-          [[:i18n ::total-alcohol] (get-nutrient-grams food "Alko")]]})
+          [[:i18n ::total-alcohol] (get-nutrient-grams food "Alko")]]
+   :classes ["mmm-nutrient-table"]})
 
 (defn prepare-macro-highlights [food]
   (for [[id anchor] [["Fett" "fett"] ["Protein" "energi"] ["Karbo" "karbohydrater"]]]
@@ -62,8 +63,8 @@
                       (get-nutrient-grams food (:nutrient/id nutrient))])})))
        (remove nil?)))
 
-(defn render-table [{:keys [headers rows]}]
-  [:table.mmm-table.mmm-nutrient-table.mmm-table-zebra
+(defn render-table [{:keys [headers rows classes]}]
+  [:table.mmm-table.mmm-table-zebra {:class classes}
    [:thead
     [:tr
      (for [header headers]
@@ -90,6 +91,12 @@
      [:span (wrap-in-portion-span (b/num kj)) " " (b/symbol kj)])
    (when-let [kcal (:measurement/observation (:food/calories food))]
      [:span " (" (wrap-in-portion-span kcal) " kcal)"])))
+
+(defn prepare-langual-table [codes]
+  {:headers [[:i18n ::langual-code-label]
+             [:i18n ::langual-description-label]]
+   :rows (for [{:langual-code/keys [id description]} codes]
+           [id (food/humanize-langual-classification description)])})
 
 (defn render [context _db page]
   (let [food (d/entity (:foods/db context) [:food/id (:food/id page)])
@@ -186,4 +193,13 @@
         [:h3.mmm-h3#sporstoffer [:i18n ::trace-elements-title]]
         (->> (food/get-flattened-nutrient-group food "TraceElements")
              prepare-nutrient-tables
-             (map render-table)))]]]))
+             (map render-table)))
+
+       [:div.mmm-container.mmm-section
+        [:div.mmm-container-focused.mmm-vert-layout-m.mmm-text
+         [:h3#klassifisering [:i18n ::classification-title]]
+         [:p [:i18n ::classification-intro
+              {:langual-url "https://www.langual.org/"}]]
+         (->> (food/get-langual-codes food)
+              prepare-langual-table
+              render-table)]]]]]))
