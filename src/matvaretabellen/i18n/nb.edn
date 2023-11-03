@@ -30,9 +30,11 @@
    ". LanguaL står for “" [:strong "Langua aL"] "imentaria” eller “language of
   food”. Språket gjør det mulig å gi standardiserte beskrivelser av matvarene."]
   :edible-part [:fn/str "Spiselig del: {{:pct}}&nbsp;%"]
+  :energy-content-title-mobile [:span "Per " [:fn/get :portion]]
   :energy-content-title [:span "Energi i " [:fn/get :portion]]
   :energy-content [:fn/str "{{:kilo-joules}} ({{:calories}} kcal)"]
   :energy [:fn/str "Kaloriinnhold: {{:kilo-joules}} ({{:calories}} kcal)"]
+  :energy-highlight-title [:fn/str "Energi →"]
   :energy-title "Sammensetning og energi"
   :composition-title [:fn/str "{{:title}}, sammensetning"]
   :fat-title "Fettsyrer"

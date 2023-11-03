@@ -46,18 +46,25 @@
    (get-kcal food)))
 
 (defn prepare-macro-highlights [food]
-  (for [[id anchor] [["Fett" "fett"] ["Protein" "energi"] ["Karbo" "karbohydrater"]]]
-    (let [constituent (->> (:food/constituents food)
-                           (filter (comp #{id} :nutrient/id :constituent/nutrient))
-                           first)]
-      {:title [:i18n ::highlight-title (nutrient/get-name (:constituent/nutrient constituent))]
-       :detail [:span (wrap-in-portion-span
-                       (or (some-> constituent
-                                   :measurement/quantity
-                                   b/num)
-                           0))
-                (some->> constituent :measurement/quantity b/symbol (str " "))]
-       :href (str "#" anchor)})))
+  (into
+   [{:title [:i18n ::energy-highlight-title]
+     :detail [:span (get-kj food)
+              (when-let [kcal (:measurement/observation (:food/calories food))]
+                [:div.small (wrap-in-portion-span kcal) " kcal"])]
+     :href "#naeringsinnhold"
+     :class "mmm-mobile"}]
+   (for [[id anchor] [["Fett" "fett"] ["Protein" "energi"] ["Karbo" "karbohydrater"]]]
+     (let [constituent (->> (:food/constituents food)
+                            (filter (comp #{id} :nutrient/id :constituent/nutrient))
+                            first)]
+       {:title [:i18n ::highlight-title (nutrient/get-name (:constituent/nutrient constituent))]
+        :detail [:span (wrap-in-portion-span
+                        (or (some-> constituent
+                                    :measurement/quantity
+                                    b/num)
+                            0))
+                 (some->> constituent :measurement/quantity b/symbol (str " "))]
+        :href (str "#" anchor)}))))
 
 (defn prepare-nutrient-tables [{:keys [food nutrients group]} & [title]]
   (->> (concat
@@ -100,6 +107,10 @@
   [:i18n ::energy-content-title
    {:portion [:span.js-portion-label "100 g"]}])
 
+(def energy-label-mobile
+  [:i18n ::energy-content-title-mobile
+   {:portion [:span.js-portion-label "100 g"]}])
+
 (defn prepare-langual-table [codes]
   {:headers [[:i18n ::langual-code-label]
              [:i18n ::langual-description-label]]
@@ -127,10 +138,12 @@
             [:h1.mmm-h1 food-name]
             [:p.mmm-p [:i18n ::food-id {:id (:food/id food)}]]]
            [:div.mmm-vert-layout-s.mmm-mtm
-            [:h2.mmm-p energy-label]
-            [:p.mmm-h3.mmm-mbs (energy food)]
+            [:h2.mmm-p.mmm-desktop energy-label]
+            [:h2.mmm-p.mmm-mobile.mmm-mbs energy-label-mobile]
+            [:p.mmm-h3.mmm-mbs.mmm-desktop (energy food)]
             [:div.mmm-cards
-             (map DetailFocusCard (prepare-macro-highlights food))]]]
+             (->> (prepare-macro-highlights food)
+                  (map DetailFocusCard))]]]
           [:aside
            (Toc {:title [:i18n ::toc-title]
                  :icon :fontawesome.solid/circle-info

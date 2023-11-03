@@ -369,6 +369,20 @@ ol.mmm-unadorned-list li {
     --mt-grid-column-width: var(--mt-grid-mobile-column-width);
 }
 
+.mmm .mmm-desktop {
+    display: none;
+}
+
+@media only screen and (min-width: 768px) {
+    .mmm .mmm-mobile {
+        display: none;
+    }
+
+    .mmm .mmm-desktop {
+        display: block;
+    }
+}
+
 @media only screen and (min-width: 960px) {
     .mmm {
         --mt-grid-gutter: var(--mt-grid-desktop-gutter);
