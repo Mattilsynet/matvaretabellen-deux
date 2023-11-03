@@ -242,6 +242,12 @@ ol.mmm-unadorned-list li {
     border-right: 1px solid var(--mt-component-table-cell-border-color);
 }
 
+@media only screen and (max-width: 767px) {
+    .mmm {
+        --mt-component-table-cell-padding: var(--mt-spacing-x1)
+    }
+}
+
 .mmm-table thead td,
 .mmm-table thead th {
     background: var(--mt-component-table-thead-background);
