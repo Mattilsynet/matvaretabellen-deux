@@ -171,14 +171,14 @@
         (render-table (prepare-nutrition-table food)))
 
        (passepartout
-        [:h3.mmm-h3#fett [:i18n ::fat-title]]
-        (->> (food/get-nutrient-group food "Fett")
+        [:h3.mmm-h3#karbohydrater [:i18n ::carbohydrates-title]]
+        (->> (food/get-nutrient-group food "Karbo")
              prepare-nutrient-tables
              (map render-table)))
 
        (passepartout
-        [:h3.mmm-h3#karbohydrater [:i18n ::carbohydrates-title]]
-        (->> (food/get-nutrient-group food "Karbo")
+        [:h3.mmm-h3#fett [:i18n ::fat-title]]
+        (->> (food/get-nutrient-group food "Fett")
              prepare-nutrient-tables
              (map render-table)))
 
