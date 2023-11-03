@@ -664,6 +664,18 @@ ol.mmm-unadorned-list li {
 .mmm-pam, .mmm-pvm, .mmm-ptm {padding-top: var(--mt-spacing-x1_4);}
 .mmm-pam, .mmm-pvm, .mmm-pbm {padding-bottom: var(--mt-spacing-x1_4);}
 
+.mmm-pan, .mmm-phn, .mmm-pln {padding-left: 0;}
+.mmm-pan, .mmm-phn, .mmm-prn {padding-right: 0;}
+.mmm-pan, .mmm-pvn, .mmm-ptn {padding-top: 0;}
+.mmm-pan, .mmm-pvn, .mmm-pbn {padding-bottom: 0;}
+
+@media only screen and (max-width: 767px) {
+    .mmm-mobile-pan, .mmm-mobile-phn, .mmm-mobile-pln {padding-left: 0;}
+    .mmm-mobile-pan, .mmm-mobile-phn, .mmm-mobile-prn {padding-right: 0;}
+    .mmm-mobile-pan, .mmm-mobile-pvn, .mmm-mobile-ptn {padding-top: 0;}
+    .mmm-mobile-pan, .mmm-mobile-pvn, .mmm-mobile-pbn {padding-bottom: 0;}
+}
+
 /******************************
  *** Component: Breadcrumbs ***
  ******************************/
