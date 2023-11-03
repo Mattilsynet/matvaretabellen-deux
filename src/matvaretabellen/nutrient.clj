@@ -41,5 +41,47 @@
   (->> nutrients
        (sort-by (comp #(sort-names % %) :nutrient/id))))
 
+(def apriori-groups
+  (->> [{:nutrient/id "WaterSolubleVitamins"
+         :nutrient/name {:nb "Vannløselige Vitaminer"
+                         :en "Water-soluble Vitamins"}
+         ::nutrient-ids ["Vit B1"
+                         "Vit B12"
+                         "Vit B2"
+                         "Folat"
+                         "Niacin"
+                         "Vit B6"
+                         "Vit C"]}
+        {:nutrient/id "FatSolubleVitamins"
+         :nutrient/name {:nb "Fett-løselige Vitaminer"
+                         :en "Fat-soluble Vitamins"}
+         ::nutrient-ids ["Vit A" "Vit D" "Vit E"]}
+        {:nutrient/id "Minerals"
+         :nutrient/name {:nb "Mineraler"
+                         :en "Minerals"}
+         ::nutrient-ids ["Ca" "K" "Mg" "Na" "NaCl" "P"]}
+        {:nutrient/id "TraceElements"
+         :nutrient/name {:nb "Sporstoffer"
+                         :en "Trace Elements"}
+         ::nutrient-ids ["Fe" "I" "Cu" "Se" "Zn"]}]
+       (map (juxt :nutrient/id identity))
+       (into {})))
 
+(def apriori-index
+  (->> (vals apriori-groups)
+       (mapcat #(map (fn [id] [id (:nutrient/id %)])
+                     (::nutrient-ids %)))
+       (into {})))
 
+(defn get-parent
+  "The FoodCase data currently does not group certain good groups that we want
+  grouped, such as vitamins. This function provides a apriori parent while we
+  wait for more structured source data."
+  [id parent-id]
+  (or (when (seq parent-id)
+        {:nutrient/id parent-id})
+      (when-let [parent-id (get apriori-index id)]
+        {:nutrient/id parent-id})))
+
+(defn get-apriori-groups []
+  (map #(dissoc % ::nutrient-ids) (vals apriori-groups)))

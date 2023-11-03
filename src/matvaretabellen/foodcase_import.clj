@@ -5,7 +5,8 @@
             [clojure.string :as str]
             [clojure.walk :as walk]
             [datomic-type-extensions.api :as d]
-            [matvaretabellen.db :as db]))
+            [matvaretabellen.db :as db]
+            [matvaretabellen.nutrient :as nutrient]))
 
 (b/defunit-once kilojoules :energy "kJ" 1000 {b/joules 1})
 
@@ -154,14 +155,15 @@
 
 (defn foodcase-nutrient->nutrient [{:strs [id name euroFIR euroFIRname unit decimals parentId]}]
   (when-not (known-non-constituents id)
-    (cond-> {:nutrient/id id
-             :nutrient/name name
-             :nutrient/euro-fir-id euroFIR
-             :nutrient/euro-fir-name euroFIRname
-             :nutrient/unit unit
-             :nutrient/decimal-precision (some-> decimals parse-long)}
-      (seq parentId)
-      (assoc :nutrient/parent {:nutrient/id parentId}))))
+    (let [parent (nutrient/get-parent id parentId)]
+      (cond-> {:nutrient/id id
+               :nutrient/name name
+               :nutrient/euro-fir-id euroFIR
+               :nutrient/euro-fir-name euroFIRname
+               :nutrient/unit unit
+               :nutrient/decimal-precision (some-> decimals parse-long)}
+        parent
+        (assoc :nutrient/parent parent)))))
 
 (defn foodcase-reference->origin [{:strs [id text]}]
   {:origin/id id
@@ -187,6 +189,9 @@
      (combine-i18n-sources
       (update-vals locale->datas #(keep foodcase-nutrient->nutrient (get % "nutrients")))
       i18n-attrs)
+
+     ;; faux nutrient groups
+     (nutrient/get-apriori-groups)
 
      ;; origins
      (combine-i18n-sources
