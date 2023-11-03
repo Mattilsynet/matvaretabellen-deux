@@ -54,13 +54,15 @@
                     [:i18n ::amount-grams]]
           :rows (for [nutrient nutrients]
                   [[:i18n ::lookup (nutrient/get-name nutrient)]
-                   (get-nutrient-grams food (:nutrient/id nutrient))])}]
+                   (get-nutrient-grams food (:nutrient/id nutrient))])
+          :classes ["mmm-nutrient-table"]}]
         (for [nutrient nutrients]
           (when-let [nutrients (food/get-nutrients food (:nutrient/id nutrient))]
             {:headers [[:i18n ::lookup (nutrient/get-name nutrient)] [:i18n ::amount-grams]]
              :rows (for [nutrient nutrients]
                      [[:i18n ::lookup (nutrient/get-name nutrient)]
-                      (get-nutrient-grams food (:nutrient/id nutrient))])})))
+                      (get-nutrient-grams food (:nutrient/id nutrient))])
+             :classes ["mmm-nutrient-table"]})))
        (remove nil?)))
 
 (defn render-table [{:keys [headers rows classes]}]
