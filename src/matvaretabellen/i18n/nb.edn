@@ -38,7 +38,7 @@
   :energy-title "Sammensetning og energi"
   :composition-title [:fn/str "{{:title}}, sammensetning"]
   :fat-title "Fettsyrer"
-  :food-id [:fn/str "Matvare-ID: {{:id}}"]
+  :food-id (list [:strong "Matvare-ID:"] " " [:fn/get :id])
   :langual-code-label "LanguaL"
   :langual-description-label "Klassifisering"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
@@ -49,6 +49,7 @@
   :nutrition-heading "Hovedkomponenter og energiinnhold"
   :nutrition-title "Næringsinnhold"
   :portion-size "Porsjonsstørrelse:"
+  :scientific-name (list [:strong "Vitenskapelig navn:"] " " [:fn/get :name])
   :toc-title "Innhold"
   :total [:fn/str "{{:nb}}, total"]
   :total-alcohol "Alkohol"

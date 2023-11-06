@@ -38,7 +38,7 @@
   :energy-title "Composition and Energy"
   :composition-title [:fn/str "{{:title}} composition"]
   :fat-title "Fatty Acids"
-  :food-id [:fn/str "Food ID: {{:id}}"]
+  :food-id (list [:strong "Food ID:"] " " [:fn/get :id])
   :langual-code-label "LanguaL"
   :langual-description-label "Classification"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
@@ -49,6 +49,7 @@
   :nutrition-heading "Main Components and Energy Content"
   :nutrition-title "Nutritional Information"
   :portion-size "Portion Size:"
+  :scientific-name (list [:strong "Scientific name:"] " " [:fn/get :name])
   :total [:fn/str "{{:en}}, total"]
   :toc-title "Contents"
   :total-alcohol "Alcohol"

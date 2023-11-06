@@ -135,9 +135,7 @@
         [:div.mmm-container.mmm-section
          [:div.mmm-media.mmm-media-at
           [:article.mmm-vert-layout-spread
-           [:div
-            [:h1.mmm-h1 food-name]
-            [:p.mmm-p [:i18n ::food-id {:id (:food/id food)}]]]
+           [:h1.mmm-h1 food-name]
            [:div.mmm-vert-layout-s.mmm-mtm
             [:h2.mmm-p.mmm-desktop energy-label]
             [:h2.mmm-p.mmm-mobile.mmm-mbs energy-label-mobile]
@@ -220,6 +218,10 @@
        [:div.mmm-container.mmm-section
         [:div.mmm-container-focused.mmm-vert-layout-m.mmm-text
          [:h3#klassifisering [:i18n ::classification-title]]
+         [:ul.mmm-unadorned-list
+          [:li [:i18n ::food-id {:id (:food/id food)}]]
+          (when-let [latin-name (:food/latin-name food)]
+            [:li [:i18n ::scientific-name {:name latin-name}]])]
          [:p [:i18n ::classification-intro
               {:langual-url "https://www.langual.org/"}]]
          (->> (food/get-langual-codes food)

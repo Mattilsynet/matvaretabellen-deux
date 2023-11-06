@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** TODO Lag enklere footer
-* Tickets [0/16]
+* Tickets [1/16]
 ** TODO Vise referanser
 ** TODO Matvaregruppe-sidene
 ** TODO Side for næringsstoff
@@ -22,6 +22,6 @@
 ** TODO Språkskifte i header
 ** TODO Internasjonalisering av porsjonsstørrelser
 ** TODO Søkefelt på alle sider
-** TODO [C] Matvare-id og latinsk navn => klassifisering
+** DONE [C] Matvare-id og latinsk navn => klassifisering
 ** TODO Analyseverktøy
 ** TODO Stolpediagrammer
