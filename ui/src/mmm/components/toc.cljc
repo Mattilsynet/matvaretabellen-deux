@@ -2,16 +2,16 @@
   (:require [fontawesome.icons :as icons]))
 
 (defn Toc [{:keys [title icon contents class]}]
-  [:div.mmm-toc.mmm-text.mmm-vert-layout-m {:class class}
-   [:h3.mmm-toc-title
+  [:div.mmm-toc.mmm-vert-layout-m {:class class}
+   [:h3.mmm-toc-title.mmm-h3
     (when icon
       [:span.mmm-toc-icon (icons/render icon)])
     title]
-   [:ol
+   [:ul.mmm-ul
     (for [{:keys [title href contents]} contents]
       [:li
-       [:a.no-underline {:href href} title]
+       [:a.mmm-link {:href href} title]
        (when (seq contents)
-         [:ol
+         [:ul.mmm-ul
           (for [{:keys [title href]} contents]
-            [:li [:a.no-underline {:href href} title]])])])]])
+            [:li [:a.mmm-link {:href href} title]])])])]])
