@@ -25,13 +25,13 @@
   :category [:fn/str "Kategori: {{:category}}"]
   :classification-title "Klassifisering"
   :classification-intro
-  [:span "Matvarene i Matvaretabellen beskrives ved hjelp
+  (list "Matvarene i Matvaretabellen beskrives ved hjelp
   av et klassifiseringssystem som heter " [:a {:href [:fn/get :langual-url]} "LanguaL"]
-   ". LanguaL står for “" [:strong "Langua aL"] "imentaria” eller “language of
-  food”. Språket gjør det mulig å gi standardiserte beskrivelser av matvarene."]
+        ". LanguaL står for “" [:strong "Langua aL"] "imentaria” eller “language of
+  food”. Språket gjør det mulig å gi standardiserte beskrivelser av matvarene.")
   :edible-part [:fn/str "Spiselig del: {{:pct}}&nbsp;%"]
-  :energy-content-title-mobile [:span "Per " [:fn/get :portion]]
-  :energy-content-title [:span "Energi i " [:fn/get :portion]]
+  :energy-content-title-mobile (list "Per " [:fn/get :portion])
+  :energy-content-title (list "Energi i " [:fn/get :portion])
   :energy-content [:fn/str "{{:kilo-joules}} ({{:calories}} kcal)"]
   :energy [:fn/str "Kaloriinnhold: {{:kilo-joules}} ({{:calories}} kcal)"]
   :energy-highlight-title [:fn/str "Energi →"]
