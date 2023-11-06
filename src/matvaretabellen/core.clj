@@ -2,10 +2,15 @@
   (:require [datomic-type-extensions.api :as d]
             [matvaretabellen.foodcase-import :as foodcase-import]
             [matvaretabellen.ingest :as ingest]
-            [matvaretabellen.pages :as pages]))
+            [matvaretabellen.pages :as pages])
+  (:import [java.time Instant]))
 
 (defn on-started [conn powerpack-app]
   (ingest/on-started conn powerpack-app))
+
+(defn get-context [foods-conn]
+  {:foods/db (d/db foods-conn)
+   :time/instant (Instant/now)})
 
 (defn create-app [env foods-conn]
   (cond-> {:site/default-locale :no
@@ -34,7 +39,7 @@
            :powerpack/port 5053
            :powerpack/create-ingest-tx #'ingest/create-tx
            :powerpack/render-page #'pages/render-page
-           :powerpack/get-context (fn [] {:foods/db (d/db foods-conn)})
+           :powerpack/get-context #(get-context foods-conn)
            :powerpack/on-started #(on-started foods-conn %)
 
            :m1p/dictionaries {:nb ["src/matvaretabellen/i18n/nb.edn"]
