@@ -49,9 +49,11 @@
   [:div {:style {:position "relative"}}
    [:svg.mmm-svg {:viewBox (str "0 0 " d " " d)}
     (for [{:keys [from-deg to-deg color] :as slice} slices]
-      [:path (cond-> {:d (render-arc from-deg to-deg)
-                      :fill color}
-               hoverable? (merge (get-hover-attrs slice)))])]
+      (cond-> (if (<= 360 (- to-deg from-deg))
+                [:circle {:cx cx :cy cy :r r :fill color}]
+                [:path {:d (render-arc from-deg to-deg)
+                        :fill color}])
+        hoverable? (update 1 merge (get-hover-attrs slice))))]
    (when hoverable?
      (for [slice slices]
        [:div.mtv-hover-popup {:id (get-slice-id slice)}
