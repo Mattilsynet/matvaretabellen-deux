@@ -23,3 +23,14 @@
                          {:value 30 :color "green"  :hover-content [:span "Green: " [:strong "30 g"]]}
                          {:value 5  :color "purple" :hover-content [:span "Purple: " [:strong "5 g"]]}])
                :hoverable? true})]))
+
+(defscene pie-chart-with-one-very-large-slice
+  (e/block
+   [:div {:style {:width 300}}
+    (PieChart {:slices (assoc-degrees
+                        10
+                        [{:id "Fett", :value 10, :color "red", :hover-content [:span {:data-portion 0.1} 0.1]}
+                         {:id "Karbo", :value 120, :color "green", :hover-content [:span {:data-portion 1.2} 1.2]}
+                         {:id "Protein", :value 80, :color "yellow", :hover-content [:span {:data-portion 0.8} 0.8]}
+                         {:id "Vann", :value 9700, :color "blue", :hover-content [:span {:data-portion 97.0} 97.0]}
+                         {:id "Fiber", :value 80, :color "purple", :hover-content [:span {:data-portion 0.8} 0.8]}])})]))

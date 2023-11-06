@@ -12,10 +12,11 @@
   (let [x1 (+ cx (* r (Math/cos (deg->rad from-deg))))
         y1 (+ cy (* r (Math/sin (deg->rad from-deg))))
         x2 (+ cx (* r (Math/cos (deg->rad to-deg))))
-        y2 (+ cy (* r (Math/sin (deg->rad to-deg))))]
+        y2 (+ cy (* r (Math/sin (deg->rad to-deg))))
+        large-arc-flag (if (> (- to-deg from-deg) 180) 1 0)]
     (str "M " cx " " cy " "                   ;; Move to center
          "L " x1 " " y1 " "                   ;; Line to first point on radius
-         "A " r " " r " 0 0 1 " x2 " " y2 " " ;; Arc to second point
+         "A " r " " r " 0 " large-arc-flag " 1 " x2 " " y2 " " ;; Arc to second point
          "L " cx " " cy                       ;; Line back to center
          )))
 
