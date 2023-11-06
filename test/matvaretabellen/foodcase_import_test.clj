@@ -21,39 +21,45 @@
    "Vann" {"ref" "MI0142", "value" "11"}
    "Fett" {"ref" "225a", "value" "1.8"}
    "Folat" {"ref" "MI0232", "value" ""}
+   "Vit A" {"ref" "MI0114" "value" "23"}
    "Vit C" {"ref" "10", "value" ""}
    "Ca" {"ref" "10", "value" "M"}
    "Fe" {"ref" "MI0232", "value" ""}})
 
+(def id->nutrient
+  {"Vann" {:nutrient/unit "g"}
+   "Fett" {:nutrient/unit "g"}
+   "Vit A" {:nutrient/unit "µg-RE"}})
+
 (deftest foodcase-food->food-test
   (testing "Parses synonyms"
-    (is (= (-> (sut/foodcase-food->food wheat-flakes)
+    (is (= (-> (sut/foodcase-food->food wheat-flakes id->nutrient)
                :food/search-keywords)
            #{"kellogg's"
              "ultra processed"
              "breakfast cereal"})))
 
   (testing "Parses LanguaL codes"
-    (is (= (-> (sut/foodcase-food->food wheat-flakes)
+    (is (= (-> (sut/foodcase-food->food wheat-flakes id->nutrient)
                :food/langual-codes)
            #{[:langual-code/id "B1312"]
              [:langual-code/id "A0816"]
              [:langual-code/id "A0258"]})))
 
   (testing "Parses energy"
-    (is (= (-> (sut/foodcase-food->food wheat-flakes)
+    (is (= (-> (sut/foodcase-food->food wheat-flakes id->nutrient)
                :food/energy)
            {:measurement/quantity #broch/quantity[1418.5 "kJ"]
             :measurement/origin [:origin/id "MI0114"]})))
 
   (testing "Parses calories"
-    (is (= (-> (sut/foodcase-food->food wheat-flakes)
+    (is (= (-> (sut/foodcase-food->food wheat-flakes id->nutrient)
                :food/calories)
            {:measurement/observation "336"
             :measurement/origin [:origin/id "MI0115"]})))
 
   (testing "Parses portions"
-    (is (= (-> (sut/foodcase-food->food wheat-flakes)
+    (is (= (-> (sut/foodcase-food->food wheat-flakes id->nutrient)
                :food/portions)
            #{{:portion/kind [:portion-kind/id :dl]
               :portion/quantity #broch/quantity[18.0 "g"]}
@@ -61,7 +67,7 @@
               :portion/quantity #broch/quantity[35.0 "g"]}})))
 
   (testing "Parses constituents"
-    (is (= (->> (sut/foodcase-food->food wheat-flakes)
+    (is (= (->> (sut/foodcase-food->food wheat-flakes id->nutrient)
                 :food/constituents)
            #{{:constituent/nutrient [:nutrient/id "Fett"]
               :measurement/quantity #broch/quantity[1.8 "g"]
@@ -69,6 +75,9 @@
              {:constituent/nutrient [:nutrient/id "Vann"]
               :measurement/quantity #broch/quantity[11.0 "g"]
               :measurement/origin [:origin/id "MI0142"]}
+             {:constituent/nutrient [:nutrient/id "Vit A"],
+              :measurement/origin [:origin/id "MI0114"],
+              :measurement/quantity #broch/quantity[23.0 "µg-RE"]}
 
              ;; constituents without a known quantity still needs to be
              ;; represented due to differing reasons for said void.

@@ -9,6 +9,8 @@
             [matvaretabellen.nutrient :as nutrient]))
 
 (b/defunit-once kilojoules :energy "kJ" 1000 {b/joules 1})
+(b/defunit-once mg-ate :mass "mg-ATE" 1.0E-6)
+(b/defunit-once ug-re :mass "µg-RE" 1.0E-9)
 
 (defn load-json [file-name]
   (-> (io/file file-name)
@@ -29,14 +31,15 @@
   (when-not (#{"" "M" nil} x)
     (parse-double x)))
 
-(defn get-constituents [food]
+(defn get-constituents [food id->nutrient]
   (set
    (for [[id {:strs [ref value]}] (->> (apply dissoc food known-non-constituents)
                                        (filter (fn [[_ v]] (get v "ref"))))]
-     (let [grams (parse-double value)]
+     (let [amount (parse-double value)]
        (cond-> {:constituent/nutrient [:nutrient/id id]
                 :measurement/origin [:origin/id ref]}
-         grams (assoc :measurement/quantity (b/grams grams)))))))
+         amount (assoc :measurement/quantity
+                       (b/from-edn [amount (get-in id->nutrient [id :nutrient/unit])])))))))
 
 (defn get-portions [{:strs [ref value]}]
   (->> (map (fn [r v]
@@ -68,7 +71,8 @@
       (throw (ex-info "Can't get me no edible part" {:ref ref :value value} e)))))
 
 (defn foodcase-food->food [{:strs [id name groupId synonym latinName Netto
-                                   langualCodes Energi1 Energi2 Portion] :as food}]
+                                   langualCodes Energi1 Energi2 Portion] :as food}
+                           id->nutrient]
   (->> {:food/id id
         :food/name name
         :food/food-group [:food-group/id groupId]
@@ -79,8 +83,7 @@
         :food/energy (get-energy Energi1)
         :food/calories {:measurement/observation (get Energi2 "value")
                         :measurement/origin [:origin/id (get Energi2 "ref")]}
-        :food/constituents (get-constituents food)
-
+        :food/constituents (get-constituents food id->nutrient)
         :food/portions (get-portions Portion)
         :food/edible-part (get-edible-part Netto)}
        (remove (comp nil? second))
@@ -179,16 +182,17 @@
    :portion-kind/unit unit})
 
 (defn create-foodcase-transactions [db locale->datas]
-  (let [i18n-attrs (db/get-i18n-attrs db)]
+  (let [i18n-attrs (db/get-i18n-attrs db)
+        nutrients (combine-i18n-sources
+                   (update-vals locale->datas #(keep foodcase-nutrient->nutrient (get % "nutrients")))
+                   i18n-attrs)]
     [;; food-groups
      (combine-i18n-sources
       (update-vals locale->datas #(map foodcase-foodgroup->food-group (get % "foodgroups")))
       i18n-attrs)
 
      ;; nutrients
-     (combine-i18n-sources
-      (update-vals locale->datas #(keep foodcase-nutrient->nutrient (get % "nutrients")))
-      i18n-attrs)
+     nutrients
 
      ;; faux nutrient groups
      (nutrient/get-apriori-groups)
@@ -205,9 +209,12 @@
      (map foodcase-portiontype->portion-kind (get (first (vals locale->datas)) "portiontypes"))
 
      ;; foods
-     (combine-i18n-sources
-      (update-vals locale->datas #(map foodcase-food->food (get % "foods")))
-      i18n-attrs)]))
+     (let [id->nutrient (into {} (map (juxt :nutrient/id identity) nutrients))]
+       (combine-i18n-sources
+        (update-vals
+         locale->datas
+         #(map (fn [food] (foodcase-food->food food id->nutrient)) (get % "foods")))
+        i18n-attrs))]))
 
 (defn create-database-from-scratch [uri]
   (d/delete-database uri)
