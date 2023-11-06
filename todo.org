@@ -1,0 +1,27 @@
+* Ønskeliste [0/2]
+** TODO Benevnede tall (eks "4 mnd") kan kanskje få leve som tokens i indeksen?
+** TODO Redusere score på lange navn
+* Todos [4/6]
+** TODO Er noen av 0-ene egentlig "ukjent"?
+** DONE Dra opp _alle_ næringsstoffer i tabellene på topp
+** DONE Vis vitaminer
+** DONE Vis mineraler
+** DONE Vis klassifiseringer
+** TODO Lag enklere footer
+* Tickets [0/16]
+** TODO Vise referanser
+** TODO Matvaregruppe-sidene
+** TODO Side for næringsstoff
+** TODO Lenke opp næringsstoffer fra tabellene på matvaresiden
+** TODO ADI: Lese inn data
+** TODO ADI: Vise på matvaresiden
+** TODO Flere trivia-bolker
+** TODO Sesongvarer for hele året
+** TODO Tekster og illustrasjoner til hver matvaregruppe
+** TODO Merke XML med kilder
+** TODO Språkskifte i header
+** TODO Internasjonalisering av porsjonsstørrelser
+** TODO Søkefelt på alle sider
+** TODO [C] Matvare-id og latinsk navn => klassifisering
+** TODO Analyseverktøy
+** TODO Stolpediagrammer
