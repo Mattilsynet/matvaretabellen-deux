@@ -1,5 +1,6 @@
 (ns matvaretabellen.excel
-  (:import [org.apache.poi.xssf.usermodel XSSFWorkbook])
+  (:import [java.io ByteArrayOutputStream FileOutputStream]
+           [org.apache.poi.xssf.usermodel XSSFWorkbook])
   (:require [broch.core :as b]
             [datomic-type-extensions.api :as d]))
 
@@ -34,12 +35,16 @@
                 (.setCellValue cell text)))))))
     workbook))
 
-(defn create-excel-file [file-name sheets]
-  (let [workbook (create-workbook sheets)
-        file-out (java.io.FileOutputStream. file-name)]
+(defn create-excel-file [file-name workbook]
+  (let [file-out (FileOutputStream. file-name)]
     (.write workbook file-out)
     (.close file-out))
   :done)
+
+(defn create-excel-byte-array [workbook]
+  (with-open [stream (ByteArrayOutputStream.)]
+    (.write workbook stream)
+    (.toByteArray stream)))
 
 (defn get-basic-food-fields [db locale]
   [{:title "Matvare ID" :path [:food/id]}
@@ -136,6 +141,16 @@
      reference-sheet
      (prepare-reference-lookup-sheet db locale "Referanseoppslag" reference-sheet)]))
 
+(defn render-all-foods [db page]
+  (let [locale (:page/locale page)
+        foods (for [eid (d/q '[:find [?e ...] :where [?e :food/id]] db)]
+                (d/entity db eid))]
+    {:status 200
+     :headers {"Content-Type" "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}
+     :body (create-excel-byte-array
+            (create-workbook
+             (prepare-food-sheets db locale foods)))}))
+
 (comment
 
   (def db (d/db matvaretabellen.dev/conn))
@@ -154,6 +169,6 @@
   (prepare-foods-sheet locale "Matvarer" (get-basic-food-fields db locale) foods)
   (prepare-foods-sheet locale "Matvarer (alle næringsstoffer)" (get-all-food-fields db locale) foods)
 
-  (create-excel-file "test.xlsx" (prepare-food-sheets db locale foods))
+  (create-excel-file "test.xlsx" (create-workbook (prepare-food-sheets db locale foods)))
 
   )

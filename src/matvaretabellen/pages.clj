@@ -40,6 +40,12 @@
     :page/locale :nb}
    {:page/uri "/food-groups/"
     :page/kind :page.kind/food-groups
+    :page/locale :en}
+   {:page/uri "/alle-matvarer.xlsx"
+    :page/kind :page.kind/foods-excel
+    :page/locale :nb}
+   {:page/uri "/all-foods.xlsx"
+    :page/kind :page.kind/foods-excel
     :page/locale :en}])
 
 (defn render-foods-index [db page]
@@ -66,4 +72,5 @@
       :page.kind/frontpage (frontpage/render context db page)
       :page.kind/food (food-page/render context db page)
       :page.kind/food-group (food-group-page/render context db page)
-      :page.kind/food-groups (food-groups-page/render context db page))))
+      :page.kind/food-groups (food-groups-page/render context db page)
+      :page.kind/foods-excel (excel/render-all-foods db page))))
