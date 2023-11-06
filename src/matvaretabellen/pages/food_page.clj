@@ -53,7 +53,8 @@
               (when-let [kcal (:measurement/observation (:food/calories food))]
                 [:div.small (wrap-in-portion-span kcal) " kcal"])]
      :href "#naeringsinnhold"
-     :class "mmm-mobile"}]
+     :class "mmm-mobile"
+     :aria-hidden "true"}]
    (for [[id anchor] [["Fett" "fett"] ["Protein" "energi"] ["Karbo" "karbohydrater"]]]
      (let [constituent (->> (:food/constituents food)
                             (filter (comp #{id} :nutrient/id :constituent/nutrient))
@@ -138,7 +139,8 @@
            [:h1.mmm-h1 food-name]
            [:div.mmm-vert-layout-s.mmm-mtm
             [:h2.mmm-p.mmm-desktop energy-label]
-            [:h2.mmm-p.mmm-mobile.mmm-mbs energy-label-mobile]
+            [:h2.mmm-p.mmm-mobile.mmm-mbs {:aria-hidden "true"}
+             energy-label-mobile]
             [:p.mmm-h3.mmm-mbs.mmm-desktop (energy food)]
             [:div.mmm-cards
              (->> (prepare-macro-highlights food)
