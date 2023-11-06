@@ -1,17 +1,27 @@
 (ns matvaretabellen.pages
-  (:require [datomic-type-extensions.api :as d]
+  (:require [clojure.edn :as edn]
+            [clojure.java.io :as io]
+            [datomic-type-extensions.api :as d]
+            [matvaretabellen.excel :as excel]
             [matvaretabellen.pages.food-group-page :as food-group-page]
             [matvaretabellen.pages.food-groups-page :as food-groups-page]
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.pages.frontpage :as frontpage]
             [matvaretabellen.search-index :as index]))
 
-(def static-pages
+(defn load-edn [file-name]
+  (-> (io/file file-name)
+      slurp
+      edn/read-string))
+
+(defn get-static-pages []
   [{:page/uri "/"
     :page/kind :page.kind/frontpage
+    :page/details {:new-foods (load-edn "data/new-food-ids.edn")}
     :page/locale :nb}
    {:page/uri "/en/"
     :page/kind :page.kind/frontpage
+    :page/details {:new-foods (load-edn "data/new-food-ids.edn")}
     :page/locale :en}
    {:page/uri "/index/nb.json"
     :page/kind :page.kind/foods-index

@@ -1,8 +1,8 @@
 (ns matvaretabellen.pages.frontpage
   (:require [datomic-type-extensions.api :as d]
             [matvaretabellen.crumbs :as crumbs]
+            [matvaretabellen.seeded-random :as rng]
             [matvaretabellen.urls :as urls]
-            [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.footer :refer [SiteFooter]]
             [mmm.components.search-input :refer [SearchInput]]
             [mmm.components.site-header :refer [SiteHeader]]
@@ -34,7 +34,7 @@
       [:p [:strong [:i18n ::all-nutrients]]]
       [:p [:i18n ::see-all-nutrients-overview]]]]]])
 
-(defn render [_context db page]
+(defn render [context db page]
   (let [locale (:page/locale page)]
     [:html {:class "mmm"}
      [:body
@@ -52,16 +52,13 @@
                         {:title "Havregryn" :href "?search=havregryn"}
                         {:title "Potet" :href "?search=potet"}]
              :class :mmm-col})
-       (Toc {:title (list [:i18n ::new-in-food-table] " 2023")
-             :contents [{:title "Egyptisk tahini"
-                         :href "/"}
-                        {:title "Gyroskjøtt"
-                         :href "/"}
-                        {:title "Bratwurst pølser"
-                         :href "/"}
-                        {:title "Vitamin K"
-                         :href "/"}]
-             :class :mmm-col})
+       (let [new-foods (:new-foods (:page/details page))]
+         (Toc {:title (list [:i18n ::new-in-food-table] " " (:year new-foods))
+               :contents (for [id (take 4 (rng/shuffle*
+                                           (/ (.getEpochSecond (:time/instant context)) 5)
+                                           (:food-ids new-foods)))]
+                           (get-food-info locale db id))
+               :class :mmm-col}))
        (Toc {:title [:i18n ::seasonal-goods]
              :contents (for [id ["06.010" "06.003" "06.016" "06.055"]]
                          (get-food-info locale db id))

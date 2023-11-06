@@ -42,7 +42,7 @@
 
 (defn on-started [foods-conn powerpack-app]
   (let [db (d/db foods-conn)]
-    (->> (concat pages/static-pages
+    (->> (concat (pages/get-static-pages)
                  (get-food-pages db)
                  (get-food-group-pages db))
          (ensure-unique-page-uris)
