@@ -27,12 +27,12 @@
 
 (defn prepare-nutrition-table [food]
   {:headers [[:i18n ::nutrients] [:i18n ::amount]]
-   :rows [[[:i18n ::total-fat] (get-nutrient-quantity food "Fett")]
-          [[:i18n ::total-carbs] (get-nutrient-quantity food "Karbo")]
-          [[:i18n ::total-fiber] (get-nutrient-quantity food "Fiber")]
-          [[:i18n ::total-protein] (get-nutrient-quantity food "Protein")]
-          [[:i18n ::total-alcohol] (get-nutrient-quantity food "Alko")]
-          [[:i18n ::total-water] (get-nutrient-quantity food "Vann")]]
+   :rows [[{:text [:i18n ::total-fat]} {:text (get-nutrient-quantity food "Fett")}]
+          [{:text [:i18n ::total-carbs]} {:text (get-nutrient-quantity food "Karbo")}]
+          [{:text [:i18n ::total-fiber]} {:text (get-nutrient-quantity food "Fiber")}]
+          [{:text [:i18n ::total-protein]} {:text (get-nutrient-quantity food "Protein")}]
+          [{:text [:i18n ::total-alcohol]} {:text (get-nutrient-quantity food "Alko")}]
+          [{:text [:i18n ::total-water]} {:text (get-nutrient-quantity food "Vann")}]]
    :classes ["mmm-nutrient-table"]})
 
 (defn get-kj [food]
@@ -72,17 +72,33 @@
         [{:headers [[:i18n ::lookup (nutrient/get-name group)]
                     [:i18n ::amount]]
           :rows (for [nutrient nutrients]
-                  [[:i18n ::lookup (nutrient/get-name nutrient)]
-                   (get-nutrient-quantity food (:nutrient/id nutrient))])
+                  [{:text [:i18n ::lookup (nutrient/get-name nutrient)]}
+                   {:text (get-nutrient-quantity food (:nutrient/id nutrient))}])
           :classes ["mmm-nutrient-table"]}]
         (for [nutrient nutrients]
           (when-let [nutrients (food/get-nutrients food (:nutrient/id nutrient))]
             {:headers [[:i18n ::lookup (nutrient/get-name nutrient)] [:i18n ::amount]]
              :rows (for [nutrient nutrients]
-                     [[:i18n ::lookup (nutrient/get-name nutrient)]
-                      (get-nutrient-quantity food (:nutrient/id nutrient))])
+                     [{:text [:i18n ::lookup (nutrient/get-name nutrient)]}
+                      {:text (get-nutrient-quantity food (:nutrient/id nutrient))}])
              :classes ["mmm-nutrient-table"]})))
        (remove nil?)))
+
+(defn get-nutrient-rows [food nutrient & [level]]
+  (let [level (or level 0)]
+    (into [[{:text [:i18n ::lookup (nutrient/get-name nutrient)]
+             :level level}
+            {:text (get-nutrient-quantity food (:nutrient/id nutrient))}]]
+          (let [level (inc level)]
+            (->> (:nutrient/id nutrient)
+                 (food/get-nutrients food)
+                 (mapcat #(get-nutrient-rows food % level)))))))
+
+(defn prepare-nested-nutrient-table [{:keys [food nutrients group]}]
+  {:headers [[:i18n ::lookup (nutrient/get-name group)]
+             [:i18n ::amount]]
+   :rows (mapcat #(get-nutrient-rows food %) nutrients)
+   :classes ["mmm-nutrient-table"]})
 
 (defn render-table [{:keys [headers rows classes]}]
   [:table.mmm-table.mmm-table-zebra {:class classes}
@@ -94,7 +110,12 @@
     (for [row rows]
       [:tr
        (for [cell row]
-         [:td cell])])]])
+         [:td (cond->> (:text cell)
+                (< 0 (or (:level cell) 0))
+                (conj [:span {:class (case (:level cell)
+                                       1 "mmm-mlm"
+                                       2 "mmm-mll"
+                                       "mmm-mlxl")}]))])])]])
 
 (defn passepartout [& body]
   [:div.mmm-container.mmm-section.mmm-mobile-phn
@@ -114,7 +135,7 @@
   {:headers [[:i18n ::langual-code-label]
              [:i18n ::langual-description-label]]
    :rows (for [{:langual-code/keys [id description]} codes]
-           [id (food/humanize-langual-classification description)])})
+           [{:text id} {:text (food/humanize-langual-classification description)}])})
 
 (defn render [context _db page]
   (let [food (d/entity (:foods/db context) [:food/id (:food/id page)])
@@ -195,9 +216,9 @@
 
        (passepartout
         [:h3.mmm-h3#vitaminer [:i18n ::vitamins-title]]
-        (->> (food/get-nested-nutrient-group food "FatSolubleVitamins")
-             prepare-nutrient-tables
-             (map render-table))
+        (->> (food/get-nutrient-group food "FatSolubleVitamins")
+             prepare-nested-nutrient-table
+             render-table)
         (->> (food/get-flattened-nutrient-group food "WaterSolubleVitamins")
              prepare-nutrient-tables
              (map render-table)))

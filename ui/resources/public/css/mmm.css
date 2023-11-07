@@ -673,6 +673,12 @@ ol.mmm-unadorned-list li {
 .mmm-maxl, .mmm-mvxl, .mmm-mbxl {margin-bottom: var(--mt-spacing-x3_6);}
 .mmm-maxxl, .mmm-mvxxl, .mmm-mbxxl {margin-bottom: var(--mt-spacing-x6);}
 
+.mmm-mas, .mmm-mhs, .mmm-mls {margin-left: var(--mt-spacing-x0_5);}
+.mmm-mam, .mmm-mhm, .mmm-mlm {margin-left: var(--mt-spacing-x1_4);}
+.mmm-mal, .mmm-mhl, .mmm-mll {margin-left: var(--mt-spacing-x2);}
+.mmm-maxl, .mmm-mhxl, .mmm-mlxl {margin-left: var(--mt-spacing-x3_6);}
+.mmm-maxxl, .mmm-mhxxl, .mmm-mlxxl {margin-left: var(--mt-spacing-x6);}
+
 .mmm-pam, .mmm-phm, .mmm-plm {padding-left: var(--mt-spacing-x1_4);}
 .mmm-pam, .mmm-phm, .mmm-prm {padding-right: var(--mt-spacing-x1_4);}
 .mmm-pam, .mmm-pvm, .mmm-ptm {padding-top: var(--mt-spacing-x1_4);}
