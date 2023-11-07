@@ -17,9 +17,7 @@
    "C22:5n-3Dokosapentaensyre" {:nb "Dokosapentaensyre (DPA, C22:5n-3)" :en "Docosapentaenoic Acid (DPA)"}
    "C22:6n-3Dokosaheksaensyre" {:nb "Dokosaheksaensyre (DHA, C22:6n-3)" :en "Docosahexaenoic Acid (DHA)"}
    "Niacin" {:nb "Niacin (B3)" :en "Niacin (B3)"}
-   "Folat" {:nb "Folat (B9)" :en "Folat (B9)"}
-   "Retinol" {:nb "Vitamin A (Retinol)" :en "Vitamin A (Retinol)"}
-   "B-karo" {:nb "Vitamin A (Betakaroten)" :en "Vitamin A (Beta-carotene)"}})
+   "Folat" {:nb "Folat (B9)" :en "Folat (B9)"}})
 
 (defn get-name [nutrient]
   (or (get nutrient-names (:nutrient/id nutrient))
