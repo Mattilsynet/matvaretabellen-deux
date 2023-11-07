@@ -18,7 +18,7 @@
    [:div.mmm-container
     [:div.mmm-media.mmm-media-stamp
      [:aside {:style {:width "30%"}}
-      [:img.mmm-img {:src "/images/banana.jpg"}]]
+      [:img.mmm-img {:src "/images/trivia/banana.jpg"}]]
      [:article.mmm-text.mmm-tight.mmm-vert-layout-s
       [:h4 [:i18n ::did-you-know]]
       [:p [:i18n ::banana-nutrition-facts]]
