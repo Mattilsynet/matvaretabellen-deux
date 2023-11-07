@@ -17,6 +17,13 @@
     --mt-color-orange-500: #efa60b;
     --mt-color-white: #ffffff;
 
+    --mt-color-fat: #cfe5f3;
+    --mt-color-carbs: #a8d7f4;
+    --mt-color-protein: #71abd0;
+    --mt-color-water: #2a5473;
+    --mt-color-fiber: var(--mt-color-green-100);
+    --mt-color-alco: var(--mt-color-green-500);
+
     --mt-font-family-main: Helvetica;
 
     --mt-font-weight-light: 300;
@@ -165,6 +172,7 @@
     --mt-horizontal-gap: var(--mt-spacing-x0_5);
     --mt-column-gap: var(--mt-spacing-x1);
     --mt-column-gap-wide: var(--mt-spacing-x1_4);
+    --mt-column-gap-huge: var(--mt-spacing-x3_6);
 
     /* Components and layouts (should possibly end up in separate files) */
     --mt-layout-container-width: var(--mt-grid-desktop-width);

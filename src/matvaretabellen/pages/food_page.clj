@@ -2,6 +2,8 @@
   (:require [broch.core :as b]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
+            [matvaretabellen.components.legend :refer [Legend]]
+            [matvaretabellen.components.pie-chart :refer [assoc-degrees PieChart]]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
             [matvaretabellen.nutrient :as nutrient]
@@ -138,7 +140,52 @@
    :rows (for [{:langual-code/keys [id description]} codes]
            [{:text id} {:text (food/humanize-langual-classification description)}])})
 
-(defn render [context _db page]
+(def slice-legend
+  [{:nutrient-id "Fett"    :color "var(--mt-color-fat)"}
+   {:nutrient-id "Karbo"   :color "var(--mt-color-carbs)"}
+   {:nutrient-id "Protein" :color "var(--mt-color-protein)"}
+   {:nutrient-id "Vann"    :color "var(--mt-color-water)"}
+   {:nutrient-id "Fiber"   :color "var(--mt-color-fiber)"}
+   {:nutrient-id "Alko"    :color "var(--mt-color-alco)"}])
+
+(def nutrient-id->color
+  (into {} (map (juxt :nutrient-id :color) slice-legend)))
+
+(defn prepare-value-slices [food ids]
+  (->> (for [id ids]
+         (let [constituent (->> (:food/constituents food)
+                                (filter (comp #{id} :nutrient/id :constituent/nutrient))
+                                first)
+               value (-> constituent :measurement/quantity b/num)]
+           {:id (str id (hash ids))
+            :value value
+            :color (nutrient-id->color id)
+            :hover-content [:span
+                            [:i18n ::lookup (nutrient/get-name (:constituent/nutrient constituent))]
+                            ": "
+                            [:strong
+                             (wrap-in-portion-span value)
+                             (some->> constituent :measurement/quantity b/symbol (str " "))]]}))
+       (remove #(= 0.0 (:value %)))
+       (sort-by (comp - :value))))
+
+(defn prepare-percent-slices [food ids]
+  (let [constituents (filter (comp ids :nutrient/id :constituent/nutrient) (:food/constituents food))
+        total (apply + (map #(-> % :measurement/quantity b/num) constituents))]
+    (->> (for [constituent constituents]
+           (let [id (:nutrient/id (:constituent/nutrient constituent))
+                 value (-> constituent :measurement/quantity b/num)]
+             {:id (str id (hash ids))
+              :value value
+              :color (nutrient-id->color id)
+              :hover-content [:span
+                              [:i18n ::lookup (nutrient/get-name (:constituent/nutrient constituent))]
+                              ": "
+                              [:strong (int (* 100 (/ value total))) " %"]]}))
+         (remove #(= 0.0 (:value %)))
+         (sort-by (comp - :value)))))
+
+(defn render [context db page]
   (let [food (d/entity (:foods/db context) [:food/id (:food/id page)])
         locale (:page/locale page)
         food-name (get-in food [:food/name locale])]
@@ -194,6 +241,20 @@
                              (let [grams (int (b/num (:portion/quantity portion)))]
                                [:option {:value grams} (str "1 " (str/lower-case (:portion-kind/name (:portion/kind portion)))
                                                             " (" grams " gram)")])))})]]]
+
+       (passepartout
+        [:div.mmm-flex-gap-huge.mvt-cols-2-1-labeled
+         [:div.col-2
+          [:div.label [:h3.mmm-h3 [:i18n ::composition]]]
+          (PieChart {:slices (assoc-degrees 70 (prepare-value-slices food #{"Fett" "Karbo" "Protein" "Vann" "Fiber" "Alko"}))
+                     :hoverable? true})]
+         [:div.col-2
+          [:div.label [:h3.mmm-h3 [:i18n ::energy-composition]]]
+          (PieChart {:slices (assoc-degrees 30 (prepare-percent-slices food #{"Fett" "Karbo" "Protein"}))
+                     :hoverable? true})]
+         [:div.col-1
+          (Legend {:entries (for [entry slice-legend]
+                              (assoc entry :label [:i18n ::lookup (nutrient/get-name (d/entity db [:nutrient/id (:nutrient-id entry)]))]))})]])
 
        (passepartout
         [:h3.mmm-h3#energi [:i18n ::nutrition-heading]]

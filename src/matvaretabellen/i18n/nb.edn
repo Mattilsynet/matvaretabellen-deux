@@ -29,10 +29,11 @@
   av et klassifiseringssystem som heter " [:a {:href [:fn/get :langual-url]} "LanguaL"]
         ". LanguaL står for “" [:strong "Langua aL"] "imentaria” eller “language of
   food”. Språket gjør det mulig å gi standardiserte beskrivelser av matvarene.")
+  :composition "Sammensetning"
   :edible-part [:fn/str "Spiselig del: {{:pct}}&nbsp;%"]
+  :energy-content "Energiinnhold"
   :energy-content-title-mobile (list "Per " [:fn/get :portion])
   :energy-content-title (list "Energi i " [:fn/get :portion])
-  :energy-content [:fn/str "{{:kilo-joules}} ({{:calories}} kcal)"]
   :energy [:fn/str "Kaloriinnhold: {{:kilo-joules}} ({{:calories}} kcal)"]
   :energy-highlight-title [:fn/str "Energi →"]
   :energy-title "Sammensetning og energi"
