@@ -43,8 +43,8 @@
 (defn energy [food]
   (concat
    (get-kj food)
-   (when (:measurement/observation (:food/calories food))
-     (list " (" (wrap-in-portion-span (:food/calories food)) " kcal)"))))
+   (when-let [kcal (:measurement/observation (:food/calories food))]
+     (list " (" (wrap-in-portion-span kcal) " kcal)"))))
 
 (defn prepare-macro-highlights [food]
   (into
