@@ -147,6 +147,25 @@
      "change"
      #(handle-portion-select-event % portion-elements portion-label-elements))))
 
+;; There's a script tag at the beginning of the body tag that sets the
+;; mvt-source-hide class immediately to avoid any flickering. Please keep it in
+;; mind if you change this.
+(defn toggle-sources [_e]
+  (let [show? (boolean (js/document.body.classList.contains "mvt-source-hide"))]
+    (js/localStorage.setItem "show-sources" show?)
+    (if show?
+      (js/document.body.classList.remove "mvt-source-hide")
+      (js/document.body.classList.add "mvt-source-hide"))))
+
+(defn initialize-source-toggler [checkboxes]
+  (let [showing? (= "true" (js/localStorage.getItem "show-sources"))]
+    (when-not showing?
+      (js/document.body.classList.add "mvt-source-hide"))
+    (doseq [checkbox (seq checkboxes)]
+      (when showing?
+        (set! (.-checked checkbox) true))
+      (.addEventListener checkbox "input" toggle-sources))))
+
 (defn boot []
   (main)
   (initialize-foods-autocomplete
@@ -158,6 +177,9 @@
    (js/document.querySelector "#portion-selector")
    (js/document.querySelectorAll "[data-portion]")
    (js/document.querySelectorAll ".js-portion-label"))
+
+  (initialize-source-toggler
+   (js/document.querySelectorAll ".mvt-source-toggler input"))
 
   (hoverable/set-up js/document))
 

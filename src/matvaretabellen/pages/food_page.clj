@@ -35,33 +35,36 @@
                get-calculable-quantity)
       "–"))
 
+(defn get-source [food id]
+  (when-let [origin (some->> (:food/constituents food)
+                             (filter (comp #{id} :nutrient/id :constituent/nutrient))
+                             first
+                             :measurement/origin)]
+    [:a.mmm-link {:href (str "#" (:origin/id origin))
+                  :title [:i18n ::lookup (:origin/description origin)]}
+     (:origin/id origin)]))
+
 (defn prepare-nutrition-table [food]
   {:headers [{:text [:i18n ::nutrients]}
              {:text [:i18n ::amount]
-              :class "mmm-tar mvt-amount"}]
-   :rows [[{:text [:i18n ::total-fat]}
-           {:text (get-nutrient-quantity food "Fett")
-            :class "mmm-tar"}]
-
-          [{:text [:i18n ::total-carbs]}
-           {:text (get-nutrient-quantity food "Karbo")
-            :class "mmm-tar"}]
-
-          [{:text [:i18n ::total-fiber]}
-           {:text (get-nutrient-quantity food "Fiber")
-            :class "mmm-tar"}]
-
-          [{:text [:i18n ::total-protein]}
-           {:text (get-nutrient-quantity food "Protein")
-            :class "mmm-tar"}]
-
-          [{:text [:i18n ::total-alcohol]}
-           {:text (get-nutrient-quantity food "Alko")
-            :class "mmm-tar"}]
-
-          [{:text [:i18n ::total-water]}
-           {:text (get-nutrient-quantity food "Vann")
-            :class "mmm-tar"}]]
+              :class "mvt-amount"}
+             {:text [:i18n ::source]
+              :class "mvt-source"}]
+   :rows (for [id ["Fett"
+                   "Karbo"
+                   "Fiber"
+                   "Protein"
+                   "Alko"
+                   "Vann"]]
+           [{:text [:i18n ::lookup
+                    (some->> (:food/constituents food)
+                             (filter (comp #{id} :nutrient/id :constituent/nutrient))
+                             first
+                             :constituent/nutrient
+                             nutrient/get-name)]}
+            {:text (get-nutrient-quantity food id)}
+            {:text (get-source food id)
+             :class "mvt-source"}])
    :classes ["mmm-nutrient-table"]})
 
 (defn get-kj [food]
@@ -100,11 +103,14 @@
   (->> (concat
         [{:headers [{:text [:i18n ::lookup (nutrient/get-name group)]}
                     {:text [:i18n ::amount]
-                     :class "mmm-tar mvt-amount"}]
+                     :class "mvt-amount"}
+                    {:text [:i18n ::source]
+                     :class "mvt-source"}]
           :rows (for [nutrient nutrients]
                   [{:text [:i18n ::lookup (nutrient/get-name nutrient)]}
-                   {:text (get-nutrient-quantity food (:nutrient/id nutrient))
-                    :class "mmm-tar"}])
+                   {:text (get-nutrient-quantity food (:nutrient/id nutrient))}
+                   {:text (get-source food (:nutrient/id nutrient))
+                    :class "mvt-source"}])
           :classes ["mmm-nutrient-table"]}]
         (mapcat
          #(when-let [nutrients (food/get-nutrients food (:nutrient/id %))]
@@ -119,8 +125,9 @@
   (let [level (or level 0)]
     (into [[{:text [:i18n ::lookup (nutrient/get-name nutrient)]
              :level level}
-            {:text (get-nutrient-quantity food (:nutrient/id nutrient))
-             :class "mmm-tar"}]]
+            {:text (get-nutrient-quantity food (:nutrient/id nutrient))}
+            {:text (get-source food (:nutrient/id nutrient))
+             :class "mvt-source"}]]
           (let [level (inc level)]
             (->> (:nutrient/id nutrient)
                  (food/get-nutrients food)
@@ -129,7 +136,9 @@
 (defn prepare-nested-nutrient-table [{:keys [food nutrients group]}]
   {:headers [{:text [:i18n ::lookup (nutrient/get-name group)]}
              {:text [:i18n ::amount]
-              :class "mmm-tar mvt-amount"}]
+              :class "mvt-amount"}
+             {:text [:i18n ::source]
+              :class "mvt-source"}]
    :rows (mapcat #(get-nutrient-rows food %) nutrients)
    :classes ["mmm-nutrient-table"]})
 
@@ -227,6 +236,10 @@
         food-name (get-in food [:food/name locale])]
     [:html {:class "mmm"}
      [:body
+      [:script {:type "text/javascript"}
+       (str "if (localStorage.getItem(\"show-sources\") != \"true\") {\n"
+            "  document.body.classList.add(\"mvt-source-hide\");\n"
+            "}")]
       (SiteHeader {:home-url "/"})
       [:div
        [:div.mmm-themed.mmm-brand-theme1
@@ -294,10 +307,15 @@
 
        (passepartout
         [:h3.mmm-h3#energi [:i18n ::nutrition-heading]]
-        [:ul.mmm-unadorned-list
-         [:li energy-label ": " (energy food)]
-         [:li [:i18n ::edible-part
-               {:pct (-> food :food/edible-part :measurement/percent)}]]]
+        [:div.mmm-flex.mmm-flex-bottom
+         [:ul.mmm-ul.mmm-unadorned-list
+          [:li energy-label ": " (energy food)]
+          [:li [:i18n ::edible-part
+                {:pct (-> food :food/edible-part :measurement/percent)}]]]
+         [:p.mmm-p
+          [:label.mmm-link.mvt-source-toggler
+           [:input.mmm-mrs {:type "checkbox"}]
+           [:i18n ::show-sources]]]]
         (render-table (prepare-nutrition-table food)))
 
        (passepartout
@@ -334,7 +352,7 @@
              (map render-table)))
 
        [:div.mmm-container.mmm-section
-        [:div.mmm-container-focused.mmm-vert-layout-m.mmm-text
+        [:div.mmm-container-focused.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
          [:h3#klassifisering [:i18n ::classification-title]]
          [:ul.mmm-unadorned-list
           [:li [:i18n ::food-id {:id (:food/id food)}]]

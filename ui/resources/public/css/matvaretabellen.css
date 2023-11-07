@@ -38,8 +38,8 @@
     width: 20ch;
 }
 
-.mmm-nutrient-table thead tr th:last-child {
-    white-space: nowrap;
+.mvt-source {
+    width: 15ch;
 }
 
 .mmm-loader {
@@ -175,4 +175,9 @@
         right: 0;
         text-align: center;
     }
+}
+
+/* Toggle references */
+.mvt-source-hide .mvt-source {
+    display: none;
 }

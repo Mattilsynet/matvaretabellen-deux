@@ -53,14 +53,10 @@
   :nutrition-title "Næringsinnhold"
   :portion-size "Porsjonsstørrelse:"
   :scientific-name (list [:strong "Vitenskapelig navn:"] " " [:fn/get :name])
+  :source "Kilde"
+  :show-sources "Vis kilder"
   :toc-title "Innhold"
   :total [:fn/str "{{:nb}}, total"]
-  :total-alcohol "Alkohol"
-  :total-carbs "Karboydrater, totalt"
-  :total-fat "Fettsyrer, totalt"
-  :total-fiber "Kostfiber"
-  :total-protein "Proteiner"
-  :total-water "Vann"
   :trace-elements-title "Sporstoffer"
   :vitamins-title "Vitaminer"
   }

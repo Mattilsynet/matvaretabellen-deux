@@ -52,15 +52,11 @@
   :nutrition-heading "Main Components and Energy Content"
   :nutrition-title "Nutritional Information"
   :portion-size "Portion Size:"
+  :source "Reference"
   :scientific-name (list [:strong "Scientific name:"] " " [:fn/get :name])
+  :show-references "Show references"
   :total [:fn/str "{{:en}}, total"]
   :toc-title "Contents"
-  :total-alcohol "Alcohol"
-  :total-carbs "Total Carbohydrates"
-  :total-fat "Total Fats"
-  :total-fiber "Dietary Fiber"
-  :total-protein "Proteins"
-  :total-water "Water"
   :trace-elements-title "Trace elements"
   :vitamins-title "Vitamins"
   }
