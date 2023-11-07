@@ -1,6 +1,7 @@
 [#:mmm.components.footer
  {:footer-title "Footer"
   :about-site "About the site"
+  :about-text (list "Matvaretabellen is a service from Mattilsynet. For more services, see " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
   :newsletter "Newsletter"
   :privacy-and-cookies "Privacy Policy and Cookies"
   :accessibility-statement "Accessibility Statement (uustatus.no)"
@@ -9,6 +10,7 @@
   :about-us "About Us"
   :job-openings "Job Openings"
   :contact-us "Contact Us"
+  :call-us "Call us on +47&nbsp;22&nbsp;40&nbsp;00&nbsp;00"
   :report-to-us "Report to Us"}
 
  #:matvaretabellen.crumbs

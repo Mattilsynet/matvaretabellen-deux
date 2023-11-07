@@ -1,13 +1,13 @@
 * Ønskeliste [0/2]
 ** TODO Benevnede tall (eks "4 mnd") kan kanskje få leve som tokens i indeksen?
 ** TODO Redusere score på lange navn
-* Todos [4/6]
-** TODO Er noen av 0-ene egentlig "ukjent"?
+* Todos [6/6]
+** DONE Er noen av 0-ene egentlig "ukjent"?
 ** DONE Dra opp _alle_ næringsstoffer i tabellene på topp
 ** DONE Vis vitaminer
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
-** TODO Lag enklere footer
+** DONE Lag enklere footer
 * Tickets [1/16]
 ** TODO Vise referanser
 ** TODO Matvaregruppe-sidene

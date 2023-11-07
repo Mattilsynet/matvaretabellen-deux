@@ -3,7 +3,7 @@
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.seeded-random :as rng]
             [matvaretabellen.urls :as urls]
-            [mmm.components.footer :refer [SiteFooter]]
+            [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.search-input :refer [SearchInput]]
             [mmm.components.site-header :refer [SiteHeader]]
             [mmm.components.toc :refer [Toc]]))
@@ -64,4 +64,4 @@
                          (get-food-info locale db id))
              :class :mmm-col})]
       [:div.mmm-container.mmm-section
-       (SiteFooter)]]]))
+       (CompactSiteFooter)]]]))

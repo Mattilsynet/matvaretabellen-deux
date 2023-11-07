@@ -1,6 +1,7 @@
 [#:mmm.components.footer
  {:footer-title "Footer"
   :about-site "Om nettstedet"
+  :about-text (list "Matvaretabellen er en tjeneste fra Mattilsynet. For øvrige tjenester, se " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
   :newsletter "Nyhetsbrev"
   :privacy-and-cookies "Personvernerklæring og informasjonskapsler"
   :accessibility-statement "Tilgjengelegheitserklæring (uustatus.no)"
@@ -8,6 +9,7 @@
   :about-mattilsynet "Om Mattilsynet"
   :about-us "Om oss"
   :job-openings "Ledige stillinger"
+  :call-us "Ring oss på 22&nbsp;40&nbsp;00&nbsp;00"
   :contact-us "Kontakt oss"
   :report-to-us "Varsle oss"}
 

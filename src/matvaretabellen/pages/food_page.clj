@@ -9,7 +9,7 @@
             [matvaretabellen.nutrient :as nutrient]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.card :refer [DetailFocusCard]]
-            [mmm.components.footer :refer [SiteFooter]]
+            [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.select :refer [Select]]
             [mmm.components.site-header :refer [SiteHeader]]
             [mmm.components.toc :refer [Toc]]))
@@ -311,4 +311,4 @@
               render-table)]]
 
        [:div.mmm-container.mmm-section
-        (SiteFooter)]]]]))
+        (CompactSiteFooter)]]]]))

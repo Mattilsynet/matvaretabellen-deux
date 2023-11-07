@@ -3,7 +3,7 @@
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
-            [mmm.components.footer :refer [SiteFooter]]
+            [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
 (defn render [context _db page]
@@ -24,4 +24,4 @@
              [:a.mmm-card.mmm-link {:href (urls/get-food-group-url locale the-name)}
               the-name]))]]]
       [:div.mmm-container.mmm-section
-       (SiteFooter)]]]))
+       (CompactSiteFooter)]]]))

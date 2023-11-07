@@ -79,6 +79,8 @@
     --mt-typography-small-font-size: 16px;
     --mt-typography-base-font-size: 18px;
 
+    --mt-typography-heading-xxs-font-weight: var(--mt-font-weight-normal);
+
     --mt-typography-heading-xs-font-size: 1.125rem;
     --mt-typography-heading-xs-line-height: var(--mt-font-line-height-tight);
     --mt-typography-heading-xs-font-weight: var(--mt-font-weight-bold);

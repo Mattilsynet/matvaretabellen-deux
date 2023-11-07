@@ -62,13 +62,19 @@ body.mmm {
 .mmm-text h4,
 .mmm-h5,
 .mmm-text .mmm-h5,
+.mmm-text h5,
 .mmm-h6,
 .mmm-text .mmm-h6,
-.mmm-text h5,
 .mmm-text h6 {
     font-size: var(--mt-typography-heading-xs-font-size);
     font-weight: var(--mt-typography-heading-xs-font-weight);
     line-height: var(--mt-typography-heading-xs-line-height);
+}
+
+.mmm-h6,
+.mmm-text .mmm-h6,
+.mmm-text h6 {
+    font-weight: var(--mt-typography-heading-xxs-font-weight);
 }
 
 .mmm-text h1:not(:first-child),
@@ -786,9 +792,13 @@ ol.mmm-unadorned-list li {
     justify-self: end;
 }
 
-.mmm-footer .mmm-text h2,
-.mmm-footer .mmm-text h3 {
+.mmm-footer .mmm-h2,
+.mmm-footer .mmm-h3 {
     font-weight: var(--mt-font-weight-bold);
+}
+
+.mmm-footer .mmm-h6 {
+    margin-bottom: var(--mt-layout-vertical-spacing-normal);
 }
 
 .mmm-footer-col {
@@ -799,11 +809,12 @@ ol.mmm-unadorned-list li {
 @media only screen and (min-width: 768px) {
     .mmm-footer {
         flex-direction: row;
-        padding: 4.5rem 0;
+        padding: 3.3rem 0 3rem;
     }
 
     .mmm-footer .mmm-logo {
         align-self: flex-start;
+        margin-top: -0.75rem; /* Manually adjust for bubbles */
     }
 }
 
