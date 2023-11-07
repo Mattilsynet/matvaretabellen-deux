@@ -27,6 +27,7 @@
                       :url "#"}
                      {:text "Varsle oss"
                       :url "#"}]}]})))
+
 (defscene compact-footer
   (e/block
    (Footer
