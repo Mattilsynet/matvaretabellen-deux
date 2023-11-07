@@ -9,7 +9,7 @@
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
 * Tickets [1/16]
-** TODO Vise referanser
+** TODO [C] Vise referanser
 ** TODO Matvaregruppe-sidene
 ** TODO Side for næringsstoff
 ** TODO Lenke opp næringsstoffer fra tabellene på matvaresiden
