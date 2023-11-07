@@ -156,34 +156,39 @@
          (let [constituent (->> (:food/constituents food)
                                 (filter (comp #{id} :nutrient/id :constituent/nutrient))
                                 first)
-               value (-> constituent :measurement/quantity b/num)]
-           {:id (str id (hash ids))
-            :value value
-            :color (nutrient-id->color id)
-            :hover-content [:span
-                            [:i18n ::lookup (nutrient/get-name (:constituent/nutrient constituent))]
-                            ": "
-                            [:strong
-                             (wrap-in-portion-span value)
-                             (some->> constituent :measurement/quantity b/symbol (str " "))]]}))
-       (remove #(= 0.0 (:value %)))
-       (sort-by (comp - :value))))
-
-(defn prepare-percent-slices [food ids]
-  (let [constituents (filter (comp ids :nutrient/id :constituent/nutrient) (:food/constituents food))
-        total (apply + (map #(-> % :measurement/quantity b/num) constituents))]
-    (->> (for [constituent constituents]
-           (let [id (:nutrient/id (:constituent/nutrient constituent))
-                 value (-> constituent :measurement/quantity b/num)]
+               value (some-> constituent :measurement/quantity b/num)]
+           (when value
              {:id (str id (hash ids))
               :value value
               :color (nutrient-id->color id)
               :hover-content [:span
                               [:i18n ::lookup (nutrient/get-name (:constituent/nutrient constituent))]
                               ": "
-                              [:strong (int (* 100 (/ value total))) " %"]]}))
-         (remove #(= 0.0 (:value %)))
-         (sort-by (comp - :value)))))
+                              [:strong
+                               (wrap-in-portion-span value)
+                               (some->> constituent :measurement/quantity b/symbol (str " "))]]})))
+       (remove nil?)
+       (remove #(= 0.0 (:value %)))
+       (sort-by (comp - :value))))
+
+(defn prepare-percent-slices [food ids]
+  (let [constituents (filter (comp ids :nutrient/id :constituent/nutrient) (:food/constituents food))
+        total (apply + (keep #(some-> % :measurement/quantity b/num) constituents))]
+    (when (< 0 total)
+      (->> (for [constituent constituents]
+             (let [id (:nutrient/id (:constituent/nutrient constituent))
+                   value (some-> constituent :measurement/quantity b/num)]
+               (when value
+                 {:id (str id (hash ids))
+                  :value value
+                  :color (nutrient-id->color id)
+                  :hover-content [:span
+                                  [:i18n ::lookup (nutrient/get-name (:constituent/nutrient constituent))]
+                                  ": "
+                                  [:strong (int (* 100 (/ value total))) " %"]]})))
+           (remove nil?)
+           (remove #(= 0.0 (:value %)))
+           (sort-by (comp - :value))))))
 
 (defn render [context db page]
   (let [food (d/entity (:foods/db context) [:food/id (:food/id page)])
