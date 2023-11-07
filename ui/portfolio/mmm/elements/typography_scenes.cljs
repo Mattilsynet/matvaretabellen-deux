@@ -56,6 +56,32 @@
    [:li "Det er kun fantasien som setter grenser"]
    [:li "Siden den er \"unadorned\" har den ingen kulepunkter"]))
 
+(defscene definition-list
+  [:dl.mmm-dl
+   [:dt "Klovneforskning"]
+   [:dd "Klovneforskning er en gren av forskningen som fokuserer på studiet av
+   klovner, deres historie, kultur, psykologi, og deres rolle i samfunnet."]
+
+   [:dt "Klovnens opprinnelse"]
+   [:dd "Studier innen dette området søker å forstå klovnens historiske
+   opprinnelse, inkludert deres utvikling fra tidlige teatertradisjoner til
+   moderne underholdningsformer."]
+
+   [:dt "Psykologi og klovner"]
+   [:dd "Denne delen av klovneforskningen utforsker hvorfor folk finner klovner
+   fascinerende, samt klovnens rolle i psykologi, inkludert studier om
+   klovneterapi."]
+
+   [:dt "Klovner i kunst og kultur"]
+   [:dd "Forskningen undersøker hvordan klovner er representert i kunst,
+   litteratur, film, og andre kulturelle medier, og hvordan disse
+   representasjonene påvirker samfunnets oppfatning av klovner."]
+
+   [:dt "Klovnens rolle i medisin"]
+   [:dd "Studier innen dette området fokuserer på bruken av klovner som
+terapeutiske verktøy i medisinske miljøer, og hvordan deres tilstedeværelse kan
+påvirke pasienters helbredelse og trivsel."]])
+
 (defscene right-aligned-text
   (e/p {:class "mmm-tar"}
        "Denne paragrafen har høyrejustert tekst, takket være klassen
@@ -108,6 +134,30 @@
     [:li "antall"]
     [:li "punkter!"]]
    [:h4 "Dette er en h4"]
+   [:dl
+    [:dt "Klovneforskning"]
+    [:dd "Klovneforskning er en gren av forskningen som fokuserer på studiet av
+   klovner, deres historie, kultur, psykologi, og deres rolle i samfunnet."]
+
+    [:dt "Klovnens opprinnelse"]
+    [:dd "Studier innen dette området søker å forstå klovnens historiske
+   opprinnelse, inkludert deres utvikling fra tidlige teatertradisjoner til
+   moderne underholdningsformer."]
+
+    [:dt "Psykologi og klovner"]
+    [:dd "Denne delen av klovneforskningen utforsker hvorfor folk finner klovner
+   fascinerende, samt klovnens rolle i psykologi, inkludert studier om
+   klovneterapi."]
+
+    [:dt "Klovner i kunst og kultur"]
+    [:dd "Forskningen undersøker hvordan klovner er representert i kunst,
+   litteratur, film, og andre kulturelle medier, og hvordan disse
+   representasjonene påvirker samfunnets oppfatning av klovner."]
+
+    [:dt "Klovnens rolle i medisin"]
+    [:dd "Studier innen dette området fokuserer på bruken av klovner som
+terapeutiske verktøy i medisinske miljøer, og hvordan deres tilstedeværelse kan
+påvirke pasienters helbredelse og trivsel."]]
    [:h5 "Dette er en h5"]
    [:h6 "Dette er en h6"]))
 

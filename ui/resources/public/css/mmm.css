@@ -89,10 +89,24 @@ body.mmm {
 .mmm-p,
 .mmm-text,
 .mmm-ul,
-.mmm-ol {
+.mmm-ol,
+.mmm-dl {
     font-size: var(--mt-typography-paragraph-long-s-font-size);
     font-weight: var(--mt-typography-paragraph-long-s-font-weight);
     line-height: var(--mt-typography-paragraph-long-s-line-height);
+}
+
+.mmm-dl dt,
+.mmm-text dt {
+    font-size: var(--mt-typography-heading-xs-font-size);
+    line-height: var(--mt-typography-heading-xs-line-height);
+    font-weight: var(--mt-typography-heading-xs-font-weight);
+    margin-bottom: var(--mt-layout-vertical-spacing-tight);
+}
+
+.mmm-dl dd + dt,
+.mmm-text dd + dt {
+    margin-top: var(--mt-layout-vertical-spacing-normal);
 }
 
 .mmm-text ul,
@@ -556,6 +570,11 @@ ol.mmm-unadorned-list li {
 .mmm-section {
     margin-bottom: var(--mt-layout-section-spacing);
     margin-top: var(--mt-layout-section-spacing);
+}
+
+.mmm-section-spaced {
+    margin-bottom: var(--mt-layout-section-spacing-spacey);
+    margin-top: var(--mt-layout-section-spacing-spacey);
 }
 
 /* Themed */
