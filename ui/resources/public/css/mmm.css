@@ -403,6 +403,10 @@ ol.mmm-unadorned-list li {
  *** Layouts ***
  ***************/
 
+.mmm-hidden {
+    display: none;
+}
+
 /* Cards */
 
 .mmm-cards {
