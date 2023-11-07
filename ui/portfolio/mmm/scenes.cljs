@@ -1,6 +1,7 @@
 (ns mmm.scenes
   (:require [mmm.components.breadcrumbs-scenes]
             [mmm.components.button-scenes]
+            [mmm.components.checkbox-scenes]
             [mmm.components.footer-scenes]
             [mmm.components.search-input-scenes]
             [mmm.components.select-scenes]
@@ -23,6 +24,7 @@
 
 :mmm.components.breadcrumbs-scenes/keep
 :mmm.components.button-scenes/keep
+:mmm.components.checkbox-scenes/keep
 :mmm.components.footer-scenes/keep
 :mmm.components.search-input-scenes/keep
 :mmm.components.select-scenes/keep

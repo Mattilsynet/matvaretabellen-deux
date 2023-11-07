@@ -198,6 +198,10 @@
     --mt-component-button-font-size: 1.125rem;
     --mt-component-button-border-radius: 0.25em;
 
+    --mt-component-checkbox-inactive-bg: var(--mt-color-white);
+    --mt-component-checkbox-inactive-color: var(--mt-color-beige-500);
+    --mt-component-checkbox-active-color: var(--mt-color-blue-500);
+
     --mt-component-form-field-border: var(--mt-color-beige-500);
     --mt-component-form-field-background: var(--mt-color-white);
     --mt-component-form-field-padding-h: 0.5em;

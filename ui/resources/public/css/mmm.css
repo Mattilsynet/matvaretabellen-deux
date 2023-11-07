@@ -302,6 +302,34 @@ ol.mmm-unadorned-list li {
     width: 25ch;
 }
 
+/*************************
+ *** Forms: Text input ***
+ *************************/
+
+.mmm-checkbox {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    gap: var(--mt-horizontal-gap);
+    position: relative;
+}
+
+.mmm-checkbox input {
+    display: none;
+}
+
+.mmm-checkbox .checkbox-marker {
+    fill: var(--mt-component-checkbox-inactive-bg);
+    stroke: var(--mt-component-checkbox-inactive-color);
+    transition: stroke 0.25s, fill 0.25s;
+    width: 24px;
+}
+
+.mmm-checkbox input:checked + .checkbox-marker {
+    fill: var(--mt-component-checkbox-active-color);
+    stroke: var(--mt-component-checkbox-active-color);
+}
+
 /***************************
  *** Forms: Action input ***
  ***************************/
