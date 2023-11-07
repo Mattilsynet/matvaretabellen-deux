@@ -1,8 +1,8 @@
-[{:db/ident :food/id
+[{:db/ident :page/food-id
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
 
- {:db/ident :food-group/id
+ {:db/ident :page/food-group-id
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
 

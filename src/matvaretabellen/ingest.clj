@@ -15,7 +15,7 @@
             {:page/uri (urls/get-food-url locale food-name)
              :page/kind :page.kind/food
              :page/locale locale
-             :food/id id})))))
+             :page/food-id id})))))
 
 (defn get-food-group-pages [db]
   (->> (d/q '[:find ?id ?name
@@ -29,7 +29,7 @@
             {:page/uri (urls/get-food-group-url locale name)
              :page/kind :page.kind/food-group
              :page/locale locale
-             :food-group/id id})))))
+             :page/food-group-id id})))))
 
 (defn ensure-unique-page-uris [entity-maps]
   (when-not (= (count entity-maps)

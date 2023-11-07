@@ -191,7 +191,7 @@
            (sort-by (comp - :value))))))
 
 (defn render [context db page]
-  (let [food (d/entity (:foods/db context) [:food/id (:food/id page)])
+  (let [food (d/entity (:foods/db context) [:food/id (:page/food-id page)])
         locale (:page/locale page)
         food-name (get-in food [:food/name locale])]
     [:html {:class "mmm"}

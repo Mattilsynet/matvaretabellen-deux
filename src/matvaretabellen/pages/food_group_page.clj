@@ -8,7 +8,7 @@
 
 (defn render [context _db page]
   (let [food-group (d/entity (:foods/db context)
-                             [:food-group/id (:food-group/id page)])
+                             [:food-group/id (:page/food-group-id page)])
         locale (:page/locale page)]
     [:html {:class "mmm"}
      [:body
