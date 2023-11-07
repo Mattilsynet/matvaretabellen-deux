@@ -1,10 +1,12 @@
 (ns matvaretabellen.scenes
-  (:require [matvaretabellen.components.nutrition-table-scenes]
+  (:require [matvaretabellen.components.legend-scenes]
+            [matvaretabellen.components.nutrition-table-scenes]
             [matvaretabellen.components.pie-chart-scenes]
             [mmm.scenes]
             [portfolio.data :as data]
             [portfolio.ui :as ui]))
 
+:matvaretabellen.components.legend-scenes/keep
 :matvaretabellen.components.nutrition-table-scenes/keep
 :matvaretabellen.components.pie-chart-scenes/keep
 :mmm.scenes/keep

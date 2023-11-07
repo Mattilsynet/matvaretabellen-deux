@@ -96,3 +96,38 @@
     border-style: solid;
     border-color: var(--mt-component-hover-popup-bg) transparent transparent transparent;
 }
+
+/************************************************************
+ *** Legend - beskrivelse av hva en farge betyr i en graf ***
+ ************************************************************/
+
+.mvt-legend {
+    display: flex;
+    flex-direction: column;
+}
+
+@media only screen and (min-width: 660px) {
+    .mvt-legend {
+        gap: var(--mt-spacing-x0_5);
+    }
+}
+
+@media only screen and (min-width: 1060px) {
+    .mvt-legend {
+        gap: var(--mt-spacing-x1);
+    }
+}
+
+.mvt-legend .legend-entry {
+    display: flex;
+    gap: var(--mt-spacing-x1);
+    line-height: 28px;
+    align-items: center;
+}
+.mvt-legend .legend-color {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--mt-component-legend-color-outline);
+    border-radius: 100%;
+}
+
