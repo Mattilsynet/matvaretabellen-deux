@@ -34,3 +34,10 @@
                          {:id "Protein", :value 80, :color "yellow", :hover-content [:span {:data-portion 0.8} 0.8]}
                          {:id "Vann", :value 9700, :color "blue", :hover-content [:span {:data-portion 97.0} 97.0]}
                          {:id "Fiber", :value 80, :color "purple", :hover-content [:span {:data-portion 0.8} 0.8]}])})]))
+
+(defscene pie-chart-with-only-one-slice
+  (e/block
+   [:div {:style {:width 300}}
+    (PieChart {:slices (assoc-degrees
+                        10
+                        [{:id "Karbo", :value 120, :color "green", :hover-content [:span {:data-portion 1.2} 1.2]}])})]))
