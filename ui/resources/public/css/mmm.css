@@ -137,6 +137,7 @@ ol.mmm-unadorned-list li {
 .mmm-text a:visited,
 .mmm-link {
     color: var(--mt-color-text-action-default);
+    cursor: pointer;
     text-decoration: var(--mt-typography-decoration-action-default);
 }
 
