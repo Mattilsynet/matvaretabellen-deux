@@ -151,10 +151,11 @@
        (find-key-paths m i18n-attrs)))))
 
 (defn foodcase-foodgroup->food-group [{:strs [id parentId name]}]
-  (cond-> {:food-group/id id
-           :food-group/name name}
-    (seq parentId)
-    (assoc :food-group/parent {:food-group/id parentId})))
+  (when (seq id)
+    (cond-> {:food-group/id id
+             :food-group/name name}
+      (seq parentId)
+      (assoc :food-group/parent {:food-group/id parentId}))))
 
 (defn foodcase-nutrient->nutrient [{:strs [id name euroFIR euroFIRname unit decimals parentId]}]
   (when-not (known-non-constituents id)
@@ -188,7 +189,7 @@
                    i18n-attrs)]
     [;; food-groups
      (combine-i18n-sources
-      (update-vals locale->datas #(map foodcase-foodgroup->food-group (get % "foodgroups")))
+      (update-vals locale->datas #(keep foodcase-foodgroup->food-group (get % "foodgroups")))
       i18n-attrs)
 
      ;; nutrients
