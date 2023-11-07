@@ -20,7 +20,7 @@
 
  #:matvaretabellen.pages.food-page
  {:adi-title "Recommended Daily Intake (ADI)"
-  :amount-grams "Quantity (g)"
+  :amount "Quantity"
   :carbohydrates-title "Carbohydrates"
   :category [:fn/str "Category: {{:category}}"]
   :classification-title "Classification"

@@ -20,7 +20,7 @@
 
  #:matvaretabellen.pages.food-page
  {:adi-title "Anbefalt daglig inntak (ADI)"
-  :amount-grams "Mengde (g)"
+  :amount "Mengde"
   :carbohydrates-title "Karbohydrater"
   :category [:fn/str "Kategori: {{:category}}"]
   :classification-title "Klassifisering"

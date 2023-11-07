@@ -15,36 +15,35 @@
 (defn wrap-in-portion-span [num]
   [:span {:data-portion num} num])
 
-(defn get-nutrient-grams [food id]
+(defn get-calculable-quantity [measurement]
+  (when-let [q (:measurement/quantity measurement)]
+    (list (wrap-in-portion-span (b/num q)) " " (b/symbol q))))
+
+(defn get-nutrient-quantity [food id]
   (some->> (:food/constituents food)
            (filter (comp #{id} :nutrient/id :constituent/nutrient))
            first
-           :measurement/quantity
-           b/num
-           wrap-in-portion-span))
+           get-calculable-quantity))
 
 (defn prepare-nutrition-table [food]
-  {:headers [[:i18n ::nutrients] [:i18n ::amount-grams]]
-   :rows [[[:i18n ::total-fat] (get-nutrient-grams food "Fett")]
-          [[:i18n ::total-carbs] (get-nutrient-grams food "Karbo")]
-          [[:i18n ::total-protein] (get-nutrient-grams food "Protein")]
-          [[:i18n ::total-water] (get-nutrient-grams food "Vann")]
-          [[:i18n ::total-fiber] (get-nutrient-grams food "Fiber")]
-          [[:i18n ::total-alcohol] (get-nutrient-grams food "Alko")]]
+  {:headers [[:i18n ::nutrients] [:i18n ::amount]]
+   :rows [[[:i18n ::total-fat] (get-nutrient-quantity food "Fett")]
+          [[:i18n ::total-carbs] (get-nutrient-quantity food "Karbo")]
+          [[:i18n ::total-fiber] (get-nutrient-quantity food "Fiber")]
+          [[:i18n ::total-protein] (get-nutrient-quantity food "Protein")]
+          [[:i18n ::total-alcohol] (get-nutrient-quantity food "Alko")]
+          [[:i18n ::total-water] (get-nutrient-quantity food "Vann")]]
    :classes ["mmm-nutrient-table"]})
 
 (defn get-kj [food]
-  (when-let [kj (:measurement/quantity (:food/energy food))]
-    [:span (wrap-in-portion-span (b/num kj)) " " (b/symbol kj)]))
-
-(defn get-kcal [food]
-  (when-let [kcal (:measurement/observation (:food/calories food))]
-    [:span " (" (wrap-in-portion-span kcal) " kcal)"]))
+  (when (:measurement/quantity (:food/energy food))
+    (get-calculable-quantity (:food/energy food))))
 
 (defn energy [food]
-  (list
+  (concat
    (get-kj food)
-   (get-kcal food)))
+   (when (:measurement/observation (:food/calories food))
+     (list " (" (wrap-in-portion-span (:food/calories food)) " kcal)"))))
 
 (defn prepare-macro-highlights [food]
   (into
@@ -68,22 +67,20 @@
                  (some->> constituent :measurement/quantity b/symbol (str " "))]
         :href (str "#" anchor)}))))
 
-(defn prepare-nutrient-tables [{:keys [food nutrients group]} & [title]]
+(defn prepare-nutrient-tables [{:keys [food nutrients group]}]
   (->> (concat
-        [{:headers [(if title
-                      [:i18n ::composition-title {:title title}]
-                      [:i18n ::lookup (nutrient/get-name group)])
-                    [:i18n ::amount-grams]]
+        [{:headers [[:i18n ::lookup (nutrient/get-name group)]
+                    [:i18n ::amount]]
           :rows (for [nutrient nutrients]
                   [[:i18n ::lookup (nutrient/get-name nutrient)]
-                   (get-nutrient-grams food (:nutrient/id nutrient))])
+                   (get-nutrient-quantity food (:nutrient/id nutrient))])
           :classes ["mmm-nutrient-table"]}]
         (for [nutrient nutrients]
           (when-let [nutrients (food/get-nutrients food (:nutrient/id nutrient))]
-            {:headers [[:i18n ::lookup (nutrient/get-name nutrient)] [:i18n ::amount-grams]]
+            {:headers [[:i18n ::lookup (nutrient/get-name nutrient)] [:i18n ::amount]]
              :rows (for [nutrient nutrients]
                      [[:i18n ::lookup (nutrient/get-name nutrient)]
-                      (get-nutrient-grams food (:nutrient/id nutrient))])
+                      (get-nutrient-quantity food (:nutrient/id nutrient))])
              :classes ["mmm-nutrient-table"]})))
        (remove nil?)))
 
@@ -198,7 +195,7 @@
 
        (passepartout
         [:h3.mmm-h3#vitaminer [:i18n ::vitamins-title]]
-        (->> (food/get-flattened-nutrient-group food "FatSolubleVitamins")
+        (->> (food/get-nested-nutrient-group food "FatSolubleVitamins")
              prepare-nutrient-tables
              (map render-table))
         (->> (food/get-flattened-nutrient-group food "WaterSolubleVitamins")
