@@ -37,6 +37,7 @@
            :powerpack/source-dirs ["src" "ui/src" "dev"]
            :powerpack/resource-dirs ["resources" "ui/resources"]
            :powerpack/port 5053
+           :powerpack/log-level :debug
            :powerpack/create-ingest-tx #'ingest/create-tx
            :powerpack/render-page #'pages/render-page
            :powerpack/get-context #(get-context foods-conn)
