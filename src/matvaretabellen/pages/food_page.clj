@@ -20,10 +20,11 @@
     (list (wrap-in-portion-span (b/num q)) " " (b/symbol q))))
 
 (defn get-nutrient-quantity [food id]
-  (some->> (:food/constituents food)
-           (filter (comp #{id} :nutrient/id :constituent/nutrient))
-           first
-           get-calculable-quantity))
+  (or (some->> (:food/constituents food)
+               (filter (comp #{id} :nutrient/id :constituent/nutrient))
+               first
+               get-calculable-quantity)
+      "–"))
 
 (defn prepare-nutrition-table [food]
   {:headers [[:i18n ::nutrients] [:i18n ::amount]]
