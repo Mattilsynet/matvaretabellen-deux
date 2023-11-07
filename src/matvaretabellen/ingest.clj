@@ -1,7 +1,14 @@
 (ns matvaretabellen.ingest
-  (:require [datomic-type-extensions.api :as d]
+  (:require [clojure.edn :as edn]
+            [clojure.java.io :as io]
+            [datomic-type-extensions.api :as d]
             [matvaretabellen.pages :as pages]
             [matvaretabellen.urls :as urls]))
+
+(defn load-edn [file-name]
+  (-> (io/file file-name)
+      slurp
+      edn/read-string))
 
 (defn get-food-pages [db]
   (->> (d/q '[:find ?food-id ?food-name
@@ -46,6 +53,7 @@
                  (get-food-pages db)
                  (get-food-group-pages db))
          (ensure-unique-page-uris)
+         (concat (load-edn "data/food-group-embellishments.edn"))
          (d/transact (:datomic/conn powerpack-app))
          deref)))
 

@@ -1,0 +1,91 @@
+[;; 2022 versjon - nye grupper kommer!
+ {:db/ident :food-group.category/animal
+  :food-group-category/name {:nb "Animalske matvaregrupper"
+                             :en "Animal Food Groups"}}
+
+ {:db/ident :food-group.category/vegetarian
+  :food-group-category/name {:nb "Vegetariske matvaregrupper"
+                             :en "Vegetarian Food Groups"}}
+
+ {:db/ident :food-group.category/other
+  :food-group-category/name {:nb "Andre matvaregrupper"
+                             :en "Other Food Groups"}}
+
+ ;; "Melk og melkeprodukter"
+ {:food-group/id "1"
+  :food-group/category {:db/ident :food-group.category/animal}
+  :food-group/photo "/images/food-groups/meieriprodukter/photo.jpg"
+  :food-group/short-description {:nb "Meieriprodukter inkluderer vanlige matvarer fra dagligvarebutikker som yoghurt, ost, og melk."
+                                 :en "Dairy products include common grocery items such as yogurt, cheese, and milk."}}
+
+ ;; "Egg"
+ {:food-group/id "2"
+  :food-group/category {:db/ident :food-group.category/animal}
+  :food-group/photo "/images/food-groups/egg/photo.jpg"
+  :food-group/short-description {:nb "Egget er en næringsrik matvare som inneholder alle vitaminer og mineraler utenom vitamin C."
+                                 :en "The egg is a nutritious food containing all vitamins and minerals except vitamin C."}}
+
+ ;; "Fjørfe og kjøtt"
+ {:food-group/id "3"
+  :food-group/category {:db/ident :food-group.category/animal}
+  :food-group/photo "/images/food-groups/kjott-og-fjorfe/photo.jpg"
+  :food-group/short-description {:nb "Matvarer fra denne gruppen er spesielt proteinrike og inndeles etter art, prosessering og fremstilling."
+                                 :en "Foods from this group are particularly rich in protein and are categorized by species, processing, and preparation."}}
+
+ ;; "Fisk og skalldyr"
+ {:food-group/id "4"
+  :food-group/category {:db/ident :food-group.category/animal}
+  :food-group/photo "/images/food-groups/fisk-og-skalldyr/photo.jpg"
+  :food-group/short-description {:nb "Fisk og skalldyr er gode proteinkilder. Denne matvaregruppen er i tillegg ofte en god kilde til flerumettede fettsyrer."
+                                 :en "Fish and shellfish are good sources of protein. This food group is also often a good source of polyunsaturated fatty acids."}}
+
+ ;; "Korn- og bakevarer, frø og nøtter"
+ {:food-group/id "5"
+  :food-group/category {:db/ident :food-group.category/vegetarian}
+  :food-group/photo "/images/food-groups/korn-og-bakevarer/photo.jpg"
+  :food-group/short-description {:nb "Denne gruppen består hovedsakelig av karbohydratrike matvarer."
+                                 :en "This group mainly consists of carbohydrate-rich foods."}}
+
+ ;; "Poteter, grønnsaker, frukt og bær"
+ {:food-group/id "6"
+  :food-group/category {:db/ident :food-group.category/vegetarian}
+  :food-group/photo "/images/food-groups/gronnsaker/photo.jpg"
+  :food-group/short-description {:nb "Grønnsaker har ofte et lavt energiinnhold med mye vitaminer og mineraler."
+                                 :en "Vegetables often have low energy content with many vitamins and minerals."}}
+
+ ;; "Sukker og søte produkter"
+ {:food-group/id "7"
+  :food-group/category {:db/ident :food-group.category/other}
+  :food-group/photo "/images/food-groups/sukker-og-sote-produkter/photo.jpg"
+  :food-group/short-description {:nb "Sukker inneholder mye karbohydrater og har viktige funksjoner i matlagingen."
+                                 :en "Sugar contains a lot of carbohydrates and plays important roles in cooking."}}
+
+ ;; "Margarin, smør, matolje o.l."
+ {:food-group/id "8"
+  :food-group/category {:db/ident :food-group.category/other}
+  :food-group/photo "/images/food-groups/matfett/photo.jpg"
+  :food-group/short-description {:nb "Matvarene i denne gruppen har typisk energitett og består av f.eks. smør og margarin."
+                                 :en "The foods in this group are typically energy-dense and consist of, for example, butter and margarine."}}
+
+ ;; "Drikke"
+ {:food-group/id "9"
+  :food-group/category {:db/ident :food-group.category/vegetarian}
+  :food-group/photo "/images/food-groups/drikke/photo.jpg"
+  :food-group/short-description {:nb "Drikke er en flytende væske produsert for å inntas gjennom munnen. Gruppen består bl.a. av matvarer uten og med alkohol."
+                                 :en "Beverage is a liquid produced for consumption through the mouth. The group includes food items with and without alcohol."}}
+
+ ;; "Diverse retter, produkter og ingredienser"
+ {:food-group/id "10"
+  :food-group/category {:db/ident :food-group.category/other}
+  :food-group/photo "/images/food-groups/diverse-matvarer-og-retter/photo.jpg"
+  :food-group/short-description {:nb "Denne kategorien inneholder ulike typer retter, produkter og ingredienser."
+                                 :en "This category contains various types of dishes, products, and ingredients."}}
+
+ ;; "Spedbarnsmat"
+ {:food-group/id "11"
+  :food-group/category {:db/ident :food-group.category/other}
+  :food-group/photo "/images/food-groups/spedbarnsmat/photo.jpg"
+  :food-group/short-description {:nb "Spedbarnsmat defineres som regel som mat man gir barn som er fra 4-6 mnd frem til de er 1-1/2 år."
+                                 :en "Infant food is typically defined as food given to children from 4-6 months until they are 1-1/2 years old."}}
+
+ ]

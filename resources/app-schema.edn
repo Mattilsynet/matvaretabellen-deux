@@ -1,4 +1,6 @@
-[{:db/ident :page/food-id
+[
+ ;; pages
+ {:db/ident :page/food-id
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
 
@@ -8,4 +10,32 @@
 
  {:db/ident :page/details
   :dte/valueType :data/edn
-  :db/cardinality :db.cardinality/one}]
+  :db/cardinality :db.cardinality/one}
+
+ ;; food-group embellishments
+ {:db/ident :food-group/id
+  :db/valueType :db.type/string
+  :db/unique :db.unique/identity
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :food-group/photo
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :food-group/short-description
+  :dte/valueType :i18n/edn
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :food-group/long-description
+  :dte/valueType :i18n/edn
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :food-group/category
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :food-group-category/name
+  :dte/valueType :i18n/edn
+  :db/cardinality :db.cardinality/one}
+
+ ]
