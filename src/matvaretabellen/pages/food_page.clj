@@ -19,7 +19,14 @@
 
 (defn get-calculable-quantity [measurement]
   (when-let [q (:measurement/quantity measurement)]
-    (list (wrap-in-portion-span (b/num q)) " " (b/symbol q))))
+    (let [n (b/num q)]
+      (list
+       (wrap-in-portion-span
+        (if (= (Math/floor n) n)
+          (int n)
+          n))
+       " "
+       (b/symbol q)))))
 
 (defn get-nutrient-quantity [food id]
   (or (some->> (:food/constituents food)
