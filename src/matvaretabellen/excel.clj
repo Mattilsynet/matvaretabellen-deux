@@ -2,15 +2,8 @@
   (:import [java.io ByteArrayOutputStream FileOutputStream]
            [org.apache.poi.xssf.usermodel XSSFWorkbook])
   (:require [broch.core :as b]
-            [datomic-type-extensions.api :as d]))
-
-(defn natural-order-comparator-ish [s]
-  (let [initial-numbers (re-find #"^\d+" s)
-        first-numbers (re-find #"\d+" s)
-        first-letters (re-find #"\D+" s)]
-    (if initial-numbers
-      ["" (parse-long initial-numbers) s]
-      [first-letters (parse-long (or first-numbers "0")) s])))
+            [datomic-type-extensions.api :as d]
+            [matvaretabellen.misc :as misc]))
 
 (defn add-index [coll]
   (map-indexed (fn [i m] (assoc m :index i)) coll))
@@ -126,7 +119,7 @@
                               (mapcat :cells)
                               (keep :origin/id)
                               set
-                              (sort-by natural-order-comparator-ish))]
+                              (sort-by misc/natural-order-comparator-ish))]
            {:cells [{:text origin-id}
                     {:text (get-in (d/entity db [:origin/id origin-id])
                                    [:origin/description locale])}]})})
