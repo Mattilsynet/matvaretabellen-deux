@@ -249,7 +249,7 @@
           (PieChart {:slices (assoc-degrees 70 (prepare-value-slices food #{"Fett" "Karbo" "Protein" "Vann" "Fiber" "Alko"}))
                      :hoverable? true})]
          [:div.col-2
-          [:div.label [:h3.mmm-h3 [:i18n ::energy-composition]]]
+          [:div.label [:h3.mmm-h3 [:i18n ::energy-content]]]
           (PieChart {:slices (assoc-degrees 30 (prepare-percent-slices food #{"Fett" "Karbo" "Protein"}))
                      :hoverable? true})]
          [:div.col-1
