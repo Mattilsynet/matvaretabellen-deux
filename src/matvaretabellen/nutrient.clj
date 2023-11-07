@@ -28,12 +28,26 @@
 (def sort-names
   (->> ["Fett"
         "Karbo"
+        "Stivel"
+        "Mono+Di"
+        "Sukker"
         "Protein"
         "Mettet"
+        "Trans"
         "Enumet"
         "Flerum"
-        "Trans"
-        "Kolest"]
+        "Omega-3"
+        "Omega-6"
+        "Kolest"
+        "Ca"
+        "K"
+        "Na"
+        "NaCl"
+        "P"
+        "Fe"
+        "Cu"
+        "Zn"
+        "Se"]
        (map-indexed #(vector %2 (format " %02d" %1)))
        (into
         {"Niacin" "Vit B03"
