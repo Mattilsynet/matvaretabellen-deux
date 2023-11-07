@@ -1,6 +1,7 @@
 (ns matvaretabellen.food
   (:require [clojure.string :as str]
             [datomic-type-extensions.api :as d]
+            [matvaretabellen.misc :as misc]
             [matvaretabellen.nutrient :as nutrient]))
 
 (defn get-nutrients [food nutrient-id]
@@ -40,6 +41,42 @@
 (defn get-langual-codes [food]
   (->> (:food/langual-codes food)
        (sort-by :langual-code/id)))
+
+(defn get-sources [food]
+  (->> (:food/constituents food)
+       (keep :measurement/origin)
+       set
+       (sort-by (comp misc/natural-order-comparator-ish :origin/id))))
+
+(defn hyperlink-string [desc]
+  (loop [words (-> (str/replace desc #"," ", ")
+                   (str/split #"\s+"))
+         res []]
+    (let [word (first words)]
+      (cond
+        (nil? word)
+        (let [groups (partition-by type res)]
+          (mapcat
+           (fn [i xs]
+             (if (string? (first xs))
+               [(str (when (not= 0 i) " ")
+                     (str/join " " xs)
+                     (when (not= (dec (count groups)) i) " "))]
+               (interpose " " xs)))
+           (range)
+           groups))
+
+        (re-find #"https?://.+" word)
+        (recur
+         (next words)
+         (conj res (let [url (str/trim (str/replace word #" " ""))]
+                     [:a {:href url}
+                      (if (< 35 (count url))
+                        (second (re-find #"https?://([^/]+)/" url))
+                        url)])))
+
+        :else
+        (recur (next words) (conj res word))))))
 
 (comment
 

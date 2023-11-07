@@ -121,7 +121,7 @@
     --mt-layout-vertical-spacing-tight: var(--mt-spacing-x0_25);
     --mt-layout-vertical-spacing-normal: var(--mt-spacing-x1_4);
     --mt-layout-vertical-spacing-airy: var(--mt-spacing-x2);
-    --mt-typography-heading-top-spacing: var(--mt-spacing-x1);
+    --mt-layout-vertical-spacing-spacey: var(--mt-spacing-x3_6);
     --mt-typography-decoration-action-default: none;
     --mt-typography-decoration-action-active: underline;
 
@@ -182,7 +182,8 @@
     --mt-layout-container-narrow-width: 600px;
     --mt-layout-container-gutter: var(--mt-grid-desktop-padding);
 
-    --mt-layout-section-spacing: var(--mt-spacing-x2);
+    --mt-layout-section-spacing: var(--mt-layout-vertical-spacing-airy);
+    --mt-layout-section-spacing-spacey: var(--mt-layout-vertical-spacing-spacey);
 
     --mt-component-ac-background: var(--mt-component-form-field-background);
     --mt-component-ac-border-color: var(--mt-component-form-field-border);

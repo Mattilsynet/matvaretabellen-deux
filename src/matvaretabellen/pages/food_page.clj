@@ -9,6 +9,7 @@
             [matvaretabellen.nutrient :as nutrient]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.card :refer [DetailFocusCard]]
+            [mmm.components.checkbox :refer [Checkbox]]
             [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.select :refer [Select]]
             [mmm.components.site-header :refer [SiteHeader]]
@@ -180,6 +181,16 @@
    :rows (for [{:langual-code/keys [id description]} codes]
            [{:text id} {:text (food/humanize-langual-classification description)}])})
 
+(defn render-sources [page sources]
+  (into
+   [:dl.mmm-dl]
+   (mapcat
+    (fn [{:origin/keys [id description]}]
+      (list [:dt {:id id} id]
+            [:dd (-> (get description (:page/locale page))
+                     food/hyperlink-string)]))
+    sources)))
+
 (def slice-legend
   [{:nutrient-id "Fett"    :color "var(--mt-color-fat)"}
    {:nutrient-id "Karbo"   :color "var(--mt-color-carbs)"}
@@ -276,7 +287,9 @@
                             {:title [:i18n ::trace-elements-title]
                              :href "#sporstoffer"}
                             {:title [:i18n ::classification-title]
-                             :href "#klassifisering"}]})]]]]
+                             :href "#klassifisering"}
+                            {:title [:i18n ::sources]
+                             :href "#kilder"}]})]]]]
        [:div.mmm-container.mmm-section
         [:div.mmm-flex-desktop.mmm-flex-bottom.mmm-mbl
          [:h2.mmm-h2.mmm-mbn#naringsinnhold [:i18n ::nutrition-title]]
@@ -312,10 +325,9 @@
           [:li energy-label ": " (energy food)]
           [:li [:i18n ::edible-part
                 {:pct (-> food :food/edible-part :measurement/percent)}]]]
-         [:p.mmm-p
-          [:label.mmm-link.mvt-source-toggler
-           [:input.mmm-mrs {:type "checkbox"}]
-           [:i18n ::show-sources]]]]
+         [:p.mmm-p.mmm-desktop
+          (Checkbox {:label [:i18n ::show-sources]
+                     :class :mvt-source-toggler})]]
         (render-table (prepare-nutrition-table food)))
 
        (passepartout
@@ -351,7 +363,7 @@
              prepare-nutrient-tables
              (map render-table)))
 
-       [:div.mmm-container.mmm-section
+       [:div.mmm-container.mmm-section-spaced
         [:div.mmm-container-focused.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
          [:h3#klassifisering [:i18n ::classification-title]]
          [:ul.mmm-unadorned-list
@@ -363,6 +375,15 @@
          (->> (food/get-langual-codes food)
               prepare-langual-table
               render-table)]]
+
+       [:div.mmm-container.mmm-section-spaced
+        [:div.mmm-container-focused.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
+         [:h3#kilder [:i18n ::sources]]
+         [:p.mmm-p.mmm-desktop
+          (Checkbox {:label [:i18n ::show-all-sources]
+                     :class :mvt-source-toggler})]
+         (->> (food/get-sources food)
+              (render-sources page))]]
 
        [:div.mmm-container.mmm-section
         (CompactSiteFooter)]]]]))

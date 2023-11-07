@@ -1,7 +1,7 @@
 (ns mmm.components.checkbox)
 
-(defn Checkbox [{:keys [checked? label]}]
-  [:label.mmm-checkbox
+(defn Checkbox [{:keys [checked? label] :as attrs}]
+  [:label.mmm-checkbox (dissoc attrs :checked? :label)
    [:input {:type "checkbox" :checked (when checked? "true")}]
    [:svg.mmm-svg.checkbox-marker
     {:xmlns "http://www.w3.org/2000/svg"

@@ -54,6 +54,8 @@
   :portion-size "Porsjonsstørrelse:"
   :scientific-name (list [:strong "Vitenskapelig navn:"] " " [:fn/get :name])
   :source "Kilde"
+  :sources "Kilder"
+  :show-all-sources "Vis kilder i alle tabeller"
   :show-sources "Vis kilder"
   :toc-title "Innhold"
   :total [:fn/str "{{:nb}}, total"]
