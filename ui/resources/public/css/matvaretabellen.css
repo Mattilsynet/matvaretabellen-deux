@@ -34,8 +34,8 @@
     padding-left: 1.2em;
 }
 
-.mmm-nutrient-table tbody tr td:last-child {
-    width: 30%;
+.mvt-amount {
+    width: 20ch;
 }
 
 .mmm-nutrient-table thead tr th:last-child {

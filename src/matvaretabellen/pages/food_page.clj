@@ -29,13 +29,32 @@
       "–"))
 
 (defn prepare-nutrition-table [food]
-  {:headers [[:i18n ::nutrients] [:i18n ::amount]]
-   :rows [[{:text [:i18n ::total-fat]} {:text (get-nutrient-quantity food "Fett")}]
-          [{:text [:i18n ::total-carbs]} {:text (get-nutrient-quantity food "Karbo")}]
-          [{:text [:i18n ::total-fiber]} {:text (get-nutrient-quantity food "Fiber")}]
-          [{:text [:i18n ::total-protein]} {:text (get-nutrient-quantity food "Protein")}]
-          [{:text [:i18n ::total-alcohol]} {:text (get-nutrient-quantity food "Alko")}]
-          [{:text [:i18n ::total-water]} {:text (get-nutrient-quantity food "Vann")}]]
+  {:headers [{:text [:i18n ::nutrients]}
+             {:text [:i18n ::amount]
+              :class "mmm-tar mvt-amount"}]
+   :rows [[{:text [:i18n ::total-fat]}
+           {:text (get-nutrient-quantity food "Fett")
+            :class "mmm-tar"}]
+
+          [{:text [:i18n ::total-carbs]}
+           {:text (get-nutrient-quantity food "Karbo")
+            :class "mmm-tar"}]
+
+          [{:text [:i18n ::total-fiber]}
+           {:text (get-nutrient-quantity food "Fiber")
+            :class "mmm-tar"}]
+
+          [{:text [:i18n ::total-protein]}
+           {:text (get-nutrient-quantity food "Protein")
+            :class "mmm-tar"}]
+
+          [{:text [:i18n ::total-alcohol]}
+           {:text (get-nutrient-quantity food "Alko")
+            :class "mmm-tar"}]
+
+          [{:text [:i18n ::total-water]}
+           {:text (get-nutrient-quantity food "Vann")
+            :class "mmm-tar"}]]
    :classes ["mmm-nutrient-table"]})
 
 (defn get-kj [food]
@@ -72,34 +91,38 @@
 
 (defn prepare-nutrient-tables [{:keys [food nutrients group]}]
   (->> (concat
-        [{:headers [[:i18n ::lookup (nutrient/get-name group)]
-                    [:i18n ::amount]]
+        [{:headers [{:text [:i18n ::lookup (nutrient/get-name group)]}
+                    {:text [:i18n ::amount]
+                     :class "mmm-tar mvt-amount"}]
           :rows (for [nutrient nutrients]
                   [{:text [:i18n ::lookup (nutrient/get-name nutrient)]}
-                   {:text (get-nutrient-quantity food (:nutrient/id nutrient))}])
+                   {:text (get-nutrient-quantity food (:nutrient/id nutrient))
+                    :class "mmm-tar"}])
           :classes ["mmm-nutrient-table"]}]
-        (for [nutrient nutrients]
-          (when-let [nutrients (food/get-nutrients food (:nutrient/id nutrient))]
-            {:headers [[:i18n ::lookup (nutrient/get-name nutrient)] [:i18n ::amount]]
-             :rows (for [nutrient nutrients]
-                     [{:text [:i18n ::lookup (nutrient/get-name nutrient)]}
-                      {:text (get-nutrient-quantity food (:nutrient/id nutrient))}])
-             :classes ["mmm-nutrient-table"]})))
+        (mapcat
+         #(when-let [nutrients (food/get-nutrients food (:nutrient/id %))]
+            (prepare-nutrient-tables
+             {:food food
+              :nutrients nutrients
+              :group %}))
+         nutrients))
        (remove nil?)))
 
 (defn get-nutrient-rows [food nutrient & [level]]
   (let [level (or level 0)]
     (into [[{:text [:i18n ::lookup (nutrient/get-name nutrient)]
              :level level}
-            {:text (get-nutrient-quantity food (:nutrient/id nutrient))}]]
+            {:text (get-nutrient-quantity food (:nutrient/id nutrient))
+             :class "mmm-tar"}]]
           (let [level (inc level)]
             (->> (:nutrient/id nutrient)
                  (food/get-nutrients food)
                  (mapcat #(get-nutrient-rows food % level)))))))
 
 (defn prepare-nested-nutrient-table [{:keys [food nutrients group]}]
-  {:headers [[:i18n ::lookup (nutrient/get-name group)]
-             [:i18n ::amount]]
+  {:headers [{:text [:i18n ::lookup (nutrient/get-name group)]}
+             {:text [:i18n ::amount]
+              :class "mmm-tar mvt-amount"}]
    :rows (mapcat #(get-nutrient-rows food %) nutrients)
    :classes ["mmm-nutrient-table"]})
 
@@ -108,17 +131,18 @@
    [:thead
     [:tr
      (for [header headers]
-       [:th header])]]
+       [:th (dissoc header :text) (:text header)])]]
    [:tbody
     (for [row rows]
       [:tr
        (for [cell row]
-         [:td (cond->> (:text cell)
-                (< 0 (or (:level cell) 0))
-                (conj [:span {:class (case (:level cell)
-                                       1 "mmm-mlm"
-                                       2 "mmm-mll"
-                                       "mmm-mlxl")}]))])])]])
+         [:td (dissoc cell :text :level)
+          (cond->> (:text cell)
+            (< 0 (or (:level cell) 0))
+            (conj [:span {:class (case (:level cell)
+                                   1 "mmm-mlm"
+                                   2 "mmm-mll"
+                                   "mmm-mlxl")}]))])])]])
 
 (defn passepartout [& body]
   [:div.mmm-container.mmm-section.mmm-mobile-phn
@@ -135,8 +159,8 @@
    {:portion [:span.js-portion-label "100 g"]}])
 
 (defn prepare-langual-table [codes]
-  {:headers [[:i18n ::langual-code-label]
-             [:i18n ::langual-description-label]]
+  {:headers [{:text [:i18n ::langual-code-label]}
+             {:text [:i18n ::langual-description-label]}]
    :rows (for [{:langual-code/keys [id description]} codes]
            [{:text id} {:text (food/humanize-langual-classification description)}])})
 
