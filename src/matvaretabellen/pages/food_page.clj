@@ -3,6 +3,7 @@
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.components.legend :refer [Legend]]
+            [matvaretabellen.components.passepartout-section :refer [passepartout]]
             [matvaretabellen.components.pie-chart :refer [assoc-degrees PieChart]]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
@@ -159,12 +160,6 @@
                                    1 "mmm-mlm"
                                    2 "mmm-mll"
                                    "mmm-mlxl")}]))])])]])
-
-(defn passepartout [& body]
-  [:div.mmm-container.mmm-section.mmm-mobile-phn
-   [:div.mmm-passepartout
-    [:div.mmm-container-focused.mmm-vert-layout-m
-     body]]])
 
 (def energy-label
   [:i18n ::energy-content-title
