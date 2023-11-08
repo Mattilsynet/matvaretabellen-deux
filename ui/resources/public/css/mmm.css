@@ -654,7 +654,7 @@ ol.mmm-unadorned-list li {
 }
 
 .mmm-vert-layout-s {
-    gap: var(--mt-spacing-x0_25);
+    gap: var(--mt-spacing-x0_5);
 }
 
 .mmm-vert-layout-spread {
