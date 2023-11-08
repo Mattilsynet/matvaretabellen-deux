@@ -4,6 +4,11 @@
             [matvaretabellen.misc :as misc]
             [matvaretabellen.nutrient :as nutrient]))
 
+(defn get-nutrient-measurement [food nutrient-id]
+  (->> (:food/constituents food)
+       (filter (comp #{nutrient-id} :nutrient/id :constituent/nutrient))
+       first))
+
 (defn get-nutrients [food nutrient-id]
   (->> (:food/constituents food)
        (map :constituent/nutrient)

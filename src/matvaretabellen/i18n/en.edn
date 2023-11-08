@@ -88,4 +88,6 @@
 
  #:matvaretabellen.pages.nutrient-page
  {:food "Food"
-  :foods-by-nutrient (list "Foods by " [:fn/param] " per 100g")}]
+  :foods [:fn/str "{{:n}} foods"]
+  :foods-by-nutrient (list "Foods by " [:fn/param] " per 100g")
+  :sub-groups "Sub groups"}]

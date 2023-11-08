@@ -29,10 +29,8 @@
        " "
        (b/symbol q)))))
 
-(defn get-nutrient-quantity [food id]
-  (or (some->> (:food/constituents food)
-               (filter (comp #{id} :nutrient/id :constituent/nutrient))
-               first
+(defn get-nutrient-quantity [food nutrient-id]
+  (or (some->> (food/get-nutrient-measurement food nutrient-id)
                get-calculable-quantity)
       "–"))
 

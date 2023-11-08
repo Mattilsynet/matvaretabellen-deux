@@ -493,7 +493,8 @@ ol.mmm-unadorned-list li {
 
 .mmm-container,
 .mmm-container-focused,
-.mmm-container-narrow {
+.mmm-container-narrow,
+.mmm-container-medium {
     max-width: var(--mt-layout-container-width);
     margin-left: auto;
     margin-right: auto;
@@ -502,6 +503,10 @@ ol.mmm-unadorned-list li {
 
 .mmm-container-focused {
     max-width: var(--mt-layout-container-focused-width);
+}
+
+.mmm-container-medium {
+    max-width: var(--mt-layout-container-medium-width);
 }
 
 .mmm-container-narrow {
@@ -570,6 +575,10 @@ ol.mmm-unadorned-list li {
 .mmm-media article,
 .mmm-media-d article {
     flex-grow: 1;
+}
+
+.mmm-media-reverse {
+    flex-direction: row-reverse;
 }
 
 .mmm-media aside,
