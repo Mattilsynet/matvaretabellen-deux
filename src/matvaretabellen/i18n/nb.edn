@@ -87,7 +87,5 @@
   :seasonal-goods "Sesongvarer"}
 
  #:matvaretabellen.pages.nutrient-page
- {:food "Matvare"
-  :foods [:fn/str "{{:n}} matvarer"]
-  :foods-by-nutrient (list "Matvarer etter " [:fn/param] " per 100g")
-  :sub-groups "Undergrupper"}]
+ {:food [:fn/str "Matvare ({{:n}})"]
+  :nutrient-header [:fn/str "{{:nb}} per 100 g"]}]
