@@ -66,8 +66,7 @@
                              nutrient/get-name)]}
             {:text (get-nutrient-quantity food id)}
             {:text (get-source food id)
-             :class "mvt-source"}])
-   :classes ["mmm-nutrient-table"]})
+             :class "mvt-source"}])})
 
 (defn get-kj [food]
   (when (:measurement/quantity (:food/energy food))
@@ -112,8 +111,7 @@
                   [{:text [:i18n :i18n/lookup (nutrient/get-name nutrient)]}
                    {:text (get-nutrient-quantity food (:nutrient/id nutrient))}
                    {:text (get-source food (:nutrient/id nutrient))
-                    :class "mvt-source"}])
-          :classes ["mmm-nutrient-table"]}]
+                    :class "mvt-source"}])}]
         (mapcat
          #(when-let [nutrients (food/get-nutrients food (:nutrient/id %))]
             (prepare-nutrient-tables
