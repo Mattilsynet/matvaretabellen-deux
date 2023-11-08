@@ -27,8 +27,11 @@
          food-or-name)
        (get-url locale "")))
 
-(defn get-nutrient-url [locale the-name]
-  (get-url locale "" the-name))
+(defn get-nutrient-url [locale nutrient-or-name]
+  (->> (if (:nutrient/name nutrient-or-name)
+         (get-in nutrient-or-name [:nutrient/name locale])
+         nutrient-or-name)
+       (get-url locale "")))
 
 (defn get-food-group-url [locale the-name]
   (get-url locale (case locale
