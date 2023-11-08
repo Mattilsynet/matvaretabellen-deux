@@ -6,7 +6,7 @@
 
 (def banner
   [:div.mmm-container
-   [:div.mmm-media
+   [:div.mmm-media-d
     [:aside
      [:img.mmm-img {:src "/images/banana.jpg"}]]
     [:article.mmm-text.mmm-tight

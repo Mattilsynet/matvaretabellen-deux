@@ -260,7 +260,7 @@
                                   (:food/food-group food)
                                   {:text food-name})})]
         [:div.mmm-container.mmm-section
-         [:div.mmm-media.mmm-media-at
+         [:div.mmm-media-d.mmm-media-at
           [:article.mmm-vert-layout-spread
            [:h1.mmm-h1 food-name]
            [:div.mmm-vert-layout-s.mmm-mtm

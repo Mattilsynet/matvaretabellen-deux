@@ -534,12 +534,20 @@ ol.mmm-unadorned-list li {
 
 .mmm-media {
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--mt-column-gap);
+}
+
+.mmm-media-d {
+    display: flex;
     flex-direction: column;
     gap: var(--mt-column-gap);
 }
 
 @media only screen and (min-width: 768px) {
-    .mmm-media {
+    .mmm-media-d {
         flex-direction: row;
         align-items: center;
         justify-content: center;
@@ -559,11 +567,13 @@ ol.mmm-unadorned-list li {
     align-items: stretch;
 }
 
-.mmm-media article {
+.mmm-media article,
+.mmm-media-d article {
     flex-grow: 1;
 }
 
-.mmm-media aside {
+.mmm-media aside,
+.mmm-media-d aside {
     flex-basis: fit-content;
 }
 
@@ -672,20 +682,20 @@ ol.mmm-unadorned-list li {
     padding-bottom: var(--mt-component-banner-media-buttons-padding);
 }
 
-.mmm-banner-media-buttons .mmm-media,
+.mmm-banner-media-buttons .mmm-media-d,
 .mmm-banner-media-buttons .mmm-buttons {
     flex-shrink: 0;
     flex-basis: 0;
 }
 
-.mmm-banner-media-buttons .mmm-media {
+.mmm-banner-media-buttons .mmm-media-d {
     background: var(--mt-brand-theme-main-bg);
     color: var(--mt-brand-theme-main-color);
     flex-grow: 2;
     padding: var(--mt-grid-desktop-padding);
 }
 
-.mmm-banner-media-buttons .mmm-media a {
+.mmm-banner-media-buttons .mmm-media-d a {
     color: var(--mt-brand-theme-main-action-color);
 }
 

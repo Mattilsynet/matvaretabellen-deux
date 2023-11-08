@@ -16,7 +16,7 @@
 (defn BananaTeaserBox [locale db]
   [:div.mmm-banner-media-buttons.mmm-section.mmm-brand-theme2
    [:div.mmm-container
-    [:div.mmm-media.mmm-media-stamp
+    [:div.mmm-media-d.mmm-media-stamp
      [:aside {:style {:width "30%"}}
       [:img.mmm-img {:src "/images/trivia/banana.jpg"}]]
      [:article.mmm-text.mmm-tight.mmm-vert-layout-s

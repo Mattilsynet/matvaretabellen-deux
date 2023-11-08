@@ -7,7 +7,7 @@
 
 (defscene media
   (e/block
-   [:div.mmm-media
+   [:div.mmm-media-d
     [:aside
      [:img.mmm-img {:src "/images/banana.jpg"}]]
     [:article.mmm-text.mmm-tight
@@ -17,10 +17,10 @@
      [:p [:a {:href "#"} "Les mer om bananen her"]]]]))
 
 (defscene media-anchor-top
-  "`.mmm-media.mmm-media-at` ankrer teksten mot toppen av media-komponenten, i
+  "`.mmm-media-d.mmm-media-at` ankrer teksten mot toppen av media-komponenten, i
   stedet for midten."
   (e/block
-   [:div.mmm-media.mmm-media-at
+   [:div.mmm-media-d.mmm-media-at
     [:aside
      [:img.mmm-img {:src "/images/banana.jpg"}]]
     [:article.mmm-text.mmm-tight
@@ -30,10 +30,10 @@
      [:p [:a {:href "#"} "Les mer om bananen her"]]]]))
 
 (defscene media-stamp
-  "`.mmm-media.mmm-media-stamp` flytter `aside` til å flyte som et lite frimerke
+  "`.mmm-media-d.mmm-media-stamp` flytter `aside` til å flyte som et lite frimerke
   på smale skjermer, for å gi mer rom. Du må selv sette ønsket bredde."
   (e/block
-   [:div.mmm-media.mmm-media-stamp
+   [:div.mmm-media-d.mmm-media-stamp
     [:aside {:style {:width "30%"}}
      [:img.mmm-img {:src "/images/banana.jpg" :width "100%"}]]
     [:article.mmm-text.mmm-tight
