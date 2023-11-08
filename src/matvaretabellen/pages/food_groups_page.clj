@@ -48,8 +48,8 @@
                     :inline? true
                     :secondary? true})]]
          [:aside.mmm-desktop {:style {:flex-basis "40%"}}
-          [:img {:src "/images/illustrations/gronnsaker.svg"
-                 :width 250}]]]]]
+          [:img {:src "/images/illustrations/alle-matvaregrupper.svg"
+                 :width 300}]]]]]
       [:div.mmm-themed.mmm-brand-theme2
        (for [[category groups] (->> (group-by :food-group/category food-groups)
                                     (sort-by (comp :food-group-category/order first)))]
