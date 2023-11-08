@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [4/20]
+* Tickets [4/21]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -27,5 +27,6 @@
 ** DONE [C] Matvare-id og latinsk navn => klassifisering
 ** TODO Analyseverktøy
 ** TODO Stolpediagrammer
+** TODO [M] Skill matvarer på matvaregrupper i excel-arket
 ** TODO OpenGraph på matvaresidene
 ** TODO Ta en runde med ipad-bredde 800px
