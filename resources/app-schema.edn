@@ -38,4 +38,8 @@
   :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 
+ {:db/ident :food-group-category/order
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one}
+
  ]

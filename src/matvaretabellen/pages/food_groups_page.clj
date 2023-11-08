@@ -6,13 +6,19 @@
             [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
-(defn render [context db page]
-  (let [food-groups (map #(d/entity db %)
-                         (d/q '[:find [?e ...]
-                                :where
-                                [?e :food-group/id]
-                                (not [?e :food-group/parent])]
-                              db))
+(defn embellish-food-group [food-group app-db]
+  (-> (into {} food-group)
+      (into (d/entity app-db [:food-group/id (:food-group/id food-group)]))
+      (update :food-group/category #(d/entity app-db %))))
+
+(defn render [context food-db page]
+  (let [app-db (:app/db context)
+        food-groups (for [eid (d/q '[:find [?e ...]
+                                     :where
+                                     [?e :food-group/id]
+                                     (not [?e :food-group/parent])]
+                                   food-db)]
+                      (embellish-food-group (d/entity food-db eid) app-db))
         locale (:page/locale page)]
     [:html {:class "mmm"}
      [:body
@@ -29,18 +35,23 @@
         [:div.mmm-text
          [:p [:i18n ::number-of-foods
               {:count (d/q '[:find (count ?e) .
-                             :where [?e :food/id]] db)}]]
+                             :where [?e :food/id]] food-db)}]]
          [:p [:i18n ::prose
-              {:count (count food-groups)}]]]
-        [:div.mmm-cards
-         (for [food-group food-groups]
-           (let [the-name (get-in food-group [:food-group/name locale])
-                 details (d/entity (:app/db context) [:food-group/id (:food-group/id food-group)])]
-             [:a.mmm-card.mmm-cols-d2m1.mmm-link {:href (urls/get-food-group-url locale the-name)}
-              [:div.mmm-media
-               [:aside [:img.mmm-img {:src (:food-group/photo details)}]]
-               [:article.mmm-text
-                [:h3 the-name]
-                [:p (get-in details [:food-group/short-description locale])]]]]))]]]
+              {:count (count food-groups)}]]]]]
+      [:div.mmm-themed.mmm-brand-theme2
+       (for [[category groups] (->> (group-by :food-group/category food-groups)
+                                    (sort-by (comp :food-group-category/order first)))]
+         [:div.mmm-container.mmm-section
+          [:h2.mmm-h2.mmm-mbs
+           (get-in category [:food-group-category/name locale])]
+          [:div.mmm-cards
+           (for [food-group groups]
+             (let [the-name (get-in food-group [:food-group/name locale])]
+               [:a.mmm-card.mmm-cols-d2m1.mmm-link {:href (urls/get-food-group-url locale the-name)}
+                [:div.mmm-media
+                 [:aside [:img.mmm-img {:src (:food-group/photo food-group)}]]
+                 [:article.mmm-text
+                  [:h3 the-name]
+                  [:p (get-in food-group [:food-group/short-description locale])]]]]))]])]
       [:div.mmm-container.mmm-section
        (CompactSiteFooter)]]]))
