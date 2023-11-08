@@ -3,7 +3,6 @@
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.components.legend :refer [Legend]]
-            [matvaretabellen.components.passepartout-section :refer [passepartout]]
             [matvaretabellen.components.pie-chart :refer [assoc-degrees PieChart]]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
@@ -232,6 +231,12 @@
            (remove nil?)
            (remove #(= 0.0 (:value %)))
            (sort-by (comp - :value))))))
+
+(defn passepartout [& body]
+  [:div.mmm-container.mmm-section.mmm-mobile-phn
+   [:div.mmm-passepartout
+    [:div.mmm-container-focused.mmm-vert-layout-m
+     body]]])
 
 (defn render [context db page]
   (let [food (d/entity (:foods/db context) [:food/id (:page/food-id page)])

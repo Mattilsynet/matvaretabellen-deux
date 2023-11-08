@@ -1,7 +1,6 @@
 (ns matvaretabellen.pages.nutrient-page
   (:require [clojure.string :as str]
             [datomic-type-extensions.api :as d]
-            [matvaretabellen.components.passepartout-section :refer [passepartout]]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
