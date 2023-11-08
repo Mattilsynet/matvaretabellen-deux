@@ -48,3 +48,24 @@
     (if-let [conversion (get mass-units idx)]
       (b/quantity conversion quantity)
       quantity)))
+
+(defn ->map [entity]
+  (->> (for [[k v] entity]
+         [k (cond
+              (:db/id v) (->map v)
+              (map? v) v
+              (coll? v) (map ->map v)
+              :else v)])
+       (into {})))
+
+(defn summarize-constituent [constituent]
+  {:constituent/nutrient (select-keys (:constituent/nutrient constituent) [:nutrient/id])
+   :measurement/quantity (:measurement/quantity constituent)})
+
+(defn summarize-food [food]
+  (-> food
+      (select-keys [:food/id :food/calories :food/name :food/energy :food/constituents])
+      (update :food/calories select-keys [:measurement/observation])
+      (update :food/name select-keys [:nb])
+      (update :food/energy select-keys [:measurement/quantity])
+      (update :food/constituents #(map summarize-constituent %))))
