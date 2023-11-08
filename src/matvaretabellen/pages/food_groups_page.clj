@@ -3,6 +3,7 @@
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
+            [mmm.components.button :refer [Button]]
             [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
@@ -30,7 +31,7 @@
                                  {:text [:i18n ::crumbs/search-label]
                                   :url (urls/get-base-url locale)}
                                  {:text [:i18n ::crumbs/all-food-groups]})})]
-       [:div.mmm-container.mmm-section.mmm-mtxl
+       [:div.mmm-container.mmm-section.mmm-mvxl
         [:div.mmm-media
          [:article.mmm-vert-layout-m
           [:h1.mmm-h1 [:i18n ::all-food-groups]]
@@ -39,7 +40,13 @@
                 {:count (d/q '[:find (count ?e) .
                                :where [?e :food/id]] food-db)}]]
            [:p [:i18n ::prose
-                {:count (count food-groups)}]]]]
+                {:count (count food-groups)}]]]
+          [:div
+           (Button {:text [:i18n ::download-everything]
+                    :href [:i18n ::download-url]
+                    :icon :fontawesome.solid/arrow-down
+                    :inline? true
+                    :secondary? true})]]
          [:aside.mmm-desktop {:style {:flex-basis "40%"}}
           [:img {:src "/images/illustrations/gronnsaker.svg"
                  :width 250}]]]]]
