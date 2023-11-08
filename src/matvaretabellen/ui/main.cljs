@@ -13,6 +13,9 @@
       (.then #(.text %))
       (.then #(js->clj (js/JSON.parse %)))))
 
+(defn qsa [selector]
+  (seq (js/document.querySelectorAll selector)))
+
 (defn populate-search-engine [locale]
   (when-not (:schema @search-engine)
     (swap! search-engine assoc :schema (search/create-schema (keyword locale))))
@@ -150,21 +153,23 @@
 ;; There's a script tag at the beginning of the body tag that sets the
 ;; mvt-source-hide class immediately to avoid any flickering. Please keep it in
 ;; mind if you change this.
-(defn toggle-sources [_e]
+(defn toggle-sources [_e selector]
   (let [show? (boolean (js/document.body.classList.contains "mvt-source-hide"))]
+    (doseq [checkbox (qsa selector)]
+      (set! (.-checked checkbox) show?))
     (js/localStorage.setItem "show-sources" show?)
     (if show?
       (js/document.body.classList.remove "mvt-source-hide")
       (js/document.body.classList.add "mvt-source-hide"))))
 
-(defn initialize-source-toggler [checkboxes]
+(defn initialize-source-toggler [selector]
   (let [showing? (= "true" (js/localStorage.getItem "show-sources"))]
     (when-not showing?
       (js/document.body.classList.add "mvt-source-hide"))
-    (doseq [checkbox (seq checkboxes)]
+    (doseq [checkbox (qsa selector)]
       (when showing?
         (set! (.-checked checkbox) true))
-      (.addEventListener checkbox "input" toggle-sources))))
+      (.addEventListener checkbox "input" #(toggle-sources % selector)))))
 
 (defn boot []
   (main)
@@ -178,8 +183,7 @@
    (js/document.querySelectorAll "[data-portion]")
    (js/document.querySelectorAll ".js-portion-label"))
 
-  (initialize-source-toggler
-   (js/document.querySelectorAll ".mvt-source-toggler input"))
+  (initialize-source-toggler ".mvt-source-toggler input")
 
   (hoverable/set-up js/document))
 
