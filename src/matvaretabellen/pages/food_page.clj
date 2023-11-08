@@ -87,7 +87,7 @@
      :href "#naeringsinnhold"
      :class "mmm-mobile"
      :aria-hidden "true"}]
-   (for [[id anchor] [["Fett" "fett"] ["Protein" "energi"] ["Karbo" "karbohydrater"]]]
+   (for [[id anchor] [["Fett" "fett"] ["Protein" "energi"] ["Karbo" "karbohydrat"]]]
      (let [constituent (->> (:food/constituents food)
                             (filter (comp #{id} :nutrient/id :constituent/nutrient))
                             first)]
@@ -271,7 +271,7 @@
                             {:title [:i18n ::fat-title]
                              :href "#fett"}
                             {:title [:i18n ::carbohydrates-title]
-                             :href "#karbohydrater"}
+                             :href "#karbohydrat"}
                             {:title [:i18n ::vitamins-title]
                              :href "#vitaminer"}
                             {:title [:i18n ::minerals-title]
@@ -323,7 +323,7 @@
         (render-table (prepare-nutrition-table food)))
 
        (passepartout
-        [:h3.mmm-h3#karbohydrater [:i18n ::carbohydrates-title]]
+        [:h3.mmm-h3#karbohydrat [:i18n ::carbohydrates-title]]
         (->> (food/get-nutrient-group food "Karbo")
              prepare-nutrient-tables
              (map render-table)))
