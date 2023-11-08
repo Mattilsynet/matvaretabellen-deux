@@ -84,4 +84,8 @@
   :see-all-nutrients-overview "See an overview of all nutrients."
   :common-food-searches "Common Searches"
   :new-in-food-table "New in Matvaretabellen"
-  :seasonal-goods "Seasonal Goods"}]
+  :seasonal-goods "Seasonal Goods"}
+
+ #:matvaretabellen.pages.nutrient-page
+ {:food "Food"
+  :foods-by-nutrient (list "Foods by " [:fn/param] " per 100g")}]

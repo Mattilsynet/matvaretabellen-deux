@@ -24,6 +24,20 @@
              :page/locale locale
              :page/food-id id})))))
 
+(defn get-nutrient-pages [db]
+  (->> (d/q '[:find ?nutrient-id ?nutrient-name
+              :where
+              [?f :nutrient/id ?nutrient-id]
+              [?f :nutrient/name ?nutrient-name]]
+            db)
+       (mapcat
+        (fn [[id i18n-names]]
+          (for [[locale nutrient-name] i18n-names]
+            {:page/uri (urls/get-nutrient-url locale nutrient-name)
+             :page/kind :page.kind/nutrient
+             :page/locale locale
+             :page/nutrient-id id})))))
+
 (defn get-food-group-pages [db]
   (->> (d/q '[:find ?id ?name
               :where
@@ -51,7 +65,8 @@
   (let [db (d/db foods-conn)]
     (->> (concat (pages/get-static-pages)
                  (get-food-pages db)
-                 (get-food-group-pages db))
+                 (get-food-group-pages db)
+                 (get-nutrient-pages db))
          (ensure-unique-page-uris)
          (concat (load-edn "data/food-group-embellishments.edn"))
          (d/transact (:datomic/conn powerpack-app))

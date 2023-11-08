@@ -8,13 +8,12 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [5/22]
+* Tickets [6/21]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
 ** DONE [M] Matvaregrupper-siden
-** TODO [M] Matvaregruppe-sidene
-** TODO Side for næringsstoff
+** DONE Side for næringsstoff
 ** TODO Lenke opp næringsstoffer fra tabellene på matvaresiden
 ** TODO ADI: Lese inn data
 ** TODO ADI: Vise på matvaresiden

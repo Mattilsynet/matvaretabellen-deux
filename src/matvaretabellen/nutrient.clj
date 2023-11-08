@@ -1,4 +1,27 @@
-(ns matvaretabellen.nutrient)
+(ns matvaretabellen.nutrient
+  (:require [broch.core :as b]
+            [clojure.java.io :as io]
+            [datomic-type-extensions.api :as d]))
+
+(def descriptions
+  (->> (read-string (slurp (io/resource "nutrients.edn")))
+       (map (juxt :nutrient/id :nutrient/description))
+       (into {})))
+
+(defn get-foods-by-nutrient-density [nutrient]
+  (when-let [db (some-> nutrient d/entity-db)]
+    (->> (d/q '[:find ?f ?q
+                :in $ ?n
+                :where
+                [?c :constituent/nutrient ?n]
+                [?c :measurement/quantity ?q]
+                [?f :food/constituents ?c]]
+              db
+              (:db/id nutrient))
+         (filter #(< 0 (b/num (second %))))
+         (sort-by second)
+         reverse
+         (map #(d/entity db (first %))))))
 
 (def nutrient-names
   {"C12:0Laurinsyre" {:nb "Laurinsyre (C12:0)" :en "Lauric Acid"}

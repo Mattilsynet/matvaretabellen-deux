@@ -84,4 +84,8 @@
   :see-all-nutrients-overview "Se oversikt over alle næringsstoffer."
   :common-food-searches "Vanlige matvaresøk"
   :new-in-food-table "Nytt i Matvaretabellen"
-  :seasonal-goods "Sesongvarer"}]
+  :seasonal-goods "Sesongvarer"}
+
+ #:matvaretabellen.pages.nutrient-page
+ {:food "Matvare"
+  :foods-by-nutrient (list "Matvarer etter " [:fn/param] " per 100g")}]

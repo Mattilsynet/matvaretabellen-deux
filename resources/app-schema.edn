@@ -8,6 +8,10 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
 
+ {:db/ident :page/nutrient-id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
  {:db/ident :page/details
   :dte/valueType :data/edn
   :db/cardinality :db.cardinality/one}

@@ -26,6 +26,8 @@
          (get food-name locale)
          food-or-name)
        (get-url locale "")))
+
+(defn get-nutrient-url [locale the-name]
   (get-url locale "" the-name))
 
 (defn get-food-group-url [locale the-name]
