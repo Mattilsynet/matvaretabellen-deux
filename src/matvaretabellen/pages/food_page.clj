@@ -42,7 +42,7 @@
                              first
                              :measurement/origin)]
     [:a.mmm-link {:href (str "#" (:origin/id origin))
-                  :title [:i18n ::lookup (:origin/description origin)]}
+                  :title [:i18n :i18n/lookup (:origin/description origin)]}
      (:origin/id origin)]))
 
 (defn prepare-nutrition-table [food]
@@ -57,7 +57,7 @@
                    "Protein"
                    "Alko"
                    "Vann"]]
-           [{:text [:i18n ::lookup
+           [{:text [:i18n :i18n/lookup
                     (some->> (:food/constituents food)
                              (filter (comp #{id} :nutrient/id :constituent/nutrient))
                              first
@@ -102,13 +102,13 @@
 
 (defn prepare-nutrient-tables [{:keys [food nutrients group]}]
   (->> (concat
-        [{:headers [{:text [:i18n ::lookup (nutrient/get-name group)]}
+        [{:headers [{:text [:i18n :i18n/lookup (nutrient/get-name group)]}
                     {:text [:i18n ::amount]
                      :class "mvt-amount"}
                     {:text [:i18n ::source]
                      :class "mvt-source"}]
           :rows (for [nutrient nutrients]
-                  [{:text [:i18n ::lookup (nutrient/get-name nutrient)]}
+                  [{:text [:i18n :i18n/lookup (nutrient/get-name nutrient)]}
                    {:text (get-nutrient-quantity food (:nutrient/id nutrient))}
                    {:text (get-source food (:nutrient/id nutrient))
                     :class "mvt-source"}])
@@ -124,7 +124,7 @@
 
 (defn get-nutrient-rows [food nutrient & [level]]
   (let [level (or level 0)]
-    (into [[{:text [:i18n ::lookup (nutrient/get-name nutrient)]
+    (into [[{:text [:i18n :i18n/lookup (nutrient/get-name nutrient)]
              :level level}
             {:text (get-nutrient-quantity food (:nutrient/id nutrient))}
             {:text (get-source food (:nutrient/id nutrient))
@@ -135,13 +135,12 @@
                  (mapcat #(get-nutrient-rows food % level)))))))
 
 (defn prepare-nested-nutrient-table [{:keys [food nutrients group]}]
-  {:headers [{:text [:i18n ::lookup (nutrient/get-name group)]}
+  {:headers [{:text [:i18n :i18n/lookup (nutrient/get-name group)]}
              {:text [:i18n ::amount]
               :class "mvt-amount"}
              {:text [:i18n ::source]
               :class "mvt-source"}]
-   :rows (mapcat #(get-nutrient-rows food %) nutrients)
-   :classes ["mmm-nutrient-table"]})
+   :rows (mapcat #(get-nutrient-rows food %) nutrients)})
 
 (defn render-table [{:keys [headers rows classes]}]
   [:table.mmm-table.mmm-table-zebra {:class classes}
@@ -213,7 +212,7 @@
               :value value
               :color (nutrient-id->color id)
               :hover-content [:span
-                              [:i18n ::lookup (nutrient/get-name (:constituent/nutrient constituent))]
+                              [:i18n :i18n/lookup (nutrient/get-name (:constituent/nutrient constituent))]
                               ": "
                               [:strong
                                (wrap-in-portion-span value)
@@ -234,7 +233,7 @@
                   :value value
                   :color (nutrient-id->color id)
                   :hover-content [:span
-                                  [:i18n ::lookup (nutrient/get-name (:constituent/nutrient constituent))]
+                                  [:i18n :i18n/lookup (nutrient/get-name (:constituent/nutrient constituent))]
                                   ": "
                                   [:strong (int (* 100 (/ value total))) " %"]]})))
            (remove nil?)
@@ -316,7 +315,7 @@
                      :hoverable? true})]
          [:div.col-1
           (Legend {:entries (for [entry slice-legend]
-                              (assoc entry :label [:i18n ::lookup (nutrient/get-name (d/entity db [:nutrient/id (:nutrient-id entry)]))]))})]])
+                              (assoc entry :label [:i18n :i18n/lookup (nutrient/get-name (d/entity db [:nutrient/id (:nutrient-id entry)]))]))})]])
 
        (passepartout
         [:h3.mmm-h3#energi [:i18n ::nutrition-heading]]

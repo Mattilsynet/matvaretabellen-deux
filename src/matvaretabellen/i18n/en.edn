@@ -1,4 +1,7 @@
-[#:mmm.components.footer
+[#:i18n
+ {:lookup [:fn/str "{{:en}}"]}
+
+ #:mmm.components.footer
  {:footer-title "Footer"
   :about-site "About the site"
   :about-text (list "Matvaretabellen is a service from Mattilsynet. For more services, see " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
@@ -45,7 +48,6 @@
   :langual-code-label "LanguaL"
   :langual-description-label "Classification"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
-  :lookup [:fn/str "{{:en}}"]
   :highlight-title [:fn/str "{{:en}} →"]
   :minerals-title "Minerals"
   :nutrients "Nutrients"
