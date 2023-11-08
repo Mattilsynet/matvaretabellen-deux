@@ -10,7 +10,7 @@
         no.anteo/broch {:mvn/version "0.1.83"}
         no.cjohansen/fontawesome-clj {:mvn/version "2023.10.26"}
         no.cjohansen/powerpack {:git/url "https://github.com/cjohansen/powerpack.git"
-                                :sha "c1582a5010c4f93a459d2b8d9b536e4bf5814d3e"}
+                                :sha "ddffba96e513e206e63bbc7e2d8f0e0bce4d8a08"}
         org.apache.poi/poi {:mvn/version "5.2.0"}
         org.apache.poi/poi-ooxml {:mvn/version "5.2.0"}
         superstring/superstring {:mvn/version "3.2.0"}}

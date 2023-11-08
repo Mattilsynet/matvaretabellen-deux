@@ -30,19 +30,24 @@
                                  {:text [:i18n ::crumbs/search-label]
                                   :url (urls/get-base-url locale)}
                                  {:text [:i18n ::crumbs/all-food-groups]})})]
-       [:div.mmm-container.mmm-section.mmm-mtxl.mmm-vert-layout-m
-        [:h1.mmm-h1 [:i18n ::all-food-groups]]
-        [:div.mmm-text
-         [:p [:i18n ::number-of-foods
-              {:count (d/q '[:find (count ?e) .
-                             :where [?e :food/id]] food-db)}]]
-         [:p [:i18n ::prose
-              {:count (count food-groups)}]]]]]
+       [:div.mmm-container.mmm-section.mmm-mtxl
+        [:div.mmm-media
+         [:article.mmm-vert-layout-m
+          [:h1.mmm-h1 [:i18n ::all-food-groups]]
+          [:div.mmm-text
+           [:p [:i18n ::number-of-foods
+                {:count (d/q '[:find (count ?e) .
+                               :where [?e :food/id]] food-db)}]]
+           [:p [:i18n ::prose
+                {:count (count food-groups)}]]]]
+         [:aside.mmm-desktop {:style {:flex-basis "40%"}}
+          [:img {:src "/images/illustrations/gronnsaker.svg"
+                 :width 250}]]]]]
       [:div.mmm-themed.mmm-brand-theme2
        (for [[category groups] (->> (group-by :food-group/category food-groups)
                                     (sort-by (comp :food-group-category/order first)))]
-         [:div.mmm-container.mmm-section
-          [:h2.mmm-h2.mmm-mbs
+         [:div.mmm-container.mmm-section.mmm-vert-layout-s
+          [:h2.mmm-h2
            (get-in category [:food-group-category/name locale])]
           [:div.mmm-cards
            (for [food-group groups]
