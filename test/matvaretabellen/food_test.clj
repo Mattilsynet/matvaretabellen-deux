@@ -51,4 +51,4 @@
            (list "Food Databanks National Capability (2021). Food Databanks National Capability (FDNC) extended dataset based on PHE’s McCance and Widdowson’s Composition of Foods Integrated Dataset. Nettversjon, "
                  [:a
                   {:href "https://quadram.ac.uk/UKfoodcomposition/"}
-                  "https://quadram.ac.uk/UKfoodcomposition/"])))))
+                  "quadram.ac.uk"])))))
