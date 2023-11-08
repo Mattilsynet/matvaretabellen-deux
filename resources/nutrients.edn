@@ -42,4 +42,30 @@
              ". Fat is a significant source of energy and aids the body in absorbing
    certain vitamins. There are two main types of fat: saturated fat (found in
    animal products and some plant oils) and unsaturated fat (found in fish,
-   nuts, avocado, and olive oil).")}}]
+   nuts, avocado, and olive oil).")}}
+
+ {:nutrient/id "Stivel"
+  :nutrient/description
+
+  {:nb (list "Stivelse er et komplekst " [:a {:href "/karbohydrat/"} "karbohydrat"]
+             " som finnes i matvarer som brød, ris, pasta og poteter. Denne
+  typen karbohydrat gir langvarig energi til kroppen, da den brytes ned til
+  glukose over tid.")
+
+   :en (list "Starch is a complex " [:a {:href "/en/carbohydrate/"} "carbohydrate"]
+             " found in foods like bread, rice, pasta, and potatoes. This type
+   of carbohydrate provides sustained energy to the body as it is broken down
+   into glucose over time.")}}
+
+ {:nutrient/id "Sukker"
+  :nutrient/description
+
+  {:nb (list "Tilsatt sukker er " [:a {:href "/sukker/"} "sukker"]
+             " som tilføres mat- og drikkevarer under produksjon eller
+  tilberedning. Dette sukkeret kommer i tillegg til det som finnes naturlig i
+  matvaren, og tilføres for å endre på smak og holdbarhet.")
+
+   :en (list "Added sugar is " [:a {:href "/en/sugar/"} "sugar"]
+             " that is added to food and beverages during production or
+   preparation. This sugar is in addition to what is naturally present in the
+   food and is added to alter taste and shelf life.")}}]
