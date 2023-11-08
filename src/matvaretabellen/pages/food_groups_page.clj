@@ -26,6 +26,12 @@
                                  {:text [:i18n ::crumbs/all-food-groups]})})]
        [:div.mmm-container.mmm-section.mmm-mtxl.mmm-vert-layout-m
         [:h1.mmm-h1 [:i18n ::all-food-groups]]
+        [:div.mmm-text
+         [:p [:i18n ::number-of-foods
+              {:count (d/q '[:find (count ?e) .
+                             :where [?e :food/id]] db)}]]
+         [:p [:i18n ::prose
+              {:count (count food-groups)}]]]
         [:div.mmm-cards
          (for [food-group food-groups]
            (let [the-name (get-in food-group [:food-group/name locale])

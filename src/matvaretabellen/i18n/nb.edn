@@ -65,7 +65,8 @@
 
  #:matvaretabellen.pages.food-groups-page
  {:all-food-groups "Alle matvaregrupper"
-  }
+  :number-of-foods (list "Antall matvarer: " [:fn/get :count] " stk")
+  :prose (list "Matvarene i Matvaretabellen er fordelt på " [:fn/get :count] " hovedgrupper etter opprinnelse og bruk. Under disse gruppene finnes det også egne kategorier.")}
 
  #:matvaretabellen.pages.frontpage
  {:search-label "Søk i Matvaretabellen"
