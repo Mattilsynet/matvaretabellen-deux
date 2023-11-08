@@ -173,14 +173,15 @@
            [{:text id} {:text (food/humanize-langual-classification description)}])})
 
 (defn render-sources [page sources]
-  (into
-   [:dl.mmm-dl]
-   (mapcat
+  [:dl.mmm-dl
+   (map
     (fn [{:origin/keys [id description]}]
-      (list [:dt {:id id} id]
-            [:dd (-> (get description (:page/locale page))
-                     food/hyperlink-string)]))
-    sources)))
+      [:div
+       [:div.mmm-focus {:id id}
+        [:dt id]
+        [:dd (-> (get description (:page/locale page))
+                 food/hyperlink-string)]]])
+    sources)])
 
 (def slice-legend
   [{:nutrient-id "Fett"    :color "var(--mt-color-fat)"}
@@ -237,6 +238,16 @@
    [:div.mmm-passepartout
     [:div.mmm-container-focused.mmm-vert-layout-m
      body]]])
+
+(def source-toggle
+  [:p.mmm-p.mmm-desktop
+   (Checkbox {:label [:i18n ::show-sources]
+              :class :mvt-source-toggler})])
+
+(defn passepartout-title [id title]
+  [:div.mmm-flex.mmm-flex-bottom
+   [:h3.mmm-h3 {:id id} title]
+   source-toggle])
 
 (defn render [context db page]
   (let [food (d/entity (:foods/db context) [:food/id (:page/food-id page)])
@@ -322,25 +333,23 @@
           [:li energy-label ": " (energy food)]
           [:li [:i18n ::edible-part
                 {:pct (-> food :food/edible-part :measurement/percent)}]]]
-         [:p.mmm-p.mmm-desktop
-          (Checkbox {:label [:i18n ::show-sources]
-                     :class :mvt-source-toggler})]]
+         source-toggle]
         (render-table (prepare-nutrition-table locale food)))
 
        (passepartout
-        [:h3.mmm-h3#karbohydrat [:i18n ::carbohydrates-title]]
+        (passepartout-title "karbohydrat" [:i18n ::carbohydrates-title])
         (->> (food/get-nutrient-group food "Karbo")
              (prepare-nutrient-tables locale)
              (map render-table)))
 
        (passepartout
-        [:h3.mmm-h3#fett [:i18n ::fat-title]]
+        (passepartout-title "fett" [:i18n ::fat-title])
         (->> (food/get-nutrient-group food "Fett")
              (prepare-nutrient-tables locale)
              (map render-table)))
 
        (passepartout
-        [:h3.mmm-h3#vitaminer [:i18n ::vitamins-title]]
+        (passepartout-title "vitaminer" [:i18n ::vitamins-title])
         (->> (food/get-nutrient-group food "FatSolubleVitamins")
              (prepare-nested-nutrient-table locale)
              render-table)
@@ -349,13 +358,13 @@
              (map render-table)))
 
        (passepartout
-        [:h3.mmm-h3#mineraler [:i18n ::minerals-title]]
+        (passepartout-title "mineraler" [:i18n ::minerals-title])
         (->> (food/get-flattened-nutrient-group food "Minerals")
              (prepare-nutrient-tables locale)
              (map render-table)))
 
        (passepartout
-        [:h3.mmm-h3#sporstoffer [:i18n ::trace-elements-title]]
+        (passepartout-title "sporstoffer" [:i18n ::trace-elements-title])
         (->> (food/get-flattened-nutrient-group food "TraceElements")
              (prepare-nutrient-tables locale)
              (map render-table)))
@@ -376,9 +385,6 @@
        [:div.mmm-container.mmm-section-spaced
         [:div.mmm-container-focused.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
          [:h3#kilder [:i18n ::sources]]
-         [:p.mmm-p.mmm-desktop
-          (Checkbox {:label [:i18n ::show-all-sources]
-                     :class :mvt-source-toggler})]
          (->> (food/get-sources food)
               (render-sources page))]]
 

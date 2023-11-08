@@ -105,7 +105,9 @@ body.mmm {
 }
 
 .mmm-dl dd + dt,
-.mmm-text dd + dt {
+.mmm-text dd + dt,
+.mmm-dl div + div,
+.mmm-text dl div + div {
     margin-top: var(--mt-layout-vertical-spacing-normal);
 }
 
@@ -864,6 +866,28 @@ ol.mmm-unadorned-list li {
     min-height: 3.875rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+}
+
+/**********************************
+ *** Component: Target (# URLs) ***
+ **********************************/
+
+@keyframes fadeout {
+    0% {
+        background-color: rgba(214, 232, 237, 1);
+    }
+
+    100% {
+        background-color: rgba(214, 232, 237, 0);
+    }
+}
+
+.mmm-focus:target {
+    animation: fadeout 5s;
+    animation-iteration-count: 1;
+    padding: 8px 16px;
+    margin: -8px -16px;
+    border-radius: var(--mt-border-radius-s);
 }
 
 /*************************
