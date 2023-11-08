@@ -151,7 +151,9 @@ ol.mmm-unadorned-list li {
 
 .mmm-text a:link,
 .mmm-text a:visited,
-.mmm-link {
+.mmm-link,
+.mmm-p a:link,
+.mmm-p a:visited {
     color: var(--mt-color-text-action-default);
     cursor: pointer;
     text-decoration: var(--mt-typography-decoration-action-default);
