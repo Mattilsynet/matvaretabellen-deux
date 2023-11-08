@@ -199,6 +199,10 @@
     --mt-component-button-font-size: 1.125rem;
     --mt-component-button-border-radius: 0.25em;
 
+    --mt-component-button-secondary-background: "transparent";
+    --mt-component-button-secondary-color: var(--mt-color-surface-action-default);
+    --mt-component-button-secondary-border: var(--mt-color-surface-action-default);
+
     --mt-component-checkbox-inactive-bg: var(--mt-color-white);
     --mt-component-checkbox-inactive-color: var(--mt-color-beige-500);
     --mt-component-checkbox-active-color: var(--mt-color-blue-500);

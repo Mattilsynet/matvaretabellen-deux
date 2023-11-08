@@ -22,6 +22,13 @@
             :href "/hello"
             :inline? true})))
 
+(defscene secondary-button
+  (e/p
+   (Button {:text "Trykk på knappen"
+            :href "/hello"
+            :secondary? true
+            :inline? true})))
+
 (defscene button-with-icon
   (e/p
    (Button {:text "Trykk på knappen"
@@ -34,6 +41,14 @@
             :href "/hello"
             :icon (icons/icon :fontawesome.solid/magnifying-glass)
             :inline? true})))
+
+(defscene secondary-inline-button-with-icon
+  (e/p
+   (Button {:text "Trykk på knappen"
+            :href "/hello"
+            :icon (icons/icon :fontawesome.solid/arrow-down)
+            :inline? true
+            :secondary? true})))
 
 (defscene big-button-with-icon
   (e/p

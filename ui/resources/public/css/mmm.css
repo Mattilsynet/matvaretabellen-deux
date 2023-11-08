@@ -825,6 +825,12 @@ ol.mmm-unadorned-list li {
     width: 100%;
 }
 
+.mmm-button-secondary {
+    background: var(--mt-component-button-secondary-background);
+    color: var(--mt-component-button-secondary-color);
+    border: 2px solid var(--mt-component-button-secondary-border);
+}
+
 .mmm-button:focus {
     box-shadow: var(--mt-component-button-focus-shadow);
 }
