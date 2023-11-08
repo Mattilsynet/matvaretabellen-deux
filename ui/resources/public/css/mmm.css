@@ -554,7 +554,7 @@ ol.mmm-unadorned-list li {
 }
 
 .mmm-media aside {
-    flex-shrink: 0;
+    flex-basis: fit-content;
 }
 
 /* Passepartout */
