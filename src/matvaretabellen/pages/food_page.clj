@@ -100,7 +100,7 @@
 
 (defn prepare-nutrient-tables [locale {:keys [food nutrients group]}]
   (->> (concat
-        [{:headers [{:text [:i18n :i18n/lookup (nutrient/get-name group)]}
+        [{:headers [{:text (get-nutrient-link locale group)}
                     {:text [:i18n ::amount]
                      :class "mvt-amount"}
                     {:text [:i18n ::source]
@@ -133,7 +133,7 @@
                  (mapcat #(get-nutrient-rows food % locale level)))))))
 
 (defn prepare-nested-nutrient-table [locale {:keys [food nutrients group]}]
-  {:headers [{:text [:i18n :i18n/lookup (nutrient/get-name group)]}
+  {:headers [{:text (get-nutrient-link locale group)}
              {:text [:i18n ::amount]
               :class "mvt-amount"}
              {:text [:i18n ::source]
