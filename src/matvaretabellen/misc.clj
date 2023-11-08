@@ -58,8 +58,15 @@
               :else v)])
        (into {})))
 
+(defn update-existing [m k & args]
+  (if (contains? m k)
+    (apply update m k args)
+    m))
+
 (defn summarize-constituent [constituent]
-  {:constituent/nutrient (select-keys (:constituent/nutrient constituent) [:nutrient/id])
+  {:constituent/nutrient (-> (:constituent/nutrient constituent)
+                             (select-keys [:nutrient/id :nutrient/parent])
+                             (update-existing :nutrient/parent :nutrient/id))
    :measurement/quantity (:measurement/quantity constituent)})
 
 (defn summarize-food [food]
@@ -68,7 +75,7 @@
       (update :food/calories select-keys [:measurement/observation])
       (update :food/name select-keys [:nb])
       (update :food/energy select-keys [:measurement/quantity])
-      (update :food/constituents #(map summarize-constituent %))))
+      (update :food/constituents #(mapv summarize-constituent %))))
 
 (defn get-mean [xs]
   (when (seq xs)
