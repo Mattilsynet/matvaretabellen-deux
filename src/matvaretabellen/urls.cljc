@@ -21,7 +21,11 @@
 (defn get-url [locale prefix the-name]
   (str (get-base-url locale) prefix (slugify the-name) "/"))
 
-(defn get-food-url [locale the-name]
+(defn get-food-url [locale food-or-name]
+  (->> (if-let [food-name (:food/name food-or-name)]
+         (get food-name locale)
+         food-or-name)
+       (get-url locale "")))
   (get-url locale "" the-name))
 
 (defn get-food-group-url [locale the-name]
