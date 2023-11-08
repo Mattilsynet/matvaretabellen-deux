@@ -121,3 +121,23 @@
 
 (defn get-apriori-groups []
   (map #(dissoc % ::nutrient-ids) (vals apriori-groups)))
+
+(defn get-nutrient-statistics [db f]
+  (->> (d/q '[:find ?id ?q
+              :where
+              [?c :measurement/quantity ?q]
+              [?c :constituent/nutrient ?n]
+              [?n :nutrient/id ?id]]
+            db)
+       (group-by first)
+       (map (fn [[k xs]]
+              [k (f (map (comp b/num second) xs))]))
+       (sort-by first)
+       (into {})))
+
+(comment
+
+  (def conn matvaretabellen.dev/conn)
+  (get-nutrient-statistics (d/db conn) matvaretabellen.misc/get-median)
+
+)

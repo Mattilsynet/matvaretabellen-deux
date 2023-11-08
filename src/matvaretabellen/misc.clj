@@ -69,3 +69,17 @@
       (update :food/name select-keys [:nb])
       (update :food/energy select-keys [:measurement/quantity])
       (update :food/constituents #(map summarize-constituent %))))
+
+(defn get-mean [xs]
+  (when (seq xs)
+    (/ (reduce + 0 xs) (count xs))))
+
+(defn get-median [xs]
+  (when-not (empty? xs)
+    (let [xs (sort xs)
+          n (count xs)]
+      (if (odd? n)
+        (nth xs (quot n 2))
+        (/ (+ (nth xs (quot n 2))
+              (nth xs (dec (quot n 2))))
+           2)))))
