@@ -1,9 +1,9 @@
 (ns matvaretabellen.ui.hoverable)
 
 (defn get-hover-target [component event]
-  (.querySelector
+  (.getElementById
    component
-   (str "#" (.getAttribute (.-target event) "data-hover_target_id"))))
+   (.getAttribute (.-target event) "data-hover_target_id")))
 
 (defn show-target [component event]
   (let [target (get-hover-target component event)
@@ -25,16 +25,11 @@
       .-classList
       (.remove "mtv-hover-popup-visible")))
 
-(defn toggle-target [component event]
-  (if (-> (get-hover-target component event)
-          .-classList
-          (.contains "mtv-hover-popup-visible"))
-    (hide-target component event)
-    (show-target component event)))
-
 (defn set-up [component]
   (when component
     (doseq [element (.querySelectorAll component ".js-hoverable")]
       (.addEventListener element "mouseenter" #(show-target component %) false)
       (.addEventListener element "mouseleave" #(hide-target component %) false)
-      (.addEventListener element "click" #(toggle-target component %) false))))
+      ;; apparently mobile browsers will simulate these events when clicking inside and outside an element,
+      ;; so I have removed the click handler that used to be here
+      )))
