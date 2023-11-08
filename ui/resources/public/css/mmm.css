@@ -458,11 +458,11 @@ ol.mmm-unadorned-list li {
 }
 
 .mmm-card {
-    flex-basis: 40%;
     flex-shrink: 0;
     flex-grow: 1;
     padding: var(--mt-column-gap);
     background: var(--mt-brand-theme-main-bg);
+    display: flex;
 }
 
 .mmm-card.mmm-link {
@@ -473,9 +473,19 @@ ol.mmm-unadorned-list li {
     text-decoration: underline;
 }
 
+.mmm-cols-d3m2 { /* 3 on desktop, 2 on mobile */
+    flex-basis: 40%;
+}
+.mmm-cols-d2m1 { /* 2 on desktop, 1 on mobile */
+    flex-basis: 80%;
+}
+
 @media only screen and (min-width: 768px) {
-    .mmm-card {
+    .mmm-cols-d3m2 {
         flex-basis: 30%;
+    }
+    .mmm-cols-d2m1 {
+        flex-basis: 40%;
     }
 }
 

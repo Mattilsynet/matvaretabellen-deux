@@ -36,7 +36,7 @@
          (for [food-group food-groups]
            (let [the-name (get-in food-group [:food-group/name locale])
                  details (d/entity (:app/db context) [:food-group/id (:food-group/id food-group)])]
-             [:a.mmm-card.mmm-link {:href (urls/get-food-group-url locale the-name)}
+             [:a.mmm-card.mmm-cols-d2m1.mmm-link {:href (urls/get-food-group-url locale the-name)}
               [:div.mmm-media
                [:aside [:img.mmm-img {:src (:food-group/photo details)}]]
                [:article.mmm-text
