@@ -50,4 +50,59 @@
   :db/valueType :db.type/long
   :db/cardinality :db.cardinality/one}
 
+ ;; Anbefalt Daglig Inntak (ADI) / Recommended Daily Allowance (RDA)
+
+ {:db/ident :rda/order
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :rda/demography
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :rda/activity-level
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :rda/energy-recommendation
+  :dte/valueType :i18n/edn
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :rda/kcal-recommendation
+  :db/valueType :db.type/double
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :rda/recommendations
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many
+  :db/isComponent true}
+
+ {:db/ident :rda.recommendation/nutrient-id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :rda.recommendation/average-amount
+  :dte/valueType :broch/quantity
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :rda.recommendation/min-amount
+  :dte/valueType :broch/quantity
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :rda.recommendation/max-amount
+  :dte/valueType :broch/quantity
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :rda.recommendation/average-energy-pct
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :rda.recommendation/min-energy-pct
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :rda.recommendation/max-energy-pct
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one}
+
  ]

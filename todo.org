@@ -16,7 +16,7 @@
 ** TODO [M] Matvaregruppe-sidene
 ** DONE Side for næringsstoff
 ** DONE Lenke opp næringsstoffer fra tabellene på matvaresiden
-** TODO ADI: Lese inn data
+** DONE ADI: Lese inn data
 ** TODO ADI: Vise på matvaresiden
 ** TODO Alle næringsstoffer-siden
 ** DONE [M] Språkskifte i header

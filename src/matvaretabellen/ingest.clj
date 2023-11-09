@@ -3,6 +3,7 @@
             [clojure.java.io :as io]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.pages :as pages]
+            [matvaretabellen.rda :as rda]
             [matvaretabellen.urls :as urls]))
 
 (defn load-edn [file-name]
@@ -73,6 +74,7 @@
                  (get-nutrient-pages db))
          (ensure-unique-page-uris)
          (concat (load-edn "data/food-group-embellishments.edn"))
+         (concat (rda/read-csv db (slurp (io/file "data/adi.csv"))))
          (d/transact (:datomic/conn powerpack-app))
          deref)))
 
