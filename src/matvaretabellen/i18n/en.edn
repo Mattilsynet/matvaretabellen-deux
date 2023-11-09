@@ -1,5 +1,6 @@
 [#:i18n
- {:lookup [:fn/str "{{:en}}"]}
+ {:lookup [:fn/str "{{:en}}"]
+  :number-of-foods (list "Number of food items: " [:fn/get :count])}
 
  #:mmm.components.footer
  {:footer-title "Footer"
@@ -67,7 +68,6 @@
 
  #:matvaretabellen.pages.food-groups-page
  {:all-food-groups "All Food Groups"
-  :number-of-foods (list "Number of food items: " [:fn/get :count])
   :prose (list "The foods in the Food Composition Table are divided into " [:fn/get :count] " main groups based on origin and use. Under these groups, there are also specific categories.")
   :download-everything "Download the entire table"
   :download-url "/all-foods.xlsx"}

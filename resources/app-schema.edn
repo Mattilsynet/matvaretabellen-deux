@@ -26,6 +26,10 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
 
+ {:db/ident :food-group/illustration
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
  {:db/ident :food-group/short-description
   :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}

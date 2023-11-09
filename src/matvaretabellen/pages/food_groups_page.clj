@@ -35,7 +35,7 @@
         [:div.mmm-media
          [:article.mmm-vert-layout-m
           [:div [:h1.mmm-h1 [:i18n ::all-food-groups]]
-           [:i18n ::number-of-foods
+           [:i18n :i18n/number-of-foods
             {:count (d/q '[:find (count ?e) .
                            :where [?e :food/id]] food-db)}]]
           [:div.mmm-text.mmm-preamble
