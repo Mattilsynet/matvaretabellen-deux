@@ -51,7 +51,7 @@
   :highlight-title [:fn/str "{{:nb}} →"]
   :minerals-title "Mineraler"
   :nutrients "Næringsstoffer"
-  :nutrition-heading "Hovedkomponenter og energiinnhold"
+  :nutrition-heading "Energigivende næringsstoffer"
   :nutrition-title "Næringsinnhold"
   :portion-size "Porsjonsstørrelse:"
   :scientific-name (list [:strong "Vitenskapelig navn:"] " " [:fn/get :name])

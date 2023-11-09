@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [8/26]
+* Tickets [8/27]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -35,3 +35,4 @@
 ** TODO Sorter høyt/lavt på næringsstoff-sidene
 ** TODO Vis filtrering i venstrekolonnen på næringsstoff-sidene
 ** TODO Vis hierarki over næringsstoffer i venstrekolonnen på næringsstoff-sidene
+** TODO Avrunde kJ og kcal til hele tall (minimum 1) - aldri desimaler
