@@ -85,8 +85,8 @@
 
 (def apriori-groups
   (->> [{:nutrient/id "WaterSolubleVitamins"
-         :nutrient/name {:nb "Vannløselige Vitaminer"
-                         :en "Water-soluble Vitamins"}
+         :nutrient/name {:nb "Vannløselige vitaminer"
+                         :en "Water-soluble vitamins"}
          ::nutrient-ids ["Vit B1"
                          "Vit B12"
                          "Vit B2"
@@ -95,8 +95,8 @@
                          "Vit B6"
                          "Vit C"]}
         {:nutrient/id "FatSolubleVitamins"
-         :nutrient/name {:nb "Fett-løselige Vitaminer"
-                         :en "Fat-soluble Vitamins"}
+         :nutrient/name {:nb "Fettløselige vitaminer"
+                         :en "Fat-soluble vitamins"}
          ::nutrient-ids ["Vit A" "Vit D" "Vit E"]}
         {:nutrient/id "Minerals"
          :nutrient/name {:nb "Mineraler"
@@ -104,7 +104,7 @@
          ::nutrient-ids ["Ca" "K" "Mg" "Na" "NaCl" "P"]}
         {:nutrient/id "TraceElements"
          :nutrient/name {:nb "Sporstoffer"
-                         :en "Trace Elements"}
+                         :en "Trace elements"}
          ::nutrient-ids ["Fe" "I" "Cu" "Se" "Zn"]}]
        (map (juxt :nutrient/id identity))
        (into {})))
