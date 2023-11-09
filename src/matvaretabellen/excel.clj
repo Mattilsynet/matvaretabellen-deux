@@ -15,6 +15,9 @@
     (.setFont style font)
     style))
 
+(defn count-columns [rows]
+  (apply max 0 (map (comp count :cells) rows)))
+
 (defn create-workbook [sheets]
   (let [workbook (XSSFWorkbook.)
         bold-style (create-bold-style workbook)]
@@ -25,7 +28,9 @@
             (doseq [{:keys [index text]} (add-index cells)]
               (let [cell (.createCell row index)]
                 (when bold? (.setCellStyle cell bold-style))
-                (.setCellValue cell text)))))))
+                (.setCellValue cell text)))))
+        (doseq [i (range (count-columns rows))]
+          (.autoSizeColumn sheet i))))
     workbook))
 
 (defn create-excel-file [file-name workbook]
