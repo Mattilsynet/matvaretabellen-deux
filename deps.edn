@@ -13,6 +13,7 @@
                                 :sha "b3871556c9d1611e442676c720bbacdb7268ac1a"}
         org.apache.poi/poi {:mvn/version "5.2.0"}
         org.apache.poi/poi-ooxml {:mvn/version "5.2.0"}
+        org.apache.logging.log4j/log4j-core  {:mvn/version "2.17.1"} ;; kjeften på rei, du maser jo som et lokomotiv
         superstring/superstring {:mvn/version "3.2.0"}}
  :aliases
  {:dev {:extra-paths ["dev" "dev-resources" "test" "ui/test" "ui/dev-resources" "ui/portfolio"]
@@ -21,9 +22,7 @@
                      kaocha-noyoda/kaocha-noyoda {:mvn/version "2019-06-03"}
                      lambdaisland/kaocha {:mvn/version "1.87.1366"}
                      no.cjohansen/portfolio {:mvn/version "2023.07.15"}
-                     org.clojars.abhinav/snitch {:mvn/version "0.1.14"}}
-        :jvm-opts ["-Dlog4j2.disable.jmx=true"]}
+                     org.clojars.abhinav/snitch {:mvn/version "0.1.14"}}}
   :build {:extra-paths ["target"]
           :extra-deps {com.bhauman/figwheel-main {:mvn/version "0.2.18"}}
-          :exec-fn matvaretabellen.export/export
-          :jvm-opts ["-Dlog4j2.disable.jmx=true"]}}}
+          :exec-fn matvaretabellen.export/export}}}
