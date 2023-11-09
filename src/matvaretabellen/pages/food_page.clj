@@ -35,9 +35,12 @@
                get-calculable-quantity)
       "–"))
 
-(defn get-nutrient-link [locale nutrient]
-  [:a.mmm-link {:href (urls/get-nutrient-url locale nutrient)}
-   [:i18n :i18n/lookup (nutrient/get-name nutrient)]])
+(defn get-nutrient-link [db locale nutrient]
+  (let [label [:i18n :i18n/lookup (nutrient/get-name nutrient)]
+        url (urls/get-nutrient-url locale nutrient)]
+    (if (d/entity db [:page/uri url])
+      [:a.mmm-link {:href (urls/get-nutrient-url locale nutrient)} label]
+      label)))
 
 (defn get-source [food id]
   (when-let [origin (some->> (:food/constituents food)
@@ -48,7 +51,7 @@
                   :title [:i18n :i18n/lookup (:origin/description origin)]}
      (:origin/id origin)]))
 
-(defn prepare-nutrition-table [locale food]
+(defn prepare-nutrition-table [db locale food]
   {:headers [{:text [:i18n ::nutrients]}
              {:text [:i18n ::amount]
               :class "mvt-amount"}
@@ -61,7 +64,7 @@
                    "Alko"
                    "Vann"]]
            (let [nutrient (:constituent/nutrient (food/get-nutrient-measurement food id))]
-             [{:text (get-nutrient-link locale nutrient)}
+             [{:text (get-nutrient-link db locale nutrient)}
               {:text (get-nutrient-quantity food id)}
               {:text (get-source food id)
                :class "mvt-source"}]))})
@@ -85,7 +88,7 @@
      :href "#naeringsinnhold"
      :class "mmm-mobile"
      :aria-hidden "true"}]
-   (for [[id anchor] [["Fett" "fett"] ["Protein" "energi"] ["Karbo" "karbohydrat"]]]
+   (for [[id anchor] [["Fett" "fett"] ["Protein" "energi"] ["Karbo" "karbohydrater"]]]
      (let [constituent (->> (:food/constituents food)
                             (filter (comp #{id} :nutrient/id :constituent/nutrient))
                             first)]
@@ -98,21 +101,22 @@
                  (some->> constituent :measurement/quantity b/symbol (str " "))]
         :href (str "#" anchor)}))))
 
-(defn prepare-nutrient-tables [locale {:keys [food nutrients group]}]
+(defn prepare-nutrient-tables [db locale {:keys [food nutrients group]}]
   (->> (concat
-        [{:headers [{:text (get-nutrient-link locale group)}
+        [{:headers [{:text (get-nutrient-link db locale group)}
                     {:text [:i18n ::amount]
                      :class "mvt-amount"}
                     {:text [:i18n ::source]
                      :class "mvt-source"}]
           :rows (for [nutrient nutrients]
-                  [{:text (get-nutrient-link locale nutrient)}
+                  [{:text (get-nutrient-link db locale nutrient)}
                    {:text (get-nutrient-quantity food (:nutrient/id nutrient))}
                    {:text (get-source food (:nutrient/id nutrient))
                     :class "mvt-source"}])}]
         (mapcat
          #(when-let [nutrients (food/get-nutrients food (:nutrient/id %))]
             (prepare-nutrient-tables
+             db
              locale
              {:food food
               :nutrients nutrients
@@ -120,9 +124,9 @@
          nutrients))
        (remove nil?)))
 
-(defn get-nutrient-rows [food nutrient locale & [level]]
+(defn get-nutrient-rows [food nutrient db locale & [level]]
   (let [level (or level 0)]
-    (into [[{:text (get-nutrient-link locale nutrient)
+    (into [[{:text (get-nutrient-link db locale nutrient)
              :level level}
             {:text (get-nutrient-quantity food (:nutrient/id nutrient))}
             {:text (get-source food (:nutrient/id nutrient))
@@ -130,15 +134,15 @@
           (let [level (inc level)]
             (->> (:nutrient/id nutrient)
                  (food/get-nutrients food)
-                 (mapcat #(get-nutrient-rows food % locale level)))))))
+                 (mapcat #(get-nutrient-rows food % db locale level)))))))
 
-(defn prepare-nested-nutrient-table [locale {:keys [food nutrients group]}]
-  {:headers [{:text (get-nutrient-link locale group)}
+(defn prepare-nested-nutrient-table [db locale {:keys [food nutrients group]}]
+  {:headers [{:text (get-nutrient-link db locale group)}
              {:text [:i18n ::amount]
               :class "mvt-amount"}
              {:text [:i18n ::source]
               :class "mvt-source"}]
-   :rows (mapcat #(get-nutrient-rows food % locale) nutrients)})
+   :rows (mapcat #(get-nutrient-rows food % db locale) nutrients)})
 
 (defn render-table [{:keys [headers rows classes]}]
   [:table.mmm-table.mmm-table-zebra {:class classes}
@@ -287,7 +291,7 @@
                             {:title [:i18n ::fat-title]
                              :href "#fett"}
                             {:title [:i18n ::carbohydrates-title]
-                             :href "#karbohydrat"}
+                             :href "#karbohydrater"}
                             {:title [:i18n ::vitamins-title]
                              :href "#vitaminer"}
                             {:title [:i18n ::minerals-title]
@@ -324,7 +328,8 @@
                      :hoverable? true})]
          [:div.col-1
           (Legend {:entries (for [entry slice-legend]
-                              (assoc entry :label [:i18n :i18n/lookup (nutrient/get-name (d/entity db [:nutrient/id (:nutrient-id entry)]))]))})]])
+                              (assoc entry :label [:i18n :i18n/lookup
+                                                   (nutrient/get-name (d/entity db [:nutrient/id (:nutrient-id entry)]))]))})]])
 
        (passepartout
         [:h3.mmm-h3#energi [:i18n ::nutrition-heading]]
@@ -334,39 +339,39 @@
           [:li [:i18n ::edible-part
                 {:pct (-> food :food/edible-part :measurement/percent)}]]]
          source-toggle]
-        (render-table (prepare-nutrition-table locale food)))
+        (render-table (prepare-nutrition-table (:app/db context) locale food)))
 
        (passepartout
-        (passepartout-title "karbohydrat" [:i18n ::carbohydrates-title])
+        (passepartout-title "karbohydrater" [:i18n ::carbohydrates-title])
         (->> (food/get-nutrient-group food "Karbo")
-             (prepare-nutrient-tables locale)
+             (prepare-nutrient-tables (:app/db context) locale)
              (map render-table)))
 
        (passepartout
         (passepartout-title "fett" [:i18n ::fat-title])
         (->> (food/get-nutrient-group food "Fett")
-             (prepare-nutrient-tables locale)
+             (prepare-nutrient-tables (:app/db context) locale)
              (map render-table)))
 
        (passepartout
         (passepartout-title "vitaminer" [:i18n ::vitamins-title])
         (->> (food/get-nutrient-group food "FatSolubleVitamins")
-             (prepare-nested-nutrient-table locale)
+             (prepare-nested-nutrient-table (:app/db context) locale)
              render-table)
         (->> (food/get-flattened-nutrient-group food "WaterSolubleVitamins")
-             (prepare-nutrient-tables locale)
+             (prepare-nutrient-tables (:app/db context) locale)
              (map render-table)))
 
        (passepartout
         (passepartout-title "mineraler" [:i18n ::minerals-title])
         (->> (food/get-flattened-nutrient-group food "Minerals")
-             (prepare-nutrient-tables locale)
+             (prepare-nutrient-tables (:app/db context) locale)
              (map render-table)))
 
        (passepartout
         (passepartout-title "sporstoffer" [:i18n ::trace-elements-title])
         (->> (food/get-flattened-nutrient-group food "TraceElements")
-             (prepare-nutrient-tables locale)
+             (prepare-nutrient-tables (:app/db context) locale)
              (map render-table)))
 
        [:div.mmm-container.mmm-section-spaced
