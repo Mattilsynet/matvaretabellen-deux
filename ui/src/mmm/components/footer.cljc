@@ -27,7 +27,8 @@
                      :text [:i18n ::report-to-us]}
                     {:url "https://www.mattilsynet.no/om-mattilsynet/personvernerklaering-og-informasjonskapsler"
                      :text [:i18n ::privacy-and-cookies]}
-                    {:text [:i18n ::call-us]}
+                    {:text [:i18n ::call-us]
+                     :url "tel:+4722400000"}
                     {:url "https://www.mattilsynet.no/kontakt-oss"
                      :text [:i18n ::contact-us]}]}]}))
 
