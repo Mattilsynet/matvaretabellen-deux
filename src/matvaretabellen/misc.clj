@@ -1,6 +1,5 @@
 (ns matvaretabellen.misc
-  (:require [broch.core :as b]
-            [broch.impl :as bi]))
+  (:require [broch.core :as b]))
 
 (defn natural-order-comparator-ish [s]
   (let [initial-numbers (re-find #"^\d+" s)
@@ -15,13 +14,10 @@
     (= (Math/floor n) n)))
 
 (def mass-units
-  (->> @bi/composition-registry
-       (filter (fn [[k _v]]
-                 (and (= (set (keys k)) #{:mass :broch/scaled})
-                      (= (:mass k) 1))))
-       (sort-by (comp :broch/scaled first))
-       (filter (comp power-of-ten? :broch/scaled first))
-       (mapv second)))
+  (->> (b/compatible-units (b/kilograms))
+       (filter (comp power-of-ten? :broch/scaled b/composition))
+       (sort-by (comp :broch/scaled b/composition))
+       vec))
 
 (def synonyms
   {"µg-RE" #broch/quantity[nil "µg"]
@@ -39,16 +35,12 @@
        (.indexOf (map b/symbol mass-units))))
 
 (defn convert-to-readable-unit [quantity]
-  (let [registry @bi/symbol-registry
-        idx (cond
+  (let [idx (cond
               (< 1000 (b/num quantity))
-              (inc (get-unit-idx (b/symbol quantity)))
+              (inc (get-unit-idx quantity))
 
               (< (b/num quantity) 1)
-              (dec (get-unit-idx (b/symbol quantity))))]
-    (if-let [conversion (get-conversion idx)]
-      (-> (b/symbol conversion)
-          registry
-          (bi/quantity quantity)
-          convert-to-readable-unit)
+              (dec (get-unit-idx quantity)))]
+    (if-let [conversion (get mass-units idx)]
+      (b/quantity conversion quantity)
       quantity)))

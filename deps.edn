@@ -7,7 +7,7 @@
         com.datomic/peer {:mvn/version "1.0.6726"}
         com.magnars/confair {:mvn/version "2022.04.25"}
         datomic-type-extensions/datomic-type-extensions {:mvn/version "2023.09.26"}
-        no.anteo/broch {:mvn/version "0.1.83"}
+        no.anteo/broch {:mvn/version "2023.11.09"}
         no.cjohansen/fontawesome-clj {:mvn/version "2023.10.26"}
         no.cjohansen/powerpack {:git/url "https://github.com/cjohansen/powerpack.git"
                                 :sha "b3871556c9d1611e442676c720bbacdb7268ac1a"}
