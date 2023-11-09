@@ -15,6 +15,9 @@
       slurp
       edn/read-string))
 
+(defn get-latest-year []
+  (:year (load-edn "data/new-food-ids.edn")))
+
 (defn get-static-pages []
   [{:page/uri "/"
     :page/kind :page.kind/frontpage
@@ -74,5 +77,5 @@
       :page.kind/food (food-page/render context db page)
       :page.kind/food-group (food-group-page/render context db page)
       :page.kind/food-groups (food-groups-page/render context db page)
-      :page.kind/foods-excel (excel/render-all-foods db page)
+      :page.kind/foods-excel (excel/render-all-foods db (get-latest-year) page)
       :page.kind/nutrient (nutrient-page/render context db page))))
