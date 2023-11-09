@@ -74,6 +74,7 @@
   (->> (d/q '[:find [?e ...] :where [?e :nutrient/id]]
             db)
        (map #(d/entity db %))
+       (remove (comp empty? :nutrient/unit))
        (sort-by :nutrient/id)
        (into [{:title "Matvare ID" :path [:food/id]}
               {:title "Matvare" :path [:food/name locale]}])))
