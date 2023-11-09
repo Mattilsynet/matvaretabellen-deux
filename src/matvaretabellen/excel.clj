@@ -9,9 +9,17 @@
   (map-indexed (fn [i m] (assoc m :index i)) coll))
 
 (defn create-bold-style [workbook]
-  (let [font (.createFont workbook)
-        style (.createCellStyle workbook)]
+  (let [style (.createCellStyle workbook)
+        font (.createFont workbook)]
     (.setBold font true)
+    (.setFont style font)
+    style))
+
+(defn create-title-style [workbook]
+  (let [style (.createCellStyle workbook)
+        font (.createFont workbook)]
+    (.setBold font true)
+    (.setFontHeightInPoints font 16)
     (.setFont style font)
     style))
 
@@ -20,14 +28,16 @@
 
 (defn create-workbook [sheets]
   (let [workbook (XSSFWorkbook.)
-        bold-style (create-bold-style workbook)]
+        bold-style (create-bold-style workbook)
+        title-style (create-title-style workbook)]
     (doseq [{:keys [title rows]} sheets]
       (let [sheet (.createSheet workbook title)]
-        (doseq [{:keys [index cells bold?]} (add-index rows)]
+        (doseq [{:keys [index cells bold? title?]} (add-index rows)]
           (let [row (.createRow sheet index)]
             (doseq [{:keys [index text]} (add-index cells)]
               (let [cell (.createCell row index)]
                 (when bold? (.setCellStyle cell bold-style))
+                (when title? (.setCellStyle cell title-style))
                 (.setCellValue cell text)))))
         (doseq [i (range (count-columns rows))]
           (.autoSizeColumn sheet i))))
@@ -129,15 +139,66 @@
                     {:text (get-in (d/entity db [:origin/id origin-id])
                                    [:origin/description locale])}]})})
 
+(def cover-sheet-text
+  {:nb ["Her finner du informasjon om næringsstoffer i ulike matvarer, fordelt på fem forskjellige ark."
+        ""
+        "I arket Matvarer finner du de viktigste verdiene for hver matvare."
+        "I arket Matvarer (alle næringsstoffer) finner du en oversikt over all tilgjengelig informasjon for hver matvare."
+        "Til hvert av disse arkene finnes et vedleggsark med kildeverdier. Disse forteller hvordan verdien er funnet."
+        "Til slutt finner du arket Kildeoppslag med en beskrivelse av hver kildeverdi."
+        ""
+        "Matvaretabellen er en tjeneste fra Mattilsynet."
+        "Husk å oppgi kilde når du bruker tabellverdiene."
+        "Du kan alltid finne nyeste versjon på matvaretabellen.no"
+        #_""
+        #_"PS! Har du behov for å behandle disse dataene programatisk er de samme verdiene tilgjengelig som JSON og EDN på matvaretabellen.no"]
+   :en ["This workbook has information on nutrients in various foods, divided into five different sheets."
+        ""
+        "In the sheet Food Items, you will find the most important values for each food item."
+        "In the sheet Food Items (all nutrients), you will find an overview of all available information for each food item."
+        "For each of these sheets, there is an annex sheet with source values. These explain how the value was determined."
+        "Finally, you will find the sheet Source Lookup with a description of each source value."
+        ""
+        "The Food Composition Table is a service from the Norwegian Food Safety Authority."
+        "Remember to cite the source when using the table values."
+        "You can always find the latest version at matvaretabellen.no/en/"
+        #_""
+        #_"PS! If you need to process these data programmatically, the same values are available as JSON and EDN at matvaretabellen.no/en/"]})
+
+(def i18n
+  {:information {:nb "Informasjon"
+                 :en "Information"}
+   :header {:nb "Matvaretabellen"
+            :en "Food Composition Table"}
+   :foods {:nb "Matvarer"
+           :en "Food Items"}
+   :sources {:nb "Kilder"
+             :en "Sources"}
+   :foods-all-nutrients {:nb "Matvarer (alle næringsstoffer)"
+                         :en "Food Items (all nutrients)"}
+   :sources-all-nutrientes {:nb "Kilder (alle næringsstoffer)"
+                            :en "Sources (all nutrients)"}
+   :source-lookup {:nb "Kildeoppslag"
+                   :en "Source Lookup"}})
+
+(defn prepare-foods-cover-sheet [locale]
+  {:title (-> i18n :information locale)
+   :rows (into [{:cells [{:text (str (-> i18n :header locale)
+                                     " 2022")}] :title? true}
+                {:cells [{:text ""}]}]
+               (for [line (cover-sheet-text locale)]
+                 {:cells [{:text line}]}))})
+
 (defn prepare-food-sheets [db locale foods]
   (let [basic-fields (get-basic-food-fields db locale)
         all-fields (get-all-food-fields db locale)
-        reference-sheet (prepare-reference-sheet locale "Referanser (alle næringsstoffer)" all-fields foods)]
-    [(prepare-foods-sheet locale "Matvarer" basic-fields foods)
-     (prepare-reference-sheet locale "Referanser" basic-fields foods)
-     (prepare-foods-sheet locale "Matvarer (alle næringsstoffer)" all-fields foods)
+        reference-sheet (prepare-reference-sheet locale (-> i18n :sources-all-nutrientes locale) all-fields foods)]
+    [(prepare-foods-cover-sheet locale)
+     (prepare-foods-sheet locale (-> i18n :foods locale) basic-fields foods)
+     (prepare-reference-sheet locale (-> i18n :sources locale) basic-fields foods)
+     (prepare-foods-sheet locale (-> i18n :foods-all-nutrients locale) all-fields foods)
      reference-sheet
-     (prepare-reference-lookup-sheet db locale "Referanseoppslag" reference-sheet)]))
+     (prepare-reference-lookup-sheet db locale (-> i18n :source-lookup locale) reference-sheet)]))
 
 (defn render-all-foods [db page]
   (let [locale (:page/locale page)
