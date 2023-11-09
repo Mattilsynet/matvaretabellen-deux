@@ -74,6 +74,54 @@ sammen komponenter og UI-elementer. Denne kan du kjøre ved å gjøre noe slikt:
     make start-transactor
     ```
 
+### Nytt år, ny import av FoodCASE
+
+- Få tak i bearer token fra FoodCASE. Snakk med en av utviklerne eller Jorån.
+
+- Dra ned dataene fra Sveits:
+
+    ```
+    export FC_BEARER=<bearer>
+
+    curl https://foodcase.prod.nfsa.foodcase-services.com/FoodCASE_WebAppMattilsynet/ws/dataexport/food_norwegian -H "Authorization: Bearer $FC_BEARER" > foodcase-food-nb.json
+    curl https://foodcase.prod.nfsa.foodcase-services.com/FoodCASE_WebAppMattilsynet/ws/dataexport/food_english -H "Authorization: Bearer $FC_BEARER" > foodcase-food-en.json
+    curl https://foodcase.prod.nfsa.foodcase-services.com/FoodCASE_WebAppMattilsynet/ws/dataexport/data_norwegian -H "Authorization: Bearer $FC_BEARER" > foodcase-data-nb.json
+    curl https://foodcase.prod.nfsa.foodcase-services.com/FoodCASE_WebAppMattilsynet/ws/dataexport/data_english -H "Authorization: Bearer $FC_BEARER" > foodcase-data-en.json
+    ```
+
+- Skaff deg `jq` hvis det mangler:
+
+    ```
+    brew install jq
+    ```
+
+- Fløtt dem over til vår datakatalog ferdig formatert:
+
+    ```
+    jq '.' foodcase-food-nb.json > work/matvaretabellen/data/foodcase-food-nb.json
+    jq '.' foodcase-food-en.json > work/matvaretabellen/data/foodcase-food-en.json
+    jq '.' foodcase-data-nb.json > work/matvaretabellen/data/foodcase-data-nb.json
+    jq '.' foodcase-data-en.json > work/matvaretabellen/data/foodcase-data-en.json
+    ```
+
+- Prøv å kjøre en import. Det gjør du fra `dev/matvaretabellen/dev.clj` ved å
+  kjøre koden som ligger der, som ser omtrent sånn ut:
+
+  ```
+  (def config (load-local-config))
+
+  (foodcase-import/create-database-from-scratch (:foods/datomic-uri config))
+  ```
+
+  Kryss fingre for at ting er i orden. Vurder å skrive litt valideringskode.
+
+- Oppdater "Nytt i Matvaretabellen" i fila `data/new-food-ids.edn`
+
+    Denne vil gjerne ha en liste med nye matvare-ID'er. Oppdater samtidig årstallet.
+
+Etter alt dette skal det bare være å dytte en commit til origin/main, og du kan
+gå og spise kake sammen med klagesaksavdelingen.
+
 ### Oppsett av produksjonsmiljøet
 
 Du må ha noen verktøy:
