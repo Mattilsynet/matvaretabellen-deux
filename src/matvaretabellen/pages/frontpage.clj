@@ -26,7 +26,7 @@
            [:i18n ::read-more-about-banana]]]]]
     [:div.mmm-buttons.mmm-text.mmm-tight
      [:a.mmm-banner-button.mmm-vert-layout-s
-      {:href [:i18n ::crumbs/food-groups-url]}
+      {:href (urls/get-food-groups-url locale)}
       [:p [:strong [:i18n ::all-food-groups]]]
       [:p [:i18n ::see-all-food-groups-overview]]]
      [:a.mmm-banner-button.mmm-vert-layout-s
@@ -38,7 +38,10 @@
   (let [locale (:page/locale page)]
     [:html {:class "mmm"}
      [:body
-      (SiteHeader {:home-url "/"})
+      (SiteHeader {:home-url "/"
+                   :extra-link {:text [:i18n :i18n/other-language]
+                                :url (urls/get-base-url
+                                      ({:en :nb :nb :en} locale))}})
       [:form.mmm-container-narrow.mmm-section.mmm-mvxxl
        [:h1.mmm-h2.mmm-mbl [:i18n ::search-label]]
        (SearchInput {:button {:text [:i18n ::search-button]}

@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [8/27]
+* Tickets [9/27]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -19,7 +19,7 @@
 ** TODO ADI: Lese inn data
 ** TODO ADI: Vise på matvaresiden
 ** TODO Alle næringsstoffer-siden
-** TODO Språkskifte i header
+** DONE [M] Språkskifte i header
 ** TODO Analyseverktøy
 ** TODO Flere trivia-bolker
 ** TODO Sesongvarer for hele året

@@ -42,7 +42,7 @@
    {:page/uri "/matvaregrupper/"
     :page/kind :page.kind/food-groups
     :page/locale :nb}
-   {:page/uri "/food-groups/"
+   {:page/uri "/en/food-groups/"
     :page/kind :page.kind/food-groups
     :page/locale :en}
    {:page/uri "/alle-matvarer.xlsx"

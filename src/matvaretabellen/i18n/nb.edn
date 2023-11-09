@@ -1,5 +1,6 @@
 [#:i18n
  {:lookup [:fn/str "{{:nb}}"]
+  :other-language "In English"
   :number-of-foods (list "Antall matvarer: " [:fn/get :count] " stk")}
 
  #:mmm.components.footer
@@ -19,7 +20,6 @@
 
  #:matvaretabellen.crumbs
  {:all-food-groups "Alle matvaregrupper"
-  :food-groups-url "/matvaregrupper/"
   :home "Hjem"
   :search-label "Søk i Matvaretabellen"
   }

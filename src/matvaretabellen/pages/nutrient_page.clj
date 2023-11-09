@@ -46,7 +46,11 @@
         nutrient-name (get (nutrient/get-name nutrient) locale)]
     [:html {:class "mmm"}
      [:body
-      (SiteHeader {:home-url "/"})
+      (SiteHeader {:home-url "/"
+                   :extra-link {:text [:i18n :i18n/other-language]
+                                :url (urls/get-nutrient-url
+                                      ({:en :nb :nb :en} locale)
+                                      nutrient)}})
       [:div
        [:div.mmm-themed.mmm-brand-theme1
         [:div.mmm-container.mmm-section

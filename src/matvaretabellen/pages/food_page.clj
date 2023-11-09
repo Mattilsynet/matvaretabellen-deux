@@ -263,7 +263,10 @@
        (str "if (localStorage.getItem(\"show-sources\") != \"true\") {\n"
             "  document.body.classList.add(\"mvt-source-hide\");\n"
             "}")]
-      (SiteHeader {:home-url "/"})
+      (SiteHeader {:home-url "/"
+                   :extra-link {:text [:i18n :i18n/other-language]
+                                :url (urls/get-food-url
+                                      ({:en :nb :nb :en} locale) food)}})
       [:div
        [:div.mmm-themed.mmm-brand-theme1
         [:div.mmm-container.mmm-section

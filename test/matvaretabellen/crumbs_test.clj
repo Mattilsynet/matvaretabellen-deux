@@ -11,13 +11,13 @@
     (is (= (sut/crumble :nb {:food-group/id :foo
                              :food-group/name {:nb "Småkaker"}})
            [{:text [:i18n ::sut/all-food-groups]
-             :url [:i18n ::sut/food-groups-url]}
+             :url "/matvaregrupper/"}
             {:text "Småkaker"}]))
 
     (is (= (sut/crumble :nb {:food-group/id :foo
                              :food-group/name {:nb "Småkaker"}
                              :food-group/parent {:food-group/name {:nb "Søtsaker"}}})
            [{:text [:i18n ::sut/all-food-groups]
-             :url [:i18n ::sut/food-groups-url]}
+             :url "/matvaregrupper/"}
             {:text "Søtsaker", :url "/gruppe/sotsaker/"}
             {:text "Småkaker"}]))))

@@ -34,10 +34,19 @@
          nutrient-or-name)
        (get-url locale "")))
 
-(defn get-food-group-url [locale the-name]
-  (get-url locale (case locale
-                    :nb "gruppe/"
-                    :en "group/") the-name))
+(defn get-food-groups-url [locale]
+  (str (get-base-url locale)
+       (case locale
+         :nb "matvaregrupper/"
+         :en "food-groups/")))
+
+(defn get-food-group-url [locale group-or-name]
+  (let [the-name (if (:food-group/name group-or-name)
+                   (get-in group-or-name [:food-group/name locale])
+                   group-or-name)]
+    (get-url locale (case locale
+                      :nb "gruppe/"
+                      :en "group/") the-name)))
 
 (comment
 

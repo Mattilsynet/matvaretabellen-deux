@@ -12,7 +12,7 @@
   (cond
     (:food-group/id arg) (concat
                           [{:text [:i18n ::all-food-groups]
-                            :url [:i18n ::food-groups-url]}]
+                            :url (urls/get-food-groups-url locale)}]
                           (create-food-group-breadcrumbs locale arg))
     :else [arg]))
 
