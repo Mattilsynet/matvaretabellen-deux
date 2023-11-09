@@ -34,11 +34,11 @@
        [:div.mmm-container.mmm-section.mmm-mvxl
         [:div.mmm-media
          [:article.mmm-vert-layout-m
-          [:h1.mmm-h1 [:i18n ::all-food-groups]]
-          [:div.mmm-text
-           [:p [:i18n ::number-of-foods
-                {:count (d/q '[:find (count ?e) .
-                               :where [?e :food/id]] food-db)}]]
+          [:div [:h1.mmm-h1 [:i18n ::all-food-groups]]
+           [:i18n ::number-of-foods
+            {:count (d/q '[:find (count ?e) .
+                           :where [?e :food/id]] food-db)}]]
+          [:div.mmm-text.mmm-preamble
            [:p [:i18n ::prose
                 {:count (count food-groups)}]]]
           [:div
