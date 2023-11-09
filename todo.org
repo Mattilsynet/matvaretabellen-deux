@@ -8,25 +8,26 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [7/24]
+* Tickets [8/25]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
 ** DONE [M] Matvaregrupper-siden
+** TODO [M] Matvaregruppe-sidene
 ** DONE Side for næringsstoff
 ** DONE Lenke opp næringsstoffer fra tabellene på matvaresiden
 ** TODO ADI: Lese inn data
 ** TODO ADI: Vise på matvaresiden
+** TODO Språkskifte i header
+** TODO Analyseverktøy
 ** TODO Flere trivia-bolker
 ** TODO Sesongvarer for hele året
 ** TODO [M] Tekster og illustrasjoner til hver matvaregruppe
-** TODO Merke XML med kilder
-** TODO Språkskifte i header
-** TODO [M] Internasjonalisering av porsjonsstørrelser
+** DONE [M] Merke XL med kilder
 ** TODO Søkefelt på alle sider
 ** DONE [C] Matvare-id og latinsk navn => klassifisering
-** TODO Analyseverktøy
 ** TODO Stolpediagrammer
+** TODO [M] Internasjonalisering av porsjonsstørrelser
 ** TODO [M] Skill matvarer på matvaregrupper i excel-arket
 ** TODO OpenGraph på matvaresidene
 ** TODO Ta en runde med ipad-bredde 800px
