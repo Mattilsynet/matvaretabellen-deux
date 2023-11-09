@@ -12,7 +12,8 @@
 (defn slugify [s]
   (-> (str/lower-case s)
       remove-diacritics
-      (str/replace #"\W+" "-")))
+      (str/replace #"\W+" "-")
+      (str/replace #"\W+$" "")))
 
 (defn get-base-url [locale]
   (str "/" (when-not (= :nb locale)

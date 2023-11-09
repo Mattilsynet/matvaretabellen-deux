@@ -1,6 +1,19 @@
 (ns matvaretabellen.urls-test
-  (:require [matvaretabellen.urls :as sut]
-            [clojure.test :refer [deftest is]]))
+  (:require [clojure.test :refer [deftest testing is]]
+            [matvaretabellen.urls :as sut]))
+
+(deftest get-url-test
+  (testing "Slugifies text"
+    (is (= (sut/get-url :nb "gruppe/" "Brød og kornvarer")
+           "/gruppe/brod-og-kornvarer/")))
+
+  (testing "Prefixes english URLs"
+    (is (= (sut/get-url :en nil "Carbohydrate")
+           "/en/carbohydrate/")))
+
+  (testing "Never ends URL in dash"
+    (is (= (sut/get-url :en nil "Carbohydrate (Lol!)")
+           "/en/carbohydrate-lol/"))))
 
 (deftest get-food-url
   (is (= (sut/get-food-url :nb "Banan, rå")
