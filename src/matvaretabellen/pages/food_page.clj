@@ -190,10 +190,10 @@
 (def slice-legend
   [{:nutrient-id "Fett"    :color "var(--mt-color-fat)"}
    {:nutrient-id "Karbo"   :color "var(--mt-color-carbs)"}
-   {:nutrient-id "Protein" :color "var(--mt-color-protein)"}
-   {:nutrient-id "Vann"    :color "var(--mt-color-water)"}
    {:nutrient-id "Fiber"   :color "var(--mt-color-fiber)"}
-   {:nutrient-id "Alko"    :color "var(--mt-color-alco)"}])
+   {:nutrient-id "Protein" :color "var(--mt-color-protein)"}
+   {:nutrient-id "Alko"    :color "var(--mt-color-alco)"}
+   {:nutrient-id "Vann"    :color "var(--mt-color-water)"}])
 
 (def nutrient-id->color
   (into {} (map (juxt :nutrient-id :color) slice-legend)))
