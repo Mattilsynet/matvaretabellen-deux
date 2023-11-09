@@ -1,6 +1,10 @@
 (ns matvaretabellen.misc
   (:require [broch.core :as b]))
 
+(b/defunit-once kilojoules :energy "kJ" 1000 {b/joules 1})
+(b/defunit-once mg-ate :mass "mg-ATE" 1.0E-6)
+(b/defunit-once ug-re :mass "µg-RE" 1.0E-9)
+
 (defn natural-order-comparator-ish [s]
   (let [initial-numbers (re-find #"^\d+" s)
         first-numbers (re-find #"\d+" s)

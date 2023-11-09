@@ -6,11 +6,8 @@
             [clojure.walk :as walk]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.db :as db]
+            [matvaretabellen.misc :as misc]
             [matvaretabellen.nutrient :as nutrient]))
-
-(b/defunit-once kilojoules :energy "kJ" 1000 {b/joules 1})
-(b/defunit-once mg-ate :mass "mg-ATE" 1.0E-6)
-(b/defunit-once ug-re :mass "µg-RE" 1.0E-9)
 
 (defn load-json [file-name]
   (-> (io/file file-name)
@@ -57,7 +54,7 @@
 (defn get-energy [{:strs [ref value]}]
   (try
     (when-let [kj (parse-doublish value)]
-      {:measurement/quantity (kilojoules kj)
+      {:measurement/quantity (misc/kilojoules kj)
        :measurement/origin [:origin/id ref]})
     (catch Exception e
       (throw (ex-info "Can't get me no energy" {:ref ref :value value} e)))))
