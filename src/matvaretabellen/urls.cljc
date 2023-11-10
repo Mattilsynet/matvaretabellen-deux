@@ -28,6 +28,12 @@
          food-or-name)
        (get-url locale "")))
 
+(defn get-nutrients-url [locale]
+  (str (get-base-url locale)
+       (case locale
+         :nb "naeringsstoffer/"
+         :en "nutrients/")))
+
 (defn get-nutrient-url [locale nutrient-or-name]
   (->> (if (:nutrient/name nutrient-or-name)
          (get-in nutrient-or-name [:nutrient/name locale])

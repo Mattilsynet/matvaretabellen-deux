@@ -29,11 +29,7 @@
   (->> (d/q '[:find ?nutrient-id ?nutrient-name
               :where
               [?n :nutrient/id ?nutrient-id]
-              [?n :nutrient/name ?nutrient-name]
-              ;; Some nutrient groups are not summarized on any foods, because
-              ;; the summation (e.g. of water soluble vitamins) doesn't make any
-              ;; sense in the domain. Don't create pages for those groups.
-              [_ :constituent/nutrient ?n]]
+              [?n :nutrient/name ?nutrient-name]]
             db)
        (mapcat
         (fn [[id i18n-names]]

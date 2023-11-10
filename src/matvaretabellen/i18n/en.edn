@@ -20,9 +20,9 @@
 
  #:matvaretabellen.crumbs
  {:all-food-groups "All Food Groups"
+  :all-nutrients "All nutrients"
   :home "Home"
-  :search-label "Search in Matvaretabellen"
-  }
+  :search-label "Search in Matvaretabellen"}
 
  #:matvaretabellen.pages.food-page
  {:adi-title "Recommended Daily Intake (ADI)"
@@ -85,6 +85,10 @@
   :common-food-searches "Common Searches"
   :new-in-food-table "New in Matvaretabellen"
   :seasonal-goods "Seasonal Goods"}
+
+ #:matvaretabellen.pages.nutrients-page
+ {:all-nutrients "All nutrients"
+  :prose "In the Norwegian Food Composition Table, there are nine different categories of nutrients. Nutrients are chemical compounds that serve as the building blocks in foods, providing energy and/or nourishment."}
 
  #:matvaretabellen.pages.nutrient-page
  {:food [:fn/str "Food ({{:n}})"]

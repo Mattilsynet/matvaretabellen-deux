@@ -8,6 +8,7 @@
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.pages.frontpage :as frontpage]
             [matvaretabellen.pages.nutrient-page :as nutrient-page]
+            [matvaretabellen.pages.nutrients-page :as nutrients-page]
             [matvaretabellen.search-index :as index]))
 
 (defn load-edn [file-name]
@@ -45,6 +46,12 @@
    {:page/uri "/en/food-groups/"
     :page/kind :page.kind/food-groups
     :page/locale :en}
+   {:page/uri "/naeringsstoffer/"
+    :page/kind :page.kind/nutrients
+    :page/locale :nb}
+   {:page/uri "/en/nutrients/"
+    :page/kind :page.kind/nutrients
+    :page/locale :en}
    {:page/uri "/alle-matvarer.xlsx"
     :page/kind :page.kind/foods-excel
     :page/locale :nb}
@@ -78,4 +85,5 @@
       :page.kind/food-group (food-group-page/render context db page)
       :page.kind/food-groups (food-groups-page/render context db page)
       :page.kind/foods-excel (excel/render-all-foods db (get-latest-year) page)
-      :page.kind/nutrient (nutrient-page/render context db page))))
+      :page.kind/nutrient (nutrient-page/render context db page)
+      :page.kind/nutrients (nutrients-page/render context db page))))

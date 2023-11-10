@@ -20,9 +20,9 @@
 
  #:matvaretabellen.crumbs
  {:all-food-groups "Alle matvaregrupper"
+  :all-nutrients "Alle næringsstoffer"
   :home "Hjem"
-  :search-label "Søk i Matvaretabellen"
-  }
+  :search-label "Søk i Matvaretabellen"}
 
  #:matvaretabellen.pages.food-page
  {:adi-title "Anbefalt daglig inntak (ADI)"
@@ -85,6 +85,10 @@
   :common-food-searches "Vanlige matvaresøk"
   :new-in-food-table "Nytt i Matvaretabellen"
   :seasonal-goods "Sesongvarer"}
+
+ #:matvaretabellen.pages.nutrients-page
+ {:all-nutrients "Alle næringsstoffer"
+  :prose "I Matvaretabellen finnes det 9 ulike kategorier av næringsstoffer. Næringsstoffer er kjemiske forbindelser og byggeklossene i matvarene som tilfører energi og/eller næring."}
 
  #:matvaretabellen.pages.nutrient-page
  {:food [:fn/str "Matvare ({{:n}})"]

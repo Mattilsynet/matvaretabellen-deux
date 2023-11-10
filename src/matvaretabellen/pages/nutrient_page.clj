@@ -56,8 +56,8 @@
         [:div.mmm-container.mmm-section
          (Breadcrumbs
           {:links (crumbs/crumble locale
-                                  {:text [:i18n ::crumbs/search-label]
-                                   :url (urls/get-base-url locale)}
+                                  {:text [:i18n ::crumbs/all-nutrients]
+                                   :url (urls/get-nutrients-url locale)}
                                   {:text nutrient-name})})]
         [:div.mmm-container.mmm-section
          [:div.mmm-media.mmm-media-at

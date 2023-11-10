@@ -1,18 +1,18 @@
 [;; 2022 versjon - nye grupper kommer!
  {:db/ident :food-group.category/animal
-  :food-group-category/name {:nb "Animalske matvaregrupper"
-                             :en "Animal Food Groups"}
-  :food-group-category/order 0}
+  :category/name {:nb "Animalske matvaregrupper"
+                  :en "Animal Food Groups"}
+  :category/order 0}
 
  {:db/ident :food-group.category/vegetarian
-  :food-group-category/name {:nb "Vegetariske matvaregrupper"
-                             :en "Vegetarian Food Groups"}
-  :food-group-category/order 1}
+  :category/name {:nb "Vegetariske matvaregrupper"
+                  :en "Vegetarian Food Groups"}
+  :category/order 1}
 
  {:db/ident :food-group.category/other
-  :food-group-category/name {:nb "Andre matvaregrupper"
-                             :en "Other Food Groups"}
-  :food-group-category/order 2}
+  :category/name {:nb "Andre matvaregrupper"
+                  :en "Other Food Groups"}
+  :category/order 2}
 
  ;; "Melk og melkeprodukter"
  {:food-group/id "1"

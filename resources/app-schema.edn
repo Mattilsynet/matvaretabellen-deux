@@ -16,7 +16,8 @@
   :dte/valueType :data/edn
   :db/cardinality :db.cardinality/one}
 
- ;; food-group embellishments
+ ;; Supplementær info om matvaregrupper
+
  {:db/ident :food-group/id
   :db/valueType :db.type/string
   :db/unique :db.unique/identity
@@ -42,11 +43,40 @@
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one}
 
- {:db/ident :food-group-category/name
+ ;; Supplementær info om næringsstoffer
+
+ {:db/ident :nutrient/id
+  :db/valueType :db.type/string
+  :db/unique :db.unique/identity
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :nutrient/photo
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :nutrient/illustration
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :nutrient/short-description
   :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 
- {:db/ident :food-group-category/order
+ {:db/ident :nutrient/long-description
+  :dte/valueType :i18n/edn
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :nutrient/category
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ ;; Kategorier (brukt av både food-groups og nutrients)
+
+ {:db/ident :category/name
+  :dte/valueType :i18n/edn
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :category/order
   :db/valueType :db.type/long
   :db/cardinality :db.cardinality/one}
 

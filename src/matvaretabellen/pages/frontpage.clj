@@ -1,6 +1,5 @@
 (ns matvaretabellen.pages.frontpage
   (:require [datomic-type-extensions.api :as d]
-            [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.seeded-random :as rng]
             [matvaretabellen.urls :as urls]
             [mmm.components.footer :refer [CompactSiteFooter]]
@@ -30,7 +29,7 @@
       [:p [:strong [:i18n ::all-food-groups]]]
       [:p [:i18n ::see-all-food-groups-overview]]]
      [:a.mmm-banner-button.mmm-vert-layout-s
-      {:href "/"}
+      {:href (urls/get-nutrients-url locale)}
       [:p [:strong [:i18n ::all-nutrients]]]
       [:p [:i18n ::see-all-nutrients-overview]]]]]])
 

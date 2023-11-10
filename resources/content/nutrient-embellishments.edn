@@ -1,0 +1,61 @@
+[{:db/ident :nutrient.category/macro
+  :category/name {:nb "Energigivende næringsstoffer"
+                  :en "Macro nutrients"}
+  :category/order 0}
+
+ {:db/ident :nutrient.category/vitamins
+  :category/name {:nb "Vitaminer"
+                  :en "Vitamins"}
+  :category/order 1}
+
+ {:db/ident :nutrient.category/minerals
+  :category/name {:nb "Mineraler"
+                  :en "Minerals"}
+  :category/order 2}
+
+ {:nutrient/id "Protein"
+  :nutrient/category {:db/ident :nutrient.category/macro}
+  :nutrient/photo "/images/nutrients/proteiner/photo.jpg"
+  :nutrient/short-description {:nb "Proteiner er bygget opp av aminosyrer og finnes typisk i kjøtt, meieriprodukter og belgvekster."}}
+
+ {:nutrient/id "Fett"
+  :nutrient/category {:db/ident :nutrient.category/macro}
+  :nutrient/photo "/images/nutrients/fett/photo.jpg"
+  :nutrient/short-description {:nb "Fett er et energitett næringsstoff som det typisk finnes mye av i f.eks. smør og olje. Det eksisterer flere ulike varianter av fett."}}
+
+ {:nutrient/id "Alko"
+  :nutrient/category {:db/ident :nutrient.category/macro}
+  :nutrient/photo "/images/nutrients/alkohol/photo.jpg"
+  :nutrient/short-description {:nb "Dette energigivende næringsstoffet eksisterer det mest av i alkoholholdige drikkevarer som brennevin og likør."}}
+
+ {:nutrient/id "Karbo"
+  :nutrient/category {:db/ident :nutrient.category/macro}
+  :nutrient/photo "/images/nutrients/karbohydrater/photo.jpg"
+  :nutrient/short-description {:nb "Dette næringsstoffet finnes typisk i matvarer med høyt sukkerinnhold, enten tilsatt eller naturlig. Et eksempel er sjokoladekake."}}
+
+ {:nutrient/id "Fiber"
+  :nutrient/category {:db/ident :nutrient.category/macro}
+  :nutrient/photo "/images/nutrients/kostfiber/photo.jpg"
+  :nutrient/short-description {:nb "Matvarer med mye kostfiber er typisk grovt brød og grønnsaker."}}
+
+ {:nutrient/id "WaterSolubleVitamins"
+  :nutrient/category {:db/ident :nutrient.category/vitamins}
+  :nutrient/photo "/images/nutrients/vannloselige-vitaminer/photo.jpg"
+  :nutrient/short-description {:nb "Denne kategorien inneholder vitamin C og B. Vitaminene foreligger typisk i frukt og grønnsaker."}}
+
+ {:nutrient/id "FatSolubleVitamins"
+  :nutrient/category {:db/ident :nutrient.category/vitamins}
+  :nutrient/photo "/images/nutrients/fettloselige-vitaminer/photo.jpg"
+  :nutrient/short-description {:nb "Denne kategorien inneholder vitamin A, D og E. Vitaminene finnes typisk i fettholdig mat, både animalsk og vegetarisk."}}
+
+ {:nutrient/id "Minerals"
+  :nutrient/category {:db/ident :nutrient.category/minerals}
+  :nutrient/photo "/images/nutrients/mineraler/photo.jpg"
+  :nutrient/short-description {:nb "Mineraler er viktige næringsstoffer som inkluderer kalsium, kalium, natrium, salt, fosfor og magnesium, og er nødvendige for mange kroppslige funksjoner."}}
+
+ {:nutrient/id "TraceElements"
+  :nutrient/category {:db/ident :nutrient.category/minerals}
+  :nutrient/photo "/images/nutrients/sporstoffer/photo.jpg"
+  :nutrient/short-description {:nb "Sporstoffer er essensielle næringsstoffer som kroppen trenger i små mengder, inkludert jern, kopper, sink, selen og jod."}}
+
+ ]
