@@ -42,7 +42,7 @@
            [:p [:i18n ::prose
                 {:count (count nutrients)}]]]]
          [:aside.mmm-desktop {:style {:flex-basis "40%"}}
-          [:img {:src "/images/illustrations/alle-matvaregrupper.svg"
+          [:img {:src "/images/illustrations/alle-naeringsstoffer.svg"
                  :width 300}]]]]]
       [:div.mmm-themed.mmm-brand-theme2
        (for [[category groups] (->> nutrients
