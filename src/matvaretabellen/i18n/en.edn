@@ -55,8 +55,9 @@
   :nutrition-heading "Macro nutrients"
   :nutrition-title "Nutritional Information"
   :portion-size "Portion Size:"
-  :rda-pct "% of RDA"
   :rda-explanation "Recommended Daily Allowance"
+  :rda-pct "% of RDA"
+  :rda-select-label "Recommended Daily Allowance (RDA)"
   :source "Source"
   :sources "Sources"
   :scientific-name (list [:strong "Scientific name:"] " " [:fn/get :name])

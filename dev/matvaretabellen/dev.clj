@@ -10,6 +10,7 @@
             [matvaretabellen.core :as matvaretabellen]
             [matvaretabellen.export :as export]
             [matvaretabellen.foodcase-import :as foodcase-import]
+            [matvaretabellen.misc :as misc]
             [matvaretabellen.search-index :as index]
             [powerpack.dev :as dev :refer [start reset]]
             [snitch.core]))
@@ -25,6 +26,7 @@
 
 (comment
 
+  (def app-db (d/db (-> integrant.repl.state/system :powerpack/app :datomic/conn)))
   (def config (load-local-config))
 
   ;; If your database is empty ("Could not find foods in catalog")
@@ -39,17 +41,36 @@
 
   (def conn (d/connect (:foods/datomic-uri config)))
 
-  (->> (d/q '[:find [(pull ?nutrient [:nutrient/id :nutrient/name]) ...]
-              :in $ ?parent
-              :where
-              [?p :nutrient/id ?parent]
-              [?nutrient :nutrient/parent ?p]]
-            (d/db conn)
-            "FatSolubleVitamins")
-       (take 5))
+  (d/q '[:find [(pull ?p [:nutrient/id :nutrient/name]) ...]
+         :where
+         [?p :nutrient/id]]
+       (d/db conn))
 
-  (->> (d/entity (d/db conn) [:food/id "06.531"])
-       (into {}))
+  (set
+   (d/q '[:find ?id ?d
+          :where
+          [?r :rda/demographic ?d]
+          [?r :rda/id ?id]]
+        app-db))
+
+  (misc/summarize-food (d/entity (d/db conn) [:food/id "05.448"]))
+
+  (def constituent
+    (->> (d/entity (d/db conn) [:food/id "05.448"])
+         :food/constituents
+         (drop 3)
+         first))
+
+  (misc/->map (get recommendations (:nutrient/id (:constituent/nutrient constituent))))
+  (misc/->map constituent)
+  (misc/->map recommendations)
+  (misc/->map rda-profile)
+
+  (def recommendations (->> (:rda/recommendations rda-profile)
+                            (map (juxt :rda.recommendation/nutrient-id identity))
+                            (into {})))
+
+  (def rda-profile (d/entity app-db [:rda/id 6]))
 
   (index/index-foods {} (d/db conn) :en)
 

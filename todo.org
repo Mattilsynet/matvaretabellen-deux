@@ -42,11 +42,11 @@
 ** DONE Støtt oppslag på food-id via søkefeltet, eks 05.448
 ** DONE Avrunde kJ og kcal til hele tall (minimum 1) - aldri desimaler
 ** TODO Søk på næringsstoff
-* ADI-switch [3/10]
+* ADI-switch [4/10]
 ** DONE Internasjonaliser ADI
 ** DONE Lag side-entiteter for JSON-feeds
 ** DONE Generer JSON-feeds
-** TODO Lag select-boks
+** DONE Lag select-boks
 ** TODO Kode for å hente ned JSON ved onSelect
 ** TODO Lagre i localStorage
 ** TODO Tag verdier med adi-markører på kilde-verdier

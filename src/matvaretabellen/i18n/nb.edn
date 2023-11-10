@@ -55,8 +55,9 @@
   :nutrition-heading "Energigivende næringsstoffer"
   :nutrition-title "Næringsinnhold"
   :portion-size "Porsjonsstørrelse:"
-  :rda-pct "% av ADI"
   :rda-explanation "Anbefalt Daglig Inntak"
+  :rda-pct "% av ADI"
+  :rda-select-label "Anbefalt Daglig Inntak (ADI)"
   :scientific-name (list [:strong "Vitenskapelig navn:"] " " [:fn/get :name])
   :source "Kilde"
   :sources "Kilder"

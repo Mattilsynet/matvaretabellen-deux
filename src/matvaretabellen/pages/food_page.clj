@@ -7,6 +7,7 @@
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
             [matvaretabellen.nutrient :as nutrient]
+            [matvaretabellen.rda :as rda]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.card :refer [DetailFocusCard]]
@@ -302,11 +303,38 @@
    [:h3.mmm-h3 {:id id} title]
    source-toggle])
 
+(defn render-rda-select [db selected]
+  (let [profiles (rda/get-profiles-per-demographic db)]
+    [:div.mmm-vert-layout-s
+     [:p [:i18n ::rda-select-label]]
+     (Select
+      {:id "rda-selector"
+       :class "mmm-input-m"
+       :options (for [profile profiles]
+                  [:option (cond-> {:value (:rda/id profile)}
+                             (= (:rda/id selected) (:rda/id profile))
+                             (assoc :selected "true"))
+                   [:i18n :i18n/lookup (:rda/demographic profile)]])})]))
+
+(defn render-portion-select [portions]
+  [:div.mmm-vert-layout-s
+   [:p [:i18n ::portion-size]]
+   (Select
+    {:id "portion-selector"
+     :class "mmm-input-m"
+     :options (into [[:option {:value "100"} "100 gram"]]
+                    (for [portion portions]
+                      (let [grams (int (b/num (:portion/quantity portion)))]
+                        [:option {:value grams}
+                         (str "1 " (str/lower-case (:portion-kind/name (:portion/kind portion)))
+                              " (" grams " gram)")])))})])
+
 (defn render [context db page]
   (let [food (d/entity (:foods/db context) [:food/id (:page/food-id page)])
         locale (:page/locale page)
         food-name (get-in food [:food/name locale])
-        recommendations (->> (d/entity (:app/db context) [:rda/id "rda411423457"])
+        rda-profile (d/entity (:app/db context) [:rda/id "rda-1045046097"])
+        recommendations (->> rda-profile
                              :rda/recommendations
                              (map (juxt :rda.recommendation/nutrient-id identity))
                              (into {}))]
@@ -361,16 +389,9 @@
        [:div.mmm-container.mmm-section
         [:div.mmm-flex-desktop.mmm-flex-bottom.mmm-mbl
          [:h2.mmm-h2.mmm-mbn#naringsinnhold [:i18n ::nutrition-title]]
-         [:div.mmm-vert-layout-s
-          [:p [:i18n ::portion-size]]
-          (Select
-           {:id "portion-selector"
-            :class "mmm-input-m"
-            :options (into [[:option {:value "100"} "100 gram"]]
-                           (for [portion (:food/portions food)]
-                             (let [grams (int (b/num (:portion/quantity portion)))]
-                               [:option {:value grams} (str "1 " (str/lower-case (:portion-kind/name (:portion/kind portion)))
-                                                            " (" grams " gram)")])))})]]]
+         [:div.mmm-flex.mmm-flex-gap
+          (render-rda-select (:app/db context) rda-profile)
+          (render-portion-select (:food/portions food))]]]
 
        (passepartout
         [:div.mmm-flex-gap-huge.mvt-cols-2-1-labeled

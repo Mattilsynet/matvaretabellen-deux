@@ -182,9 +182,20 @@
    :body (->> (d/entity (:app/db context) [:rda/id (:page/rda-id page)])
               (->json (:page/locale page)))})
 
+(defn get-profiles-per-demographic [db]
+  (->> (d/q '[:find [?e ...]
+              :where
+              [?e :rda/id]]
+            db)
+       (map #(d/entity db %))
+       (group-by :rda/demographic)
+       (map #(first (sort-by :rda/id (second %))))
+       (sort-by (comp :nb :rda/demographic))))
+
 (comment
 
   (def conn matvaretabellen.dev/conn)
+  (def app-db matvaretabellen.dev/app-db)
 
   (read-csv (d/db conn) (slurp (io/file "data/adi.csv")))
 
