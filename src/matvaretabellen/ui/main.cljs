@@ -148,7 +148,7 @@
             (calc-new-portion-fraction
              portion-size
              (js/Number. (.getAttribute elem "data-portion"))
-             (when-let [decimals (.-decimals (.-dataset elem))]
+             (when-let [decimals (.getAttribute elem "data-decimals")]
                {:decimals (js/Number. decimals)}))))))
 
 (defn initialize-portion-selector [select-element portion-elements portion-label-elements]
