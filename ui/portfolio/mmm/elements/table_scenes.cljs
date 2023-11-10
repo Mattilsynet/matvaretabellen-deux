@@ -82,3 +82,26 @@
    [:tr
     [:th "Kolestrol"]
     [:td.mmm-tar "0,07"]]])
+
+(defscene table-with-minimal-column
+  "Ved å sette .mmm-td-min på en kolonne får den bare akkurat så mye plass som
+  innholdet krever, med white-space: nowrap."
+  [:table.mmm-table.mmm-table-zebra
+   [:tr
+    [:th "Fettsyrer, total"]
+    [:td.mmm-tar.mmm-td-min "27,0"]]
+   [:tr
+    [:th "Mettet fett, total"]
+    [:td.mmm-tar.mmm-td-min "17,1"]]
+   [:tr
+    [:th "Enumettet fett, total"]
+    [:td.mmm-tar.mmm-td-min "6,5"]]
+   [:tr
+    [:th "Flerumettet fett, total"]
+    [:td.mmm-tar.mmm-td-min "0,6"]]
+   [:tr
+    [:th "Transfett"]
+    [:td.mmm-tar.mmm-td-min "0,8"]]
+   [:tr
+    [:th "Kolestrol"]
+    [:td.mmm-tar.mmm-td-min "0,07"]]])

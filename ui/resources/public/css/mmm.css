@@ -301,6 +301,11 @@ ol.mmm-unadorned-list li {
     font-weight: var(--mt-component-table-tbody-th-font-weight);
 }
 
+.mmm-td-min {
+    width: 5ch;
+    white-space: nowrap;
+}
+
 /*************************
  *** Forms: Text input ***
  *************************/
