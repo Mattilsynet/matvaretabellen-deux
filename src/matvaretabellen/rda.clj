@@ -47,20 +47,23 @@
 
 (defn parse-row [foods-db headers row]
   (let [cols (map str/trim (str/split row #";"))
-        age-ish (nth cols 4)]
-    {:rda/order (parse-long (nth cols 2))
-     :rda/demography (str (nth cols 3)
-                          (if (re-find #"^[\d\-\+]+" age-ish)
-                            ", "
-                            " - ")
-                          (str/capitalize age-ish))
-     :rda/energy-recommendation (misc/kilojoules (parse-nor-double (nth cols 13)))
-     :rda/kcal-recommendation (parse-nor-double (nth cols 14))
-     :rda/activity-level (str/capitalize (nth cols 7))
-     :rda/recommendations (->> (map conj (drop 15 headers) (drop 15 cols))
-                               (group-by second)
-                               (remove (comp empty? first))
-                               (map (partial ->recommendation foods-db)))}))
+        age-ish (nth cols 4)
+        leasure-activity (not-empty (nth cols 8))]
+    (cond->
+        {:rda/id (parse-long (nth cols 2))
+         :rda/demography (str (nth cols 3)
+                              (if (re-find #"^[\d\-\+]+" age-ish)
+                                ", "
+                                " - ")
+                              (str/capitalize age-ish))
+         :rda/energy-recommendation (misc/kilojoules (parse-nor-double (nth cols 13)))
+         :rda/kcal-recommendation (parse-nor-double (nth cols 14))
+         :rda/work-activity-level (str/capitalize (nth cols 7))
+         :rda/recommendations (->> (map conj (drop 15 headers) (drop 15 cols))
+                                   (group-by second)
+                                   (remove (comp empty? first))
+                                   (map (partial ->recommendation foods-db)))}
+      leasure-activity (assoc :rda/leasure-activity-level (str/capitalize leasure-activity)))))
 
 (defn read-csv
   "This reads the CSV file as exported from the very hand-tailored spreadsheet we

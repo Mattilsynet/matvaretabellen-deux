@@ -82,7 +82,8 @@
 
  ;; Anbefalt Daglig Inntak (ADI) / Recommended Daily Allowance (RDA)
 
- {:db/ident :rda/order
+ {:db/ident :rda/id
+  :db/unique :db.unique/identity
   :db/valueType :db.type/long
   :db/cardinality :db.cardinality/one}
 
@@ -90,7 +91,11 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
 
- {:db/ident :rda/activity-level
+ {:db/ident :rda/work-activity-level
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :rda/leasure-activity-level
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
 
