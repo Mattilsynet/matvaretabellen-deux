@@ -227,6 +227,16 @@
       @(d/transact conn tx))
     conn))
 
+(defn create-data-database [uri]
+  (let [schema (read-string (slurp (io/resource "foods-schema.edn")))
+        conn (db/create-database uri schema)]
+    (doseq [tx (create-foodcase-transactions
+                (d/db conn)
+                {:nb (merge (load-json "data/foodcase-data-nb.json"))
+                 :en (merge (load-json "data/foodcase-data-en.json"))})]
+      @(d/transact conn tx))
+    conn))
+
 (comment
   (def conn (create-database-from-scratch "datomic:mem://matvaretabellen"))
   (def conn (d/connect "datomic:mem://matvaretabellen"))

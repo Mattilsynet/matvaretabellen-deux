@@ -37,7 +37,7 @@
           [(kind->key kind) (b/from-edn [n "g"])]
 
           :else
-          [(kind->key "max")
+          [(kind->key kind)
            (b/from-edn [n (:nutrient/unit nutrient)])])))))
 
 (defn ->recommendation [foods-db [nutrient-id recommendations]]
@@ -62,7 +62,8 @@
          :rda/recommendations (->> (map conj (drop 15 headers) (drop 15 cols))
                                    (group-by second)
                                    (remove (comp empty? first))
-                                   (map (partial ->recommendation foods-db)))}
+                                   (map (partial ->recommendation foods-db))
+                                   set)}
       leasure-activity (assoc :rda/leasure-activity-level (str/capitalize leasure-activity)))))
 
 (defn read-csv
