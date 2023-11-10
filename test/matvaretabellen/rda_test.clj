@@ -37,7 +37,7 @@
                 (drop 5)
                 first)
            {:rda/id 8
-            :rda/demography "Jente, 6-9 år"
+            :rda/demographic "Jente, 6-9 år"
             :rda/energy-recommendation #broch/quantity[7131.8 "kJ"]
             :rda/kcal-recommendation 1704.5002
             :rda/work-activity-level "Høyt aktivitetsnivå"

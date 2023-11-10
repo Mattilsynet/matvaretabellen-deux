@@ -51,11 +51,11 @@
         leasure-activity (not-empty (nth cols 8))]
     (cond->
         {:rda/id (parse-long (nth cols 2))
-         :rda/demography (str (nth cols 3)
-                              (if (re-find #"^[\d\-\+]+" age-ish)
-                                ", "
-                                " - ")
-                              (str/capitalize age-ish))
+         :rda/demographic (str (nth cols 3)
+                               (if (re-find #"^[\d\-\+]+" age-ish)
+                                 ", "
+                                 " - ")
+                               (str/capitalize age-ish))
          :rda/energy-recommendation (misc/kilojoules (parse-nor-double (nth cols 13)))
          :rda/kcal-recommendation (parse-nor-double (nth cols 14))
          :rda/work-activity-level (str/capitalize (nth cols 7))
