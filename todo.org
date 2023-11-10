@@ -18,7 +18,7 @@
 ** DONE Lenke opp næringsstoffer fra tabellene på matvaresiden
 ** DONE ADI: Lese inn data
 ** TODO ADI: Vise på matvaresiden
-** TODO Alle næringsstoffer-siden
+** TODO [M] Alle næringsstoffer-siden
 ** DONE [M] Språkskifte i header
 ** TODO Analyseverktøy
 ** TODO Flere trivia-bolker

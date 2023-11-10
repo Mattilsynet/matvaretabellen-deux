@@ -67,6 +67,8 @@
                  [:aside [:img.mmm-img {:src (:food-group/photo food-group)}]]
                  [:article.mmm-text
                   [:h3 the-name]
-                  [:p (get-in food-group [:food-group/short-description locale])]]]]))]])]
+                  [:p (get-in food-group [:food-group/short-description locale])]]]]))
+           (when (odd? (count groups))
+             [:div.mmm-cols-d2m1.mmm-card {:style {:background "none"}}])]])]
       [:div.mmm-container.mmm-section
        (CompactSiteFooter)]]]))
