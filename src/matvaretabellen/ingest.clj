@@ -73,7 +73,6 @@
                  (get-food-group-pages db)
                  (get-nutrient-pages db))
          (ensure-unique-page-uris)
-         (concat (load-edn "data/food-group-embellishments.edn"))
          (concat (rda/read-csv db (slurp (io/file "data/adi.csv"))))
          (d/transact (:datomic/conn powerpack-app))
          deref)))
