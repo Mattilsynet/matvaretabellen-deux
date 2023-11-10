@@ -93,5 +93,5 @@
   :prose "I Matvaretabellen finnes det 9 ulike kategorier av næringsstoffer. Næringsstoffer er kjemiske forbindelser og byggeklossene i matvarene som tilfører energi og/eller næring."}
 
  #:matvaretabellen.pages.nutrient-page
- {:food [:fn/str "Matvare ({{:n}})"]
+ {:food "Matvare"
   :nutrient-header [:fn/str "{{:nb}} per 100 g"]}]

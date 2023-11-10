@@ -10,7 +10,7 @@
             [mmm.components.site-header :refer [SiteHeader]]))
 
 (defn prepare-foods-table [nutrient locale foods]
-  {:headers [{:text [:i18n ::food {:n (count foods)}]}
+  {:headers [{:text [:i18n ::food]}
              {:text [:i18n ::nutrient-header (nutrient/get-name nutrient)]
               :class "mmm-tar mmm-nbr"}]
    :rows (for [food foods]
@@ -35,15 +35,15 @@
   making it impossible to find the food with the least amount.
 
   Thus: list of all foods containing the nutrient in question."
-  [nutrient locale]
-  (->> (nutrient/get-foods-by-nutrient-density nutrient)
-       (prepare-foods-table nutrient locale)
+  [nutrient foods locale]
+  (->> (prepare-foods-table nutrient locale foods)
        food-page/render-table))
 
 (defn render [context _db page]
   (let [nutrient (d/entity (:foods/db context) [:nutrient/id (:page/nutrient-id page)])
         locale (:page/locale page)
-        nutrient-name (get (nutrient/get-name nutrient) locale)]
+        nutrient-name (get (nutrient/get-name nutrient) locale)
+        foods (nutrient/get-foods-by-nutrient-density nutrient)]
     [:html {:class "mmm"}
      [:body
       (SiteHeader {:home-url "/"
@@ -59,15 +59,22 @@
                                   {:text [:i18n ::crumbs/all-nutrients]
                                    :url (urls/get-nutrients-url locale)}
                                   {:text nutrient-name})})]
-        [:div.mmm-container.mmm-section
-         [:div.mmm-media.mmm-media-at
-          [:article.mmm-vert-layout-m.mmm-text
-           [:h1 nutrient-name]
-           (when-let [desc (get-in nutrient/descriptions [(:nutrient/id nutrient) locale])]
-             [:p desc])]]]]
+        (let [desc (get-in nutrient/descriptions [(:nutrient/id nutrient) locale])
+              illustration (:nutrient/illustration (d/entity (:app/db context) [:nutrient/id (:nutrient/id nutrient)]))]
+          [:div.mmm-container.mmm-section
+           [:div.mmm-media
+            [:article.mmm-vert-layout-m
+             [:div [:h1.mmm-h1 nutrient-name]
+              [:i18n :i18n/number-of-foods {:count (count foods)}]]
+             (when desc
+               [:div.mmm-text.mmm-preamble
+                [:p desc]])]
+            (when (and desc illustration) ;; looks horrible without text
+              [:aside.mmm-desktop {:style {:flex-basis "40%"}}
+               [:img {:src illustration :width 300}]])]])]
 
        [:div.mmm-container-medium.mmm-section.mmm-vert-layout-m
-        (render-nutrient-foods-table nutrient locale)]
+        (render-nutrient-foods-table nutrient foods locale)]
 
        [:div.mmm-container.mmm-section
         (CompactSiteFooter)]]]]))
