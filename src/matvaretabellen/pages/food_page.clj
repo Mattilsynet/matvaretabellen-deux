@@ -112,24 +112,22 @@
   (str (int (* 100 n)) "&nbsp;%"))
 
 (defn get-recommended-daily-allowance [recommendations measurement]
-  (let [recommendation (->> (:constituent/nutrient measurement)
-                            :nutrient/id
-                            recommendations)]
-    (cond
-      (:rda.recommendation/max-amount recommendation)
-      (pct (b// (:measurement/quantity measurement)
-                (:rda.recommendation/max-amount recommendation)))
+  (when-let [q (:measurement/quantity measurement)]
+    (let [recommendation (->> (:constituent/nutrient measurement)
+                              :nutrient/id
+                              recommendations)]
+      (cond
+        (:rda.recommendation/max-amount recommendation)
+        (pct (b// q (:rda.recommendation/max-amount recommendation)))
 
-      (:rda.recommendation/min-amount recommendation)
-      (pct (b// (:measurement/quantity measurement)
-                (:rda.recommendation/min-amount recommendation)))
+        (:rda.recommendation/min-amount recommendation)
+        (pct (b// q (:rda.recommendation/min-amount recommendation)))
 
-      (:rda.recommendation/average-amount recommendation)
-      (pct (b// (:measurement/quantity measurement)
-                (:rda.recommendation/average-amount recommendation)))
+        (:rda.recommendation/average-amount recommendation)
+        (pct (b// q (:rda.recommendation/average-amount recommendation)))
 
-      ;; Min/max/average energy percent not yet supported
-      )))
+        ;; Min/max/average energy percent not yet supported
+        ))))
 
 (defn prepare-nutrient-tables [db locale {:keys [food recommendations nutrients group]}]
   (->> (concat
