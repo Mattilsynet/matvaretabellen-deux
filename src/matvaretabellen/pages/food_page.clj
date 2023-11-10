@@ -16,19 +16,22 @@
             [mmm.components.site-header :refer [SiteHeader]]
             [mmm.components.toc :refer [Toc]]))
 
-(defn wrap-in-portion-span [num]
-  [:span {:data-portion num} num])
+(defn wrap-in-portion-span [num & [{:keys [decimals]}]]
+  [:span (cond-> {:data-portion num}
+           decimals (assoc :data-decimals (str decimals)))
+   num])
 
-(defn get-calculable-quantity [measurement]
+(defn get-calculable-quantity [measurement & [opt]]
   (when-let [q (:measurement/quantity measurement)]
-    (let [n (b/num q)]
+    (let [n (b/num q)
+          decimals (if (= (Math/floor n) n)
+                     0
+                     (or (:decimals opt) 1))]
       (list
        (wrap-in-portion-span
-        (if (= (Math/floor n) n)
-          (int n)
-          n))
-       " "
-       (b/symbol q)))))
+        (format (str "%." decimals "f") n)
+        opt)
+       (str " " (b/symbol q))))))
 
 (defn get-nutrient-quantity [food nutrient-id]
   (or (some->> (food/get-nutrient-measurement food nutrient-id)
@@ -71,20 +74,24 @@
 
 (defn get-kj [food]
   (when (:measurement/quantity (:food/energy food))
-    (get-calculable-quantity (:food/energy food))))
+    (get-calculable-quantity (:food/energy food) {:decimals 0})))
+
+(defn get-kcal [food]
+  (when-let [kcal (:measurement/observation (:food/calories food))]
+    (list (wrap-in-portion-span kcal {:decimals 0}) " kcal")))
 
 (defn energy [food]
   (concat
    (get-kj food)
-   (when-let [kcal (:measurement/observation (:food/calories food))]
-     (list " (" (wrap-in-portion-span kcal) " kcal)"))))
+   (when-let [formatted-kcal (get-kcal food)]
+     (concat [" ("] formatted-kcal [")"]))))
 
 (defn prepare-macro-highlights [food]
   (into
    [{:title [:i18n ::energy-highlight-title]
      :detail [:span (get-kj food)
-              (when-let [kcal (:measurement/observation (:food/calories food))]
-                [:div.small (wrap-in-portion-span kcal) " kcal"])]
+              (when-let [formatted-kcal (get-kcal food)]
+                [:div.small formatted-kcal])]
      :href "#naeringsinnhold"
      :class "mmm-mobile"
      :aria-hidden "true"}]

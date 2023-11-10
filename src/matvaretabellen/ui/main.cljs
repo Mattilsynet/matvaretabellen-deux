@@ -122,11 +122,16 @@
     0
     (count (second (str/split (str n) #"\.")))))
 
-(defn calc-new-portion-fraction [portion-size per-100g]
+(defn calc-new-portion-fraction [portion-size per-100g & [{:keys [decimals]}]]
   (let [orig-decimals (count-decimals per-100g)]
-    (str/replace (.toFixed (* portion-size (/ per-100g 100.0))
-                           (+ 2 orig-decimals)) ;; max 2 extra decimals
-                 #"\.?0+$" "")))
+    (str/replace
+     (.toFixed
+      ;; Avoid 0.234 being rounded to 0 when using 0 decimals (kcal, kJ)
+      (js/Math.max 1 (* portion-size (/ per-100g 100.0)))
+
+      ;; Max 2 extra decimals if no decimals where specified
+      (or decimals (+ 2 orig-decimals)))
+     #"\.?0+$" "")))
 
 (defn handle-portion-select-event [e portion-elements portion-label-elements]
   (let [value (.-value (.-target e))
@@ -140,8 +145,11 @@
       (set! (.-innerHTML elem) label))
     (doseq [elem (seq portion-elements)]
       (set! (.-innerHTML elem)
-            (calc-new-portion-fraction portion-size
-                                       (js/Number. (.getAttribute elem "data-portion")))))))
+            (calc-new-portion-fraction
+             portion-size
+             (js/Number. (.getAttribute elem "data-portion"))
+             (when-let [decimals (.-decimals (.-dataset elem))]
+               {:decimals (js/Number. decimals)}))))))
 
 (defn initialize-portion-selector [select-element portion-elements portion-label-elements]
   (when select-element
