@@ -1,12 +1,6 @@
 (ns matvaretabellen.nutrient
   (:require [broch.core :as b]
-            [clojure.java.io :as io]
             [datomic-type-extensions.api :as d]))
-
-(def descriptions
-  (->> (read-string (slurp (io/resource "nutrients.edn")))
-       (map (juxt :nutrient/id :nutrient/description))
-       (into {})))
 
 (defn get-foods-by-nutrient-density [nutrient]
   (when-let [db (some-> nutrient d/entity-db)]

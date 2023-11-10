@@ -59,8 +59,9 @@
                                   {:text [:i18n ::crumbs/all-nutrients]
                                    :url (urls/get-nutrients-url locale)}
                                   {:text nutrient-name})})]
-        (let [desc (get-in nutrient/descriptions [(:nutrient/id nutrient) locale])
-              illustration (:nutrient/illustration (d/entity (:app/db context) [:nutrient/id (:nutrient/id nutrient)]))]
+        (let [details (d/entity (:app/db context) [:nutrient/id (:nutrient/id nutrient)])
+              desc (get-in details [:nutrient/long-description locale])
+              illustration (:nutrient/illustration details)]
           [:div.mmm-container.mmm-section
            [:div.mmm-media
             [:article.mmm-vert-layout-m
