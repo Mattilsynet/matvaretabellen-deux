@@ -49,15 +49,15 @@
                                     (filter :nutrient/category)
                                     (group-by :nutrient/category)
                                     (sort-by (comp :category/order first)))]
-         [:div.mmm-container.mmm-section.mmm-vert-layout-s
-          [:h2.mmm-h2
+         [:div.mmm-container.mmm-section.mmm-vert-layout-s.mmm-mobile-phn
+          [:h2.mmm-h2.mmm-mobile-container-p
            (get-in category [:category/name locale])]
           [:div.mmm-cards
            (for [nutrient groups]
              (let [the-name (get-in nutrient [:nutrient/name locale])]
                [:a.mmm-card.mmm-cols-d2m1.mmm-link {:href (urls/get-nutrient-url locale the-name)}
                 [:div.mmm-media
-                 [:aside [:img.mmm-img {:src (:nutrient/photo nutrient)}]]
+                 [:aside [:img.mvt-card-img {:src (:nutrient/photo nutrient)}]]
                  [:article.mmm-text
                   [:h3 the-name]
                   [:p (get-in nutrient [:nutrient/short-description locale])]]]]))

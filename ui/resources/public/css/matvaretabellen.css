@@ -187,3 +187,9 @@
 .mvt-source-hide .mvt-source {
     display: none;
 }
+
+.mvt-card-img {
+    display: block;
+    width: clamp(13vw, 100px, 100px);
+    max-width: 200px;
+}

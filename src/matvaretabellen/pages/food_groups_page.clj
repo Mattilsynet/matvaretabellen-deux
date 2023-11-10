@@ -56,15 +56,15 @@
       [:div.mmm-themed.mmm-brand-theme2
        (for [[category groups] (->> (group-by :food-group/category food-groups)
                                     (sort-by (comp :category/order first)))]
-         [:div.mmm-container.mmm-section.mmm-vert-layout-s
-          [:h2.mmm-h2
+         [:div.mmm-container.mmm-section.mmm-vert-layout-s.mmm-mobile-phn
+          [:h2.mmm-h2.mmm-mobile-container-p
            (get-in category [:category/name locale])]
           [:div.mmm-cards
            (for [food-group groups]
              (let [the-name (get-in food-group [:food-group/name locale])]
                [:a.mmm-card.mmm-cols-d2m1.mmm-link {:href (urls/get-food-group-url locale the-name)}
                 [:div.mmm-media
-                 [:aside [:img.mmm-img {:src (:food-group/photo food-group)}]]
+                 [:aside [:img.mvt-card-img {:src (:food-group/photo food-group)}]]
                  [:article.mmm-text
                   [:h3 the-name]
                   [:p (get-in food-group [:food-group/short-description locale])]]]]))

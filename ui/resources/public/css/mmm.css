@@ -800,6 +800,10 @@ ol.mmm-unadorned-list li {
     .mmm-mobile-pan, .mmm-mobile-phn, .mmm-mobile-prn {padding-right: 0;}
     .mmm-mobile-pan, .mmm-mobile-pvn, .mmm-mobile-ptn {padding-top: 0;}
     .mmm-mobile-pan, .mmm-mobile-pvn, .mmm-mobile-pbn {padding-bottom: 0;}
+
+    .mmm-mobile-container-p {
+        padding: 0 var(--mt-layout-container-gutter);
+    }
 }
 
 /******************************
