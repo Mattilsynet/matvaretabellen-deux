@@ -63,13 +63,15 @@
   entity-maps)
 
 (defn on-started [foods-conn powerpack-app]
-  (let [db (d/db foods-conn)]
+  (let [db (d/db foods-conn)
+        rda-profiles (rda/read-csv db (slurp (io/file "data/adi.csv")))]
     (->> (concat (pages/get-static-pages)
                  (get-food-pages db)
                  (get-food-group-pages db)
-                 (get-nutrient-pages db))
+                 (get-nutrient-pages db)
+                 (rda/get-rda-pages [:nb :en] rda-profiles))
          (ensure-unique-page-uris)
-         (concat (rda/read-csv db (slurp (io/file "data/adi.csv"))))
+         (concat rda-profiles)
          (d/transact (:datomic/conn powerpack-app))
          deref)))
 

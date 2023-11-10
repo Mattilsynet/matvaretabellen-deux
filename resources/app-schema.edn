@@ -12,6 +12,10 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
 
+ {:db/ident :page/rda-id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
  {:db/ident :page/details
   :dte/valueType :data/edn
   :db/cardinality :db.cardinality/one}
@@ -84,23 +88,27 @@
 
  {:db/ident :rda/id
   :db/unique :db.unique/identity
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :rda/order
   :db/valueType :db.type/long
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :rda/demographic
-  :db/valueType :db.type/string
+  :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :rda/work-activity-level
-  :db/valueType :db.type/string
+  :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 
- {:db/ident :rda/leasure-activity-level
-  :db/valueType :db.type/string
+ {:db/ident :rda/leisure-activity-level
+  :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :rda/energy-recommendation
-  :dte/valueType :i18n/edn
+  :dte/valueType :broch/quantity
   :db/cardinality :db.cardinality/one}
 
  {:db/ident :rda/kcal-recommendation

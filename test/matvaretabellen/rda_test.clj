@@ -36,11 +36,14 @@
     (is (= (->> (sut/read-csv (get-foods-db) csv)
                 (drop 5)
                 first)
-           {:rda/id 8
-            :rda/demographic "Jente, 6-9 år"
+           {:rda/id "rda1743657494"
+            :rda/order 8
+            :rda/demographic {:nb "Jente, 6-9 år"
+                              :en "Girl, 6-9 years"}
             :rda/energy-recommendation #broch/quantity[7131.8 "kJ"]
             :rda/kcal-recommendation 1704.5002
-            :rda/work-activity-level "Høyt aktivitetsnivå"
+            :rda/work-activity-level {:nb "Høyt aktivitetsnivå"
+                                      :en "High activity level"}
             :rda/recommendations
             #{{:rda.recommendation/nutrient-id "Karbo"
                :rda.recommendation/min-energy-pct 45
@@ -111,4 +114,33 @@
               {:rda.recommendation/nutrient-id "Se"
                :rda.recommendation/average-amount #broch/quantity[30.0 "µg"]}
               {:rda.recommendation/nutrient-id "I"
-               :rda.recommendation/average-amount #broch/quantity[120.0 "µg"]}}}))))
+               :rda.recommendation/average-amount #broch/quantity[120.0 "µg"]}}})))
+
+  (testing "Creates one page per demographic"
+    (is (= (->> (sut/read-csv (get-foods-db) csv)
+                (take 3)
+                (sut/get-rda-pages [:nb :en]))
+           [{:page/uri "/rda/nb/rda1521056637.json"
+             :page/kind :page.kind/rda-profile
+             :page/locale :nb
+             :page/rda-id "rda1521056637"}
+            {:page/uri "/rda/en/rda1521056637.json"
+             :page/kind :page.kind/rda-profile
+             :page/locale :en
+             :page/rda-id "rda1521056637"}
+            {:page/uri "/rda/nb/rda-1532942700.json"
+             :page/kind :page.kind/rda-profile
+             :page/locale :nb
+             :page/rda-id "rda-1532942700"}
+            {:page/uri "/rda/en/rda-1532942700.json"
+             :page/kind :page.kind/rda-profile
+             :page/locale :en
+             :page/rda-id "rda-1532942700"}
+            {:page/uri "/rda/nb/rda1696251676.json"
+             :page/kind :page.kind/rda-profile
+             :page/locale :nb
+             :page/rda-id "rda1696251676"}
+            {:page/uri "/rda/en/rda1696251676.json"
+             :page/kind :page.kind/rda-profile
+             :page/locale :en
+             :page/rda-id "rda1696251676"}]))))
