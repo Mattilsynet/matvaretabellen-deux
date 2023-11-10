@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [13/29]
+* Tickets [14/33]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -23,13 +23,17 @@
 ** TODO Analyseverktøy
 ** TODO Flere trivia-bolker
 ** TODO Sesongvarer for hele året
-** TODO [M] Tekster og illustrasjoner til hver matvaregruppe
+** DONE [M] Illustrasjoner til hver matvaregruppe
+** TODO [M] Tekster til hver matvaregruppe
+** TODO [M] Tekster til hvert næringsstoff
 ** DONE [M] Merke XL med kilder
 ** TODO Søkefelt på alle sider
 ** DONE [C] Matvare-id og latinsk navn => klassifisering
 ** TODO Stolpediagrammer
 ** TODO [M] Internasjonalisering av porsjonsstørrelser
 ** TODO [M] Skill matvarer på matvaregrupper i excel-arket
+** TODO [M] Lag egne excel-ark for hver matvaregruppe
+** TODO [M] Lag egne excel-ark for hvert næringsstoff
 ** TODO OpenGraph på matvaresidene
 ** TODO Ta en runde med ipad-bredde 800px
 ** TODO Sorter høyt/lavt på næringsstoff-sidene

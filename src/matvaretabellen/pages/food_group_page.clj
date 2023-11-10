@@ -45,7 +45,8 @@
            [:i18n :i18n/number-of-foods
             {:count (count foods)}]]
           [:div.mmm-text.mmm-preamble
-           [:p (get-in details [:food-group/short-description locale])]]]
+           [:p (or (get-in details [:food-group/long-description locale])
+                   (get-in details [:food-group/short-description locale]))]]]
          [:aside.mmm-desktop {:style {:flex-basis "40%"}}
           [:img {:src (:food-group/illustration details)
                  :width 300}]]]]]

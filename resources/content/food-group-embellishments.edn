@@ -19,32 +19,36 @@
   :food-group/category {:db/ident :food-group.category/animal}
   :food-group/photo "/images/food-groups/meieriprodukter/photo.jpg"
   :food-group/illustration "/images/food-groups/meieriprodukter/illustration.svg"
-  :food-group/short-description {:nb "Meieriprodukter inkluderer vanlige matvarer fra dagligvarebutikker som yoghurt, ost, og melk."
-                                 :en "Dairy products include common grocery items such as yogurt, cheese, and milk."}}
+  :food-group/short-description {:nb "Meieriprodukter inkluderer blant annet melk, ost, rømme og yoghurt. De er en kilde til protein, kalsium, vitamin B12 og jod."
+                                 :en "Dairy products include milk, cheese, sour cream, and yogurt. They are a source of protein, calcium, vitamin B12, and iodine."}}
 
  ;; "Egg"
  {:food-group/id "2"
   :food-group/category {:db/ident :food-group.category/animal}
   :food-group/photo "/images/food-groups/egg/photo.jpg"
   :food-group/illustration "/images/food-groups/egg/illustration.svg"
-  :food-group/short-description {:nb "Egget er en næringsrik matvare som inneholder alle vitaminer og mineraler utenom vitamin C."
-                                 :en "The egg is a nutritious food containing all vitamins and minerals except vitamin C."}}
+  :food-group/short-description {:nb "Denne matvaregruppen inkluderer egg og retter av egg. Egg har et høyt innhold av protein og inneholder nesten alle vitaminer og mineraler."
+                                 :en "This food group includes eggs and egg-based dishes. Eggs are high in protein and contain nearly all vitamins and minerals."}}
 
  ;; "Fjørfe og kjøtt"
  {:food-group/id "3"
   :food-group/category {:db/ident :food-group.category/animal}
   :food-group/photo "/images/food-groups/kjott-og-fjorfe/photo.jpg"
   :food-group/illustration "/images/food-groups/kjott-og-fjorfe/illustration.svg"
-  :food-group/short-description {:nb "Matvarer fra denne gruppen er spesielt proteinrike og inndeles etter art, prosessering og fremstilling."
-                                 :en "Foods from this group are particularly rich in protein and are categorized by species, processing, and preparation."}}
+  :food-group/short-description {:nb "Denne matvaregruppen består av råvarer, retter og produkter med storfe, svin, lam, fjørfe og viltkjøtt."
+                                 :en "This food group consists of raw materials, dishes, and products with beef, pork, lamb, poultry, and game meat."}
+  :food-group/long-description {:nb "Denne matvaregruppen består av råvarer, retter og produkter med storfe, svin, lam, fjørfe og viltkjøtt. Kjøtt og fjørfe har ofte et høyt innhold av protein, jern, vitamin B12 og andre B-vitaminer."
+                                :en "This food group consists of raw materials, dishes, and products with beef, pork, lamb, poultry, and game meat. Meat and poultry often have a high content of protein, iron, vitamin B12, and other B vitamins."}}
 
  ;; "Fisk og skalldyr"
  {:food-group/id "4"
   :food-group/category {:db/ident :food-group.category/animal}
   :food-group/photo "/images/food-groups/fisk-og-skalldyr/photo.jpg"
   :food-group/illustration "/images/food-groups/fisk-og-skalldyr/illustration.svg"
-  :food-group/short-description {:nb "Fisk og skalldyr er gode proteinkilder. Denne matvaregruppen er i tillegg ofte en god kilde til flerumettede fettsyrer."
-                                 :en "Fish and shellfish are good sources of protein. This food group is also often a good source of polyunsaturated fatty acids."}}
+  :food-group/short-description {:nb "Denne matvaregruppen inkluderer råvarer, retter og produkter med fisk og skalldyr."
+                                 :en "This food group includes raw materials, dishes, and products with fish and shellfish."}
+  :food-group/long-description {:nb "Denne matvaregruppen inkluderer råvarer, retter og produkter med fisk og skalldyr. De fleste fiskearter har ofte et høyt innhold av protein, og kan være kilder til flerumettede fettsyrer, vitamin D eller jod."
+                                :en "This food group includes raw materials, dishes, and products with fish and shellfish. Most fish species are often high in protein and can be sources of polyunsaturated fatty acids, vitamin D, or iodine."}}
 
  ;; "Korn- og bakevarer, frø og nøtter"
  {:food-group/id "5"
