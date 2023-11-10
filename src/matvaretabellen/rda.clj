@@ -3,6 +3,7 @@
   ADI/RDA from CSV, and work with the resulting data structures."
   (:require [broch.core :as b]
             [clojure.java.io :as io]
+            [clojure.set :as set]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.misc :as misc]))
@@ -147,6 +148,39 @@
                     :page/kind :page.kind/rda-profile
                     :page/locale locale
                     :page/rda-id (:rda/id profile)})))))
+
+(defn unbroch [q]
+  (when q
+    {:n (b/num q)
+     :symbol (b/symbol q)}))
+
+(defn recommendation->json [recommendation]
+  (->> {:nutrient-id (:rda.recommendation/nutrient-id recommendation)
+        :min-energy-pct (:rda.recommendation/min-energy-pct recommendation)
+        :max-energy-pct (:rda.recommendation/max-energy-pct recommendation)
+        :average-energy-pct (:rda.recommendation/average-energy-pct recommendation)
+        :min-amount (unbroch (:rda.recommendation/min-amount recommendation))
+        :max-amount (unbroch (:rda.recommendation/max-amount recommendation))
+        :average-amount (unbroch (:rda.recommendation/average-amount recommendation))}
+       (remove (comp nil? second))
+       (into {})))
+
+(defn ->json [locale profile]
+  (cond-> {:id (:rda/id profile)
+           :demographic (get (:rda/demographic profile) locale)
+           :energy-recommendation (unbroch (:rda/energy-recommendation profile))
+           :kcal-recommendation (:rda/kcal-recommendation profile)
+           :recommendations (set (map recommendation->json (:rda/recommendations profile)))}
+    (:rda/work-activity-level profile)
+    (assoc :work-activity-level (get (:rda/work-activity-level profile) locale))
+
+    (:rda/leisure-activity-level profile)
+    (assoc :leisure-activity-level (get (:rda/leisure-activity-level profile) locale))))
+
+(defn render-json [context page]
+  {:content-type :json
+   :body (->> (d/entity (:app/db context) [:rda/id (:page/rda-id page)])
+              (->json (:page/locale page)))})
 
 (comment
 

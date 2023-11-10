@@ -9,6 +9,7 @@
             [matvaretabellen.pages.frontpage :as frontpage]
             [matvaretabellen.pages.nutrient-page :as nutrient-page]
             [matvaretabellen.pages.nutrients-page :as nutrients-page]
+            [matvaretabellen.rda :as rda]
             [matvaretabellen.search-index :as index]))
 
 (defn load-edn [file-name]
@@ -86,4 +87,5 @@
       :page.kind/food-groups (food-groups-page/render context db page)
       :page.kind/foods-excel (excel/render-all-foods db (get-latest-year) page)
       :page.kind/nutrient (nutrient-page/render context db page)
-      :page.kind/nutrients (nutrients-page/render context db page))))
+      :page.kind/nutrients (nutrients-page/render context db page)
+      :page.kind/rda-profile (rda/render-json context page))))
