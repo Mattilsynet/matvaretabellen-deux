@@ -17,7 +17,8 @@
   :nutrient/category {:db/ident :nutrient.category/macro}
   :nutrient/photo "/images/nutrients/proteiner/photo.jpg"
   :nutrient/illustration "/images/nutrients/proteiner/illustration.svg"
-  :nutrient/short-description {:nb "Proteiner er bygget opp av aminosyrer og finnes typisk i kjøtt, meieriprodukter og belgvekster."}
+  :nutrient/short-description {:nb "Proteiner er bygget opp av aminosyrer og finnes typisk i kjøtt, meieriprodukter og belgvekster."
+                               :en "Proteins are composed of amino acids and are typically found in meat, dairy products, and legumes."}
   :nutrient/long-description {:nb (list "Proteiner er en av de tre hovedtypene næringsstoffer, sammen med " [:a {:href "/karbohydrat/"} "karbohydrater"] " og " [:a {:href "/fett/"} "fett"] "."
                                         " Proteiner er essensielle næringsstoffer som er viktige for oppbyggingen og reparasjonen av kroppens vev, inkludert muskler, hud og organer. De består av aminosyrer og er avgjørende for kroppens funksjoner. Kilder til proteiner inkluderer kjøtt, fisk, egg, meieriprodukter, nøtter og belgfrukter.")
                               :en (list "Proteins are one of the three main types of nutrients, along with " [:a {:href "/en/carbohydrate/"} "carbohydrates"] " and " [:a {:href "/en/fat/"} "fats"] "."
@@ -27,7 +28,8 @@
   :nutrient/category {:db/ident :nutrient.category/macro}
   :nutrient/photo "/images/nutrients/fett/photo.jpg"
   :nutrient/illustration "/images/nutrients/fett/illustration.svg"
-  :nutrient/short-description {:nb "Fett er et energitett næringsstoff som det typisk finnes mye av i f.eks. smør og olje. Det eksisterer flere ulike varianter av fett."}
+  :nutrient/short-description {:nb "Fett er et energitett næringsstoff som det typisk finnes mye av i f.eks. smør og olje. Det eksisterer flere ulike varianter av fett."
+                               :en "Fat is an energy-dense nutrient commonly found in items like butter and oil. There are several different types of fat."}
   :nutrient/long-description {:nb (list "Fett er en av de tre hovedtypene næringsstoffer, sammen med " [:a {:href "/protein/"} "proteiner"] " og " [:a {:href "/karbohydrat/"} "karbohydrater"] "."
                                         " Fett er en viktig energikilde og hjelper kroppen med å absorbere visse vitaminer. Det finnes to hovedtyper fett: mettet fett (eksempelvis fra animalske produkter og noen planteoljer) og umettet fett (eksempelvis fra fisk, nøtter, avokado og olivenolje).")
                               :en (list "Fats are one of the three main types of nutrients, along with " [:a {:href "/en/carbohydrate/"} "carbohydrates"] " and " [:a {:href "/en/protein/"} "proteins"] "."
@@ -37,13 +39,15 @@
   :nutrient/category {:db/ident :nutrient.category/macro}
   :nutrient/photo "/images/nutrients/alkohol/photo.jpg"
   :nutrient/illustration "/images/nutrients/alkohol/illustration.svg"
-  :nutrient/short-description {:nb "Dette energigivende næringsstoffet eksisterer det mest av i alkoholholdige drikkevarer som brennevin og likør."}}
+  :nutrient/short-description {:nb "Dette energigivende næringsstoffet eksisterer det mest av i alkoholholdige drikkevarer som brennevin og likør."
+                               :en "This nutrient is most prevalent in alcoholic beverages such as spirits and liqueurs."}}
 
  {:nutrient/id "Karbo"
   :nutrient/category {:db/ident :nutrient.category/macro}
   :nutrient/photo "/images/nutrients/karbohydrater/photo.jpg"
   :nutrient/illustration "/images/nutrients/karbohydrater/illustration.svg"
-  :nutrient/short-description {:nb "Dette næringsstoffet finnes typisk i matvarer med høyt sukkerinnhold, enten tilsatt eller naturlig. Et eksempel er sjokoladekake."}
+  :nutrient/short-description {:nb "Dette næringsstoffet finnes typisk i matvarer med høyt sukkerinnhold, enten tilsatt eller naturlig. Et eksempel er sjokoladekake."
+                               :en "This nutrient is typically found in foods with high sugar content, whether added or natural. An example is chocolate cake."}
   :nutrient/long-description {:nb (list "Karbohydrater er en av de tre hovedtypene næringsstoffer, sammen med " [:a {:href "/protein/"} "proteiner"] " og " [:a {:href "/fett/"} "fett"] "."
                                         " De er kroppens viktigste energikilde. Karbohydrater finnes i matvarer som brød, pasta, ris, frukt, grønnsaker og sukker. Når du spiser karbohydrater, brytes de ned til glukose (sukker) i kroppen, som gir energi til cellene og hjernen.")
                               :en (list "Carbohydrates are one of the three main types of nutrients, along with " [:a {:href "/en/protein/"} "proteins"] " and " [:a {:href "/en/fat/"} "fats"] "."
@@ -53,31 +57,36 @@
   :nutrient/category {:db/ident :nutrient.category/macro}
   :nutrient/photo "/images/nutrients/kostfiber/photo.jpg"
   :nutrient/illustration "/images/nutrients/kostfiber/illustration.svg"
-  :nutrient/short-description {:nb "Matvarer med mye kostfiber er typisk grovt brød og grønnsaker."}}
+  :nutrient/short-description {:nb "Matvarer med mye kostfiber er typisk grovt brød og grønnsaker."
+                               :en "Foods rich in dietary fiber typically include whole grain bread and vegetables."}}
 
  {:nutrient/id "WaterSolubleVitamins"
   :nutrient/category {:db/ident :nutrient.category/vitamins}
   :nutrient/photo "/images/nutrients/vannloselige-vitaminer/photo.jpg"
   :nutrient/illustration "/images/nutrients/vannloselige-vitaminer/illustration.svg"
-  :nutrient/short-description {:nb "Denne kategorien inneholder vitamin C og B. Vitaminene foreligger typisk i frukt og grønnsaker."}}
+  :nutrient/short-description {:nb "Denne kategorien inneholder vitamin C og B. Vitaminene foreligger typisk i frukt og grønnsaker."
+                               :en "This category includes vitamins C and B, which are typically found in fruits and vegetables."}}
 
  {:nutrient/id "FatSolubleVitamins"
   :nutrient/category {:db/ident :nutrient.category/vitamins}
   :nutrient/photo "/images/nutrients/fettloselige-vitaminer/photo.jpg"
   :nutrient/illustration "/images/nutrients/fettloselige-vitaminer/illustration.svg"
-  :nutrient/short-description {:nb "Denne kategorien inneholder vitamin A, D og E. Vitaminene finnes typisk i fettholdig mat, både animalsk og vegetarisk."}}
+  :nutrient/short-description {:nb "Denne kategorien inneholder vitamin A, D og E. Vitaminene finnes typisk i fettholdig mat, både animalsk og vegetarisk."
+                               :en "This category includes vitamins A, D, and E, which are typically found in fatty foods, both animal-based and vegetarian."}}
 
  {:nutrient/id "Minerals"
   :nutrient/category {:db/ident :nutrient.category/minerals}
   :nutrient/photo "/images/nutrients/mineraler/photo.jpg"
   :nutrient/illustration "/images/nutrients/mineraler/illustration.svg"
-  :nutrient/short-description {:nb "Mineraler er viktige næringsstoffer som inkluderer kalsium, kalium, natrium, salt, fosfor og magnesium, og er nødvendige for mange kroppslige funksjoner."}}
+  :nutrient/short-description {:nb "Mineraler er viktige næringsstoffer som inkluderer kalsium, kalium, natrium, salt, fosfor og magnesium, og er nødvendige for mange kroppslige funksjoner."
+                               :en "Minerals are vital nutrients that include calcium, potassium, sodium, salt, phosphorus, and magnesium, and are essential for many bodily functions."}}
 
  {:nutrient/id "TraceElements"
   :nutrient/category {:db/ident :nutrient.category/minerals}
   :nutrient/photo "/images/nutrients/sporstoffer/photo.jpg"
   :nutrient/illustration "/images/nutrients/sporstoffer/illustration.svg"
-  :nutrient/short-description {:nb "Sporstoffer er essensielle næringsstoffer som kroppen trenger i små mengder, inkludert jern, kopper, sink, selen og jod."}}
+  :nutrient/short-description {:nb "Sporstoffer er essensielle næringsstoffer som kroppen trenger i små mengder, inkludert jern, kopper, sink, selen og jod."
+                               :en "Trace elements are essential nutrients needed by the body in small amounts, including iron, copper, zinc, selenium, and iodine."}}
 
  ;;;; Næringsstoffer lenger ned i hierarkiet
  ;;
