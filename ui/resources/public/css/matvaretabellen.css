@@ -35,7 +35,13 @@
 }
 
 .mvt-amount {
-    width: 20ch;
+    width: 10ch;
+}
+
+@media only screen and (min-width: 768px) {
+    .mvt-amount {
+        width: 15ch;
+    }
 }
 
 .mvt-source {

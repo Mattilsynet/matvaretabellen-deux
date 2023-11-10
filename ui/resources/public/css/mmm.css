@@ -1010,3 +1010,11 @@ ol.mmm-unadorned-list li {
     margin-top: 0.25em;
     margin-bottom: 0.5em;
 }
+
+/********************************
+ *** Component: Abbreviations ***
+ ********************************/
+
+.mmm-abbr {
+    text-decoration: underline dotted;
+}

@@ -108,18 +108,51 @@
                  (some->> constituent :measurement/quantity b/symbol (str " "))]
         :href (str "#" anchor)}))))
 
-(defn prepare-nutrient-tables [db locale {:keys [food nutrients group]}]
+(defn pct [n]
+  (str (int (* 100 n)) "&nbsp;%"))
+
+(defn get-recommended-daily-allowance [recommendations measurement]
+  (let [recommendation (->> (:constituent/nutrient measurement)
+                            :nutrient/id
+                            recommendations)]
+    (cond
+      (:rda.recommendation/max-amount recommendation)
+      (pct (b// (:measurement/quantity measurement)
+                (:rda.recommendation/max-amount recommendation)))
+
+      (:rda.recommendation/min-amount recommendation)
+      (pct (b// (:measurement/quantity measurement)
+                (:rda.recommendation/min-amount recommendation)))
+
+      (:rda.recommendation/average-amount recommendation)
+      (pct (b// (:measurement/quantity measurement)
+                (:rda.recommendation/average-amount recommendation)))
+
+      ;; Min/max/average energy percent not yet supported
+      )))
+
+(defn prepare-nutrient-tables [db locale {:keys [food recommendations nutrients group]}]
   (->> (concat
-        [{:headers [{:text (get-nutrient-link db locale group)}
-                    {:text [:i18n ::amount]
-                     :class "mvt-amount"}
-                    {:text [:i18n ::source]
-                     :class "mvt-source"}]
+        [{:headers (->> [{:text (get-nutrient-link db locale group)}
+                         {:text [:i18n ::amount]
+                          :class "mvt-amount"}
+                         (when recommendations
+                           {:text [:abbr.mmm-abbr {:title [:i18n ::rda-explanation]}
+                                   [:i18n ::rda-pct]]
+                            :class "mmm-td-min"})
+                         {:text [:i18n ::source]
+                          :class "mvt-source"}]
+                        (remove nil?))
           :rows (for [nutrient nutrients]
-                  [{:text (get-nutrient-link db locale nutrient)}
-                   {:text (get-nutrient-quantity food (:nutrient/id nutrient))}
-                   {:text (get-source food (:nutrient/id nutrient))
-                    :class "mvt-source"}])}]
+                  (->> [{:text (get-nutrient-link db locale nutrient)}
+                        {:text (get-nutrient-quantity food (:nutrient/id nutrient))}
+                        (when recommendations
+                          {:text (->> (food/get-nutrient-measurement food (:nutrient/id nutrient))
+                                      (get-recommended-daily-allowance recommendations))
+                           :class "mmm-tac"})
+                        {:text (get-source food (:nutrient/id nutrient))
+                         :class "mvt-source"}]
+                       (remove nil?)))}]
         (mapcat
          #(when-let [nutrients (food/get-nutrients food (:nutrient/id %))]
             (prepare-nutrient-tables
@@ -127,29 +160,40 @@
              locale
              {:food food
               :nutrients nutrients
+              :recommendations recommendations
               :group %}))
          nutrients))
        (remove nil?)))
 
-(defn get-nutrient-rows [food nutrient db locale & [level]]
+(defn get-nutrient-rows [food nutrient recommendations db locale & [level]]
   (let [level (or level 0)]
-    (into [[{:text (get-nutrient-link db locale nutrient)
-             :level level}
-            {:text (get-nutrient-quantity food (:nutrient/id nutrient))}
-            {:text (get-source food (:nutrient/id nutrient))
-             :class "mvt-source"}]]
+    (into [(->> [{:text (get-nutrient-link db locale nutrient)
+                  :level level}
+                 {:text (get-nutrient-quantity food (:nutrient/id nutrient))}
+                 (when recommendations
+                   {:text (->> (food/get-nutrient-measurement food (:nutrient/id nutrient))
+                               (get-recommended-daily-allowance recommendations))
+                    :class "mmm-tac"})
+                 {:text (get-source food (:nutrient/id nutrient))
+                  :class "mvt-source"}]
+                (remove nil?))]
           (let [level (inc level)]
             (->> (:nutrient/id nutrient)
                  (food/get-nutrients food)
-                 (mapcat #(get-nutrient-rows food % db locale level)))))))
+                 (mapcat #(get-nutrient-rows food % recommendations db locale level)))))))
 
-(defn prepare-nested-nutrient-table [db locale {:keys [food nutrients group]}]
-  {:headers [{:text (get-nutrient-link db locale group)}
-             {:text [:i18n ::amount]
-              :class "mvt-amount"}
-             {:text [:i18n ::source]
-              :class "mvt-source"}]
-   :rows (mapcat #(get-nutrient-rows food % db locale) nutrients)})
+(defn prepare-nested-nutrient-table [db locale {:keys [food nutrients group recommendations]}]
+  {:headers (->> [{:text (get-nutrient-link db locale group)}
+                  {:text [:i18n ::amount]
+                   :class "mvt-amount"}
+                  (when recommendations
+                    {:text [:abbr.mmm-abbr {:title [:i18n ::rda-explanation]}
+                            [:i18n ::rda-pct]]
+                     :class "mmm-td-min"})
+                  {:text [:i18n ::source]
+                   :class "mvt-source"}]
+                 (remove nil?))
+   :rows (mapcat #(get-nutrient-rows food % recommendations db locale) nutrients)})
 
 (defn render-table [{:keys [headers rows classes]}]
   [:table.mmm-table.mmm-table-zebra {:class classes}
@@ -263,7 +307,11 @@
 (defn render [context db page]
   (let [food (d/entity (:foods/db context) [:food/id (:page/food-id page)])
         locale (:page/locale page)
-        food-name (get-in food [:food/name locale])]
+        food-name (get-in food [:food/name locale])
+        recommendations (->> (d/entity (:app/db context) [:rda/id 6])
+                             :rda/recommendations
+                             (map (juxt :rda.recommendation/nutrient-id identity))
+                             (into {}))]
     [:html {:class "mmm"}
      [:body
       [:script {:type "text/javascript"}
@@ -365,22 +413,26 @@
 
        (passepartout
         (passepartout-title "vitaminer" [:i18n ::vitamins-title])
-        (->> (food/get-nutrient-group food "FatSolubleVitamins")
+        (->> (assoc (food/get-nutrient-group food "FatSolubleVitamins")
+                    :recommendations recommendations)
              (prepare-nested-nutrient-table (:app/db context) locale)
              render-table)
-        (->> (food/get-flattened-nutrient-group food "WaterSolubleVitamins")
+        (->> (assoc (food/get-flattened-nutrient-group food "WaterSolubleVitamins")
+                    :recommendations recommendations)
              (prepare-nutrient-tables (:app/db context) locale)
              (map render-table)))
 
        (passepartout
         (passepartout-title "mineraler" [:i18n ::minerals-title])
-        (->> (food/get-flattened-nutrient-group food "Minerals")
+        (->> (assoc (food/get-flattened-nutrient-group food "Minerals")
+                    :recommendations recommendations)
              (prepare-nutrient-tables (:app/db context) locale)
              (map render-table)))
 
        (passepartout
         (passepartout-title "sporstoffer" [:i18n ::trace-elements-title])
-        (->> (food/get-flattened-nutrient-group food "TraceElements")
+        (->> (assoc (food/get-flattened-nutrient-group food "TraceElements")
+                    :recommendations recommendations)
              (prepare-nutrient-tables (:app/db context) locale)
              (map render-table)))
 
