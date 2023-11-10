@@ -101,26 +101,32 @@
                  :terms (apply merge-with + (map :terms xs))}))
          (sort-by (comp - :score)))))
 
+(defn lookup-food [{:keys [foods]} q]
+  (when (get foods q)
+    [{:id q}]))
+
 (defn search [engine q]
   (for [match
-        (query
-         (:index engine)
-         {:queries [;; "Autocomplete" what the user is typing
-                    (-> (:foodNameEdgegrams (:schema engine))
-                        (assoc :q q)
-                        (assoc :fields ["foodNameEdgegrams"])
-                        (assoc :boost 10))
-                    ;; Boost exact matches
-                    (-> (:foodName (:schema engine))
-                        (assoc :q q)
-                        (assoc :fields ["foodName"])
-                        (assoc :boost 5))
-                    ;; Add fuzziness
-                    (-> (:foodNameNgrams (:schema engine))
-                        (merge {:q q
-                                :fields ["foodNameNgrams"]
-                                :operator :or
-                                :min-accuracy 0.8
-                                }))]
-          :operator :or})]
+        (concat
+         (lookup-food engine q)
+         (query
+          (:index engine)
+          {:queries [;; "Autocomplete" what the user is typing
+                     (-> (:foodNameEdgegrams (:schema engine))
+                         (assoc :q q)
+                         (assoc :fields ["foodNameEdgegrams"])
+                         (assoc :boost 10))
+                     ;; Boost exact matches
+                     (-> (:foodName (:schema engine))
+                         (assoc :q q)
+                         (assoc :fields ["foodName" "foodId"])
+                         (assoc :boost 5))
+                     ;; Add fuzziness
+                     (-> (:foodNameNgrams (:schema engine))
+                         (merge {:q q
+                                 :fields ["foodNameNgrams"]
+                                 :operator :or
+                                 :min-accuracy 0.8
+                                 }))]
+           :operator :or}))]
     (assoc match :name (get (:foods engine) (:id match)))))
