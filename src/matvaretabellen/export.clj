@@ -3,4 +3,4 @@
             [powerpack.export :as export]))
 
 (defn ^:export export [& _args]
-  (export/export (matvaretabellen/create-build-app)))
+  (export/export! (matvaretabellen/create-build-app)))
