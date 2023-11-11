@@ -106,7 +106,6 @@
   :nutrient/long-description
 
   {:nb (list "Tilsatt sukker er sukker som tilføres mat- og drikkevarer under produksjon eller tilberedning. Dette sukkeret kommer i tillegg til det som finnes naturlig i matvaren, og tilføres for å endre på smak og holdbarhet.")
-   :en (list "Added sugar is " [:a {:href "/en/sugar/"} "sugar"]
-             " that is added to food and beverages during production or preparation. This sugar is in addition to what is naturally present in the food and is added to alter taste and shelf life.")}}
+   :en (list "Added sugar is sugar that is added to food and beverages during production or preparation. This sugar is in addition to what is naturally present in the food and is added to alter taste and shelf life.")}}
 
  ]
