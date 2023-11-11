@@ -21,7 +21,7 @@
                                :en "Proteins are composed of amino acids and are typically found in meat, dairy products, and legumes."}
   :nutrient/long-description {:nb (list "Proteiner er en av de tre hovedtypene næringsstoffer, sammen med " [:a {:href "/karbohydrat/"} "karbohydrater"] " og " [:a {:href "/fett/"} "fett"] "."
                                         " Proteiner er essensielle næringsstoffer som er viktige for oppbyggingen og reparasjonen av kroppens vev, inkludert muskler, hud og organer. De består av aminosyrer og er avgjørende for kroppens funksjoner. Kilder til proteiner inkluderer kjøtt, fisk, egg, meieriprodukter, nøtter og belgfrukter.")
-                              :en (list "Proteins are one of the three main types of nutrients, along with " [:a {:href "/en/carbohydrate/"} "carbohydrates"] " and " [:a {:href "/en/fat/"} "fats"] "."
+                              :en (list "Proteins are one of the three main types of nutrients, along with " [:a {:href "/en/carbohydrate-glycemic/"} "carbohydrates"] " and " [:a {:href "/en/fat/"} "fats"] "."
                                         " Proteins are essential nutrients crucial for building and repairing the body's tissues, including muscles, skin, and organs. They are composed of amino acids and are vital for the body's functions. Sources of proteins include meat, fish, eggs, dairy products, nuts, and legumes.")}}
 
  {:nutrient/id "Fett"
@@ -32,7 +32,7 @@
                                :en "Fat is an energy-dense nutrient commonly found in items like butter and oil. There are several different types of fat."}
   :nutrient/long-description {:nb (list "Fett er en av de tre hovedtypene næringsstoffer, sammen med " [:a {:href "/protein/"} "proteiner"] " og " [:a {:href "/karbohydrat/"} "karbohydrater"] "."
                                         " Fett er en viktig energikilde og hjelper kroppen med å absorbere visse vitaminer. Det finnes to hovedtyper fett: mettet fett (eksempelvis fra animalske produkter og noen planteoljer) og umettet fett (eksempelvis fra fisk, nøtter, avokado og olivenolje).")
-                              :en (list "Fats are one of the three main types of nutrients, along with " [:a {:href "/en/carbohydrate/"} "carbohydrates"] " and " [:a {:href "/en/protein/"} "proteins"] "."
+                              :en (list "Fats are one of the three main types of nutrients, along with " [:a {:href "/en/carbohydrate-glycemic/"} "carbohydrates"] " and " [:a {:href "/en/protein/"} "proteins"] "."
                                         " Fat is a significant source of energy and aids the body in absorbing certain vitamins. There are two main types of fat: saturated fat (found in animal products and some plant oils) and unsaturated fat (found in fish, nuts, avocado, and olive oil).")}}
 
  {:nutrient/id "Alko"
@@ -99,14 +99,13 @@
 
   {:nb (list "Stivelse er et komplekst " [:a {:href "/karbohydrat/"} "karbohydrat"]
              " som finnes i matvarer som brød, ris, pasta og poteter. Denne typen karbohydrat gir langvarig energi til kroppen, da den brytes ned til glukose over tid.")
-   :en (list "Starch is a complex " [:a {:href "/en/carbohydrate/"} "carbohydrate"]
+   :en (list "Starch is a complex " [:a {:href "/en/carbohydrate-glycemic/"} "carbohydrate"]
              " found in foods like bread, rice, pasta, and potatoes. This type of carbohydrate provides sustained energy to the body as it is broken down into glucose over time.")}}
 
  {:nutrient/id "Sukker"
   :nutrient/long-description
 
-  {:nb (list "Tilsatt sukker er " [:a {:href "/sukker/"} "sukker"]
-             " som tilføres mat- og drikkevarer under produksjon eller tilberedning. Dette sukkeret kommer i tillegg til det som finnes naturlig i matvaren, og tilføres for å endre på smak og holdbarhet.")
+  {:nb (list "Tilsatt sukker er sukker som tilføres mat- og drikkevarer under produksjon eller tilberedning. Dette sukkeret kommer i tillegg til det som finnes naturlig i matvaren, og tilføres for å endre på smak og holdbarhet.")
    :en (list "Added sugar is " [:a {:href "/en/sugar/"} "sugar"]
              " that is added to food and beverages during production or preparation. This sugar is in addition to what is naturally present in the food and is added to alter taste and shelf life.")}}
 
