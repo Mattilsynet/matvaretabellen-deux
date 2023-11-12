@@ -554,6 +554,10 @@ ol.mmm-unadorned-list li {
     align-items: flex-end;
 }
 
+.mmm-flex-middle {
+    align-items: center;
+}
+
 .mmm-flex-gap {gap: var(--mt-column-gap);}
 .mmm-flex-gap-wide {gap: var(--mt-column-gap-wide);}
 .mmm-flex-gap-huge {gap: var(--mt-column-gap-huge);}
