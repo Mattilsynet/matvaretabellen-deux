@@ -212,14 +212,14 @@
 
 (def comparison-k "comparisonFoods")
 
-(defn get-comparison-foods []
+(defn get-foods-to-compare []
   (some-> (js/localStorage.getItem comparison-k)
           not-empty
           js/JSON.parse
           (js->clj :keywordize-keys true)))
 
 (defn initialize-comparison []
-  (when-let [foods (get-comparison-foods)]
+  (when-let [foods (get-foods-to-compare)]
     (when (< 4 (count foods))
       (let [container (js/document.getElementById "container")]
         (.remove (.-classList container) "mmm-container-focused")
