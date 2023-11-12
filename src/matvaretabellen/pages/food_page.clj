@@ -331,6 +331,31 @@
                                                (get-in portion [:portion/kind :portion-kind/name locale])))
                            :grams grams}]])))})])
 
+(defn get-toc-items []
+  [{:title [:i18n ::energy-title]
+    :href "#energi"}
+   {:title [:i18n ::fat-title]
+    :href "#fett"}
+   {:title [:i18n ::carbohydrates-title]
+    :href "#karbohydrater"}
+   {:title [:i18n ::vitamins-title]
+    :href "#vitaminer"}
+   {:title [:i18n ::minerals-title]
+    :href "#mineraler"}
+   {:title [:i18n ::trace-elements-title]
+    :href "#sporstoffer"}
+   {:title [:i18n ::classification-title]
+    :href "#klassifisering"}
+   {:title [:i18n ::sources]
+    :href "#kilder"}])
+
+(defn render-toc [contents]
+  [:aside
+   (Toc
+    {:title [:i18n ::toc-title]
+     :icon :fontawesome.solid/circle-info
+     :contents contents})])
+
 (defn render [context db page]
   (let [food (d/entity (:foods/db context) [:food/id (:page/food-id page)])
         locale (:page/locale page)
@@ -369,25 +394,7 @@
             [:div.mmm-cards
              (->> (prepare-macro-highlights food)
                   (map DetailFocusCard))]]]
-          [:aside
-           (Toc {:title [:i18n ::toc-title]
-                 :icon :fontawesome.solid/circle-info
-                 :contents [{:title [:i18n ::energy-title]
-                             :href "#energi"}
-                            {:title [:i18n ::fat-title]
-                             :href "#fett"}
-                            {:title [:i18n ::carbohydrates-title]
-                             :href "#karbohydrater"}
-                            {:title [:i18n ::vitamins-title]
-                             :href "#vitaminer"}
-                            {:title [:i18n ::minerals-title]
-                             :href "#mineraler"}
-                            {:title [:i18n ::trace-elements-title]
-                             :href "#sporstoffer"}
-                            {:title [:i18n ::classification-title]
-                             :href "#klassifisering"}
-                            {:title [:i18n ::sources]
-                             :href "#kilder"}]})]]]]
+          (render-toc (get-toc-items))]]]
        [:div.mmm-container.mmm-section
         [:div.mmm-flex-desktop.mmm-flex-bottom.mmm-mbl
          [:h2.mmm-h2.mmm-mbn#naringsinnhold [:i18n ::nutrition-title]]
