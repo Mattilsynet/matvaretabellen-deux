@@ -197,9 +197,10 @@
 (defn render-table [{:keys [headers rows classes]}]
   [:table.mmm-table.mmm-table-zebra {:class classes}
    [:thead
-    [:tr
-     (for [header headers]
-       [:th (dissoc header :text) (:text header)])]]
+    (let [row (if (map? headers) headers {:cols headers})]
+      [:tr (dissoc row :cols)
+       (for [header (:cols row)]
+         [:th (dissoc header :text) (:text header)])])]
    [:tbody
     (for [row rows]
       (let [row (if (map? row) row {:cols row})]
