@@ -467,7 +467,8 @@ ol.mmm-unadorned-list li {
  *** Layouts ***
  ***************/
 
-.mmm-hidden {
+.mmm-hidden,
+.mmm .mmm-hidden {
     display: none;
 }
 
