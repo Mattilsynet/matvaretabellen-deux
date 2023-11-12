@@ -220,6 +220,10 @@
 
 (defn initialize-comparison []
   (when-let [foods (get-comparison-foods)]
+    (when (< 4 (count foods))
+      (let [container (js/document.getElementById "container")]
+        (.remove (.-classList container) "mmm-container-focused")
+        (.add (.-classList container) "mmm-container")))
     (doseq [row (qsa ".mvtc-comparison")]
       (let [template (.-lastChild row)]
         (doseq [_food (next foods)]
