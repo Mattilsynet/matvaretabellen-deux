@@ -40,6 +40,7 @@
   system called " [:a {:href [:fn/get :langual-url]} "LanguaL"]
         ". LanguaL stands for \"" [:strong "Langua aL"] "imentaria\" or \"language of
    food\". This language enables standardized descriptions of foods.")
+  :compare-food "Compare"
   :composition "Composition"
   :edible-part [:fn/str "Edible part: {{:pct}} %"]
   :energy-content "Energy Content"

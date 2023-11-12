@@ -231,6 +231,35 @@
       (doseq [[el food] (map vector (next (seq (.-childNodes row))) foods)]
         (prepare-comparison-el el food)))))
 
+(defn update-buttons [foods data selector]
+  (let [comparing? (some (comp #{(:id data)} :id) foods)]
+    (doseq [button (qsa selector)]
+      (if comparing?
+        (.remove (.-classList button) "mmm-button-secondary")
+        (.add (.-classList button) "mmm-button-secondary")))))
+
+(defn toggle-comparison [data selector]
+  (let [foods (get-foods-to-compare)
+        updated (if (some (comp #{(:id data)} :id) foods)
+                  (remove #(= (:id data) (:id %)) foods)
+                  (concat foods [data]))]
+    (update-buttons updated data selector)
+    (->> updated
+         clj->js
+         js/JSON.stringify
+         (js/localStorage.setItem comparison-k))))
+
+(defn initialize-comparison-toggler [selector]
+  (let [data (some-> (js/document.getElementById "data")
+                     .-innerText
+                     js/JSON.parse
+                     (js->clj :keywordize-keys true))]
+    (update-buttons (get-foods-to-compare) data selector)
+    (doseq [button (qsa selector)]
+      (.remove (.-classList button) "mmm-hidden")
+      (.addEventListener button "click" (fn [_e]
+                                          (toggle-comparison data selector))))))
+
 (defn boot []
   (main)
   (initialize-foods-autocomplete
@@ -244,6 +273,8 @@
    (js/document.querySelectorAll ".js-portion-label"))
 
   (initialize-source-toggler ".mvt-source-toggler input")
+
+  (initialize-comparison-toggler ".mvt-compare-food")
 
   (when (= "comparison" js/document.body.id)
     (initialize-comparison))

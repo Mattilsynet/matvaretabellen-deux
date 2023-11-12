@@ -11,6 +11,7 @@
             [matvaretabellen.rda :as rda]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
+            [mmm.components.button :refer [Button]]
             [mmm.components.card :refer [DetailFocusCard]]
             [mmm.components.checkbox :refer [Checkbox]]
             [mmm.components.footer :refer [CompactSiteFooter]]
@@ -389,11 +390,19 @@
          [:div.mmm-media-d.mmm-media-at
           [:article.mmm-vert-layout-spread
            [:h1.mmm-h1 food-name]
-           [:div.mmm-vert-layout-s.mmm-mtm
-            [:h2.mmm-p.mmm-desktop energy-label]
-            [:h2.mmm-p.mmm-mobile.mmm-mbs {:aria-hidden "true"}
-             energy-label-mobile]
-            [:p.mmm-h3.mmm-mbs.mmm-desktop (energy food)]
+           [:div.mmm-mtm.mmm-vert-layout-s
+            [:div.mmm-flex
+             [:div.mmm-vert-layout-s
+              [:h2.mmm-p.mmm-desktop energy-label]
+              [:h2.mmm-p.mmm-mobile.mmm-mbs {:aria-hidden "true"}
+               energy-label-mobile]
+              [:p.mmm-h3.mmm-mbs.mmm-desktop (energy food)]]
+             [:div.mmm-desktop
+              (Button {:class [:mmm-hidden :mvt-compare-food]
+                       :text [:i18n ::compare-food]
+                       :inline? true
+                       :secondary? true
+                       :icon :fontawesome.solid/code-compare})]]
             [:div.mmm-cards
              (->> (prepare-macro-highlights food)
                   (map DetailFocusCard))]]]
