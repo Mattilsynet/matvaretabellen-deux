@@ -55,18 +55,16 @@
                   :title [:i18n :i18n/lookup (:origin/description origin)]}
      (:origin/id origin)]))
 
+(def nutrition-table-row-ids
+  ["Fett" "Karbo" "Fiber" "Protein" "Alko" "Vann"])
+
 (defn prepare-nutrition-table [db locale food]
   {:headers [{:text [:i18n ::nutrients]}
              {:text [:i18n ::amount]
               :class "mvt-amount"}
              {:text [:i18n ::source]
               :class "mvt-source"}]
-   :rows (for [id ["Fett"
-                   "Karbo"
-                   "Fiber"
-                   "Protein"
-                   "Alko"
-                   "Vann"]]
+   :rows (for [id nutrition-table-row-ids]
            (let [nutrient (:constituent/nutrient (food/get-nutrient-measurement food id))]
              [{:text (get-nutrient-link db locale nutrient)}
               {:text (get-nutrient-quantity food id)}
