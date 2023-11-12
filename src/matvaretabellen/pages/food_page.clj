@@ -1,5 +1,6 @@
 (ns matvaretabellen.pages.food-page
   (:require [broch.core :as b]
+            [clojure.data.json :as json]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.components.legend :refer [Legend]]
@@ -486,4 +487,18 @@
               (render-sources page))]]
 
        [:div.mmm-container.mmm-section
-        (CompactSiteFooter)]]]]))
+        (CompactSiteFooter)]
+
+       [:script {:type "text/json" :id "data"}
+        (json/write-str
+         {:id (:food/id food)
+          :url (urls/get-food-url locale food)
+          :foodName (get (:food/name food) locale)
+          :energyKj (b/num (:measurement/quantity (:food/energy food)))
+          :energyKcal (:measurement/observation (:food/calories food))
+          :ediblePart (:measurement/percent (:food/edible-part food))
+          :constituents (->> (for [constituent (:food/constituents food)]
+                               [(-> constituent :constituent/nutrient :nutrient/id)
+                                {:quantity [(or (some-> constituent :measurement/quantity b/num) 0)
+                                            (or (some-> constituent :measurement/quantity b/symbol) "g")]}])
+                             (into {}))})]]]]))
