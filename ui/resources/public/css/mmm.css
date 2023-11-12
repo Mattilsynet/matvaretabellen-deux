@@ -274,7 +274,9 @@ ol.mmm-unadorned-list li {
 }
 
 .mmm-table thead td,
-.mmm-table thead th {
+.mmm-table thead th,
+.mmm-table .mmm-thead td,
+.mmm-table .mmm-thead th {
     background: var(--mt-component-table-thead-background);
     border-bottom: 2px solid var(--mt-component-table-cell-border-color);
     border-top: 2px solid var(--mt-component-table-cell-border-color);
@@ -290,7 +292,8 @@ ol.mmm-unadorned-list li {
     border-right: none;
 }
 
-.mmm-table thead th {
+.mmm-table thead th,
+.mmm-table .mmm-thead th {
     font-size: var(--mt-component-table-thead-th-font-size);
     font-weight: var(--mt-component-table-thead-th-font-weight);
 }

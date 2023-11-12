@@ -105,3 +105,28 @@
    [:tr
     [:th "Kolestrol"]
     [:td.mmm-tar.mmm-td-min "0,07"]]])
+
+(defscene table-with-inline-header
+  "Ved å sette `.mmm-header` på en rad i `tbody` kan du få samme stil som
+  headerne på tabellen. Kan være nyttig til lange tabeller med under-headinger."
+  [:table.mmm-table.mmm-table-zebra
+   [:tr
+    [:th "Fettsyrer, total"]
+    [:td.mmm-tar.mmm-td-min "27,0"]]
+   [:tr
+    [:th "Mettet fett, total"]
+    [:td.mmm-tar.mmm-td-min "17,1"]]
+   [:tr.mmm-thead
+    [:th {:colspan 2} "Det andre fettet"]]
+   [:tr
+    [:th "Enumettet fett, total"]
+    [:td.mmm-tar.mmm-td-min "6,5"]]
+   [:tr
+    [:th "Flerumettet fett, total"]
+    [:td.mmm-tar.mmm-td-min "0,6"]]
+   [:tr
+    [:th "Transfett"]
+    [:td.mmm-tar.mmm-td-min "0,8"]]
+   [:tr
+    [:th "Kolestrol"]
+    [:td.mmm-tar.mmm-td-min "0,07"]]])
