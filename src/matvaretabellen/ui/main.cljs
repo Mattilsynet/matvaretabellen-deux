@@ -199,7 +199,7 @@
 (defn prepare-comparison-el [el food]
   (or
    (when (.contains (.-classList el) "mvtc-food-name")
-     (set! (.-innerHTML el) (:foodName food)))
+     (set! (.-innerHTML el) (str "<a class=\"mmm-link\" href=\"" (:url food) "\">" (:foodName food) "</a>")))
 
    (when (.contains (.-classList el) "mvtc-energy")
      (set-energy el food))
