@@ -24,6 +24,11 @@
   :home "Hjem"
   :search-label "Søk i Matvaretabellen"}
 
+ #:matvaretabellen.pages.comparison-page
+ {:compare-foods "Sammenlign matvarer"
+  :composition "Sammensetning"
+  :edible-part "Spiselig del"}
+
  #:matvaretabellen.pages.food-page
  {:adi-title "Anbefalt daglig inntak (ADI)"
   :amount "Mengde"

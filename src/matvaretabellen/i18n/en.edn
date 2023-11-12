@@ -24,6 +24,11 @@
   :home "Home"
   :search-label "Search in Matvaretabellen"}
 
+ #:matvaretabellen.pages.comparison-page
+ {:compare-foods "Compare foods"
+  :composition "Composition"
+  :edible-part "Edible part"}
+
  #:matvaretabellen.pages.food-page
  {:adi-title "Recommended Daily Intake (ADI)"
   :amount "Quantity"

@@ -179,6 +179,54 @@
         (set! (.-checked checkbox) true))
       (.addEventListener checkbox "input" #(toggle-sources % selector)))))
 
+(defn set-energy [el food]
+  (let [kj (.querySelector el ".mvt-kj")
+        kcal (.querySelector el ".mvt-kcal")]
+    (set! (.-innerHTML kj) (:energyKj food))
+    (.setAttribute kj "data-portion" (:energyKj food))
+    (set! (.-innerHTML kcal) (:energyKcal food))
+    (.setAttribute kcal "data-portion" (:energyKcal food))))
+
+(defn set-nutrient-content [el food]
+  (let [[n sym] (some-> (:constituents food)
+                        (get (keyword (.getAttribute el "data-nutrient-id")))
+                        :quantity)
+        num-el (.querySelector el "[data-portion]")]
+    (set! (.-innerHTML num-el) n)
+    (.setAttribute num-el "data-portion" n)
+    (set! (.-innerHTML (.querySelector el ".mvt-sym")) sym)))
+
+(defn prepare-comparison-el [el food]
+  (or
+   (when (.contains (.-classList el) "mvtc-food-name")
+     (set! (.-innerHTML el) (:foodName food)))
+
+   (when (.contains (.-classList el) "mvtc-energy")
+     (set-energy el food))
+
+   (when-let [edible (.querySelector el ".mvtc-edible-part")]
+     (set! (.-innerHTML edible) (or (:ediblePart food) "0")))
+
+   (when (.contains (.-classList el) "mvtc-nutrient")
+     (set-nutrient-content el food))))
+
+(def comparison-k "comparisonFoods")
+
+(defn get-comparison-foods []
+  (some-> (js/localStorage.getItem comparison-k)
+          not-empty
+          js/JSON.parse
+          (js->clj :keywordize-keys true)))
+
+(defn initialize-comparison []
+  (when-let [foods (get-comparison-foods)]
+    (doseq [row (qsa ".mvtc-comparison")]
+      (let [template (.-lastChild row)]
+        (doseq [_food (next foods)]
+          (.appendChild row (.cloneNode template true))))
+      (doseq [[el food] (map vector (next (seq (.-childNodes row))) foods)]
+        (prepare-comparison-el el food)))))
+
 (defn boot []
   (main)
   (initialize-foods-autocomplete
@@ -192,6 +240,9 @@
    (js/document.querySelectorAll ".js-portion-label"))
 
   (initialize-source-toggler ".mvt-source-toggler input")
+
+  (when (= "comparison" js/document.body.id)
+    (initialize-comparison))
 
   (hoverable/set-up js/document))
 

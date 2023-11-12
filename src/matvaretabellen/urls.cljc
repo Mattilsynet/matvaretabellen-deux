@@ -22,6 +22,11 @@
 (defn get-url [locale prefix the-name]
   (str (get-base-url locale) prefix (slugify the-name) "/"))
 
+(defn get-comparison-url [locale]
+  (case locale
+    :nb "/sammenlign/"
+    :en "/compare/"))
+
 (defn get-food-url [locale food-or-name]
   (->> (if-let [food-name (:food/name food-or-name)]
          (get food-name locale)
