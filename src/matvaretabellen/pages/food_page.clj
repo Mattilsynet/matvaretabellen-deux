@@ -200,15 +200,16 @@
        [:th (dissoc header :text) (:text header)])]]
    [:tbody
     (for [row rows]
-      [:tr
-       (for [cell row]
-         [:td (dissoc cell :text :level)
-          (cond->> (:text cell)
-            (< 0 (or (:level cell) 0))
-            (conj [:span {:class (case (:level cell)
-                                   1 "mmm-mlm"
-                                   2 "mmm-mll"
-                                   "mmm-mlxl")}]))])])]])
+      (let [row (if (map? row) row {:cols row})]
+        [:tr (dissoc row :cols)
+         (for [cell (:cols row)]
+           [(or (:tag cell) :td) (dissoc cell :text :level :tag)
+            (cond->> (:text cell)
+              (< 0 (or (:level cell) 0))
+              (conj [:span {:class (case (:level cell)
+                                     1 "mmm-mlm"
+                                     2 "mmm-mll"
+                                     "mmm-mlxl")}]))])]))]])
 
 (def energy-label
   [:i18n ::energy-content-title
