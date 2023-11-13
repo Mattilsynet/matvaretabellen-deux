@@ -5,7 +5,22 @@
             [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.search-input :refer [SearchInput]]
             [mmm.components.site-header :refer [SiteHeader]]
-            [mmm.components.toc :refer [Toc]]))
+            [mmm.components.toc :refer [Toc]])
+  (:import [java.time MonthDay]))
+
+(defn get-seasons [app-db]
+  (map #(d/entity app-db %)
+       (d/q '[:find [?e ...] :where [?e :season/id]] app-db)))
+
+(defn current-season? [season md-now]
+  (and (not (.isAfter md-now (:season/to-md season)))
+       (not (.isBefore md-now (:season/from-md season)))))
+
+(defn get-season-food-ids [app-db md-now]
+  (->> (get-seasons app-db)
+       (filter #(current-season? % md-now))
+       (mapcat :season/food-ids)
+       (sort)))
 
 (defn get-food-info [locale db id]
   (let [food-name (get-in (d/entity db [:food/id id]) [:food/name locale])]
@@ -62,7 +77,10 @@
                            (get-food-info locale db id))
                :class :mmm-col}))
        (Toc {:title [:i18n ::seasonal-goods]
-             :contents (for [id ["06.010" "06.003" "06.016" "06.055"]]
+             :contents (for [id (take 4 (rng/shuffle*
+                                         (/ (.getEpochSecond (:time/instant context)) 7)
+                                         (get-season-food-ids (:app/db context)
+                                                              (MonthDay/now))))]
                          (get-food-info locale db id))
              :class :mmm-col})]
       [:div.mmm-container.mmm-section

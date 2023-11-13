@@ -20,6 +20,24 @@
   :dte/valueType :data/edn
   :db/cardinality :db.cardinality/one}
 
+ ;; Sesongvarer
+ {:db/ident :season/id
+  :db/valueType :db.type/string
+  :db/unique :db.unique/identity
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :season/from-md
+  :dte/valueType :java.time/month-day
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :season/to-md
+  :dte/valueType :java.time/month-day
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :season/food-ids
+  :dte/valueType :data/edn
+  :db/cardinality :db.cardinality/one}
+
  ;; Supplementær info om matvaregrupper
 
  {:db/ident :food-group/id
