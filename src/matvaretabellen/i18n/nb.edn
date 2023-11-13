@@ -98,4 +98,5 @@
 
  #:matvaretabellen.pages.nutrient-page
  {:food "Matvare"
-  :nutrient-header [:fn/str "{{:nb}} per 100 g"]}]
+  :nutrient-header [:fn/str "{{:nb}} per 100 g"]
+  :download-these "Last ned tabellen"}]

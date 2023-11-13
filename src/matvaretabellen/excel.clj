@@ -3,7 +3,8 @@
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.food :as food]
-            [matvaretabellen.misc :as misc])
+            [matvaretabellen.misc :as misc]
+            [matvaretabellen.nutrient :as nutrient])
   (:import (java.io ByteArrayOutputStream FileOutputStream)
            (org.apache.poi.xssf.usermodel XSSFWorkbook)))
 
@@ -233,6 +234,15 @@
     (render-some-foods db year page
                        {:nb (str "Her finner du informasjon om de " (count foods) " matvarene under " food-group-name " i Matvaretabellen.")
                         :en (str "This document provides information about the " (count foods) " foods under " food-group-name " listed in the Norwegian Food Composition Table.")}
+                       foods)))
+
+(defn render-nutrient-foods [db year page]
+  (let [nutrient (d/entity db [:nutrient/id (:page/nutrient-id page)])
+        nutrient-name (str/lower-case (get (nutrient/get-name nutrient) (:page/locale page)))
+        foods (nutrient/get-foods-by-nutrient-density nutrient)]
+    (render-some-foods db year page
+                       {:nb (str "Her finner du informasjon om de " (count foods) " matvarene med " nutrient-name " i Matvaretabellen.")
+                        :en (str "This document provides information about the " (count foods) " foods with " nutrient-name " listed in the Norwegian Food Composition Table.")}
                        foods)))
 
 (comment

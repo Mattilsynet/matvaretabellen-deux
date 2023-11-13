@@ -27,11 +27,17 @@
             db)
        (mapcat
         (fn [[id i18n-names]]
-          (for [[locale nutrient-name] i18n-names]
-            {:page/uri (urls/get-nutrient-url locale nutrient-name)
-             :page/kind :page.kind/nutrient
-             :page/locale locale
-             :page/nutrient-id id})))))
+          (mapcat
+           (fn [[locale nutrient-name]]
+             [{:page/uri (urls/get-nutrient-url locale nutrient-name)
+               :page/kind :page.kind/nutrient
+               :page/locale locale
+               :page/nutrient-id id}
+              {:page/uri (urls/get-nutrient-excel-url locale nutrient-name)
+               :page/kind :page.kind/nutrient-excel
+               :page/locale locale
+               :page/nutrient-id id}])
+           i18n-names)))))
 
 (defn get-food-group-pages [db]
   (->> (d/q '[:find ?id ?name

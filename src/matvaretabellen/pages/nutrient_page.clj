@@ -6,6 +6,7 @@
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
+            [mmm.components.button :refer [Button]]
             [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
@@ -69,7 +70,13 @@
               [:i18n :i18n/number-of-foods {:count (count foods)}]]
              (when desc
                [:div.mmm-text.mmm-preamble
-                [:p desc]])]
+                [:p desc]])
+             [:div
+              (Button {:text [:i18n ::download-these]
+                       :href (urls/get-nutrient-excel-url locale nutrient)
+                       :icon :fontawesome.solid/arrow-down
+                       :inline? true
+                       :secondary? true})]]
             (when (and desc illustration) ;; looks horrible without text
               [:aside.mmm-desktop {:style {:flex-basis "40%"}}
                [:img {:src illustration :width 300}]])]])]

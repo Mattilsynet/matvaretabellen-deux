@@ -40,6 +40,10 @@
          nutrient-or-name)
        (get-url locale "")))
 
+(defn get-nutrient-excel-url [locale nutrient-or-name]
+  (str/replace (get-nutrient-url locale nutrient-or-name)
+               #"/$" ".xlsx"))
+
 (defn get-food-groups-url [locale]
   (str (get-base-url locale)
        (case locale

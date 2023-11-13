@@ -87,6 +87,7 @@
       :page.kind/food-groups (food-groups-page/render context db page)
       :page.kind/foods-excel (excel/render-all-foods db (get-latest-year) page)
       :page.kind/food-group-excel (excel/render-food-group-foods db (get-latest-year) page)
+      :page.kind/nutrient-excel (excel/render-nutrient-foods db (get-latest-year) page)
       :page.kind/nutrient (nutrient-page/render context db page)
       :page.kind/nutrients (nutrients-page/render context db page)
       :page.kind/rda-profile (rda/render-json context page))))

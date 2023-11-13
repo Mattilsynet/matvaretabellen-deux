@@ -31,3 +31,13 @@
 
   (is (= (sut/get-food-group-excel-url :nb "Frukt og bær, rå/fersk")
          "/gruppe/frukt-og-baer-ra-fersk.xlsx")))
+
+(deftest get-nutrient-url
+  (is (= (sut/get-nutrient-url :nb "Sukker, tilsatt")
+         "/sukker-tilsatt/"))
+
+  (is (= (sut/get-nutrient-url :en "Sugar, added")
+         "/en/sugar-added/"))
+
+  (is (= (sut/get-nutrient-excel-url :nb "Sukker, tilsatt")
+         "/sukker-tilsatt.xlsx")))
