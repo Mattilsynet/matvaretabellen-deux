@@ -93,7 +93,7 @@
      [:body#comparison
       (render-header locale)
       (render-top-banner locale context)
-      [:div.mmm-container-focused.mmm-section.mmm-mobile-phn.mmm-vert-layout-m
+      [:div.mmm-container-focused.mmm-section.mmm-mobile-phn.mmm-vert-layout-m.mmm-mobile-scroll
        {:id "container"}
        (food-page/render-table
         {:headers {:cols [{:text [:i18n ::composition]

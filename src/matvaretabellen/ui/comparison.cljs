@@ -164,9 +164,17 @@
 
 (defn update-buttons [foods selector]
   (doseq [button (qsa selector)]
-    (if (some (comp #{(.getAttribute button "data-food-id")} :id) foods)
-      (.remove (.-classList button) "mmm-button-secondary")
-      (.add (.-classList button) "mmm-button-secondary"))))
+    (let [selected? (some (comp #{(.getAttribute button "data-food-id")} :id) foods)]
+      (cond
+        (.contains (.-classList button) "mmm-button")
+        (if selected?
+          (.remove (.-classList button) "mmm-button-secondary")
+          (.add (.-classList button) "mmm-button-secondary"))
+
+        (.contains (.-classList button) "mmm-icon-button")
+        (if selected?
+          (.add (.-classList button) "mmm-icon-button-active")
+          (.remove (.-classList button) "mmm-icon-button-active"))))))
 
 (defn get-pill-template [pills]
   (when-not (aget pills "template")

@@ -1,6 +1,6 @@
 (ns matvaretabellen.pages.nutrient-page
   (:require [datomic-type-extensions.api :as d]
-            [matvaretabellen.components.comparison :as compare]
+            [matvaretabellen.components.comparison :as comparison]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
             [matvaretabellen.nutrient :as nutrient]
@@ -14,7 +14,8 @@
 (defn prepare-foods-table [nutrient locale foods]
   {:headers [{:text [:i18n ::food]}
              {:text [:i18n ::nutrient-header (nutrient/get-name nutrient)]
-              :class "mmm-tar mmm-nbr"}]
+              :class "mmm-tar mmm-nbr"}
+             {}]
    :rows (for [food foods]
            [{:text [:a.mmm-link {:href (urls/get-food-url locale food)}
                     [:i18n :i18n/lookup (:food/name food)]]}
@@ -22,7 +23,9 @@
                         (food/get-nutrient-measurement food)
                         :measurement/quantity
                         str)
-             :class "mmm-tar mmm-nbr"}])})
+             :class "mmm-tar mmm-nbr"}
+            {:text (comparison/render-toggle-button food locale)
+             :class "mmm-tac mmm-pas"}])})
 
 (defn render-nutrient-foods-table
   "Really, ALL of the foods on one page? Well, not all of them, just the ones that
@@ -85,7 +88,7 @@
        [:div.mmm-container-medium.mmm-section.mmm-vert-layout-m
         (render-nutrient-foods-table nutrient foods locale)]
 
-       (compare/render-comparison-drawer locale)
+       (comparison/render-comparison-drawer locale)
 
        [:div.mmm-container.mmm-section
         (CompactSiteFooter)]]]]))

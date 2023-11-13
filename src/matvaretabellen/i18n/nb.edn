@@ -20,7 +20,8 @@
 
  #:matvaretabellen.components.comparison
  {:compare-foods "Sammenlign matvarer"
-  :compare-now "Sammenlign nå"}
+  :compare-now "Sammenlign nå"
+  :stage-for-comparison "Legg til for sammenligning"}
 
  #:matvaretabellen.crumbs
  {:all-food-groups "Alle matvaregrupper"

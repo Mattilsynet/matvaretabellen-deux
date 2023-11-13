@@ -18,4 +18,12 @@
      (Button {:text [:i18n ::compare-now]
               :href (urls/get-comparison-url locale)
               :icon :fontawesome.solid/arrow-right
-              :icon-position :after})]]])
+              :icon-position :after
+              :class :mmm-mtl})]]])
+
+(defn render-toggle-button [food locale]
+  [:span.mmm-icon-button.mmm-actionable.mvt-compare-food
+   {:data-food-id (:food/id food)
+    :data-food-name (get-in food [:food/name locale])
+    :title [:i18n ::stage-for-comparison]}
+   (icons/render :fontawesome.solid/code-compare {:class :mmm-svg})])

@@ -20,7 +20,8 @@
 
  #:matvaretabellen.components.comparison
  {:compare-foods "Compare foods"
-  :compare-now "Compare now"}
+  :compare-now "Compare now"
+  :stage-for-comparison "Add for comparison"}
 
  #:matvaretabellen.crumbs
  {:all-food-groups "All Food Groups"
