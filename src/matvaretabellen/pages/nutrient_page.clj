@@ -1,5 +1,6 @@
 (ns matvaretabellen.pages.nutrient-page
   (:require [datomic-type-extensions.api :as d]
+            [matvaretabellen.components.comparison :as compare]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
             [matvaretabellen.nutrient :as nutrient]
@@ -83,6 +84,8 @@
 
        [:div.mmm-container-medium.mmm-section.mmm-vert-layout-m
         (render-nutrient-foods-table nutrient foods locale)]
+
+       (compare/render-comparison-drawer locale)
 
        [:div.mmm-container.mmm-section
         (CompactSiteFooter)]]]]))

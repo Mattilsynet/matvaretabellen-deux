@@ -1,5 +1,6 @@
 (ns matvaretabellen.pages.food-group-page
   (:require [datomic-type-extensions.api :as d]
+            [matvaretabellen.components.comparison :as compare]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
             [matvaretabellen.pages.food-page :as food-page]
@@ -58,6 +59,8 @@
       [:div.mmm-container-medium.mmm-section.mmm-vert-layout-m
        (->> (prepare-foods-table locale foods)
             food-page/render-table)]
+
+      (compare/render-comparison-drawer locale)
 
       [:div.mmm-container.mmm-section
        (CompactSiteFooter)]]]))
