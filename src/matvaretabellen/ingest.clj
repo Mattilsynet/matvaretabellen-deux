@@ -1,15 +1,9 @@
 (ns matvaretabellen.ingest
-  (:require [clojure.edn :as edn]
-            [clojure.java.io :as io]
+  (:require [clojure.java.io :as io]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.pages :as pages]
             [matvaretabellen.rda :as rda]
             [matvaretabellen.urls :as urls]))
-
-(defn load-edn [file-name]
-  (-> (io/file file-name)
-      slurp
-      edn/read-string))
 
 (defn get-food-pages [db]
   (->> (d/q '[:find ?food-id ?food-name
@@ -47,11 +41,17 @@
             db)
        (mapcat
         (fn [[id i18n-names]]
-          (for [[locale name] i18n-names]
-            {:page/uri (urls/get-food-group-url locale name)
-             :page/kind :page.kind/food-group
-             :page/locale locale
-             :page/food-group-id id})))))
+          (mapcat
+           (fn [[locale name]]
+             [{:page/uri (urls/get-food-group-url locale name)
+               :page/kind :page.kind/food-group
+               :page/locale locale
+               :page/food-group-id id}
+              {:page/uri (urls/get-food-group-excel-url locale name)
+               :page/kind :page.kind/food-group-excel
+               :page/locale locale
+               :page/food-group-id id}])
+           i18n-names)))))
 
 (defn ensure-unique-page-uris [entity-maps]
   (when-not (= (count entity-maps)

@@ -75,6 +75,9 @@
   :download-everything "Last ned hele tabellen"
   :download-url "/alle-matvarer.xlsx"}
 
+ #:matvaretabellen.pages.food-group-page
+ {:download-these "Last ned tabellen"}
+
  #:matvaretabellen.pages.frontpage
  {:search-label "Søk i Matvaretabellen"
   :search-button "Søk"

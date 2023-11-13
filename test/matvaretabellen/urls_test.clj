@@ -27,4 +27,7 @@
          "/gruppe/frukt-og-baer-ra-fersk/"))
 
   (is (= (sut/get-food-group-url :en "Fruit and berries, raw/fresh")
-         "/en/group/fruit-and-berries-raw-fresh/")))
+         "/en/group/fruit-and-berries-raw-fresh/"))
+
+  (is (= (sut/get-food-group-excel-url :nb "Frukt og bær, rå/fersk")
+         "/gruppe/frukt-og-baer-ra-fersk.xlsx")))

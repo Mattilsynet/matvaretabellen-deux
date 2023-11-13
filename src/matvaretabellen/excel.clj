@@ -1,10 +1,11 @@
 (ns matvaretabellen.excel
-  (:import [java.io ByteArrayOutputStream FileOutputStream]
-           [org.apache.poi.xssf.usermodel XSSFWorkbook])
   (:require [broch.core :as b]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
-            [matvaretabellen.misc :as misc]))
+            [matvaretabellen.food :as food]
+            [matvaretabellen.misc :as misc])
+  (:import (java.io ByteArrayOutputStream FileOutputStream)
+           (org.apache.poi.xssf.usermodel XSSFWorkbook)))
 
 (defn add-index [coll]
   (map-indexed (fn [i m] (assoc m :index i)) coll))
@@ -144,12 +145,14 @@
 (def cover-sheet-text
   {:nb [{:header? true :cells [{:text "Matvaretabellen {:year}"}]}
         ""
-        "Her finner du informasjon om næringsstoffer i matvarene i Matvaretabellen, fordelt på fem forskjellige ark."
+        :preamble
         ""
-        "I arket Matvarer finner du de viktigste næringsstoffverdiene for hver matvare."
-        "I arket Matvarer (alle næringsstoffer) finner du en oversikt med alle næringsstoffene for hver matvare."
-        "Til hvert av disse arkene finnes et vedleggsark med kilder. Disse forteller hvordan næringsstoffverdiene er funnet."
-        "Til slutt finner du arket Kildeoppslag med en beskrivelse av hver kilde."
+        "Informasjonen er fordelt på fem forskjellige ark:"
+        ""
+        "- I arket Matvarer finner du de viktigste næringsstoffverdiene for hver matvare."
+        "- I arket Matvarer (alle næringsstoffer) finner du en oversikt med alle næringsstoffene for hver matvare."
+        "- Til hvert av disse arkene finnes et vedleggsark med kilder. Disse forteller hvordan næringsstoffverdiene er funnet."
+        "- Til slutt finner du arket Kildeoppslag med en beskrivelse av hver kilde."
         ""
         "Matvaretabellen er en tjeneste fra Mattilsynet."
         "Husk å oppgi kilde når du bruker tabellverdiene: Matvaretabellen {:year} Mattilsynet, www.matvaretabellen.no"
@@ -158,12 +161,14 @@
         #_"PS! Har du behov for å behandle disse dataene programatisk er de samme verdiene tilgjengelig som JSON og EDN på matvaretabellen.no"]
    :en [{:header? true :cells [{:text "The Norwegian Food Composition Table {:year}"}]}
         ""
-        "This section provides information on nutrients in the foods listed in the Norwegian Food Composition Table, spread across five different sheets."
+        :preamble
         ""
-        "The Foods sheet details key nutrient values for each food item."
-        "The Foods (all nutrients) sheet offers a comprehensive list of all nutrients for each food item."
-        "Each of these sheets is accompanied by a supplementary sheet listing sources, explaining how the nutrient values were determined."
-        "Additionally, the Source Lookup sheet describes each source in detail."
+        "The information is spread across five sheets:"
+        ""
+        "- The Foods sheet details key nutrient values for each food item."
+        "- The Foods (all nutrients) sheet offers a comprehensive list of all nutrients for each food item."
+        "- Each of these sheets is accompanied by a supplementary sheet listing sources, explaining how the nutrient values were determined."
+        "- Additionally, the Source Lookup sheet describes each source in detail."
         ""
         "The Food Composition Table is a service provided by the Norwegian Food Safety Authority."
         "Remember to cite the source when using the table values: The Norwegian Food Composition Table {:year} Norwegian Food Safety Authority, www.matvaretabellen.no"
@@ -185,34 +190,50 @@
    :source-lookup {:nb "Kildeoppslag"
                    :en "Source Lookup"}})
 
-(defn prepare-foods-cover-sheet [locale year]
+(defn prepare-foods-cover-sheet [locale year preamble]
   {:title (-> i18n :information locale)
    :rows (for [line (cover-sheet-text locale)]
-           (-> (if (string? line)
-                 {:cells [{:text line}]}
-                 line)
+           (-> (cond
+                 (string? line) {:cells [{:text line}]}
+                 (= :preamble line) {:cells [{:text preamble}]}
+                 (map? line) line)
                (update-in [:cells 0 :text] str/replace "{:year}" (str year))))})
 
-(defn prepare-food-sheets [db locale year foods]
+(defn prepare-food-sheets [db locale year preamble foods]
   (let [basic-fields (get-basic-food-fields db locale)
         all-fields (get-all-food-fields db locale)
         reference-sheet (prepare-reference-sheet locale (-> i18n :sources-all-nutrientes locale) all-fields foods)]
-    [(prepare-foods-cover-sheet locale year)
+    [(prepare-foods-cover-sheet locale year preamble)
      (prepare-foods-sheet locale (-> i18n :foods locale) basic-fields foods)
      (prepare-reference-sheet locale (-> i18n :sources locale) basic-fields foods)
      (prepare-foods-sheet locale (-> i18n :foods-all-nutrients locale) all-fields foods)
      reference-sheet
      (prepare-reference-lookup-sheet db locale (-> i18n :source-lookup locale) reference-sheet)]))
 
-(defn render-all-foods [db year page]
-  (let [locale (:page/locale page)
-        foods (for [eid (d/q '[:find [?e ...] :where [?e :food/id]] db)]
-                (d/entity db eid))]
+(defn render-some-foods [db year page preamble foods]
+  (let [locale (:page/locale page)]
     {:status 200
      :headers {"Content-Type" "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}
      :body (create-excel-byte-array
             (create-workbook
-             (prepare-food-sheets db locale year foods)))}))
+             (prepare-food-sheets db locale year (get preamble locale) foods)))}))
+
+(defn render-all-foods [db year page]
+  (let [foods (for [eid (d/q '[:find [?e ...] :where [?e :food/id]] db)]
+                (d/entity db eid))]
+    (render-some-foods db year page
+                       {:nb (str "Her finner du informasjon om alle " (count foods) " matvarene i Matvaretabellen.")
+                        :en (str "This document provides information about all " (count foods) " foods listed in the Norwegian Food Composition Table.")}
+                       foods)))
+
+(defn render-food-group-foods [db year page]
+  (let [food-group (d/entity db [:food-group/id (:page/food-group-id page)])
+        food-group-name (get-in food-group [:food-group/name (:page/locale page)])
+        foods (food/get-all-food-group-foods food-group)]
+    (render-some-foods db year page
+                       {:nb (str "Her finner du informasjon om de " (count foods) " matvarene under " food-group-name " i Matvaretabellen.")
+                        :en (str "This document provides information about the " (count foods) " foods under " food-group-name " listed in the Norwegian Food Composition Table.")}
+                       foods)))
 
 (comment
 
@@ -221,7 +242,7 @@
   (def locale :nb)
   (def fields (get-basic-food-fields db locale))
 
-  (prepare-foods-cover-sheet :nb 2023)
+  (prepare-foods-cover-sheet :nb 2023 "Her finner du informasjon om næringsstoffer i matvarene i Matvaretabellen.")
 
   (prepare-food-cells fields food)
 
@@ -234,6 +255,6 @@
   (prepare-foods-sheet locale "Matvarer" (get-basic-food-fields db locale) foods)
   (prepare-foods-sheet locale "Matvarer (alle næringsstoffer)" (get-all-food-fields db locale) foods)
 
-  (create-excel-file "test.xlsx" (create-workbook (prepare-food-sheets db locale 2023 foods)))
+  (create-excel-file "test.xlsx" (create-workbook (prepare-food-sheets db locale 2023 "" foods)))
 
   )

@@ -1,15 +1,13 @@
 (ns matvaretabellen.pages.food-group-page
   (:require [datomic-type-extensions.api :as d]
             [matvaretabellen.crumbs :as crumbs]
+            [matvaretabellen.food :as food]
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
+            [mmm.components.button :refer [Button]]
             [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.site-header :refer [SiteHeader]]))
-
-(defn get-all-foods [food-group]
-  (apply concat (:food/_food-group food-group)
-         (map get-all-foods (:food-group/_parent food-group))))
 
 (defn prepare-foods-table [locale foods]
   {:headers [{:text "Matvare"}]
@@ -22,7 +20,7 @@
                              [:food-group/id (:page/food-group-id page)])
         details (d/entity (:app/db context)
                           [:food-group/id (:page/food-group-id page)])
-        foods (get-all-foods food-group)
+        foods (food/get-all-food-group-foods food-group)
         locale (:page/locale page)]
     [:html {:class "mmm"}
      [:body
@@ -46,7 +44,13 @@
             {:count (count foods)}]]
           [:div.mmm-text.mmm-preamble
            [:p (or (get-in details [:food-group/long-description locale])
-                   (get-in details [:food-group/short-description locale]))]]]
+                   (get-in details [:food-group/short-description locale]))]]
+          [:div
+           (Button {:text [:i18n ::download-these]
+                    :href (urls/get-food-group-excel-url locale food-group)
+                    :icon :fontawesome.solid/arrow-down
+                    :inline? true
+                    :secondary? true})]]
          [:aside.mmm-desktop {:style {:flex-basis "40%"}}
           [:img {:src (:food-group/illustration details)
                  :width 300}]]]]]

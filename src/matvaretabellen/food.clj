@@ -83,6 +83,10 @@
         :else
         (recur (next words) (conj res word))))))
 
+(defn get-all-food-group-foods [food-group]
+  (apply concat (:food/_food-group food-group)
+         (map get-all-food-group-foods (:food-group/_parent food-group))))
+
 (comment
 
   (def conn matvaretabellen.dev/conn)
