@@ -16,6 +16,25 @@
           js/JSON.parse
           (js->clj :keywordize-keys true)))
 
+(def name-length 20)
+
+(defn get-short-name [food]
+  (if (< (count (:foodName food)) name-length)
+    (:foodName food)
+    (let [pieces (str/split (:foodName food) #",")
+          candidate (first pieces)]
+      (if (< (count candidate) name-length)
+        candidate
+        (loop [words (seq (str/split candidate #" "))
+               res []]
+          (if (nil? words)
+            (str/join " " res)
+            (let [word (first words)
+                  new-res (conj res word)]
+              (if (< (reduce + (map count new-res)) name-length)
+                (recur (next words) new-res)
+                (str/join " " res)))))))))
+
 (defn set-energy [el food]
   (let [kj (.querySelector el ".mvt-kj")
         kcal (.querySelector el ".mvt-kcal")]
@@ -36,7 +55,12 @@
 (defn prepare-comparison-el [el food]
   (or
    (when (.contains (.-classList el) "mvtc-food-name")
-     (set! (.-innerHTML el) (str "<a class=\"mmm-link\" href=\"" (:url food) "\">" (:foodName food) "</a>")))
+     (set! (.-innerHTML el) (str "<a class=\"mmm-link\" href=\"" (:url food) "\">"
+                                 (let [short (get-short-name food)]
+                                   (if (not= (:foodName food) short)
+                                     (str "<abbr class=\"mmm-abbr\" title=\"" (:foodName food) "\">" short "</abbr>")
+                                     short))
+                                 "</a>")))
 
    (when (.contains (.-classList el) "mvtc-energy")
      (set-energy el food))
@@ -77,12 +101,7 @@
                                                           equivalents)
                                                      enumerate)))]
         (set! (.-innerHTML summary) text))
-      (.remove (.-classList summary) "mmm-hidden")
-      (prn equivalents))))
-
-(comment
-  (update-summary (get-foods-to-compare))
-)
+      (.remove (.-classList summary) "mmm-hidden"))))
 
 (defn initialize-page
   "Initialize the comparison page"
