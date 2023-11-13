@@ -408,7 +408,9 @@
                        :text [:i18n ::compare-food]
                        :inline? true
                        :secondary? true
-                       :icon :fontawesome.solid/code-compare})]]
+                       :icon :fontawesome.solid/code-compare
+                       :data-food-id (:food/id food)
+                       :data-food-name food-name})]]
             [:div.mmm-cards
              (->> (prepare-macro-highlights food)
                   (map DetailFocusCard))]]]
@@ -504,7 +506,4 @@
        [:div.mmm-container.mmm-section
         (CompactSiteFooter)]
 
-       (comparison/render-comparison-drawer locale)
-
-       [:script {:type "text/json" :id "data"}
-        (json/write-str (food/food->json-data locale food))]]]]))
+       (comparison/render-comparison-drawer locale)]]]))
