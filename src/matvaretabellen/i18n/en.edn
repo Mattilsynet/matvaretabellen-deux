@@ -67,6 +67,7 @@
   :fat-title "Fatty Acids"
   :food-id (list [:strong "Food ID:"] " " [:fn/get :id])
   :grams [:fn/str "{{:value}} grams"]
+  :kcal-content-title (list "Calories in " [:fn/get :portion])
   :langual-code-label "LanguaL"
   :langual-description-label "Classification"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]

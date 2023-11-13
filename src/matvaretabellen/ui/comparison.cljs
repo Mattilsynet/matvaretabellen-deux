@@ -36,10 +36,10 @@
                 (str/join " " res)))))))))
 
 (defn set-energy [el food]
-  (let [kj (.querySelector el ".mvt-kj")
-        kcal (.querySelector el ".mvt-kcal")]
+  (when-let [kj (.querySelector el ".mvt-kj")]
     (set! (.-innerHTML kj) (:energyKj food))
-    (.setAttribute kj "data-portion" (:energyKj food))
+    (.setAttribute kj "data-portion" (:energyKj food)))
+  (when-let [kcal (.querySelector el ".mvt-kcal")]
     (set! (.-innerHTML kcal) (:energyKcal food))
     (.setAttribute kcal "data-portion" (:energyKcal food))))
 

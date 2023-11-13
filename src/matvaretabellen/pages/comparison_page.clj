@@ -37,7 +37,10 @@
 
 (defn prepare-energy-rows [food]
   [[{:text food-page/energy-label}
-    {:text (food-page/energy food)
+    {:text (food-page/get-kj food {:class "mvt-kj"})
+     :class [:mmm-nbr :mvtc-energy]}]
+   [{:text food-page/kcal-label}
+    {:text (food-page/get-kcal food {:class "mvt-kcal"})
      :class [:mmm-nbr :mvtc-energy]}]
    [{:text [:i18n ::edible-part]}
     {:text (list [:span.mvtc-edible-part (-> food :food/edible-part :measurement/percent)] " %")

@@ -71,6 +71,7 @@
   :langual-description-label "Klassifisering"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
   :highlight-title [:fn/str "{{:nb}} →"]
+  :kcal-content-title (list "Kalorier i " [:fn/get :portion])
   :minerals-title "Mineraler"
   :nutrients "Næringsstoffer"
   :nutrition-heading "Energigivende næringsstoffer"
