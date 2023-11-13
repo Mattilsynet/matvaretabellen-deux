@@ -1,6 +1,7 @@
 (ns matvaretabellen.ui.comparison
   (:require [clojure.string :as str]
-            [matvaretabellen.diff :as diff]))
+            [matvaretabellen.diff :as diff]
+            [matvaretabellen.urls :as urls]))
 
 (defn qsa [selector]
   (seq (js/document.querySelectorAll selector)))
@@ -13,22 +14,21 @@
 (defn keywordize-some
   "Keyborizes most keys except for contituent ids, which are strings with
   keyword-unfriendly characters"
-  [foods]
-  (for [food foods]
-    (-> food
-        (update-keys keyword)
-        (update :constituents
-                (fn [constituents]
-                  (->> (for [[nutrient-id x] constituents]
-                         [nutrient-id (update-keys x keyword)])
-                       (into {})))))))
+  [food]
+  (-> food
+      (update-keys keyword)
+      (update :constituents
+              (fn [constituents]
+                (->> (for [[nutrient-id x] constituents]
+                       [nutrient-id (update-keys x keyword)])
+                     (into {}))))))
 
 (defn get-foods-to-compare []
-  (some-> (js/localStorage.getItem comparison-k)
-          not-empty
-          js/JSON.parse
-          js->clj
-          keywordize-some))
+  (some->> (js/localStorage.getItem comparison-k)
+           not-empty
+           js/JSON.parse
+           js->clj
+           (map keywordize-some)))
 
 (def name-length 20)
 
@@ -120,10 +120,15 @@
 (defn food->diffable [food]
   [(:id food) (update-vals (:constituents food) (comp first :quantity))])
 
+(defn get-comparison-data [data ids]
+  (for [id ids]
+    (keywordize-some (js->clj (aget data id)))))
+
 (defn initialize-page
   "Initialize the comparison page"
-  []
-  (when-let [foods (get-foods-to-compare)]
+  [data params]
+  (when-let [foods (->> (str/split (get params "food-ids") ",")
+                        (get-comparison-data data))]
     (when (< 4 (count foods))
       (let [container (js/document.getElementById "container")]
         (.remove (.-classList container) "mmm-container-focused")

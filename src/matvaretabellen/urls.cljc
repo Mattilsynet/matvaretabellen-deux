@@ -27,6 +27,9 @@
     :nb "/sammenlign/"
     :en "/compare/"))
 
+(defn get-api-data-url [locale]
+  (str "/api/" (name locale) "/foods.json"))
+
 (defn get-food-url [locale food-or-name]
   (->> (if-let [food-name (:food/name food-or-name)]
          (get food-name locale)

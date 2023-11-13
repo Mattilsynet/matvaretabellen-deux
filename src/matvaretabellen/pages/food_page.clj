@@ -507,15 +507,4 @@
        (comparison/render-comparison-drawer locale)
 
        [:script {:type "text/json" :id "data"}
-        (json/write-str
-         {:id (:food/id food)
-          :url (urls/get-food-url locale food)
-          :foodName (get (:food/name food) locale)
-          :energyKj (b/num (:measurement/quantity (:food/energy food)))
-          :energyKcal (:measurement/observation (:food/calories food))
-          :ediblePart (:measurement/percent (:food/edible-part food))
-          :constituents (->> (for [constituent (:food/constituents food)]
-                               [(-> constituent :constituent/nutrient :nutrient/id)
-                                {:quantity [(or (some-> constituent :measurement/quantity b/num) 0)
-                                            (or (some-> constituent :measurement/quantity b/symbol) "g")]}])
-                             (into {}))})]]]]))
+        (json/write-str (food/food->json-data locale food))]]]]))

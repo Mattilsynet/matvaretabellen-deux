@@ -139,3 +139,12 @@
 
       [:div.mmm-container.mmm-section
        (CompactSiteFooter)]]]))
+
+(defn render-data [context page]
+  {:content-type :json
+   :body (->> (d/q '[:find [?f ...]
+                     :where
+                     [?f :food/id]]
+                   (:foods/db context))
+              (map #(d/entity (:foods/db context) %))
+              (map #(food/food->json-data (:page/locale page) %)))})

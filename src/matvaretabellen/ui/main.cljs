@@ -180,24 +180,56 @@
         (set! (.-checked checkbox) true))
       (.addEventListener checkbox "input" #(toggle-sources % selector)))))
 
+(defn get-session-item [k]
+  (try
+    (js/sessionStorage.getItem k)
+    (catch :default _e
+      nil)))
+
+(defn set-session-item [k item]
+  (try
+    (js/sessionStorage.setItem k item)
+    (catch :default _e)))
+
+(defn ensure-comparison-data [k locale f]
+  (try
+    (if-let [data (get-session-item k)]
+      (f data)
+      (-> (js/fetch (urls/get-api-data-url locale))
+          (.then (fn [res] (.json res)))
+          (.then (fn [raw-data]
+                   (let [data (->> raw-data
+                                   js->clj
+                                   (map (juxt #(get % "id") identity))
+                                   (into {})
+                                   clj->js)]
+                     (set-session-item k (js/JSON.stringify data))
+                     (f data))))))
+    (catch :default _e
+      (f nil))))
+
 (defn boot []
   (main)
-  (initialize-foods-autocomplete
-   (js/document.querySelector ".mmm-search-input")
-   (keyword js/document.documentElement.lang)
-   (get (get-params) "search"))
+  (let [locale (keyword js/document.documentElement.lang)]
+    (initialize-foods-autocomplete
+     (js/document.querySelector ".mmm-search-input")
+     locale
+     (get (get-params) "search"))
 
-  (initialize-portion-selector
-   (js/document.querySelector "#portion-selector")
-   (js/document.querySelectorAll "[data-portion]")
-   (js/document.querySelectorAll ".js-portion-label"))
+    (initialize-portion-selector
+     (js/document.querySelector "#portion-selector")
+     (js/document.querySelectorAll "[data-portion]")
+     (js/document.querySelectorAll ".js-portion-label"))
 
-  (initialize-source-toggler ".mvt-source-toggler input")
+    (initialize-source-toggler ".mvt-source-toggler input")
 
-  (comparison/initialize-tooling ".mvt-compare-food" ".mvtc-drawer")
+    (comparison/initialize-tooling ".mvt-compare-food" ".mvtc-drawer")
 
-  (when (= "comparison" js/document.body.id)
-    (comparison/initialize-page))
+    (let [k (str "comparison-data-" (name locale))]
+      (->> (fn [data]
+             (when (= "comparison" js/document.body.id)
+               (comparison/initialize-page data (get-params))))
+           (ensure-comparison-data k locale))))
 
   (hoverable/set-up js/document))
 

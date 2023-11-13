@@ -3,7 +3,8 @@
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.misc :as misc]
-            [matvaretabellen.nutrient :as nutrient]))
+            [matvaretabellen.nutrient :as nutrient]
+            [matvaretabellen.urls :as urls]))
 
 (defn get-nutrient-measurement [food nutrient-id]
   (->> (:food/constituents food)
@@ -100,6 +101,19 @@
 
 (defn food->diffable [food]
   [(:food/id food) (get-nutrient-group-lookup food)])
+
+(defn food->json-data [locale food]
+  {:id (:food/id food)
+   :url (urls/get-food-url locale food)
+   :foodName (get (:food/name food) locale)
+   :energyKj (some-> food :food/energy :measurement/quantity b/num)
+   :energyKcal (:measurement/observation (:food/calories food))
+   :ediblePart (:measurement/percent (:food/edible-part food))
+   :constituents (->> (for [constituent (:food/constituents food)]
+                        [(-> constituent :constituent/nutrient :nutrient/id)
+                         {:quantity [(or (some-> constituent :measurement/quantity b/num) 0)
+                                     (or (some-> constituent :measurement/quantity b/symbol) "g")]}])
+                      (into {}))})
 
 (comment
 
