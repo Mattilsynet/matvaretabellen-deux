@@ -75,7 +75,7 @@
        (parse-long (str/replace v #"[^\d]" ""))]
       (let [n (parse-nor-double (str/replace v #"[^\d,]" ""))]
         (cond
-          (re-find #"(g)" header)
+          (re-find #"\(g\)" header)
           [(kind->key kind) (b/from-edn [n "g"])]
 
           :else

@@ -106,7 +106,7 @@
               {:rda.recommendation/nutrient-id "Na"
                :rda.recommendation/max-amount #broch/quantity[1400.0 "mg"]}
               {:rda.recommendation/nutrient-id "Mg"
-               :rda.recommendation/average-amount #broch/quantity[200.0 "g"]}
+               :rda.recommendation/average-amount #broch/quantity[200.0 "mg"]}
               {:rda.recommendation/nutrient-id "Zn"
                :rda.recommendation/average-amount #broch/quantity[7.0 "mg"]}
               {:rda.recommendation/nutrient-id "Cu"
@@ -185,7 +185,7 @@
               {:nutrient-id "Mettet"
                :max-energy-pct 10}
               {:nutrient-id "Mg"
-               :average-amount {:n 200.0 :symbol "g"}}
+               :average-amount {:n 200.0 :symbol "mg"}}
               {:nutrient-id "Na"
                :max-amount {:n 1400.0 :symbol "mg"}}
               {:nutrient-id "NaCl"
