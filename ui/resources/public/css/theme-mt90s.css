@@ -229,6 +229,13 @@
     --mt-component-hover-popup-bg: var(--mt-color-surface-default);
     --mt-component-hover-popup-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
+    --mt-component-icon-button-padding: 8px;
+    --mt-component-icon-button-size-small: 32px;
+    --mt-component-icon-button-size-medium: 48px;
+    --mt-component-icon-button-border-radius: var(--mt-border-radius-s);
+    --mt-component-icon-button-active-color: var(--mt-color-blue-500);
+    --mt-component-icon-button-active-background: var(--mt-color-blue-100);
+
     --mt-component-pill-background: var(--mt-color-beige-200);
     --mt-component-pill-padding: var(--mt-spacing-x0_5) var(--mt-spacing-x1);
     --mt-component-pill-icon-gap: var(--mt-spacing-x0_5);

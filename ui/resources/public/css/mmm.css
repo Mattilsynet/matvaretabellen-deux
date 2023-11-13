@@ -925,8 +925,22 @@ table > tr.mmm-highlight {
  ******************************/
 
 .mmm-icon-button {
-    width: 16px;
-    height: 16px;
+    border-radius: var(--mt-component-icon-button-border-radius);
+    display: inline-block;
+    padding: var(--mt-component-icon-button-padding);
+    transition: background 0.25s;
+    height: var(--mt-component-icon-button-size-small);
+    width: var(--mt-component-icon-button-size-small);
+}
+
+.mmm-icon-button-m {
+    height: var(--mt-component-icon-button-size-medium);
+    width: var(--mt-component-icon-button-size-medium);
+}
+
+.mmm-icon-button-active {
+    color: var(--mt-component-icon-button-active-color);
+    background: var(--mt-component-icon-button-active-background);
 }
 
 /*************************
