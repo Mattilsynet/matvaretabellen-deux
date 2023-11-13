@@ -337,11 +337,10 @@
 (deftest diff-foods-test
   (testing "Diffs main nutrition of two foods"
     (is (= (->> (sut/diff-constituents
-                 sut/get-nutrient-group-lookup
                  medians
-                 dried-apple
-                 ghee))
-           [{:food/id "08.252"
+                 (sut/food->diffable dried-apple)
+                 (sut/food->diffable ghee)))
+           [{:id "08.252"
              :diffs {"Fett" 4.9414758269720105
                      "Karbo" -1.6287262872628727
                      "Fiber" -0.6451612903225806

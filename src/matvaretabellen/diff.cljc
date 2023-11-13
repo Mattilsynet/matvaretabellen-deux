@@ -11,8 +11,8 @@
        (remove (comp :nutrient/parent :constituent/nutrient))
        ->nutrient-lookup))
 
-(defn get-nutrient-lookup [food]
-  (->nutrient-lookup (:food/constituents food)))
+(defn food->diffable [food]
+  [(:food/id food) (get-nutrient-group-lookup food)])
 
 (defn diff-quantities [ref-vals m1 m2]
   (->> (for [[k v] m1]
@@ -25,12 +25,11 @@
                    0)))])
        (into {})))
 
-(defn diff-constituents [f ref-vals reference-food & foods]
-  (let [reference (f reference-food)]
-    (->> (map (juxt :food/id f) foods)
-         (map (fn [[id nutrients]]
-                {:food/id id
-                 :diffs (diff-quantities ref-vals reference nutrients)})))))
+(defn diff-constituents [ref-vals reference & xs]
+  (->> xs
+       (map (fn [[id k->m]]
+              {:id id
+               :diffs (diff-quantities ref-vals (second reference) k->m)}))))
 
 (defn rate-energy-diff [reference-food & foods]
   (let [ref (:measurement/quantity (:food/energy reference-food))]
