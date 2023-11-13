@@ -130,3 +130,28 @@
    [:tr
     [:th "Kolestrol"]
     [:td.mmm-tar.mmm-td-min "0,07"]]])
+
+(defscene table-with-highlighted-row
+  "Ved å sette `.mmm-highlight` på en rad får du satt ekstra fokus på innholdet
+  i raden. Denne tabellen har også .mmm-table-hover som gir musefokus på rader."
+  [:table.mmm-table.mmm-table-zebra.mmm-table-hover
+   [:tr
+    [:th "Fettsyrer, total"]
+    [:td.mmm-tar.mmm-td-min "27,0"]]
+   [:tr
+    [:th "Mettet fett, total"]
+    [:td.mmm-tar.mmm-td-min "17,1"]]
+   [:tr.mmm-highlight
+    [:th {:colspan 2} "Det andre fettet"]]
+   [:tr
+    [:th "Enumettet fett, total"]
+    [:td.mmm-tar.mmm-td-min "6,5"]]
+   [:tr
+    [:th "Flerumettet fett, total"]
+    [:td.mmm-tar.mmm-td-min "0,6"]]
+   [:tr
+    [:th "Transfett"]
+    [:td.mmm-tar.mmm-td-min "0,8"]]
+   [:tr
+    [:th "Kolestrol"]
+    [:td.mmm-tar.mmm-td-min "0,07"]]])

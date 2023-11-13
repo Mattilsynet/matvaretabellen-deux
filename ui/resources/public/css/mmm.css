@@ -260,6 +260,16 @@ ol.mmm-unadorned-list li {
     background-color: var(--mt-component-table-background-zebra);
 }
 
+.mmm-table-hover tbody tr:hover,
+.mmm-table-hover > tr:hover {
+    background-color: var(--mt-component-table-background-hover);
+}
+
+tbody tr.mmm-highlight,
+table > tr.mmm-highlight {
+    background-color: var(--mt-component-table-background-highlight);
+}
+
 .mmm-table td,
 .mmm-table th {
     padding: var(--mt-component-table-cell-padding);
