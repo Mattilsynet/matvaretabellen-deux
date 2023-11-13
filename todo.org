@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [14/33]
+* Tickets [16/33]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -32,8 +32,8 @@
 ** TODO Stolpediagrammer
 ** TODO [M] Internasjonalisering av porsjonsstørrelser
 ** TODO [M] Skill matvarer på matvaregrupper i excel-arket
-** TODO [M] Lag egne excel-ark for hver matvaregruppe
-** TODO [M] Lag egne excel-ark for hvert næringsstoff
+** DONE [M] Lag egne excel-ark for hver matvaregruppe
+** DONE [M] Lag egne excel-ark for hvert næringsstoff
 ** TODO OpenGraph på matvaresidene
 ** TODO Ta en runde med ipad-bredde 800px
 ** TODO Sorter høyt/lavt på næringsstoff-sidene
