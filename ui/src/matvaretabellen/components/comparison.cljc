@@ -12,7 +12,9 @@
       [:li [:a.mmm-pill.mmm-actionable
             (icons/render :fontawesome.solid/x {:class :mmm-svg})
             [:span.mvtc-food-name]]]]]
-    [:div
+    [:div.mmm-vert-layout-m
+     [:div.mmm-icon-button.mmm-alr.mmm-actionable
+      (icons/render :fontawesome.solid/x {:class "mmm-svg"})]
      (Button {:text [:i18n ::compare-now]
               :href (urls/get-comparison-url locale)
               :icon :fontawesome.solid/arrow-right

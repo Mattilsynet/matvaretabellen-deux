@@ -181,6 +181,10 @@ ol.mmm-unadorned-list li {
     white-space: nowrap;
 }
 
+.mmm-alr {
+    align-self: flex-end;
+}
+
 .mmm-preamble {
     font-size: var(--mt-typography-preamble-m-font-size);
     font-weight: var(--mt-typography-preamble-m-font-weight);
@@ -227,8 +231,10 @@ ol.mmm-unadorned-list li {
     max-width: 100%;
 }
 
+.mmm-svg,
 .mmm svg {
     fill: currentColor;
+    max-height: 100%;
 }
 
 /**************
@@ -912,6 +918,15 @@ table > tr.mmm-highlight {
     min-height: 3.875rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+}
+
+/******************************
+ *** Component: Icon button ***
+ ******************************/
+
+.mmm-icon-button {
+    width: 16px;
+    height: 16px;
 }
 
 /*************************

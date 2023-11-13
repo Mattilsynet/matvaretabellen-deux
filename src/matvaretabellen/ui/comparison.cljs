@@ -222,7 +222,11 @@
                                   (update-comparison-uis foods data buttons-selector drawer-selector)))
     (when (< 0 (count @foods))
       (when-let [drawer (js/document.querySelector drawer-selector)]
-        (set! (.-transition (.-style drawer)) "none")))
+        (set! (.-transition (.-style drawer)) "none")
+        (->> (fn [_e]
+               (set! (.-transition (.-style drawer)) "height 0.25s")
+               (js/requestAnimationFrame #(reset! foods nil)))
+             (.addEventListener (.querySelector drawer ".mmm-icon-button") "click"))))
     (update-comparison-uis foods data buttons-selector drawer-selector)
     (doseq [button (qsa buttons-selector)]
       (.remove (.-classList button) "mmm-hidden")
