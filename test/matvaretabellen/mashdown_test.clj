@@ -25,4 +25,10 @@
     (is (= (with-test-db [db [{:food/id "05.448"
                                :food/name {:nb "Banankake"}}]]
              (sut/render db :nb "Klar for litt [kake med banan|05.448]?"))
-           '("Klar for litt " [:a {:href "/banankake/"} "kake med banan"] "?")))))
+           '("Klar for litt " [:a {:href "/banankake/"} "kake med banan"] "?"))))
+
+  (testing "Matvaregruppe"
+    (is (= (with-test-db [db [{:food-group/id "1"
+                               :food-group/name {:nb "Melk og melkeprodukter"}}]]
+             (sut/render db :nb "Det er fett i [melkeprodukter|fg-1]!"))
+           '("Det er fett i " [:a {:href "/gruppe/melk-og-melkeprodukter/"} "melkeprodukter"] "!")))))
