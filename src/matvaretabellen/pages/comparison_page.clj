@@ -94,6 +94,7 @@
                           {:text ""
                            :class [:mmm-sticky :mmm-nbr :mvt-amount :mvtc-food-name]}]
                    :class :mvtc-comparison}
+         :classes [:mmm-table-hover]
          :rows (->> (concat
                      (prepare-energy-rows food)
                      (prepare-macro-rows app-db locale food)
