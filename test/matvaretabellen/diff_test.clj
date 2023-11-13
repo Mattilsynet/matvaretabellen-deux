@@ -349,7 +349,42 @@
                      "Protein" -0.12709030100334448}}]))))
 
 (deftest rate-energy-diff
-  (is (= (sut/rate-energy-diff dried-apple ghee)
-         [{:food/id "08.252"
-           :diff 0.3188020703589914
-           :rating ::sut/dramatic}])))
+  (testing "3x the energy is a dramatic diff"
+    (is (= (sut/rate-energy-diff
+            ["06.531" 1151.8]
+            ["08.252" 3612.9])
+           [{:id "08.252"
+             :diff 0.3188020703589914
+             :rating ::sut/dramatic}])))
+
+  (testing "1/3 of the energy is a dramatic diff"
+    (is (= (sut/rate-energy-diff
+            ["08.252" 3612.9]
+            ["06.531" 1151.8])
+           [{:id "06.531"
+             :diff 3.136742490015628
+             :rating ::sut/dramatic}])))
+
+  (testing "noticeable diff"
+    (is (= (sut/rate-energy-diff
+            ["06.531" 1151.8]
+            ["08.252" 1612.5])
+           [{:id "08.252"
+             :diff 0.7142945736434109
+             :rating ::sut/noticeable}])))
+
+  (testing "small diff"
+    (is (= (sut/rate-energy-diff
+            ["06.531" 200]
+            ["08.252" 240])
+           [{:id "08.252"
+             :diff 5/6
+             :rating ::sut/small}])))
+
+  (testing "slight diff"
+    (is (= (sut/rate-energy-diff
+            ["06.531" 200]
+            ["08.252" 218])
+           [{:id "08.252"
+             :diff 100/109
+             :rating ::sut/slight}]))))

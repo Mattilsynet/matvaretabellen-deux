@@ -31,10 +31,13 @@
               {:id id
                :diffs (diff-quantities ref-vals (second reference) k->m)}))))
 
-(defn rate-energy-diff [reference-food & foods]
-  (let [ref (:measurement/quantity (:food/energy reference-food))]
-    (for [food foods]
-      {:food/id (:food/id food)
-       :diff (b// ref (:measurement/quantity (:food/energy food)))
-       :rating (let [diff (apply b// (sort [ref (:measurement/quantity (:food/energy food))]))]
-                 diff)})))
+(defn rate-energy-diff [[_ ref-energy] & xs]
+  (for [[id energy] xs]
+    {:id id
+     :diff (/ ref-energy energy)
+     :rating (let [diff (apply / (reverse (sort [ref-energy energy])))]
+               (cond
+                 (< diff 1.1) ::slight
+                 (< diff 1.25) ::small
+                 (< diff 1.5) ::noticeable
+                 :else ::dramatic))}))
