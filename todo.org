@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [17/33]
+* Tickets [17/36]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -42,7 +42,10 @@
 ** DONE Støtt oppslag på food-id via søkefeltet, eks 05.448
 ** DONE Avrunde kJ og kcal til hele tall (minimum 1) - aldri desimaler
 ** TODO Søk på næringsstoff
-* ADI-switch [4/10]
+** TODO Bytte punktum med komma
+** TODO Sjekk muligheter for å style pila i selecten litt bedre
+** TODO Flytt kilde til venstre for mengde
+* ADI-switch [4/13]
 ** DONE Internasjonaliser ADI
 ** DONE Lag side-entiteter for JSON-feeds
 ** DONE Generer JSON-feeds
@@ -53,3 +56,20 @@
 ** TODO Tag verdier med adi-markører på ADI-er som skal erstattes
 ** TODO Les fra localStorage
 ** TODO Beregn nye ADI-er
+** TODO Bare én ammende
+** TODO Bare én gravid
+** TODO Bruk "Generell", kall det "Generell, 6-65 år"
+* Sammenligning [11/13]
+** DONE Lag page-entity for sammenligning
+** DONE Rendre en statisk sammenligning mellom tre matvarer
+** DONE Lag en diff for energiinnhold
+** DONE Lag skuff-komponent
+** DONE Legg JSON-data på hver matvareside
+** DONE Flytt Matvare-JSON til localStorage ved klikk på "sammenlign"
+** DONE Oppdater sammenligningsside fra localStorage
+** DONE Marker de mest forskjellige radene i sammenligningstabellen
+** DONE Legg ut statistikk om næringsstoffer på comparison-siden
+** DONE Lag payload med alle matvarene
+** TODO Lag disabled knapp
+** DONE Query-parametere til sammenligningssiden for lenkbare sammenligninger
+** TODO Maks 2 på mobil
