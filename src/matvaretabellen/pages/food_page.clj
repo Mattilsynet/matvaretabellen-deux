@@ -354,12 +354,13 @@
    {:title [:i18n ::sources]
     :href "#kilder"}])
 
-(defn render-toc [contents]
+(defn render-toc [{:keys [contents class]}]
   [:aside
    (Toc
     {:title [:i18n ::toc-title]
      :icon :fontawesome.solid/circle-info
-     :contents contents})])
+     :contents contents
+     :class class})])
 
 (defn render [context db page]
   (let [food (d/entity (:foods/db context) [:food/id (:page/food-id page)])
@@ -407,7 +408,7 @@
             [:div.mmm-cards
              (->> (prepare-macro-highlights food)
                   (map DetailFocusCard))]]]
-          (render-toc (get-toc-items))]]]
+          (render-toc {:contents (get-toc-items)})]]]
        [:div.mmm-container.mmm-section
         [:div.mmm-flex-desktop.mmm-flex-bottom.mmm-mbl
          [:h2.mmm-h2.mmm-mbn#naringsinnhold [:i18n ::nutrition-title]]

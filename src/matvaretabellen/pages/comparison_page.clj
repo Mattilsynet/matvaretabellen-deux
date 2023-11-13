@@ -28,10 +28,10 @@
    (render-breadcrumbs locale)
    [:div.mmm-container.mmm-section
     [:div.mmm-media-d.mmm-media-at
-     [:article.mmm-vert-layout-spread
-      [:h1.mmm-h1 [:i18n ::compare-foods]]
-      [:div.mmm-vert-layout-s.mmm-mtm]]
-     (food-page/render-toc (drop-last 2 (food-page/get-toc-items)))]]])
+     [:article.mmm-vert-layout-m
+      [:h1.mmm-h1 [:i18n ::compare-foods]]]
+     (food-page/render-toc {:contents (drop-last 2 (food-page/get-toc-items))
+                            :class :mmm-nbr})]]])
 
 (defn prepare-energy-rows [food]
   [[{:text food-page/energy-label}
