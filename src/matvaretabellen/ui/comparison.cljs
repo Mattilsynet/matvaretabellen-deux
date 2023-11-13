@@ -10,11 +10,25 @@
 
 (def comparison-k "comparisonFoods")
 
+(defn keywordize-some
+  "Keyborizes most keys except for contituent ids, which are strings with
+  keyword-unfriendly characters"
+  [foods]
+  (for [food foods]
+    (-> food
+        (update-keys keyword)
+        (update :constituents
+                (fn [constituents]
+                  (->> (for [[nutrient-id x] constituents]
+                         [nutrient-id (update-keys x keyword)])
+                       (into {})))))))
+
 (defn get-foods-to-compare []
   (some-> (js/localStorage.getItem comparison-k)
           not-empty
           js/JSON.parse
-          (js->clj :keywordize-keys true)))
+          js->clj
+          keywordize-some))
 
 (def name-length 20)
 
@@ -45,7 +59,7 @@
 
 (defn set-nutrient-content [el food]
   (let [[n sym] (some-> (:constituents food)
-                        (get (keyword (.getAttribute el "data-nutrient-id")))
+                        (get (.getAttribute el "data-nutrient-id"))
                         :quantity)
         num-el (.querySelector el "[data-portion]")]
     (set! (.-innerHTML num-el) n)
@@ -103,6 +117,9 @@
         (set! (.-innerHTML summary) text))
       (.remove (.-classList summary) "mmm-hidden"))))
 
+(defn food->diffable [food]
+  [(:id food) (update-vals (:constituents food) (comp first :quantity))])
+
 (defn initialize-page
   "Initialize the comparison page"
   []
@@ -112,12 +129,23 @@
         (.remove (.-classList container) "mmm-container-focused")
         (.add (.-classList container) "mmm-container")))
     (update-summary foods)
-    (doseq [row (qsa ".mvtc-comparison")]
-      (let [template (.-lastChild row)]
-        (doseq [_food (next foods)]
-          (.appendChild row (.cloneNode template true))))
-      (doseq [[el food] (map vector (next (seq (.-childNodes row))) foods)]
-        (prepare-comparison-el el food)))))
+    (let [statistics (some-> (qs ".mvtc-statistics")
+                             .-innerText
+                             js/JSON.parse
+                             js->clj)
+          notably-different (->> (map food->diffable foods)
+                                 (diff/diff-constituents statistics)
+                                 (diff/find-notable-diffs 0.5)
+                                 keys
+                                 set)]
+      (doseq [row (qsa ".mvtc-comparison")]
+        (when (notably-different (.getAttribute row "data-nutrient-id"))
+          (.add (.-classList row) "mmm-highlight"))
+        (let [template (.-lastChild row)]
+          (doseq [_food (next foods)]
+            (.appendChild row (.cloneNode template true))))
+        (doseq [[el food] (map vector (next (seq (.-childNodes row))) foods)]
+          (prepare-comparison-el el food))))))
 
 ;; Comparison UI on other pages
 

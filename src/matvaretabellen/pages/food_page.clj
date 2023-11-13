@@ -221,6 +221,10 @@
   [:i18n ::energy-content-title
    {:portion [:span.js-portion-label "100 g"]}])
 
+(def kcal-label
+  [:i18n ::kcal-content-title
+   {:portion [:span.js-portion-label "100 g"]}])
+
 (def energy-label-mobile
   [:i18n ::energy-content-title-mobile
    {:portion [:span.js-portion-label "100 g"]}])

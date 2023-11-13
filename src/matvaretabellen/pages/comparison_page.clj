@@ -1,8 +1,11 @@
 (ns matvaretabellen.pages.comparison-page
-  (:require [datomic-type-extensions.api :as d]
+  (:require [clojure.data.json :as json]
+            [datomic-type-extensions.api :as d]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
+            [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
+            [matvaretabellen.statistics :as statistics]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.footer :refer [CompactSiteFooter]]
@@ -46,11 +49,12 @@
     {:text (list [:span.mvtc-edible-part (-> food :food/edible-part :measurement/percent)] " %")
      :class [:mvt-amount]}]])
 
-(defn get-nutrient-cols [app-db locale food nutrient]
-  [{:text (food-page/get-nutrient-link app-db locale nutrient)}
-   {:text (food-page/get-nutrient-quantity food (:nutrient/id nutrient))
-    :class [:mvtc-nutrient]
-    :data-nutrient-id (:nutrient/id nutrient)}])
+(defn get-nutrient-row [app-db locale food nutrient]
+  {:data-nutrient-id (:nutrient/id nutrient)
+   :cols [{:text (food-page/get-nutrient-link app-db locale nutrient)}
+          {:text (food-page/get-nutrient-quantity food (:nutrient/id nutrient))
+           :class [:mvtc-nutrient]
+           :data-nutrient-id (:nutrient/id nutrient)}]})
 
 (defn prepare-macro-rows [app-db locale food]
   (into [{:class [:mmm-thead]
@@ -60,7 +64,7 @@
                  {}]}]
         (for [id food-page/nutrition-table-row-ids]
           (->> (:constituent/nutrient (food/get-nutrient-measurement food id))
-               (get-nutrient-cols app-db locale food)))))
+               (get-nutrient-row app-db locale food)))))
 
 (defn prepare-nutrient-rows [app-db locale {:keys [food nutrients group id]}]
   (concat
@@ -71,7 +75,7 @@
              :id id}
             {}]}]
    (for [nutrient nutrients]
-     (get-nutrient-cols app-db locale food nutrient))
+     (get-nutrient-row app-db locale food nutrient))
    (mapcat
     #(when-let [nutrients (food/get-nutrients food (:nutrient/id %))]
        (prepare-nutrient-rows
@@ -96,7 +100,7 @@
                            :class [:mmm-sticky]}
                           {:text ""
                            :class [:mmm-sticky :mmm-nbr :mvt-amount :mvtc-food-name]}]
-                   :class :mvtc-comparison}
+                   :class [:mvtc-comparison]}
          :classes [:mmm-table-hover]
          :rows (->> (concat
                      (prepare-energy-rows food)
@@ -129,6 +133,9 @@
 
       [:script {:type "text/i18n" :data-k "and"}
        [:i18n ::and]]
+
+      [:script.mvtc-statistics {:type "application/json"}
+       (json/write-str (nutrient/get-nutrient-statistics (:foods/db context) statistics/get-median))]
 
       [:div.mmm-container.mmm-section
        (CompactSiteFooter)]]]))

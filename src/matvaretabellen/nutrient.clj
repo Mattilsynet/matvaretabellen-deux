@@ -138,6 +138,6 @@
 (comment
 
   (def conn matvaretabellen.dev/conn)
-  (get-nutrient-statistics (d/db conn) matvaretabellen.misc/get-median)
+  (get-nutrient-statistics (d/db conn) matvaretabellen.statistics/get-median)
 
 )
