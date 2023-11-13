@@ -44,7 +44,7 @@
   :energy-summary "Disse matvarene har ${rating} energiinnhold. Det er like mye energi i ${reference} som i ${comparisons}."}
 
  #:matvaretabellen.pages.food-page
- {:adi-title "Anbefalt daglig inntak (ADI)"
+ {:adi-title "Anbefalt dagsinntak (AI)"
   :amount "Mengde"
   :carbohydrates-title "Karbohydrater"
   :category [:fn/str "Kategori: {{:category}}"]
@@ -78,9 +78,9 @@
   :nutrition-title "Næringsinnhold"
   :portion-size "Porsjonsstørrelse:"
   :portion-with-grams [:fn/str "{{:portion}} ({{:grams}} gram)"]
-  :rda-explanation "Anbefalt Daglig Inntak"
-  :rda-pct "% av ADI"
-  :rda-select-label "Anbefalt Daglig Inntak (ADI)"
+  :rda-explanation "Anbefalt Dagdinntak"
+  :rda-pct "% av AI"
+  :rda-select-label "Anbefalt Dagsinntak (AI)"
   :scientific-name (list [:strong "Vitenskapelig navn:"] " " [:fn/get :name])
   :source "Kilde"
   :sources "Kilder"
