@@ -1,7 +1,6 @@
 (ns matvaretabellen.ui.comparison
   (:require [clojure.string :as str]
-            [matvaretabellen.diff :as diff]
-            [matvaretabellen.urls :as urls]))
+            [matvaretabellen.diff :as diff]))
 
 (defn qsa [selector]
   (seq (js/document.querySelectorAll selector)))
@@ -49,6 +48,12 @@
                 (recur (next words) new-res)
                 (str/join " " res)))))))))
 
+(defn get-abbreviated-name [food]
+  (let [short (get-short-name food)]
+    (if (not= (:foodName food) short)
+      (str "<abbr class=\"mmm-abbr\" title=\"" (:foodName food) "\">" short "</abbr>")
+      short)))
+
 (defn set-energy [el food]
   (when-let [kj (.querySelector el ".mvt-kj")]
     (set! (.-innerHTML kj) (:energyKj food))
@@ -70,10 +75,7 @@
   (or
    (when (.contains (.-classList el) "mvtc-food-name")
      (set! (.-innerHTML el) (str "<a class=\"mmm-link\" href=\"" (:url food) "\">"
-                                 (let [short (get-short-name food)]
-                                   (if (not= (:foodName food) short)
-                                     (str "<abbr class=\"mmm-abbr\" title=\"" (:foodName food) "\">" short "</abbr>")
-                                     short))
+                                 (get-abbreviated-name food)
                                  "</a>")))
 
    (when (.contains (.-classList el) "mvtc-energy")
@@ -185,7 +187,7 @@
       (set! (.-innerHTML pills) "")
       (doseq [food @foods]
         (let [pill (.cloneNode template true)]
-          (set! (.-innerHTML (.querySelector pill ".mvtc-food-name")) (:foodName food))
+          (set! (.-innerHTML (.querySelector pill ".mvtc-food-name")) (get-abbreviated-name food))
           (.addEventListener pill "click" (fn [_e]
                                             (->> (get-foods-to-compare)
                                                  (remove #(= (:id food) (:id %)))
