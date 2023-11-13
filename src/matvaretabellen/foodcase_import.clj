@@ -174,10 +174,52 @@
   {:langual-code/id id
    :langual-code/description text})
 
+(def english-portion-kinds
+  {"desiliter" "decilitre"
+   "glass" "glass"
+   "kopp" "cup"
+   "beger" "cup"
+   "spiseskje" "tablespoon"
+   "teskje" "teaspoon"
+   "kartong" "carton"
+   "porsjon" "portion"
+   "stk" "pcs"
+   "stk (liten)" "pcs (small)"
+   "stk (middels)" "pcs (medium)"
+   "stk (stor)" "pcs (large)"
+   "filet" "fillet"
+   "stang" "bar"
+   "skive" "slice"
+   "ferdig skivet" "pre-sliced"
+   "pr brødskive" "for a slice of bread"
+   "plate" "bar"
+   "plate (liten)" "bar (small)"
+   "plate (middels)" "bar (medium)"
+   "plate (stor)" "bar (large)"
+   "pakke" "package"
+   "boks" "box"
+   "boks (liten)" "box (small)"
+   "boks (stor)" "box (large)"
+   "neve" "handful"
+   "pose" "package"
+   "pose (liten)" "package (small)"
+   "pose (stor)" "package (large)"
+   "bukett" "floret"
+   "blad" "leaf"
+   "stilk" "stalk"
+   "cm rot" "cm of root"
+   "båt" "section"
+   "ring" "ring"
+   "fedd" "clove"
+   "terning" "cube"})
+
 (defn foodcase-portiontype->portion-kind [{:strs [id name unit]}]
-  {:portion-kind/id (keyword id)
-   :portion-kind/name name
-   :portion-kind/unit unit})
+  (let [name (str/lower-case name)]
+    {:portion-kind/id (keyword id)
+     :portion-kind/name {:nb name
+                         :en (or (english-portion-kinds name)
+                                 (throw (ex-info (str  "Missing translation for portion kind " name) {:id id :name name :unit unit})))}
+     :portion-kind/unit unit}))
 
 (defn create-foodcase-transactions [db locale->datas]
   (let [i18n-attrs (db/get-i18n-attrs db)

@@ -316,18 +316,20 @@
                              (assoc :selected "true"))
                    [:i18n :i18n/lookup (:rda/demographic profile)]])})]))
 
-(defn render-portion-select [portions]
+(defn render-portion-select [locale portions]
   [:div.mmm-vert-layout-s
    [:p [:i18n ::portion-size]]
    (Select
     {:id "portion-selector"
      :class "mmm-input-m"
-     :options (into [[:option {:value "100"} "100 gram"]]
+     :options (into [[:option {:value "100"} [:i18n ::grams {:value 100}]]]
                     (for [portion portions]
                       (let [grams (int (b/num (:portion/quantity portion)))]
                         [:option {:value grams}
-                         (str "1 " (str/lower-case (:portion-kind/name (:portion/kind portion)))
-                              " (" grams " gram)")])))})])
+                         [:i18n ::portion-with-grams
+                          {:portion (str "1 " (str/lower-case
+                                               (get-in portion [:portion/kind :portion-kind/name locale])))
+                           :grams grams}]])))})])
 
 (defn render [context db page]
   (let [food (d/entity (:foods/db context) [:food/id (:page/food-id page)])
@@ -391,7 +393,7 @@
          [:h2.mmm-h2.mmm-mbn#naringsinnhold [:i18n ::nutrition-title]]
          [:div.mmm-flex.mmm-flex-gap
           (render-rda-select (:app/db context) rda-profile)
-          (render-portion-select (:food/portions food))]]]
+          (render-portion-select locale (:food/portions food))]]]
 
        (passepartout
         [:div.mmm-flex-gap-huge.mvt-cols-2-1-labeled

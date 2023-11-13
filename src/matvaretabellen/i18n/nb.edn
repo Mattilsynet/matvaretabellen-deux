@@ -46,6 +46,7 @@
   :composition-title [:fn/str "{{:title}}, sammensetning"]
   :fat-title "Fettsyrer"
   :food-id (list [:strong "Matvare-ID:"] " " [:fn/get :id])
+  :grams [:fn/str "{{:value}} gram"]
   :langual-code-label "LanguaL"
   :langual-description-label "Klassifisering"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
@@ -55,6 +56,7 @@
   :nutrition-heading "Energigivende næringsstoffer"
   :nutrition-title "Næringsinnhold"
   :portion-size "Porsjonsstørrelse:"
+  :portion-with-grams [:fn/str "{{:portion}} ({{:grams}} gram)"]
   :rda-explanation "Anbefalt Daglig Inntak"
   :rda-pct "% av ADI"
   :rda-select-label "Anbefalt Daglig Inntak (ADI)"

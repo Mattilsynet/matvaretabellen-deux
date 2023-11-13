@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [16/33]
+* Tickets [17/33]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -30,7 +30,7 @@
 ** TODO Søkefelt på alle sider
 ** DONE [C] Matvare-id og latinsk navn => klassifisering
 ** TODO Stolpediagrammer
-** TODO [M] Internasjonalisering av porsjonsstørrelser
+** DONE [M] Internasjonalisering av porsjonsstørrelser
 ** TODO [M] Skill matvarer på matvaregrupper i excel-arket
 ** DONE [M] Lag egne excel-ark for hver matvaregruppe
 ** DONE [M] Lag egne excel-ark for hvert næringsstoff
