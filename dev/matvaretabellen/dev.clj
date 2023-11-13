@@ -28,6 +28,7 @@
 
   (def app-db (d/db (-> integrant.repl.state/system :powerpack/app :datomic/conn)))
   (def config (load-local-config))
+  (def conn (d/connect (:foods/datomic-uri config)))
 
   ;; If your database is empty ("Could not find foods in catalog")
   ;; Remember to `make start-transactor`
@@ -38,8 +39,6 @@
   (reset)
 
   (export/export)
-
-  (def conn (d/connect (:foods/datomic-uri config)))
 
   (d/q '[:find [(pull ?p [:nutrient/id :nutrient/name]) ...]
          :where
