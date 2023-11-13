@@ -3,6 +3,7 @@
             [clojure.data.json :as json]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
+            [matvaretabellen.components.comparison :as comparison]
             [matvaretabellen.components.legend :refer [Legend]]
             [matvaretabellen.components.pie-chart :refer [assoc-degrees PieChart]]
             [matvaretabellen.crumbs :as crumbs]
@@ -497,6 +498,8 @@
 
        [:div.mmm-container.mmm-section
         (CompactSiteFooter)]
+
+       (comparison/render-comparison-drawer locale)
 
        [:script {:type "text/json" :id "data"}
         (json/write-str

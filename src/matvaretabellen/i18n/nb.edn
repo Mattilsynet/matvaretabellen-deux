@@ -18,6 +18,10 @@
   :contact-us "Kontakt oss"
   :report-to-us "Varsle oss"}
 
+ #:matvaretabellen.components.comparison
+ {:compare-foods "Sammenlign matvarer"
+  :compare-now "Sammenlign nå"}
+
  #:matvaretabellen.crumbs
  {:all-food-groups "Alle matvaregrupper"
   :all-nutrients "Alle næringsstoffer"

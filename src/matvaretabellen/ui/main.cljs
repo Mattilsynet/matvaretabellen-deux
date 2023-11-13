@@ -231,6 +231,12 @@
       (doseq [[el food] (map vector (next (seq (.-childNodes row))) foods)]
         (prepare-comparison-el el food)))))
 
+(defn stage-comparisons [foods]
+  (->> foods
+       clj->js
+       js/JSON.stringify
+       (js/localStorage.setItem comparison-k)))
+
 (defn update-buttons [foods data selector]
   (let [comparing? (some (comp #{(:id data)} :id) foods)]
     (doseq [button (qsa selector)]
@@ -238,27 +244,60 @@
         (.remove (.-classList button) "mmm-button-secondary")
         (.add (.-classList button) "mmm-button-secondary")))))
 
-(defn toggle-comparison [data selector]
-  (let [foods (get-foods-to-compare)
-        updated (if (some (comp #{(:id data)} :id) foods)
-                  (remove #(= (:id data) (:id %)) foods)
-                  (concat foods [data]))]
-    (update-buttons updated data selector)
-    (->> updated
-         clj->js
-         js/JSON.stringify
-         (js/localStorage.setItem comparison-k))))
+(defn get-pill-template [pills]
+  (when-not (aget pills "template")
+    (aset pills "template" (.-firstChild pills)))
+  (aget pills "template"))
 
-(defn initialize-comparison-toggler [selector]
+(defn update-drawer [foods selector]
+  (when-let [drawer (js/document.querySelector selector)]
+    (let [pills (.querySelector drawer ".mmm-pills")
+          template (get-pill-template pills)]
+      (if (< 0 (count @foods))
+        (.remove (.-classList drawer) "mmm-drawer-closed")
+        (.add (.-classList drawer) "mmm-drawer-closed"))
+      (if (< 1 (count @foods))
+        (.remove (.-classList (.querySelector drawer ".mmm-button")) "mmm-button-disabled")
+        (.add (.-classList (.querySelector drawer ".mmm-button")) "mmm-button-disabled"))
+      (set! (.-innerHTML pills) "")
+      (doseq [food @foods]
+        (let [pill (.cloneNode template true)]
+          (set! (.-innerHTML (.querySelector pill ".mvtc-food-name")) (:foodName food))
+          (.addEventListener pill "click" (fn [_e]
+                                            (->> (get-foods-to-compare)
+                                                 (remove #(= (:id food) (:id %)))
+                                                 (reset! foods))))
+          (.appendChild pills pill))))))
+
+(defn update-comparison-uis [foods data buttons-selector drawer-selector]
+  (update-buttons @foods data buttons-selector)
+  (update-drawer foods drawer-selector))
+
+(defn toggle-comparison [foods data buttons-selector drawer-selector]
+  (let [updated (if (some (comp #{(:id data)} :id) @foods)
+                  (remove #(= (:id data) (:id %)) @foods)
+                  (concat @foods [data]))]
+    (reset! foods updated)
+    (update-comparison-uis foods data buttons-selector drawer-selector)))
+
+(defn initialize-comparison-staging [buttons-selector drawer-selector]
   (let [data (some-> (js/document.getElementById "data")
                      .-innerText
                      js/JSON.parse
-                     (js->clj :keywordize-keys true))]
-    (update-buttons (get-foods-to-compare) data selector)
-    (doseq [button (qsa selector)]
+                     (js->clj :keywordize-keys true))
+        foods (atom (get-foods-to-compare))]
+    (add-watch foods ::director (fn [_ _ _ new-foods]
+                                  (stage-comparisons new-foods)
+                                  (update-comparison-uis foods data buttons-selector drawer-selector)))
+    (when (< 0 (count @foods))
+      (when-let [drawer (js/document.querySelector drawer-selector)]
+        (set! (.-transition (.-style drawer)) "none")))
+    (update-comparison-uis foods data buttons-selector drawer-selector)
+    (doseq [button (qsa buttons-selector)]
       (.remove (.-classList button) "mmm-hidden")
-      (.addEventListener button "click" (fn [_e]
-                                          (toggle-comparison data selector))))))
+      (->> (fn [_e]
+             (toggle-comparison foods data buttons-selector drawer-selector))
+           (.addEventListener button "click")))))
 
 (defn boot []
   (main)
@@ -274,7 +313,7 @@
 
   (initialize-source-toggler ".mvt-source-toggler input")
 
-  (initialize-comparison-toggler ".mvt-compare-food")
+  (initialize-comparison-staging ".mvt-compare-food" ".mvtc-drawer")
 
   (when (= "comparison" js/document.body.id)
     (initialize-comparison))

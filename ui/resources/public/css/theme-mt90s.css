@@ -197,6 +197,8 @@
 
     --mt-component-button-background: var(--mt-color-surface-action-default);
     --mt-component-button-color: var(--mt-color-text-neutral-on-inverted);
+    --mt-component-button-disabled-background: var(--mt-color-blue-200);
+    --mt-component-button-disabled-color: var(--mt-color-text-neutral-on-inverted);
     --mt-component-button-font-size: 1.125rem;
     --mt-component-button-border-radius: 0.25em;
 
@@ -207,6 +209,9 @@
     --mt-component-checkbox-inactive-bg: var(--mt-color-white);
     --mt-component-checkbox-inactive-color: var(--mt-color-beige-500);
     --mt-component-checkbox-active-color: var(--mt-color-blue-500);
+
+    --mt-component-drawer-background: var(--mt-color-white);
+    --mt-component-drawer-border-color: var(--mt-color-red-200);
 
     --mt-component-form-field-border: var(--mt-color-beige-500);
     --mt-component-form-field-background: var(--mt-color-white);

@@ -875,6 +875,13 @@ table > tr.mmm-highlight {
     width: 100%;
 }
 
+.mmm-button-disabled {
+    cursor: default;
+    background: var(--mt-component-button-disabled-background);
+    border-color: var(--mt-component-button-disabled-background);
+    color: var(--mt-component-button-disabled-color);
+}
+
 .mmm-button-secondary {
     background: var(--mt-component-button-secondary-background);
     color: var(--mt-component-button-secondary-color);
@@ -905,6 +912,32 @@ table > tr.mmm-highlight {
     min-height: 3.875rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+}
+
+/*************************
+ *** Component: Drawer ***
+ *************************/
+
+.mmm-drawer {
+    background: var(--mt-component-drawer-background);
+    border-top: 2px solid var(--mt-component-drawer-border-color);
+    bottom: 0;
+    height: 180px;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    transition: height 0.25s;
+}
+
+.mmm-drawer-content {
+    display: flex;
+    padding: var(--mt-spacing-box-padding-m);
+}
+
+.mmm-drawer-closed {
+    border-top: none;
+    height: 0;
 }
 
 /**********************************

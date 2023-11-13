@@ -18,6 +18,10 @@
   :call-us "Call us on +47&nbsp;22&nbsp;40&nbsp;00&nbsp;00"
   :report-to-us "Report to Us"}
 
+ #:matvaretabellen.components.comparison
+ {:compare-foods "Compare foods"
+  :compare-now "Compare now"}
+
  #:matvaretabellen.crumbs
  {:all-food-groups "All Food Groups"
   :all-nutrients "All nutrients"
