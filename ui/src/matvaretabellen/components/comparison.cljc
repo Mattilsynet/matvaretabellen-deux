@@ -5,15 +5,15 @@
 
 (defn render-comparison-drawer [locale]
   [:div.mmm-drawer.mmm-drawer-closed.mvtc-drawer
-   [:div.mmm-drawer-content.mmm-flex.mmm-flex-middle
+   [:div.mmm-drawer-content.mmm-flex-middle.mmm-relative
     [:div.mmm-vert-layout-m
      [:h2.mmm-h3 [:i18n ::compare-foods]]
      [:ul.mmm-ul.mmm-horizontal-list.mmm-pills
       [:li [:a.mmm-pill.mmm-actionable
             (icons/render :fontawesome.solid/x {:class :mmm-svg})
             [:span.mvtc-food-name]]]]]
-    [:div.mmm-vert-layout-m
-     [:div.mmm-icon-button.mmm-alr.mmm-actionable
+    [:div.mmm-mtm
+     [:div.mmm-icon-button.mmm-alr.mmm-actionable.mmm-pos-tr
       (icons/render :fontawesome.solid/x {:class "mmm-svg"})]
      (Button {:text [:i18n ::compare-now]
               :href (urls/get-comparison-url locale)
