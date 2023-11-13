@@ -1,5 +1,6 @@
 (ns matvaretabellen.food
-  (:require [clojure.string :as str]
+  (:require [broch.core :as b]
+            [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.misc :as misc]
             [matvaretabellen.nutrient :as nutrient]))
@@ -86,6 +87,19 @@
 (defn get-all-food-group-foods [food-group]
   (apply concat (:food/_food-group food-group)
          (map get-all-food-group-foods (:food-group/_parent food-group))))
+
+(defn ->nutrient-lookup [constituents]
+  (->> constituents
+       (map (juxt (comp :nutrient/id :constituent/nutrient) (comp b/num :measurement/quantity)))
+       (into {})))
+
+(defn get-nutrient-group-lookup [food]
+  (->> (:food/constituents food)
+       (remove (comp :nutrient/parent :constituent/nutrient))
+       ->nutrient-lookup))
+
+(defn food->diffable [food]
+  [(:food/id food) (get-nutrient-group-lookup food)])
 
 (comment
 

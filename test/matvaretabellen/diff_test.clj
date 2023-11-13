@@ -1,6 +1,7 @@
 (ns matvaretabellen.diff-test
   (:require [clojure.test :refer [deftest is testing]]
-            [matvaretabellen.diff :as sut]))
+            [matvaretabellen.diff :as sut]
+            [matvaretabellen.food :as food]))
 
 (def medians
   {"Alko" 8.6
@@ -338,8 +339,8 @@
   (testing "Diffs main nutrition of two foods"
     (is (= (->> (sut/diff-constituents
                  medians
-                 (sut/food->diffable dried-apple)
-                 (sut/food->diffable ghee)))
+                 [(food/food->diffable dried-apple)
+                  (food/food->diffable ghee)]))
            [{:id "08.252"
              :diffs {"Fett" 4.9414758269720105
                      "Karbo" -1.6287262872628727
