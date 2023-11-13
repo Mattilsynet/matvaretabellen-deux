@@ -1001,16 +1001,45 @@ table > tr.mmm-highlight {
     margin: 0;
     padding: 0;
     list-style: none;
+    --mt-horizontal-list-gap: var(--mt-horizontal-gap);
 }
 
 .mmm-horizontal-list li {
-    margin: 0 var(--mt-horizontal-gap) 0 0;
+    margin: 0 var(--mt-horizontal-list-gap) 0 0;
     padding: 0;
     display: inline;
 }
 
 .mmm-horizontal-list li:last-child {
     margin-right: 0;
+}
+
+/***********************
+ *** Component: Pill ***
+ ***********************/
+
+.mmm-actionable {
+    cursor: pointer;
+}
+
+.mmm-pill {
+    align-items: center;
+    background: var(--mt-component-pill-background);
+    border-radius: var(--mt-border-radius-m);
+    color: var(--mt-color-text-neutral-default);
+    display: inline-flex;
+    gap: var(--mt-component-pill-icon-gap);
+    padding: var(--mt-component-pill-padding);
+    text-decoration: none;
+}
+
+.mmm-pill .mmm-svg {
+    width: 16px;
+    height: 16px;
+}
+
+.mmm-pills {
+    --mt-horizontal-list-gap: var(--mt-component-pill-gap);
 }
 
 /************************************
