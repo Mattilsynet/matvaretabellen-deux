@@ -41,3 +41,8 @@
                  (< diff 1.25) ::small
                  (< diff 1.5) ::noticeable
                  :else ::dramatic))}))
+
+(defn get-energy-equivalents [[_ ref-energy] & xs]
+  (for [[id energy] xs]
+    {:id id
+     :amount (double (/ ref-energy energy))}))

@@ -388,3 +388,11 @@
            [{:id "08.252"
              :diff 100/109
              :rating ::sut/slight}]))))
+
+(deftest energy-equivalents-test
+  (testing "Finds the required amount to get the same amount of energy"
+    (is (= (sut/get-energy-equivalents
+            ["06.531" 200]
+            ["08.252" 250])
+           [{:id "08.252"
+             :amount 0.8}]))))
