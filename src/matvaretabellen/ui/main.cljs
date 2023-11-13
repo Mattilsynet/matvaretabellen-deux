@@ -182,13 +182,14 @@
 
 (defn get-session-item [k]
   (try
-    (js/sessionStorage.getItem k)
+    (some-> (js/sessionStorage.getItem k)
+            js/JSON.parse)
     (catch :default _e
       nil)))
 
 (defn set-session-item [k item]
   (try
-    (js/sessionStorage.setItem k item)
+    (js/sessionStorage.setItem k (js/JSON.stringify item))
     (catch :default _e)))
 
 (defn ensure-comparison-data [k locale f]
@@ -203,7 +204,7 @@
                                    (map (juxt #(get % "id") identity))
                                    (into {})
                                    clj->js)]
-                     (set-session-item k (js/JSON.stringify data))
+                     (set-session-item k data)
                      (f data))))))
     (catch :default _e
       (f nil))))

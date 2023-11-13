@@ -177,13 +177,16 @@
 (defn update-drawer [foods selector]
   (when-let [drawer (js/document.querySelector selector)]
     (let [pills (.querySelector drawer ".mmm-pills")
-          template (get-pill-template pills)]
+          template (get-pill-template pills)
+          button (.querySelector drawer ".mmm-button")]
       (if (< 0 (count @foods))
         (.remove (.-classList drawer) "mmm-drawer-closed")
         (.add (.-classList drawer) "mmm-drawer-closed"))
       (if (< 1 (count @foods))
-        (.remove (.-classList (.querySelector drawer ".mmm-button")) "mmm-button-disabled")
-        (.add (.-classList (.querySelector drawer ".mmm-button")) "mmm-button-disabled"))
+        (.remove (.-classList button) "mmm-button-disabled")
+        (.add (.-classList button) "mmm-button-disabled"))
+      (set! (.-href button) (str (first (str/split (.-href button) #"\?"))
+                                 "?food-ids=" (str/join "," (map :id @foods))))
       (set! (.-innerHTML pills) "")
       (doseq [food @foods]
         (let [pill (.cloneNode template true)]
