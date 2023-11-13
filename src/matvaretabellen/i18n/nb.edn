@@ -28,10 +28,20 @@
   :home "Hjem"
   :search-label "Søk i Matvaretabellen"}
 
+ #:matvaretabellen.diff
+ {:similar "tilsvarende"
+  :slight "nokså likt"
+  :moderate "forskjellig"
+  :significant "nokså forskjellig"
+  :dramatic "svært forskjellig"}
+
  #:matvaretabellen.pages.comparison-page
- {:compare-foods "Sammenlign matvarer"
+ {:and "og"
+  :compare-foods "Sammenlign matvarer"
   :composition "Sammensetning"
-  :edible-part "Spiselig del"}
+  :diff-intro "Nedenfor kan du sammenligne matvarene næringsstoff for næringsstoff. De største forskjellene er uthevet med blå bakgrunn."
+  :edible-part "Spiselig del"
+  :energy-summary "Disse matvarene har ${rating} energiinnhold. Det er like mye energi i ${reference} som i ${comparisons}."}
 
  #:matvaretabellen.pages.food-page
  {:adi-title "Anbefalt daglig inntak (ADI)"

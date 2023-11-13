@@ -1,6 +1,7 @@
 (ns ^:figwheel-hooks matvaretabellen.ui.main
   (:require [clojure.string :as str]
             [matvaretabellen.search :as search]
+            [matvaretabellen.ui.comparison :as comparison]
             [matvaretabellen.ui.foods-search :as foods-search]
             [matvaretabellen.ui.hoverable :as hoverable]
             [matvaretabellen.urls :as urls]))
@@ -179,126 +180,6 @@
         (set! (.-checked checkbox) true))
       (.addEventListener checkbox "input" #(toggle-sources % selector)))))
 
-(defn set-energy [el food]
-  (let [kj (.querySelector el ".mvt-kj")
-        kcal (.querySelector el ".mvt-kcal")]
-    (set! (.-innerHTML kj) (:energyKj food))
-    (.setAttribute kj "data-portion" (:energyKj food))
-    (set! (.-innerHTML kcal) (:energyKcal food))
-    (.setAttribute kcal "data-portion" (:energyKcal food))))
-
-(defn set-nutrient-content [el food]
-  (let [[n sym] (some-> (:constituents food)
-                        (get (keyword (.getAttribute el "data-nutrient-id")))
-                        :quantity)
-        num-el (.querySelector el "[data-portion]")]
-    (set! (.-innerHTML num-el) n)
-    (.setAttribute num-el "data-portion" n)
-    (set! (.-innerHTML (.querySelector el ".mvt-sym")) sym)))
-
-(defn prepare-comparison-el [el food]
-  (or
-   (when (.contains (.-classList el) "mvtc-food-name")
-     (set! (.-innerHTML el) (str "<a class=\"mmm-link\" href=\"" (:url food) "\">" (:foodName food) "</a>")))
-
-   (when (.contains (.-classList el) "mvtc-energy")
-     (set-energy el food))
-
-   (when-let [edible (.querySelector el ".mvtc-edible-part")]
-     (set! (.-innerHTML edible) (or (:ediblePart food) "0")))
-
-   (when (.contains (.-classList el) "mvtc-nutrient")
-     (set-nutrient-content el food))))
-
-(def comparison-k "comparisonFoods")
-
-(defn get-foods-to-compare []
-  (some-> (js/localStorage.getItem comparison-k)
-          not-empty
-          js/JSON.parse
-          (js->clj :keywordize-keys true)))
-
-(defn initialize-comparison []
-  (when-let [foods (get-foods-to-compare)]
-    (when (< 4 (count foods))
-      (let [container (js/document.getElementById "container")]
-        (.remove (.-classList container) "mmm-container-focused")
-        (.add (.-classList container) "mmm-container")))
-    (doseq [row (qsa ".mvtc-comparison")]
-      (let [template (.-lastChild row)]
-        (doseq [_food (next foods)]
-          (.appendChild row (.cloneNode template true))))
-      (doseq [[el food] (map vector (next (seq (.-childNodes row))) foods)]
-        (prepare-comparison-el el food)))))
-
-(defn stage-comparisons [foods]
-  (->> foods
-       clj->js
-       js/JSON.stringify
-       (js/localStorage.setItem comparison-k)))
-
-(defn update-buttons [foods data selector]
-  (let [comparing? (some (comp #{(:id data)} :id) foods)]
-    (doseq [button (qsa selector)]
-      (if comparing?
-        (.remove (.-classList button) "mmm-button-secondary")
-        (.add (.-classList button) "mmm-button-secondary")))))
-
-(defn get-pill-template [pills]
-  (when-not (aget pills "template")
-    (aset pills "template" (.-firstChild pills)))
-  (aget pills "template"))
-
-(defn update-drawer [foods selector]
-  (when-let [drawer (js/document.querySelector selector)]
-    (let [pills (.querySelector drawer ".mmm-pills")
-          template (get-pill-template pills)]
-      (if (< 0 (count @foods))
-        (.remove (.-classList drawer) "mmm-drawer-closed")
-        (.add (.-classList drawer) "mmm-drawer-closed"))
-      (if (< 1 (count @foods))
-        (.remove (.-classList (.querySelector drawer ".mmm-button")) "mmm-button-disabled")
-        (.add (.-classList (.querySelector drawer ".mmm-button")) "mmm-button-disabled"))
-      (set! (.-innerHTML pills) "")
-      (doseq [food @foods]
-        (let [pill (.cloneNode template true)]
-          (set! (.-innerHTML (.querySelector pill ".mvtc-food-name")) (:foodName food))
-          (.addEventListener pill "click" (fn [_e]
-                                            (->> (get-foods-to-compare)
-                                                 (remove #(= (:id food) (:id %)))
-                                                 (reset! foods))))
-          (.appendChild pills pill))))))
-
-(defn update-comparison-uis [foods data buttons-selector drawer-selector]
-  (update-buttons @foods data buttons-selector)
-  (update-drawer foods drawer-selector))
-
-(defn toggle-comparison [foods data buttons-selector drawer-selector]
-  (let [updated (if (some (comp #{(:id data)} :id) @foods)
-                  (remove #(= (:id data) (:id %)) @foods)
-                  (concat @foods [data]))]
-    (reset! foods updated)
-    (update-comparison-uis foods data buttons-selector drawer-selector)))
-
-(defn initialize-comparison-staging [buttons-selector drawer-selector]
-  (let [data (some-> (js/document.getElementById "data")
-                     .-innerText
-                     js/JSON.parse
-                     (js->clj :keywordize-keys true))
-        foods (atom (get-foods-to-compare))]
-    (add-watch foods ::director (fn [_ _ _ new-foods]
-                                  (stage-comparisons new-foods)
-                                  (update-comparison-uis foods data buttons-selector drawer-selector)))
-    (when (< 0 (count @foods))
-      (when-let [drawer (js/document.querySelector drawer-selector)]
-        (set! (.-transition (.-style drawer)) "none")))
-    (update-comparison-uis foods data buttons-selector drawer-selector)
-    (doseq [button (qsa buttons-selector)]
-      (.remove (.-classList button) "mmm-hidden")
-      (->> (fn [_e]
-             (toggle-comparison foods data buttons-selector drawer-selector))
-           (.addEventListener button "click")))))
-
 (defn boot []
   (main)
   (initialize-foods-autocomplete
@@ -313,10 +194,10 @@
 
   (initialize-source-toggler ".mvt-source-toggler input")
 
-  (initialize-comparison-staging ".mvt-compare-food" ".mvtc-drawer")
+  (comparison/initialize-tooling ".mvt-compare-food" ".mvtc-drawer")
 
   (when (= "comparison" js/document.body.id)
-    (initialize-comparison))
+    (comparison/initialize-page))
 
   (hoverable/set-up js/document))
 

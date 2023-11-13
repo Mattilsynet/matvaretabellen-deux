@@ -351,48 +351,48 @@
 (deftest rate-energy-diff
   (testing "3x the energy is a dramatic diff"
     (is (= (sut/rate-energy-diff
-            ["06.531" 1151.8]
-            ["08.252" 3612.9])
+            [["06.531" 1151.8]
+             ["08.252" 3612.9]])
            [{:id "08.252"
              :diff 0.3188020703589914
              :rating ::sut/dramatic}])))
 
   (testing "1/3 of the energy is a dramatic diff"
     (is (= (sut/rate-energy-diff
-            ["08.252" 3612.9]
-            ["06.531" 1151.8])
+            [["08.252" 3612.9]
+             ["06.531" 1151.8]])
            [{:id "06.531"
              :diff 3.136742490015628
              :rating ::sut/dramatic}])))
 
   (testing "noticeable diff"
     (is (= (sut/rate-energy-diff
-            ["06.531" 1151.8]
-            ["08.252" 1612.5])
+            [["06.531" 1151.8]
+             ["08.252" 1612.5]])
            [{:id "08.252"
              :diff 0.7142945736434109
-             :rating ::sut/noticeable}])))
+             :rating ::sut/moderate}])))
 
   (testing "small diff"
     (is (= (sut/rate-energy-diff
-            ["06.531" 200]
-            ["08.252" 240])
+            [["06.531" 200]
+             ["08.252" 240]])
            [{:id "08.252"
              :diff 5/6
-             :rating ::sut/small}])))
+             :rating ::sut/slight}])))
 
   (testing "slight diff"
     (is (= (sut/rate-energy-diff
-            ["06.531" 200]
-            ["08.252" 218])
+            [["06.531" 200]
+             ["08.252" 218]])
            [{:id "08.252"
              :diff 100/109
-             :rating ::sut/slight}]))))
+             :rating ::sut/similar}]))))
 
 (deftest energy-equivalents-test
   (testing "Finds the required amount to get the same amount of energy"
     (is (= (sut/get-energy-equivalents
-            ["06.531" 200]
-            ["08.252" 250])
+            [["06.531" 200]
+             ["08.252" 250]])
            [{:id "08.252"
              :amount 0.8}]))))

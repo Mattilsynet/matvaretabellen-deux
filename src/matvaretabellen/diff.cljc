@@ -31,18 +31,24 @@
               {:id id
                :diffs (diff-quantities ref-vals (second reference) k->m)}))))
 
-(defn rate-energy-diff [[_ ref-energy] & xs]
+(def severity [::similar ::slight ::moderate ::significant ::dramatic])
+
+(defn get-rating-severity [rating]
+  (.indexOf severity rating))
+
+(defn rate-energy-diff [[[_ ref-energy] & xs]]
   (for [[id energy] xs]
     {:id id
      :diff (/ ref-energy energy)
      :rating (let [diff (apply / (reverse (sort [ref-energy energy])))]
                (cond
-                 (< diff 1.1) ::slight
-                 (< diff 1.25) ::small
-                 (< diff 1.5) ::noticeable
+                 (< diff 1.1) ::similar
+                 (< diff 1.25) ::slight
+                 (< diff 1.5) ::moderate
+                 (< diff 2) ::significant
                  :else ::dramatic))}))
 
-(defn get-energy-equivalents [[_ ref-energy] & xs]
+(defn get-energy-equivalents [[[_ ref-energy] & xs]]
   (for [[id energy] xs]
     {:id id
      :amount (double (/ ref-energy energy))}))

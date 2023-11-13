@@ -29,7 +29,9 @@
    [:div.mmm-container.mmm-section
     [:div.mmm-media-d.mmm-media-at
      [:article.mmm-vert-layout-m
-      [:h1.mmm-h1 [:i18n ::compare-foods]]]
+      [:h1.mmm-h1 [:i18n ::compare-foods]]
+      [:p.mmm-p.mvtc-rating-summary.mmm-hidden [:i18n ::energy-summary]]
+      [:p.mmm-p [:i18n ::diff-intro]]]
      (food-page/render-toc {:contents (drop-last 2 (food-page/get-toc-items))
                             :class :mmm-nbr})]]])
 
@@ -112,6 +114,17 @@
                              (update row :class conj :mvtc-comparison)
                              {:class [:mvtc-comparison]
                               :cols row}))))})]
+
+      (for [rating [:matvaretabellen.diff/similar
+                    :matvaretabellen.diff/slight
+                    :matvaretabellen.diff/moderate
+                    :matvaretabellen.diff/significant
+                    :matvaretabellen.diff/dramatic]]
+        [:script {:type "text/i18n" :data-rating (name rating)}
+         [:i18n rating]])
+
+      [:script {:type "text/i18n" :data-k "and"}
+       [:i18n ::and]]
 
       [:div.mmm-container.mmm-section
        (CompactSiteFooter)]]]))

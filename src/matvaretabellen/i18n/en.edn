@@ -28,10 +28,20 @@
   :home "Home"
   :search-label "Search in Matvaretabellen"}
 
+ #:matvaretabellen.diff
+ {:similar "similar"
+  :slight "slightly different"
+  :moderate "different"
+  :significant "significantly different"
+  :dramatic "highly varying"}
+
  #:matvaretabellen.pages.comparison-page
- {:compare-foods "Compare foods"
+ {:and "and"
+  :compare-foods "Compare foods"
   :composition "Composition"
-  :edible-part "Edible part"}
+  :diff-intro "You can compare the foods nutrient by nutrient below. The most marked differences are highlighted with a blue background."
+  :edible-part "Edible part"
+  :energy-summary "These foods have ${rating} energy content. There is as much energy in ${reference} as in ${comparisons}."}
 
  #:matvaretabellen.pages.food-page
  {:adi-title "Recommended Daily Intake (ADI)"
