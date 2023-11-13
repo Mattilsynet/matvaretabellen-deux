@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [17/36]
+* Tickets [17/37]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -45,6 +45,7 @@
 ** TODO Bytte punktum med komma
 ** TODO Sjekk muligheter for å style pila i selecten litt bedre
 ** TODO Flytt kilde til venstre for mengde
+** TODO Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter
 * ADI-switch [4/13]
 ** DONE Internasjonaliser ADI
 ** DONE Lag side-entiteter for JSON-feeds

@@ -9,7 +9,9 @@
         food (d/entity db [:food/id id])]
     (cond
       nutrient (urls/get-nutrient-url locale nutrient)
-      food (urls/get-food-url locale food))))
+      food (urls/get-food-url locale food)
+      :else (throw (ex-info (str "Unknown mashdown segment id: " id)
+                            {:locale locale :id id})))))
 
 (def bracket-pattern
   (re-pattern "\\[.*?\\]|[^\\[]+"))
