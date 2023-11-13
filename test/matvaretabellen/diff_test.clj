@@ -349,6 +349,135 @@
                      "Alko" 0.0
                      "Protein" -0.12709030100334448}}]))))
 
+(deftest find-notable-diffs-test
+  (testing "Returns a map of the nutrients with the biggest diff"
+    (is (= (sut/find-notable-diffs
+            0.5
+            [{:id "04.299"
+              :diffs
+              {"Alko" 0
+               "Cu" -0.031496062992125984
+               "Vit B6" 0.12727272727272726
+               "NaCl" 0.023809523809523808
+               "C16:0Palmitinsyre" 0.1134020618556701
+               "I" 0.736111111111111
+               "Vit B1" 0.018348623853211007
+               "C20:3n-3Eikosatriensyre" 0
+               "Folat" 0.0625
+               "C20:5n-3Eikosapentaensyre" 0.047058823529411764
+               "C22:6n-3Dokosaheksaensyre" 0.13559322033898305
+               "C20:4n-6Arakidonsyre" 0.05555555555555556
+               "Niacin" 0.10256410256410256
+               "Karbo" -0.18970189701897022
+               "Kolest" 0.3448275862068966
+               "Mg" 0.06315789473684211
+               "Omega-3" 0.10108303249097475
+               "Protein" 0.3210702341137124
+               "Enumet" 0.05084745762711864
+               "Vit D" 0.06557377049180328
+               "C18:3n-3AlfaLinolensyre" 0.04210526315789474
+               "P" 0.3425925925925926
+               "Ca" 0.12244897959183673
+               "Fett" 0.09669211195928754
+               "C18:2n-6Linolsyre" 0.07883817427385892
+               "Se" 0.25
+               "Vann" 0.040000000000000036
+               "Zn" 0.07692307692307693
+               "Mono+Di" -0.34403669724770647
+               "Trans" 0
+               "Sukker" 0
+               "C20:4n-3Eikosatetraensyre" 0
+               "Mettet" 0.06306306306306306
+               "Omega-6" 0.08823529411764706
+               "Na" 0.09496402877697842
+               "Vit C" 0.017543859649122806
+               "Fiber" -0.16129032258064516
+               "Vit A" 0.33802816901408456
+               "Stivel" 0.02443280977312391
+               "Fe" 0.014814814814814815
+               "C20:3n-6DihomoGammaLinolensyre" 0
+               "C18:1" 0.11410788381742738
+               "C12:0Laurinsyre" 0.039408866995073885
+               "Vit B12" 0.18867924528301888
+               "C18:0Stearinsyre" 0.07349081364829398
+               "C14:0Myristinsyre" 0.06060606060606061
+               "K" 0.22611464968152867
+               "C22:5n-3Dokosapentaensyre" 0.05555555555555556
+               "Flerum" 0.050955414012738856
+               "Vit E" 0.03592814371257484
+               "Retinol" 0.12337662337662338
+               "Vit B2" 0.10344827586206896
+               "C16:1" 0.048
+               "B-karo" 2.003992015968064}}
+             {:id "08.252"
+              :diffs
+              {"Alko" 0
+               "Cu" -0.07874015748031496
+               "Vit B6" -0.07272727272727272
+               "NaCl" 0
+               "C16:0Palmitinsyre" 0
+               "I" 0.5833333333333334
+               "Vit B1" -0.018348623853211007
+               "C20:3n-3Eikosatriensyre" 0
+               "Folat" -0.0375
+               "C20:5n-3Eikosapentaensyre" 0
+               "C22:6n-3Dokosaheksaensyre" 0
+               "C20:4n-6Arakidonsyre" 0
+               "Niacin" -0.017094017094017096
+               "Karbo" -0.23848238482384826
+               "Kolest" 2.8275862068965516
+               "Mg" -0.042105263157894736
+               "Omega-3" 0
+               "Protein" 0.006688963210702342
+               "Enumet" 2.1779661016949152
+               "Vit D" 0.18032786885245905
+               "C18:3n-3AlfaLinolensyre" 0
+               "P" -0.037037037037037035
+               "Ca" -0.02040816326530612
+               "Fett" 4.961832061068702
+               "C18:2n-6Linolsyre" 0
+               "Se" 0
+               "Vann" -1.74
+               "Zn" 0
+               "Mono+Di" -0.4036697247706423
+               "Trans" 2.1
+               "Sukker" 0
+               "C20:4n-3Eikosatetraensyre" 0
+               "Mettet" 5.261261261261262
+               "Omega-6" 0
+               "Na" 0.0028776978417266188
+               "Vit C" 0
+               "Fiber" -0.1935483870967742
+               "Vit A" 6.050704225352113
+               "Stivel" 0
+               "Fe" -0.014814814814814815
+               "C20:3n-6DihomoGammaLinolensyre" 0
+               "C18:1" 0
+               "C12:0Laurinsyre" 0
+               "Vit B12" 0
+               "C18:0Stearinsyre" 0
+               "C14:0Myristinsyre" 0
+               "K" -0.19745222929936307
+               "C22:5n-3Dokosapentaensyre" 0
+               "Flerum" 0.5859872611464968
+               "Vit E" 0.6586826347305388
+               "Retinol" 5.987012987012987
+               "Vit B2" 0
+               "C16:1" 0
+               "B-karo" 7.289421157684631}}])
+           {"B-karo" 7.289421157684631
+            "Enumet" 2.1779661016949152
+            "Fett" 4.961832061068702
+            "Flerum" 0.5859872611464968
+            "I" 0.736111111111111
+            "Kolest" 2.8275862068965516
+            "Mettet" 5.261261261261262
+            "Retinol" 5.987012987012987
+            "Trans" 2.1
+            "Vann" -1.74
+            "Vit A" 6.050704225352113
+            "Vit E" 0.6586826347305388}))))
+
 (deftest rate-energy-diff
   (testing "3x the energy is a dramatic diff"
     (is (= (sut/rate-energy-diff

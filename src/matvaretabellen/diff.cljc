@@ -38,3 +38,12 @@
   (for [[id energy] xs]
     {:id id
      :amount (double (/ ref-energy energy))}))
+
+(defn find-notable-diffs [threshold diffs]
+  (->> diffs
+       (mapcat (fn [{:keys [diffs]}]
+                 (->> diffs (filter #(< threshold (abs (second %)))))))
+       (group-by first)
+       (map (fn [[k xs]]
+              [k (second (first (sort-by (comp - abs second) xs)))]))
+       (into {})))
