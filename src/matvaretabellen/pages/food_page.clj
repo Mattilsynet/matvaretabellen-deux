@@ -1,6 +1,5 @@
 (ns matvaretabellen.pages.food-page
   (:require [broch.core :as b]
-            [clojure.data.json :as json]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.components.comparison :as comparison]

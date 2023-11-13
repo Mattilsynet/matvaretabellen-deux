@@ -106,8 +106,8 @@
   {:id (:food/id food)
    :url (urls/get-food-url locale food)
    :foodName (get (:food/name food) locale)
-   :energyKj (some-> food :food/energy :measurement/quantity b/num)
-   :energyKcal (:measurement/observation (:food/calories food))
+   :energyKj (some-> food :food/energy :measurement/quantity b/num int)
+   :energyKcal (some-> food :food/calories :measurement/observation parse-long)
    :ediblePart (:measurement/percent (:food/edible-part food))
    :constituents (->> (for [constituent (:food/constituents food)]
                         [(-> constituent :constituent/nutrient :nutrient/id)
