@@ -349,6 +349,7 @@ table > tr.mmm-highlight {
     color: inherit;
     font-family: inherit;
     font-size: inherit;
+    height: 2.75rem;
 }
 
 .mmm-input-m {
@@ -949,8 +950,8 @@ table > tr.mmm-highlight {
     font-family: inherit;
     font-size: var(--mt-component-button-font-size);
     justify-content: center;
-    line-height: 2.25rem;
-    min-height: 2.75rem;
+    line-height: 2rem;
+    height: 2.75rem;
     min-width: 10ch;
     outline: none;
     padding: 0.25rem 1.25rem;
@@ -961,6 +962,10 @@ table > tr.mmm-highlight {
     vertical-align: middle;
     width: 100%;
     white-space: nowrap;
+}
+
+a.mmm-button:link {
+    color: var(--mt-component-button-color);
 }
 
 .mmm-button-disabled {
@@ -974,6 +979,10 @@ table > tr.mmm-highlight {
     background: var(--mt-component-button-secondary-background);
     color: var(--mt-component-button-secondary-color);
     border: 2px solid var(--mt-component-button-secondary-border);
+}
+
+a.mmm-button-secondary:link {
+    color: var(--mt-component-button-secondary-color);
 }
 
 .mmm-button:focus {
@@ -997,7 +1006,7 @@ table > tr.mmm-highlight {
 }
 
 .mmm-button-large {
-    min-height: 3.875rem;
+    height: 3.875rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 }
