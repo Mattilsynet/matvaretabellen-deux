@@ -1,13 +1,13 @@
 (ns matvaretabellen.pages.frontpage
   (:require [clojure.string :as str]
             [datomic-type-extensions.api :as d]
+            [matvaretabellen.layout :as layout]
             [matvaretabellen.seeded-random :as rng]
             [matvaretabellen.urls :as urls]
-            [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.search-input :refer [SearchInput]]
             [mmm.components.site-header :refer [SiteHeader]]
             [mmm.components.toc :refer [Toc]])
-  (:import [java.time MonthDay]))
+  (:import (java.time MonthDay)))
 
 (defn get-seasons [app-db]
   (map #(d/entity app-db %)
@@ -61,7 +61,10 @@
 
 (defn render [context db page]
   (let [locale (:page/locale page)]
-    [:html {:class "mmm"}
+    (layout/layout
+     context
+     [:head
+      [:title [:i18n ::search-label]]]
      [:body
       (SiteHeader {:home-url "/"
                    :extra-link {:text [:i18n :i18n/other-language]
@@ -95,6 +98,4 @@
                                          (get-season-food-ids (:app/db context)
                                                               (MonthDay/now))))]
                          (get-food-info locale db id))
-             :class :mmm-col})]
-      [:div.mmm-container.mmm-section
-       (CompactSiteFooter)]]]))
+             :class :mmm-col})]])))

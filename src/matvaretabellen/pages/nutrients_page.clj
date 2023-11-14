@@ -1,9 +1,9 @@
 (ns matvaretabellen.pages.nutrients-page
   (:require [datomic-type-extensions.api :as d]
             [matvaretabellen.crumbs :as crumbs]
+            [matvaretabellen.layout :as layout]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
-            [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
 (defn embellish-nutrient [nutrient app-db]
@@ -14,13 +14,15 @@
 (defn render [context food-db page]
   (let [app-db (:app/db context)
         nutrients (for [eid (d/q '[:find [?e ...]
-                                     :where
-                                     [?e :nutrient/id]
-                                     (not [?e :nutrient/parent])]
-                                   food-db)]
-                      (embellish-nutrient (d/entity food-db eid) app-db))
+                                   :where
+                                   [?e :nutrient/id]
+                                   (not [?e :nutrient/parent])]
+                                 food-db)]
+                    (embellish-nutrient (d/entity food-db eid) app-db))
         locale (:page/locale page)]
-    [:html {:class "mmm"}
+    (layout/layout
+     [:head
+      [:title [:i18n ::all-nutrients]]]
      [:body
       (SiteHeader {:home-url "/"
                    :extra-link {:text [:i18n :i18n/other-language]
@@ -61,9 +63,7 @@
                   [:h3 the-name]
                   [:p (get-in nutrient [:nutrient/short-description locale])]]]]))
            (when (odd? (count groups))
-             [:div.mmm-cols-d2m1.mmm-card {:style {:background "none"}}])]])]
-      [:div.mmm-container.mmm-section
-       (CompactSiteFooter)]]]))
+             [:div.mmm-cols-d2m1.mmm-card {:style {:background "none"}}])]])]])))
 
 (comment
 

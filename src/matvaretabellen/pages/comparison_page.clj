@@ -3,13 +3,13 @@
             [datomic-type-extensions.api :as d]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
+            [matvaretabellen.layout :as layout]
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.statistics :as statistics]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.button :refer [Button]]
-            [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
 (defn render-header [locale]
@@ -97,7 +97,10 @@
 (defn render-page [context {:page/keys [locale]}]
   (let [app-db (:app/db context)
         food (d/entity (:foods/db context) [:food/id "05.448"])]
-    [:html.mmm
+    (layout/layout
+     context
+     [:head
+      [:title [:i18n ::compare-foods]]]
      [:body#comparison
       (render-header locale)
       (render-top-banner locale context)
@@ -143,10 +146,7 @@
        [:i18n ::and]]
 
       [:script.mvtc-statistics {:type "application/json"}
-       (json/write-str (nutrient/get-nutrient-statistics (:foods/db context) statistics/get-median))]
-
-      [:div.mmm-container.mmm-section
-       (CompactSiteFooter)]]]))
+       (json/write-str (nutrient/get-nutrient-statistics (:foods/db context) statistics/get-median))]])))
 
 (defn render-data [context page]
   {:content-type :json

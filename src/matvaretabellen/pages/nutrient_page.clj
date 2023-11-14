@@ -3,13 +3,13 @@
             [matvaretabellen.components.comparison :as comparison]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
+            [matvaretabellen.layout :as layout]
             [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.button :refer [Button]]
-            [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
 (defn prepare-foods-table [nutrient locale foods]
@@ -49,7 +49,10 @@
         locale (:page/locale page)
         nutrient-name (get (nutrient/get-name nutrient) locale)
         foods (nutrient/get-foods-by-nutrient-density nutrient)]
-    [:html {:class "mmm"}
+    (layout/layout
+     context
+     [:head
+      [:title nutrient-name]]
      [:body
       (SiteHeader {:home-url "/"
                    :extra-link {:text [:i18n :i18n/other-language]
@@ -90,10 +93,7 @@
        [:div.mmm-container-medium.mmm-section.mmm-vert-layout-m
         (render-nutrient-foods-table nutrient foods locale)]
 
-       (comparison/render-comparison-drawer locale)
-
-       [:div.mmm-container.mmm-section
-        (CompactSiteFooter)]]]]))
+       (comparison/render-comparison-drawer locale)]])))
 
 (comment
 

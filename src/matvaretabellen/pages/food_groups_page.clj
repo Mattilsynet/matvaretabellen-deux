@@ -1,11 +1,11 @@
 (ns matvaretabellen.pages.food-groups-page
   (:require [datomic-type-extensions.api :as d]
             [matvaretabellen.crumbs :as crumbs]
+            [matvaretabellen.layout :as layout]
             [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.button :refer [Button]]
-            [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
 (defn embellish-food-group [food-group app-db]
@@ -22,7 +22,10 @@
                                    food-db)]
                       (embellish-food-group (d/entity food-db eid) app-db))
         locale (:page/locale page)]
-    [:html {:class "mmm"}
+    (layout/layout
+     context
+     [:head
+      [:title [:i18n ::all-food-groups]]]
      [:body
       (SiteHeader {:home-url "/"
                    :extra-link {:text [:i18n :i18n/other-language]
@@ -71,6 +74,4 @@
                   [:p (mashdown/strip
                        (get-in food-group [:food-group/short-description locale]))]]]]))
            (when (odd? (count groups))
-             [:div.mmm-cols-d2m1.mmm-card {:style {:background "none"}}])]])]
-      [:div.mmm-container.mmm-section
-       (CompactSiteFooter)]]]))
+             [:div.mmm-cols-d2m1.mmm-card {:style {:background "none"}}])]])]])))
