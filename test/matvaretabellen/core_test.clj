@@ -9,7 +9,10 @@
   (testing "Always rounds whole numbers to 0 decimals"
     (is (= (sut/format-number :nb 1295.0 {:decimals 2}) "1 295")))
 
-  (testing "Defaults to 1 decimal"
+  (testing "Always skips 0 as the ending decimal"
+    (is (= (sut/format-number :nb 1295.10 {:decimals 2}) "1 295,1")))
+
+  (testing "Uses two decimals by default"
     (is (= (sut/format-number :nb 1295.670427) "1 295,67")))
 
   (testing "Uses english formatting"
