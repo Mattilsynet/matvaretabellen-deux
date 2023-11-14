@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [22/37]
+* Tickets [23/37]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -17,7 +17,7 @@
 ** DONE Side for næringsstoff
 ** DONE Lenke opp næringsstoffer fra tabellene på matvaresiden
 ** DONE ADI: Lese inn data
-** TODO ADI: Vise på matvaresiden
+** DONE ADI: Vise på matvaresiden
 ** DONE [M] Alle næringsstoffer-siden
 ** DONE [M] Språkskifte i header
 ** TODO Analyseverktøy
@@ -46,20 +46,6 @@
 ** DONE Sjekk muligheter for å style pila i selecten litt bedre
 ** DONE Flytt kilde til venstre for mengde
 ** TODO Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter
-* ADI-switch [7/13]
-** DONE Internasjonaliser ADI
-** DONE Lag side-entiteter for JSON-feeds
-** DONE Generer JSON-feeds
-** DONE Lag select-boks
-** TODO Kode for å hente ned JSON på matvaresiden
-** TODO Lagre i sessionStorage
-** TODO Tag verdier med adi-markører på kilde-verdier
-** TODO Tag verdier med adi-markører på ADI-er som skal erstattes
-** TODO Les fra localStorage
-** TODO Beregn nye ADI-er
-** DONE Bare én ammende
-** DONE Bare én gravid
-** DONE Bruk "Generell", kall det "Generell, 6-65 år"
 * Sammenligning [12/15]
 ** DONE Lag page-entity for sammenligning
 ** DONE Rendre en statisk sammenligning mellom tre matvarer

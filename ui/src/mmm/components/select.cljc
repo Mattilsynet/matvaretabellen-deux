@@ -1,8 +1,13 @@
 (ns mmm.components.select)
 
+(def sizes
+  {:m :mmm-select-m})
+
 (defn Select [attrs]
   [:div.mmm-select.mmm-input
-   (into [:select (dissoc attrs :options)]
+   {:class (when-let [size (sizes (:size attrs))]
+             [size])}
+   (into [:select (dissoc attrs :options :size)]
          (:options attrs))
    [:svg.mmm-svg
     {:xmlns "http://www.w3.org/2000/svg"

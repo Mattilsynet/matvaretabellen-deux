@@ -114,21 +114,17 @@
 
 (defn get-recommended-daily-allowance [recommendations measurement]
   (when-let [q (:measurement/quantity measurement)]
-    (let [recommendation (->> (:constituent/nutrient measurement)
-                              :nutrient/id
-                              recommendations)]
-      (cond
-        (:rda.recommendation/max-amount recommendation)
-        (pct (b// q (:rda.recommendation/max-amount recommendation)))
-
-        (:rda.recommendation/min-amount recommendation)
-        (pct (b// q (:rda.recommendation/min-amount recommendation)))
-
-        (:rda.recommendation/average-amount recommendation)
-        (pct (b// q (:rda.recommendation/average-amount recommendation)))
-
-        ;; Min/max/average energy percent not yet supported
-        ))))
+    (let [nutrient-id (->> (:constituent/nutrient measurement)
+                           :nutrient/id)
+          recommendation (recommendations nutrient-id)]
+      (when-let [v (or (:rda.recommendation/max-amount recommendation)
+                       (:rda.recommendation/min-amount recommendation)
+                       (:rda.recommendation/average-amount recommendation)
+                       ;; Min/max/average energy percent not yet supported
+                       )]
+        [:span.mvt-rda
+         {:data-nutrient-id nutrient-id}
+         (pct (b// q v))]))))
 
 (defn prepare-nutrient-tables [db locale {:keys [food recommendations nutrients group]}]
   (->> (concat
@@ -302,23 +298,25 @@
    (Checkbox {:label [:i18n ::show-sources]
               :class :mvt-source-toggler})])
 
-(defn passepartout-title [id title]
+(defn passepartout-title [id title & rest]
   [:div.mmm-flex.mmm-flex-bottom
    [:h3.mmm-h3 {:id id} title]
-   source-toggle])
+   source-toggle
+   rest])
 
 (defn render-rda-select [db selected]
   (let [profiles (rda/get-profiles-per-demographic db)]
-    [:div.mmm-vert-layout-s
-     [:p [:i18n ::rda-select-label]]
-     (Select
-      {:id "rda-selector"
-       :class "mmm-input-m"
-       :options (for [profile profiles]
-                  [:option (cond-> {:value (:rda/id profile)}
-                             (= (:rda/id selected) (:rda/id profile))
-                             (assoc :selected "true"))
-                   [:i18n :i18n/lookup (:rda/demographic profile)]])})]))
+    [:div.mmm-container.mmm-section.mmm-flex.mmm-flex-jr
+     [:div.mmm-vert-layout-s
+      [:p [:i18n ::rda-select-label]]
+      (Select
+       {:size :m
+        :class [:mmm-input-m :mvt-rda-selector]
+        :options (for [profile profiles]
+                   [:option (cond-> {:value (:rda/id profile)}
+                              (= (:rda/id selected) (:rda/id profile))
+                              (assoc :selected "true"))
+                    [:i18n :i18n/lookup (:rda/demographic profile)]])})]]))
 
 (defn render-portion-select [locale portions]
   [:div.mmm-vert-layout-s
@@ -413,9 +411,7 @@
        [:div.mmm-container.mmm-section
         [:div.mmm-flex-desktop.mmm-flex-bottom.mmm-mbl
          [:h2.mmm-h2.mmm-mbn#naringsinnhold [:i18n ::nutrition-title]]
-         [:div.mmm-flex.mmm-flex-gap
-          (render-rda-select (:app/db context) rda-profile)
-          (render-portion-select locale (:food/portions food))]]]
+         (render-portion-select locale (:food/portions food))]]
 
        (passepartout
         [:div.mmm-flex-gap-huge.mvt-cols-2-1-labeled
@@ -454,6 +450,8 @@
              (prepare-nutrient-tables (:app/db context) locale)
              (map render-table)))
 
+       (render-rda-select (:app/db context) rda-profile)
+
        (passepartout
         (passepartout-title "vitaminer" [:i18n ::vitamins-title])
         (->> (assoc (food/get-nutrient-group food "FatSolubleVitamins")
@@ -464,6 +462,8 @@
                     :recommendations recommendations)
              (prepare-nutrient-tables (:app/db context) locale)
              (map render-table)))
+
+       (render-rda-select (:app/db context) rda-profile)
 
        (passepartout
         (passepartout-title "mineraler-sporstoffer" [:i18n ::minerals-trace-elements-title])

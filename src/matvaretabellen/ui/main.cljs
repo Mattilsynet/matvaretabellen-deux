@@ -153,12 +153,14 @@
              (when-let [decimals (.getAttribute elem "data-decimals")]
                {:decimals (js/Number. decimals)}))))))
 
-(defn initialize-portion-selector [lang select-element portion-elements portion-label-elements]
+(defn initialize-portion-selector [lang select-element portion-elements portion-label-elements event-bus]
   (when select-element
     (.addEventListener
      select-element
      "change"
-     #(handle-portion-select-event % lang portion-elements portion-label-elements))))
+     (fn [e]
+       (handle-portion-select-event e lang portion-elements portion-label-elements)
+       (reset! event-bus ::changed-portions)))))
 
 ;; There's a script tag at the beginning of the body tag that sets the
 ;; mvt-source-hide class immediately to avoid any flickering. Please keep it in
@@ -193,26 +195,92 @@
     (js/sessionStorage.setItem k (js/JSON.stringify item))
     (catch :default _e)))
 
-(defn ensure-comparison-data [k locale f]
+(defn get-local-item [k]
+  (try
+    (some-> (js/localStorage.getItem k)
+            js/JSON.parse
+            js->clj)
+    (catch :default _e
+      nil)))
+
+(defn set-local-item [k item]
+  (try
+    (js/localStorage.setItem k (js/JSON.stringify (clj->js item)))
+    (catch :default _e)))
+
+(defn get-recommended-amount [profile nutrient-id]
+  (let [recommendation (get-in profile ["recommendations" nutrient-id])]
+    (or (get-in recommendation ["maxAmount" 0])
+        (get-in recommendation ["minAmount" 0])
+        (get-in recommendation ["averageAmount" 0]))))
+
+(defn update-rda-values [profile]
+  (doseq [el (qsa ".mvt-rda")]
+    (let [nutrient-id (.getAttribute el "data-nutrient-id")]
+      (set! (.-innerHTML el)
+            (-> (.closest el "tr")
+                (.querySelector "[data-portion]")
+                .-innerText
+                js/parseFloat
+                (/ (get-recommended-amount profile nutrient-id))
+                (* 100)
+                (.toFixed 0)
+                (str "&nbsp;%"))))))
+
+(defn select-profile [selects profile-data]
+  (update-rda-values profile-data)
+  (doseq [s selects]
+    (set! (.-value s) (get profile-data "id"))))
+
+(defn initialize-rda-selectors [data selects event-bus]
+  (when-let [profile (get-local-item "selected-rda-profile")]
+    (select-profile selects (js->clj profile)))
+  (->> (fn [_ _ _ event]
+         (when (= ::changed-portions event)
+           (update-rda-values (get data (.-value (first selects))))))
+       (add-watch event-bus ::rda))
+  (doseq [select selects]
+    (->> (fn [_e]
+           (set-local-item "selected-rda-profile" (get data (.-value select)))
+           (select-profile
+            (remove #{select} selects)
+            (get data (.-value select))))
+         (.addEventListener select "input"))))
+
+(defn ensure-session-data [k url f & [{:keys [process-raw-data]}]]
   (try
     (if-let [data (get-session-item k)]
       (f data)
-      (-> (js/fetch (urls/get-api-foods-json-url locale))
+      (-> (js/fetch url)
           (.then (fn [res] (.json res)))
           (.then (fn [raw-data]
-                   (let [data (->> raw-data
-                                   js->clj
-                                   (map (juxt #(get % "id") identity))
-                                   (into {})
-                                   clj->js)]
+                   (let [data (cond-> raw-data
+                                (ifn? process-raw-data) process-raw-data)]
                      (set-session-item k data)
                      (f data))))))
     (catch :default _e
       (f nil))))
 
+(defn map-json-by [k data]
+  (->> (js->clj data)
+       (map (juxt #(get % k) identity))
+       (into {})
+       clj->js))
+
+(defn ensure-comparison-data [k locale f]
+  (ensure-session-data
+   k (urls/get-api-foods-json-url locale) f
+   {:process-raw-data #(map-json-by "id" %)}))
+
+(defn ensure-rda-data [k locale f]
+  (ensure-session-data
+   k (urls/get-api-rda-json-url locale) f
+   {:process-raw-data #(map-json-by "id" (aget % "profiles"))}))
+
 (defn boot []
   (main)
-  (let [locale (keyword js/document.documentElement.lang)]
+  (let [locale (keyword js/document.documentElement.lang)
+        event-bus (atom nil)]
     (initialize-foods-autocomplete
      (js/document.querySelector ".mmm-search-input")
      locale
@@ -222,7 +290,8 @@
      js/document.documentElement.lang
      (js/document.querySelector "#portion-selector")
      (js/document.querySelectorAll "[data-portion]")
-     (js/document.querySelectorAll ".js-portion-label"))
+     (js/document.querySelectorAll ".js-portion-label")
+     event-bus)
 
     (initialize-source-toggler ".mvt-source-toggler input")
 
@@ -232,7 +301,13 @@
       (->> (fn [data]
              (when (= "comparison" js/document.body.id)
                (comparison/initialize-page data (get-params))))
-           (ensure-comparison-data k locale))))
+           (ensure-comparison-data k locale)))
+
+    (when-let [selects (qsa ".mvt-rda-selector")]
+      (ensure-rda-data
+       (str "rda-data-" (name locale))
+       locale
+       #(initialize-rda-selectors (js->clj %) selects event-bus))))
 
   (hoverable/set-up js/document))
 

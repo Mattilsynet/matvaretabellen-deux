@@ -645,6 +645,10 @@ table > tr.mmm-highlight {
     align-items: center;
 }
 
+.mmm-flex-jr {
+    justify-content: flex-end;
+}
+
 .mmm-flex-gap {gap: var(--mt-column-gap);}
 .mmm-flex-gap-wide {gap: var(--mt-column-gap-wide);}
 .mmm-flex-gap-huge {gap: var(--mt-column-gap-huge);}
