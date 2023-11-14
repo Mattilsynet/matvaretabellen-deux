@@ -1024,7 +1024,7 @@ table > tr.mmm-highlight {
     background: var(--mt-component-drawer-background);
     border-top: 2px solid var(--mt-component-drawer-border-color);
     bottom: 0;
-    height: 240px;
+    min-height: 180px;
     left: 0;
     overflow: hidden;
     position: fixed;
@@ -1044,8 +1044,7 @@ table > tr.mmm-highlight {
 }
 
 .mmm-drawer-closed {
-    border-top: none;
-    height: 0;
+    display: none;
 }
 
 /**********************************

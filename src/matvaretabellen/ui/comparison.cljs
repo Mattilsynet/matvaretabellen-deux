@@ -232,12 +232,7 @@
                                   (update-comparison-uis foods buttons-selector drawer-selector)))
     (when (< 0 (count @foods))
       (when-let [drawer (js/document.querySelector drawer-selector)]
-        ;; Unngå at skuffen animerer inn på alle sider når det ligger ting der
-        ;; fra start
-        (set! (.-transition (.-style drawer)) "none")
         (->> (fn [_e]
-               ;; Sørg for at skuffen navigerer stilig ut når den lukkes
-               (set! (.-transition (.-style drawer)) "height 0.25s")
                (js/requestAnimationFrame #(reset! foods nil)))
              (.addEventListener (.querySelector drawer ".mmm-icon-button") "click"))))
     (update-comparison-uis foods buttons-selector drawer-selector)

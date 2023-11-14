@@ -60,7 +60,7 @@
 ** TODO Bare én ammende
 ** TODO Bare én gravid
 ** TODO Bruk "Generell", kall det "Generell, 6-65 år"
-* Sammenligning [12/14]
+* Sammenligning [12/15]
 ** DONE Lag page-entity for sammenligning
 ** DONE Rendre en statisk sammenligning mellom tre matvarer
 ** DONE Lag en diff for energiinnhold
@@ -75,3 +75,4 @@
 ** DONE Query-parametere til sammenligningssiden for lenkbare sammenligninger
 ** TODO Maks 2 på mobil
 ** DONE Dele-ikon på sammenligningssiden
+** TODO Animer ut/inn på skuff
