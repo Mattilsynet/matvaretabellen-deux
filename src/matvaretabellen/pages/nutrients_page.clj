@@ -21,6 +21,7 @@
                     (embellish-nutrient (d/entity food-db eid) app-db))
         locale (:page/locale page)]
     (layout/layout
+     context
      [:head
       [:title [:i18n ::all-nutrients]]]
      [:body
