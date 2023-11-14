@@ -65,13 +65,14 @@
              {:text [:i18n ::source]
               :class "mvt-source"}
              {:text [:i18n ::amount]
-              :class "mvt-amount"}]
+              :class "mvt-amount mmm-tar"}]
    :rows (for [id nutrition-table-row-ids]
            (let [nutrient (:constituent/nutrient (food/get-nutrient-measurement food id))]
              [{:text (get-nutrient-link db locale nutrient)}
               {:text (get-source food id)
                :class "mvt-source"}
-              {:text (get-nutrient-quantity food id)}]))})
+              {:text (get-nutrient-quantity food id)
+               :class "mmm-tar"}]))})
 
 (defn get-kj [food & [opt]]
   (when (:measurement/quantity (:food/energy food))
@@ -132,20 +133,22 @@
                          {:text [:i18n ::source]
                           :class "mvt-source"}
                          {:text [:i18n ::amount]
-                          :class "mvt-amount"}
+                          :class "mvt-amount mmm-tar"}
                          (when recommendations
                            {:text [:abbr.mmm-abbr {:title [:i18n ::rda-explanation]}
                                    [:i18n ::rda-pct]]
-                            :class "mmm-td-min"})]
+                            :class "mmm-td-min mmm-tar"})]
                         (remove nil?))
           :rows (for [nutrient nutrients]
                   (->> [{:text (get-nutrient-link db locale nutrient)}
                         {:text (get-source food (:nutrient/id nutrient))
                          :class "mvt-source"}
-                        {:text (get-nutrient-quantity food (:nutrient/id nutrient))}
+                        {:text (get-nutrient-quantity food (:nutrient/id nutrient))
+                         :class "mmm-tar"}
                         (when recommendations
                           {:text (->> (food/get-nutrient-measurement food (:nutrient/id nutrient))
-                                      (get-recommended-daily-allowance recommendations))})]
+                                      (get-recommended-daily-allowance recommendations))
+                           :class "mmm-tar"})]
                        (remove nil?)))}]
         (mapcat
          #(when-let [nutrients (food/get-nutrients food (:nutrient/id %))]
@@ -165,10 +168,12 @@
                   :level level}
                  {:text (get-source food (:nutrient/id nutrient))
                   :class "mvt-source"}
-                 {:text (get-nutrient-quantity food (:nutrient/id nutrient))}
+                 {:text (get-nutrient-quantity food (:nutrient/id nutrient))
+                  :class "mmm-tar"}
                  (when recommendations
                    {:text (->> (food/get-nutrient-measurement food (:nutrient/id nutrient))
-                               (get-recommended-daily-allowance recommendations))})]
+                               (get-recommended-daily-allowance recommendations))
+                    :class "mmm-tar"})]
                 (remove nil?))]
           (let [level (inc level)]
             (->> (:nutrient/id nutrient)
@@ -180,11 +185,11 @@
                   {:text [:i18n ::source]
                    :class "mvt-source"}
                   {:text [:i18n ::amount]
-                   :class "mvt-amount"}
+                   :class "mvt-amount mmm-tar"}
                   (when recommendations
                     {:text [:abbr.mmm-abbr {:title [:i18n ::rda-explanation]}
                             [:i18n ::rda-pct]]
-                     :class "mmm-td-min"})]
+                     :class "mmm-td-min mmm-tar"})]
                  (remove nil?))
    :rows (mapcat #(get-nutrient-rows food % recommendations db locale) nutrients)})
 
