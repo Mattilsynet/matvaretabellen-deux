@@ -20,7 +20,7 @@
   :food-group/photo "/images/food-groups/meieriprodukter/photo.jpg"
   :food-group/illustration "/images/food-groups/meieriprodukter/illustration.svg"
   :food-group/short-description {:nb "Meieriprodukter inkluderer blant annet melk, ost, rømme og yoghurt. De er en kilde til [protein], [kalsium|Ca], [vitamin B12|Vit B12] og [jod|I]."
-                                :en "Dairy products include milk, cheese, sour cream, and yogurt. They are a source of [protein], [calcium|Ca], [vitamin B12|Vit B12], and [iodine|I]."}}
+                                 :en "Dairy products include milk, cheese, sour cream, and yogurt. They are a source of [protein], [calcium|Ca], [vitamin B12|Vit B12], and [iodine|I]."}}
 
  ;; "Egg"
  {:food-group/id "2"
