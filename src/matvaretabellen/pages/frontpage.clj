@@ -1,5 +1,6 @@
 (ns matvaretabellen.pages.frontpage
-  (:require [datomic-type-extensions.api :as d]
+  (:require [clojure.string :as str]
+            [datomic-type-extensions.api :as d]
             [matvaretabellen.seeded-random :as rng]
             [matvaretabellen.urls :as urls]
             [mmm.components.footer :refer [CompactSiteFooter]]
@@ -48,6 +49,16 @@
       [:p [:strong [:i18n ::all-nutrients]]]
       [:p [:i18n ::see-all-nutrients-overview]]]]]])
 
+(def popular-search-terms
+  [{:nb "Egg" :en "Egg"}
+   {:nb "Banan" :en "Banana"}
+   {:nb "Gulrot" :en "Carrot"}
+   {:nb "Havregryn" :en "Oat"}
+   {:nb "Potet" :en "Potato"}
+   {:nb "Avokado" :en "Avocado"}
+   {:nb "Ris" :en "Rice"}
+   {:nb "Blåbær" :en "Blueberries"}])
+
 (defn render [context db page]
   (let [locale (:page/locale page)]
     [:html {:class "mmm"}
@@ -64,20 +75,22 @@
       (BananaTeaserBox locale db)
       [:div.mmm-container.mmm-section.mmm-cols
        (Toc {:title [:i18n ::common-food-searches]
-             :contents [{:title "Egg" :href "?search=egg"}
-                        {:title "Gulrot" :href "?search=gulrot"}
-                        {:title "Havregryn" :href "?search=havregryn"}
-                        {:title "Potet" :href "?search=potet"}]
+             :contents (take 5 (rng/shuffle*
+                                (/ (.getEpochSecond (:time/instant context)) 11)
+                                (for [m popular-search-terms]
+                                  (let [term (get m locale)]
+                                    {:title term
+                                     :href (str "?search=" (str/lower-case term))}))))
              :class :mmm-col})
        (let [new-foods (:new-foods (:page/details page))]
          (Toc {:title (list [:i18n ::new-in-food-table] " " (:year new-foods))
-               :contents (for [id (take 4 (rng/shuffle*
+               :contents (for [id (take 5 (rng/shuffle*
                                            (/ (.getEpochSecond (:time/instant context)) 5)
                                            (:food-ids new-foods)))]
                            (get-food-info locale db id))
                :class :mmm-col}))
        (Toc {:title [:i18n ::seasonal-goods]
-             :contents (for [id (take 4 (rng/shuffle*
+             :contents (for [id (take 5 (rng/shuffle*
                                          (/ (.getEpochSecond (:time/instant context)) 7)
                                          (get-season-food-ids (:app/db context)
                                                               (MonthDay/now))))]
