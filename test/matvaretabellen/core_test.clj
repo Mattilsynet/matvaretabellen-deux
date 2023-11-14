@@ -17,3 +17,18 @@
 
   (testing "Uses english formatting"
     (is (= (sut/format-number :en 1295.670427) "1,295.67"))))
+
+(deftest enumerate-test
+  (testing "Enumerates in norwegian"
+    (is (= (sut/enumerate {:locale :nb} {} ["Banan" "Eple" "Kake"])
+           "Banan, Eple og Kake")))
+
+  (testing "Enumerates in english"
+    (is (= (sut/enumerate {:locale :en} {} ["Banan" "Eple" "Kake"])
+           "Banan, Eple and Kake")))
+
+  (testing "Enumerates nothing"
+    (is (= (sut/enumerate {:locale :en} {} []) "")))
+
+  (testing "Enumerates a single word"
+    (is (= (sut/enumerate {:locale :en} {} ["Banan"]) "Banan"))))

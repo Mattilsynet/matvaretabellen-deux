@@ -1,5 +1,6 @@
 (ns matvaretabellen.core
-  (:require [datomic-type-extensions.api :as d]
+  (:require [clojure.string :as str]
+            [datomic-type-extensions.api :as d]
             [matvaretabellen.foodcase-import :as foodcase-import]
             [matvaretabellen.ingest :as ingest]
             [matvaretabellen.pages :as pages])
@@ -27,6 +28,15 @@
 
 (defn m1p-fn-num [{:keys [locale]} _params n & [opt]]
   (format-number locale n opt))
+
+(def and-word
+  {:nb "og"
+   :en "and"})
+
+(defn enumerate [{:keys [locale]} _ xs & _args]
+  (if (< 1 (count xs))
+    (str (str/join ", " (butlast xs)) " " (and-word locale) " " (last xs))
+    (str/join xs)))
 
 (defn create-app [env foods-conn]
   (cond-> {:site/default-locale :no
@@ -61,7 +71,8 @@
 
            :m1p/dictionaries {:nb ["src/matvaretabellen/i18n/nb.edn"]
                               :en ["src/matvaretabellen/i18n/en.edn"]}
-           :m1p/dictionary-fns {:fn/num #'m1p-fn-num}}
+           :m1p/dictionary-fns {:fn/num #'m1p-fn-num
+                                :fn/enumerate #'enumerate}}
     (= :prod env)
     (assoc :site/base-url "https://matvaretabellen.mattilsynet.io")
 
