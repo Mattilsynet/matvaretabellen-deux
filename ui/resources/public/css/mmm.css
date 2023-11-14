@@ -371,6 +371,10 @@ table > tr.mmm-highlight {
     position: relative;
 }
 
+.mmm-select-m {
+    width: 22ch;
+}
+
 .mmm-select select {
     appearance: none;
     background-color: transparent;

@@ -10,3 +10,9 @@
   (e/block
    (Select
     {:options [[:option {:value "100"} "100 gram"]]})))
+
+(defscene select-medium-size
+  (e/block
+   (Select
+    {:size :m
+     :options [[:option {:value "100"} "100 gram"]]})))
