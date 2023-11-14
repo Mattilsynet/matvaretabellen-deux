@@ -210,7 +210,7 @@
         Alfalinolensyre finnes i vegetabilske matvarer som [linfrø|05.012], [chiafrø|05.380], [valnøtter|06.560], i tillegg til [fet fisk|fg-4]."
    :en "C18:3n-3, or alpha-linolenic acid, is a polyunsaturated [omega-3] fatty acid with 18 carbon atoms in the fatty acid chain.
         The fatty acid contains three double bonds, with the first one placed at the third carbon atom from the methyl end.
-        Other polyunsaturated [omega-3] fatty acids are [C20:3n-3|C20:C20:3n-3Eikosatriensyre], [C20:4n-3|C20:4n-3Eikosatetraensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre], and [C22:6n-3|C22:6n-3Dokosaheksaensyre].
+        Other polyunsaturated [omega-3] fatty acids are [C20:3n-3|C20:3n-3Eikosatriensyre], [C20:4n-3|C20:4n-3Eikosatetraensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre], and [C22:6n-3|C22:6n-3Dokosaheksaensyre].
         Alpha-linolenic acid is found in plant foods such as [flaxseeds|05.012], [chia seeds|05.380], [walnuts|06.560], as well as in [fatty fish|fg-4]."}}
 
  {:nutrient/id "C20:3n-3Eikosatriensyre"
