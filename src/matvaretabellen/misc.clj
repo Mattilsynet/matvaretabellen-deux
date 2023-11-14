@@ -1,9 +1,21 @@
 (ns matvaretabellen.misc
-  (:require [broch.core :as b]))
+  (:require [broch.core :as b])
+  (:import (java.text NumberFormat)
+           (java.util Locale)))
 
 (b/defunit-once kilojoules :energy "kJ" 1000 {b/joules 1})
 (b/defunit-once mg-ate :mass "mg-ATE" 1.0E-6)
 (b/defunit-once ug-re :mass "µg-RE" 1.0E-9)
+
+(def locales
+  {:nb (Locale/forLanguageTag "nb-NO")
+   :en (Locale/forLanguageTag "en-GB")})
+
+(defn format-number [locale n & [{:keys [decimals]}]]
+  (let [formatter (NumberFormat/getNumberInstance (locales locale))]
+    (when decimals
+      (.setMaximumFractionDigits formatter decimals))
+    (.format formatter n)))
 
 (defn natural-order-comparator-ish [s]
   (let [initial-numbers (re-find #"^\d+" s)

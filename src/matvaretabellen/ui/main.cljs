@@ -123,18 +123,18 @@
     0
     (count (second (str/split (str n) #"\.")))))
 
-(defn calc-new-portion-fraction [portion-size per-100g & [{:keys [decimals]}]]
-  (let [orig-decimals (count-decimals per-100g)]
-    (str/replace
-     (.toFixed
-      ;; Avoid 0.234 being rounded to 0 when using 0 decimals (kcal, kJ)
-      (js/Math.max 1 (* portion-size (/ per-100g 100.0)))
+(defn calc-new-portion-fraction [lang portion-size per-100g & [{:keys [decimals]}]]
+  (let [orig-decimals (count-decimals per-100g)
+        ;; Avoid 0.234 being rounded to 0 when using 0 decimals (kcal, kJ)
+        scaled (js/Math.max 1 (* portion-size (/ per-100g 100.0)))
+        decimals (if (= scaled (int scaled))
+                   ;; No decimals for whole numbers
+                   0
+                   ;; Max 2 extra decimals if no decimals where specified
+                   (or decimals (+ 2 orig-decimals)))]
+    (.toLocaleString scaled lang #js {:maximumFractionDigits decimals})))
 
-      ;; Max 2 extra decimals if no decimals where specified
-      (or decimals (+ 2 orig-decimals)))
-     #"\.?0+$" "")))
-
-(defn handle-portion-select-event [e portion-elements portion-label-elements]
+(defn handle-portion-select-event [e lang portion-elements portion-label-elements]
   (let [value (.-value (.-target e))
         label (some->> (.-options (.-target e))
                        into-array
@@ -147,17 +147,18 @@
     (doseq [elem (seq portion-elements)]
       (set! (.-innerHTML elem)
             (calc-new-portion-fraction
+             lang
              portion-size
              (js/Number. (.getAttribute elem "data-portion"))
              (when-let [decimals (.getAttribute elem "data-decimals")]
                {:decimals (js/Number. decimals)}))))))
 
-(defn initialize-portion-selector [select-element portion-elements portion-label-elements]
+(defn initialize-portion-selector [lang select-element portion-elements portion-label-elements]
   (when select-element
     (.addEventListener
      select-element
      "change"
-     #(handle-portion-select-event % portion-elements portion-label-elements))))
+     #(handle-portion-select-event % lang portion-elements portion-label-elements))))
 
 ;; There's a script tag at the beginning of the body tag that sets the
 ;; mvt-source-hide class immediately to avoid any flickering. Please keep it in
@@ -218,6 +219,7 @@
      (get (get-params) "search"))
 
     (initialize-portion-selector
+     js/document.documentElement.lang
      (js/document.querySelector "#portion-selector")
      (js/document.querySelectorAll "[data-portion]")
      (js/document.querySelectorAll ".js-portion-label"))

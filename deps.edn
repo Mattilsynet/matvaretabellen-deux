@@ -10,7 +10,7 @@
         no.anteo/broch {:mvn/version "2023.11.09"}
         no.cjohansen/fontawesome-clj {:mvn/version "2023.10.26"}
         no.cjohansen/powerpack {:git/url "https://github.com/cjohansen/powerpack.git"
-                                :sha "d380c1a911fd1964fbb2f68e9796db3c93a30981"}
+                                :sha "cc97ffa0a3641a2a2d6337bb69f5dd89e3c12a7b"}
         org.apache.poi/poi {:mvn/version "5.2.0"}
         org.apache.poi/poi-ooxml {:mvn/version "5.2.0"}
         org.apache.logging.log4j/log4j-core  {:mvn/version "2.17.1"} ;; kjeften på rei, du maser jo som et lokomotiv

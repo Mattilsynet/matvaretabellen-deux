@@ -1,7 +1,8 @@
 [#:i18n
  {:lookup [:fn/str "{{:en}}"]
   :other-language "På norsk"
-  :number-of-foods (list "Number of food items: " [:fn/get :count])}
+  :number-of-foods (list "Number of food items: " [:fn/get :count])
+  :number [:fn/num [:fn/get :n] [:fn/param]]}
 
  #:mmm.components.footer
  {:footer-title "Footer"

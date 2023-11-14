@@ -3,7 +3,9 @@
             [matvaretabellen.foodcase-import :as foodcase-import]
             [matvaretabellen.ingest :as ingest]
             [matvaretabellen.pages :as pages])
-  (:import [java.time Instant]))
+  (:import (java.text NumberFormat)
+           (java.time Instant)
+           (java.util Locale)))
 
 (defn on-started [conn powerpack-app]
   (ingest/on-started conn powerpack-app))
@@ -11,6 +13,19 @@
 (defn get-context [foods-conn]
   {:foods/db (d/db foods-conn)
    :time/instant (Instant/now)})
+
+(def locales
+  {:nb (Locale/forLanguageTag "nb-NO")
+   :en (Locale/forLanguageTag "en-GB")})
+
+(defn format-number [locale n & [{:keys [decimals]}]]
+  (let [formatter (NumberFormat/getNumberInstance (locales locale))]
+    (when decimals
+      (.setMaximumFractionDigits formatter decimals))
+    (.format formatter n)))
+
+(defn m1p-fn-num [{:keys [locale]} _params n & [opt]]
+  (format-number locale n opt))
 
 (defn create-app [env foods-conn]
   (cond-> {:site/default-locale :no
@@ -44,7 +59,8 @@
            :powerpack/on-started #(on-started foods-conn %)
 
            :m1p/dictionaries {:nb ["src/matvaretabellen/i18n/nb.edn"]
-                              :en ["src/matvaretabellen/i18n/en.edn"]}}
+                              :en ["src/matvaretabellen/i18n/en.edn"]}
+           :m1p/dictionary-fns {:fn/num #'m1p-fn-num}}
     (= :prod env)
     (assoc :site/base-url "https://matvaretabellen.mattilsynet.io")
 

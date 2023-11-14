@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [20/37]
+* Tickets [21/37]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -42,7 +42,7 @@
 ** DONE Støtt oppslag på food-id via søkefeltet, eks 05.448
 ** DONE Avrunde kJ og kcal til hele tall (minimum 1) - aldri desimaler
 ** TODO Søk på næringsstoff
-** TODO Bytte punktum med komma
+** DONE Bytte punktum med komma
 ** TODO Sjekk muligheter for å style pila i selecten litt bedre
 ** DONE Flytt kilde til venstre for mengde
 ** TODO Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter
@@ -60,7 +60,7 @@
 ** TODO Bare én ammende
 ** TODO Bare én gravid
 ** TODO Bruk "Generell", kall det "Generell, 6-65 år"
-* Sammenligning [11/13]
+* Sammenligning [11/14]
 ** DONE Lag page-entity for sammenligning
 ** DONE Rendre en statisk sammenligning mellom tre matvarer
 ** DONE Lag en diff for energiinnhold
@@ -74,3 +74,4 @@
 ** TODO Lag disabled knapp
 ** DONE Query-parametere til sammenligningssiden for lenkbare sammenligninger
 ** TODO Maks 2 på mobil
+** TODO Dele-ikon på sammenligningssiden

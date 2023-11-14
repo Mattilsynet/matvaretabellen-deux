@@ -19,24 +19,22 @@
             [mmm.components.site-header :refer [SiteHeader]]
             [mmm.components.toc :refer [Toc]]))
 
+(defn format-number [n {:keys [decimals]}]
+  (let [decimals (if (= (Math/floor n) n)
+                   0
+                   (or decimals 1))]
+    [:i18n :i18n/number {:n n :decimals decimals}]))
+
 (defn wrap-in-portion-span [num & [{:keys [decimals class]}]]
   [:span (cond-> {:data-portion num}
            decimals (assoc :data-decimals (str decimals))
            class (assoc :class class))
-   num])
+   (format-number num {:decimals decimals})])
 
 (defn get-calculable-quantity [measurement & [opt]]
   (when-let [q (:measurement/quantity measurement)]
-    (let [n (b/num q)
-          decimals (if (= (Math/floor n) n)
-                     0
-                     (or (:decimals opt) 1))]
-      (list
-       (wrap-in-portion-span
-        (format (str "%." decimals "f") n)
-        opt)
-       " "
-       [:span.mvt-sym (b/symbol q)]))))
+    (list (wrap-in-portion-span (b/num q) opt) " "
+          [:span.mvt-sym (b/symbol q)])))
 
 (defn get-nutrient-quantity [food nutrient-id]
   (or (some->> (food/get-nutrient-measurement food nutrient-id)
@@ -80,7 +78,7 @@
     (get-calculable-quantity (:food/energy food) (assoc opt :decimals 0))))
 
 (defn get-kcal [food & [opt]]
-  (when-let [kcal (:measurement/observation (:food/calories food))]
+  (when-let [kcal (some-> food :food/calories :measurement/observation parse-long)]
     (list (wrap-in-portion-span kcal (assoc opt :decimals 0)) " kcal")))
 
 (defn energy [food]
