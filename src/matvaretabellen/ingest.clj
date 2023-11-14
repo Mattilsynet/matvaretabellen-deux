@@ -26,24 +26,29 @@
              :page/locale locale
              :page/food-id id})))))
 
-(defn get-nutrient-pages [db]
+(defn get-nutrient-pages [food-db app-db]
   (->> (d/q '[:find ?nutrient-id ?nutrient-name
               :where
               [?n :nutrient/id ?nutrient-id]
               [?n :nutrient/name ?nutrient-name]]
-            db)
+            food-db)
        (mapcat
         (fn [[id i18n-names]]
           (mapcat
            (fn [[locale nutrient-name]]
-             [{:page/uri (urls/get-nutrient-url locale nutrient-name)
-               :page/kind :page.kind/nutrient
-               :page/locale locale
-               :page/nutrient-id id}
-              {:page/uri (urls/get-nutrient-excel-url locale nutrient-name)
-               :page/kind :page.kind/nutrient-excel
-               :page/locale locale
-               :page/nutrient-id id}])
+             (let [nutrient (d/entity app-db [:nutrient/id id])]
+               [(-> {:page/uri (urls/get-nutrient-url locale nutrient-name)
+                     :page/kind :page.kind/nutrient
+                     :page/locale locale
+                     :page/nutrient-id id}
+                    (with-open-graph
+                      {:title nutrient-name
+                       :description (get-in nutrient [:nutrient/short-description locale])
+                       :image (:nutrient/photo nutrient)}))
+                {:page/uri (urls/get-nutrient-excel-url locale nutrient-name)
+                 :page/kind :page.kind/nutrient-excel
+                 :page/locale locale
+                 :page/nutrient-id id}]))
            i18n-names)))))
 
 (defn get-food-group-pages [foods-db app-db]
@@ -87,7 +92,7 @@
     (->> (concat (pages/get-static-pages)
                  (get-food-pages db)
                  (get-food-group-pages db app-db)
-                 (get-nutrient-pages db))
+                 (get-nutrient-pages db app-db))
          (ensure-unique-page-uris)
          (concat rda-profiles)
          (d/transact (:datomic/conn powerpack-app))
