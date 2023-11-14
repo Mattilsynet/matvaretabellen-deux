@@ -1,9 +1,16 @@
 (ns matvaretabellen.ingest
   (:require [clojure.java.io :as io]
             [datomic-type-extensions.api :as d]
+            [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.pages :as pages]
             [matvaretabellen.rda :as rda]
             [matvaretabellen.urls :as urls]))
+
+(defn with-open-graph [m {:keys [title description image]}]
+  (cond-> m
+    title (assoc :open-graph/title (str title " - Matvaretabellen.no"))
+    description (assoc :open-graph/description (mashdown/strip description))
+    image (assoc :open-graph/image image)))
 
 (defn get-food-pages [db]
   (->> (d/q '[:find ?food-id ?food-name
@@ -39,24 +46,29 @@
                :page/nutrient-id id}])
            i18n-names)))))
 
-(defn get-food-group-pages [db]
+(defn get-food-group-pages [foods-db app-db]
   (->> (d/q '[:find ?id ?name
               :where
               [?f :food-group/id ?id]
               [?f :food-group/name ?name]]
-            db)
+            foods-db)
        (mapcat
         (fn [[id i18n-names]]
           (mapcat
            (fn [[locale name]]
-             [{:page/uri (urls/get-food-group-url locale name)
-               :page/kind :page.kind/food-group
-               :page/locale locale
-               :page/food-group-id id}
-              {:page/uri (urls/get-food-group-excel-url locale name)
-               :page/kind :page.kind/food-group-excel
-               :page/locale locale
-               :page/food-group-id id}])
+             (let [food-group (d/entity app-db [:food-group/id id])]
+               [(-> {:page/uri (urls/get-food-group-url locale name)
+                     :page/kind :page.kind/food-group
+                     :page/locale locale
+                     :page/food-group-id id}
+                    (with-open-graph
+                      {:title name
+                       :photo (:food-group/photo food-group)
+                       :description (get-in food-group [:food-group/short-description locale])}))
+                {:page/uri (urls/get-food-group-excel-url locale name)
+                 :page/kind :page.kind/food-group-excel
+                 :page/locale locale
+                 :page/food-group-id id}]))
            i18n-names)))))
 
 (defn ensure-unique-page-uris [entity-maps]
@@ -70,10 +82,11 @@
 
 (defn on-started [foods-conn powerpack-app]
   (let [db (d/db foods-conn)
+        app-db (d/db (:datomic/conn powerpack-app))
         rda-profiles (rda/read-csv db (slurp (io/file "data/adi.csv")))]
     (->> (concat (pages/get-static-pages)
                  (get-food-pages db)
-                 (get-food-group-pages db)
+                 (get-food-group-pages db app-db)
                  (get-nutrient-pages db))
          (ensure-unique-page-uris)
          (concat rda-profiles)
