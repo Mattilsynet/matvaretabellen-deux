@@ -95,16 +95,18 @@
    data))
 
 (defn validate-i18n-combination [locale->ms i18n-attrs]
-  (or (when-not (->> (vals locale->ms)
-                     (map #(strip-i18n-attrs i18n-attrs %))
-                     (apply =))
-        {:explanation "Localized food sources are not all alike"})
+  (or (let [ms (->> (vals locale->ms)
+                    (map #(strip-i18n-attrs i18n-attrs %)))]
+        (when-not (apply = ms)
+          {:explanation "Localized food sources are not all alike"
+           :data {:ms ms}}))
       (when (->> (tree-seq coll? identity locale->ms)
                  (filter set?)
                  (tree-seq coll? identity)
                  (filter i18n-attrs)
                  seq)
-        {:explanation "Can't use i18n attributes inside a set"})))
+        {:explanation "Can't use i18n attributes inside a set"
+         :data {}})))
 
 (defn vectorize-seqs [form]
   (walk/postwalk
@@ -134,7 +136,7 @@
 
 (defn combine-i18n-sources [locale->ms i18n-attrs]
   (when-let [error (validate-i18n-combination locale->ms i18n-attrs)]
-    (throw (ex-info (:explanation error) {})))
+    (throw (ex-info (:explanation error) (:data error))))
   (let [locales (keys locale->ms)]
     (for [[m :as siblings] (->> (vals locale->ms)
                                 (apply map vector)

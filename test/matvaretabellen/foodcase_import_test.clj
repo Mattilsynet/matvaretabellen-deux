@@ -149,7 +149,9 @@
              :nb [{:i18n/title "Tittel"
                    :flavor "kjedelig"}]}
             #{:i18n/title :i18n/description})
-           {:explanation "Localized food sources are not all alike"})))
+           {:explanation "Localized food sources are not all alike"
+            :data {:ms [[{:flavor "bland"}]
+                        [{:flavor "kjedelig"}]]}})))
 
   (testing "Can't use i18n attribute inside a set"
     (is (= (sut/validate-i18n-combination
@@ -158,7 +160,8 @@
              :nb #{{:i18n/title "Tittel"
                     :flavor "bland"}}}
             #{:i18n/title :i18n/description})
-           {:explanation "Can't use i18n attributes inside a set"}))))
+           {:explanation "Can't use i18n attributes inside a set"
+            :data {}}))))
 
 (deftest foodcase-foodgroup->food-group
   (is (= (sut/foodcase-foodgroup->food-group
