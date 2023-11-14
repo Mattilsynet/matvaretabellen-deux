@@ -24,8 +24,7 @@
                         :measurement/quantity
                         str)
              :class "mmm-tar mmm-nbr"}
-            {:text (comparison/render-toggle-button food locale)
-             :class "mmm-tac mmm-pas"}])})
+            (comparison/render-toggle-cell food locale)])})
 
 (defn render-nutrient-foods-table
   "Really, ALL of the foods on one page? Well, not all of them, just the ones that

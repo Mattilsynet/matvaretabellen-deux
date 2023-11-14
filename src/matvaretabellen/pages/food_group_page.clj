@@ -1,6 +1,6 @@
 (ns matvaretabellen.pages.food-group-page
   (:require [datomic-type-extensions.api :as d]
-            [matvaretabellen.components.comparison :as compare]
+            [matvaretabellen.components.comparison :as comparison]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
             [matvaretabellen.pages.food-page :as food-page]
@@ -11,10 +11,11 @@
             [mmm.components.site-header :refer [SiteHeader]]))
 
 (defn prepare-foods-table [locale foods]
-  {:headers [{:text "Matvare"}]
+  {:headers [{:text "Matvare"} {}]
    :rows (for [food foods]
            [{:text [:a.mmm-link {:href (urls/get-food-url locale food)}
-                    [:i18n :i18n/lookup (:food/name food)]]}])})
+                    [:i18n :i18n/lookup (:food/name food)]]}
+            (comparison/render-toggle-cell food locale)])})
 
 (defn render [context _db page]
   (let [food-group (d/entity (:foods/db context)
@@ -60,7 +61,7 @@
        (->> (prepare-foods-table locale foods)
             food-page/render-table)]
 
-      (compare/render-comparison-drawer locale)
+      (comparison/render-comparison-drawer locale)
 
       [:div.mmm-container.mmm-section
        (CompactSiteFooter)]]]))

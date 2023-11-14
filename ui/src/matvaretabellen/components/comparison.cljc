@@ -27,3 +27,7 @@
     :data-food-name (get-in food [:food/name locale])
     :title [:i18n ::stage-for-comparison]}
    (icons/render :fontawesome.solid/code-compare {:class :mmm-svg})])
+
+(defn render-toggle-cell [food locale]
+  {:text (render-toggle-button food locale)
+   :class "mmm-tac mmm-pas"})
