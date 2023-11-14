@@ -31,7 +31,12 @@
     (is (= (with-test-db [db [{:food-group/id "1"
                                :food-group/name {:nb "Melk og melkeprodukter"}}]]
              (sut/render db :nb "Det er fett i [melkeprodukter|fg-1]!"))
-           '("Det er fett i " [:a {:href "/gruppe/melk-og-melkeprodukter/"} "melkeprodukter"] "!")))))
+           '("Det er fett i " [:a {:href "/gruppe/melk-og-melkeprodukter/"} "melkeprodukter"] "!"))))
+
+  (testing "Relativ URL"
+    (is (= (with-test-db [db []]
+             (sut/render db :nb "En lenke til søket på [forsiden|/?search=ris] hvis du vil ha ris."))
+           '("En lenke til søket på " [:a {:href "/?search=ris"} "forsiden"] " hvis du vil ha ris.")))))
 
 (deftest strip
   (is (= (sut/strip "Her er det [protein], må vite!")

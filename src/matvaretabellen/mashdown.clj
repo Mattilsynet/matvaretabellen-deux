@@ -5,16 +5,18 @@
             [matvaretabellen.urls :as urls]))
 
 (defn find-url-for-segment [db locale id]
-  (let [nutrient (d/entity db [:nutrient/id id])
-        food (d/entity db [:food/id id])
-        food-group (when (str/starts-with? id "fg-")
-                     (d/entity db [:food-group/id (subs id 3)]))]
-    (cond
-      nutrient (urls/get-nutrient-url locale nutrient)
-      food (urls/get-food-url locale food)
-      food-group (urls/get-food-group-url locale food-group)
-      :else (throw (ex-info (str "Unknown mashdown segment id: " id)
-                            {:locale locale :id id})))))
+  (if (str/starts-with? id "/")
+    id
+    (let [nutrient (d/entity db [:nutrient/id id])
+          food (d/entity db [:food/id id])
+          food-group (when (str/starts-with? id "fg-")
+                       (d/entity db [:food-group/id (subs id 3)]))]
+      (cond
+        nutrient (urls/get-nutrient-url locale nutrient)
+        food (urls/get-food-url locale food)
+        food-group (urls/get-food-group-url locale food-group)
+        :else (throw (ex-info (str "Unknown mashdown segment id: " id)
+                              {:locale locale :id id}))))))
 
 (def bracket-pattern
   (re-pattern "\\[.*?\\]|[^\\[]+"))
