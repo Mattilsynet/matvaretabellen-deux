@@ -24,7 +24,7 @@
 ** TODO Flere trivia-bolker
 ** DONE [M] Sesongvarer for hele året
 ** DONE [M] Illustrasjoner til hver matvaregruppe
-** TODO [M] Tekster til hver matvaregruppe
+** DONE [M] Tekster til hver matvaregruppe
 ** TODO [M] Tekster til hvert næringsstoff
 ** DONE [M] Merke XL med kilder
 ** TODO Søkefelt på alle sider
