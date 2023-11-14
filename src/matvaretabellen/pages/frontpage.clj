@@ -56,7 +56,7 @@
                    :extra-link {:text [:i18n :i18n/other-language]
                                 :url (urls/get-base-url
                                       ({:en :nb :nb :en} locale))}})
-      [:form.mmm-container-narrow.mmm-section.mmm-mvxxl
+      [:form.mmm-container-narrow.mmm-section.mmm-mbxxl.mmm-mtxl
        [:h1.mmm-h2.mmm-mbl [:i18n ::search-label]]
        (SearchInput {:button {:text [:i18n ::search-button]}
                      :input {:name "foods-search"}
