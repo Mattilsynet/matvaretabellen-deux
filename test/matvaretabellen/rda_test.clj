@@ -116,6 +116,17 @@
               {:rda.recommendation/nutrient-id "I"
                :rda.recommendation/average-amount #broch/quantity[120.0 "µg"]}}})))
 
+  (testing "Bruker alias for generell demografi"
+    (is (= (let [csv (->> (str/split-lines csv)
+                          (take 4)
+                          (str/join "\n"))]
+             (->> (str/replace csv #"Gutt;6-9 år" "Generell;10 MJ")
+                  (sut/read-csv (get-foods-db))
+                  first
+                  :rda/demographic))
+           {:nb "Generell, 6-65 år"
+            :en "General, 6-65 years"})))
+
   (testing "Creates one page per demographic"
     (is (= (->> (sut/read-csv (get-foods-db) csv)
                 (take 3)

@@ -3,7 +3,6 @@
   ADI/RDA from CSV, and work with the resulting data structures."
   (:require [broch.core :as b]
             [clojure.java.io :as io]
-            [clojure.set :as set]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.misc :as misc]))
@@ -19,12 +18,15 @@
    "max" :rda.recommendation/max-amount
    "gjsn" :rda.recommendation/average-amount})
 
+(def nb-aliases
+  {"Generell, 10 mj" "Generell, 6-65 år"})
+
 (def en-dictionary
   {"Ammende - Fysisk hardt arbeid" "Breastfeeding - Physically demanding work"
    "Ammende - Sengeliggende/inaktiv" "Breastfeeding - Bedridden/Inactive"
    "Ammende - Stillesittende arbeid" "Breastfeeding - Sedentary work"
    "Ammende - Stående arbeid" "Breastfeeding - Standing work"
-   "Generell, 10 mj" "General, 10 mj"
+   "Generell, 6-65 år" "General, 6-65 years"
    "Gravid - Andre trimester" "Pregnant - Second trimester"
    "Gravid - Første trimester" "Pregnant - First trimester"
    "Gravid - Tredje trimester" "Pregnant - Third trimester"
@@ -88,8 +90,9 @@
        (into {:rda.recommendation/nutrient-id nutrient-id})))
 
 (defn internationalize [nb]
-  {:nb nb
-   :en (en-dictionary nb)})
+  (let [nb (get nb-aliases nb nb)]
+    {:nb nb
+     :en (en-dictionary nb)}))
 
 (defn get-demographic [sex-ish age-ish]
   (internationalize
@@ -182,6 +185,20 @@
    :body (->> (d/entity (:app/db context) [:rda/id (:page/rda-id page)])
               (->json (:page/locale page)))})
 
+(defn sort-order [rda-profile]
+  (let [demographic (get-in rda-profile [:rda/demographic :nb])]
+    [(cond
+       (str/starts-with? demographic "Generell") 0
+       (str/starts-with? demographic "Kvinne") 1
+       (str/starts-with? demographic "Mann") 2
+       (str/starts-with? demographic "Jente") 3
+       (str/starts-with? demographic "Gutt") 4
+       (str/starts-with? demographic "Spedbarn") 5
+       (str/starts-with? demographic "Gravid") 6
+       (str/starts-with? demographic "Ammende") 7
+       :else 8)
+     demographic]))
+
 (defn get-profiles-per-demographic [db]
   (->> (d/q '[:find [?e ...]
               :where
@@ -190,7 +207,7 @@
        (map #(d/entity db %))
        (group-by :rda/demographic)
        (map #(first (sort-by :rda/id (second %))))
-       (sort-by (comp :nb :rda/demographic))))
+       (sort-by sort-order)))
 
 (comment
 
