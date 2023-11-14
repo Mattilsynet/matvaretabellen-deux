@@ -30,11 +30,12 @@
          segment)))))
 
 (defn render [db locale s]
-  (for [segment (re-seq bracket-pattern s)]
-    (if (= \[ (first segment))
-      (let [segment (str/replace segment #"\[|\]" "")
-            [pre post] (str/split segment #"\|")
-            id (or post (str/capitalize pre))]
-        [:a {:href (find-url-for-segment db locale id)}
-         pre])
-      segment)))
+  (when s
+    (for [segment (re-seq bracket-pattern s)]
+      (if (= \[ (first segment))
+        (let [segment (str/replace segment #"\[|\]" "")
+              [pre post] (str/split segment #"\|")
+              id (or post (str/capitalize pre))]
+          [:a {:href (find-url-for-segment db locale id)}
+           pre])
+        segment))))
