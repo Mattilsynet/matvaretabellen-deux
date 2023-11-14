@@ -188,14 +188,45 @@
     (aset pills "template" (.-firstChild pills)))
   (aget pills "template"))
 
-(defn update-drawer [foods selector]
+(defn animate-height [el from to & [callback]]
+  (.add (.-classList el) "mmm-init-height-transition")
+  (set! (.-height (.-style el)) from)
+  (js/requestAnimationFrame
+   (fn []
+     (.remove (.-classList el) "mmm-init-height-transition")
+     (.add (.-classList el) "mmm-height-transition")
+     (->> (fn cleanup []
+            (set! (.-height (.-style el)) nil)
+            (.remove (.-classList el) "mmm-height-transition")
+            (when (ifn? callback)
+              (callback))
+            (.removeEventListener el "transitionend" cleanup))
+          (.addEventListener el "transitionend"))
+     (js/requestAnimationFrame #(set! (.-height (.-style el)) to)))))
+
+(defn get-height [el]
+  (.-height (.getBoundingClientRect el)))
+
+(defn open-drawer [drawer {:keys [animate?]}]
+  (when (.contains (.-classList drawer) "mmm-drawer-closed")
+    (.remove (.-classList drawer) "mmm-drawer-closed")
+    (when animate?
+      (animate-height drawer "0" (str (get-height drawer) "px")))))
+
+(defn close-drawer [drawer {:keys [animate?]}]
+  (when-not (.contains (.-classList drawer) "mmm-drawer-closed")
+    (if-not animate?
+      (.add (.-classList drawer) "mmm-drawer-closed")
+      (animate-height drawer (str (get-height drawer) "px") "0" #(.add (.-classList drawer) "mmm-drawer-closed")))))
+
+(defn update-drawer [foods selector opt]
   (when-let [drawer (js/document.querySelector selector)]
     (let [pills (.querySelector drawer ".mmm-pills")
           template (get-pill-template pills)
           button (.querySelector drawer ".mmm-button")]
       (if (< 0 (count @foods))
-        (.remove (.-classList drawer) "mmm-drawer-closed")
-        (.add (.-classList drawer) "mmm-drawer-closed"))
+        (open-drawer drawer opt)
+        (close-drawer drawer opt))
       (if (< 1 (count @foods))
         (.remove (.-classList button) "mmm-button-disabled")
         (.add (.-classList button) "mmm-button-disabled"))
@@ -211,25 +242,25 @@
                                                  (reset! foods))))
           (.appendChild pills pill))))))
 
-(defn update-comparison-uis [foods buttons-selector drawer-selector]
+(defn update-comparison-uis [foods buttons-selector drawer-selector & [opt]]
   (update-buttons @foods buttons-selector)
-  (update-drawer foods drawer-selector))
+  (update-drawer foods drawer-selector opt))
 
-(defn toggle-comparison [foods data buttons-selector drawer-selector]
+(defn toggle-comparison [foods data]
   (let [updated (if (some (comp #{(:id data)} :id) @foods)
                   (remove #(= (:id data) (:id %)) @foods)
                   (concat @foods [data]))]
-    (reset! foods updated)
-    (update-comparison-uis foods buttons-selector drawer-selector)))
+    (reset! foods updated)))
 
 (defn initialize-tooling
   "Initialize the compare button and the comparison drawer on pages that are not
   the comparison page."
   [buttons-selector drawer-selector]
   (let [foods (atom (get-foods-to-compare))]
-    (add-watch foods ::director (fn [_ _ _ new-foods]
-                                  (stage-comparisons new-foods)
-                                  (update-comparison-uis foods buttons-selector drawer-selector)))
+    (->> (fn [_ _ _ new-foods]
+           (stage-comparisons new-foods)
+           (update-comparison-uis foods buttons-selector drawer-selector {:animate? true}))
+         (add-watch foods ::director))
     (when (< 0 (count @foods))
       (when-let [drawer (js/document.querySelector drawer-selector)]
         (->> (fn [_e]
@@ -240,5 +271,5 @@
       (.remove (.-classList button) "mmm-hidden")
       (->> (fn [_e]
              (toggle-comparison foods {:id (.getAttribute button "data-food-id")
-                                       :foodName (.getAttribute button "data-food-name")} buttons-selector drawer-selector))
+                                       :foodName (.getAttribute button "data-food-name")}))
            (.addEventListener button "click")))))

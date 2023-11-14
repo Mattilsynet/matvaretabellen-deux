@@ -1066,6 +1066,15 @@ a.mmm-button-secondary:link {
     display: none;
 }
 
+.mmm-init-height-transition {
+    transition: none;
+    min-height: 0;
+}
+
+.mmm-height-transition {
+    min-height: 0;
+}
+
 /**********************************
  *** Component: Target (# URLs) ***
  **********************************/
