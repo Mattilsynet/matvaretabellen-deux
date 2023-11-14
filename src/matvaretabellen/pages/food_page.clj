@@ -292,10 +292,16 @@
            (remove #(= 0.0 (:value %)))
            (sort-by (comp - :value))))))
 
-(defn passepartout [& body]
+(defn passepartout-wide [& body]
   [:div.mmm-container.mmm-section.mmm-mobile-phn
    [:div.mmm-passepartout
     [:div.mmm-container-focused.mmm-vert-layout-m
+     body]]])
+
+(defn passepartout [& body]
+  [:div.mmm-container.mmm-section.mmm-mobile-phn
+   [:div.mmm-passepartout
+    [:div.mmm-container-medium.mmm-vert-layout-m
      body]]])
 
 (def source-toggle
@@ -311,7 +317,7 @@
 
 (defn render-rda-select [db selected]
   (let [profiles (rda/get-profiles-per-demographic db)]
-    [:div.mmm-container.mmm-section.mmm-flex.mmm-flex-jr
+    [:div.mmm-container-medium.mmm-section.mmm-flex.mmm-flex-jr
      [:div.mmm-vert-layout-s.mmm-alr
       [:p [:i18n ::rda-select-label]]
       (Select
@@ -424,7 +430,7 @@
          (render-compare-button food)
          (render-portion-select locale (:food/portions food))]]]
 
-      (passepartout
+      (passepartout-wide
        [:div.mmm-flex-gap-huge.mvt-cols-2-1-labeled
         [:div.col-2
          [:div.label [:h3.mmm-h3 [:i18n ::composition]]]
@@ -488,7 +494,7 @@
             (map #(render-table (assoc % :id "sporstoffer")))))
 
       [:div.mmm-container.mmm-section-spaced
-       [:div.mmm-container-focused.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
+       [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
         [:h3#klassifisering [:i18n ::classification-title]]
         [:ul.mmm-unadorned-list
          [:li [:i18n ::food-id {:id (:food/id food)}]]
@@ -501,7 +507,7 @@
              render-table)]]
 
       [:div.mmm-container.mmm-section-spaced
-       [:div.mmm-container-focused.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
+       [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
         [:h3#kilder [:i18n ::sources]]
         (->> (food/get-sources food)
              (render-sources page))]]
