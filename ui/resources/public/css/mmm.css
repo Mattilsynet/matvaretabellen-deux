@@ -354,9 +354,60 @@ table > tr.mmm-highlight {
     width: 25ch;
 }
 
-/*************************
- *** Forms: Text input ***
- *************************/
+/*********************
+ *** Forms: Select ***
+ *********************/
+
+.mmm-select {
+    align-items: center;
+    cursor: pointer;
+    /* Unset padding from e.g. mmm-input, and transfer to the select to increase
+       clickable area. Why not just set .mmm-input directly on the select
+       element? Well, we want to position the arrow on top of the select, but
+       with a lower z-index so clicks go to the select. This requires a
+       transparent background on the select element. So it needs to have a
+       sentient container anyway. */
+    padding: 0;
+    position: relative;
+}
+
+.mmm-select select {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    cursor: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0;
+    outline: none;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}
+
+.mmm-input select {
+    padding: var(--mt-component-form-field-padding-v) var(--mt-component-form-field-padding-h);
+}
+
+.mmm-select select::-ms-expand {
+    display: none;
+}
+
+.mmm-select .mmm-svg {
+    position: absolute;
+    right: var(--mt-component-form-field-padding-h);
+    top: 50%;
+    transform: translateY(-50%);
+    height: var(--mt-component-form-select-size);
+    width: var(--mt-component-form-select-size);
+    z-index: 0;
+}
+
+/***********************
+ *** Forms: Checkbox ***
+ ***********************/
 
 .mmm-checkbox {
     align-items: center;

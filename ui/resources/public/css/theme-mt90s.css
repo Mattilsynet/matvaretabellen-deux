@@ -215,8 +215,10 @@
 
     --mt-component-form-field-border: var(--mt-color-beige-500);
     --mt-component-form-field-background: var(--mt-color-white);
-    --mt-component-form-field-padding-h: 0.5em;
+    --mt-component-form-field-padding-h: 0.75em;
     --mt-component-form-field-padding-v: 0.75em;
+
+    --mt-component-form-select-size: 0.9em;
 
     --mt-component-footer-border-color: var(--mt-color-red-200);
     --mt-component-footer-gap: var(--mt-spacing-x1_4);

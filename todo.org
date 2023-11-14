@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [21/37]
+* Tickets [22/37]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -43,7 +43,7 @@
 ** DONE Avrunde kJ og kcal til hele tall (minimum 1) - aldri desimaler
 ** TODO Søk på næringsstoff
 ** DONE Bytte punktum med komma
-** TODO Sjekk muligheter for å style pila i selecten litt bedre
+** DONE Sjekk muligheter for å style pila i selecten litt bedre
 ** DONE Flytt kilde til venstre for mengde
 ** TODO Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter
 * ADI-switch [4/13]
