@@ -47,7 +47,7 @@
 ** DONE Flytt kilde til venstre for mengde
 ** TODO Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter
 ** TODO Trigge analytics-events på interaksjoner
-* Sammenligning [12/15]
+* Sammenligning [12/14]
 ** DONE Lag page-entity for sammenligning
 ** DONE Rendre en statisk sammenligning mellom tre matvarer
 ** DONE Lag en diff for energiinnhold
@@ -60,6 +60,5 @@
 ** DONE Lag payload med alle matvarene
 ** TODO Lag disabled knapp
 ** DONE Query-parametere til sammenligningssiden for lenkbare sammenligninger
-** TODO Maks 2 på mobil
 ** DONE Dele-ikon på sammenligningssiden
 ** TODO Animer ut/inn på skuff
