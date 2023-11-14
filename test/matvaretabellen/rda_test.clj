@@ -38,8 +38,8 @@
                 first)
            {:rda/id "rda1743657494"
             :rda/order 8
-            :rda/demographic {:nb "Jente, 6-9 år"
-                              :en "Girl, 6-9 years"}
+            :rda/demographic {:nb "Jente 6-9 år"
+                              :en "Girl 6-9 years"}
             :rda/energy-recommendation #broch/quantity[7131.8 "kJ"]
             :rda/kcal-recommendation 1704.5002
             :rda/work-activity-level {:nb "Høyt aktivitetsnivå"
@@ -124,8 +124,8 @@
                   (sut/read-csv (get-foods-db))
                   first
                   :rda/demographic))
-           {:nb "Generell, 6-65 år"
-            :en "General, 6-65 years"})))
+           {:nb "Generell 6-65 år"
+            :en "General 6-65 years"})))
 
   (testing "Skiller ikke på trimester for gravide"
     (is (= (let [lines (str/split-lines csv)
@@ -192,7 +192,7 @@
                 first
                 (sut/->json :nb))
            {:id "rda1521056637"
-            :demographic "Gutt, 6-9 år"
+            :demographic "Gutt 6-9 år"
             :energy-recommendation {:n 6439.7 :symbol "kJ"}
             :kcal-recommendation 1539.0883
             :work-activity-level "Lavt aktivitetsnivå"

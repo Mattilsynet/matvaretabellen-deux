@@ -19,30 +19,30 @@
    "gjsn" :rda.recommendation/average-amount})
 
 (def nb-aliases
-  {"Generell, 10 mj" "Generell, 6-65 år"})
+  {"Generell 10 mj" "Generell 6-65 år"})
 
 (def en-dictionary
   {"Ammende" "Breastfeeding"
-   "Generell, 6-65 år" "General, 6-65 years"
+   "Generell 6-65 år" "General 6-65 years"
    "Gravid" "Pregnant"
-   "Gutt, 10-13 år" "Boy, 10-13 years"
-   "Gutt, 14-17 år" "Boy, 14-17 years"
-   "Gutt, 2-5 år" "Boy, 2-5 years"
-   "Gutt, 6-9 år" "Boy, 6-9 years"
-   "Jente, 10-13 år" "Girl, 10-13 years"
-   "Jente, 14-17 år" "Girl, 14-17 years"
-   "Jente, 2-5 år" "Girl, 2-5 years"
-   "Jente, 6-9 år" "Girl, 6-9 years"
-   "Kvinne, 18-30 år" "Woman, 18-30 years"
-   "Kvinne, 31-60 år" "Woman, 31-60 years"
-   "Kvinne, 61-74 år" "Woman, 61-74 years"
-   "Kvinne, 75+ år" "Woman, 75+ years"
-   "Mann, 18-30 år" "Man, 18-30 years"
-   "Mann, 31-60 år" "Man, 31-60 years"
-   "Mann, 61-74 år" "Man, 61-74 years"
-   "Mann, 75+ år" "Man, 75+ years"
-   "Spedbarn, 12-23 mnd" "Infant, 12-23 months"
-   "Spedbarn, 6-11 mnd" "Infant, 6-11 months"
+   "Gutt 10-13 år" "Boy 10-13 years"
+   "Gutt 14-17 år" "Boy 14-17 years"
+   "Gutt 2-5 år" "Boy 2-5 years"
+   "Gutt 6-9 år" "Boy 6-9 years"
+   "Jente 10-13 år" "Girl 10-13 years"
+   "Jente 14-17 år" "Girl 14-17 years"
+   "Jente 2-5 år" "Girl 2-5 years"
+   "Jente 6-9 år" "Girl 6-9 years"
+   "Kvinne 18-30 år" "Woman 18-30 years"
+   "Kvinne 31-60 år" "Woman 31-60 years"
+   "Kvinne 61-74 år" "Woman 61-74 years"
+   "Kvinne 75+ år" "Woman 75+ years"
+   "Mann 18-30 år" "Man 18-30 years"
+   "Mann 31-60 år" "Man 31-60 years"
+   "Mann 61-74 år" "Man 61-74 years"
+   "Mann 75+ år" "Man 75+ years"
+   "Spedbarn 12-23 mnd" "Infant 12-23 months"
+   "Spedbarn 6-11 mnd" "Infant 6-11 months"
    "Sykehjem/hjemmetjeneste - Energi- og næringstett kost" "Nursing home/home care - Energy and nutrient-dense diet"
    "Sykehjem/hjemmetjeneste - Nøkkelrådskost" "Nursing home/home care - Key dietary advice"
 
@@ -95,7 +95,7 @@
         (when-not (#{"Gravid" "Ammende"} sex-ish)
           (str
            (if (re-find #"^[\d\-\+]+" age-ish)
-             ", "
+             " "
              " - ")
            (str/capitalize age-ish)
            (when (or (re-find #"\d-\d+$" age-ish)
