@@ -12,7 +12,8 @@
 
 (defn get-context [foods-conn]
   {:foods/db (d/db foods-conn)
-   :time/instant (Instant/now)})
+   :time/instant (Instant/now)
+   :matomo/site-id "7"})
 
 (def locales
   {:nb (Locale/forLanguageTag "nb-NO")

@@ -7,6 +7,7 @@
             [matvaretabellen.components.pie-chart :refer [assoc-degrees PieChart]]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
+            [matvaretabellen.layout :as layout]
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.rda :as rda]
             [matvaretabellen.urls :as urls]
@@ -14,7 +15,6 @@
             [mmm.components.button :refer [Button]]
             [mmm.components.card :refer [DetailFocusCard]]
             [mmm.components.checkbox :refer [Checkbox]]
-            [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.select :refer [Select]]
             [mmm.components.site-header :refer [SiteHeader]]
             [mmm.components.toc :refer [Toc]]))
@@ -368,7 +368,10 @@
                              :rda/recommendations
                              (map (juxt :rda.recommendation/nutrient-id identity))
                              (into {}))]
-    [:html {:class "mmm"}
+    (layout/layout
+     context
+     [:head
+      [:title food-name]]
      [:body
       [:script {:type "text/javascript"}
        (str "if (localStorage.getItem(\"show-sources\") != \"true\") {\n"
@@ -378,124 +381,120 @@
                    :extra-link {:text [:i18n :i18n/other-language]
                                 :url (urls/get-food-url
                                       ({:en :nb :nb :en} locale) food)}})
-      [:div
-       [:div.mmm-themed.mmm-brand-theme1
-        [:div.mmm-container.mmm-section
-         (Breadcrumbs
-          {:links (crumbs/crumble locale
-                                  (:food/food-group food)
-                                  {:text food-name})})]
-        [:div.mmm-container.mmm-section
-         [:div.mmm-media-d.mmm-media-at
-          [:article.mmm-vert-layout-spread
-           [:h1.mmm-h1 food-name]
-           [:div.mmm-mtm.mmm-vert-layout-s
-            [:div.mmm-flex
-             [:div.mmm-vert-layout-s
-              [:h2.mmm-p.mmm-desktop energy-label]
-              [:h2.mmm-p.mmm-mobile.mmm-mbs {:aria-hidden "true"}
-               energy-label-mobile]
-              [:p.mmm-h3.mmm-mbs.mmm-desktop (energy food)]]
-             [:div.mmm-desktop
-              (Button {:class [:mmm-hidden :mvt-compare-food]
-                       :text [:i18n ::compare-food]
-                       :inline? true
-                       :secondary? true
-                       :icon :fontawesome.solid/code-compare
-                       :data-food-id (:food/id food)
-                       :data-food-name food-name})]]
-            [:div.mmm-cards
-             (->> (prepare-macro-highlights food)
-                  (map DetailFocusCard))]]]
-          (render-toc {:contents (get-toc-items)})]]]
+      [:div.mmm-themed.mmm-brand-theme1
        [:div.mmm-container.mmm-section
-        [:div.mmm-flex-desktop.mmm-flex-bottom.mmm-mbl
-         [:h2.mmm-h2.mmm-mbn#naringsinnhold [:i18n ::nutrition-title]]
-         (render-portion-select locale (:food/portions food))]]
-
-       (passepartout
-        [:div.mmm-flex-gap-huge.mvt-cols-2-1-labeled
-         [:div.col-2
-          [:div.label [:h3.mmm-h3 [:i18n ::composition]]]
-          (PieChart {:slices (assoc-degrees 70 (prepare-value-slices food #{"Fett" "Karbo" "Protein" "Vann" "Fiber" "Alko"}))
-                     :hoverable? true})]
-         [:div.col-2
-          [:div.label [:h3.mmm-h3 [:i18n ::energy-content]]]
-          (PieChart {:slices (assoc-degrees 30 (prepare-percent-slices food #{"Fett" "Karbo" "Protein"}))
-                     :hoverable? true})]
-         [:div.col-1
-          (Legend {:entries (for [entry slice-legend]
-                              (assoc entry :label [:i18n :i18n/lookup
-                                                   (nutrient/get-name (d/entity db [:nutrient/id (:nutrient-id entry)]))]))})]])
-
-       (passepartout
-        [:h3.mmm-h3#energi [:i18n ::nutrition-heading]]
-        [:div.mmm-flex.mmm-flex-bottom
-         [:ul.mmm-ul.mmm-unadorned-list
-          [:li energy-label ": " (energy food)]
-          [:li [:i18n ::edible-part
-                {:pct (-> food :food/edible-part :measurement/percent)}]]]
-         source-toggle]
-        (render-table (prepare-nutrition-table (:app/db context) locale food)))
-
-       (passepartout
-        (passepartout-title "karbohydrater" [:i18n ::carbohydrates-title])
-        (->> (food/get-nutrient-group food "Karbo")
-             (prepare-nutrient-tables (:app/db context) locale)
-             (map render-table)))
-
-       (passepartout
-        (passepartout-title "fett" [:i18n ::fat-title])
-        (->> (food/get-nutrient-group food "Fett")
-             (prepare-nutrient-tables (:app/db context) locale)
-             (map render-table)))
-
-       (render-rda-select (:app/db context) rda-profile)
-
-       (passepartout
-        (passepartout-title "vitaminer" [:i18n ::vitamins-title])
-        (->> (assoc (food/get-nutrient-group food "FatSolubleVitamins")
-                    :recommendations recommendations)
-             (prepare-nested-nutrient-table (:app/db context) locale)
-             render-table)
-        (->> (assoc (food/get-flattened-nutrient-group food "WaterSolubleVitamins")
-                    :recommendations recommendations)
-             (prepare-nutrient-tables (:app/db context) locale)
-             (map render-table)))
-
-       (render-rda-select (:app/db context) rda-profile)
-
-       (passepartout
-        (passepartout-title "mineraler-sporstoffer" [:i18n ::minerals-trace-elements-title])
-        (->> (assoc (food/get-flattened-nutrient-group food "Minerals")
-                    :recommendations recommendations)
-             (prepare-nutrient-tables (:app/db context) locale)
-             (map #(render-table (assoc % :id "mineraler"))))
-        (->> (assoc (food/get-flattened-nutrient-group food "TraceElements")
-                    :recommendations recommendations)
-             (prepare-nutrient-tables (:app/db context) locale)
-             (map #(render-table (assoc % :id "sporstoffer")))))
-
-       [:div.mmm-container.mmm-section-spaced
-        [:div.mmm-container-focused.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
-         [:h3#klassifisering [:i18n ::classification-title]]
-         [:ul.mmm-unadorned-list
-          [:li [:i18n ::food-id {:id (:food/id food)}]]
-          (when-let [latin-name (not-empty (:food/latin-name food))]
-            [:li [:i18n ::scientific-name {:name latin-name}]])]
-         [:p [:i18n ::classification-intro
-              {:langual-url "https://www.langual.org/"}]]
-         (->> (food/get-langual-codes food)
-              prepare-langual-table
-              render-table)]]
-
-       [:div.mmm-container.mmm-section-spaced
-        [:div.mmm-container-focused.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
-         [:h3#kilder [:i18n ::sources]]
-         (->> (food/get-sources food)
-              (render-sources page))]]
-
+        (Breadcrumbs
+         {:links (crumbs/crumble locale
+                                 (:food/food-group food)
+                                 {:text food-name})})]
        [:div.mmm-container.mmm-section
-        (CompactSiteFooter)]
+        [:div.mmm-media-d.mmm-media-at
+         [:article.mmm-vert-layout-spread
+          [:h1.mmm-h1 food-name]
+          [:div.mmm-mtm.mmm-vert-layout-s
+           [:div.mmm-flex
+            [:div.mmm-vert-layout-s
+             [:h2.mmm-p.mmm-desktop energy-label]
+             [:h2.mmm-p.mmm-mobile.mmm-mbs {:aria-hidden "true"}
+              energy-label-mobile]
+             [:p.mmm-h3.mmm-mbs.mmm-desktop (energy food)]]
+            [:div.mmm-desktop
+             (Button {:class [:mmm-hidden :mvt-compare-food]
+                      :text [:i18n ::compare-food]
+                      :inline? true
+                      :secondary? true
+                      :icon :fontawesome.solid/code-compare
+                      :data-food-id (:food/id food)
+                      :data-food-name food-name})]]
+           [:div.mmm-cards
+            (->> (prepare-macro-highlights food)
+                 (map DetailFocusCard))]]]
+         (render-toc {:contents (get-toc-items)})]]]
+      [:div.mmm-container.mmm-section
+       [:div.mmm-flex-desktop.mmm-flex-bottom.mmm-mbl
+        [:h2.mmm-h2.mmm-mbn#naringsinnhold [:i18n ::nutrition-title]]
+        (render-portion-select locale (:food/portions food))]]
 
-       (comparison/render-comparison-drawer locale)]]]))
+      (passepartout
+       [:div.mmm-flex-gap-huge.mvt-cols-2-1-labeled
+        [:div.col-2
+         [:div.label [:h3.mmm-h3 [:i18n ::composition]]]
+         (PieChart {:slices (assoc-degrees 70 (prepare-value-slices food #{"Fett" "Karbo" "Protein" "Vann" "Fiber" "Alko"}))
+                    :hoverable? true})]
+        [:div.col-2
+         [:div.label [:h3.mmm-h3 [:i18n ::energy-content]]]
+         (PieChart {:slices (assoc-degrees 30 (prepare-percent-slices food #{"Fett" "Karbo" "Protein"}))
+                    :hoverable? true})]
+        [:div.col-1
+         (Legend {:entries (for [entry slice-legend]
+                             (assoc entry :label [:i18n :i18n/lookup
+                                                  (nutrient/get-name (d/entity db [:nutrient/id (:nutrient-id entry)]))]))})]])
+
+      (passepartout
+       [:h3.mmm-h3#energi [:i18n ::nutrition-heading]]
+       [:div.mmm-flex.mmm-flex-bottom
+        [:ul.mmm-ul.mmm-unadorned-list
+         [:li energy-label ": " (energy food)]
+         [:li [:i18n ::edible-part
+               {:pct (-> food :food/edible-part :measurement/percent)}]]]
+        source-toggle]
+       (render-table (prepare-nutrition-table (:app/db context) locale food)))
+
+      (passepartout
+       (passepartout-title "karbohydrater" [:i18n ::carbohydrates-title])
+       (->> (food/get-nutrient-group food "Karbo")
+            (prepare-nutrient-tables (:app/db context) locale)
+            (map render-table)))
+
+      (passepartout
+       (passepartout-title "fett" [:i18n ::fat-title])
+       (->> (food/get-nutrient-group food "Fett")
+            (prepare-nutrient-tables (:app/db context) locale)
+            (map render-table)))
+
+      (render-rda-select (:app/db context) rda-profile)
+
+      (passepartout
+       (passepartout-title "vitaminer" [:i18n ::vitamins-title])
+       (->> (assoc (food/get-nutrient-group food "FatSolubleVitamins")
+                   :recommendations recommendations)
+            (prepare-nested-nutrient-table (:app/db context) locale)
+            render-table)
+       (->> (assoc (food/get-flattened-nutrient-group food "WaterSolubleVitamins")
+                   :recommendations recommendations)
+            (prepare-nutrient-tables (:app/db context) locale)
+            (map render-table)))
+
+      (render-rda-select (:app/db context) rda-profile)
+
+      (passepartout
+       (passepartout-title "mineraler-sporstoffer" [:i18n ::minerals-trace-elements-title])
+       (->> (assoc (food/get-flattened-nutrient-group food "Minerals")
+                   :recommendations recommendations)
+            (prepare-nutrient-tables (:app/db context) locale)
+            (map #(render-table (assoc % :id "mineraler"))))
+       (->> (assoc (food/get-flattened-nutrient-group food "TraceElements")
+                   :recommendations recommendations)
+            (prepare-nutrient-tables (:app/db context) locale)
+            (map #(render-table (assoc % :id "sporstoffer")))))
+
+      [:div.mmm-container.mmm-section-spaced
+       [:div.mmm-container-focused.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
+        [:h3#klassifisering [:i18n ::classification-title]]
+        [:ul.mmm-unadorned-list
+         [:li [:i18n ::food-id {:id (:food/id food)}]]
+         (when-let [latin-name (not-empty (:food/latin-name food))]
+           [:li [:i18n ::scientific-name {:name latin-name}]])]
+        [:p [:i18n ::classification-intro
+             {:langual-url "https://www.langual.org/"}]]
+        (->> (food/get-langual-codes food)
+             prepare-langual-table
+             render-table)]]
+
+      [:div.mmm-container.mmm-section-spaced
+       [:div.mmm-container-focused.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
+        [:h3#kilder [:i18n ::sources]]
+        (->> (food/get-sources food)
+             (render-sources page))]]
+
+      (comparison/render-comparison-drawer locale)])))
