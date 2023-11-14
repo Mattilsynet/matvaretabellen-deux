@@ -31,12 +31,12 @@
   :nutrient/short-description {:nb "Fett er et energitett næringsstoff som det typisk finnes mye av i f.eks. smør og olje. Det eksisterer flere ulike varianter av fett."
                                :en "Fat is an energy-dense nutrient commonly found in items like butter and oil. There are several different types of fat."}
   :nutrient/long-description
-  {:nb "Fett er en av de energigivende næringsstoffene, sammen med [protein], [fiber] og [alkohol|Alko].
+  {:nb "Fett er en av de energigivende næringsstoffene, sammen med [protein], [karbohydrater|Karbo], [fiber] og [alkohol|Alko].
         Næringsstoffet kan deles opp i [mettede|Mettet] og umettede fettsyrer.
         Umettede fettsyrer kan deles opp i [en-|Enumet] og [flerumettede fettsyrer|Flerum].
         Det finnes også [transfett|Trans] og [kolesterol|Kolest].
         Kilder til fett er [matfett|fg-8], [meieriprodukter|fg-1], [kjøtt|fg-3], [fet fisk|fg-4], [nøtter|fg-14] og [snacks|fg-7]."
-   :en "Fat is one of the energy-yielding nutrients, along with [protein], [fiber], and [alcohol|Alko].
+   :en "Fat is one of the energy-yielding nutrients, along with [protein], [carbohydrates|Karbo], [fiber], and [alcohol|Alko].
         This nutrient can be divided into [saturated|Mettet] and unsaturated fatty acids.
         Unsaturated fatty acids can further be categorized into [monounsaturated|Enumet] and [polyunsaturated fatty acids|Flerum].
         There are also [trans fats|Trans] and [cholesterol|Kolest].
@@ -53,12 +53,15 @@
   :nutrient/category {:db/ident :nutrient.category/macro}
   :nutrient/photo "/images/nutrients/karbohydrater/photo.jpg"
   :nutrient/illustration "/images/nutrients/karbohydrater/illustration.svg"
-  :nutrient/short-description {:nb "Dette næringsstoffet finnes typisk i matvarer med høyt sukkerinnhold, enten tilsatt eller naturlig. Et eksempel er sjokoladekake."
-                               :en "This nutrient is typically found in foods with high sugar content, whether added or natural. An example is chocolate cake."}
-  :nutrient/long-description {:nb (list "Karbohydrater er en av de tre hovedtypene næringsstoffer, sammen med " [:a {:href "/protein/"} "proteiner"] " og " [:a {:href "/fett/"} "fett"] "."
-                                        " De er kroppens viktigste energikilde. Karbohydrater finnes i matvarer som brød, pasta, ris, frukt, grønnsaker og sukker. Når du spiser karbohydrater, brytes de ned til glukose (sukker) i kroppen, som gir energi til cellene og hjernen.")
-                              :en (list "Carbohydrates are one of the three main types of nutrients, along with " [:a {:href "/en/protein/"} "proteins"] " and " [:a {:href "/en/fat/"} "fats"] "."
-                                        " They are the body's primary source of energy. Carbohydrates are found in foods like bread, pasta, rice, fruits, vegetables, and sugar. When you consume carbohydrates, they are broken down into glucose (sugar) in the body, providing energy to the cells and the brain.")}}
+  :nutrient/short-description {:nb "Karbohydrater er et energigivende næringsstoff med undergruppene stivelse, sukkerarter og tilsatt sukker."
+                               :en "Carbohydrates are an energy-yielding nutrient with subgroups including starch, sugars, and added sugars."}
+  :nutrient/long-description
+  {:nb "Karbohydrater er en av de energigivende næringsstoffene, sammen med [protein], [fett|Fett], [alkohol|Alko] og [kostfiber|Fiber].
+        Karbohydrater kan også deles opp i undergruppene [stivelse|Stivel], [sukkerarter|Mono+Di] og [tilsatt sukker|Sukker].
+        De viktigste kildene til karbohydrat er [kornvarer|fg-5], [frukt og bær|fg-13], [grønnsaker|fg-6] og [søte produkter|fg-7]."
+   :en "Carbohydrates are one of the energy-yielding nutrients, along with [protein], [fat|Fett], [alcohol|Alko], and [dietary fiber|Fiber].
+        Carbohydrates can also be divided into subgroups such as [starch|Stivel], [sugars|Mono+Di], and [added sugar|Sukker].
+        The main sources of carbohydrates are [cereals|fg-5], [fruits and berries|fg-13], [vegetables|fg-6], and [sweet products|fg-7]."}}
 
  {:nutrient/id "Fiber"
   :nutrient/category {:db/ident :nutrient.category/macro}
@@ -273,5 +276,55 @@
    :en "Omega-6 fatty acids are a type of polyunsaturated fatty acid along with [omega-3].
         In omega-6 fatty acids, the first double bond is located at the sixth carbon atom from the methyl end.
         These fatty acids are typically found in vegetable fats like [sunflower oil|08.106], [corn oil|08.006], and [soybean oil|08.007], as well as in some types of [nuts and seeds|fg-14]."}}
+
+ {:nutrient/id "C18:2n-6Linolsyre"
+  :nutrient/long-description
+  {:nb "C18:2n-6, eller linolsyre, er en flerumettet [omega-6] fettsyre med 18 karbonatomer i fettkjeden og to dobbeltbindinger.
+        Fettsyren inneholder to dobbeltbindinger hvor den første er plassert på det sjette karbonatomet fra metylenden.
+        Andre flerumettede omega-6 fettsyrer er [C20:3n-6|C20:3n-6DihomoGammaLinolensyre] og [C20:4n-6|C20:4n-6Arakidonsyre].
+        Linolsyre finnes blant annet i matfett som [solsikke-|08.106], [mais-|08.006] og [soyaolje|08.007]."
+   :en "C18:2n-6, or linoleic acid, is a polyunsaturated [omega-6] fatty acid with 18 carbon atoms in the fatty acid chain and two double bonds.
+        The fatty acid contains two double bonds, with the first one placed at the sixth carbon atom from the methyl end.
+        Other polyunsaturated [omega-6] fatty acids are [C20:3n-6|C20:3n-6DihomoGammaLinolensyre] and [C20:4n-6|C20:4n-6Arakidonsyre].
+        Linoleic acid is typically found in vegetable fats like [sunflower oil|08.106], [corn oil|08.006], and [soybean oil|08.007]"}}
+
+ {:nutrient/id "C20:3n-6DihomoGammaLinolensyre"
+  :nutrient/long-description
+  {:nb "C20:3n-6, eller dihomo-gamma-linolensyre (DGLA), er en flerumettet omega-6 fettsyre med 20 karbonatomer i fettkjeden.
+        Fettsyren inneholder tre dobbeltbindinger hvor den første er plassert på det sjette karbonatomet fra metylenden.
+        Andre flerumettede omega-6 fettsyrer er [C18:2n-6|C18:2n-6Linolsyre] og [C20:4n-6|C20:4n-6Arakidonsyre]."
+   :en "C20:3n-6, or dihomo-gamma-linolenic acid (DGLA), is a polyunsaturated omega-6 fatty acid with 20 carbon atoms in the fatty acid chain.
+        The fatty acid contains three double bonds, with the first one placed at the sixth carbon atom from the methyl end.
+        Other polyunsaturated [omega-6] fatty acids are [C18:2n-6|C18:2n-6Linolsyre] and [C20:4n-6|C20:4n-6Arakidonsyre]."}}
+
+ {:nutrient/id "C20:4n-6Arakidonsyre"
+  :nutrient/long-description
+  {:nb "C20:4n-6, eller arakidonsyre, er en flerumettet omega-6 fettsyre med 20 karbonatomer i fettkjeden.
+        Fettsyren inneholder fire dobbeltbindinger hvor den første er plassert på det sjette karbonatomet fra metylenden.
+        Andre flerumettede omega-6 fettsyrer er [C18:2n-6|C18:2n-6Linolsyre] og [C20:3n-6|C20:3n-6DihomoGammaLinolensyre]."
+   :en "C20:4n-6, or arachidonic acid, is a polyunsaturated omega-6 fatty acid with 20 carbon atoms in the fatty acid chain.
+        The fatty acid contains four double bonds, with the first one placed at the sixth carbon atom from the methyl end.
+        Other polyunsaturated [omega-6] fatty acids are [C18:2n-6|C18:2n-6Linolsyre] and [C20:3n-6|C20:3n-6DihomoGammaLinolensyre]."}}
+
+ {:nutrient/id "Trans"
+  :nutrient/long-description
+  {:nb "Transfettsyrer er umettede fettsyrer som dannes i vommen hos drøvtyggere og ved industriell herding av langkjedede fettsyrer i oljer.
+        Ved industriell herding endres den romlige strukturen av cis-fettsyrer til trans-fettsyrer slik at de legger seg tettere sammen.
+        Det er lite transfett i norske matvarer, men det forekommer naturlig i små mengder i noen typer meieriprodukter, smør og kjøtt."
+   :en "Trans fatty acids are unsaturated fatty acids that are formed in the rumen of ruminants and by industrial hydrogenation of long-chain fatty acids in oils.
+        During industrial hydrogenation, the spatial structure of cis-fatty acids is changed to trans-fatty acids, causing them to pack more closely together.
+        There is little trans fat in Norwegian foods, but it occurs naturally in small amounts in some types of dairy products, butter, and meat."}}
+
+ {:nutrient/id "Kolest"
+  :nutrient/long-description
+  {:nb "Kolesterol er en type fettstoff som eksisterer i matvarer som [kjøtt|fg-3] og [meieriprodukter|fg-1], samt [egg|fg-2]. "
+   :en "Cholesterol is a type of fat that exists in foods such as [meat|fg-3], [dairy products|fg-1], and [eggs|fg-2]."}}
+
+ {:nutrient/id "Stivel"
+  :nutrient/long-description
+  {:nb "Stivelse er en form for [karbohydrat|Karbo] sammen med [tilsatt sukker|Sukker] og [sukkerarter|Mono+Di].
+        Næringsstoffet finnes blant annet i matvarer som [ris|/?search=ris], [pasta|/?search=pasta] og [poteter|fg-15]. "
+   :en "Starch is a form of [carbohydrate|Karbo] along with [added sugar|Sukker] and [sugars|Mono+Di].
+        This nutrient is found in foods such as [rice|/en/?search=rice], [pasta|/en/?search=pasta], and [potatoes|fg-15]."}}
 
  ]
