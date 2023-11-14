@@ -8,6 +8,7 @@
             [matvaretabellen.statistics :as statistics]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
+            [mmm.components.button :refer [Button]]
             [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
@@ -34,7 +35,14 @@
      [:article.mmm-vert-layout-m
       [:h1.mmm-h1 [:i18n ::compare-foods]]
       [:p.mmm-p.mvtc-rating-summary.mmm-hidden [:i18n ::energy-summary]]
-      [:p.mmm-p [:i18n ::diff-intro]]]
+      [:p.mmm-p [:i18n ::diff-intro]]
+      [:p.mmm-p
+       (Button {:text "Kopier lenke"
+                :href (urls/get-comparison-url locale)
+                :secondary? true
+                :icon :fontawesome.solid/share-from-square
+                :inline? true
+                :class [:mvtc-share]})]]
      (food-page/render-toc {:contents (drop-last 2 (food-page/get-toc-items))
                             :class :mmm-nbr})]]])
 

@@ -152,7 +152,14 @@
           (doseq [_food (next foods)]
             (.appendChild row (.cloneNode template true))))
         (doseq [[el food] (map vector (next (seq (.-childNodes row))) foods)]
-          (prepare-comparison-el el food))))))
+          (prepare-comparison-el el food))))
+    (doseq [share-button (qsa ".mvtc-share")]
+      (let [url (str js/window.location.pathname "?food-ids=" (get params "food-ids"))]
+        (->> (fn [e]
+               (.preventDefault e)
+               (js/navigator.clipboard.writeText (str js/window.location.origin url)))
+             (.addEventListener share-button "click"))
+        (set! (.-href share-button) url)))))
 
 ;; Comparison UI on other pages
 
