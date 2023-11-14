@@ -3,6 +3,7 @@
             [matvaretabellen.components.comparison :as comparison]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
+            [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
@@ -17,7 +18,7 @@
                     [:i18n :i18n/lookup (:food/name food)]]}
             (comparison/render-toggle-cell food locale)])})
 
-(defn render [context _db page]
+(defn render [context db page]
   (let [food-group (d/entity (:foods/db context)
                              [:food-group/id (:page/food-group-id page)])
         details (d/entity (:app/db context)
@@ -45,8 +46,10 @@
            [:i18n :i18n/number-of-foods
             {:count (count foods)}]]
           [:div.mmm-text.mmm-preamble
-           [:p (or (get-in details [:food-group/long-description locale])
-                   (get-in details [:food-group/short-description locale]))]]
+           [:p (mashdown/render
+                db locale
+                (or (get-in details [:food-group/long-description locale])
+                    (get-in details [:food-group/short-description locale])))]]
           [:div
            (Button {:text [:i18n ::download-these]
                     :href (urls/get-food-group-excel-url locale food-group)
