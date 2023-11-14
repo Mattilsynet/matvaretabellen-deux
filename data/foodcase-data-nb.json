@@ -3,8 +3,8 @@
     {
       "id": "1",
       "parentId": "",
-      "name": "Melk og melkeprodukter",
-      "slug": "melk-og-melkeprodukter"
+      "name": "Meieriprodukter",
+      "slug": "meieriprodukter"
     },
     {
       "id": "2",
@@ -15,8 +15,8 @@
     {
       "id": "3",
       "parentId": "",
-      "name": "Fjørfe og kjøtt",
-      "slug": "fjoerfe-og-kjoett"
+      "name": "Kjøtt og fjørfe",
+      "slug": "kjoett-og-fjoerfe"
     },
     {
       "id": "4",
@@ -27,14 +27,14 @@
     {
       "id": "5",
       "parentId": "",
-      "name": "Korn- og bakevarer, frø og nøtter",
-      "slug": "korn-og-bakevarer-froe-og-noetter"
+      "name": "Korn- og bakevarer",
+      "slug": "korn-og-bakevarer"
     },
     {
       "id": "6",
       "parentId": "",
-      "name": "Poteter, grønnsaker, frukt og bær",
-      "slug": "poteter-groennsaker-frukt-og-baer"
+      "name": "Grønnsaker",
+      "slug": "groennsaker"
     },
     {
       "id": "7",
@@ -45,8 +45,8 @@
     {
       "id": "8",
       "parentId": "",
-      "name": "Margarin, smør, matolje o.l.",
-      "slug": "margarin-smoer-matolje-ol"
+      "name": "Matfett",
+      "slug": "matfett"
     },
     {
       "id": "9",
@@ -57,8 +57,8 @@
     {
       "id": "10",
       "parentId": "",
-      "name": "Diverse retter, produkter og ingredienser",
-      "slug": "diverse-retter-produkter-og-ingredienser"
+      "name": "Diverse matvarer og retter",
+      "slug": "diverse-matvarer-og-retter"
     },
     {
       "id": "11",
@@ -67,10 +67,40 @@
       "slug": "spedbarnsmat"
     },
     {
+      "id": "12",
+      "parentId": "",
+      "name": "Belgvekster",
+      "slug": "belgvekster"
+    },
+    {
+      "id": "13",
+      "parentId": "",
+      "name": "Frukt og bær",
+      "slug": "frukt-og-baer"
+    },
+    {
+      "id": "14",
+      "parentId": "",
+      "name": "Nøtter og frø",
+      "slug": "noetter-og-froe"
+    },
+    {
+      "id": "15",
+      "parentId": "",
+      "name": "Poteter",
+      "slug": "poteter"
+    },
+    {
+      "id": "16",
+      "parentId": "",
+      "name": "Urter og krydder",
+      "slug": "urter-og-krydder"
+    },
+    {
       "id": "1.1",
       "parentId": "1",
-      "name": "Melk og melkebasert drikke",
-      "slug": "melk-og-melkebasert-drikke"
+      "name": "Melk",
+      "slug": "melk"
     },
     {
       "id": "1.2",
@@ -81,8 +111,8 @@
     {
       "id": "1.3",
       "parentId": "1",
-      "name": "Fløte, rømme, fløteerstatning",
-      "slug": "floete-roemme-floeteerstatning"
+      "name": "Fløte og rømme",
+      "slug": "floete-og-roemme"
     },
     {
       "id": "1.4",
@@ -93,32 +123,68 @@
     {
       "id": "1.4.1",
       "parentId": "1.4",
-      "name": "Ost, ekstra fet",
-      "slug": "ost-ekstra-fet"
+      "name": "Ost, ekstra fet - UT",
+      "slug": "ost-ekstra-fet-ut"
     },
     {
       "id": "1.4.2",
       "parentId": "1.4",
-      "name": "Ost, helfet",
-      "slug": "ost-helfet"
+      "name": "Ost, helfet - UT",
+      "slug": "ost-helfet-ut"
     },
     {
       "id": "1.4.3",
       "parentId": "1.4",
-      "name": "Ost, halvfet, mager",
-      "slug": "ost-halvfet-mager"
+      "name": "Ost, halvfet, mager - UT",
+      "slug": "ost-halvfet-mager-ut"
+    },
+    {
+      "id": "1.4.4",
+      "parentId": "1.4",
+      "name": "Annen ost",
+      "slug": "annen-ost"
+    },
+    {
+      "id": "1.4.5",
+      "parentId": "1.4",
+      "name": "Brunost",
+      "slug": "brunost"
+    },
+    {
+      "id": "1.4.6",
+      "parentId": "1.4",
+      "name": "Ferskost",
+      "slug": "ferskost"
+    },
+    {
+      "id": "1.4.7",
+      "parentId": "1.4",
+      "name": "Gulost",
+      "slug": "gulost"
+    },
+    {
+      "id": "1.4.8",
+      "parentId": "1.4",
+      "name": "Muggost",
+      "slug": "muggost"
+    },
+    {
+      "id": "1.4.9",
+      "parentId": "1.4",
+      "name": "Smelteost",
+      "slug": "smelteost"
     },
     {
       "id": "2.1",
       "parentId": "2",
-      "name": "Egg, rå",
-      "slug": "egg-raa"
+      "name": "Egg, rå - UT",
+      "slug": "egg-raa-ut"
     },
     {
       "id": "2.2",
       "parentId": "2",
-      "name": "Egg, tilberedt",
-      "slug": "egg-tilberedt"
+      "name": "Egg, tilberedt - UT",
+      "slug": "egg-tilberedt-ut"
     },
     {
       "id": "3.1",
@@ -129,50 +195,50 @@
     {
       "id": "3.1.1",
       "parentId": "3.1",
-      "name": "Fjørfe, rå",
-      "slug": "fjoerfe-raa"
+      "name": "Fjørfe, rå - UT",
+      "slug": "fjoerfe-raa-ut"
     },
     {
       "id": "3.1.2",
       "parentId": "3.1",
-      "name": "Fjørfe, tilberedt",
-      "slug": "fjoerfe-tilberedt"
+      "name": "Fjørfe, tilberedt - UT",
+      "slug": "fjoerfe-tilberedt-ut"
     },
     {
       "id": "3.2",
       "parentId": "3",
-      "name": "Lam, får",
-      "slug": "lam-faar"
+      "name": "Lam",
+      "slug": "lam"
     },
     {
       "id": "3.2.1",
       "parentId": "3.2",
-      "name": "Lam, får, rå",
-      "slug": "lam-faar-raa"
+      "name": "Lam, får, rå - UT",
+      "slug": "lam-faar-raa-ut"
     },
     {
       "id": "3.2.2",
       "parentId": "3.2",
-      "name": "Lam, får, tilberedt",
-      "slug": "lam-faar-tilberedt"
+      "name": "Lam, får, tilberedt - UT",
+      "slug": "lam-faar-tilberedt-ut"
     },
     {
       "id": "3.3",
       "parentId": "3",
-      "name": "Storfe, kalv",
-      "slug": "storfe-kalv"
+      "name": "Storfe og kalv",
+      "slug": "storfe-og-kalv"
     },
     {
       "id": "3.3.1",
       "parentId": "3.3",
-      "name": "Storfe, kalv, rå",
-      "slug": "storfe-kalv-raa"
+      "name": "Storfe, kalv, rå - UT",
+      "slug": "storfe-kalv-raa-ut"
     },
     {
       "id": "3.3.2",
       "parentId": "3.3",
-      "name": "Storfe, kalv, tilberedt",
-      "slug": "storfe-kalv-tilberedt"
+      "name": "Storfe, kalv, tilberedt - UT",
+      "slug": "storfe-kalv-tilberedt-ut"
     },
     {
       "id": "3.4",
@@ -183,62 +249,80 @@
     {
       "id": "3.4.1",
       "parentId": "3.4",
-      "name": "Svin, rå",
-      "slug": "svin-raa"
+      "name": "Svin, rå - UT",
+      "slug": "svin-raa-ut"
     },
     {
       "id": "3.4.2",
       "parentId": "3.4",
-      "name": "Svin, tilberedt",
-      "slug": "svin-tilberedt"
+      "name": "Svin, tilberedt - UT",
+      "slug": "svin-tilberedt-ut"
     },
     {
       "id": "3.5",
       "parentId": "3",
-      "name": "Diverse kjøttprodukter",
-      "slug": "diverse-kjoettprodukter"
+      "name": "Kjøttprodukter",
+      "slug": "kjoettprodukter"
     },
     {
       "id": "3.5.1",
       "parentId": "3.5",
-      "name": "Diverse kjøtt, farse, innmat, rå",
-      "slug": "diverse-kjoett-farse-innmat-raa"
+      "name": "Diverse kjøtt, farse, innmat, rå - UT",
+      "slug": "diverse-kjoett-farse-innmat-raa-ut"
     },
     {
       "id": "3.5.2",
       "parentId": "3.5",
-      "name": "Diverse kjøtt, farse, innmat, tilberedt",
-      "slug": "diverse-kjoett-farse-innmat-tilberedt"
+      "name": "Diverse kjøtt, farse, innmat, tilberedt - UT",
+      "slug": "diverse-kjoett-farse-innmat-tilberedt-ut"
     },
     {
       "id": "3.6",
       "parentId": "3",
-      "name": "Lam, storfe, svin, tilberedt",
-      "slug": "lam-storfe-svin-tilberedt"
+      "name": "Lam, storfe, svin, tilberedt - UT",
+      "slug": "lam-storfe-svin-tilberedt-ut"
     },
     {
       "id": "3.6.1",
       "parentId": "3.6",
-      "name": "Pølser",
-      "slug": "poelser"
+      "name": "Pølser - UT",
+      "slug": "poelser-ut"
     },
     {
       "id": "3.6.2",
       "parentId": "3.6",
-      "name": "Kjøttprodukter og kjøttpålegg",
-      "slug": "kjoettprodukter-og-kjoettpaalegg"
+      "name": "Kjøttprodukter og kjøttpålegg - UT",
+      "slug": "kjoettprodukter-og-kjoettpaalegg-ut"
     },
     {
       "id": "3.7",
       "parentId": "3",
-      "name": "Retter med fjørfe og kjøtt",
-      "slug": "retter-med-fjoerfe-og-kjoett"
+      "name": "Kjøttretter",
+      "slug": "kjoettretter"
+    },
+    {
+      "id": "3.8",
+      "parentId": "3",
+      "name": "Deiger og farser",
+      "slug": "deiger-og-farser"
+    },
+    {
+      "id": "3.9",
+      "parentId": "3",
+      "name": "Innmat",
+      "slug": "innmat"
+    },
+    {
+      "id": "3.10",
+      "parentId": "3",
+      "name": "Viltkjøtt",
+      "slug": "viltkjoett"
     },
     {
       "id": "4.1",
       "parentId": "4",
-      "name": "Fisk og fiskeprodukter",
-      "slug": "fisk-og-fiskeprodukter"
+      "name": "Fisk",
+      "slug": "fisk"
     },
     {
       "id": "4.1.1",
@@ -249,14 +333,14 @@
     {
       "id": "4.1.1.1",
       "parentId": "4.1.1",
-      "name": "Fet fisk, rå",
-      "slug": "fet-fisk-raa"
+      "name": "Fet fisk, rå - UT",
+      "slug": "fet-fisk-raa-ut"
     },
     {
       "id": "4.1.1.2",
       "parentId": "4.1.1",
-      "name": "Fet fisk, tilberedt",
-      "slug": "fet-fisk-tilberedt"
+      "name": "Fet fisk, tilberedt - UT",
+      "slug": "fet-fisk-tilberedt-ut"
     },
     {
       "id": "4.1.2",
@@ -267,32 +351,44 @@
     {
       "id": "4.1.2.1",
       "parentId": "4.1.2",
-      "name": "Mager fisk, rå",
-      "slug": "mager-fisk-raa"
+      "name": "Mager fisk, rå - UT",
+      "slug": "mager-fisk-raa-ut"
     },
     {
       "id": "4.1.2.2",
       "parentId": "4.1.2",
-      "name": "Mager fisk, tilberedt",
-      "slug": "mager-fisk-tilberedt"
+      "name": "Mager fisk, tilberedt - UT",
+      "slug": "mager-fisk-tilberedt-ut"
     },
     {
       "id": "4.1.4",
       "parentId": "4.1",
-      "name": "Fiskeprodukter og fiskepålegg",
-      "slug": "fiskeprodukter-og-fiskepaalegg"
+      "name": "Fiskeprodukter og fiskepålegg - UT",
+      "slug": "fiskeprodukter-og-fiskepaalegg-ut"
+    },
+    {
+      "id": "4.1.5",
+      "parentId": "4.1",
+      "name": "Fiskeinnmat",
+      "slug": "fiskeinnmat"
     },
     {
       "id": "4.2",
       "parentId": "4",
-      "name": "Retter med fisk, skalldyr o.l.",
-      "slug": "retter-med-fisk-skalldyr-ol"
+      "name": "Fiske- og skalldyrsretter",
+      "slug": "fiske-og-skalldyrsretter"
     },
     {
       "id": "4.3",
       "parentId": "4",
-      "name": "Skalldyr, fiskeinnmat",
-      "slug": "skalldyr-fiskeinnmat"
+      "name": "Skalldyr",
+      "slug": "skalldyr"
+    },
+    {
+      "id": "4.4",
+      "parentId": "4",
+      "name": "Fiskeprodukter",
+      "slug": "fiskeprodukter"
     },
     {
       "id": "5.1",
@@ -303,26 +399,26 @@
     {
       "id": "5.2",
       "parentId": "5",
-      "name": "Gryn, ris, pasta",
-      "slug": "gryn-ris-pasta"
+      "name": "Gryn, ris og pasta",
+      "slug": "gryn-ris-og-pasta"
     },
     {
       "id": "5.2.1",
       "parentId": "5.2",
-      "name": "Gryn, ris, pasta, råvare",
-      "slug": "gryn-ris-pasta-raavare"
+      "name": "Gryn, ris, pasta, råvare - UT",
+      "slug": "gryn-ris-pasta-raavare-ut"
     },
     {
       "id": "5.2.2",
       "parentId": "5.2",
-      "name": "Gryn, ris, pasta, tilberedt",
-      "slug": "gryn-ris-pasta-tilberedt"
+      "name": "Gryn, ris, pasta, tilberedt - UT",
+      "slug": "gryn-ris-pasta-tilberedt-ut"
     },
     {
       "id": "5.3",
       "parentId": "5",
-      "name": "Kornblanding, frokostkorn",
-      "slug": "kornblanding-frokostkorn"
+      "name": "Frokostblanding",
+      "slug": "frokostblanding"
     },
     {
       "id": "5.5",
@@ -331,112 +427,184 @@
       "slug": "broedvarer-hjemmebakt"
     },
     {
+      "id": "5.5.1",
+      "parentId": "5.5",
+      "name": "Andre brødvarer, hjemmebakt",
+      "slug": "andre-broedvarer-hjemmebakt"
+    },
+    {
+      "id": "5.5.2",
+      "parentId": "5.5",
+      "name": "Fint brød, hjemmebakt",
+      "slug": "fint-broed-hjemmebakt"
+    },
+    {
+      "id": "5.5.3",
+      "parentId": "5.5",
+      "name": "Grovt brød, hjemmebakt",
+      "slug": "grovt-broed-hjemmebakt"
+    },
+    {
       "id": "5.6",
       "parentId": "5",
       "name": "Brødvarer, industribakt",
       "slug": "broedvarer-industribakt"
     },
     {
+      "id": "5.6.1",
+      "parentId": "5.6",
+      "name": "Andre brødvarer",
+      "slug": "andre-broedvarer"
+    },
+    {
+      "id": "5.6.2",
+      "parentId": "5.6",
+      "name": "Ekstra grovt brød",
+      "slug": "ekstra-grovt-broed"
+    },
+    {
+      "id": "5.6.3",
+      "parentId": "5.6",
+      "name": "Fint brød",
+      "slug": "fint-broed"
+    },
+    {
+      "id": "5.6.4",
+      "parentId": "5.6",
+      "name": "Grovt brød",
+      "slug": "grovt-broed"
+    },
+    {
+      "id": "5.6.5",
+      "parentId": "5.6",
+      "name": "Halvgrovt brød",
+      "slug": "halvgrovt-broed"
+    },
+    {
       "id": "5.7",
       "parentId": "5",
-      "name": "Knekkebrød, smørbrødkjeks o.l.",
-      "slug": "knekkebroed-smoerbroedkjeks-ol"
+      "name": "Knekkebrød og flatbrød",
+      "slug": "knekkebroed-og-flatbroed"
     },
     {
       "id": "5.8",
       "parentId": "5",
-      "name": "Småkaker, søt kjeks, kavring",
-      "slug": "smaakaker-soet-kjeks-kavring"
+      "name": "Kjeks og småkaker",
+      "slug": "kjeks-og-smaakaker"
     },
     {
       "id": "5.9",
       "parentId": "5",
-      "name": "Søt gjærbakst, lefser, vafler o.l.",
-      "slug": "soet-gjaerbakst-lefser-vafler-ol"
+      "name": "Pannekaker og vafler",
+      "slug": "pannekaker-og-vafler"
     },
     {
       "id": "5.10",
       "parentId": "5",
-      "name": "Andre kaker o.l.",
-      "slug": "andre-kaker-ol"
+      "name": "Kaker og søt bakst",
+      "slug": "kaker-og-soet-bakst"
     },
     {
       "id": "5.11",
       "parentId": "5",
-      "name": "Nøtter, mandler og frø",
-      "slug": "noetter-mandler-og-froe"
+      "name": "Nøtter, mandler og frø - UT",
+      "slug": "noetter-mandler-og-froe-ut"
+    },
+    {
+      "id": "5.12",
+      "parentId": "5",
+      "name": "Grøt",
+      "slug": "groet"
     },
     {
       "id": "6.1",
       "parentId": "6",
-      "name": "Poteter",
-      "slug": "poteter"
+      "name": "Poteter - UT",
+      "slug": "poteter-ut"
     },
     {
       "id": "6.2",
       "parentId": "6",
-      "name": "Grønnsaker",
-      "slug": "groennsaker"
+      "name": "Grønnsaker, rå og tilberedt",
+      "slug": "groennsaker-raa-og-tilberedt"
     },
     {
       "id": "6.2.1",
       "parentId": "6.2",
-      "name": "Grønnsaker, rå og fryst",
-      "slug": "groennsaker-raa-og-fryst"
+      "name": "Grønnsaker - UT",
+      "slug": "groennsaker-ut"
     },
     {
       "id": "6.2.2",
       "parentId": "6.2",
-      "name": "Grønnsaker, tilberedt",
-      "slug": "groennsaker-tilberedt"
+      "name": "Grønnsaker, tilberedt - UT",
+      "slug": "groennsaker-tilberedt-ut"
     },
     {
       "id": "6.2.3",
       "parentId": "6.2",
-      "name": "Grønnsaksprodukter",
-      "slug": "groennsaksprodukter"
+      "name": "Grønnsaksprodukter - UT",
+      "slug": "groennsaksprodukter-ut"
     },
     {
       "id": "6.3",
       "parentId": "6",
-      "name": "Belgfrukter",
-      "slug": "belgfrukter"
+      "name": "Belgfrukter - UT",
+      "slug": "belgfrukter-ut"
     },
     {
       "id": "6.4",
       "parentId": "6",
-      "name": "Frukt og bær",
-      "slug": "frukt-og-baer"
+      "name": "Frukt og bær - UT",
+      "slug": "frukt-og-baer-ut"
     },
     {
       "id": "6.4.1",
       "parentId": "6.4",
-      "name": "Frukt og bær, rå/fersk",
-      "slug": "frukt-og-baer-raafersk"
+      "name": "Frukt og bær, rå/fersk - UT",
+      "slug": "frukt-og-baer-raafersk-ut"
     },
     {
       "id": "6.4.2",
       "parentId": "6.4",
-      "name": "Produkter av frukt og bær",
-      "slug": "produkter-av-frukt-og-baer"
+      "name": "Produkter av frukt og bær - UT",
+      "slug": "produkter-av-frukt-og-baer-ut"
     },
     {
       "id": "6.5",
       "parentId": "6",
-      "name": "Urter og krydder",
-      "slug": "urter-og-krydder"
+      "name": "Urter og krydder - UT",
+      "slug": "urter-og-krydder-ut"
+    },
+    {
+      "id": "6.6",
+      "parentId": "6",
+      "name": "Grønnsaksprodukter",
+      "slug": "groennsaksprodukter"
     },
     {
       "id": "7.1",
       "parentId": "7",
-      "name": "Sukker, honning og søte pålegg",
-      "slug": "sukker-honning-og-soete-paalegg"
+      "name": "Sukker og honning",
+      "slug": "sukker-og-honning"
     },
     {
       "id": "7.2",
       "parentId": "7",
-      "name": "Sjokolade og andre søtsaker",
-      "slug": "sjokolade-og-andre-soetsaker"
+      "name": "Sjokolade og godteri",
+      "slug": "sjokolade-og-godteri"
+    },
+    {
+      "id": "7.3",
+      "parentId": "7",
+      "name": "Dessert og iskrem",
+      "slug": "dessert-og-iskrem"
+    },
+    {
+      "id": "7.4",
+      "parentId": "7",
+      "name": "Søte pålegg",
+      "slug": "soete-paalegg"
     },
     {
       "id": "8.1",
@@ -447,32 +615,38 @@
     {
       "id": "8.2",
       "parentId": "8",
-      "name": "Matolje, frityrfett o.l.",
-      "slug": "matolje-frityrfett-ol"
+      "name": "Matolje",
+      "slug": "matolje"
     },
     {
       "id": "8.3",
       "parentId": "8",
-      "name": "Majones, dressing o.l.",
-      "slug": "majones-dressing-ol"
+      "name": "Majones og påleggsalater",
+      "slug": "majones-og-paaleggsalater"
     },
     {
       "id": "8.4",
       "parentId": "8",
-      "name": "Tran",
-      "slug": "tran"
+      "name": "Tran - UT",
+      "slug": "tran-ut"
+    },
+    {
+      "id": "8.5",
+      "parentId": "8",
+      "name": "Annet fett",
+      "slug": "annet-fett"
     },
     {
       "id": "9.1",
       "parentId": "9",
-      "name": "Vann, kaffe, te",
-      "slug": "vann-kaffe-te"
+      "name": "Kaffe og te",
+      "slug": "kaffe-og-te"
     },
     {
       "id": "9.2",
       "parentId": "9",
-      "name": "Juice, saft, brus o.l.",
-      "slug": "juice-saft-brus-ol"
+      "name": "Juice og smoothie",
+      "slug": "juice-og-smoothie"
     },
     {
       "id": "9.3",
@@ -481,28 +655,46 @@
       "slug": "alkoholholdige-drikkevarer"
     },
     {
+      "id": "9.4",
+      "parentId": "9",
+      "name": "Brus og energidrikke",
+      "slug": "brus-og-energidrikke"
+    },
+    {
+      "id": "9.5",
+      "parentId": "9",
+      "name": "Plantebasert drikke",
+      "slug": "plantebasert-drikke"
+    },
+    {
+      "id": "9.6",
+      "parentId": "9",
+      "name": "Vann og mineralvann",
+      "slug": "vann-og-mineralvann"
+    },
+    {
       "id": "10.1",
       "parentId": "10",
-      "name": "Pizza, pai, taco o.l.",
-      "slug": "pizza-pai-taco-ol"
+      "name": "Pizza og taco - UT",
+      "slug": "pizza-og-taco-ut"
     },
     {
       "id": "10.2",
       "parentId": "10",
-      "name": "Grøt",
-      "slug": "groet"
+      "name": "Grøt - UT",
+      "slug": "groet-ut"
     },
     {
       "id": "10.3",
       "parentId": "10",
-      "name": "Supper, saus og grytebaser",
-      "slug": "supper-saus-og-grytebaser"
+      "name": "Supper og gryteretter - UT",
+      "slug": "supper-og-gryteretter-ut"
     },
     {
       "id": "10.4",
       "parentId": "10",
-      "name": "Dessert, iskrem og tilbehør",
-      "slug": "dessert-iskrem-og-tilbehoer"
+      "name": "Dessert, iskrem og tilbehør - UT",
+      "slug": "dessert-iskrem-og-tilbehoer-ut"
     },
     {
       "id": "10.5",
@@ -513,7 +705,7 @@
     {
       "id": "10.6",
       "parentId": "10",
-      "name": "Vegetarprodukter og retter",
+      "name": "Vegetarprodukter og -retter",
       "slug": "vegetarprodukter-og-retter"
     },
     {
@@ -525,8 +717,98 @@
     {
       "id": "10.8",
       "parentId": "10",
-      "name": "Pulver, tørr vare",
-      "slug": "pulver-toerr-vare"
+      "name": "Pulver, tørr vare - UT",
+      "slug": "pulver-toerr-vare-ut"
+    },
+    {
+      "id": "10.9",
+      "parentId": "10",
+      "name": "Diverse retter",
+      "slug": "diverse-retter"
+    },
+    {
+      "id": "10.9.1",
+      "parentId": "10.9",
+      "name": "Påsmurt og lunsjretter",
+      "slug": "paasmurt-og-lunsjretter"
+    },
+    {
+      "id": "10.9.2",
+      "parentId": "10.9",
+      "name": "Pizza og taco",
+      "slug": "pizza-og-taco"
+    },
+    {
+      "id": "10.9.3",
+      "parentId": "10.9",
+      "name": "Salater",
+      "slug": "salater"
+    },
+    {
+      "id": "10.9.4",
+      "parentId": "10.9",
+      "name": "Supper og gryteretter",
+      "slug": "supper-og-gryteretter"
+    },
+    {
+      "id": "10.10",
+      "parentId": "10",
+      "name": "Kosttilskudd",
+      "slug": "kosttilskudd"
+    },
+    {
+      "id": "10.11",
+      "parentId": "10",
+      "name": "Middagstilbehør",
+      "slug": "middagstilbehoer"
+    },
+    {
+      "id": "13.1",
+      "parentId": "13",
+      "name": "Bær",
+      "slug": "baer"
+    },
+    {
+      "id": "13.2",
+      "parentId": "13",
+      "name": "Frukt",
+      "slug": "frukt"
+    },
+    {
+      "id": "13.3",
+      "parentId": "13",
+      "name": "Produkter av frukt og bær",
+      "slug": "produkter-av-frukt-og-baer"
+    },
+    {
+      "id": "14.1",
+      "parentId": "14",
+      "name": "Frø",
+      "slug": "froe"
+    },
+    {
+      "id": "14.2",
+      "parentId": "14",
+      "name": "Nøtter",
+      "slug": "noetter"
+    },
+    {
+      "id": "14.3",
+      "parentId": "14",
+      "name": "Produkter av nøtter og frø",
+      "slug": "produkter-av-noetter-og-froe"
+    },
+    {
+      "id": "15.1",
+      "parentId": "15",
+      "name": "Poteter, rå og tilberedt",
+      "slug": "poteter-raa-og-tilberedt"
+    },
+    {
+      "id": "15.2",
+      "parentId": "15",
+      "name": "Potetprodukter",
+      "slug": "potetprodukter"
     },
     {
       "id": "",
@@ -1339,7 +1621,7 @@
     },
     {
       "id": "71",
-      "text": "Beregnet ut fra prosentvis innhold av fett i lignende matvare."
+      "text": "Beregnet ut fra prosentvist innhold av fett i lignende matvare."
     },
     {
       "id": "72",
@@ -1351,7 +1633,7 @@
     },
     {
       "id": "73b",
-      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 216: Mattilsynet og Sosial- og helsedirektoratet. Analyseprosjekt 2006-2009. Div. fiskeslag. Publisert rapport (2012); \"Nutritional composition of selected wild and farmed raw fish\".  http://www.matportalen.no/verktoy/matvaretabellen/article9924.ece/BINARY/Nutritional+composition+of+selected+wild+and+farmed+raw+fish+%28PDF%29"
+      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 216: Mattilsynet og Sosial- og helsedirektoratet. Analyseprosjekt 2006-2009. Div. fiskeslag. Publisert rapport (2012); \"Nutritional composition of selected wild and farmed raw fish\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/nutritional-composition-of-selected-wild-and-farmed-raw-fish-2006-2008"
     },
     {
       "id": "73c",
@@ -1363,15 +1645,15 @@
     },
     {
       "id": "73e",
-      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 321d: NIFES, Nasjonalt institutt for ernærings- og sjømatforskning. Sjømatdatabasen, 05.11.2013, www.nifes.no/sjomatdata"
+      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 321d: NIFES, Nasjonalt institutt for ernærings- og sjømatforskning. Sjømatdatabasen, 05.11.2013"
     },
     {
       "id": "73f",
-      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 460g: U.S. Department of Agriculture, Agricultural Research Service. USDA National Nutrient Database for Standard Reference, versjon 28 (2015). Nutrient Data Laboratory Home Page, http://www.ars.usda.gov/ba/bhnrc/ndl "
+      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 460g: U.S. Department of Agriculture, Agricultural Research Service. USDA National Nutrient Database for Standard Reference, versjon 28 (2015). Nutrient Data Laboratory Home Page"
     },
     {
       "id": "73g",
-      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 400e: Livsmedelsverket. Livsmedelsdatabas, versjon 2015.03.09. Nettversjon, http://www7.slv.se/SokNaringsinnehall"
+      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 400e: Livsmedelsverket. Livsmedelsdatabas, versjon 2015.03.09. "
     },
     {
       "id": "73h",
@@ -1379,7 +1661,7 @@
     },
     {
       "id": "73i",
-      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 218: Mattilsynet og Helsedirektoratet. Analyseprosjekt 2012-2013. Barnegrøter. Publisert rapport (2013); «Næringsstoffanalyser av utvalgte barnegrøter 2012». http://www.matportalen.no/verktoy/matvaretabellen/article35576.ece/BINARY/N%C3%A6ringsstoffanalyser+av+utvalgte+barnegr%C3%B8ter+2013"
+      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 218: Mattilsynet og Helsedirektoratet. Analyseprosjekt 2012-2013. Barnegrøter. Publisert rapport (2013); «Næringsstoffanalyser av utvalgte barnegrøter 2012». https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/naeringsstoffanalyser-av-utvalgte-barnegroter-2013"
     },
     {
       "id": "73j",
@@ -1391,7 +1673,7 @@
     },
     {
       "id": "73l",
-      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 215: Mattilsynet og Sosial- og helsedirektoratet. Analyseprosjekt 2007-2008. Transfett. Publisert rapport (2013); «Transfettsyrer i importerte oljer, vegetabilsk fett, kavring, kjeks og tillagede produkter». http://www.matportalen.no/verktoy/matvaretabellen/article29996.ece/BINARY/Analyser+av+transfettsyrer+i+importerte+oljer%2C+kavring%2C+kjeks+og+tillagede+produkter"
+      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 215: Mattilsynet og Sosial- og helsedirektoratet. Analyseprosjekt 2007-2008. Transfett. Publisert rapport (2013); «Transfettsyrer i importerte oljer, vegetabilsk fett, kavring, kjeks og tillagede produkter». https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/transfettsyrer-i-importerte-oljer-vegetabilsk-fett-kavring-kjeks-og-tillagede-produkter-2008"
     },
     {
       "id": "73m",
@@ -1399,7 +1681,7 @@
     },
     {
       "id": "73n",
-      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 318: Opplysningskontoret for kjøtt. Analyseprosjekt 2008-2009. Analyser av svinekjøtt. Publisert rapport; «Analyser av svinekjøtt 2009». http://www.matportalen.no/verktoy/matvaretabellen/article9925.ece/BINARY/Analyser+av+svinekj%C3%B8tt+2009+%28PDF%29"
+      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 318: Opplysningskontoret for kjøtt. Analyseprosjekt 2008-2009. Analyser av svinekjøtt. Publisert rapport; «Analyser av svinekjøtt 2009». "
     },
     {
       "id": "73o",
@@ -1431,7 +1713,7 @@
     },
     {
       "id": "73v",
-      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 420c: Fødevareinstituttet. Fødevaredatabanken, Frida versjon 1. (2015). Nettversjon, http://frida.fooddata.dk"
+      "text": "Beregnet sum av omega-3-fettsyrer fra referanse 420c: Fødevareinstituttet. Fødevaredatabanken, Frida versjon 1. (2015). "
     },
     {
       "id": "74a",
@@ -1439,7 +1721,7 @@
     },
     {
       "id": "74b",
-      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 216: Mattilsynet og Sosial- og helsedirektoratet. Analyseprosjekt 2006-2009. Div. fiskeslag. Publisert rapport (2012); \"Nutritional composition of selected wild and farmed raw fish\".  http://www.matportalen.no/verktoy/matvaretabellen/article9924.ece/BINARY/Nutritional+composition+of+selected+wild+and+farmed+raw+fish+%28PDF%29"
+      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 216: Mattilsynet og Sosial- og helsedirektoratet. Analyseprosjekt 2006-2009. Div. fiskeslag. Publisert rapport (2012); \"Nutritional composition of selected wild and farmed raw fish\".  https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/nutritional-composition-of-selected-wild-and-farmed-raw-fish-2006-2008"
     },
     {
       "id": "74c",
@@ -1451,11 +1733,11 @@
     },
     {
       "id": "74e",
-      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 321d: NIFES, Nasjonalt institutt for ernærings- og sjømatforskning. Sjømatdatabasen, 05.11.2013, www.nifes.no/sjomatdata"
+      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 321d: NIFES, Nasjonalt institutt for ernærings- og sjømatforskning. Sjømatdatabasen, 05.11.2013"
     },
     {
       "id": "74f",
-      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 460g: U.S. Department of Agriculture, Agricultural Research Service. USDA National Nutrient Database for Standard Reference, versjon 28 (2015). Nutrient Data Laboratory Home Page, http://www.ars.usda.gov/ba/bhnrc/ndl"
+      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 460g: U.S. Department of Agriculture, Agricultural Research Service. USDA National Nutrient Database for Standard Reference, versjon 28 (2015). Nutrient Data Laboratory Home Page"
     },
     {
       "id": "74g",
@@ -1467,7 +1749,7 @@
     },
     {
       "id": "74i",
-      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 218: Mattilsynet og Helsedirektoratet. Analyseprosjekt 2012-2013. Barnegrøter. Publisert rapport (2013); «Næringsstoffanalyser av utvalgte barnegrøter 2012». http://www.matportalen.no/verktoy/matvaretabellen/article35576.ece/BINARY/N%C3%A6ringsstoffanalyser+av+utvalgte+barnegr%C3%B8ter+2013"
+      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 218: Mattilsynet og Helsedirektoratet. Analyseprosjekt 2012-2013. Barnegrøter. Publisert rapport (2013); «Næringsstoffanalyser av utvalgte barnegrøter 2012». https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/naeringsstoffanalyser-av-utvalgte-barnegroter-2013"
     },
     {
       "id": "74j",
@@ -1479,7 +1761,7 @@
     },
     {
       "id": "74l",
-      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 215: Mattilsynet og Sosial- og helsedirektoratet. Analyseprosjekt 2007-2008. Transfett. Publisert rapport (2013); «Transfettsyrer i importerte oljer, vegetabilsk fett, kavring, kjeks og tillagede produkter». http://www.matportalen.no/verktoy/matvaretabellen/article29996.ece/BINARY/Analyser+av+transfettsyrer+i+importerte+oljer%2C+kavring%2C+kjeks+og+tillagede+produkter"
+      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 215: Mattilsynet og Sosial- og helsedirektoratet. Analyseprosjekt 2007-2008. Transfett. Publisert rapport (2013); «Transfettsyrer i importerte oljer, vegetabilsk fett, kavring, kjeks og tillagede produkter». https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/transfettsyrer-i-importerte-oljer-vegetabilsk-fett-kavring-kjeks-og-tillagede-produkter-2008"
     },
     {
       "id": "74m",
@@ -1487,7 +1769,7 @@
     },
     {
       "id": "74n",
-      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 318: Opplysningskontoret for kjøtt. Analyseprosjekt 2008-2009. Analyser av svinekjøtt. Publisert rapport; «Analyser av svinekjøtt 2009». http://www.matportalen.no/verktoy/matvaretabellen/article9925.ece/BINARY/Analyser+av+svinekj%C3%B8tt+2009+%28PDF%29"
+      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 318: Opplysningskontoret for kjøtt. Analyseprosjekt 2008-2009. Analyser av svinekjøtt. Publisert rapport; «Analyser av svinekjøtt 2009». "
     },
     {
       "id": "74o",
@@ -1515,11 +1797,11 @@
     },
     {
       "id": "74u",
-      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 211: Mattilsynet og Sosial- og helsedirektoratet. Analyseprosjekt 2003-2005. Hvetemel. Publisert rapport (2008); ”The nutritional composition of Norwegian white wheat flour, 78 % extraction”. http://www.matportalen.no/verktoy/matvaretabellen/article9184.ece/BINARY/The+nutritional+composition+of+Norwegian+white+wheat+flour+-+report+%282008%29+%28PDF%29"
+      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 211: Mattilsynet og Sosial- og helsedirektoratet. Analyseprosjekt 2003-2005. Hvetemel. Publisert rapport (2008); ”The nutritional composition of Norwegian white wheat flour, 78 % extraction”. "
     },
     {
       "id": "74v",
-      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 420c: Fødevareinstituttet. Fødevaredatabanken, Frida versjon 1. (2015). Nettversjon, http://frida.fooddata.dk"
+      "text": "Beregnet sum av omega-6-fettsyrer fra referanse 420c: Fødevareinstituttet. Fødevaredatabanken, Frida versjon 1. (2015). "
     },
     {
       "id": "80",
@@ -1531,7 +1813,7 @@
     },
     {
       "id": "82",
-      "text": "Beregnet ut fra spesifikk proteinfaktor  http://www.matportalen.no/verktoy/matvaretabellen/om_tabellverdiene_i_matvaretabellen"
+      "text": "Beregnet ut fra spesifikk proteinfaktor"
     },
     {
       "id": "83",
@@ -1539,7 +1821,7 @@
     },
     {
       "id": "84",
-      "text": "Beregnet ut fra spesifikk omregningsfaktor for alkohol. http://www.matportalen.no/verktoy/matvaretabellen/om_tabellverdiene_i_matvaretabellen"
+      "text": "Beregnet ut fra spesifikk omregningsfaktor for alkohol. "
     },
     {
       "id": "85",
@@ -1551,15 +1833,15 @@
     },
     {
       "id": "87a",
-      "text": "Beregnet ut fra estimert vitamintap (betakaroten, retinol, vitamin D, tokoferol, tiamin, riboflavin, niacin, vitamin B6, folat, vitamin B12, vitamin C) ved varmebehandling. http://www.matportalen.no/verktoy/matvaretabellen/om_matvaregruppene_i_matvaretabellen"
+      "text": "Beregnet ut fra estimert vitamintap (betakaroten, retinol, vitamin D, tokoferol, tiamin, riboflavin, niacin, vitamin B6, folat, vitamin B12, vitamin C) ved varmebehandling. "
     },
     {
       "id": "87b",
-      "text": "Beregnet ut fra estimert vitamintap (tiamin, riboflavin, niacin, vitamin B6, folat, vitamin B12) ved varmebehandling. http://www.matportalen.no/verktoy/matvaretabellen/om_matvaregruppene_i_matvaretabellen"
+      "text": "Beregnet ut fra estimert vitamintap (tiamin, riboflavin, niacin, vitamin B6, folat, vitamin B12) ved varmebehandling."
     },
     {
       "id": "88",
-      "text": "Beregnet som standardverdi for natrium i tillagede matvarer. http://www.matportalen.no/verktoy/matvaretabellen/om_tabellverdiene_i_matvaretabellen"
+      "text": "Beregnet som standardverdi for natrium i tillagede matvarer. "
     },
     {
       "id": "89",
@@ -1722,6 +2004,18 @@
       "text": "Data levert av industrien til Matvaretabellen 2022, analysert verdi"
     },
     {
+      "id": "116a",
+      "text": "Data levert av industrien til Matvaretabellen 2023, uspesifisert grunnlag/kontrollert verdi."
+    },
+    {
+      "id": "116b",
+      "text": "Data levert av industrien til Matvaretabellen 2023, analysert verdi."
+    },
+    {
+      "id": "116c",
+      "text": "Data levert av industrien til Matvaretabellen 2023, beregnet verdi."
+    },
+    {
       "id": "120",
       "text": "Produktinformasjon, verdi hentet fra næringsdeklarasjon/produsentens nettside, 2009/2010."
     },
@@ -1756,6 +2050,10 @@
     {
       "id": "128",
       "text": "Produktinformasjon, verdi hentet fra næringsdeklarasjon/produsentenes nettside, 2022"
+    },
+    {
+      "id": "129",
+      "text": "Produktinformasjon, verdi hentet fra næringsdeklarasjon/produsentenes nettside, 2023"
     },
     {
       "id": "130",
@@ -1863,11 +2161,11 @@
     },
     {
       "id": "215",
-      "text": "Mattilsynet og Sosial- og helsedirektoratet. Analyseprosjekt 2007-2008. Transfett. Publisert rapport (2013); «Transfettsyrer i importerte oljer, vegetabilsk fett, kavring, kjeks og tillagede produkter». http://www.matportalen.no/verktoy/matvaretabellen/article29996.ece/BINARY/Analyser+av+transfettsyrer+i+importerte+oljer%2C+kavring%2C+kjeks+og+tillagede+produkter"
+      "text": "Mattilsynet og Sosial- og helsedirektoratet. Analyseprosjekt 2007-2008. Transfett. Publisert rapport (2013); «Transfettsyrer i importerte oljer, vegetabilsk fett, kavring, kjeks og tillagede produkter». https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/transfettsyrer-i-importerte-oljer-vegetabilsk-fett-kavring-kjeks-og-tillagede-produkter-2008"
     },
     {
       "id": "216",
-      "text": "Mattilsynet og Sosial- og helsedirektoratet. Analyseprosjekt 2006-2009. Div. fiskeslag. Publisert rapport (2012); \"Nutritional composition of selected wild and farmed raw fish\".  http://www.matportalen.no/verktoy/matvaretabellen/article9924.ece/BINARY/Nutritional+composition+of+selected+wild+and+farmed+raw+fish+%28PDF%29"
+      "text": "Mattilsynet og Sosial- og helsedirektoratet. Analyseprosjekt 2006-2009. Div. fiskeslag. Publisert rapport (2012); \"Nutritional composition of selected wild and farmed raw fish\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/nutritional-composition-of-selected-wild-and-farmed-raw-fish-2006-2008"
     },
     {
       "id": "217",
@@ -1875,83 +2173,83 @@
     },
     {
       "id": "218",
-      "text": "Mattilsynet og Helsedirektoratet. Analyseprosjekt 2012-2013. Barnegrøter. Publisert rapport (2013); «Næringsstoffanalyser av utvalgte barnegrøter 2012». http://www.matportalen.no/verktoy/matvaretabellen/article35576.ece/BINARY/N%C3%A6ringsstoffanalyser+av+utvalgte+barnegr%C3%B8ter+2013"
+      "text": "Mattilsynet og Helsedirektoratet. Analyseprosjekt 2012-2013. Barnegrøter. Publisert rapport (2013); «Næringsstoffanalyser av utvalgte barnegrøter 2012». https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/naeringsstoffanalyser-av-utvalgte-barnegroter-2013"
     },
     {
       "id": "219",
-      "text": "Mattilsynet, Helsedirektoratet og Universitetet i Oslo. Veie- og beregningsprosjektet «Spiselig del av kylling», 2013. Publisert rapport (2013); «Spiselig del av kylling». http://www.matportalen.no/verktoy/matvaretabellen/article31139.ece/BINARY/Rapport+-+spiselig+del+av+kylling"
+      "text": "Mattilsynet, Helsedirektoratet og Universitetet i Oslo. Veie- og beregningsprosjektet «Spiselig del av kylling», 2013. Publisert rapport (2013); «Spiselig del av kylling». https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/spiselig-del-av-kylling-2013"
     },
     {
       "id": "220a",
-      "text": "Mattilsynet. Analyseprosjekt 2013-2014. Tex-mex-produkter. Publisert rapport (2014); \"Næringsstoff- og tungmetallanalyser av tex-mex-produkter\". http://www.matportalen.no/verktoy/matvaretabellen/article40542.ece/BINARY/N%C3%A6ringsstoff-+og+tungmetallanalyser+av+tex-mex-produkter"
+      "text": "Mattilsynet. Analyseprosjekt 2013-2014. Tex-mex-produkter. Publisert rapport (2014); \"Næringsstoff- og tungmetallanalyser av tex-mex-produkter\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-og-tungmetaller-i-tex-mex-mat-2014"
     },
     {
       "id": "220b",
-      "text": "Beregnet gjennomsnitt fra referanse 220a: Mattilsynet. Analyseprosjekt 2013-2014. Tex-mexprodukter. Publisert rapport (2014); \"Næringsstoff- og tungmetallanalyser av tex-mex-produkter\". http://www.matportalen.no/verktoy/matvaretabellen/article40542.ece/BINARY/N%C3%A6ringsstoff-+og+tungmetallanalyser+av+tex-mex-produkter"
+      "text": "Beregnet gjennomsnitt fra referanse 220a: Mattilsynet. Analyseprosjekt 2013-2014. Tex-mexprodukter. Publisert rapport (2014); \"Næringsstoff- og tungmetallanalyser av tex-mex-produkter\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-og-tungmetaller-i-tex-mex-mat-2014"
     },
     {
       "id": "221a",
-      "text": "Mattilsynet. Analyseprosjekt 2014-2015. Chips og salte nøtter. Publisert rapport (2015); \"Næringsstoff- og tungmetallanalyser av chips og salte nøtter\". http://www.mattilsynet.no/mat_og_vann/produksjon_av_mat/bakevarer_sjokolade_snacks/rapport_naeringsstoff_og_tungmetallanalyser_i_chips_og_salte_notter_2015.20791/binary/Rapport:%20N%C3%A6ringsstoff-%20og%20tungmetallanalyser%20i%20chips%20og%20salte%20n%C3%B8tter%202015"
+      "text": "Mattilsynet. Analyseprosjekt 2014-2015. Chips og salte nøtter. Publisert rapport (2015); \"Næringsstoff- og tungmetallanalyser av chips og salte nøtter\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/analyser-av-naeringsstoffer-og-tungmetaller-i-chips-og-salte-notter-2015"
     },
     {
       "id": "221b",
-      "text": "Beregnet gjennomsnitt fra referanse 221a: Mattilsynet. Analyseprosjekt 2014-2015. Chips og salte nøtter. Publisert rapport (2015); \"Næringsstoff- og tungmetallanalyser av chips og salte nøtter\". http://www.mattilsynet.no/mat_og_vann/produksjon_av_mat/bakevarer_sjokolade_snacks/rapport_naeringsstoff_og_tungmetallanalyser_i_chips_og_salte_notter_2015.20791/binary/Rapport:%20N%C3%A6ringsstoff-%20og%20tungmetallanalyser%20i%20chips%20og%20salte%20n%C3%B8tter%202015"
+      "text": "Beregnet gjennomsnitt fra referanse 221a: Mattilsynet. Analyseprosjekt 2014-2015. Chips og salte nøtter. Publisert rapport (2015); \"Næringsstoff- og tungmetallanalyser av chips og salte nøtter\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/analyser-av-naeringsstoffer-og-tungmetaller-i-chips-og-salte-notter-2015"
     },
     {
       "id": "222a",
-      "text": "Mattilsynet. Analyseprosjekt 2015-2016. Pizza. Publisert rapport (2016): \"Næringsstoff- og tungmetallanalyser av pizza\". http://www.matportalen.no/verktoy/tilsynsresultater/article44704.ece/BINARY/Rapport%202015:%20N%C3%A6ringsstoff%20og%20tungmetallanalyserer%20av%20frossen%20pizza"
+      "text": "Mattilsynet. Analyseprosjekt 2015-2016. Pizza. Publisert rapport (2016): \"Næringsstoff- og tungmetallanalyser av pizza\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-og-tungmetaller-i-frossenpizzaer-2015"
     },
     {
       "id": "222b",
-      "text": "Beregnet gjennomsnitt fra referanse 222a: Mattilsynet. Analyseprosjekt 2015-2016. Pizza. Publisert rapport (2016): \"Næringsstoff- og tungmetallanalyser av pizza\". http://www.matportalen.no/verktoy/tilsynsresultater/article44704.ece/BINARY/Rapport%202015:%20N%C3%A6ringsstoff%20og%20tungmetallanalyserer%20av%20frossen%20pizza"
+      "text": "Beregnet gjennomsnitt fra referanse 222a: Mattilsynet. Analyseprosjekt 2015-2016. Pizza. Publisert rapport (2016): \"Næringsstoff- og tungmetallanalyser av pizza\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-og-tungmetaller-i-frossenpizzaer-2015"
     },
     {
       "id": "223a",
-      "text": "Mattilsynet. Analyseprosjekt 2015-2016. Fiskeprodukter. Publisert rapport (2016): \"Næringsstoff- og tungmetallanalyser av fiskeprodukter\". http://www.matportalen.no/verktoy/tilsynsresultater/article45159.ece/BINARY/Mattilsynet%20rapport:%20N%C3%A6ringsstoff%20og%20tungmetallanalyser%20av%20fiskeprodukter%202016"
+      "text": "Mattilsynet. Analyseprosjekt 2015-2016. Fiskeprodukter. Publisert rapport (2016): \"Næringsstoff- og tungmetallanalyser av fiskeprodukter\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-og-tungmetaller-i-fiskeprodukter-2016"
     },
     {
       "id": "223b",
-      "text": "Beregnet gjennomsnitt fra referanse 223a: Mattilsynet. Analyseprosjekt 2015-2016. Fiskeprodukter. Publisert rapport (2016): \"Næringsstoff- og tungmetallanalyser av fiskeprodukter\". http://www.matportalen.no/verktoy/tilsynsresultater/article45159.ece/BINARY/Mattilsynet%20rapport:%20N%C3%A6ringsstoff%20og%20tungmetallanalyser%20av%20fiskeprodukter%202016"
+      "text": "Beregnet gjennomsnitt fra referanse 223a: Mattilsynet. Analyseprosjekt 2015-2016. Fiskeprodukter. Publisert rapport (2016): \"Næringsstoff- og tungmetallanalyser av fiskeprodukter\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-og-tungmetaller-i-fiskeprodukter-2016"
     },
     {
       "id": "224a",
-      "text": "Mattilsynet. Analyseprosjekt 2016-2017. Egg og kylling. Publisert rapport (2017): \"Analyse av egg og kylling. Næringsstoff- og miljøgiftanalyser\". https://www.mattilsynet.no/mat_og_vann/produksjon_av_mat/egg_og_eggprodukter/rapport_naeringsstoffer_og_miljogifter_i_egg_og_kylling_2016.25605/binary/Rapport:%20N%C3%A6ringsstoffer%20og%20milj%C3%B8gifter%20i%20egg%20og%20kylli ng,%202016"
+      "text": "Mattilsynet. Analyseprosjekt 2016-2017. Egg og kylling. Publisert rapport (2017): \"Analyse av egg og kylling. Næringsstoff- og miljøgiftanalyser\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/naeringsstoffer-og-miljogifter-i-egg-og-kylling"
     },
     {
       "id": "224b",
-      "text": "Beregnet gjennomsnitt fra referanse 224a: Mattilsynet. Analyseprosjekt 2016-2017. Egg og kylling. Publisert rapport (2017): \"Analyse av egg og kylling. Næringsstoff- og miljøgiftanalyser\". https://www.mattilsynet.no/mat_og_vann/produksjon_av_mat/egg_og_eggprodukter/rapport_naeringsstoffer_og_miljogifter_i_egg_og_kylling_2016.25605/binary/Rapport:%20N%C3%A6ringsstoffer%20og%20milj%C3%B8gifter%20i%20egg%20og%20kylli ng,%202016"
+      "text": "Beregnet gjennomsnitt fra referanse 224a: Mattilsynet. Analyseprosjekt 2016-2017. Egg og kylling. Publisert rapport (2017): \"Analyse av egg og kylling. Næringsstoff- og miljøgiftanalyser\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/naeringsstoffer-og-miljogifter-i-egg-og-kylling"
     },
     {
       "id": "224c",
-      "text": "Beregnet verdi fra referanse 224a: Mattilsynet. Analyseprosjekt 2016-2017. Egg og kylling. Publisert rapport (2017): \"Analyse av egg og kylling. Næringsstoff- og miljøgiftanalyser\". https://www.mattilsynet.no/mat_og_vann/produksjon_av_mat/egg_og_eggprodukter/rapport_naeringsstoffer_og_miljogifter_i_egg_og_kylling_2016.25605/binary/Rapport:%20N%C3%A6ringsstoffer%20og%20milj%C3%B8gifter%20i%20egg%20og%20kylli ng,%202016"
+      "text": "Beregnet verdi fra referanse 224a: Mattilsynet. Analyseprosjekt 2016-2017. Egg og kylling. Publisert rapport (2017): \"Analyse av egg og kylling. Næringsstoff- og miljøgiftanalyser\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/naeringsstoffer-og-miljogifter-i-egg-og-kylling"
     },
     {
       "id": "225a",
-      "text": "Mattilsynet. Analyseprosjekt 2017-2018. Kornvarer. Publisert rapport (2018): «Næringstoff og tungmetaller, akrylamid og mykotoksin i brød, knekkebrød og frokostblandinger». http://www.matportalen.no/matvaregrupper/tema/kornvarer/article50556.ece/BINARY/Rapport%202017:%20Analyse%20av%20metaller%20akrylamid%20og%20mykotoksin%20i%20br%C3%B8d%20knekkebr%C3%B8d%20og%20frokostblandinger"
+      "text": "Mattilsynet. Analyseprosjekt 2017-2018. Kornvarer. Publisert rapport (2018): «Næringstoff og tungmetaller, akrylamid og mykotoksin i brød, knekkebrød og frokostblandinger». https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/analyse-brod-knekkebrod-frokostblander"
     },
     {
       "id": "225b",
-      "text": "Beregnet gjennomsnitt fra referanse 225a: Mattilsynet. Analyseprosjekt 2017-2018. Kornvarer. Publisert rapport (2018): «Næringstoff og tungmetaller, akrylamid og mykotoksin i brød, knekkebrød og frokostblandinger». http://www.matportalen.no/matvaregrupper/tema/kornvarer/article50556.ece/BINARY/Rapport%202017:%20Analyse%20av%20metaller%20akrylamid%20og%20mykotoksin%20i%20br%C3%B8d%20knekkebr%C3%B8d%20og%20frokostblandinger"
+      "text": "Beregnet gjennomsnitt fra referanse 225a: Mattilsynet. Analyseprosjekt 2017-2018. Kornvarer. Publisert rapport (2018): «Næringstoff og tungmetaller, akrylamid og mykotoksin i brød, knekkebrød og frokostblandinger». https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/analyse-brod-knekkebrod-frokostblander"
     },
     {
       "id": "226",
-      "text": "Mattilsynet. Analyseprosjekt 2017-2018. Risprodukter. Internt notat. "
+      "text": "Mattilsynet. Analyseprosjekt 2017-2018. Risprodukter. Publisert rapport (2018): \"Analyser av arsen, tungmetaller og næringsstoffer i risprodukter 2018\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/arsen-og-tungmetaller-risprodukter-2018"
     },
     {
       "id": "227a",
-      "text": "Mattilsynet. Analyseprosjekt 2017-2018. Kjøttpålegg. Publisert rapport (2018): \"Næringsstoffer og tungmetaller i kjøttpålegg\", https://www.matportalen.no/verktoy/kostholdsplanleggeren/article54907.ece/BINARY/Analyser%20av%20næringsstoffer%20og%20tungmetaller%20i%20kjøttpålegg%202018"
+      "text": "Mattilsynet. Analyseprosjekt 2017-2018. Kjøttpålegg. Publisert rapport (2018): \"Næringsstoffer og tungmetaller i kjøttpålegg\", https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/analyser-av-kjottpalegg-2018"
     },
     {
       "id": "227b",
-      "text": "Beregnet gjennomsnitt fra referanse 227a: Mattilsynet. Analyseprosjekt 2017-2018. Kjøttpålegg. Publisert rapport (2018): \"Næringsstoffer og tungmetaller i kjøttpålegg\", https://www.matportalen.no/verktoy/kostholdsplanleggeren/article54907.ece/BINARY/Analyser%20av%20næringsstoffer%20og%20tungmetaller%20i%20kjøttpålegg%202018"
+      "text": "Beregnet gjennomsnitt fra referanse 227a: Mattilsynet. Analyseprosjekt 2017-2018. Kjøttpålegg. Publisert rapport (2018): \"Næringsstoffer og tungmetaller i kjøttpålegg\", https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/analyser-av-kjottpalegg-2018"
     },
     {
       "id": "228a",
-      "text": "Mattilsynet. Analyseprosjekt 2018-2019. Kjøttprodukter. Publisert rapport (2019): «Næringsstoff- og tungmetallanalyser i kjøttprodukter». \thttps://www.mattilsynet.no/mat_og_vann/produksjon_av_mat/kjott_og_kjottprodukter/rapport_2019_naeringsstoff_og_tungmetallanalyser_i_kjottprodukter.37346/binary/Rapport%202019:%20Næringsstoff-20og%20tungmetallanalyser%20i%20kjøttprodukter "
+      "text": "Mattilsynet. Analyseprosjekt 2018-2019. Kjøttprodukter. Publisert rapport (2019): «Næringsstoff- og tungmetallanalyser i kjøttprodukter». https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/naeringsstoff-og-miljogiftanalyser"
     },
     {
       "id": "228b",
-      "text": "Beregnet gjennomsnitt fra referanse 228a: Mattilsynet. Analyseprosjekt 2018-2019.  Kjøttprodukter. Publisert rapport (2019): «Næringsstoff- og tungmetallanalyser i kjøttprodukter». https://www.mattilsynet.no/mat_og_vann/produksjon_av_mat/kjott_og_kjottprodukter/rapport_2019_naeringsstoff_og_tungmetallanalyser_i_kjottprodukter.37346/binary/Rapport%202019:%20Næringsstoff-20og%20tungmetallanalyser%20i%20kjøttprodukter "
+      "text": "Beregnet gjennomsnitt fra referanse 228a: Mattilsynet. Analyseprosjekt 2018-2019.  Kjøttprodukter. Publisert rapport (2019): «Næringsstoff- og tungmetallanalyser i kjøttprodukter». https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/naeringsstoff-og-miljogiftanalyser"
     },
     {
       "id": "229",
@@ -1963,15 +2261,19 @@
     },
     {
       "id": "231",
-      "text": "Mattilsynet. Analyseprosjekt 2019-2021. Kornprodukter. Publisert rapport (2021): \"Analyse av næringsstoffer, tungmetaller og mykotoksiner i korn\". https://www.mattilsynet.no/mat_og_vann/produksjon_av_mat/frukt_bar_gronnsaker_og_korn/analyser_av_naeringsstoffer_tungmetaller_og_mykotoksiner_i_kornprodukter_2021.44360/binary/Analyser%20av%20n%C3%A6ringsstoffer,%20tungmetaller%20og%20mykotoksiner%20i%20kornprodukter%202021"
+      "text": "Mattilsynet. Analyseprosjekt 2019-2021. Kornprodukter. Publisert rapport (2021): \"Analyse av næringsstoffer, tungmetaller og mykotoksiner i korn\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/analyser-av-kornprodukter-2021"
     },
     {
       "id": "232",
-      "text": "Mattilsynet. Analyseprosjekt 2020-2021. Plantebaserte produkter. Publisert rapport (2022): \"Analyse av næringsstoffer og uønskede stoffer i plantebaserte middagsprodukter og drikker\". https://www.mattilsynet.no/mat_og_vann/produksjon_av_mat/frukt_bar_gronnsaker_og_korn/rapport_analyser_av_naeringsstoffer_og_uonskede_stoffer_i_plantebaserte_middagsprodukter_og_drikker_2021.45516/binary/Rapport:%20Analyser%20av%20n%C3%A6ringsstoffer%20og%20u%C3%B8nskede%20stoffer%20i%20plantebaserte%20middagsprodukter%20og%20drikker%202021 "
+      "text": "Mattilsynet. Analyseprosjekt 2020-2021. Plantebaserte produkter. Publisert rapport (2022): \"Analyse av næringsstoffer og uønskede stoffer i plantebaserte middagsprodukter og drikker\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/analyser-av-plantebasert-mat-og-drikke"
     },
     {
       "id": "233",
-      "text": "Mattilsynet. Analyseprosjekt 2022. Analyse av næringsstoffer og uønskede stoffer i vegan- og fiskepålegg, tran, pepperoni og tørket frukt. Publisert rapport (2022): \"Analyse av næringsstoffer og uønskede stoffer i vegan- og fiskepålegg, tran, pepperoni og tørket frukt\". https://mattilsynet-xp7prod.enonic.cloud/api/_/attachment/inline/1304195b-d0e2-451b-a22b-b8ba92efc1e7:b9fe162c5716d1ce5adbd3cae7c977406d65377e/Rapport_%20Analyser%20av%20n%C3%A6ringsstoffer%20og%20u%C3%B8nskede%20stoffer%20i%20vegan-og%20fiskep%C3%A5legg,%20tran,%20pepperoni%20og%20t%C3%B8rket%20frukt%202022.pdf"
+      "text": "Mattilsynet. Analyseprosjekt 2022. Analyse av næringsstoffer og uønskede stoffer i vegan- og fiskepålegg, tran, pepperoni og tørket frukt. Publisert rapport (2022): \"Analyse av næringsstoffer og uønskede stoffer i vegan- og fiskepålegg, tran, pepperoni og tørket frukt\". https://www.mattilsynet.no/mat-og-drikke/uonskede-stoffer-i-mat/miljogifter/analyser-av-naeringsstoffer-i-matvarer/analyser-av-vegan-og-fiskepalegg-2022"
+    },
+    {
+      "id": "234",
+      "text": "Mattilsynet. Analyseprosjekt 2023. Næringsstoff- og tungmetallanalyser i boksis. Internt notat."
     },
     {
       "id": "280",
@@ -2075,7 +2377,7 @@
     },
     {
       "id": "318",
-      "text": "Opplysningskontoret for kjøtt. Analyseprosjekt 2008-2009. Analyser av svinekjøtt. Publisert rapport; «Analyser av svinekjøtt 2009». http://www.matportalen.no/verktoy/matvaretabellen/article9925.ece/BINARY/Analyser+av+svinekj%C3%B8tt+2009+%28PDF%29"
+      "text": "Opplysningskontoret for kjøtt. Analyseprosjekt 2008-2009. Analyser av svinekjøtt. Publisert rapport; «Analyser av svinekjøtt 2009». "
     },
     {
       "id": "319",
@@ -2091,23 +2393,27 @@
     },
     {
       "id": "321b",
-      "text": "NIFES, Nasjonalt institutt for ernærings- og sjømatforskning. Sjømatdatabasen, 12.07.2010, www.nifes.no/sjomatdata "
+      "text": "NIFES, Nasjonalt institutt for ernærings- og sjømatforskning. Sjømatdatabasen, 12.07.2010"
     },
     {
       "id": "321c",
-      "text": "NIFES, Nasjonalt institutt for ernærings- og sjømatforskning. Sjømatdatabasen, 25.10.2012, www.nifes.no/sjomatdata"
+      "text": "NIFES, Nasjonalt institutt for ernærings- og sjømatforskning. Sjømatdatabasen, 25.10.2012"
     },
     {
       "id": "321d",
-      "text": "NIFES, Nasjonalt institutt for ernærings- og sjømatforskning. Sjømatdatabasen, 05.11.2013, www.nifes.no/sjomatdata"
+      "text": "NIFES, Nasjonalt institutt for ernærings- og sjømatforskning. Sjømatdatabasen, 05.11.2013"
     },
     {
       "id": "321e",
-      "text": "Havforskningsinstituttet, Sjømatdatabasen, 2020, https://sjomatdata.hi.no"
+      "text": "Havforskningsinstituttet, Sjømatdatabasen, 2020"
     },
     {
       "id": "321f",
       "text": "Havforskningsinstituttet, Sjømatdata, 2022, https://sjomatdata.hi.no"
+    },
+    {
+      "id": "321g",
+      "text": "Havforskningsinstituttet, Sjømatdata, 2023, https://sjomatdata.hi.no"
     },
     {
       "id": "322",
@@ -2154,68 +2460,72 @@
       "text": "Animalia, Nortura, Kjøtt- og fjørfebransjens landsforbund, MatPrat, Universitetet i Oslo og Mattilsynet (2023). Nye næringsstoffanalyser av lam og svin. Internt notat."
     },
     {
+      "id": "333",
+      "text": "Aakre, I., Tveit, IB., Myrmel, LS., Fjære, E., Ballance, S., Rosendal-Riise, H.:  Bioavailability of iodine from a meal consisting of sushi and a wakame seaweed salad—A randomized crossover trial. Food Science & Nutrition. 2023;00:1–11. Nettversjon, https://onlinelibrary.wiley.com/doi/full/10.1002/fsn3.3689 "
+    },
+    {
       "id": "400a",
-      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2008.05.05. Nettversjon, www.slv.se."
+      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2008.05.05. "
     },
     {
       "id": "400b",
-      "text": "Omregnet verdi fra referanse 400a: Livsmedelsverket. Livsmedelsdatabas, versjon 2008.05.05. Nettversjon, www.slv.se."
+      "text": "Omregnet verdi fra referanse 400a: Livsmedelsverket. Livsmedelsdatabas, versjon 2008.05.05. "
     },
     {
       "id": "400c",
-      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2013.01.10. Nettversjon, www.slv.se."
+      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2013.01.10. "
     },
     {
       "id": "400d",
-      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2014.01.03. Nettversjon, www.slv.se"
+      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2014.01.03. "
     },
     {
       "id": "400e",
-      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2015.03.09. Nettversjon, http://www7.slv.se/SokNaringsinnehall"
+      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2015.03.09. "
     },
     {
       "id": "400f",
-      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2016.02.17. Nettversjon, http://www7.slv.se/SokNaringsinnehall"
+      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2016.02.17. "
     },
     {
       "id": "400g",
-      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2017.12.15. Nettversjon, http://www7.slv.se/SokNaringsinnehall"
+      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2017.12.15. "
     },
     {
       "id": "400h",
-      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2020-01-16. Nettversjon, http://www7.slv.se/SokNaringsinnehall "
+      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2020-01-16. "
     },
     {
       "id": "400i",
-      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2021-05-03. Nettversjon, http://www7.slv.se/SokNaringsinnehall "
+      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2021-05-03. Nettversjon, https://soknaringsinnehall.livsmedelsverket.se/"
     },
     {
       "id": "400j",
-      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2022-05-24. Nettversjon, http://www7.slv.se/SokNaringsinnehall "
+      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2022-05-24. Nettversjon, https://soknaringsinnehall.livsmedelsverket.se/"
     },
     {
       "id": "400k",
-      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2023-06-13. Nettversjon, http://www7.slv.se/SokNaringsinnehall"
+      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2023-06-13. Nettversjon, https://soknaringsinnehall.livsmedelsverket.se/"
     },
     {
       "id": "410a",
-      "text": "Institutet för hälsa och välfärd. Fineli livsmedelsdatabasen, versjon 9 (2008). Nettversjon, http://www.fineli.fi/index.php?lang=sv"
+      "text": "Institutet för hälsa och välfärd. Fineli livsmedelsdatabasen, versjon 9 (2008)."
     },
     {
       "id": "410b",
-      "text": "Omregnet verdi fra referanse 410a: Institutet för hälsa och välfärd. Fineli livsmedelsdatabasen, versjon 9 (2008). Nettversjon, http://www.fineli.fi/index.php?lang=sv. "
+      "text": "Omregnet verdi fra referanse 410a: Institutet för hälsa och välfärd. Fineli livsmedelsdatabasen, versjon 9 (2008). "
     },
     {
       "id": "410c",
-      "text": "Institutet för hälsa och välfärd. Fineli livsmedelsdatabasen, versjon 14 (2011). Nettversjon, http://www.fineli.fi/index.php?lang=sv"
+      "text": "Institutet för hälsa och välfärd. Fineli livsmedelsdatabasen, versjon 14 (2011). "
     },
     {
       "id": "410d",
-      "text": "Institutet för hälsa och välfärd. Fineli livsmedelsdatabasen, versjon 16 (2013). Nettversjon, http://www.fineli.fi/index.php?lang=sv"
+      "text": "Institutet för hälsa och välfärd. Fineli livsmedelsdatabasen, versjon 16 (2013). "
     },
     {
       "id": "410e",
-      "text": "Institutet för hälsa och välfärd. Fineli livsmedelsdatabasen, versjon 18 (2017). Nettversjon, http://www.fineli.fi/index.php?lang=sv"
+      "text": "Institutet för hälsa och välfärd. Fineli livsmedelsdatabasen, versjon 18 (2017). "
     },
     {
       "id": "410f",
@@ -2223,23 +2533,23 @@
     },
     {
       "id": "420a",
-      "text": "Danmarks Fødevareforskning. Fødevaredatabanken, versjon 7.01 (2009). Nettversjon, http://www.foodcomp.dk/v7/fvdb_default.asp"
+      "text": "Danmarks Fødevareforskning. Fødevaredatabanken, versjon 7.01 (2009). "
     },
     {
       "id": "420b",
-      "text": "Omregnet verdi fra referanse 420a: Danmarks Fødevareforskning. Fødevaredatabanken, versjon 7.01. (2009). Nettversjon, http://www.foodcomp.dk/v7/fvdb_default.asp "
+      "text": "Omregnet verdi fra referanse 420a: Danmarks Fødevareforskning. Fødevaredatabanken, versjon 7.01. (2009). "
     },
     {
       "id": "420c",
-      "text": "Fødevareinstituttet. Fødevaredatabanken, Frida versjon 1. (2015). Nettversjon, http://frida.fooddata.dk"
+      "text": "Fødevareinstituttet. Fødevaredatabanken, Frida versjon 1. (2015). "
     },
     {
       "id": "420d",
-      "text": "Fødevareinstituttet. Fødevaredatabanken, Frida versjon 2. (2016). Nettversjon, http://frida.fooddata.dk"
+      "text": "Fødevareinstituttet. Fødevaredatabanken, Frida versjon 2. (2016). "
     },
     {
       "id": "420e",
-      "text": "Fødevareinstituttet. Fødevaredatabanken, Frida versjon 3. (2017). Nettversjon, http://frida.fooddata.dk"
+      "text": "Fødevareinstituttet. Fødevaredatabanken, Frida versjon 3. (2017). "
     },
     {
       "id": "420f",
@@ -2255,7 +2565,7 @@
     },
     {
       "id": "430a",
-      "text": "French Agency for Food, Environmental and Occupational Health safety. French food composition table - Ciqual 2012. Nettversjon, http://www.afssa.fr/TableCIQUAL/"
+      "text": "French Agency for Food, Environmental and Occupational Health safety. French food composition table - Ciqual 2012. "
     },
     {
       "id": "430b",
@@ -2279,7 +2589,7 @@
     },
     {
       "id": "450d",
-      "text": "Food Databanks National Capability (2021). Food Databanks National Capability (FDNC) extended dataset based on PHE’s McCance and Widdowson’s Composition of Foods Integrated Dataset. Nettversjon,https://quadram.ac.uk/UKfoodcomposition/  "
+      "text": "Food Databanks National Capability (2021). Food Databanks National Capability (FDNC) extended dataset based on PHE’s McCance and Widdowson’s Composition of Foods Integrated Dataset. Nettversjon, https://quadram.ac.uk/UKfoodcomposition/  "
     },
     {
       "id": "460a",
@@ -2287,39 +2597,39 @@
     },
     {
       "id": "460b",
-      "text": "US Department of Agriculture, Agricultural Research Service. USDA Nutrient Database for Standard Reference, versjon 23 (2010). Nettversjon, http://www.nal.usda.gov/fnic/foodcomp/search/"
+      "text": "US Department of Agriculture, Agricultural Research Service. USDA Nutrient Database for Standard Reference, versjon 23 (2010). "
     },
     {
       "id": "460c",
-      "text": "Omregnet verdi fra referanse 460b: US Department of Agriculture, Agricultural Research Service. USDA Nutrient Database for Standard Reference, versjon 23 (2010). Nettversjon, http://www.nal.usda.gov/fnic/foodcomp/search/"
+      "text": "Omregnet verdi fra referanse 460b: US Department of Agriculture, Agricultural Research Service. USDA Nutrient Database for Standard Reference, versjon 23 (2010). "
     },
     {
       "id": "460d",
-      "text": "U.S. Department of Agriculture, Agricultural Research Service. USDA National Nutrient Database for Standard Reference, versjon 24 (2011). Nutrient Data Laboratory Home Page, http://www.ars.usda.gov/ba/bhnrc/ndl"
+      "text": "U.S. Department of Agriculture, Agricultural Research Service. USDA National Nutrient Database for Standard Reference, versjon 24 (2011). Nutrient Data Laboratory Home Page"
     },
     {
       "id": "460e",
-      "text": "U.S. Department of Agriculture, Agricultural Research Service. USDA National Nutrient Database for Standard Reference, versjon 25 (2012). Nutrient Data Laboratory Home Page, http://www.ars.usda.gov/ba/bhnrc/ndl"
+      "text": "U.S. Department of Agriculture, Agricultural Research Service. USDA National Nutrient Database for Standard Reference, versjon 25 (2012). Nutrient Data Laboratory Home Page"
     },
     {
       "id": "460f",
-      "text": "U.S. Department of Agriculture, Agricultural Research Service. USDA National Nutrient Database for Standard Reference, versjon 27 (2014). Nutrient Data Laboratory Home Page, http://www.ars.usda.gov/ba/bhnrc/ndl"
+      "text": "U.S. Department of Agriculture, Agricultural Research Service. USDA National Nutrient Database for Standard Reference, versjon 27 (2014). Nutrient Data Laboratory Home Page"
     },
     {
       "id": "460g",
-      "text": "U.S. Department of Agriculture, Agricultural Research Service. USDA National Nutrient Database for Standard Reference, versjon 28 (2015). Nutrient Data Laboratory Home Page, http://www.ars.usda.gov/ba/bhnrc/ndl"
+      "text": "U.S. Department of Agriculture, Agricultural Research Service. USDA National Nutrient Database for Standard Reference, versjon 28 (2015). Nutrient Data Laboratory Home Page"
     },
     {
       "id": "460h",
-      "text": "U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. fdc.nal.usda.gov"
+      "text": "U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. https://fdc.nal.usda.gov/"
     },
     {
       "id": "470a",
-      "text": "National Institute for Public Health and the Environment. NEVO online, versjon 2010/2.0. http://nevo-online.rivm.nl/"
+      "text": "National Institute for Public Health and the Environment. NEVO online, versjon 2010/2.0. "
     },
     {
       "id": "470b",
-      "text": "National Institute for Public Health and the Environment. NEVO online, versjon 2013/4.0. http://nevo-online.rivm.nl/"
+      "text": "National Institute for Public Health and the Environment. NEVO online, versjon 2013/4.0. "
     },
     {
       "id": "470c",
