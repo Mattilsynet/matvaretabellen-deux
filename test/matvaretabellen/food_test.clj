@@ -1,6 +1,5 @@
 (ns matvaretabellen.food-test
-  (:require [clojure.string :as str]
-            [clojure.test :refer [deftest testing is]]
+  (:require [clojure.test :refer [deftest testing is]]
             [matvaretabellen.food :as sut]))
 
 (deftest humanize-langual-classification-test
