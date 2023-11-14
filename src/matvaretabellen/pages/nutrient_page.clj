@@ -3,6 +3,7 @@
             [matvaretabellen.components.comparison :as comparison]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
+            [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.urls :as urls]
@@ -43,7 +44,7 @@
   (->> (prepare-foods-table nutrient locale foods)
        food-page/render-table))
 
-(defn render [context _db page]
+(defn render [context db page]
   (let [nutrient (d/entity (:foods/db context) [:nutrient/id (:page/nutrient-id page)])
         locale (:page/locale page)
         nutrient-name (get (nutrient/get-name nutrient) locale)
@@ -73,7 +74,9 @@
               [:i18n :i18n/number-of-foods {:count (count foods)}]]
              (when desc
                [:div.mmm-text.mmm-preamble
-                [:p desc]])
+                [:p (if (string? desc)
+                      (mashdown/render db locale desc)
+                      desc)]])
              [:div
               (Button {:text [:i18n ::download-these]
                        :href (urls/get-nutrient-excel-url locale nutrient)

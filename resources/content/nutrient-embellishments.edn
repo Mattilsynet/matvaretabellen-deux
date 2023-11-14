@@ -30,10 +30,17 @@
   :nutrient/illustration "/images/nutrients/fett/illustration.svg"
   :nutrient/short-description {:nb "Fett er et energitett næringsstoff som det typisk finnes mye av i f.eks. smør og olje. Det eksisterer flere ulike varianter av fett."
                                :en "Fat is an energy-dense nutrient commonly found in items like butter and oil. There are several different types of fat."}
-  :nutrient/long-description {:nb (list "Fett er en av de tre hovedtypene næringsstoffer, sammen med " [:a {:href "/protein/"} "proteiner"] " og " [:a {:href "/karbohydrat/"} "karbohydrater"] "."
-                                        " Fett er en viktig energikilde og hjelper kroppen med å absorbere visse vitaminer. Det finnes to hovedtyper fett: mettet fett (eksempelvis fra animalske produkter og noen planteoljer) og umettet fett (eksempelvis fra fisk, nøtter, avokado og olivenolje).")
-                              :en (list "Fats are one of the three main types of nutrients, along with " [:a {:href "/en/carbohydrate-glycemic/"} "carbohydrates"] " and " [:a {:href "/en/protein/"} "proteins"] "."
-                                        " Fat is a significant source of energy and aids the body in absorbing certain vitamins. There are two main types of fat: saturated fat (found in animal products and some plant oils) and unsaturated fat (found in fish, nuts, avocado, and olive oil).")}}
+  :nutrient/long-description
+  {:nb "Fett er en av de energigivende næringsstoffene, sammen med [protein], [fiber] og [alkohol|Alko].
+        Næringsstoffet kan deles opp i [mettede|Mettet] og umettede fettsyrer.
+        Umettede fettsyrer kan deles opp i [en-|Enumet] og [flerumettede fettsyrer|Flerum].
+        Det finnes også [transfett|Trans] og [kolesterol|Kolest].
+        Kilder til fett er [matfett|fg-8], [meieriprodukter|fg-1], [kjøtt|fg-3], [fet fisk|fg-4], [nøtter|fg-14] og [snacks|fg-7]."
+   :en "Fat is one of the energy-yielding nutrients, along with [protein], [fiber], and [alcohol|Alko].
+        This nutrient can be divided into [saturated|Mettet] and unsaturated fatty acids.
+        Unsaturated fatty acids can further be categorized into [monounsaturated|Enumet] and [polyunsaturated fatty acids|Flerum].
+        There are also [trans fats|Trans] and [cholesterol|Kolest].
+        Sources of fat include [cooking fats|fg-8], [dairy products|fg-1], [meat|fg-3], [fatty fish|fg-4], [nuts|fg-14], and [snacks|fg-7]."}}
 
  {:nutrient/id "Alko"
   :nutrient/category {:db/ident :nutrient.category/macro}
@@ -94,18 +101,177 @@
  ;; ikke alt mulig annet, da de ikke er å finne på "Alle næringsstoffer"-siden,
  ;; ehe.
 
- {:nutrient/id "Stivel"
+ {:nutrient/id "Mettet"
   :nutrient/long-description
+  {:nb "Mettede fettsyrer er en type [fett] sammen med [enumettet|Enumet] og [flerumettet fett|Flerum].
+        Mettet fett inneholder ikke noen dobbeltbindinger mellom karbonatomene i fettkjeden.
+        Fettsyrene finnes hovedsakelig i animalske produkter som [kjøtt|fg-3], [smør|fg-8] og [meieriprodukter|fg-1].
+        Næringsstoffet forekommer også i enkelte vegetabilske matvarer som [kokosfett|08.001]."
+   :en "Saturated fatty acids are a type of [fat|Fett] along with [monounsaturated|Enumet] and [polyunsaturated fats|Flerum].
+        Saturated fat does not contain any double bonds between the carbon atoms in the fatty acid chain.
+        These fatty acids are primarily found in animal products such as [meat|fg-3], [butter|fg-8], and [dairy products|fg-1].
+        This nutrient also occurs in certain vegetable foods like [coconut fat|08.001]."}}
 
-  {:nb (list "Stivelse er et komplekst " [:a {:href "/karbohydrat/"} "karbohydrat"]
-             " som finnes i matvarer som brød, ris, pasta og poteter. Denne typen karbohydrat gir langvarig energi til kroppen, da den brytes ned til glukose over tid.")
-   :en (list "Starch is a complex " [:a {:href "/en/carbohydrate-glycemic/"} "carbohydrate"]
-             " found in foods like bread, rice, pasta, and potatoes. This type of carbohydrate provides sustained energy to the body as it is broken down into glucose over time.")}}
-
- {:nutrient/id "Sukker"
+ {:nutrient/id "C12:0Laurinsyre"
   :nutrient/long-description
+  {:nb "C12:0, eller laurinsyre, er en mettet fettsyre med 12 karbonatomer i fettkjeden.
+        Andre mettede fettsyrer er [C14:0|C14:0Myristinsyre], [C16:0|C16:0Palmitinsyre] og [C18:0|C18:0Stearinsyre].
+        Laurinsyre forekommer naturlig i f.eks. [kokos-|08.249] og [palmeolje|08.236]."
+   :en "C12:0, or lauric acid, is a saturated fatty acid with 12 carbon atoms in the fatty acid chain.
+        Other saturated fatty acids are [C14:0|C14:0Myristinsyre], [C16:0|C16:0Palmitinsyre], and [C18:0|C18:0Stearinsyre].
+        Lauric acid occurs naturally in, for example, [coconut oil|08.249] and [palm oil|08.236]."}}
 
-  {:nb (list "Tilsatt sukker er sukker som tilføres mat- og drikkevarer under produksjon eller tilberedning. Dette sukkeret kommer i tillegg til det som finnes naturlig i matvaren, og tilføres for å endre på smak og holdbarhet.")
-   :en (list "Added sugar is sugar that is added to food and beverages during production or preparation. This sugar is in addition to what is naturally present in the food and is added to alter taste and shelf life.")}}
+ {:nutrient/id "C14:0Myristinsyre"
+  :nutrient/long-description
+  {:nb "C14:0, eller myristinsyre, er en mettet fettsyre med 14 karbonatomer i fettkjeden.
+        Andre mettede fettsyrer er [C12:0|C12:0Laurinsyre], [C16:0|C16:0Palmitinsyre] og [C18:0|C18:0Stearinsyre].
+        Den finnes naturlig i animalske matvarer som [meieriprodukter|fg-1], i tillegg til enkelte plantekilder som [kokosolje|08.249]. "
+   :en "C14:0, or myristic acid, is a saturated fatty acid with 14 carbon atoms in the fatty acid chain.
+        Other saturated fatty acids are [C12:0|C12:0Laurinsyre], [C16:0|C16:0Palmitinsyre], and [C18:0|C18:0Stearinsyre].
+        It is naturally found in animal products such as [dairy products|fg-1], as well as in certain plant sources like [coconut oil|08.249]."}}
+
+ {:nutrient/id "C16:0Palmitinsyre"
+  :nutrient/long-description
+  {:nb "C16:0, eller palmitinsyre, er en mettet fettsyre med 16 karbonatomer i fettkjeden.
+        Andre mettede fettsyrer er [C12:0|C12:0Laurinsyre], [C14:0|C14:0Myristinsyre] og [C18:0|C18:0Stearinsyre].
+        Palmitinsyre forekommer naturlig i animalske produkter som [kjøtt|fg-3] og [meieriprodukter|fg-1], samt i enkelte vegetabilske oljer som [palmeolje|08.236].  "
+   :en "C16:0, or palmitic acid, is a saturated fatty acid with 16 carbon atoms in the fatty acid chain.
+        Other saturated fatty acids are [C12:0|C12:0Laurinsyre], [C14:0|C14:0Myristinsyre], and [C18:0|C18:0Stearinsyre].
+        Palmitic acid occurs naturally in animal products such as [meat|fg-3] and [dairy products|fg-1], as well as in certain vegetable oils like [palm oil|08.236]."}}
+
+ {:nutrient/id "C18:0Stearinsyre"
+  :nutrient/long-description
+  {:nb "C18:0, eller stearinsyre, er en mettet fettsyre med 18 karbonatomer i fettkjeden.
+        Andre mettede fettsyrer er [C12:0|C12:0Laurinsyre], [C14:0|C14:0Myristinsyre] og [C16:0|C16:0Palmitinsyre].
+        Stearinsyre finnes naturlig i forskjellige animalske matvarer som [kjøtt|fg-3] og [meieriprodukter|fg-1], samt noen vegetabilske fettkilder som [kakaosmør|08.263].  "
+   :en "C18:0, or stearic acid, is a saturated fatty acid with 18 carbon atoms in the fatty acid chain.
+        Other saturated fatty acids are [C12:0|C12:0Laurinsyre], [C14:0|C14:0Myristinsyre], and [C16:0|C16:0Palmitinsyre].
+        Stearic acid is naturally found in various animal foods such as [meat|fg-3] and [dairy products|fg-1], as well as in some vegetable fat sources like [cocoa butter|08.263]."}}
+
+ {:nutrient/id "Enumet"
+  :nutrient/long-description
+  {:nb "Enumettede fettsyrer er en type fett sammen med [mettet|Mettet] og [flerumettet fett|Flerum].
+        De inneholder kun én dobbeltbinding mellom karbonatomene i fettkjeden.
+        Matvarer som inneholder disse fettsyrene er f.eks. [vegetabilske oljer|fg-8], [nøtter, frø|fg-14] og [kjøtt|fg-3]. "
+   :en "Monounsaturated fatty acids are a type of fat along with [saturated|Mettet] and [polyunsaturated fats|Flerum].
+        They contain only one double bond between the carbon atoms in the fatty acid chain.
+        Foods that contain these fatty acids include, for example, [vegetable oils|fg-8], [nuts, seeds|fg-14], and [meat|fg-3]."}}
+
+ {:nutrient/id "C16:1"
+  :nutrient/long-description
+  {:nb "C16:1 sum, eller palmitoleinsyre, er en enumettet fettsyre med 16 karbonatomer i fettkjeden.
+        Fettsyren kjennetegnes ved at den har én dobbeltbinding mellom det 9. og 10. karbonatomet, talt fra metylenden.
+        En annen enumettede fettsyre er [C18:1 sum|C18:1].
+        Palmitoleinsyre finnes naturlig i matvarer som [fisk|fg-4], [nøtter, frø|fg-14] og [kjøtt|fg-3].  "
+   :en "C16:1 sum, or palmitoleic acid, is a monounsaturated fatty acid with 16 carbon atoms in the fatty acid chain.
+        This fatty acid is characterized by having one double bond between the 9th and 10th carbon atoms, counted from the methyl end.
+        Another monounsaturated fatty acid is [C18:1 sum|C18:1].
+        Palmitoleic acid is naturally found in foods such as [fish|fg-4], [nuts, seeds|fg-14], and [meat|fg-3]."}}
+
+ {:nutrient/id "C18:1"
+  :nutrient/long-description
+  {:nb "C18:1 sum, eller oljesyre, er en enumettet fettsyre med 18 karbonatomer i fettkjeden.
+        Fettsyren kjennetegnes ved at den har én dobbeltbinding mellom det 9. og 10. karbonatomet, talt fra metylenden.
+        En annen enumettede fettsyre er [C16:1 sum|C16:1].
+        Oljesyre finnes blant annet i matvarer som [olivenolje|08.019], [nøtter, frø|fg-14] og [avokado|06.524]."
+   :en "C18:1 sum, or oleic acid, is a monounsaturated fatty acid with 18 carbon atoms in the fatty acid chain.
+        This fatty acid is characterized by having one double bond between the 9th and 10th carbon atoms, counted from the methyl end.
+        Another monounsaturated fatty acid is [C16:1 sum|C16:1].
+        Oleic acid is found in foods such as [olive oil|08.019], [nuts, seeds|fg-14], and [avocado|06.524]."}}
+
+ {:nutrient/id "Flerum"
+  :nutrient/long-description
+  {:nb "Flerumettede fettsyrer er en type fett sammen med [mettet|Mettet] og [enumettet fett|Enumet].
+        De inneholder to eller flere dobbeltbindinger mellom karbonatomene i fettkjeden.
+        To vanlige undergrupper av flerumettede fettsyrer er [omega-3] og [omega-6] fettsyrer, med henholdsvis –3 og –6 dobbeltbindinger i fettkjeden.
+        Matvarer som typisk inneholder flerumettede fettsyrer er [fet fisk|fg-4], [vegetabilske oljer|fg-8], [nøtter og frø|fg-14]. "
+   :en "Polyunsaturated fatty acids are a type of fat along with [saturated|Mettet] and [monounsaturated fats|Enumet].
+        They contain two or more double bonds between the carbon atoms in the fatty acid chain.
+        Two common subgroups of polyunsaturated fatty acids are [omega-3] and [omega-6] fatty acids, with respectively –3 and –6 double bonds in the fatty acid chain.
+        Foods that typically contain polyunsaturated fatty acids are [fatty fish|fg-4], [vegetable oils|fg-8], [nuts and seeds|fg-14]."}}
+
+ {:nutrient/id "Omega-3"
+  :nutrient/long-description
+  {:nb "Omega-3 fettsyrer er en type flerumettet fettsyre sammen med [omega-6].
+        I omega-3 fettsyrer er den første dobbeltbindingen på det tredje karbonatomet fra metylenden.
+        Disse fettsyrene finnes i matvarer som [fet fisk|fg-4], [valnøtter|06.560] og [linfrø|05.012]."
+   :en "Omega-3 fatty acids are a type of polyunsaturated fatty acid along with [omega-6].
+        In omega-3 fatty acids, the first double bond is located at the third carbon atom from the methyl end.
+        These fatty acids are found in foods such as [fatty fish|fg-4], [walnuts|06.560], and [flaxseeds|05.012]."}}
+
+ {:nutrient/id "C18:3n-3AlfaLinolensyre"
+  :nutrient/long-description
+  {:nb "C18:3n-3, eller alfalinolensyre, er en flerumettet [omega-3] fettsyre med 18 karbonatomer i fettkjeden.
+        Fettsyren inneholder tre dobbeltbindinger hvor den første er plassert på det tredje karbonatomet fra metylenden.
+        Andre flerumettede [omega-3] fettsyrer er [C20:3n-3|C20:3n-3Eikosatriensyre], [C20:4n-3|C20:4n-3Eikosatetraensyre] og [C20:5n-3|C20:5n-3Eikosapentaensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre] og [C22:6n-3|C22:6n-3Dokosaheksaensyre].
+        Alfalinolensyre finnes i vegetabilske matvarer som [linfrø|05.012], [chiafrø|05.380], [valnøtter|06.560], i tillegg til [fet fisk|fg-4]."
+   :en "C18:3n-3, or alpha-linolenic acid, is a polyunsaturated [omega-3] fatty acid with 18 carbon atoms in the fatty acid chain.
+        The fatty acid contains three double bonds, with the first one placed at the third carbon atom from the methyl end.
+        Other polyunsaturated [omega-3] fatty acids are [C20:3n-3|C20:C20:3n-3Eikosatriensyre], [C20:4n-3|C20:4n-3Eikosatetraensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre], and [C22:6n-3|C22:6n-3Dokosaheksaensyre].
+        Alpha-linolenic acid is found in plant foods such as [flaxseeds|05.012], [chia seeds|05.380], [walnuts|06.560], as well as in [fatty fish|fg-4]."}}
+
+ {:nutrient/id "C20:3n-3Eikosatriensyre"
+  :nutrient/long-description
+  {:nb "C20:3n-3, eller eikosatriensyre, er en flerumettet omega-3 fettsyre med 20 karbonatomer i fettkjeden.
+        Fettsyren inneholder tre dobbeltbindinger hvor den første er plassert på det tredje karbonatomet fra metylenden.
+        Andre flerumettede [omega-3] fettsyrer er [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:4n-3|C20:4n-3Eikosatetraensyre] og [C20:5n-3|C20:5n-3Eikosapentaensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre] og [C22:6n-3|C22:6n-3Dokosaheksaensyre].
+        Eikosatriensyre finnes i visse typer fisk, for eksempel [makrell|04.022]."
+   :en "C20:3n-3, or eicosatrienoic acid, is a polyunsaturated omega-3 fatty acid with 20 carbon atoms in the fatty acid chain.
+        The fatty acid contains three double bonds, with the first one placed at the third carbon atom from the methyl end.
+        Other polyunsaturated [omega-3] fatty acids are [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:4n-3|C20:4n-3Eikosatetraensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre], and [C22:6n-3|C22:6n-3Dokosaheksaensyre].
+        Eicosatrienoic acid is found in certain types of fish, like [mackerel|04.022]."}}
+
+ {:nutrient/id "C20:4n-3Eikosatetraensyre"
+  :nutrient/long-description
+  {:nb "C20:4n-3, eller arakidonsyre, er en flerumettet omega-3 fettsyre med 20 karbonatomer i fettkjeden.
+        Fettsyren inneholder fire dobbeltbindinger hvor den første er plassert på det tredje karbonatomet fra metylenden.
+        Andre flerumettede [omega-3] fettsyrer er [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre] og [C20:5n-3|C20:5n-3Eikosapentaensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre] og [C22:6n-3|C22:6n-3Dokosaheksaensyre].
+        Arakidonsyre finnes i noen typer fet fisk."
+   :en "C20:4n-3, or arachidonic acid, is a polyunsaturated omega-3 fatty acid with 20 carbon atoms in the fatty acid chain.
+        The fatty acid contains four double bonds, with the first one placed at the third carbon atom from the methyl end.
+        Other polyunsaturated [omega-3] fatty acids are [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre], and [C22:6n-3|C22:6n-3Dokosaheksaensyre].
+        Arachidonic acid is found in some types of fatty fish."}}
+
+ {:nutrient/id "C20:5n-3Eikosapentaensyre"
+  :nutrient/long-description
+  {:nb "C20:5n-3, eller eikosapentaensyre (EPA), er en langkjedet omega-3 fettsyre med 20 karbonatomer i fettkjeden.
+        Fettsyren inneholder fem dobbeltbindinger hvor den første er plassert på det tredje karbonatomet fra metylenden.
+        Andre flerumettede [omega-3] fettsyrer er [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre] og [C20:4n-3|C20:4n-3Eikosatetraensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre] og [C22:6n-3|C22:6n-3Dokosaheksaensyre].
+        EPA finnes hovedsakelig i fet fisk som [laks|04.220] og [makrell|04.022]."
+   :en "C20:5n-3, or eicosapentaenoic acid (EPA), is a long-chain omega-3 fatty acid with 20 carbon atoms in the fatty acid chain.
+        The fatty acid contains five double bonds, with the first one placed at the third carbon atom from the methyl end.
+        Other polyunsaturated [omega-3] fatty acids are [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre], [C20:4n-3|C20:4n-3Eikosatetraensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre], and [C22:6n-3|C22:6n-3Dokosaheksaensyre].
+        EPA is primarily found in fatty fish such as [salmon|04.220] and [mackerel|04.022]."}}
+
+ {:nutrient/id "C22:5n-3Dokosapentaensyre"
+  :nutrient/long-description
+  {:nb "C22:5n-3, eller dokosaheksaensyre (DPA), er en langkjedet omega-3 fettsyre med 22 karbonatomer i fettkjeden.
+        Fettsyren inneholder fem dobbeltbindinger hvor den første er plassert på det tredje karbonatomet fra metylenden.
+        Andre flerumettede [omega-3] fettsyrer er [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre] og [C20:4n-3|C20:4n-3Eikosatetraensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre] og [C22:6n-3|C22:6n-3Dokosaheksaensyre].
+        DPA finnes i matvarer som fet fisk, inkludert [laks|04.220], [sild|04.382] og [makrell|04.022].  "
+   :en "C22:5n-3, or docosapentaenoic acid (DPA), is a long-chain omega-3 fatty acid with 22 carbon atoms in the fatty acid chain.
+        The fatty acid contains five double bonds, with the first one placed at the third carbon atom from the methyl end.
+        Other polyunsaturated [omega-3] fatty acids are [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre], [C20:4n-3|C20:4n-3Eikosatetraensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre], and [C22:6n-3|C22:6n-3Dokosaheksaensyre].
+        DPA is found in foods such as fatty fish, including [salmon|04.220], [herring|04.382], and [mackerel|04.022]."}}
+
+ {:nutrient/id "C22:6n-3Dokosaheksaensyre"
+  :nutrient/long-description
+  {:nb "C22:6n-3, eller dokosaheksaensyre (DHA), er en langkjedet omega-3 fettsyre med 22 karbonatomer i fettkjeden.
+        Fettsyren inneholder seks dobbeltbindinger hvor den første er plassert på det tredje karbonatomet fra metylenden.
+        Andre flerumettede [omega-3] fettsyrer er [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre] og [C20:4n-3|C20:4n-3Eikosatetraensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre] og [C22:5n-3|C22:5n-3Dokosapentaensyre].
+        DHA finnes hovedsakelig i fet fisk som [laks|04.220] og [makrell|04.022]."
+   :en "C22:6n-3, or docosahexaenoic acid (DHA), is a long-chain omega-3 fatty acid with 22 carbon atoms in the fatty acid chain.
+        The fatty acid contains six double bonds, with the first one placed at the third carbon atom from the methyl end.
+        Other polyunsaturated [omega-3] fatty acids are [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre], [C20:4n-3|C20:4n-3Eikosatetraensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre], and [C22:5n-3|C22:5n-3Dokosapentaensyre].
+        DHA is primarily found in fatty fish such as [salmon|04.220] and [mackerel|04.022]."}}
+
+ {:nutrient/id "Omega-6"
+  :nutrient/long-description
+  {:nb "Omega-6 fettsyrer er en type flerumettet fettsyre sammen med [omega-3].
+        I omega-6 fettsyrer er den første dobbeltbindingen på det sjette karbonatomet fra metylenden.
+        Disse fettsyrene finnes typisk i vegetabilsk fett som [solsikke-|08.106], [mais-|08.006] og [soyaolje|08.007], samt noen typer [nøtter og frø|fg-14]."
+   :en "Omega-6 fatty acids are a type of polyunsaturated fatty acid along with [omega-3].
+        In omega-6 fatty acids, the first double bond is located at the sixth carbon atom from the methyl end.
+        These fatty acids are typically found in vegetable fats like [sunflower oil|08.106], [corn oil|08.006], and [soybean oil|08.007], as well as in some types of [nuts and seeds|fg-14]."}}
 
  ]
