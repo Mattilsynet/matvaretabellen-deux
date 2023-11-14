@@ -307,7 +307,7 @@
 (defn render-rda-select [db selected]
   (let [profiles (rda/get-profiles-per-demographic db)]
     [:div.mmm-container.mmm-section.mmm-flex.mmm-flex-jr
-     [:div.mmm-vert-layout-s
+     [:div.mmm-vert-layout-s.mmm-alr
       [:p [:i18n ::rda-select-label]]
       (Select
        {:size :m

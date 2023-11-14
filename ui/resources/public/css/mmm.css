@@ -183,6 +183,7 @@ ol.mmm-unadorned-list li {
 
 .mmm-alr {
     align-self: flex-end;
+    align-items: flex-end;
 }
 
 .mmm-preamble {
