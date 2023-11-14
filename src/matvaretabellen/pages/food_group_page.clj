@@ -57,7 +57,7 @@
           [:img {:src (:food-group/illustration details)
                  :width 300}]]]]]
 
-      [:div.mmm-container-medium.mmm-section.mmm-vert-layout-m
+      [:div.mmm-container-medium.mmm-section.mmm-vert-layout-m.mmm-mobile-phn
        (->> (prepare-foods-table locale foods)
             food-page/render-table)]
 
