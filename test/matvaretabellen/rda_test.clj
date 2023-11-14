@@ -127,6 +127,36 @@
            {:nb "Generell, 6-65 år"
             :en "General, 6-65 years"})))
 
+  (testing "Skiller ikke på trimester for gravide"
+    (is (= (let [lines (str/split-lines csv)
+                 template (first (drop 3 lines))]
+             (->> (concat
+                   (take 3 lines)
+                   [(str/replace template #"Gutt;6-9 år;4,535;;Lavt aktivitetsnivå"
+                                 "Gravid  ;Første trimester;5,8;0,43;STILLESITTENDE ARBEID")
+                    (str/replace template #"Gutt;6-9 år;4,535;;Lavt aktivitetsnivå"
+                                 "Gravid  ;Andre trimester;5,8;1,375;STILLESITTENDE ARBEID")])
+                  (str/join "\n")
+                  (sut/read-csv (get-foods-db))
+                  (map :rda/demographic)
+                  set))
+           #{{:nb "Gravid"
+              :en "Pregnant"}})))
+
+  (testing "Bruker kun én profil for ammende"
+    (is (= (let [lines (str/split-lines csv)
+                 template (first (drop 3 lines))]
+             (->> (concat
+                   (take 3 lines)
+                   [(str/replace template #"Gutt;6-9 år" "Ammende;STILLESITTENDE ARBEID")
+                    (str/replace template #"Gutt;6-9 år" "Ammende;STÅENDE ARBEID")])
+                  (str/join "\n")
+                  (sut/read-csv (get-foods-db))
+                  (map :rda/demographic)
+                  set))
+           #{{:nb "Ammende"
+              :en "Breastfeeding"}})))
+
   (testing "Creates one page per demographic"
     (is (= (->> (sut/read-csv (get-foods-db) csv)
                 (take 3)

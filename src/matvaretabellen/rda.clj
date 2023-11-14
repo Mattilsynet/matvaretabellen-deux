@@ -22,14 +22,9 @@
   {"Generell, 10 mj" "Generell, 6-65 år"})
 
 (def en-dictionary
-  {"Ammende - Fysisk hardt arbeid" "Breastfeeding - Physically demanding work"
-   "Ammende - Sengeliggende/inaktiv" "Breastfeeding - Bedridden/Inactive"
-   "Ammende - Stillesittende arbeid" "Breastfeeding - Sedentary work"
-   "Ammende - Stående arbeid" "Breastfeeding - Standing work"
+  {"Ammende" "Breastfeeding"
    "Generell, 6-65 år" "General, 6-65 years"
-   "Gravid - Andre trimester" "Pregnant - Second trimester"
-   "Gravid - Første trimester" "Pregnant - First trimester"
-   "Gravid - Tredje trimester" "Pregnant - Third trimester"
+   "Gravid" "Pregnant"
    "Gutt, 10-13 år" "Boy, 10-13 years"
    "Gutt, 14-17 år" "Boy, 14-17 years"
    "Gutt, 2-5 år" "Boy, 2-5 years"
@@ -97,13 +92,15 @@
 (defn get-demographic [sex-ish age-ish]
   (internationalize
    (str sex-ish
-        (if (re-find #"^[\d\-\+]+" age-ish)
-          ", "
-          " - ")
-        (str/capitalize age-ish)
-        (when (or (re-find #"\d-\d+$" age-ish)
-                  (re-find #"\d\++$" age-ish))
-          " år"))))
+        (when-not (#{"Gravid" "Ammende"} sex-ish)
+          (str
+           (if (re-find #"^[\d\-\+]+" age-ish)
+             ", "
+             " - ")
+           (str/capitalize age-ish)
+           (when (or (re-find #"\d-\d+$" age-ish)
+                     (re-find #"\d\++$" age-ish))
+             " år"))))))
 
 (defn parse-row [foods-db headers row]
   (let [cols (map str/trim (str/split row #";"))

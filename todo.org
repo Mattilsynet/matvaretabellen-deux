@@ -46,7 +46,7 @@
 ** DONE Sjekk muligheter for å style pila i selecten litt bedre
 ** DONE Flytt kilde til venstre for mengde
 ** TODO Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter
-* ADI-switch [5/13]
+* ADI-switch [7/13]
 ** DONE Internasjonaliser ADI
 ** DONE Lag side-entiteter for JSON-feeds
 ** DONE Generer JSON-feeds
@@ -57,8 +57,8 @@
 ** TODO Tag verdier med adi-markører på ADI-er som skal erstattes
 ** TODO Les fra localStorage
 ** TODO Beregn nye ADI-er
-** TODO Bare én ammende
-** TODO Bare én gravid
+** DONE Bare én ammende
+** DONE Bare én gravid
 ** DONE Bruk "Generell", kall det "Generell, 6-65 år"
 * Sammenligning [12/15]
 ** DONE Lag page-entity for sammenligning
