@@ -64,7 +64,9 @@
     (layout/layout
      context
      [:head
-      [:title [:i18n ::search-label]]]
+      [:title [:i18n ::search-label]]
+      [:meta {:property "og:title" :content [:i18n ::open-graph-title]}]
+      [:meta {:property "og:description" :content [:i18n ::open-graph-description]}]]
      [:body
       (SiteHeader {:home-url "/"
                    :extra-link {:text [:i18n :i18n/other-language]

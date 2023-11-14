@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [24/38]
+* Tickets [26/38]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -34,7 +34,7 @@
 ** DONE [M] Skill matvarer på matvaregrupper i excel-arket
 ** DONE [M] Lag egne excel-ark for hver matvaregruppe
 ** DONE [M] Lag egne excel-ark for hvert næringsstoff
-** TODO OpenGraph på matvaresidene
+** DONE OpenGraph på matvaresidene
 ** TODO Ta en runde med ipad-bredde 800px
 ** TODO Sorter høyt/lavt på næringsstoff-sidene
 ** TODO Vis filtrering i venstrekolonnen på næringsstoff-sidene

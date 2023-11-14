@@ -106,18 +106,20 @@
  {:download-these "Download the table"}
 
  #:matvaretabellen.pages.frontpage
- {:search-button "Search"
-  :search-label "Search in Matvaretabellen"
-  :did-you-know "Did you know..."
-  :banana-nutrition-facts "Bananas have the highest carbohydrate content among the fruits in the Food Table. They also have high magnesium content."
-  :read-more-about-banana "Read more about the banana here."
-  :all-food-groups "All Food Groups →"
-  :see-all-food-groups-overview "See an overview of all food groups."
+ {:all-food-groups "All Food Groups →"
   :all-nutrients "All Nutrients →"
-  :see-all-nutrients-overview "See an overview of all nutrients."
+  :banana-nutrition-facts "Bananas have the highest carbohydrate content among the fruits in the Food Table. They also have high magnesium content."
   :common-food-searches "Common Searches"
+  :did-you-know "Did you know..."
   :new-in-food-table "New in Matvaretabellen"
-  :seasonal-goods "Seasonal Goods"}
+  :open-graph-description "Matvaretabellen provides in-depth information on the energy and nutritional content of thousands of foods. You can search for specific foods, compare them, and learn about which foods offer high or low levels of various nutrients."
+  :open-graph-title "Matvaretabellen.no - a service from Mattilsynet"
+  :read-more-about-banana "Read more about the banana here."
+  :search-button "Search"
+  :search-label "Search in Matvaretabellen"
+  :seasonal-goods "Seasonal Goods"
+  :see-all-food-groups-overview "See an overview of all food groups."
+  :see-all-nutrients-overview "See an overview of all nutrients."}
 
  #:matvaretabellen.pages.nutrients-page
  {:all-nutrients "All nutrients"
