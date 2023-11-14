@@ -26,7 +26,7 @@
     [:i18n :i18n/number {:n n :decimals decimals}]))
 
 (defn wrap-in-portion-span [num & [{:keys [decimals class]}]]
-  [:span (cond-> {:data-portion num}
+  [:span (cond-> {:data-portion (str num)}
            decimals (assoc :data-decimals (str decimals))
            class (assoc :class class))
    (format-number num {:decimals decimals})])
