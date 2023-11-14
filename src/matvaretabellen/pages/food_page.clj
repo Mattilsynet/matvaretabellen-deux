@@ -365,7 +365,7 @@
   (let [food (d/entity (:foods/db context) [:food/id (:page/food-id page)])
         locale (:page/locale page)
         food-name (get-in food [:food/name locale])
-        rda-profile (d/entity (:app/db context) [:rda/id "rda-1045046097"])
+        rda-profile (d/entity (:app/db context) [:rda/id "rda-258206827"])
         recommendations (->> rda-profile
                              :rda/recommendations
                              (map (juxt :rda.recommendation/nutrient-id identity))
