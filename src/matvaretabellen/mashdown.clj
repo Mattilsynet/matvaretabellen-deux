@@ -5,7 +5,7 @@
             [matvaretabellen.urls :as urls]))
 
 (defn find-url-for-segment [db locale id]
-  (let [nutrient (d/entity db [:nutrient/id (str/capitalize id)])
+  (let [nutrient (d/entity db [:nutrient/id id])
         food (d/entity db [:food/id id])
         food-group (when (str/starts-with? id "fg-")
                      (d/entity db [:food-group/id (subs id 3)]))]
@@ -19,12 +19,22 @@
 (def bracket-pattern
   (re-pattern "\\[.*?\\]|[^\\[]+"))
 
+(defn strip [s]
+  (when s
+    (str/join
+     (for [segment (re-seq bracket-pattern s)]
+       (if (= \[ (first segment))
+         (let [segment (str/replace segment #"\[|\]" "")
+               [pre _] (str/split segment #"\|")]
+           pre)
+         segment)))))
+
 (defn render [db locale s]
   (for [segment (re-seq bracket-pattern s)]
     (if (= \[ (first segment))
       (let [segment (str/replace segment #"\[|\]" "")
             [pre post] (str/split segment #"\|")
-            id (or post pre)]
+            id (or post (str/capitalize pre))]
         [:a {:href (find-url-for-segment db locale id)}
          pre])
       segment)))

@@ -32,3 +32,10 @@
                                :food-group/name {:nb "Melk og melkeprodukter"}}]]
              (sut/render db :nb "Det er fett i [melkeprodukter|fg-1]!"))
            '("Det er fett i " [:a {:href "/gruppe/melk-og-melkeprodukter/"} "melkeprodukter"] "!")))))
+
+(deftest strip
+  (is (= (sut/strip "Her er det [protein], må vite!")
+         "Her er det protein, må vite!"))
+
+  (is (= (sut/strip "Klar for litt [kake med banan|05.448]?")
+         "Klar for litt kake med banan?")))
