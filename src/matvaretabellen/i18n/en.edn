@@ -79,6 +79,7 @@
   :nutrients "Nutrients"
   :nutrition-heading "Macro nutrients"
   :nutrition-title "Nutritional Information"
+  :open-graph-description [:fn/str "{{:food-name}} has {{:energy}} and contains " [:fn/enumerate [:fn/get :macros]] " per 100g. Read more and compare with other foods on matvaretabellen.no"]
   :portion-size "Portion Size:"
   :portion-with-grams [:fn/str "{{:portion}} ({{:grams}} grams)"]
   :rda-explanation "Recommended Daily Allowance"

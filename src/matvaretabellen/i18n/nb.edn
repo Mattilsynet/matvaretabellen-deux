@@ -79,6 +79,7 @@
   :nutrients "Næringsstoffer"
   :nutrition-heading "Energigivende næringsstoffer"
   :nutrition-title "Næringsinnhold"
+  :open-graph-description [:fn/str "{{:food-name}} har {{:energy}} og inneholder " [:fn/enumerate [:fn/get :macros]] " per 100g. Les mer og sammenlign med andre matvarer på matvaretabellen.no"]
   :portion-size "Porsjonsstørrelse:"
   :portion-with-grams [:fn/str "{{:portion}} ({{:grams}} gram)"]
   :rda-explanation "Anbefalt Dagdinntak"

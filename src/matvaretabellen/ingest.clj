@@ -21,10 +21,12 @@
        (mapcat
         (fn [[id i18n-names]]
           (for [[locale food-name] i18n-names]
-            {:page/uri (urls/get-food-url locale food-name)
-             :page/kind :page.kind/food
-             :page/locale locale
-             :page/food-id id})))))
+            (-> {:page/uri (urls/get-food-url locale food-name)
+                 :page/kind :page.kind/food
+                 :page/locale locale
+                 :page/food-id id}
+                (with-open-graph
+                  {:title food-name})))))))
 
 (defn get-nutrient-pages [food-db app-db]
   (->> (d/q '[:find ?nutrient-id ?nutrient-name

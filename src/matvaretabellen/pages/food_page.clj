@@ -380,6 +380,31 @@
             :data-food-id (:food/id food)
             :data-food-name [:i18n :i18n/lookup (:food/name food)]})])
 
+(defn summarize-constituent [food id locale]
+  (let [c (food/get-nutrient-measurement food id)]
+    (str (int (b/num (:measurement/quantity c)))
+         (b/symbol (:measurement/quantity c)) " "
+         (str/lower-case (get-in c [:constituent/nutrient :nutrient/name locale])))))
+
+(defn get-open-graph-description [food locale]
+  [:meta
+   {:property "og:description"
+    :content [:i18n ::open-graph-description
+              {:food-name (get-in food [:food/name locale])
+               :energy (->> [(some-> (:food/energy food)
+                                     :measurement/quantity
+                                     b/num
+                                     int
+                                     (str " kJ"))
+                             (some-> (:food/calories food)
+                                     :measurement/observation
+                                     parse-long
+                                     (str " kcal"))]
+                            (remove nil?)
+                            (str/join " / "))
+               :macros (->> ["Fett" "Karbo" "Protein"]
+                            (map #(summarize-constituent food % locale)))}]}])
+
 (defn render [context db page]
   (let [food (d/entity (:foods/db context) [:food/id (:page/food-id page)])
         locale (:page/locale page)
@@ -392,7 +417,8 @@
     (layout/layout
      context
      [:head
-      [:title food-name]]
+      [:title food-name]
+      (get-open-graph-description food locale)]
      [:body
       [:script {:type "text/javascript"}
        (str "if (localStorage.getItem(\"show-sources\") != \"true\") {\n"
