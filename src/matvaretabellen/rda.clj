@@ -137,51 +137,6 @@
          (mapcat first)
          (map #(parse-row foods-db headers %)))))
 
-(defn get-rda-url [locale profile]
-  (str "/rda/" (name locale) "/" (:rda/id profile) ".json"))
-
-(defn get-rda-pages [locales rda-profiles]
-  (->> rda-profiles
-       (mapcat (fn [profile]
-                 (for [locale locales]
-                   {:page/uri (get-rda-url locale profile)
-                    :page/kind :page.kind/rda-profile
-                    :page/locale locale
-                    :page/rda-id (:rda/id profile)})))))
-
-(defn unbroch [q]
-  (when q
-    {:n (b/num q)
-     :symbol (b/symbol q)}))
-
-(defn recommendation->json [recommendation]
-  (->> {:nutrient-id (:rda.recommendation/nutrient-id recommendation)
-        :min-energy-pct (:rda.recommendation/min-energy-pct recommendation)
-        :max-energy-pct (:rda.recommendation/max-energy-pct recommendation)
-        :average-energy-pct (:rda.recommendation/average-energy-pct recommendation)
-        :min-amount (unbroch (:rda.recommendation/min-amount recommendation))
-        :max-amount (unbroch (:rda.recommendation/max-amount recommendation))
-        :average-amount (unbroch (:rda.recommendation/average-amount recommendation))}
-       (remove (comp nil? second))
-       (into {})))
-
-(defn ->json [locale profile]
-  (cond-> {:id (:rda/id profile)
-           :demographic (get (:rda/demographic profile) locale)
-           :energy-recommendation (unbroch (:rda/energy-recommendation profile))
-           :kcal-recommendation (:rda/kcal-recommendation profile)
-           :recommendations (set (map recommendation->json (:rda/recommendations profile)))}
-    (:rda/work-activity-level profile)
-    (assoc :work-activity-level (get (:rda/work-activity-level profile) locale))
-
-    (:rda/leisure-activity-level profile)
-    (assoc :leisure-activity-level (get (:rda/leisure-activity-level profile) locale))))
-
-(defn render-json [context page]
-  {:content-type :json
-   :body (->> (d/entity (:app/db context) [:rda/id (:page/rda-id page)])
-              (->json (:page/locale page)))})
-
 (defn sort-order [rda-profile]
   (let [demographic (get-in rda-profile [:rda/demographic :nb])]
     [(cond
@@ -205,6 +160,43 @@
        (group-by :rda/demographic)
        (map #(first (sort-by :rda/id (second %))))
        (sort-by sort-order)))
+
+(defn unbroch [q]
+  (when q
+    [(b/num q) (b/symbol q)]))
+
+(defn recommendation->json [recommendation]
+  (->> {:minEnergyPct (:rda.recommendation/min-energy-pct recommendation)
+        :maxEnergyPct (:rda.recommendation/max-energy-pct recommendation)
+        :averageEnergyPct (:rda.recommendation/average-energy-pct recommendation)
+        :minAmount (unbroch (:rda.recommendation/min-amount recommendation))
+        :maxAmount (unbroch (:rda.recommendation/max-amount recommendation))
+        :averageAmount (unbroch (:rda.recommendation/average-amount recommendation))}
+       (remove (comp nil? second))
+       (into {})))
+
+(defn ->json [locale profile]
+  (cond-> {:id (:rda/id profile)
+           :demographic (get (:rda/demographic profile) locale)
+           :energyRecommendation (unbroch (:rda/energy-recommendation profile))
+           :kcalRecommendation (:rda/kcal-recommendation profile)
+           :recommendations (->> (:rda/recommendations profile)
+                                 (map (juxt :rda.recommendation/nutrient-id
+                                            recommendation->json))
+                                 (remove (comp empty? second))
+                                 (into {}))}
+    (:rda/work-activity-level profile)
+    (assoc :workActivityLevel (get (:rda/work-activity-level profile) locale))
+
+    (:rda/leisure-activity-level profile)
+    (assoc :leisureActivityLevel (get (:rda/leisure-activity-level profile) locale))))
+
+(defn render-json [context page]
+  {:content-type :json
+   :body
+   {:profiles
+    (for [profile (get-profiles-per-demographic (:app/db context))]
+      (->json (:page/locale page) profile))}})
 
 (comment
 

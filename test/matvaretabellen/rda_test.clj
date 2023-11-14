@@ -155,36 +155,7 @@
                   (map :rda/demographic)
                   set))
            #{{:nb "Ammende"
-              :en "Breastfeeding"}})))
-
-  (testing "Creates one page per demographic"
-    (is (= (->> (sut/read-csv (get-foods-db) csv)
-                (take 3)
-                (sut/get-rda-pages [:nb :en]))
-           [{:page/uri "/rda/nb/rda1521056637.json"
-             :page/kind :page.kind/rda-profile
-             :page/locale :nb
-             :page/rda-id "rda1521056637"}
-            {:page/uri "/rda/en/rda1521056637.json"
-             :page/kind :page.kind/rda-profile
-             :page/locale :en
-             :page/rda-id "rda1521056637"}
-            {:page/uri "/rda/nb/rda-1532942700.json"
-             :page/kind :page.kind/rda-profile
-             :page/locale :nb
-             :page/rda-id "rda-1532942700"}
-            {:page/uri "/rda/en/rda-1532942700.json"
-             :page/kind :page.kind/rda-profile
-             :page/locale :en
-             :page/rda-id "rda-1532942700"}
-            {:page/uri "/rda/nb/rda1696251676.json"
-             :page/kind :page.kind/rda-profile
-             :page/locale :nb
-             :page/rda-id "rda1696251676"}
-            {:page/uri "/rda/en/rda1696251676.json"
-             :page/kind :page.kind/rda-profile
-             :page/locale :en
-             :page/rda-id "rda1696251676"}]))))
+              :en "Breastfeeding"}}))))
 
 (deftest json-conversion-test
   (testing "Simplifies data for JSON export"
@@ -193,74 +164,43 @@
                 (sut/->json :nb))
            {:id "rda1521056637"
             :demographic "Gutt 6-9 år"
-            :energy-recommendation {:n 6439.7 :symbol "kJ"}
-            :kcal-recommendation 1539.0883
-            :work-activity-level "Lavt aktivitetsnivå"
+            :energyRecommendation [6439.7 "kJ"]
+            :kcalRecommendation 1539.0883
+            :workActivityLevel "Lavt aktivitetsnivå"
             :recommendations
-            #{{:nutrient-id "Alko"}
-              {:nutrient-id "Ca"
-               :average-amount {:n 700.0 :symbol "mg"}}
-              {:nutrient-id "Cu"
-               :average-amount {:n 0.5 :symbol "mg"}}
-              {:nutrient-id "Enumet"
-               :min-energy-pct 10 :max-energy-pct 20}
-              {:nutrient-id "Fe"
-               :average-amount {:n 9.0 :symbol "mg"}}
-              {:nutrient-id "Fett"
-               :min-energy-pct 25
-               :max-energy-pct 40}
-              {:nutrient-id "Fiber"
-               :min-amount {:n 13.0 :symbol "g"}
-               :max-amount {:n 19.0 :symbol "g"}}
-              {:nutrient-id "Flerum"
-               :min-energy-pct 5
-               :max-energy-pct 10}
-              {:nutrient-id "Folat"
-               :average-amount {:n 130.0 :symbol "µg"}}
-              {:nutrient-id "I"
-               :average-amount {:n 120.0 :symbol "µg"}}
-              {:nutrient-id "K"
-               :average-amount {:n 2000.0 :symbol "mg"}}
-              {:nutrient-id "Karbo"
-               :min-energy-pct 45 :max-energy-pct 60}
-              {:nutrient-id "Mettet"
-               :max-energy-pct 10}
-              {:nutrient-id "Mg"
-               :average-amount {:n 200.0 :symbol "mg"}}
-              {:nutrient-id "Na"
-               :max-amount {:n 1400.0 :symbol "mg"}}
-              {:nutrient-id "NaCl"
-               :max-amount {:n 3.5 :symbol "g"}}
-              {:nutrient-id "Niacin"}
-              {:nutrient-id "Omega-3"
-               :average-energy-pct 1}
-              {:nutrient-id "Omega-6"
-               :average-energy-pct 5}
-              {:nutrient-id "P"
-               :average-amount {:n 540.0 :symbol "mg"}}
-              {:nutrient-id "Protein"
-               :min-energy-pct 10 :max-energy-pct 20}
-              {:nutrient-id "Se"
-               :average-amount {:n 30.0 :symbol "µg"}}
-              {:nutrient-id "Sukker"
-               :max-energy-pct 10}
-              {:nutrient-id "Trans"
-               :max-energy-pct 1}
-              {:nutrient-id "Vit A"
-               :average-amount {:n 400.0 :symbol "µg-RE"}}
-              {:nutrient-id "Vit B1"
-               :average-amount {:n 0.9 :symbol "mg"}}
-              {:nutrient-id "Vit B12"
-               :average-amount {:n 1.3 :symbol "µg"}}
-              {:nutrient-id "Vit B2"
-               :average-amount {:n 1.1 :symbol "mg"}}
-              {:nutrient-id "Vit B6"
-               :average-amount {:n 1.0 :symbol "mg"}}
-              {:nutrient-id "Vit C"
-               :average-amount {:n 40.0 :symbol "mg"}}
-              {:nutrient-id "Vit D"
-               :average-amount {:n 10.0 :symbol "µg"}}
-              {:nutrient-id "Vit E"
-               :average-amount {:n 6.0 :symbol "mg-ATE"}}
-              {:nutrient-id "Zn"
-               :average-amount {:n 7.0 :symbol "mg"}}}}))))
+            {"Ca" {:averageAmount [700.0 "mg"]}
+             "Cu" {:averageAmount [0.5 "mg"]}
+             "Enumet" {:minEnergyPct 10
+                       :maxEnergyPct 20}
+             "Fe" {:averageAmount [9.0 "mg"]}
+             "Fett" {:minEnergyPct 25
+                     :maxEnergyPct 40}
+             "Fiber" {:minAmount [13.0 "g"]
+                      :maxAmount [19.0 "g"]}
+             "Flerum" {:minEnergyPct 5
+                       :maxEnergyPct 10}
+             "Folat" {:averageAmount [130.0 "µg"]}
+             "I" {:averageAmount [120.0 "µg"]}
+             "K" {:averageAmount [2000.0 "mg"]}
+             "Karbo" {:minEnergyPct 45
+                      :maxEnergyPct 60}
+             "Mettet" {:maxEnergyPct 10}
+             "Mg" {:averageAmount [200.0 "mg"]}
+             "Na" {:maxAmount [1400.0 "mg"]}
+             "NaCl" {:maxAmount [3.5 "g"]}
+             "Omega-3" {:averageEnergyPct 1}
+             "Omega-6" {:averageEnergyPct 5}
+             "P" {:averageAmount [540.0 "mg"]}
+             "Protein" {:minEnergyPct 10 :maxEnergyPct 20}
+             "Se" {:averageAmount [30.0 "µg"]}
+             "Sukker" {:maxEnergyPct 10}
+             "Trans" {:maxEnergyPct 1}
+             "Vit A" {:averageAmount [400.0 "µg-RE"]}
+             "Vit B1" {:averageAmount [0.9 "mg"]}
+             "Vit B12" {:averageAmount [1.3 "µg"]}
+             "Vit B2" {:averageAmount [1.1 "mg"]}
+             "Vit B6" {:averageAmount [1.0 "mg"]}
+             "Vit C" {:averageAmount [40.0 "mg"]}
+             "Vit D" {:averageAmount [10.0 "µg"]}
+             "Vit E" {:averageAmount [6.0 "mg-ATE"]}
+             "Zn" {:averageAmount [7.0 "mg"]}}}))))

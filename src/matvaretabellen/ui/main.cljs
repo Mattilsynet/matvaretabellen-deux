@@ -197,7 +197,7 @@
   (try
     (if-let [data (get-session-item k)]
       (f data)
-      (-> (js/fetch (urls/get-api-data-url locale))
+      (-> (js/fetch (urls/get-api-foods-json-url locale))
           (.then (fn [res] (.json res)))
           (.then (fn [raw-data]
                    (let [data (->> raw-data

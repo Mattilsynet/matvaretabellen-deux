@@ -51,8 +51,8 @@
 ** DONE Lag side-entiteter for JSON-feeds
 ** DONE Generer JSON-feeds
 ** DONE Lag select-boks
-** TODO Kode for å hente ned JSON ved onSelect
-** TODO Lagre i localStorage
+** TODO Kode for å hente ned JSON på matvaresiden
+** TODO Lagre i sessionStorage
 ** TODO Tag verdier med adi-markører på kilde-verdier
 ** TODO Tag verdier med adi-markører på ADI-er som skal erstattes
 ** TODO Les fra localStorage

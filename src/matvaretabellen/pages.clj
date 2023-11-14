@@ -61,11 +61,17 @@
    {:page/uri "/all-foods.xlsx"
     :page/kind :page.kind/foods-excel
     :page/locale :en}
-   {:page/uri (urls/get-api-data-url :nb)
+   {:page/uri (urls/get-api-foods-json-url :nb)
     :page/kind :page.kind/comparison-data
     :page/locale :nb}
-   {:page/uri (urls/get-api-data-url :en)
+   {:page/uri (urls/get-api-foods-json-url :en)
     :page/kind :page.kind/comparison-data
+    :page/locale :en}
+   {:page/uri (urls/get-api-rda-json-url :nb)
+    :page/kind :page.kind/rda-data
+    :page/locale :nb}
+   {:page/uri (urls/get-api-rda-json-url :en)
+    :page/kind :page.kind/rda-data
     :page/locale :en}
    {:page/uri (urls/get-comparison-url :nb)
     :page/kind :page.kind/comparison
@@ -106,4 +112,4 @@
       :page.kind/nutrient-excel (excel/render-nutrient-foods db (get-latest-year) page)
       :page.kind/nutrient (nutrient-page/render context db page)
       :page.kind/nutrients (nutrients-page/render context db page)
-      :page.kind/rda-profile (rda/render-json context page))))
+      :page.kind/rda-data (rda/render-json context page))))
