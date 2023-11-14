@@ -74,6 +74,7 @@
   :highlight-title [:fn/str "{{:nb}} →"]
   :kcal-content-title (list "Kalorier i " [:fn/get :portion])
   :minerals-title "Mineraler"
+  :minerals-trace-elements-title "Mineraler og sporstoffer"
   :nutrients "Næringsstoffer"
   :nutrition-heading "Energigivende næringsstoffer"
   :nutrition-title "Næringsinnhold"

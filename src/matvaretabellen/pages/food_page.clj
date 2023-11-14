@@ -196,8 +196,8 @@
                  (remove nil?))
    :rows (mapcat #(get-nutrient-rows food % recommendations db locale) nutrients)})
 
-(defn render-table [{:keys [headers rows classes]}]
-  [:table.mmm-table.mmm-table-zebra {:class classes}
+(defn render-table [{:keys [headers rows classes id]}]
+  [:table.mmm-table.mmm-table-zebra {:class classes :id id}
    [:thead
     (let [row (if (map? headers) headers {:cols headers})]
       [:tr (dissoc row :cols)
@@ -470,18 +470,15 @@
              (map render-table)))
 
        (passepartout
-        (passepartout-title "mineraler" [:i18n ::minerals-title])
+        (passepartout-title "mineraler-sporstoffer" [:i18n ::minerals-trace-elements-title])
         (->> (assoc (food/get-flattened-nutrient-group food "Minerals")
                     :recommendations recommendations)
              (prepare-nutrient-tables (:app/db context) locale)
-             (map render-table)))
-
-       (passepartout
-        (passepartout-title "sporstoffer" [:i18n ::trace-elements-title])
+             (map #(render-table (assoc % :id "mineraler"))))
         (->> (assoc (food/get-flattened-nutrient-group food "TraceElements")
                     :recommendations recommendations)
              (prepare-nutrient-tables (:app/db context) locale)
-             (map render-table)))
+             (map #(render-table (assoc % :id "sporstoffer")))))
 
        [:div.mmm-container.mmm-section-spaced
         [:div.mmm-container-focused.mmm-vert-layout-m.mmm-text.mmm-mobile-phn

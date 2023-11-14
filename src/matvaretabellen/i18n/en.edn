@@ -74,6 +74,7 @@
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
   :highlight-title [:fn/str "{{:en}} →"]
   :minerals-title "Minerals"
+  :minerals-trace-elements-title "Minerals and trace elements"
   :nutrients "Nutrients"
   :nutrition-heading "Macro nutrients"
   :nutrition-title "Nutritional Information"
