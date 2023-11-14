@@ -149,8 +149,7 @@
                         {:text (get-nutrient-quantity food (:nutrient/id nutrient))}
                         (when recommendations
                           {:text (->> (food/get-nutrient-measurement food (:nutrient/id nutrient))
-                                      (get-recommended-daily-allowance recommendations))
-                           :class "mmm-tac"})]
+                                      (get-recommended-daily-allowance recommendations))})]
                        (remove nil?)))}]
         (mapcat
          #(when-let [nutrients (food/get-nutrients food (:nutrient/id %))]
@@ -173,8 +172,7 @@
                  {:text (get-nutrient-quantity food (:nutrient/id nutrient))}
                  (when recommendations
                    {:text (->> (food/get-nutrient-measurement food (:nutrient/id nutrient))
-                               (get-recommended-daily-allowance recommendations))
-                    :class "mmm-tac"})]
+                               (get-recommended-daily-allowance recommendations))})]
                 (remove nil?))]
           (let [level (inc level)]
             (->> (:nutrient/id nutrient)
