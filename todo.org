@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [23/37]
+* Tickets [24/38]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -20,7 +20,7 @@
 ** DONE ADI: Vise på matvaresiden
 ** DONE [M] Alle næringsstoffer-siden
 ** DONE [M] Språkskifte i header
-** TODO Analyseverktøy
+** DONE Analyseverktøy
 ** TODO Flere trivia-bolker
 ** DONE [M] Sesongvarer for hele året
 ** DONE [M] Illustrasjoner til hver matvaregruppe
@@ -46,6 +46,7 @@
 ** DONE Sjekk muligheter for å style pila i selecten litt bedre
 ** DONE Flytt kilde til venstre for mengde
 ** TODO Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter
+** TODO Trigge analytics-events på interaksjoner
 * Sammenligning [12/15]
 ** DONE Lag page-entity for sammenligning
 ** DONE Rendre en statisk sammenligning mellom tre matvarer
