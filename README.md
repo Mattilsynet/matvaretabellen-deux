@@ -119,6 +119,10 @@ sammen komponenter og UI-elementer. Denne kan du kjøre ved å gjøre noe slikt:
 
     Denne vil gjerne ha en liste med nye matvare-ID'er. Oppdater samtidig årstallet.
 
+- Vurder om du skal fjerne `outdated-food-group-ids` i foodcase-import
+
+    Her er det gamle ID'er som forhåpentligvis har blitt ryddet bort i FoodCASE.
+
 Etter alt dette skal det bare være å dytte en commit til origin/main, og du kan
 gå og spise kake sammen med klagesaksavdelingen.
 

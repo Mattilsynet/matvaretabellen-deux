@@ -177,7 +177,13 @@
            "name" "Melk og melkebasert drikke"})
          {:food-group/id "1.1"
           :food-group/name "Melk og melkebasert drikke"
-          :food-group/parent {:food-group/id "1"}})))
+          :food-group/parent {:food-group/id "1"}}))
+
+  (is (= (sut/foodcase-foodgroup->food-group
+          {"id" "1.4.1"
+           "parentId" "1.4"
+           "name" "Ost, ekstra fet - UT"})
+         nil)))
 
 (deftest foodcase-nutrient->nutrient
   (testing "known non-constituents are not included with nutrients"

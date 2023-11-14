@@ -149,8 +149,16 @@
        m
        (find-key-paths m i18n-attrs)))))
 
+(def outdated-food-group-ids
+  #{"1.4.1" "1.4.2" "1.4.3" "2.1" "2.2" "3.1.1" "3.1.2" "3.2.1" "3.2.2"
+    "3.3.1" "3.3.2" "3.4.1" "3.4.2" "3.5.1" "3.5.2" "3.6" "3.6.1" "3.6.2"
+    "4.1.1.1" "4.1.1.2" "4.1.2.1" "4.1.2.2" "4.1.4" "5.2.1" "5.2.2"
+    "5.11" "6.1" "6.2.1" "6.2.2" "6.2.3" "6.3" "6.4" "6.4.1" "6.4.2"
+    "6.5" "8.4" "10.1" "10.2" "10.3" "10.4" "10.8"})
+
 (defn foodcase-foodgroup->food-group [{:strs [id parentId name]}]
-  (when (seq id)
+  (when (and (seq id)
+             (not (outdated-food-group-ids id)))
     (cond-> {:food-group/id id
              :food-group/name name}
       (seq parentId)
