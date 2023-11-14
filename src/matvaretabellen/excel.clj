@@ -6,6 +6,7 @@
             [matvaretabellen.misc :as misc]
             [matvaretabellen.nutrient :as nutrient])
   (:import (java.io ByteArrayOutputStream FileOutputStream)
+           (org.apache.poi.ss.util CellRangeAddress)
            (org.apache.poi.xssf.usermodel XSSFWorkbook)))
 
 (defn add-index [coll]
@@ -34,15 +35,18 @@
         bold-style (create-bold-style workbook)
         title-style (create-title-style workbook)]
     (doseq [{:keys [title rows]} sheets]
-      (let [sheet (.createSheet workbook title)]
-        (doseq [{:keys [index cells bold? title?]} (add-index rows)]
+      (let [sheet (.createSheet workbook title)
+            column-count (count-columns rows)]
+        (doseq [{:keys [index cells bold? title? merged?]} (add-index rows)]
           (let [row (.createRow sheet index)]
             (doseq [{:keys [index text]} (add-index cells)]
               (let [cell (.createCell row index)]
                 (when bold? (.setCellStyle cell bold-style))
                 (when title? (.setCellStyle cell title-style))
-                (.setCellValue cell text)))))
-        (doseq [i (range (count-columns rows))]
+                (.setCellValue cell text)))
+            (when merged?
+              (.addMergedRegion sheet (CellRangeAddress. index index 0 (dec column-count))))))
+        (doseq [i (range column-count)]
           (.autoSizeColumn sheet i))))
     workbook))
 
@@ -120,17 +124,30 @@
                        (str (get-in field [:nutrient/name locale])
                             " (" (:nutrient/unit field) ")"))})})
 
+(defn get-top-group [food-group]
+  (if-let [parent (:food-group/parent food-group)]
+    (get-top-group parent)
+    food-group))
+
+(defn prepare-food-rows [locale fields foods prep]
+  (->> (group-by (comp get-top-group :food/food-group) foods)
+       (sort-by (comp :food-group/id first))
+       (mapcat
+        (fn [[group foods]]
+          (into [{:merged? true :title? true
+                  :cells [{:text (get-in group [:food-group/name locale])}]}]
+                (for [food (sort-by :food/id foods)]
+                  {:cells (prep fields food)}))))))
+
 (defn prepare-foods-sheet [locale title fields foods]
   {:title title
    :rows (into [(prepare-foods-header-row fields locale)]
-               (for [food (sort-by :food/id foods)]
-                 {:cells (prepare-food-cells fields food)}))})
+               (prepare-food-rows locale fields foods prepare-food-cells))})
 
 (defn prepare-reference-sheet [locale title fields foods]
   {:title title
    :rows (into [(prepare-foods-header-row fields locale)]
-               (for [food (sort-by :food/id foods)]
-                 {:cells (prepare-reference-cells fields food)}))})
+               (prepare-food-rows locale fields foods prepare-reference-cells))})
 
 (defn prepare-reference-lookup-sheet [db locale title reference-sheet]
   {:title title
