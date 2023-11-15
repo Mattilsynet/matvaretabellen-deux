@@ -71,9 +71,10 @@
           [:div.mmm-container.mmm-section
            [:div.mmm-media
             [:article.mmm-vert-layout-m
-             [:div [:h1.mmm-h1 nutrient-name]
+             [:div.mmm-vert-layout-s
+              [:h1.mmm-h1 nutrient-name]
               (when (seq foods)
-                [:i18n :i18n/number-of-foods {:count (count foods)}])]
+                [:p.mmm-p [:i18n :i18n/number-of-foods {:count (count foods)}]])]
              (when desc
                [:div.mmm-text.mmm-preamble
                 [:p (if (string? desc)
