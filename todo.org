@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [26/38]
+* Tickets [26/40]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -28,6 +28,8 @@
 ** TODO [M] Tekster til hvert næringsstoff
 ** DONE [M] Merke XL med kilder
 ** TODO Søkefelt på alle sider
+** TODO Kortnavn på matvare i brødsmuler
+** TODO Fast bredde på TOC og søkefelt
 ** DONE [C] Matvare-id og latinsk navn => klassifisering
 ** TODO Stolpediagrammer
 ** DONE [M] Internasjonalisering av porsjonsstørrelser
