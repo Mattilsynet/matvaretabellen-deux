@@ -59,14 +59,14 @@
   :compare-food "Compare"
   :composition "Composition"
   :edible-part [:fn/str "Edible part: {{:pct}} %"]
-  :energy-content "Energy Content"
+  :energy-content "Energy content"
   :energy-content-title-mobile (list "Per " [:fn/get :portion])
   :energy-content-title (list "Energy in " [:fn/get :portion])
   :energy [:fn/str "Caloric content: {{:kilo-joules}} ({{:calories}} kcal)"]
   :energy-highlight-title [:fn/str "Energy →"]
-  :energy-title "Composition and Energy"
+  :energy-title "Composition and energy"
   :composition-title [:fn/str "{{:title}} composition"]
-  :fat-title "Fatty Acids"
+  :fat-title "Fatty acids"
   :food-id (list [:strong "Food ID:"] " " [:fn/get :id])
   :grams [:fn/str "{{:value}} grams"]
   :kcal-content-title (list "Calories in " [:fn/get :portion])
