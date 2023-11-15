@@ -54,7 +54,7 @@
      [:head
       [:title nutrient-name]]
      [:body
-      (SiteHeader {:home-url "/"
+      (SiteHeader {:home-url (urls/get-base-url locale)
                    :extra-link {:text [:i18n :i18n/other-language]
                                 :url (urls/get-nutrient-url
                                       ({:en :nb :nb :en} locale)

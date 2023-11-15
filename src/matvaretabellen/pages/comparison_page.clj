@@ -14,7 +14,7 @@
 
 (defn render-header [locale]
   (SiteHeader
-   {:home-url "/"
+   {:home-url (urls/get-base-url locale)
     :extra-link {:text [:i18n :i18n/other-language]
                  :url (urls/get-comparison-url ({:en :nb :nb :en} locale))}}))
 

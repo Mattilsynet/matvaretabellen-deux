@@ -31,11 +31,12 @@
      [:head
       [:title (get-in food-group [:food-group/name locale])]]
      [:body
-      (SiteHeader {:home-url "/"
-                   :extra-link {:text [:i18n :i18n/other-language]
-                                :url (urls/get-food-group-url
-                                      ({:en :nb :nb :en} locale)
-                                      food-group)}})
+      (SiteHeader
+       {:home-url (urls/get-base-url locale)
+        :extra-link {:text [:i18n :i18n/other-language]
+                     :url (urls/get-food-group-url
+                           ({:en :nb :nb :en} locale)
+                           food-group)}})
       [:div.mmm-themed.mmm-brand-theme1
        [:div.mmm-container.mmm-section
         (Breadcrumbs
