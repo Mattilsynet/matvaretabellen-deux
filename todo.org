@@ -40,8 +40,8 @@
 ** DONE OpenGraph på matvaresidene
 ** TODO Ta en runde med ipad-bredde 800px
 ** TODO Sorter høyt/lavt på næringsstoff-sidene
-** TODO Vis filtrering i venstrekolonnen på næringsstoff-sidene
-** TODO Vis hierarki over næringsstoffer i venstrekolonnen på næringsstoff-sidene
+** TODO [C] Vis filtrering i venstrekolonnen på næringsstoff-sidene
+** TODO [C] Vis hierarki over næringsstoffer i venstrekolonnen på næringsstoff-sidene
 ** DONE Støtt oppslag på food-id via søkefeltet, eks 05.448
 ** DONE Avrunde kJ og kcal til hele tall (minimum 1) - aldri desimaler
 ** TODO Søk på næringsstoff
