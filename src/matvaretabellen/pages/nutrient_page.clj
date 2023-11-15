@@ -8,7 +8,6 @@
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.urls :as urls]
-            [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.button :refer [Button]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
@@ -61,12 +60,11 @@
                                       nutrient)}})
       [:div
        [:div.mmm-themed.mmm-brand-theme1
-        [:div.mmm-container.mmm-section
-         (Breadcrumbs
-          {:links (crumbs/crumble locale
-                                  {:text [:i18n ::crumbs/all-nutrients]
-                                   :url (urls/get-nutrients-url locale)}
-                                  {:text nutrient-name})})]
+        (layout/render-toolbar
+         {:locale locale
+          :crumbs [{:text [:i18n ::crumbs/all-nutrients]
+                    :url (urls/get-nutrients-url locale)}
+                   {:text nutrient-name}]})
         (let [details (d/entity (:app/db context) [:nutrient/id (:nutrient/id nutrient)])
               desc (get-in details [:nutrient/long-description locale])
               illustration (:nutrient/illustration details)]
