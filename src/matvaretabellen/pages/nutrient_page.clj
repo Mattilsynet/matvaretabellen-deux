@@ -19,10 +19,7 @@
    :rows (for [food foods]
            [{:text [:a.mmm-link {:href (urls/get-food-url locale food)}
                     [:i18n :i18n/lookup (:food/name food)]]}
-            {:text (->> (:nutrient/id nutrient)
-                        (food/get-nutrient-measurement food)
-                        :measurement/quantity
-                        str)
+            {:text (food/get-nutrient-quantity food (:nutrient/id nutrient))
              :class "mmm-tar mmm-nbr"}
             (comparison/render-toggle-cell food locale)])})
 

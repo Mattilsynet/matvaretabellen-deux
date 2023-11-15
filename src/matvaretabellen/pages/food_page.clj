@@ -18,28 +18,6 @@
             [mmm.components.site-header :refer [SiteHeader]]
             [mmm.components.toc :refer [Toc]]))
 
-(defn format-number [n {:keys [decimals]}]
-  (let [decimals (if (= (Math/floor n) n)
-                   0
-                   (or decimals 1))]
-    [:i18n :i18n/number {:n n :decimals decimals}]))
-
-(defn wrap-in-portion-span [num & [{:keys [decimals class]}]]
-  [:span (cond-> {:data-portion (str num)}
-           decimals (assoc :data-decimals (str decimals))
-           class (assoc :class class))
-   (format-number num {:decimals decimals})])
-
-(defn get-calculable-quantity [measurement & [opt]]
-  (when-let [q (:measurement/quantity measurement)]
-    (list (wrap-in-portion-span (b/num q) opt) " "
-          [:span.mvt-sym (b/symbol q)])))
-
-(defn get-nutrient-quantity [food nutrient-id]
-  (or (some->> (food/get-nutrient-measurement food nutrient-id)
-               get-calculable-quantity)
-      "–"))
-
 (defn get-nutrient-link [db locale nutrient]
   (let [label [:i18n :i18n/lookup (nutrient/get-name nutrient)]
         url (urls/get-nutrient-url locale nutrient)]
@@ -70,16 +48,16 @@
              [{:text (get-nutrient-link db locale nutrient)}
               {:text (get-source food id)
                :class "mvt-source"}
-              {:text (get-nutrient-quantity food id)
+              {:text (food/get-nutrient-quantity food id)
                :class "mmm-tar mvt-amount"}]))})
 
 (defn get-kj [food & [opt]]
   (when (:measurement/quantity (:food/energy food))
-    (get-calculable-quantity (:food/energy food) (assoc opt :decimals 0))))
+    (food/get-calculable-quantity (:food/energy food) (assoc opt :decimals 0))))
 
 (defn get-kcal [food & [opt]]
   (when-let [kcal (some-> food :food/calories :measurement/observation parse-long)]
-    (list (wrap-in-portion-span kcal (assoc opt :decimals 0)) " kcal")))
+    (list (food/wrap-in-portion-span kcal (assoc opt :decimals 0)) " kcal")))
 
 (defn energy [food]
   (concat
@@ -101,7 +79,7 @@
                             (filter (comp #{id} :nutrient/id :constituent/nutrient))
                             first)]
        {:title [:i18n ::highlight-title (nutrient/get-name (:constituent/nutrient constituent))]
-        :detail [:span (wrap-in-portion-span
+        :detail [:span (food/wrap-in-portion-span
                         (or (some-> constituent
                                     :measurement/quantity
                                     b/num)
@@ -142,7 +120,7 @@
                   (->> [{:text (get-nutrient-link db locale nutrient)}
                         {:text (get-source food (:nutrient/id nutrient))
                          :class "mvt-source"}
-                        {:text (get-nutrient-quantity food (:nutrient/id nutrient))
+                        {:text (food/get-nutrient-quantity food (:nutrient/id nutrient))
                          :class "mmm-tar mvt-amount"}
                         (when recommendations
                           {:text (->> (food/get-nutrient-measurement food (:nutrient/id nutrient))
@@ -167,7 +145,7 @@
                   :level level}
                  {:text (get-source food (:nutrient/id nutrient))
                   :class "mvt-source"}
-                 {:text (get-nutrient-quantity food (:nutrient/id nutrient))
+                 {:text (food/get-nutrient-quantity food (:nutrient/id nutrient))
                   :class "mmm-tar mvt-amount"}
                  (when recommendations
                    {:text (->> (food/get-nutrient-measurement food (:nutrient/id nutrient))
@@ -266,7 +244,7 @@
                               [:i18n :i18n/lookup (nutrient/get-name (:constituent/nutrient constituent))]
                               ": "
                               [:strong
-                               (wrap-in-portion-span value)
+                               (food/wrap-in-portion-span value)
                                (some->> constituent :measurement/quantity b/symbol (str " "))]]})))
        (remove nil?)
        (remove #(= 0.0 (:value %)))

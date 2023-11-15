@@ -60,7 +60,7 @@
 (defn get-nutrient-row [app-db locale food nutrient]
   {:data-nutrient-id (:nutrient/id nutrient)
    :cols [{:text (food-page/get-nutrient-link app-db locale nutrient)}
-          {:text (food-page/get-nutrient-quantity food (:nutrient/id nutrient))
+          {:text (food/get-nutrient-quantity food (:nutrient/id nutrient))
            :class [:mvtc-nutrient]
            :data-nutrient-id (:nutrient/id nutrient)}]})
 

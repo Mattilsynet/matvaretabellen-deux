@@ -1,6 +1,33 @@
 (ns matvaretabellen.food-test
   (:require [clojure.test :refer [deftest testing is]]
-            [matvaretabellen.food :as sut]))
+            [matvaretabellen.food :as sut]
+            [matvaretabellen.misc :as misc]))
+
+(deftest calculable-quantites-test
+  (testing "Rounds to the desired number of decimals"
+    (is (= (sut/get-calculable-quantity
+            {:measurement/quantity (misc/kilojoules 1295.670427)}
+            {:decimals 2})
+           '([:span {:data-portion "1295.670427"
+                     :data-decimals "2"}
+              [:i18n :i18n/number {:n 1295.670427, :decimals 2}]] " "
+             [:span.mvt-sym "kJ"]))))
+
+  (testing "Always rounds whole numbers to 0 decimals"
+    (is (= (sut/get-calculable-quantity
+            {:measurement/quantity (misc/kilojoules 1295.0)}
+            {:decimals 2})
+           '([:span {:data-portion "1295.0"
+                     :data-decimals "2"}
+              [:i18n :i18n/number {:n 1295.0, :decimals 0}]] " "
+             [:span.mvt-sym "kJ"]))))
+
+  (testing "Defaults to 1 decimal"
+    (is (= (sut/get-calculable-quantity
+            {:measurement/quantity (misc/kilojoules 1295.670427)})
+           '([:span {:data-portion "1295.670427"}
+              [:i18n :i18n/number {:n 1295.670427, :decimals 1}]] " "
+             [:span.mvt-sym "kJ"])))))
 
 (deftest humanize-langual-classification-test
   (is (= (sut/humanize-langual-classification "PASTEURIZED BY HEAT")
