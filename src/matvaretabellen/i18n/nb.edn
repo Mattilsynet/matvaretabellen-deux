@@ -25,8 +25,8 @@
   :stage-for-comparison "Legg til for sammenligning"}
 
  #:matvaretabellen.crumbs
- {:all-food-groups "Alle matvaregrupper"
-  :all-nutrients "Alle næringsstoffer"
+ {:all-food-groups "Matvaregrupper"
+  :all-nutrients "Næringsstoffer"
   :home "Hjem"
   :search-label "Søk i Matvaretabellen"}
 
@@ -97,7 +97,7 @@
   }
 
  #:matvaretabellen.pages.food-groups-page
- {:all-food-groups "Alle matvaregrupper"
+ {:all-food-groups "Matvaregrupper"
   :prose (list "Matvarene i Matvaretabellen er fordelt på " [:fn/get :count] " hovedgrupper etter opprinnelse og bruk. Under disse gruppene finnes det også egne kategorier.")
   :download-everything "Last ned hele tabellen"
   :download-url "/alle-matvarer.xlsx"}
@@ -106,8 +106,8 @@
  {:download-these "Last ned tabellen"}
 
  #:matvaretabellen.pages.frontpage
- {:all-food-groups "Alle matvaregrupper →"
-  :all-nutrients "Alle næringsstoffer →"
+ {:all-food-groups "Matvaregrupper →"
+  :all-nutrients "Næringsstoffer →"
   :banana-nutrition-facts "Banan er den frukten med høyest innhold av karbohydrater blant fruktene i Matvaretabellen. Den har også et høyt innhold av magnesium."
   :common-food-searches "Vanlige matvaresøk"
   :did-you-know "Visste du at..."
@@ -122,7 +122,7 @@
   :see-all-nutrients-overview "Se oversikt over alle næringsstoffer."}
 
  #:matvaretabellen.pages.nutrients-page
- {:all-nutrients "Alle næringsstoffer"
+ {:all-nutrients "Næringsstoffer"
   :prose "I Matvaretabellen finnes det 9 ulike kategorier av næringsstoffer. Næringsstoffer er kjemiske forbindelser og byggeklossene i matvarene som tilfører energi og/eller næring."}
 
  #:matvaretabellen.pages.nutrient-page

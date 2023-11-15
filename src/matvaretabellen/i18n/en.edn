@@ -25,8 +25,8 @@
   :stage-for-comparison "Add for comparison"}
 
  #:matvaretabellen.crumbs
- {:all-food-groups "All Food Groups"
-  :all-nutrients "All nutrients"
+ {:all-food-groups "Food Groups"
+  :all-nutrients "Nutrients"
   :home "Home"
   :search-label "Search in Matvaretabellen"}
 
@@ -97,7 +97,7 @@
   }
 
  #:matvaretabellen.pages.food-groups-page
- {:all-food-groups "All Food Groups"
+ {:all-food-groups "Food Groups"
   :prose (list "The foods in the Food Composition Table are divided into " [:fn/get :count] " main groups based on origin and use. Under these groups, there are also specific categories.")
   :download-everything "Download the entire table"
   :download-url "/all-foods.xlsx"}
@@ -106,8 +106,8 @@
  {:download-these "Download the table"}
 
  #:matvaretabellen.pages.frontpage
- {:all-food-groups "All Food Groups →"
-  :all-nutrients "All Nutrients →"
+ {:all-food-groups "Food Groups →"
+  :all-nutrients "Nutrients →"
   :banana-nutrition-facts "Bananas have the highest carbohydrate content among the fruits in the Food Table. They also have high magnesium content."
   :common-food-searches "Common Searches"
   :did-you-know "Did you know..."
@@ -122,7 +122,7 @@
   :see-all-nutrients-overview "See an overview of all nutrients."}
 
  #:matvaretabellen.pages.nutrients-page
- {:all-nutrients "All nutrients"
+ {:all-nutrients "Nutrients"
   :prose "In the Norwegian Food Composition Table, there are nine different categories of nutrients. Nutrients are chemical compounds that serve as the building blocks in foods, providing energy and/or nourishment."}
 
  #:matvaretabellen.pages.nutrient-page
