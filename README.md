@@ -158,17 +158,28 @@ Velg HTTPS og fullfører flyten som følger.
 NÅ! Nå, er du klar for å kjøre opp ting:
 
 ```sh
-cd tf
+cd tf/app
 terraform init
 terraform plan
 terraform apply
 ```
 
 Dette vil sette opp nødvendig infrastruktur. Merk at [terraform-oppsettet
-vårt](./tf/main.tf) har et "hello world" image. Dette imaget brukes kun ved
+vårt](./tf/app/main.tf) har et "hello world" image. Dette imaget brukes kun ved
 første gangs oppsett. [Github
 Actions-arbeidsflyten](.github/workflows/build.yml) ber CloudRun om å kjøre nye
 images ved push.
+
+### DNS-oppsett
+
+DNS-oppsettet lever i en egen terraform-modul:
+
+```sh
+cd tf/dns
+terraform init
+terraform plan
+terraform apply
+```
 
 ### Github Actions
 
