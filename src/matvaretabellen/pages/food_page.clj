@@ -347,15 +347,14 @@
      :contents contents
      :class class})])
 
-(defn render-compare-button [food]
-  [:div.mmm-desktop
-   (Button {:class [:mmm-hidden :mvt-compare-food]
-            :text [:i18n ::compare-food]
-            :inline? true
-            :secondary? true
-            :icon :fontawesome.solid/code-compare
-            :data-food-id (:food/id food)
-            :data-food-name [:i18n :i18n/lookup (:food/name food)]})])
+(defn render-compare-button [food opts]
+  (Button (merge {:class [:mmm-hidden :mvt-compare-food]
+                  :text [:i18n ::compare-food]
+                  :secondary? true
+                  :icon :fontawesome.solid/code-compare
+                  :data-food-id (:food/id food)
+                  :data-food-name [:i18n :i18n/lookup (:food/name food)]}
+                 opts)))
 
 (defn summarize-constituent [food id locale]
   (let [c (food/get-nutrient-measurement food id)]
@@ -424,13 +423,14 @@
              [:p.mmm-h3.mmm-mbs.mmm-desktop (energy food)]]]
            [:div.mmm-cards
             (->> (prepare-macro-highlights food)
-                 (map DetailFocusCard))]]]
+                 (map DetailFocusCard))]]
+          [:div.mmm-mobile.mmm-mtm (render-compare-button food {:inline? false})]]
          (render-toc {:contents (get-toc-items)})]]]
       [:div.mmm-container.mmm-section
        [:div.mmm-flex-desktop.mmm-flex-bottom.mmm-mbl
         [:h2.mmm-h2.mmm-mbn#naringsinnhold [:i18n ::nutrition-title]]
         [:div.mmm-flex.mmm-flex-bottom.mmm-flex-gap
-         (render-compare-button food)
+         [:div.mmm-desktop (render-compare-button food {:inline? true})]
          (render-portion-select locale (:food/portions food))]]]
 
       (passepartout-wide
