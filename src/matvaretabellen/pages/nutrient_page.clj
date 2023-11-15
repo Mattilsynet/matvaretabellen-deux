@@ -74,24 +74,27 @@
            [:div.mmm-media
             [:article.mmm-vert-layout-m
              [:div [:h1.mmm-h1 nutrient-name]
-              [:i18n :i18n/number-of-foods {:count (count foods)}]]
+              (when (seq foods)
+                [:i18n :i18n/number-of-foods {:count (count foods)}])]
              (when desc
                [:div.mmm-text.mmm-preamble
                 [:p (if (string? desc)
                       (mashdown/render db locale desc)
                       desc)]])
-             [:div
-              (Button {:text [:i18n ::download-these]
-                       :href (urls/get-nutrient-excel-url locale nutrient)
-                       :icon :fontawesome.solid/arrow-down
-                       :inline? true
-                       :secondary? true})]]
+             (when (seq foods)
+               [:div
+                (Button {:text [:i18n ::download-these]
+                         :href (urls/get-nutrient-excel-url locale nutrient)
+                         :icon :fontawesome.solid/arrow-down
+                         :inline? true
+                         :secondary? true})])]
             (when (and desc illustration) ;; looks horrible without text
               [:aside.mmm-desktop {:style {:flex-basis "40%"}}
                [:img {:src illustration :width 300}]])]])]
 
-       [:div.mmm-container-medium.mmm-section.mmm-vert-layout-m
-        (render-nutrient-foods-table nutrient foods locale)]
+       (when (seq foods)
+         [:div.mmm-container-medium.mmm-section.mmm-vert-layout-m
+          (render-nutrient-foods-table nutrient foods locale)])
 
        (comparison/render-comparison-drawer locale)]])))
 
