@@ -7,6 +7,7 @@
             [matvaretabellen.components.pie-chart :refer [assoc-degrees PieChart]]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
+            [matvaretabellen.food-name :as food-name]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.rda :as rda]
@@ -433,7 +434,7 @@
         (Breadcrumbs
          {:links (crumbs/crumble locale
                                  (:food/food-group food)
-                                 {:text food-name})})]
+                                 {:text (food-name/shorten-name food-name)})})]
        [:div.mmm-container.mmm-section
         [:div.mmm-media-d.mmm-media-at
          [:article.mmm-vert-layout-spread

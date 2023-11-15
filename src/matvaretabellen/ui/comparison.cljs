@@ -1,12 +1,20 @@
 (ns matvaretabellen.ui.comparison
   (:require [clojure.string :as str]
-            [matvaretabellen.diff :as diff]))
+            [matvaretabellen.diff :as diff]
+            [matvaretabellen.food-name :as food-name]))
 
 (defn qsa [selector]
   (seq (js/document.querySelectorAll selector)))
 
 (defn qs [selector]
   (js/document.querySelector selector))
+
+(defn update-food-store [store foods]
+  (->> (map (fn [food name]
+              (assoc food :shortName name))
+            foods
+            (food-name/shorten-names (map :foodName foods)))
+   (reset! store)))
 
 (def comparison-k "comparisonFoods")
 
@@ -29,27 +37,8 @@
            js->clj
            (map keywordize-some)))
 
-(def name-length 20)
-
-(defn get-short-name [food]
-  (if (< (count (:foodName food)) name-length)
-    (:foodName food)
-    (let [pieces (str/split (:foodName food) #",")
-          candidate (first pieces)]
-      (if (< (count candidate) name-length)
-        candidate
-        (loop [words (seq (str/split candidate #" "))
-               res []]
-          (if (nil? words)
-            (str/join " " res)
-            (let [word (first words)
-                  new-res (conj res word)]
-              (if (< (reduce + (map count new-res)) name-length)
-                (recur (next words) new-res)
-                (str/join " " res)))))))))
-
 (defn get-abbreviated-name [food]
-  (let [short (get-short-name food)]
+  (let [short (:shortName food)]
     (if (not= (:foodName food) short)
       (str "<abbr class=\"mmm-abbr\" title=\"" (:foodName food) "\">" short "</abbr>")
       short)))
@@ -239,7 +228,7 @@
           (.addEventListener pill "click" (fn [_e]
                                             (->> (get-foods-to-compare)
                                                  (remove #(= (:id food) (:id %)))
-                                                 (reset! foods))))
+                                                 (update-food-store foods))))
           (.appendChild pills pill))))))
 
 (defn update-comparison-uis [foods buttons-selector drawer-selector & [opt]]
@@ -250,7 +239,7 @@
   (let [updated (if (some (comp #{(:id data)} :id) @foods)
                   (remove #(= (:id data) (:id %)) @foods)
                   (concat @foods [data]))]
-    (reset! foods updated)))
+    (update-food-store foods updated)))
 
 (defn initialize-tooling
   "Initialize the compare button and the comparison drawer on pages that are not
@@ -264,7 +253,7 @@
     (when (< 0 (count @foods))
       (when-let [drawer (js/document.querySelector drawer-selector)]
         (->> (fn [_e]
-               (js/requestAnimationFrame #(reset! foods nil)))
+               (js/requestAnimationFrame #(update-food-store foods nil)))
              (.addEventListener (.querySelector drawer ".mmm-icon-button") "click"))))
     (update-comparison-uis foods buttons-selector drawer-selector)
     (doseq [button (qsa buttons-selector)]
