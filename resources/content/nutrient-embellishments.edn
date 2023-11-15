@@ -17,10 +17,10 @@
   :nutrient/long-description
   {:nb "Proteiner er en av de energigivende næringsstoffer, sammen med [karbohydrater|Karbo], [fett|Fett], [alkohol|Alko] og [kostfiber|Fiber].
         Næringsstoffet består av aminosyrer, og finnes i nesten alle typer matvarer.
-        Kilder til proteiner inkluderer både animalske og vegetabilske matvarer som [kjøtt|fg-3], [fisk|fg-4], [egg|fg-2], [meieriprodukter|fg-1], [kornprodukter|fg-5], [belgvekster|fg-12], [nøtter og frø|fg-14]."
+        Kilder til proteiner inkluderer både animalske og vegetabilske matvarer som [kjøtt|fg-3], [fisk|fg-4.1], [egg|fg-2], [meieriprodukter|fg-1], [kornprodukter|fg-5], [belgvekster|fg-12], [nøtter og frø|fg-14]."
    :en "Proteins are one of the energy-yielding nutrients, along with [carbohydrates|Karbo], [fat|Fett], [alcohol|Alko], and [dietary fiber|Fiber].
         This nutrient consists of amino acids and is found in almost all types of foods.
-        Sources of protein include both animal and plant-based foods such as [meat|fg-3], [fish|fg-4], [eggs|fg-2], [dairy products|fg-1], [cereal products|fg-5], [legumes|fg-12], [nuts and seeds|fg-14]."}}
+        Sources of protein include both animal and plant-based foods such as [meat|fg-3], [fish|fg-4.1], [eggs|fg-2], [dairy products|fg-1], [cereal products|fg-5], [legumes|fg-12], [nuts and seeds|fg-14]."}}
 
  {:nutrient/id "Fett"
   :nutrient/category {:db/ident :nutrient.category/macro}
@@ -33,12 +33,12 @@
         Næringsstoffet kan deles opp i [mettede|Mettet] og umettede fettsyrer.
         Umettede fettsyrer kan deles opp i [en-|Enumet] og [flerumettede fettsyrer|Flerum].
         Det finnes også [transfett|Trans] og [kolesterol|Kolest].
-        Kilder til fett er [matfett|fg-8], [meieriprodukter|fg-1], [kjøtt|fg-3], [fet fisk|fg-4], [nøtter|fg-14] og [snacks|fg-7]."
+        Kilder til fett er [matfett|fg-8], [meieriprodukter|fg-1], [kjøtt|fg-3], [fet fisk|fg-4.1.1], [nøtter|fg-14] og [snacks|fg-7]."
    :en "Fat is one of the energy-yielding nutrients, along with [protein], [carbohydrates|Karbo], [fiber], and [alcohol|Alko].
         This nutrient can be divided into [saturated|Mettet] and unsaturated fatty acids.
         Unsaturated fatty acids can further be categorized into [monounsaturated|Enumet] and [polyunsaturated fatty acids|Flerum].
         There are also [trans fats|Trans] and [cholesterol|Kolest].
-        Sources of fat include [cooking fats|fg-8], [dairy products|fg-1], [meat|fg-3], [fatty fish|fg-4], [nuts|fg-14], and [snacks|fg-7]."}}
+        Sources of fat include [cooking fats|fg-8], [dairy products|fg-1], [meat|fg-3], [fatty fish|fg-4.1.1], [nuts|fg-14], and [snacks|fg-7]."}}
 
  {:nutrient/id "Alko"
   :nutrient/category {:db/ident :nutrient.category/macro}
@@ -95,8 +95,13 @@
   :nutrient/category {:db/ident :nutrient.category/micro}
   :nutrient/photo "/images/nutrients/fettloselige-vitaminer/photo.jpg"
   :nutrient/illustration "/images/nutrients/fettloselige-vitaminer/illustration.svg"
-  :nutrient/short-description {:nb "Denne kategorien inneholder vitamin A, D og E. Vitaminene finnes typisk i fettholdig mat, både animalsk og vegetarisk."
-                               :en "This category includes vitamins A, D, and E, which are typically found in fatty foods, both animal-based and vegetarian."}}
+  :nutrient/short-description {:nb "Inkluderer vitamin A (retinol og betakaroten), vitamin D og vitamin E. Finnes typisk i fettholdig mat."
+                               :en "Includes vitamin A (retinol and beta-carotene), vitamin D, and vitamin E. These are typically found in fatty foods."}
+  :nutrient/long-description
+  {:nb "Fettløselige vitaminer er en av de ikke energigivende næringsstoffene sammen med [vannløselige vitaminer|WaterSolubleVitamins], [mineraler|Minerals] og [sporstoffer|TraceElements].
+        De består av [A-vitaminene|Vit A] [retinol] og [betakaroten|B-karo], i tillegg til [vitamin D|Vit D] og [E|Vit E]. Vitaminene finnes typisk i fettrike matvarer."
+   :en "Fat-soluble vitamins are one of the non-energy-yielding nutrients, along with [water-soluble vitamins|WaterSolubleVitamins], [minerals|Minerals], and [trace elements|TraceElements].
+        They consist of [vitamin A|Vit A] [retinol] and [beta-carotene|B-karo], as well as [vitamin D|Vit D] and [vitamin E|Vit E]. These vitamins are typically found in fat-rich foods."}}
 
  {:nutrient/id "Minerals"
   :category/order 2
@@ -153,10 +158,10 @@
   :nutrient/long-description
   {:nb "C16:0, eller palmitinsyre, er en mettet fettsyre med 16 karbonatomer i fettkjeden.
         Andre mettede fettsyrer er [C12:0|C12:0Laurinsyre], [C14:0|C14:0Myristinsyre] og [C18:0|C18:0Stearinsyre].
-        Palmitinsyre forekommer naturlig i animalske produkter som [kjøtt|fg-3] og [meieriprodukter|fg-1], samt i enkelte vegetabilske oljer som [palmeolje|08.236].  "
+        Palmitinsyre forekommer naturlig i animalske produkter som [kjøtt|fg-3] og [meieriprodukter|fg-1], samt i enkelte [vegetabilske oljer|fg-8.2] som [palmeolje|08.236].  "
    :en "C16:0, or palmitic acid, is a saturated fatty acid with 16 carbon atoms in the fatty acid chain.
         Other saturated fatty acids are [C12:0|C12:0Laurinsyre], [C14:0|C14:0Myristinsyre], and [C18:0|C18:0Stearinsyre].
-        Palmitic acid occurs naturally in animal products such as [meat|fg-3] and [dairy products|fg-1], as well as in certain vegetable oils like [palm oil|08.236]."}}
+        Palmitic acid occurs naturally in animal products such as [meat|fg-3] and [dairy products|fg-1], as well as in certain [vegetable oils|fg-8.2] like [palm oil|08.236]."}}
 
  {:nutrient/id "C18:0Stearinsyre"
   :nutrient/long-description
@@ -171,21 +176,21 @@
   :nutrient/long-description
   {:nb "Enumettede fettsyrer er en type fett sammen med [mettet|Mettet] og [flerumettet fett|Flerum].
         De inneholder kun én dobbeltbinding mellom karbonatomene i fettkjeden.
-        Matvarer som inneholder disse fettsyrene er f.eks. [vegetabilske oljer|fg-8], [nøtter, frø|fg-14] og [kjøtt|fg-3]. "
+        Matvarer som inneholder disse fettsyrene er f.eks. [vegetabilske oljer|fg-8.2], [nøtter, frø|fg-14] og [kjøtt|fg-3]. "
    :en "Monounsaturated fatty acids are a type of fat along with [saturated|Mettet] and [polyunsaturated fats|Flerum].
         They contain only one double bond between the carbon atoms in the fatty acid chain.
-        Foods that contain these fatty acids include, for example, [vegetable oils|fg-8], [nuts, seeds|fg-14], and [meat|fg-3]."}}
+        Foods that contain these fatty acids include, for example, [vegetable oils|fg-8.2], [nuts, seeds|fg-14], and [meat|fg-3]."}}
 
  {:nutrient/id "C16:1"
   :nutrient/long-description
   {:nb "C16:1 sum, eller palmitoleinsyre, er en enumettet fettsyre med 16 karbonatomer i fettkjeden.
         Fettsyren kjennetegnes ved at den har én dobbeltbinding mellom det 9. og 10. karbonatomet, talt fra metylenden.
         En annen enumettede fettsyre er [C18:1 sum|C18:1].
-        Palmitoleinsyre finnes naturlig i matvarer som [fisk|fg-4], [nøtter, frø|fg-14] og [kjøtt|fg-3].  "
+        Palmitoleinsyre finnes naturlig i matvarer som [fisk|fg-4.1], [nøtter, frø|fg-14] og [kjøtt|fg-3].  "
    :en "C16:1 sum, or palmitoleic acid, is a monounsaturated fatty acid with 16 carbon atoms in the fatty acid chain.
         This fatty acid is characterized by having one double bond between the 9th and 10th carbon atoms, counted from the methyl end.
         Another monounsaturated fatty acid is [C18:1 sum|C18:1].
-        Palmitoleic acid is naturally found in foods such as [fish|fg-4], [nuts, seeds|fg-14], and [meat|fg-3]."}}
+        Palmitoleic acid is naturally found in foods such as [fish|fg-4.1], [nuts, seeds|fg-14], and [meat|fg-3]."}}
 
  {:nutrient/id "C18:1"
   :nutrient/long-description
@@ -203,31 +208,31 @@
   {:nb "Flerumettede fettsyrer er en type fett sammen med [mettet|Mettet] og [enumettet fett|Enumet].
         De inneholder to eller flere dobbeltbindinger mellom karbonatomene i fettkjeden.
         To vanlige undergrupper av flerumettede fettsyrer er [omega-3] og [omega-6] fettsyrer, med henholdsvis –3 og –6 dobbeltbindinger i fettkjeden.
-        Matvarer som typisk inneholder flerumettede fettsyrer er [fet fisk|fg-4], [vegetabilske oljer|fg-8], [nøtter og frø|fg-14]. "
+        Matvarer som typisk inneholder flerumettede fettsyrer er [fet fisk|fg-4.1.1], [vegetabilske oljer|fg-8.2], [nøtter og frø|fg-14]. "
    :en "Polyunsaturated fatty acids are a type of fat along with [saturated|Mettet] and [monounsaturated fats|Enumet].
         They contain two or more double bonds between the carbon atoms in the fatty acid chain.
         Two common subgroups of polyunsaturated fatty acids are [omega-3] and [omega-6] fatty acids, with respectively –3 and –6 double bonds in the fatty acid chain.
-        Foods that typically contain polyunsaturated fatty acids are [fatty fish|fg-4], [vegetable oils|fg-8], [nuts and seeds|fg-14]."}}
+        Foods that typically contain polyunsaturated fatty acids are [fatty fish|fg-4.1.1], [vegetable oils|fg-8.2], [nuts and seeds|fg-14]."}}
 
  {:nutrient/id "Omega-3"
   :nutrient/long-description
   {:nb "Omega-3 fettsyrer er en type flerumettet fettsyre sammen med [omega-6].
         I omega-3 fettsyrer er den første dobbeltbindingen på det tredje karbonatomet fra metylenden.
-        Disse fettsyrene finnes i matvarer som [fet fisk|fg-4], [valnøtter|06.560] og [linfrø|05.012]."
+        Disse fettsyrene finnes i matvarer som [fet fisk|fg-4.1.1], [valnøtter|06.560] og [linfrø|05.012]."
    :en "Omega-3 fatty acids are a type of polyunsaturated fatty acid along with [omega-6].
         In omega-3 fatty acids, the first double bond is located at the third carbon atom from the methyl end.
-        These fatty acids are found in foods such as [fatty fish|fg-4], [walnuts|06.560], and [flaxseeds|05.012]."}}
+        These fatty acids are found in foods such as [fatty fish|fg-4.1.1], [walnuts|06.560], and [flaxseeds|05.012]."}}
 
  {:nutrient/id "C18:3n-3AlfaLinolensyre"
   :nutrient/long-description
   {:nb "C18:3n-3, eller alfalinolensyre, er en flerumettet [omega-3] fettsyre med 18 karbonatomer i fettkjeden.
         Fettsyren inneholder tre dobbeltbindinger hvor den første er plassert på det tredje karbonatomet fra metylenden.
         Andre flerumettede [omega-3] fettsyrer er [C20:3n-3|C20:3n-3Eikosatriensyre], [C20:4n-3|C20:4n-3Eikosatetraensyre] og [C20:5n-3|C20:5n-3Eikosapentaensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre] og [C22:6n-3|C22:6n-3Dokosaheksaensyre].
-        Alfalinolensyre finnes i vegetabilske matvarer som [linfrø|05.012], [chiafrø|05.380], [valnøtter|06.560], i tillegg til [fet fisk|fg-4]."
+        Alfalinolensyre finnes i vegetabilske matvarer som [linfrø|05.012], [chiafrø|05.380], [valnøtter|06.560], i tillegg til [fet fisk|fg-4.1.1]."
    :en "C18:3n-3, or alpha-linolenic acid, is a polyunsaturated [omega-3] fatty acid with 18 carbon atoms in the fatty acid chain.
         The fatty acid contains three double bonds, with the first one placed at the third carbon atom from the methyl end.
         Other polyunsaturated [omega-3] fatty acids are [C20:3n-3|C20:3n-3Eikosatriensyre], [C20:4n-3|C20:4n-3Eikosatetraensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre], and [C22:6n-3|C22:6n-3Dokosaheksaensyre].
-        Alpha-linolenic acid is found in plant foods such as [flaxseeds|05.012], [chia seeds|05.380], [walnuts|06.560], as well as in [fatty fish|fg-4]."}}
+        Alpha-linolenic acid is found in plant foods such as [flaxseeds|05.012], [chia seeds|05.380], [walnuts|06.560], as well as in [fatty fish|fg-4.1.1]."}}
 
  {:nutrient/id "C20:3n-3Eikosatriensyre"
   :nutrient/long-description
@@ -245,40 +250,40 @@
   {:nb "C20:4n-3, eller arakidonsyre, er en flerumettet omega-3 fettsyre med 20 karbonatomer i fettkjeden.
         Fettsyren inneholder fire dobbeltbindinger hvor den første er plassert på det tredje karbonatomet fra metylenden.
         Andre flerumettede [omega-3] fettsyrer er [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre] og [C20:5n-3|C20:5n-3Eikosapentaensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre] og [C22:6n-3|C22:6n-3Dokosaheksaensyre].
-        Arakidonsyre finnes i noen typer fet fisk."
+        Arakidonsyre finnes i noen typer [fet fisk|fg-4.1.1]."
    :en "C20:4n-3, or arachidonic acid, is a polyunsaturated omega-3 fatty acid with 20 carbon atoms in the fatty acid chain.
         The fatty acid contains four double bonds, with the first one placed at the third carbon atom from the methyl end.
         Other polyunsaturated [omega-3] fatty acids are [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre], and [C22:6n-3|C22:6n-3Dokosaheksaensyre].
-        Arachidonic acid is found in some types of fatty fish."}}
+        Arachidonic acid is found in some types of [fatty fish|fg-4.1.1]."}}
 
  {:nutrient/id "C20:5n-3Eikosapentaensyre"
   :nutrient/long-description
   {:nb "C20:5n-3, eller eikosapentaensyre (EPA), er en langkjedet omega-3 fettsyre med 20 karbonatomer i fettkjeden.
         Fettsyren inneholder fem dobbeltbindinger hvor den første er plassert på det tredje karbonatomet fra metylenden.
         Andre flerumettede [omega-3] fettsyrer er [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre] og [C20:4n-3|C20:4n-3Eikosatetraensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre] og [C22:6n-3|C22:6n-3Dokosaheksaensyre].
-        EPA finnes hovedsakelig i fet fisk som [laks|04.220] og [makrell|04.022]."
+        EPA finnes hovedsakelig i [fet fisk|fg-4.1.1] som [laks|04.220] og [makrell|04.022]."
    :en "C20:5n-3, or eicosapentaenoic acid (EPA), is a long-chain omega-3 fatty acid with 20 carbon atoms in the fatty acid chain.
         The fatty acid contains five double bonds, with the first one placed at the third carbon atom from the methyl end.
         Other polyunsaturated [omega-3] fatty acids are [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre], [C20:4n-3|C20:4n-3Eikosatetraensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre], and [C22:6n-3|C22:6n-3Dokosaheksaensyre].
-        EPA is primarily found in fatty fish such as [salmon|04.220] and [mackerel|04.022]."}}
+        EPA is primarily found in [fatty fish|fg-4.1.1] such as [salmon|04.220] and [mackerel|04.022]."}}
 
  {:nutrient/id "C22:5n-3Dokosapentaensyre"
   :nutrient/long-description
   {:nb "C22:5n-3, eller dokosaheksaensyre (DPA), er en langkjedet omega-3 fettsyre med 22 karbonatomer i fettkjeden.
         Fettsyren inneholder fem dobbeltbindinger hvor den første er plassert på det tredje karbonatomet fra metylenden.
         Andre flerumettede [omega-3] fettsyrer er [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre] og [C20:4n-3|C20:4n-3Eikosatetraensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre] og [C22:6n-3|C22:6n-3Dokosaheksaensyre].
-        DPA finnes i matvarer som fet fisk, inkludert [laks|04.220], [sild|04.382] og [makrell|04.022].  "
+        DPA finnes i matvarer som [fet fisk|fg-4.1.1], inkludert [laks|04.220], [sild|04.382] og [makrell|04.022].  "
    :en "C22:5n-3, or docosapentaenoic acid (DPA), is a long-chain omega-3 fatty acid with 22 carbon atoms in the fatty acid chain.
         The fatty acid contains five double bonds, with the first one placed at the third carbon atom from the methyl end.
         Other polyunsaturated [omega-3] fatty acids are [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre], [C20:4n-3|C20:4n-3Eikosatetraensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre], and [C22:6n-3|C22:6n-3Dokosaheksaensyre].
-        DPA is found in foods such as fatty fish, including [salmon|04.220], [herring|04.382], and [mackerel|04.022]."}}
+        DPA is found in foods such as [fatty fish|fg-4.1.1], including [salmon|04.220], [herring|04.382], and [mackerel|04.022]."}}
 
  {:nutrient/id "C22:6n-3Dokosaheksaensyre"
   :nutrient/long-description
   {:nb "C22:6n-3, eller dokosaheksaensyre (DHA), er en langkjedet omega-3 fettsyre med 22 karbonatomer i fettkjeden.
         Fettsyren inneholder seks dobbeltbindinger hvor den første er plassert på det tredje karbonatomet fra metylenden.
         Andre flerumettede [omega-3] fettsyrer er [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre] og [C20:4n-3|C20:4n-3Eikosatetraensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre] og [C22:5n-3|C22:5n-3Dokosapentaensyre].
-        DHA finnes hovedsakelig i fet fisk som [laks|04.220] og [makrell|04.022]."
+        DHA finnes hovedsakelig i [fet fisk|fg-4.1.1] som [laks|04.220] og [makrell|04.022]."
    :en "C22:6n-3, or docosahexaenoic acid (DHA), is a long-chain omega-3 fatty acid with 22 carbon atoms in the fatty acid chain.
         The fatty acid contains six double bonds, with the first one placed at the third carbon atom from the methyl end.
         Other polyunsaturated [omega-3] fatty acids are [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre], [C20:4n-3|C20:4n-3Eikosatetraensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre], and [C22:5n-3|C22:5n-3Dokosapentaensyre].
@@ -361,6 +366,103 @@
         This nutrient is a naturally occurring sugar in foods.
         Examples of sugars include fructose in [fruit|fg-13] and lactose in [milk|fg-1]."}}
 
+ {:nutrient/id "Vit B1"
+  :nutrient/long-description
+  {:nb "Vitamin B1, eller tiamin, er en type vannløselig vitamin sammen med vitamin
+        [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat], [B12|Vit B12]) og [C|Vit C].
+        Tiamin finnes typisk i [kornprodukter|fg-5], [kjøtt|fg-3] og [meieriprodukter|fg-1]."
+   :en "Vitamin B1, or thiamin, is a type of water-soluble vitamin along with vitamins
+        [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat], [B12|Vit B12]) and [C|Vit C].
+        Thiamin is typically found in [cereal products|fg-5], [meat|fg-3], and [dairy products|fg-1]."}}
 
+ {:nutrient/id "Vit B2"
+  :nutrient/long-description
+  {:nb "Vitamin B2, eller riboflavin, er en type vannløselig vitamin sammen med vitamin
+        ([B1|Vit B1], [B3|Niacin], [B6|Vit B6], [B9|Folat], [B12|Vit B12]) og [C|Vit C].
+        Matvarer som [kjøtt|fg-3], [meieriprodukter|fg-1], [grønne grønnsaker|fg-6], [belgvekster|fg-12] og [mandler|06.107] er kilder til riboflavin."
+   :en "Vitamin B2, or riboflavin, is a type of water-soluble vitamin along with vitamins
+        ([B1|Vit B1], [B3|Niacin], [B6|Vit B6], [B9|Folat], [B12|Vit B12]) and [C|Vit C].
+        Foods such as [meat|fg-3], [dairy products|fg-1], [green vegetables|fg-6], [legumes|fg-12], and [almonds|06.107] are sources of riboflavin."}}
 
+ {:nutrient/id "Niacin"
+  :nutrient/long-description
+  {:nb "Vitamin B3, eller niacin, er en type vannløselig vitamin sammen med vitamin
+        ([B1|Vit B1], [B2|Vit B2], [B6|Vit B6], [B9|Folat], [B12|Vit B12]) og [C|Vit C].
+        Matvarer som er gode kilder til niacin inkluderer [kjøtt|fg-3], [egg|fg-2], [fisk|fg-4.1], [meieriprodukter|fg-1], og [belgvekster|fg-12]."
+   :en "Vitamin B3, or niacin, is a type of water-soluble vitamin along with vitamins
+        ([B1|Vit B1], [B2|Vit B2], [B6|Vit B6], [B9|Folat], [B12|Vit B12]) and [C|Vit C].
+        Foods that are good sources of niacin include [meat|fg-3], [eggs|fg-2], [fish|fg-4.1], [dairy products|fg-1], and [legumes|fg-12]."}}
+
+ {:nutrient/id "Vit B6"
+  :nutrient/long-description
+  {:nb "Vitamin B6, eller pyridoksin, er en type vannløselig vitamin sammen med vitamin
+        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B9|Folat], [B12|Vit B12]) og [C|Vit C].
+        Gode kilder til pyridoksin inkluderer [kjøtt|fg-3], [fisk|fg-4.1], [poteter|fg-15], [brød|fg-5], og [meieriprodukter|fg-1]."
+   :en "Vitamin B6, or pyridoxine, is a type of water-soluble vitamin along with vitamins
+        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B9|Folat], [B12|Vit B12]) and [C|Vit C].
+        Good sources of pyridoxine include [meat|fg-3], [fish|fg-4.1], [potatoes|fg-15], [bread|fg-5], and [dairy products|fg-1]."}}
+
+ {:nutrient/id "Folat"
+  :nutrient/long-description
+  {:nb "Vitamin B9, eller folat, er en type vannløselig vitamin sammen med vitamin
+        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B12|Vit B12]) og [C|Vit C].
+        [Grønne bladgrønnsaker|fg-6], [belgfrukter|fg-12] og [nøtter|fg-14] er gode kilder til folat."
+   :en "Vitamin B9, or folate, is a type of water-soluble vitamin along with vitamins
+        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B12|Vit B12]) and [C|Vit C].
+        [Green leafy vegetables|fg-6], [legumes|fg-12], and [nuts|fg-14] are good sources of folate."}}
+
+ {:nutrient/id "Vit B12"
+  :nutrient/long-description
+  {:nb "Vitamin B12, eller kobalamin, er en type vannløselig vitamin sammen med vitamin
+        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat]) og [C|Vit C].
+        Dette vitaminet finnes typisk i animalske matvarer som [kjøtt|fg-3] og [fisk|fg-4.1]."
+   :en "Vitamin B12, or cobalamin, is a type of water-soluble vitamin along with vitamins
+        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat]) and [C|Vit C].
+        This vitamin is typically found in animal foods such as [meat|fg-3] and [fish|fg-4.1]."}}
+
+ {:nutrient/id "Vit C"
+  :nutrient/long-description
+  {:nb "Vitamin C, eller askorbinsyre, er en type vannløselig vitamin sammen med alle B-vitaminene
+        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat] og [B12|Vit B12]).
+        Askorbinsyre eksisterer typisk i [frukt, bær|fg-13], [mørkegrønne bladgrønnsaker|06.064] og [potet|fg-15]."
+   :en "Vitamin C, or ascorbic acid, is a type of water-soluble vitamin along with all the B-vitamins
+        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat], and [B12|Vit B12])
+        Ascorbic acid is typically found in [fruit, berries|fg-13], [dark green leafy vegetables|06.064], and [potato|fg-15]."}}
+
+ {:nutrient/id "Vit A"
+  :nutrient/long-description
+  {:nb "Vitamin A er en form for fettløselig vitamin som finnes i flere former, bl.a. [retinol] og [betakaroten|B-karo].
+        Andre fettløselige vitaminer er [vitamin E|Vit E] og [D|Vit D].
+        Matvarer som typisk inneholder vitamin A er både animalske og vegetabilske matvarer som f.eks. [gulrøtter|06.036] og [kjøtt|fg-3]."
+   :en "Vitamin A is a type of fat-soluble vitamin that exists in several forms, including [retinol] and [beta-carotene|B-karo].
+        Other fat-soluble vitamins are [vitamin E|Vit E] and [vitamin D|Vit D].
+        Foods that typically contain vitamin A include both animal and plant-based foods, such as [carrots|06.036] and [meat|fg-3]."}}
+
+ {:nutrient/id "Retinol"
+  :nutrient/long-description
+  {:nb "Retinol er en form for [vitamin A|Vit A], sammen med [betakaroten|B-karo].
+        Næringsstoffet finnes typisk i flere animalske matvarer som [kjøtt|fg-3], [innmat|fg-3.9], [egg|fg-2] og [meieriprodukter|fg-1]  "
+   :en "Retinol is a form of [vitamin A|Vit A], along with [beta-carotene|B-karo].
+        This nutrient is typically found in various animal foods such as [meat|fg-3], [offal|fg-3.9], [eggs|fg-2], and [dairy products|fg-1]."}}
+
+ {:nutrient/id "B-karo"
+  :nutrient/long-description
+  {:nb "Betakaroten er en form for [vitamin A|Vit A], sammen med [retinol].
+        Næringsstoffet finnes typisk i flere vegetabilske matvarer som [gulrot|06.036], [mørkegrønne bladgrønnsaker|06.064] og [paprika|06.048]."
+   :en "Beta-carotene is a form of [vitamin A|Vit A], along with [retinol].
+        This nutrient is typically found in various plant-based foods such as [carrot|06.036], [dark green leafy vegetables|06.064], and [sweet pepper|06.048]."}}
+
+ {:nutrient/id "Vit D"
+  :nutrient/long-description
+  {:nb "Vitamin D, eller kolekalsiferol, er en type [fettløselig vitamin|FatSolubleVitamins] sammen med [vitamin A|Vit A] og [E|Vit E].
+        Matvarer som typisk inneholder vitamin D er [fet fisk|fg-4.1.1] og [egg|fg-2]."
+   :en "Vitamin D, or cholecalciferol, is a type of [fat-soluble vitamin|FatSolubleVitamins] along with [vitamin A|Vit A] and [vitamin E|Vit E].
+        Foods that typically contain vitamin D are [fatty fish|fg-4.1.1] and [eggs|fg-2]."}}
+
+ {:nutrient/id "Vit E"
+  :nutrient/long-description
+  {:nb "Vitamin E, eller alfatokoferol, er en type fettløselig vitamin sammen med [vitamin A|Vit A] og [D|Vit D].
+        Gode kilder til vitamin E er [vegetabilske oljer|fg-8.2], [nøtter, frø|fg-14] og [egg|fg-2]."
+   :en "Vitamin E, or alpha-tocopherol, is a type of fat-soluble vitamin along with [vitamin A|Vit A] and [vitamin D|Vit D].
+        Good sources of vitamin E are [vegetable oils|fg-8.2], [nuts, seeds|fg-14], and [eggs|fg-2]."}}
  ]
