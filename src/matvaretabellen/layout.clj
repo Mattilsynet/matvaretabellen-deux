@@ -20,7 +20,7 @@
   [:div.mmm-container.mmm-section.mmm-flex-desktop.mmm-flex-desktop-middle.mmm-mobile-vert-layout-m
    (Breadcrumbs
     {:links (apply crumbs/crumble locale crumbs)})
-   [:form.mvt-aside-col
+   [:form.mvt-aside-col.mvt-search-col
     (SearchInput
      {:button {:text [:i18n :i18n/search-button]}
       :input {:name "foods-search"

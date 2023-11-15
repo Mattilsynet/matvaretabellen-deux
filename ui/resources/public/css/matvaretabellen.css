@@ -209,7 +209,7 @@
         flex-basis: 18rem;
     }
 
-    .mvt-aside-col:focus-within {
+    .mvt-search-col:focus-within {
         flex-basis: 25rem;
     }
 }
