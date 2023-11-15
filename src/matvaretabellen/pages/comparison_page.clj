@@ -23,7 +23,7 @@
    (Breadcrumbs
     {:links (crumbs/crumble
              locale
-             {:text [:i18n ::crumbs/search-label]
+             {:text [:i18n :i18n/search-label]
               :url (urls/get-base-url locale)}
              {:text [:i18n ::compare-foods]})})])
 

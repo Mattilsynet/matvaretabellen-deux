@@ -31,7 +31,7 @@
       [:div.mmm-themed.mmm-brand-theme1
        (layout/render-toolbar
         {:locale locale
-         :crumbs [{:text [:i18n ::crumbs/search-label]
+         :crumbs [{:text [:i18n :i18n/search-label]
                    :url (urls/get-base-url locale)}
                   {:text [:i18n ::crumbs/all-nutrients]}]})
        [:div.mmm-container.mmm-section.mmm-mvxl

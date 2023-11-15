@@ -3,7 +3,8 @@
   :other-language "In English"
   :number-of-foods (list "Antall matvarer: " [:fn/get :count] " stk")
   :number [:fn/num [:fn/get :n] [:fn/param]]
-  :search-button "Søk"}
+  :search-button "Søk"
+  :search-label "Søk i Matvaretabellen"}
 
  #:mmm.components.footer
  {:footer-title "Footer"
@@ -28,8 +29,7 @@
  #:matvaretabellen.crumbs
  {:all-food-groups "Matvaregrupper"
   :all-nutrients "Næringsstoffer"
-  :home "Hjem"
-  :search-label "Søk i Matvaretabellen"}
+  :home "Hjem"}
 
  #:matvaretabellen.diff
  {:similar "tilsvarende"
@@ -116,8 +116,6 @@
   :open-graph-description "Matvaretabellen har inngående informasjon om energi- og næringsinnholdet i tusenvis av matvarer. Du kan søke opp spesifikke matvarer, sammenligne dem, og lære mer om hvilke matvarer som byr på mye eller lite av de forskjellige næringsstoffene."
   :open-graph-title "Matvaretabellen.no - en tjeneste fra Mattilsynet"
   :read-more-about-banana "Les mer om bananen her."
-  :search-button "Søk"
-  :search-label "Søk i Matvaretabellen"
   :seasonal-goods "Sesongvarer"
   :see-all-food-groups-overview "Se oversikt over alle matvaregrupper."
   :see-all-nutrients-overview "Se oversikt over alle næringsstoffer."}

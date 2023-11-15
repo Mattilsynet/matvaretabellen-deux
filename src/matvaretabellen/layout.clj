@@ -24,6 +24,7 @@
     (SearchInput
      {:button {:text [:i18n :i18n/search-button]}
       :input {:name "foods-search"
-              :data-suggestions "8"}
+              :data-suggestions "8"
+              :placeholder [:i18n :i18n/search-label]}
       :autocomplete-id "foods-results"
       :size :small})]])

@@ -3,7 +3,8 @@
   :other-language "På norsk"
   :number-of-foods (list "Number of food items: " [:fn/get :count])
   :number [:fn/num [:fn/get :n] [:fn/param]]
-  :search-button "Search"}
+  :search-button "Search"
+  :search-label "Search in Matvaretabellen"}
 
  #:mmm.components.footer
  {:footer-title "Footer"
@@ -28,8 +29,7 @@
  #:matvaretabellen.crumbs
  {:all-food-groups "Food Groups"
   :all-nutrients "Nutrients"
-  :home "Home"
-  :search-label "Search in Matvaretabellen"}
+  :home "Home"}
 
  #:matvaretabellen.diff
  {:similar "similar"
@@ -116,8 +116,6 @@
   :open-graph-description "Matvaretabellen provides in-depth information on the energy and nutritional content of thousands of foods. You can search for specific foods, compare them, and learn about which foods offer high or low levels of various nutrients."
   :open-graph-title "Matvaretabellen.no - a service from Mattilsynet"
   :read-more-about-banana "Read more about the banana here."
-  :search-button "Search"
-  :search-label "Search in Matvaretabellen"
   :seasonal-goods "Seasonal Goods"
   :see-all-food-groups-overview "See an overview of all food groups."
   :see-all-nutrients-overview "See an overview of all nutrients."}
