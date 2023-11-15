@@ -5,8 +5,8 @@
 (def size-classes
   {:small :mmm-search-input-compact})
 
-(defn SearchInput [{:keys [button input results autocomplete-id size]}]
-  [:fieldset.mmm-search-input {:class (size-classes size)}
+(defn SearchInput [{:keys [button input results autocomplete-id size class]}]
+  [:fieldset.mmm-search-input {:class [(size-classes size) class]}
    [:div.mmm-action-input
     (TextInput
      (cond-> (assoc input :type "search" :size size)

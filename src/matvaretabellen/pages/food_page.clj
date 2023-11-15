@@ -5,14 +5,12 @@
             [matvaretabellen.components.comparison :as comparison]
             [matvaretabellen.components.legend :refer [Legend]]
             [matvaretabellen.components.pie-chart :refer [assoc-degrees PieChart]]
-            [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
             [matvaretabellen.food-name :as food-name]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.rda :as rda]
             [matvaretabellen.urls :as urls]
-            [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.button :refer [Button]]
             [mmm.components.card :refer [DetailFocusCard]]
             [mmm.components.checkbox :refer [Checkbox]]
@@ -364,7 +362,7 @@
     :href "#kilder"}])
 
 (defn render-toc [{:keys [contents class]}]
-  [:aside
+  [:aside.mvt-aside-col
    (Toc
     {:title [:i18n ::toc-title]
      :icon :fontawesome.solid/circle-info
@@ -430,11 +428,11 @@
                                 :url (urls/get-food-url
                                       ({:en :nb :nb :en} locale) food)}})
       [:div.mmm-themed.mmm-brand-theme1
-       [:div.mmm-container.mmm-section
-        (Breadcrumbs
-         {:links (crumbs/crumble locale
-                                 (:food/food-group food)
-                                 {:text (food-name/shorten-name food-name)})})]
+       (layout/render-toolbar
+        {:locale locale
+         :crumbs [(:food/food-group food)
+                  {:text (->> (get-in food [:food/name locale])
+                              food-name/shorten-name)}]})
        [:div.mmm-container.mmm-section
         [:div.mmm-media-d.mmm-media-at
          [:article.mmm-vert-layout-spread

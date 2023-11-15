@@ -193,3 +193,18 @@
     width: clamp(13vw, 100px, 100px);
     max-width: 200px;
 }
+
+@media only screen and (min-width: 768px) {
+    .mvt-aside-col,
+    aside.mvt-aside-col {
+        flex-basis: 15rem;
+        flex-shrink: 0;
+        transition: flex-basis 0.25s;
+    }
+}
+
+@media only screen and (min-width: 960px) {
+    .mvt-aside-col:focus-within {
+        flex-basis: 25rem;
+    }
+}

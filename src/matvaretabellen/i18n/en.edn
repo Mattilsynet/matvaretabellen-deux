@@ -2,7 +2,8 @@
  {:lookup [:fn/str "{{:en}}"]
   :other-language "På norsk"
   :number-of-foods (list "Number of food items: " [:fn/get :count])
-  :number [:fn/num [:fn/get :n] [:fn/param]]}
+  :number [:fn/num [:fn/get :n] [:fn/param]]
+  :search-button "Search"}
 
  #:mmm.components.footer
  {:footer-title "Footer"

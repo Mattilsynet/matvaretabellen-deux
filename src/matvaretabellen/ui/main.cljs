@@ -44,7 +44,8 @@
       (#{:pending :loading} (:foods-status @search-engine))))
 
 (defn handle-autocomplete-input-event [e element locale]
-  (let [q (.-value (.-target e))]
+  (let [q (.-value (.-target e))
+        n (or (some-> (.-target e) (.getAttribute "data-suggestions") js/parseInt) 10)]
     (if (< (.-length q) 3)
       (set! (.-innerHTML element) "")
       (if (waiting?)
@@ -57,7 +58,7 @@
               (str/join
                (flatten
                 ["<ol class='mmm-ac-results'>"
-                 (for [result (take 10 (foods-search/search @search-engine q))]
+                 (for [result (take n (foods-search/search @search-engine q))]
                    ["<li class='mmm-ac-result'>"
                     ["<a href='" (urls/get-food-url locale (:name result)) "'>" (:name result) "</a>"]
                     "</li>"])
@@ -98,13 +99,13 @@
     (set! js/window.location (.-href selected))))
 
 (defn initialize-foods-autocomplete [dom-element locale initial-query]
-  (when dom-element
-    (let [input (.querySelector dom-element "#foods-search")
-          element (js/document.createElement "div")]
+  (when-let [input (some-> dom-element (.querySelector "#foods-search"))]
+    (let [element (js/document.createElement "div")]
       (.appendChild dom-element element)
       (.addEventListener dom-element "input" #(handle-autocomplete-input-event % element locale))
       (.addEventListener dom-element "keyup" #(handle-autocomplete-key-event % element))
-      (.addEventListener (.closest dom-element "form") "submit" #(handle-autocomplete-submit-event %))
+      (when-let [form (.closest dom-element "form")]
+        (.addEventListener form "submit" #(handle-autocomplete-submit-event %)))
       (when (and initial-query (empty? (.-value input)))
         (set! (.-value input) initial-query))
       (when (seq (.-value input))

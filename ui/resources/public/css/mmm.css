@@ -646,6 +646,10 @@ table > tr.mmm-highlight {
         display: flex;
         justify-content: space-between;
     }
+
+    .mmm-flex-desktop-middle {
+        align-items: center;
+    }
 }
 
 .mmm-flex-bottom {
@@ -799,6 +803,14 @@ table > tr.mmm-highlight {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+@media only screen and (max-width: 767px) {
+    .mmm-mobile-vert-layout-m {
+        display: flex;
+        flex-direction: column;
+        gap: var(--mt-spacing-x1_4);
+    }
 }
 
 /***************
