@@ -204,6 +204,11 @@
 }
 
 @media only screen and (min-width: 960px) {
+    .mvt-aside-col,
+    aside.mvt-aside-col {
+        flex-basis: 18rem;
+    }
+
     .mvt-aside-col:focus-within {
         flex-basis: 25rem;
     }
