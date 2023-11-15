@@ -12,19 +12,22 @@
   :nutrient/category {:db/ident :nutrient.category/macro}
   :nutrient/photo "/images/nutrients/proteiner/photo.jpg"
   :nutrient/illustration "/images/nutrients/proteiner/illustration.svg"
-  :nutrient/short-description {:nb "Proteiner er bygget opp av aminosyrer og finnes typisk i kjøtt, meieriprodukter og belgvekster."
-                               :en "Proteins are composed of amino acids and are typically found in meat, dairy products, and legumes."}
-  :nutrient/long-description {:nb (list "Proteiner er en av de tre hovedtypene næringsstoffer, sammen med " [:a {:href "/karbohydrat/"} "karbohydrater"] " og " [:a {:href "/fett/"} "fett"] "."
-                                        " Proteiner er essensielle næringsstoffer som er viktige for oppbyggingen og reparasjonen av kroppens vev, inkludert muskler, hud og organer. De består av aminosyrer og er avgjørende for kroppens funksjoner. Kilder til proteiner inkluderer kjøtt, fisk, egg, meieriprodukter, nøtter og belgfrukter.")
-                              :en (list "Proteins are one of the three main types of nutrients, along with " [:a {:href "/en/carbohydrate-glycemic/"} "carbohydrates"] " and " [:a {:href "/en/fat/"} "fats"] "."
-                                        " Proteins are essential nutrients crucial for building and repairing the body's tissues, including muscles, skin, and organs. They are composed of amino acids and are vital for the body's functions. Sources of proteins include meat, fish, eggs, dairy products, nuts, and legumes.")}}
+  :nutrient/short-description {:nb "Kilder til protein er blant annet kjøtt, fisk og meieriprodukter."
+                               :en "Sources of protein include meat, fish, and dairy products."}
+  :nutrient/long-description
+  {:nb "Proteiner er en av de energigivende næringsstoffer, sammen med [karbohydrater|Karbo], [fett|Fett], [alkohol|Alko] og [kostfiber|Fiber].
+        Næringsstoffet består av aminosyrer, og finnes i nesten alle typer matvarer.
+        Kilder til proteiner inkluderer både animalske og vegetabilske matvarer som [kjøtt|fg-3], [fisk|fg-4], [egg|fg-2], [meieriprodukter|fg-1], [kornprodukter|fg-5], [belgvekster|fg-12], [nøtter og frø|fg-14]."
+   :en "Proteins are one of the energy-yielding nutrients, along with [carbohydrates|Karbo], [fat|Fett], [alcohol|Alko], and [dietary fiber|Fiber].
+        This nutrient consists of amino acids and is found in almost all types of foods.
+        Sources of protein include both animal and plant-based foods such as [meat|fg-3], [fish|fg-4], [eggs|fg-2], [dairy products|fg-1], [cereal products|fg-5], [legumes|fg-12], [nuts and seeds|fg-14]."}}
 
  {:nutrient/id "Fett"
   :nutrient/category {:db/ident :nutrient.category/macro}
   :nutrient/photo "/images/nutrients/fett/photo.jpg"
   :nutrient/illustration "/images/nutrients/fett/illustration.svg"
-  :nutrient/short-description {:nb "Fett er et energitett næringsstoff som det typisk finnes mye av i f.eks. smør og olje. Det eksisterer flere ulike varianter av fett."
-                               :en "Fat is an energy-dense nutrient commonly found in items like butter and oil. There are several different types of fat."}
+  :nutrient/short-description {:nb "Inkluderer mettede, enumettede og flerumettede fettsyrer, samt transfett og kolesterol."
+                               :en "Includes saturated, monounsaturated, and polyunsaturated fatty acids, as well as trans fat and cholesterol."}
   :nutrient/long-description
   {:nb "Fett er en av de energigivende næringsstoffene, sammen med [protein], [karbohydrater|Karbo], [fiber] og [alkohol|Alko].
         Næringsstoffet kan deles opp i [mettede|Mettet] og umettede fettsyrer.
@@ -41,15 +44,20 @@
   :nutrient/category {:db/ident :nutrient.category/macro}
   :nutrient/photo "/images/nutrients/alkohol/photo.jpg"
   :nutrient/illustration "/images/nutrients/alkohol/illustration.svg"
-  :nutrient/short-description {:nb "Dette energigivende næringsstoffet eksisterer det mest av i alkoholholdige drikkevarer som brennevin og likør."
-                               :en "This nutrient is most prevalent in alcoholic beverages such as spirits and liqueurs."}}
+  :nutrient/short-description {:nb "Inkluderer alkoholholdige drikkevarer som øl, vin og brennevin."
+                               :en "Includes alcoholic beverages such as beer, wine, and spirits."}
+  :nutrient/long-description
+  {:nb "Alkohol er et av de energigivende næringsstoffene sammen med [fett|Fett], [proteiner|Protein], [karbohydrater|Karbo] og [kostfiber|Fiber].
+        Næringsstoffet finnes i alkoholholdig drikke som øl, vin og brennevin."
+   :en "Alcohol is one of the energy-yielding nutrients, along with [fat|Fett], [proteins|Protein], [carbohydrates|Karbo], and [dietary fiber|Fiber].
+        This nutrient is found in alcoholic drinks such as beer, wine, and spirits."}}
 
  {:nutrient/id "Karbo"
   :nutrient/category {:db/ident :nutrient.category/macro}
   :nutrient/photo "/images/nutrients/karbohydrater/photo.jpg"
   :nutrient/illustration "/images/nutrients/karbohydrater/illustration.svg"
-  :nutrient/short-description {:nb "Karbohydrater er et energigivende næringsstoff med undergruppene stivelse, sukkerarter og tilsatt sukker."
-                               :en "Carbohydrates are an energy-yielding nutrient with subgroups including starch, sugars, and added sugars."}
+  :nutrient/short-description {:nb "Inkluderer stivelse, tilsatt sukker og sukkerarter."
+                               :en "Includes starch, sugars, and added sugars."}
   :nutrient/long-description
   {:nb "Karbohydrater er en av de energigivende næringsstoffene, sammen med [protein], [fett|Fett], [alkohol|Alko] og [kostfiber|Fiber].
         Karbohydrater kan også deles opp i undergruppene [stivelse|Stivel], [sukkerarter|Mono+Di] og [tilsatt sukker|Sukker].
@@ -62,16 +70,25 @@
   :nutrient/category {:db/ident :nutrient.category/macro}
   :nutrient/photo "/images/nutrients/kostfiber/photo.jpg"
   :nutrient/illustration "/images/nutrients/kostfiber/illustration.svg"
-  :nutrient/short-description {:nb "Matvarer med mye kostfiber er typisk grovt brød og grønnsaker."
-                               :en "Foods rich in dietary fiber typically include whole grain bread and vegetables."}}
+  :nutrient/short-description {:nb "Kilder til kostfiber er blant annet grove kornprodukter, belgfrukter og grønnsaker."
+                               :en "Sources of dietary fiber include whole grain products, legumes, and vegetables."}}
 
  {:nutrient/id "WaterSolubleVitamins"
   :category/order 0
   :nutrient/category {:db/ident :nutrient.category/micro}
   :nutrient/photo "/images/nutrients/vannloselige-vitaminer/photo.jpg"
   :nutrient/illustration "/images/nutrients/vannloselige-vitaminer/illustration.svg"
-  :nutrient/short-description {:nb "Denne kategorien inneholder vitamin C og B. Vitaminene foreligger typisk i frukt og grønnsaker."
-                               :en "This category includes vitamins C and B, which are typically found in fruits and vegetables."}}
+  :nutrient/short-description {:nb "Inneholder vitamin C og en rekke B-vitaminer. Vitaminene finnes typisk i frukt og grønnsaker."
+                               :en "Contains vitamin C and a range of B-vitamins. These vitamins are typically found in fruits and vegetables."}
+  :nutrient/long-description
+  {:nb "Vannløselige vitaminer er en av de ikke-energigivende næringsstoffene sammen med [fettløselige vitaminer|FatSolubleVitamins], [mineraler|Minerals] og [sporstoffer|TraceElements].
+        De består av [vitamin C|Vit C] og en en rekke B-vitaminer
+        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat] og [B12|Vit B12]).
+        Vannløselige vitaminer finnes typisk i [kornprodukter|fg-5], [frukt|fg-13] og [grønnsaker|fg-6]."
+   :en "Water-soluble vitamins are one of the non-energy-yielding nutrients, along with [fat-soluble vitamins|FatSolubleVitamins], [minerals|Minerals], and [trace elements|TraceElements].
+        They consist of [vitamin C|Vit C] and a range of B-vitamins
+        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat] og [B12|Vit B12]).
+        Water-soluble vitamins are typically found in [cereal products|fg-5], [fruits|fg-13], and [vegetables|fg-6]."}}
 
  {:nutrient/id "FatSolubleVitamins"
   :category/order 1
@@ -325,5 +342,25 @@
         Næringsstoffet finnes blant annet i matvarer som [ris|/?search=ris], [pasta|/?search=pasta] og [poteter|fg-15]. "
    :en "Starch is a form of [carbohydrate|Karbo] along with [added sugar|Sukker] and [sugars|Mono+Di].
         This nutrient is found in foods such as [rice|/en/?search=rice], [pasta|/en/?search=pasta], and [potatoes|fg-15]."}}
+
+ {:nutrient/id "Sukker"
+  :nutrient/long-description
+  {:nb "Tilsatt sukker er en form for [karbohydrat|Karbo] sammen med [stivelse|Stivel] og [sukkerarter|Mono+Di].
+        Stoffet refererer til sukker som er lagt til matvarer under produksjon eller tilberedning.
+        Tilsatt sukker finnes typisk i [søte matvarer|fg-7] som kaker, søtsaker, og brus.  "
+   :en "Added sugar is a form of [carbohydrate|Karbo] along with [starch|Stivel] and [sugars|Mono+Di].
+        This substance refers to sugar that is added to foods during production or preparation.
+        Added sugar is typically found in [sweet foods|fg-7] like cakes, confectionery, and soda."}}
+
+ {:nutrient/id "Mono+Di"
+  :nutrient/long-description
+  {:nb "Sukkerarter er en form for [karbohydrat|Karbo] sammen med [tilsatt sukker|Sukker] og [stivelse|Stivel].
+        Næringsstoffet er et naturlig forekommende sukker i matvarer.
+        Eksempler på sukkerarter er fruktose i [frukt|fg-13] og laktose i [melk|fg-1]."
+   :en "Sugars are a form of [carbohydrate|Karbo] along with [added sugar|Sukker] and [starch|Stivel].
+        This nutrient is a naturally occurring sugar in foods.
+        Examples of sugars include fructose in [fruit|fg-13] and lactose in [milk|fg-1]."}}
+
+
 
  ]
