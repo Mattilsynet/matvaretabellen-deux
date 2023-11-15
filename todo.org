@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [29/41]
+* Tickets [30/41]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -21,7 +21,7 @@
 ** DONE [M] Alle næringsstoffer-siden
 ** DONE [M] Språkskifte i header
 ** DONE Analyseverktøy
-** TODO Rå jordbær har ikke tilsatt sukker (sjekk beregning)
+** DONE Rå jordbær har ikke tilsatt sukker (sjekk beregning)
 ** TODO Flere trivia-bolker
 ** DONE [M] Sesongvarer for hele året
 ** DONE [M] Illustrasjoner til hver matvaregruppe
