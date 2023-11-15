@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [30/41]
+* Tickets [31/41]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -26,7 +26,7 @@
 ** DONE [M] Sesongvarer for hele året
 ** DONE [M] Illustrasjoner til hver matvaregruppe
 ** DONE [M] Tekster til hver matvaregruppe
-** TODO [M] Tekster til hvert næringsstoff
+** DONE [M] Tekster til hvert næringsstoff
 ** DONE [M] Merke XL med kilder
 ** DONE Søkefelt på alle sider
 ** DONE Kortnavn på matvare i brødsmuler

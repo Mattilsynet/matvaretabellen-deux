@@ -82,7 +82,7 @@
             db)
        (map #(d/entity db %))
        (remove (comp empty? :nutrient/unit))
-       (sort-by :nutrient/id)
+       (nutrient/sort-by-preference)
        (into [{:title "Matvare ID" :path [:food/id]}
               {:title "Matvare" :path [:food/name locale]}])))
 
