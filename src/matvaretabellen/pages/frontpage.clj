@@ -73,7 +73,7 @@
                                 :url (urls/get-base-url
                                       ({:en :nb :nb :en} locale))}})
       [:form.mmm-container-narrow.mmm-section.mmm-mbxxl.mmm-mtxl
-       [:h1.mmm-h2.mmm-mbl [:i18n :i18n/search-label]]
+       [:h1.mmm-h2.mmm-mbm [:i18n :i18n/search-label]]
        (SearchInput {:button {:text [:i18n :i18n/search-button]}
                      :input {:name "foods-search"}
                      :autocomplete-id "foods-results"})]
