@@ -7,7 +7,6 @@
             [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.urls :as urls]
-            [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.button :refer [Button]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
@@ -38,12 +37,11 @@
                            ({:en :nb :nb :en} locale)
                            food-group)}})
       [:div.mmm-themed.mmm-brand-theme1
-       [:div.mmm-container.mmm-section
-        (Breadcrumbs
-         {:links (crumbs/crumble locale
-                                 {:text [:i18n ::crumbs/search-label]
-                                  :url (urls/get-base-url locale)}
-                                 food-group)})]
+       (layout/render-toolbar
+        {:locale locale
+         :crumbs [{:text [:i18n ::crumbs/search-label]
+                   :url (urls/get-base-url locale)}
+                  food-group]})
        [:div.mmm-container.mmm-section.mmm-mvxl
         [:div.mmm-media
          [:article.mmm-vert-layout-m
