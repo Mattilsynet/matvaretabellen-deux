@@ -2,11 +2,14 @@
   (:require [mmm.components.button :refer [Button]]
             [mmm.components.text-input :refer [TextInput]]))
 
-(defn SearchInput [{:keys [button input results autocomplete-id]}]
-  [:fieldset.mmm-search-input
+(def size-classes
+  {:small :mmm-search-input-compact})
+
+(defn SearchInput [{:keys [button input results autocomplete-id size]}]
+  [:fieldset.mmm-search-input {:class (size-classes size)}
    [:div.mmm-action-input
     (TextInput
-     (cond-> (assoc input :type "search")
+     (cond-> (assoc input :type "search" :size size)
        (:name input)
        (assoc :id (:name input))
 
@@ -15,7 +18,7 @@
               :autocomplete "off"
               :aria-controls autocomplete-id
               :aria-haspopup "menu")))
-    (Button (assoc button :type "submit" :inline? true))]
+    (Button (assoc button :type "submit" :inline? true :size size))]
    (when (seq results)
      [:ol.mmm-ac-results
       (for [result results]

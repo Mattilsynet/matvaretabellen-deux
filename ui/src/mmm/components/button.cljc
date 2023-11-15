@@ -2,7 +2,8 @@
   (:require [fontawesome.icons :as icons]))
 
 (def sizes
-  {:large :mmm-button-large})
+  {:large :mmm-button-large
+   :small :mmm-button-small})
 
 (defn Button [{:keys [href text inline? secondary? icon icon-position size] :as attrs}]
   [(if href :a.mmm-button.mmm-focusable :button.mmm-button.mmm-focusable)

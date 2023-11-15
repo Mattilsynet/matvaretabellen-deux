@@ -356,6 +356,11 @@ table > tr.mmm-highlight {
     width: 25ch;
 }
 
+.mmm-input-compact {
+    height: 2rem;
+    font-size: var(--mt-typography-small-font-size);
+}
+
 /*********************
  *** Forms: Select ***
  *********************/
@@ -500,6 +505,10 @@ table > tr.mmm-highlight {
 
 .mmm-ac-selected a {
     background: var(--mt-component-ac-active-background);
+}
+
+.mmm-search-input-compact .mmm-ac-results {
+    font-size: var(--mt-typography-small-font-size);
 }
 
 /************************
@@ -1009,6 +1018,14 @@ a.mmm-button-secondary:link {
     height: 3.875rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+}
+
+.mmm-button-small {
+    height: 2rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    min-width: 6ch;
+    font-size: var(--mt-typography-small-font-size);
 }
 
 /******************************

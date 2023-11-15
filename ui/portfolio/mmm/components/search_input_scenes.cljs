@@ -15,6 +15,15 @@
               :icon (icons/icon :fontawesome.solid/magnifying-glass)}
      :input {:name "my-search"}})))
 
+(defscene small-search
+  (e/block
+   (SearchInput
+    {:label "Søk i Matvaretabellen"
+     :button {:text "Søk"
+              :icon (icons/icon :fontawesome.solid/magnifying-glass)}
+     :input {:name "my-search"}
+     :size :small})))
+
 (defscene eple-search
   (e/block {:style {:min-height "200px"}}
    (SearchInput
@@ -25,6 +34,18 @@
      :results [{:href "#" :text "Eple, tørket"}
                {:href "#" :text "Eple, rått"}
                {:href "#" :text "Eple, Granny Smith"}]})))
+
+(defscene small-eple-search
+  (e/block {:style {:min-height "200px"}}
+           (SearchInput
+            {:label "Søk i Matvaretabellen"
+             :button {:text "Søk"
+                      :icon (icons/icon :fontawesome.solid/magnifying-glass)}
+             :input {:name "my-search" :value "epl"}
+             :size :small
+             :results [{:href "#" :text "Eple, tørket"}
+                       {:href "#" :text "Eple, rått"}
+                       {:href "#" :text "Eple, Granny Smith"}]})))
 
 (defscene eple-search-navigating
   (e/block {:style {:min-height "200px"}}
