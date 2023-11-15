@@ -71,7 +71,7 @@
               {:text (get-source food id)
                :class "mvt-source"}
               {:text (get-nutrient-quantity food id)
-               :class "mmm-tar"}]))})
+               :class "mmm-tar mvt-amount"}]))})
 
 (defn get-kj [food & [opt]]
   (when (:measurement/quantity (:food/energy food))
@@ -143,7 +143,7 @@
                         {:text (get-source food (:nutrient/id nutrient))
                          :class "mvt-source"}
                         {:text (get-nutrient-quantity food (:nutrient/id nutrient))
-                         :class "mmm-tar"}
+                         :class "mmm-tar mvt-amount"}
                         (when recommendations
                           {:text (->> (food/get-nutrient-measurement food (:nutrient/id nutrient))
                                       (get-recommended-daily-allowance recommendations))
@@ -168,7 +168,7 @@
                  {:text (get-source food (:nutrient/id nutrient))
                   :class "mvt-source"}
                  {:text (get-nutrient-quantity food (:nutrient/id nutrient))
-                  :class "mmm-tar"}
+                  :class "mmm-tar mvt-amount"}
                  (when recommendations
                    {:text (->> (food/get-nutrient-measurement food (:nutrient/id nutrient))
                                (get-recommended-daily-allowance recommendations))
