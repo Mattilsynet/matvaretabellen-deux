@@ -115,7 +115,7 @@
         Mineralene i Matvaretabellen er [fosfor|P], [kalsium|Ca], [kalium|K], [magnesium|Mg], [salt|NaCl] og [natrium|Na].
         Viktige kilder til mineraler er [meieriprodukter|fg-1], [kjøtt|fg-3], [fisk|fg-4.1], [egg|fg-2], [frukt og bær|fg-13], [grønnsaker|fg-6] og [nøtter|fg-14.2]."
    :en "Minerals are non-energy-yielding nutrients along with [water-soluble vitamins|WaterSolubleVitamins], [fat-soluble vitamins|FatSolubleVitamins], and [trace elements|TraceElements].
-        The Minerals in this food table are [phosphorus|P], [calcium|Ca], [potassium|K], [magnesium|Mg], [salt|NaCl], and [sodium|Na].
+        The minerals in this food table are [phosphorus|P], [calcium|Ca], [potassium|K], [magnesium|Mg], [salt|NaCl], and [sodium|Na].
         Important sources of minerals include [dairy products|fg-1], [meat|fg-3], [fish|fg-4.1], [eggs|fg-2], [fruits and berries|fg-13], [vegetables|fg-6], and [nuts|fg-14.2]."}}
 
  {:nutrient/id "TraceElements"
@@ -123,10 +123,17 @@
   :nutrient/category {:db/ident :nutrient.category/micro}
   :nutrient/photo "/images/nutrients/sporstoffer/photo.jpg"
   :nutrient/illustration "/images/nutrients/sporstoffer/illustration.svg"
-  :nutrient/short-description {:nb "Sporstoffer er essensielle næringsstoffer som kroppen trenger i små mengder, inkludert jern, kopper, sink, selen og jod."
-                               :en "Trace elements are essential nutrients needed by the body in small amounts, including iron, copper, zinc, selenium, and iodine."}}
+  :nutrient/short-description {:nb "Inkluderer jern, jod, kobber, sink og selen."
+                               :en "Includes iron, iodine, copper, zinc, and selenium."}
+  :nutrient/long-description
+  {:nb "Sporstoffer er ikke-energigivende næringsstoffer sammen med [vannløselige vitaminer|WaterSolubleVitamins], [fettløselige vitaminer|FatSolubleVitamins] og [mineraler|Minerals].
+        I Matvaretabellen finner du [jern|Fe], [jod|I], [kobber|Cu], [sink|Zn] og [selen|Se].
+        Sporstoffer finnes i de aller fleste matvarer. Gode kilder kan være [fisk, skalldyr|fg-4], grove [kornprodukter|fg-5] og [grønnsaker|fg-8]."
+   :en "Trace elements are non-energy-yielding nutrients, along with [water-soluble vitamins|WaterSolubleVitamins], [fat-soluble vitamins|FatSolubleVitamins], and [minerals|Minerals].
+        In this food table you'll find [iron|Fe], [iodine|I], [copper|Cu], [zinc|Zn], and [selenium|Se].
+        Trace elements are found in most foods. Good sources can be [fish, shellfish|fg-4], whole [cereal products|fg-5], and [vegetables|fg-8]."}}
 
- ;;;; Næringsstoffer lenger ned i hierarkiet
+;;;; Næringsstoffer lenger ned i hierarkiet
  ;;
  ;; Disse har veldig godt av en lang beskrivelse til sin egen side, men trenger
  ;; ikke alt mulig annet, da de ikke er å finne på "Alle næringsstoffer"-siden,
@@ -254,14 +261,14 @@
 
  {:nutrient/id "C20:4n-3Eikosatetraensyre"
   :nutrient/long-description
-  {:nb "C20:4n-3, eller arakidonsyre, er en flerumettet omega-3 fettsyre med 20 karbonatomer i fettkjeden.
+  {:nb "C20:4n-3, eller eikosatetraensyre, er en flerumettet omega-3 fettsyre med 20 karbonatomer i fettkjeden.
         Fettsyren inneholder fire dobbeltbindinger hvor den første er plassert på det tredje karbonatomet fra metylenden.
         Andre flerumettede [omega-3] fettsyrer er [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre] og [C20:5n-3|C20:5n-3Eikosapentaensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre] og [C22:6n-3|C22:6n-3Dokosaheksaensyre].
-        Arakidonsyre finnes i noen typer [fet fisk|fg-4.1.1]."
-   :en "C20:4n-3, or arachidonic acid, is a polyunsaturated omega-3 fatty acid with 20 carbon atoms in the fatty acid chain.
+        Eikosatetraensyre finnes i noen typer [fet fisk|fg-4.1.1]."
+   :en "C20:4n-3, or eicosatetraenoic acid, is a polyunsaturated omega-3 fatty acid with 20 carbon atoms in the fatty acid chain.
         The fatty acid contains four double bonds, with the first one placed at the third carbon atom from the methyl end.
         Other polyunsaturated [omega-3] fatty acids are [C18:3n-3|C18:3n-3AlfaLinolensyre], [C20:3n-3|C20:3n-3Eikosatriensyre], [C20:5n-3|C20:5n-3Eikosapentaensyre], [C22:5n-3|C22:5n-3Dokosapentaensyre], and [C22:6n-3|C22:6n-3Dokosaheksaensyre].
-        Arachidonic acid is found in some types of [fatty fish|fg-4.1.1]."}}
+        Eicosatetraenoic acid is found in some types of [fatty fish|fg-4.1.1]."}}
 
  {:nutrient/id "C20:5n-3Eikosapentaensyre"
   :nutrient/long-description
@@ -535,4 +542,52 @@
         One gram of [salt|NaCl] contains 0.4 grams of sodium.
         Sodium is mainly found in [cereal and bakery products|fg-5], [meat|fg-3], and [fish products|fg-4], as well as other processed products like [pizza|/?search=pizza] and [soups|fg-10.9.4]."}}
 
- ]
+ {:nutrient/id "Fe"
+  :nutrient/long-description
+  {:nb "Jern (Fe) er et sporstoff sammen med
+        [jod|I], [kobber|Cu], [sink|Zn] og [selen|Se].
+        Spesielt matvarer som [kjøtt|fg-3] og [fisk|fg-4.1], samt [fullkornsprodukter|fg-5] og [mørkegrønne bladgrønnsaker|06.064] er gode kilder til jern."
+   :en "Iron (Fe) is a trace element along with
+        [iodine|I], [copper|Cu], [zinc|Zn], and [selenium|Se].
+        Particularly, foods such as [meat|fg-3] and [fish|fg-4.1], as well as [whole grain products|fg-5] and [dark green leafy vegetables|06.064], are good sources of iron."}}
+
+ {:nutrient/id "I"
+  :nutrient/long-description
+  {:nb "Jod (I) er et sporstoff sammen med
+        [jern|Fe], [kobber|Cu], [sink|Zn] og [selen|Se].
+        Kilder til jod er typisk [mager fisk|fg-4.1.2] som [torsk|04.039], enkelte [meieriprodukter|fg-1] og [egg|fg-2]. "
+   :en "Iodine (I) is a trace element along with
+        [iron|Fe], [copper|Cu], [zinc|Zn], and [selenium|Se].
+        Sources of iodine typically include [lean fish|fg-4.1.2] such as [cod|04.039], some [dairy products|fg-1], and [eggs|fg-2]."}}
+
+ {:nutrient/id "Cu"
+  :nutrient/long-description
+  {:nb "Kobber (Cu) er en type sporstoff sammen med
+        [jern|Fe], [jod|I], [sink|Zn] og [selen|Se].
+        Gode kilder til kobber kan være [lever, innmat|fg-3.9] og grove [kornprodukter|fg-5]."
+   :en "Copper (Cu) is a type of trace element along with
+        [iron|Fe], [iodine|I], [zinc|Zn], and [selenium|Se].
+        Good sources of copper can be [liver, offal|fg-3.9], and whole [cereal products|fg-5]."}}
+
+ {:nutrient/id "Zn"
+  :nutrient/long-description
+  {:nb "Sink (Zn) er et sporstoff sammen med
+        [jern|Fe], [jod|I], [kobber|Cu], og [selen|Se].
+        [Kjøtt|fg-3], [meieriprodukter|fg-1], [belgvekster|fg-12], [egg|fg-2], [lever|fg-3.9], [fullkornsprodukter|fg-5] er gode kilder til sink."
+   :en "Zinc (Zn) is a trace element along with
+        [iron|Fe], [iodine|I], [copper|Cu], and [selenium|Se].
+        [Meat|fg-3], [dairy products|fg-1], [legumes|fg-12], [eggs|fg-2], [liver|fg-3.9], and [whole grain products|fg-5] are good sources of zinc."}}
+
+ {:nutrient/id "Se"
+  :nutrient/long-description
+  {:nb "Selen (Se) er en type sporstoff sammen med
+        [jern|Fe], [jod|I], [kobber|Cu] og [sink|Zn].
+        Gode kilder til næringsstoffet er [korn|fg-5] importert fra områder med selenrik jord, i tillegg til [fisk|fg-4.1], [kjøtt|fg-3], [meieriprodukter|fg-1] og [egg|fg-2]."
+   :en "Selenium (Se) is a trace element along with
+        [iron|Fe], [iodine|I], [copper|Cu], and [zinc|Zn].
+        Good sources of this nutrient include [cereals|fg-5] imported from areas with selenium-rich soil, as well as [fish|fg-4.1], [meat|fg-3], [dairy products|fg-1], and [eggs|fg-2]."}}
+
+ {:nutrient/id "Vann"
+  :nutrient/long-description
+  {:nb "Det som ikke er næringsstoffer i matvarene er hovedsakelig vann.
+        Vann utgjør en betydelig del av flere typer matvarer som f.eks. [agurk|06.010], [tomat|06.069] og [drikkevarer|fg-9]."}}]
