@@ -19,12 +19,13 @@
             (comparison/render-toggle-cell food locale)])})
 
 (defn render [context db page]
-  (let [food-group (d/entity (:foods/db context)
+  (let [locale (:page/locale page)
+        food-group (d/entity (:foods/db context)
                              [:food-group/id (:page/food-group-id page)])
         details (d/entity (:app/db context)
                           [:food-group/id (:page/food-group-id page)])
-        foods (food/get-all-food-group-foods food-group)
-        locale (:page/locale page)]
+        foods (->> (food/get-all-food-group-foods food-group)
+                   (sort-by (comp locale :food/name)))]
     (layout/layout
      context
      [:head
