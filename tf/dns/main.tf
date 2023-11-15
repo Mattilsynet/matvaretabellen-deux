@@ -8,7 +8,7 @@ resource "google_dns_managed_zone" "matvaretabellen_dns_zone" {
   }
 }
 
-resource "google_dns_record_set" "dns" {
+resource "google_dns_record_set" "matvaretabellen" {
   name = data.google_dns_managed_zone.matvaretabellen_dns_zone.dns_name
   managed_zone = data.google_dns_managed_zone.matvaretabellen_dns_zone.name
   type = "A"
@@ -16,7 +16,7 @@ resource "google_dns_record_set" "dns" {
   rrdatas = ["194.19.30.143"]
 }
 
-resource "google_dns_record_set" "dns" {
+resource "google_dns_record_set" "www-matvaretabellen" {
   name = "www.${data.google_dns_managed_zone.matvaretabellen_dns_zone.dns_name}"
   managed_zone = data.google_dns_managed_zone.matvaretabellen_dns_zone.name
   type = "A"
