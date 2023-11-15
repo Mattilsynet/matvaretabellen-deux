@@ -127,7 +127,7 @@
 (defn calc-new-portion-fraction [lang portion-size per-100g & [{:keys [decimals]}]]
   (let [orig-decimals (count-decimals per-100g)
         ;; Avoid 0.234 being rounded to 0 when using 0 decimals (kcal, kJ)
-        scaled (js/Math.max 1 (* portion-size (/ per-100g 100.0)))
+        scaled (* portion-size (/ per-100g 100.0))
         decimals (if (= scaled (int scaled))
                    ;; No decimals for whole numbers
                    0
