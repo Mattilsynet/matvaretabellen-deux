@@ -55,7 +55,7 @@
           [:h2.mmm-h2.mmm-mobile-container-p
            (get-in category [:category/name locale])]
           [:div.mmm-cards
-           (for [nutrient groups]
+           (for [nutrient (sort-by :category/order groups)]
              (let [the-name (get-in nutrient [:nutrient/name locale])]
                [:a.mmm-card.mmm-cols-d2m1.mmm-link {:href (urls/get-nutrient-url locale the-name)}
                 [:div.mmm-media

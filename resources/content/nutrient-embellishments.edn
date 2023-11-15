@@ -3,15 +3,10 @@
                   :en "Macro nutrients"}
   :category/order 0}
 
- {:db/ident :nutrient.category/vitamins
-  :category/name {:nb "Vitaminer"
-                  :en "Vitamins"}
+ {:db/ident :nutrient.category/micro
+  :category/name {:nb "Ikke-energigivende næringsstoffer"
+                  :en "Micro nutrients"}
   :category/order 1}
-
- {:db/ident :nutrient.category/minerals
-  :category/name {:nb "Mineraler"
-                  :en "Minerals"}
-  :category/order 2}
 
  {:nutrient/id "Protein"
   :nutrient/category {:db/ident :nutrient.category/macro}
@@ -71,28 +66,32 @@
                                :en "Foods rich in dietary fiber typically include whole grain bread and vegetables."}}
 
  {:nutrient/id "WaterSolubleVitamins"
-  :nutrient/category {:db/ident :nutrient.category/vitamins}
+  :category/order 0
+  :nutrient/category {:db/ident :nutrient.category/micro}
   :nutrient/photo "/images/nutrients/vannloselige-vitaminer/photo.jpg"
   :nutrient/illustration "/images/nutrients/vannloselige-vitaminer/illustration.svg"
   :nutrient/short-description {:nb "Denne kategorien inneholder vitamin C og B. Vitaminene foreligger typisk i frukt og grønnsaker."
                                :en "This category includes vitamins C and B, which are typically found in fruits and vegetables."}}
 
  {:nutrient/id "FatSolubleVitamins"
-  :nutrient/category {:db/ident :nutrient.category/vitamins}
+  :category/order 1
+  :nutrient/category {:db/ident :nutrient.category/micro}
   :nutrient/photo "/images/nutrients/fettloselige-vitaminer/photo.jpg"
   :nutrient/illustration "/images/nutrients/fettloselige-vitaminer/illustration.svg"
   :nutrient/short-description {:nb "Denne kategorien inneholder vitamin A, D og E. Vitaminene finnes typisk i fettholdig mat, både animalsk og vegetarisk."
                                :en "This category includes vitamins A, D, and E, which are typically found in fatty foods, both animal-based and vegetarian."}}
 
  {:nutrient/id "Minerals"
-  :nutrient/category {:db/ident :nutrient.category/minerals}
+  :category/order 2
+  :nutrient/category {:db/ident :nutrient.category/micro}
   :nutrient/photo "/images/nutrients/mineraler/photo.jpg"
   :nutrient/illustration "/images/nutrients/mineraler/illustration.svg"
   :nutrient/short-description {:nb "Mineraler er viktige næringsstoffer som inkluderer kalsium, kalium, natrium, salt, fosfor og magnesium, og er nødvendige for mange kroppslige funksjoner."
                                :en "Minerals are vital nutrients that include calcium, potassium, sodium, salt, phosphorus, and magnesium, and are essential for many bodily functions."}}
 
  {:nutrient/id "TraceElements"
-  :nutrient/category {:db/ident :nutrient.category/minerals}
+  :category/order 3
+  :nutrient/category {:db/ident :nutrient.category/micro}
   :nutrient/photo "/images/nutrients/sporstoffer/photo.jpg"
   :nutrient/illustration "/images/nutrients/sporstoffer/illustration.svg"
   :nutrient/short-description {:nb "Sporstoffer er essensielle næringsstoffer som kroppen trenger i små mengder, inkludert jern, kopper, sink, selen og jod."
