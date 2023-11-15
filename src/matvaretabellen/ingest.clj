@@ -70,7 +70,7 @@
                      :page/food-group-id id}
                     (with-open-graph
                       {:title name
-                       :photo (:food-group/photo food-group)
+                       :image (:food-group/photo food-group)
                        :description (get-in food-group [:food-group/short-description locale])}))
                 {:page/uri (urls/get-food-group-excel-url locale name)
                  :page/kind :page.kind/food-group-excel
