@@ -3,7 +3,6 @@
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.urls :as urls]
-            [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
 (defn embellish-nutrient [nutrient app-db]
@@ -30,12 +29,11 @@
                                 :url (urls/get-nutrients-url
                                       ({:en :nb :nb :en} locale))}})
       [:div.mmm-themed.mmm-brand-theme1
-       [:div.mmm-container.mmm-section
-        (Breadcrumbs
-         {:links (crumbs/crumble locale
-                                 {:text [:i18n ::crumbs/search-label]
-                                  :url (urls/get-base-url locale)}
-                                 {:text [:i18n ::crumbs/all-nutrients]})})]
+       (layout/render-toolbar
+        {:locale locale
+         :crumbs [{:text [:i18n ::crumbs/search-label]
+                   :url (urls/get-base-url locale)}
+                  {:text [:i18n ::crumbs/all-nutrients]}]})
        [:div.mmm-container.mmm-section.mmm-mvxl
         [:div.mmm-media
          [:article.mmm-vert-layout-m
