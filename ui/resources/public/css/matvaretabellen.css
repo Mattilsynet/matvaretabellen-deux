@@ -195,6 +195,12 @@
     max-width: 200px;
 }
 
+.mvt-card-img-l {
+    display: block;
+    width: clamp(17vw, 100px, 250px);
+    max-width: 250px;
+}
+
 @media only screen and (min-width: 768px) {
     .mvt-aside-col,
     aside.mvt-aside-col {

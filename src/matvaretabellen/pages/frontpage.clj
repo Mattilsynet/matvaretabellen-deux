@@ -31,9 +31,9 @@
 (defn BananaTeaserBox [locale db]
   [:div.mmm-banner-media-buttons.mmm-section.mmm-brand-theme2
    [:div.mmm-container
-    [:div.mmm-media-d.mmm-media-stamp
-     [:aside {:style {:width "30%"}}
-      [:img.mmm-img {:src "/images/trivia/banana.jpg"}]]
+    [:div.mmm-media
+     [:aside
+      [:img.mvt-card-img-l {:src "/images/trivia/banana.jpg"}]]
      [:article.mmm-text.mmm-tight.mmm-vert-layout-s
       [:h4 [:i18n ::did-you-know]]
       [:p [:i18n ::banana-nutrition-facts]]

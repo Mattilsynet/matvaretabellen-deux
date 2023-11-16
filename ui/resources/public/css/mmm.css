@@ -832,20 +832,20 @@ table > tr.mmm-highlight {
     padding-bottom: var(--mt-component-banner-media-buttons-padding);
 }
 
-.mmm-banner-media-buttons .mmm-media-d,
+.mmm-banner-media-buttons .mmm-media,
 .mmm-banner-media-buttons .mmm-buttons {
     flex-shrink: 0;
     flex-basis: 0;
 }
 
-.mmm-banner-media-buttons .mmm-media-d {
+.mmm-banner-media-buttons .mmm-media {
     background: var(--mt-brand-theme-main-bg);
     color: var(--mt-brand-theme-main-color);
     flex-grow: 19.5;
     padding: var(--mt-grid-desktop-padding);
 }
 
-.mmm-banner-media-buttons .mmm-media-d a {
+.mmm-banner-media-buttons .mmm-media a {
     color: var(--mt-brand-theme-main-action-color);
 }
 
