@@ -130,7 +130,10 @@
   :prose "In the Norwegian Food Composition Table, there are nine different categories of nutrients. Nutrients are chemical compounds that serve as the building blocks in foods, providing energy and/or nourishment."}
 
  #:matvaretabellen.pages.nutrient-page
- {:download-these "Download the table"
+ {:compare "Compare"
+  :download-these "Download the table"
   :food "Food"
+  :food-group [:fn/str "{{:food-group}} ({{:n}})"]
+  :food-groups "Food groups"
   :nutrients "Nutrients"
   :per-100g [:fn/str "{{:nutrient}} per 100 grams of food"]}]

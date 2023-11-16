@@ -1,5 +1,6 @@
 (ns matvaretabellen.food
   (:require [broch.core :as b]
+            [clojure.set :as set]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.misc :as misc]
@@ -112,15 +113,24 @@
   (apply concat (:food/_food-group food-group)
          (map get-all-food-group-foods (:food-group/_parent food-group))))
 
-(defn get-top-level-food-group [food-group]
-  (or (some-> (:food-group/parent food-group)
-              get-top-level-food-group)
-      food-group))
+(defn food-group->sort-key [app-db food-group]
+  [(->> [:food-group/id (:food-group/id food-group)]
+        (d/entity app-db)
+        :food-group/category
+        (d/entity app-db)
+        :category/order)
+   (:food-group/id food-group)])
 
-(defn get-top-level-food-groups [foods]
-  (->> foods
-       (map (comp get-top-level-food-group :food/food-group))
-       set))
+(defn get-food-groups [foods-db]
+  (->> (d/q '[:find [?e ...]
+              :where
+              [?e :food-group/id]
+              (not [?e :food-group/parent])]
+            foods-db)
+       (map #(d/entity foods-db %))))
+
+(defn get-foods-in-group [group foods]
+  (set/intersection (set foods) (set (get-all-food-group-foods group))))
 
 (defn ->nutrient-lookup [constituents]
   (->> constituents

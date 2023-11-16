@@ -9,6 +9,7 @@
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.urls :as urls]
             [mmm.components.button :refer [Button]]
+            [mmm.components.checkbox :refer [Checkbox]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
 (def filter-panel-id "filter-panel")
@@ -16,14 +17,18 @@
 (defn prepare-foods-table [nutrient locale foods]
   {:headers [{:text [:i18n ::food]}
              {:text [:i18n :i18n/lookup (:nutrient/name nutrient)]
-              :class "mmm-tar"}
-             {}]
+              :class "mmm-tar mmm-td-min"}
+             {:text [:i18n ::compare]
+              :class "mmm-td-min"}]
+   :id "filtered-table"
    :rows (for [food foods]
-           [{:text [:a.mmm-link {:href (urls/get-food-url locale food)}
-                    [:i18n :i18n/lookup (:food/name food)]]}
-            {:text (food/get-nutrient-quantity food (:nutrient/id nutrient))
-             :class "mmm-tar mmm-nbr"}
-            (comparison/render-toggle-cell food locale)])})
+           {:data-food-group-id (:food-group/id (:food/food-group food))
+            :cols
+            [{:text [:a.mmm-link {:href (urls/get-food-url locale food)}
+                     [:i18n :i18n/lookup (:food/name food)]]}
+             {:text (food/get-nutrient-quantity food (:nutrient/id nutrient))
+              :class "mmm-tar mmm-nbr"}
+             (comparison/render-toggle-cell food locale)]})})
 
 (defn render-nutrient-foods-table
   "Really, ALL of the foods on one page? Well, not all of them, just the ones that
@@ -52,7 +57,8 @@
 
 (defn render-nutrient-links [locale parent current]
   (when-let [nutrients (->> (:nutrient/_parent parent)
-                            nutrient/sort-by-preference)]
+                            nutrient/sort-by-preference
+                            seq)]
     [:ul.mmm-ul.mmm-unadorned-list
      (for [n nutrients]
        [:li
@@ -62,15 +68,52 @@
           [:a.mmm-link {:href (urls/get-nutrient-url locale n)}
            [:i18n :i18n/lookup (:nutrient/name n)]])])]))
 
-(defn render-sidebar [nutrient _foods locale]
+(defn render-food-group-list [app-db food-groups foods locale & [{:keys [class]}]]
+  (when (seq food-groups)
+    [:ul.mmm-ul.mmm-unadorned-list
+     {:class class}
+     (->> food-groups
+          (sort-by #(food/food-group->sort-key app-db %))
+          (map (juxt identity #(count (food/get-foods-in-group % foods))))
+          (remove (comp zero? second))
+          (map (fn [[group n]]
+                 [:li
+                  (Checkbox
+                   {:data-food-group-id (:food-group/id group)
+                    :label [:i18n ::food-group
+                            {:food-group (get-in group [:food-group/name locale])
+                             :n n}]})
+                  (render-food-group-list
+                   app-db
+                   (:food-group/_parent group)
+                   foods
+                   locale
+                   {:class :mmm-hidden})])))]))
+
+(defn render-food-group-filters [app-db food-db foods locale]
+  (render-food-group-list
+   app-db
+   (food/get-food-groups food-db)
+   (set foods)
+   locale))
+
+(defn render-sidebar [app-db nutrient foods locale]
   (let [target (or (:nutrient/parent nutrient) nutrient)]
     [:div.mmm-col.mmm-desktop {:id filter-panel-id}
-     [:div.mmm-divider.mmm-vert-layout-m
+     (when-let [links (render-nutrient-links locale target nutrient)]
+       [:div.mmm-divider.mmm-vert-layout-m.mmm-mbm
+        [:div.mmm-mobile.mmm-pos-tr.mmm-mts
+         (layout/render-sidebar-close-button filter-panel-id)]
+        (let [{:keys [url text]} (get-back-link locale nutrient)]
+          [:h2.mmm-h5 [:a.mmm-link {:href url} text]])
+        links])
+     [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider
       [:div.mmm-mobile.mmm-pos-tr.mmm-mts
        (layout/render-sidebar-close-button filter-panel-id)]
-      (let [{:keys [url text]} (get-back-link locale nutrient)]
-        [:h2.mmm-h6 [:a.mmm-link {:href url} text]])
-      (render-nutrient-links locale target nutrient)]]))
+      [:h2.mmm-h5
+       [:a.mmm-link {:href (urls/get-food-groups-url locale)}
+        [:i18n ::food-groups]]]
+      (render-food-group-filters app-db (d/entity-db nutrient) foods locale)]]))
 
 (defn render [context db page]
   (let [nutrient (d/entity (:foods/db context) [:nutrient/id (:page/nutrient-id page)])
@@ -120,7 +163,7 @@
               [:img {:src illustration :width 300}]])]])]
 
       (when (seq foods)
-        (let [sidebar (render-sidebar nutrient foods locale)]
+        (let [sidebar (render-sidebar (:app/db context) nutrient foods locale)]
           [:div.mmm-container.mmm-section.mmm-mobile-phn
            [:div.mmm-flex.mmm-mobile-container-p
             (when sidebar

@@ -3,6 +3,7 @@
             [matvaretabellen.search :as search]
             [matvaretabellen.ui.comparison :as comparison]
             [matvaretabellen.ui.dom :as dom]
+            [matvaretabellen.ui.food-group :as food-group]
             [matvaretabellen.ui.foods-search :as foods-search]
             [matvaretabellen.ui.hoverable :as hoverable]
             [matvaretabellen.ui.sidebar :as sidebar]
@@ -320,6 +321,11 @@
        #(initialize-rda-selectors (js->clj %) selects event-bus)))
 
     (sidebar/initialize ".mvt-sidebar-toggle"))
+
+  (let [panel (js/document.getElementById "filter-panel")
+        table (js/document.getElementById "filtered-table")]
+    (when (and panel table)
+      (food-group/initialize-filter panel table)))
 
   (hoverable/set-up js/document))
 

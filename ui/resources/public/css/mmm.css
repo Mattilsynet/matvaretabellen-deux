@@ -271,6 +271,7 @@ ol.mmm-unadorned-list li {
 }
 
 .mmm-table-zebra tbody tr:nth-child(odd),
+.mmm-table tbody .mmm-zebra-strip,
 .mmm-table-zebra > tr:nth-child(even) {
     background-color: var(--mt-component-table-background-zebra);
 }
@@ -834,6 +835,11 @@ table > tr.mmm-highlight {
 .mmm-divider {
     border-top: 2px solid var(--mt-component-divider-border-color);
     padding-top: var(--mt-component-divider-padding);
+}
+
+.mmm-bottom-divider {
+    border-bottom: 2px solid var(--mt-component-divider-border-color);
+    padding-bottom: var(--mt-component-divider-padding);
 }
 
 /**********************

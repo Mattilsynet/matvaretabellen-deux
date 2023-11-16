@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [32/43]
+* Tickets [34/44]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -40,8 +40,8 @@
 ** DONE OpenGraph på matvaresidene
 ** TODO Ta en runde med ipad-bredde 800px
 ** TODO Sorter høyt/lavt på næringsstoff-sidene
-** TODO [C] Vis filtrering i venstrekolonnen på næringsstoff-sidene
-** TODO [C] Vis hierarki over næringsstoffer i venstrekolonnen på næringsstoff-sidene
+** DONE [C] Vis filtrering i venstrekolonnen på næringsstoff-sidene
+** DONE [C] Vis hierarki over næringsstoffer i venstrekolonnen på næringsstoff-sidene
 ** DONE Støtt oppslag på food-id via søkefeltet, eks 05.448
 ** DONE Avrunde kJ og kcal til hele tall (minimum 1) - aldri desimaler
 ** TODO Søk på næringsstoff
@@ -52,6 +52,7 @@
 ** TODO Trigge analytics-events på interaksjoner
 ** TODO Respekter antall desimaler på tall i Excel-arket
 ** DONE [M] Energiinnhold må beregnes
+** TODO Redirect fra www til ikke
 * Sammenligning [13/14]
 ** DONE Lag page-entity for sammenligning
 ** DONE Rendre en statisk sammenligning mellom tre matvarer
