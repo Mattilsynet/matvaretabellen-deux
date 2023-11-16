@@ -874,7 +874,7 @@ table > tr.mmm-highlight {
 
 .mmm-banner-media-buttons .mmm-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: var(--mt-column-gap);
     padding-top: var(--mt-component-banner-media-buttons-padding);
     padding-bottom: var(--mt-component-banner-media-buttons-padding);

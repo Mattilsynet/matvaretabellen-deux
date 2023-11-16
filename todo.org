@@ -67,11 +67,11 @@
 ** DONE Query-parametere til sammenligningssiden for lenkbare sammenligninger
 ** DONE Dele-ikon på sammenligningssiden
 ** DONE Animer ut/inn på skuff
-* Småfiks [3/7]
+* Småfiks [5/6]
 ** DONE Vis triviabilde på samme måte som matvaregruppe-kortene (til venstre på mobil)
-** TODO Flytt matvaregruppe og næringsstoff-knappene over triviaboksen på mobil
+** DONE Flytt matvaregruppe og næringsstoff-knappene over triviaboksen på mobil
 ** DONE Slå sammen vitaminer og mineraler til "Ikke-energigivende næringsstoffer"
 ** DONE Flytt "Karbohydrater per 100g" ut av tabellen pga mobil
-** TODO Fjern marginer på matvarelister på mobil
+** DONE Fjern marginer på matvarelister på mobil
 ** DONT Vis "Sist oppdatert" på matvare (har ikke datoen i datasettet vårt)
 ** TODO Flere lenker i headeren, "Matvaregrupper", "Næringsstoffer", "Om Matvaretabellen" (og "In English") (må skjules på mobil, evnt lage hamburger)

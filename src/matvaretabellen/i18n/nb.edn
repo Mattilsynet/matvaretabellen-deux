@@ -123,8 +123,8 @@
   :open-graph-title "Matvaretabellen.no - en tjeneste fra Mattilsynet"
   :read-more-about-banana "Les mer om bananen her."
   :seasonal-goods "Sesongvarer"
-  :see-all-food-groups-overview "Se oversikt over alle matvaregrupper."
-  :see-all-nutrients-overview "Se oversikt over alle næringsstoffer."}
+  :see-all-food-groups-overview "Oversikt over alle matvaregrupper."
+  :see-all-nutrients-overview "Oversikt over alle næringsstoffer."}
 
  #:matvaretabellen.pages.nutrients-page
  {:all-nutrients "Næringsstoffer"

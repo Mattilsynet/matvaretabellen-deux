@@ -123,8 +123,8 @@
   :open-graph-title "Matvaretabellen.no - a service from Mattilsynet"
   :read-more-about-banana "Read more about the banana here."
   :seasonal-goods "Seasonal Goods"
-  :see-all-food-groups-overview "See an overview of all food groups."
-  :see-all-nutrients-overview "See an overview of all nutrients."}
+  :see-all-food-groups-overview "Overview of all food groups."
+  :see-all-nutrients-overview "Overview of all nutrients."}
 
  #:matvaretabellen.pages.nutrients-page
  {:all-nutrients "Nutrients"
