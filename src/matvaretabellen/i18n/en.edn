@@ -38,6 +38,9 @@
   :significant "significantly different"
   :dramatic "highly varying"}
 
+ #:matvaretabellen.food
+ {:food-group [:fn/str "{{:food-group}} ({{:n}})"]}
+
  #:matvaretabellen.layout
  {:close-sidebar "Close"
   :filter "Filter"}
@@ -110,7 +113,10 @@
   :download-url "/all-foods.xlsx"}
 
  #:matvaretabellen.pages.food-group-page
- {:download-these "Download the table"}
+ {:download-these "Download the table"
+  :compare "Compare"
+  :food "Food"
+  :food-groups "Food groups"}
 
  #:matvaretabellen.pages.frontpage
  {:all-food-groups "Food Groups →"

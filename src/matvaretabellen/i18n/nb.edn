@@ -38,6 +38,9 @@
   :significant "nokså forskjellig"
   :dramatic "svært forskjellig"}
 
+ #:matvaretabellen.food
+ {:food-group [:fn/str "{{:food-group}} ({{:n}})"]}
+
  #:matvaretabellen.layout
  {:close-sidebar "Lukk"
   :filter "Filter"}
@@ -110,7 +113,10 @@
   :download-url "/alle-matvarer.xlsx"}
 
  #:matvaretabellen.pages.food-group-page
- {:download-these "Last ned tabellen"}
+ {:download-these "Last ned tabellen"
+  :compare "Sammenlign"
+  :food "Matvare"
+  :food-groups "Matvaregrupper"}
 
  #:matvaretabellen.pages.frontpage
  {:all-food-groups "Matvaregrupper →"

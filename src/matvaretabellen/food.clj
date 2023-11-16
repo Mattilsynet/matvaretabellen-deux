@@ -5,7 +5,8 @@
             [datomic-type-extensions.api :as d]
             [matvaretabellen.misc :as misc]
             [matvaretabellen.nutrient :as nutrient]
-            [matvaretabellen.urls :as urls]))
+            [matvaretabellen.urls :as urls]
+            [mmm.components.checkbox :refer [Checkbox]]))
 
 (defn get-nutrient-measurement [food nutrient-id]
   (->> (:food/constituents food)
@@ -157,6 +158,28 @@
                          {:quantity [(or (some-> constituent :measurement/quantity b/num) 0)
                                      (or (some-> constituent :measurement/quantity b/symbol) "g")]}])
                       (into {}))})
+
+(defn render-food-group-list [app-db food-groups foods locale & [{:keys [class]}]]
+  (when (seq food-groups)
+    [:ul.mmm-ul.mmm-unadorned-list
+     {:class class}
+     (->> food-groups
+          (sort-by #(food-group->sort-key app-db %))
+          (map (juxt identity #(count (get-foods-in-group % foods))))
+          (remove (comp zero? second))
+          (map (fn [[group n]]
+                 [:li
+                  (Checkbox
+                   {:data-food-group-id (:food-group/id group)
+                    :label [:i18n ::food-group
+                            {:food-group (get-in group [:food-group/name locale])
+                             :n n}]})
+                  (render-food-group-list
+                   app-db
+                   (:food-group/_parent group)
+                   foods
+                   locale
+                   {:class :mmm-hidden})])))]))
 
 (comment
 

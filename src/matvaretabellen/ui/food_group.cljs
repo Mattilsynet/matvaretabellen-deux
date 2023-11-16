@@ -43,8 +43,6 @@
 (defn update-ui [panel table previous filters]
   (when (empty? previous)
     (hide-rows table))
-  (when (empty? filters)
-    (show-rows table))
   (doseq [unchecked-id (remove filters previous)]
     (set-checked panel unchecked-id false)
     (hide-lists panel unchecked-id)
@@ -54,6 +52,8 @@
       (set! (.-checked checkbox) true)
       (.remove (.-classList (.closest checkbox "ul")) "mmm-hidden"))
     (show-rows table id))
+  (when (empty? filters)
+    (show-rows table))
   (re-zebra-table table))
 
 (defn get-filter-id [checkbox]

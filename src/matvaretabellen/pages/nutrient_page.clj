@@ -68,30 +68,8 @@
           [:a.mmm-link {:href (urls/get-nutrient-url locale n)}
            [:i18n :i18n/lookup (:nutrient/name n)]])])]))
 
-(defn render-food-group-list [app-db food-groups foods locale & [{:keys [class]}]]
-  (when (seq food-groups)
-    [:ul.mmm-ul.mmm-unadorned-list
-     {:class class}
-     (->> food-groups
-          (sort-by #(food/food-group->sort-key app-db %))
-          (map (juxt identity #(count (food/get-foods-in-group % foods))))
-          (remove (comp zero? second))
-          (map (fn [[group n]]
-                 [:li
-                  (Checkbox
-                   {:data-food-group-id (:food-group/id group)
-                    :label [:i18n ::food-group
-                            {:food-group (get-in group [:food-group/name locale])
-                             :n n}]})
-                  (render-food-group-list
-                   app-db
-                   (:food-group/_parent group)
-                   foods
-                   locale
-                   {:class :mmm-hidden})])))]))
-
 (defn render-food-group-filters [app-db food-db foods locale]
-  (render-food-group-list
+  (food/render-food-group-list
    app-db
    (food/get-food-groups food-db)
    (set foods)
