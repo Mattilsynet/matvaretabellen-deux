@@ -4,12 +4,14 @@
             [matvaretabellen.food-name :as food-name]
             [matvaretabellen.ui.dom :as dom]))
 
+(defn with-short-names [foods]
+  (map (fn [food name]
+         (assoc food :shortName name))
+       foods
+       (food-name/shorten-names (map :foodName foods))))
+
 (defn update-food-store [store foods]
-  (->> (map (fn [food name]
-              (assoc food :shortName name))
-            foods
-            (food-name/shorten-names (map :foodName foods)))
-   (reset! store)))
+  (reset! store (with-short-names foods)))
 
 (def comparison-k "comparisonFoods")
 
@@ -107,8 +109,9 @@
   [(:id food) (update-vals (:constituents food) (comp first :quantity))])
 
 (defn get-comparison-data [data ids]
-  (for [id ids]
-    (keywordize-some (js->clj (aget data id)))))
+  (->> ids
+       (map #(keywordize-some (js->clj (aget data %))))
+       with-short-names))
 
 (defn initialize-page
   "Initialize the comparison page"
