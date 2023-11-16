@@ -289,7 +289,7 @@
                   :hover-content [:span
                                   [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]
                                   ": "
-                                  [:strong (int value) " kJ (" (int (* 100 (/ value total))) " %)"]]})))
+                                  [:strong (int value) " kJ (" (int (* 100 (/ value total))) " E%)"]]})))
            (remove nil?)
            (remove #(= 0.0 (:value %)))
            (sort-by (comp - :value))))))
