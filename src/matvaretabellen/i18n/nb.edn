@@ -89,7 +89,7 @@
   :portion-size "Porsjonsstørrelse:"
   :rda-explanation "Anbefalt Dagdinntak"
   :rda-pct "% av AI"
-  :rda-select-label "Anbefalt Dagsinntak (AI)"
+  :rda-select-label "Anbefalt dagsinntak (AI)"
   :scientific-name (list [:strong "Vitenskapelig navn:"] " " [:fn/get :name])
   :select-grams [:fn/str "{{:value}} gram    "]
   :select-portion-with-grams [:fn/str "{{:portion}} ({{:grams}} gram)    "]
