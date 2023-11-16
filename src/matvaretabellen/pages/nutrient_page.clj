@@ -15,7 +15,7 @@
 
 (defn prepare-foods-table [nutrient locale foods]
   {:headers [{:text [:i18n ::food]}
-             {:text [:i18n :i18n/lookup (nutrient/get-name nutrient)]
+             {:text [:i18n :i18n/lookup (:nutrient/name nutrient)]
               :class "mmm-tar"}
              {}]
    :rows (for [food foods]
@@ -75,7 +75,7 @@
 (defn render [context db page]
   (let [nutrient (d/entity (:foods/db context) [:nutrient/id (:page/nutrient-id page)])
         locale (:page/locale page)
-        nutrient-name (get (nutrient/get-name nutrient) locale)
+        nutrient-name (get (:nutrient/name nutrient) locale)
         foods (nutrient/get-foods-by-nutrient-density nutrient)]
     (layout/layout
      context

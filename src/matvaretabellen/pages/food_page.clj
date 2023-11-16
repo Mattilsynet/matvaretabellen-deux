@@ -20,7 +20,7 @@
             [mmm.components.toc :refer [Toc]]))
 
 (defn get-nutrient-link [db locale nutrient]
-  (let [label [:i18n :i18n/lookup (nutrient/get-name nutrient)]
+  (let [label [:i18n :i18n/lookup (:nutrient/name nutrient)]
         url (urls/get-nutrient-url locale nutrient)]
     (if (d/entity db [:page/uri url])
       [:a.mmm-link {:href (urls/get-nutrient-url locale nutrient)} label]
@@ -38,19 +38,42 @@
 (def nutrition-table-row-ids
   ["Fett" "Karbo" "Fiber" "Protein" "Alko" "Vann"])
 
+(def grams-to-kj-factor
+  {"Fett" 37
+   "Karbo" 17
+   "Protein" 17
+   "Vann" 0
+   "Fiber" 8
+   "Alko" 29})
+
+(defn get-constituent-energy [constituent]
+  (some-> constituent :measurement/quantity b/num
+          (* (grams-to-kj-factor (-> constituent :constituent/nutrient :nutrient/id)))))
+
 (defn prepare-nutrition-table [db locale food]
-  {:headers [{:text [:i18n ::nutrients]}
-             {:text [:i18n ::source]
-              :class "mvt-source"}
-             {:text [:i18n ::amount]
-              :class "mvt-amount mmm-tar"}]
-   :rows (for [id nutrition-table-row-ids]
-           (let [nutrient (:constituent/nutrient (food/get-nutrient-measurement food id))]
-             [{:text (get-nutrient-link db locale nutrient)}
-              {:text (get-source food id)
-               :class "mvt-source"}
-              {:text (food/get-nutrient-quantity food id)
-               :class "mmm-tar mvt-amount"}]))})
+  (let [constituents (filter (comp (set nutrition-table-row-ids)
+                                   :nutrient/id
+                                   :constituent/nutrient)
+                             (:food/constituents food))
+        total (apply + (keep get-constituent-energy constituents))]
+    {:headers [{:text [:i18n ::nutrients]}
+               {:text [:i18n ::source]
+                :class "mvt-source"}
+               {:text [:i18n ::amount]
+                :class "mvt-amount mmm-tar"}
+               {:text "Energi%"
+                :class "mvt-amount mmm-tar"}]
+     :rows (for [id nutrition-table-row-ids]
+             (let [constituent (food/get-nutrient-measurement food id)
+                   nutrient (:constituent/nutrient constituent)
+                   value (or (get-constituent-energy constituent) 0)]
+               [{:text (get-nutrient-link db locale nutrient)}
+                {:text (get-source food id)
+                 :class "mvt-source"}
+                {:text (food/get-nutrient-quantity food id)
+                 :class "mmm-tar mvt-amount"}
+                {:text (str (int (* 100 (/ value total))) "%")
+                 :class "mmm-tar mvt-amount"}]))}))
 
 (defn get-kj [food & [opt]]
   (when (:measurement/quantity (:food/energy food))
@@ -79,7 +102,7 @@
      (let [constituent (->> (:food/constituents food)
                             (filter (comp #{id} :nutrient/id :constituent/nutrient))
                             first)]
-       {:title [:i18n ::highlight-title (nutrient/get-name (:constituent/nutrient constituent))]
+       {:title [:i18n ::highlight-title (:nutrient/name (:constituent/nutrient constituent))]
         :detail [:span (food/wrap-in-portion-span
                         (or (some-> constituent
                                     :measurement/quantity
@@ -242,7 +265,7 @@
               :value value
               :color (nutrient-id->color id)
               :hover-content [:span
-                              [:i18n :i18n/lookup (nutrient/get-name (:constituent/nutrient constituent))]
+                              [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]
                               ": "
                               [:strong
                                (food/wrap-in-portion-span value)
@@ -250,18 +273,6 @@
        (remove nil?)
        (remove #(= 0.0 (:value %)))
        (sort-by (comp - :value))))
-
-(def grams-to-kj-factor
-  {"Fett" 37
-   "Karbo" 17
-   "Protein" 17
-   "Vann" 0
-   "Fiber" 8
-   "Alko" 29})
-
-(defn get-constituent-energy [constituent]
-  (some-> constituent :measurement/quantity b/num
-          (* (grams-to-kj-factor (-> constituent :constituent/nutrient :nutrient/id)))))
 
 (defn prepare-energy-content-slices [food ids]
   (let [constituents (filter (comp ids :nutrient/id :constituent/nutrient) (:food/constituents food))
@@ -275,7 +286,7 @@
                   :value value
                   :color (nutrient-id->color id)
                   :hover-content [:span
-                                  [:i18n :i18n/lookup (nutrient/get-name (:constituent/nutrient constituent))]
+                                  [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]
                                   ": "
                                   [:strong (int value) " kJ (" (int (* 100 (/ value total))) " %)"]]})))
            (remove nil?)
@@ -459,7 +470,7 @@
           [:div.col-1
            (Legend {:entries (for [entry slice-legend]
                                (assoc entry :label [:i18n :i18n/lookup
-                                                    (nutrient/get-name (d/entity db [:nutrient/id (:nutrient-id entry)]))]))})]]]]
+                                                    (:nutrient/name (d/entity db [:nutrient/id (:nutrient-id entry)]))]))})]]]]
        [:div.mmm-passepartout.mmm-hidden {:id "table-display"}
         [:div.mmm-container-medium.mmm-vert-layout-m
          [:h3.mmm-h3#energi [:i18n ::nutrition-heading]]
