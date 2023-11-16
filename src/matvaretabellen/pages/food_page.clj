@@ -314,12 +314,12 @@
      :class "mmm-input-m"
      :options (into [[:option {:value "100"} [:i18n ::grams {:value 100}]]]
                     (for [portion portions]
-                      (let [grams (int (b/num (:portion/quantity portion)))]
+                      (let [grams (b/num (:portion/quantity portion))]
                         [:option {:value grams}
                          [:i18n ::portion-with-grams
                           {:portion (str "1 " (str/lower-case
                                                (get-in portion [:portion/kind :portion-kind/name locale])))
-                           :grams grams}]])))})])
+                           :grams [:i18n :i18n/number {:n grams}]}]])))})])
 
 (defn get-toc-items []
   [{:title [:i18n ::energy-title]
