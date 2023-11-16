@@ -73,7 +73,6 @@
   :composition-title [:fn/str "{{:title}}, sammensetning"]
   :fat-title "Fettsyrer"
   :food-id (list [:strong "Matvare-ID:"] " " [:fn/get :id])
-  :grams [:fn/str "{{:value}} gram"]
   :langual-code-label "LanguaL"
   :langual-description-label "Klassifisering"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
@@ -86,11 +85,12 @@
   :nutrition-title "Næringsinnhold"
   :open-graph-description [:fn/str "{{:food-name}} har {{:energy}} og inneholder " [:fn/enumerate [:fn/get :macros]] " per 100g. Les mer og sammenlign med andre matvarer på matvaretabellen.no"]
   :portion-size "Porsjonsstørrelse:"
-  :portion-with-grams [:fn/str "{{:portion}} ({{:grams}} gram)"]
   :rda-explanation "Anbefalt Dagdinntak"
   :rda-pct "% av AI"
   :rda-select-label "Anbefalt Dagsinntak (AI)"
   :scientific-name (list [:strong "Vitenskapelig navn:"] " " [:fn/get :name])
+  :select-grams [:fn/str "{{:value}} gram    "]
+  :select-portion-with-grams [:fn/str "{{:portion}} ({{:grams}} gram)    "]
   :source "Kilde"
   :sources "Kilder"
   :show-all-sources "Vis kilder i alle tabeller"

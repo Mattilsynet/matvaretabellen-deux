@@ -313,11 +313,11 @@
    (Select
     {:id "portion-selector"
      :class "mmm-input-m"
-     :options (into [[:option {:value "100"} [:i18n ::grams {:value 100}]]]
+     :options (into [[:option {:value "100"} [:i18n ::select-grams {:value 100}]]]
                     (for [portion portions]
                       (let [grams (b/num (:portion/quantity portion))]
                         [:option {:value grams}
-                         [:i18n ::portion-with-grams
+                         [:i18n ::select-portion-with-grams
                           {:portion (str "1 " (str/lower-case
                                                (get-in portion [:portion/kind :portion-kind/name locale])))
                            :grams [:i18n :i18n/number {:n grams}]}]])))})])

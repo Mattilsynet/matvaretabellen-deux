@@ -73,7 +73,6 @@
   :composition-title [:fn/str "{{:title}} composition"]
   :fat-title "Fatty acids"
   :food-id (list [:strong "Food ID:"] " " [:fn/get :id])
-  :grams [:fn/str "{{:value}} grams"]
   :kcal-content-title (list "Calories in " [:fn/get :portion])
   :langual-code-label "LanguaL"
   :langual-description-label "Classification"
@@ -86,10 +85,11 @@
   :nutrition-title "Nutritional Information"
   :open-graph-description [:fn/str "{{:food-name}} has {{:energy}} and contains " [:fn/enumerate [:fn/get :macros]] " per 100g. Read more and compare with other foods on matvaretabellen.no"]
   :portion-size "Portion Size:"
-  :portion-with-grams [:fn/str "{{:portion}} ({{:grams}} grams)"]
   :rda-explanation "Recommended Daily Allowance"
   :rda-pct "% of RDA"
   :rda-select-label "Recommended Daily Allowance (RDA)"
+  :select-grams [:fn/str "{{:value}} grams    "]
+  :select-portion-with-grams [:fn/str "{{:portion}} ({{:grams}} grams)    "]
   :source "Source"
   :sources "Sources"
   :scientific-name (list [:strong "Scientific name:"] " " [:fn/get :name])
