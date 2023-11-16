@@ -8,7 +8,7 @@
 ** DONE Vis mineraler
 ** DONE Vis klassifiseringer
 ** DONE Lag enklere footer
-* Tickets [31/41]
+* Tickets [32/43]
 ** DONE Lage checkbox-komponent
 ** DONE Vise referanser nederst på siden
 ** DONE [C] Vise referanser
@@ -50,6 +50,8 @@
 ** DONE Flytt kilde til venstre for mengde
 ** TODO Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter
 ** TODO Trigge analytics-events på interaksjoner
+** TODO Respekter antall desimaler på tall i Excel-arket
+** DONE [M] Energiinnhold må beregnes
 * Sammenligning [13/14]
 ** DONE Lag page-entity for sammenligning
 ** DONE Rendre en statisk sammenligning mellom tre matvarer
@@ -65,11 +67,11 @@
 ** DONE Query-parametere til sammenligningssiden for lenkbare sammenligninger
 ** DONE Dele-ikon på sammenligningssiden
 ** DONE Animer ut/inn på skuff
-* Småfiks [1/7]
-** TODO Vis triviabilde på samme måte som matvaregruppe-kortene (til venstre på mobil)
+* Småfiks [3/7]
+** DONE Vis triviabilde på samme måte som matvaregruppe-kortene (til venstre på mobil)
 ** TODO Flytt matvaregruppe og næringsstoff-knappene over triviaboksen på mobil
 ** DONE Slå sammen vitaminer og mineraler til "Ikke-energigivende næringsstoffer"
-** TODO Flytt "Karbohydrater per 100g" ut av tabellen pga mobil
+** DONE Flytt "Karbohydrater per 100g" ut av tabellen pga mobil
 ** TODO Fjern marginer på matvarelister på mobil
-** TODO Vis "Sist oppdatert" på matvare
+** DONT Vis "Sist oppdatert" på matvare (har ikke datoen i datasettet vårt)
 ** TODO Flere lenker i headeren, "Matvaregrupper", "Næringsstoffer", "Om Matvaretabellen" (og "In English") (må skjules på mobil, evnt lage hamburger)

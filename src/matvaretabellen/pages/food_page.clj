@@ -251,13 +251,25 @@
        (remove #(= 0.0 (:value %)))
        (sort-by (comp - :value))))
 
-(defn prepare-percent-slices [food ids]
+(def grams-to-kj-factor
+  {"Fett" 37
+   "Karbo" 17
+   "Protein" 17
+   "Vann" 0
+   "Fiber" 8
+   "Alko" 29})
+
+(defn get-constituent-energy [constituent]
+  (some-> constituent :measurement/quantity b/num
+          (* (grams-to-kj-factor (-> constituent :constituent/nutrient :nutrient/id)))))
+
+(defn prepare-energy-content-slices [food ids]
   (let [constituents (filter (comp ids :nutrient/id :constituent/nutrient) (:food/constituents food))
-        total (apply + (keep #(some-> % :measurement/quantity b/num) constituents))]
+        total (apply + (keep get-constituent-energy constituents))]
     (when (< 0 total)
       (->> (for [constituent constituents]
              (let [id (:nutrient/id (:constituent/nutrient constituent))
-                   value (some-> constituent :measurement/quantity b/num)]
+                   value (get-constituent-energy constituent)]
                (when value
                  {:id (str id (hash ids))
                   :value value
@@ -265,16 +277,10 @@
                   :hover-content [:span
                                   [:i18n :i18n/lookup (nutrient/get-name (:constituent/nutrient constituent))]
                                   ": "
-                                  [:strong (int (* 100 (/ value total))) " %"]]})))
+                                  [:strong (int value) " kJ (" (int (* 100 (/ value total))) " %)"]]})))
            (remove nil?)
            (remove #(= 0.0 (:value %)))
            (sort-by (comp - :value))))))
-
-(defn passepartout-wide [& body]
-  [:div.mmm-container.mmm-section.mmm-mobile-phn
-   [:div.mmm-passepartout
-    [:div.mmm-container-focused.mmm-vert-layout-m
-     body]]])
 
 (defn passepartout [& body]
   [:div.mmm-container.mmm-section.mmm-mobile-phn
@@ -448,7 +454,7 @@
                       :hoverable? true})]
           [:div.col-2
            [:div.label [:h3.mmm-h3 [:i18n ::energy-content]]]
-           (PieChart {:slices (assoc-degrees 30 (prepare-percent-slices food #{"Fett" "Karbo" "Protein"}))
+           (PieChart {:slices (assoc-degrees 30 (prepare-energy-content-slices food #{"Fett" "Karbo" "Protein" "Fiber" "Alko"}))
                       :hoverable? true})]
           [:div.col-1
            (Legend {:entries (for [entry slice-legend]
