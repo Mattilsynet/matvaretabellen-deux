@@ -286,24 +286,18 @@
                  {:id (str id (hash ids))
                   :value value
                   :color (nutrient-id->color id)
-                  :hover-content [:span
+                  :hover-content [:div.mmm-tac
                                   [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]
                                   ": "
-                                  [:strong (int value) " kJ (" (int (* 100 (/ value total))) " E%)"]]})))
+                                  [:div [:strong (int value) " kJ (" (int (* 100 (/ value total))) " E%)"]]]})))
            (remove nil?)
            (remove #(= 0.0 (:value %)))
            (sort-by (comp - :value))))))
 
-(defn passepartout-wide [& body]
-  [:div.mmm-container.mmm-section.mmm-mobile-phn
-   [:div.mmm-passepartout
-    [:div.mmm-container-focused.mmm-vert-layout-m
-     body]]])
-
 (defn passepartout [& body]
   [:div.mmm-container.mmm-section.mmm-mobile-phn
    [:div.mmm-passepartout
-    [:div.mmm-container-medium.mmm-vert-layout-m
+    [:div.mmm-container-medium.mmm-vert-layout-m.mmm-mobile-phn
      body]]])
 
 (def source-toggle-button
@@ -319,7 +313,7 @@
               :class :mvt-source-toggler})])
 
 (defn passepartout-title [id title & rest]
-  [:div.mmm-flex.mmm-flex-bottom
+  [:div.mmm-flex.mmm-flex-bottom.mmm-mobile-container-p
    [:h3.mmm-h3 {:id id} title]
    rest])
 
@@ -464,30 +458,32 @@
          [:div.mmm-desktop (render-compare-button food {:inline? true})]
          (render-portion-select locale (:food/portions food))]]]
 
-      (passepartout-wide
-       [:div.mvt-cols-2-1-labeled
-        [:div.col-2
-         [:div.label [:h3.mmm-h3 [:i18n ::composition]]]
-         (PieChart {:slices (assoc-degrees 70 (prepare-value-slices food #{"Fett" "Karbo" "Protein" "Vann" "Fiber" "Alko"}))
-                    :hoverable? true})]
-        [:div.col-2
-         [:div.label [:h3.mmm-h3 [:i18n ::energy-content]]]
-         (PieChart {:slices (assoc-degrees 30 (prepare-energy-content-slices food #{"Fett" "Karbo" "Protein" "Fiber" "Alko"}))
-                    :hoverable? true})]
-        [:div.col-1
-         (Legend {:entries (for [entry slice-legend]
-                             (assoc entry :label [:i18n :i18n/lookup
-                                                  (:nutrient/name (d/entity db [:nutrient/id (:nutrient-id entry)]))]))})]])
+      [:div.mmm-container.mmm-section.mmm-mobile-phn
+       [:div.mmm-passepartout
+        [:div.mmm-container-medium.mmm-vert-layout-m
+         [:h3.mmm-h3#energi.mmm-mbm [:i18n ::nutrition-heading]]
+         [:div.mvt-cols-2-1-labeled.mmm-mbxl
+          [:div.col-2
+           [:div.label [:i18n ::composition]]
+           (PieChart {:slices (assoc-degrees 70 (prepare-value-slices food #{"Fett" "Karbo" "Protein" "Vann" "Fiber" "Alko"}))
+                      :hoverable? true})]
+          [:div.col-2
+           [:div.label [:i18n ::energy-content]]
+           (PieChart {:slices (assoc-degrees 30 (prepare-energy-content-slices food #{"Fett" "Karbo" "Protein" "Fiber" "Alko"}))
+                      :hoverable? true})]
+          [:div.col-1
+           (Legend {:entries (for [entry slice-legend]
+                               (assoc entry :label [:i18n :i18n/lookup
+                                                    (:nutrient/name (d/entity db [:nutrient/id (:nutrient-id entry)]))]))})]]]
 
-      (passepartout
-       [:h3.mmm-h3#energi [:i18n ::nutrition-heading]]
-       [:div.mmm-flex.mmm-flex-bottom
-        [:ul.mmm-ul.mmm-unadorned-list
-         [:li energy-label ": " (energy food)]
-         [:li [:i18n ::edible-part
-               {:pct (-> food :food/edible-part :measurement/percent)}]]]
-        source-toggle]
-       (render-table (prepare-nutrition-table (:app/db context) locale food)))
+        [:div.mmm-container-medium.mmm-vert-layout-m.mmm-mobile-phn
+         [:div.mmm-flex.mmm-flex-bottom.mmm-mobile-container-p
+          [:ul.mmm-ul.mmm-unadorned-list
+           [:li energy-label ": " (energy food)]
+           [:li [:i18n ::edible-part
+                 {:pct (-> food :food/edible-part :measurement/percent)}]]]
+          source-toggle]
+         (render-table (prepare-nutrition-table (:app/db context) locale food))]]]
 
       (passepartout
        (passepartout-title "karbohydrater" [:i18n ::carbohydrates-title] source-toggle)

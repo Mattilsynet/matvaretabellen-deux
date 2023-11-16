@@ -82,7 +82,7 @@
   :highlight-title [:fn/str "{{:en}} →"]
   :minerals-title "Minerals"
   :minerals-trace-elements-title "Minerals and trace elements"
-  :nutrients "Nutrients"
+  :nutrients "Nutrient"
   :nutrition-heading "Macro nutrients"
   :nutrition-title "Nutritional Information"
   :open-graph-description [:fn/str "{{:food-name}} has {{:energy}} and contains " [:fn/enumerate [:fn/get :macros]] " per 100g. Read more and compare with other foods on matvaretabellen.no"]

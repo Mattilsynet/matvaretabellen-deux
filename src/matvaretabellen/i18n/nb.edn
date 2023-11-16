@@ -82,7 +82,7 @@
   :kcal-content-title (list "Kalorier i " [:fn/get :portion])
   :minerals-title "Mineraler"
   :minerals-trace-elements-title "Mineraler og sporstoffer"
-  :nutrients "Næringsstoffer"
+  :nutrients "Næringsstoff"
   :nutrition-heading "Energigivende næringsstoffer"
   :nutrition-title "Næringsinnhold"
   :open-graph-description [:fn/str "{{:food-name}} har {{:energy}} og inneholder " [:fn/enumerate [:fn/get :macros]] " per 100g. Les mer og sammenlign med andre matvarer på matvaretabellen.no"]
