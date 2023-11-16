@@ -1,0 +1,13 @@
+(ns matvaretabellen.ui.dom)
+
+(defn qsa
+  ([selector]
+   (seq (js/document.querySelectorAll selector)))
+  ([el selector]
+   (seq (.querySelectorAll el selector))))
+
+(defn qs
+  ([selector]
+   (js/document.querySelector selector))
+  ([el selector]
+   (.querySelector el selector)))

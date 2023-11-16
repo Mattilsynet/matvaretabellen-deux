@@ -2,8 +2,10 @@
   (:require [clojure.string :as str]
             [matvaretabellen.search :as search]
             [matvaretabellen.ui.comparison :as comparison]
+            [matvaretabellen.ui.dom :as dom]
             [matvaretabellen.ui.foods-search :as foods-search]
             [matvaretabellen.ui.hoverable :as hoverable]
+            [matvaretabellen.ui.sidebar :as sidebar]
             [matvaretabellen.urls :as urls]))
 
 (defonce search-engine (atom {:index-status :pending
@@ -13,9 +15,6 @@
   (-> (js/fetch url)
       (.then #(.text %))
       (.then #(js->clj (js/JSON.parse %)))))
-
-(defn qsa [selector]
-  (seq (js/document.querySelectorAll selector)))
 
 (defn populate-search-engine [locale]
   (when-not (:schema @search-engine)
@@ -168,7 +167,7 @@
 ;; mind if you change this.
 (defn toggle-sources [_e selector]
   (let [show? (boolean (js/document.body.classList.contains "mvt-source-hide"))]
-    (doseq [checkbox (qsa selector)]
+    (doseq [checkbox (dom/qsa selector)]
       (set! (.-checked checkbox) show?))
     (js/localStorage.setItem "show-sources" show?)
     (if show?
@@ -179,7 +178,7 @@
   (let [showing? (= "true" (js/localStorage.getItem "show-sources"))]
     (when-not showing?
       (js/document.body.classList.add "mvt-source-hide"))
-    (doseq [checkbox (qsa selector)]
+    (doseq [checkbox (dom/qsa selector)]
       (when showing?
         (set! (.-checked checkbox) true))
       (.addEventListener checkbox "input" #(toggle-sources % selector)))))
@@ -216,7 +215,7 @@
         (get-in recommendation ["averageAmount" 0]))))
 
 (defn update-rda-values [profile]
-  (doseq [el (qsa ".mvt-rda")]
+  (doseq [el (dom/qsa ".mvt-rda")]
     (let [nutrient-id (.getAttribute el "data-nutrient-id")]
       (set! (.-innerHTML el)
             (-> (.closest el "tr")
@@ -304,7 +303,7 @@
                (comparison/initialize-page data (get-params))))
            (ensure-comparison-data k locale)))
 
-    (when-let [selects (qsa ".mvt-rda-selector")]
+    (when-let [selects (dom/qsa ".mvt-rda-selector")]
       (ensure-rda-data
        (str "rda-data-" (name locale))
        locale

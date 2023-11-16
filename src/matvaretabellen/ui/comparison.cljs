@@ -1,13 +1,8 @@
 (ns matvaretabellen.ui.comparison
   (:require [clojure.string :as str]
             [matvaretabellen.diff :as diff]
-            [matvaretabellen.food-name :as food-name]))
-
-(defn qsa [selector]
-  (seq (js/document.querySelectorAll selector)))
-
-(defn qs [selector]
-  (js/document.querySelector selector))
+            [matvaretabellen.food-name :as food-name]
+            [matvaretabellen.ui.dom :as dom]))
 
 (defn update-food-store [store foods]
   (->> (map (fn [food name]
@@ -83,11 +78,11 @@
                     (sort-by (comp - diff/get-rating-severity :rating))
                     first
                     :rating)]
-    (some-> (str "[data-rating=" (name rating) "]") qs .-innerText)))
+    (some-> (str "[data-rating=" (name rating) "]") dom/qs .-innerText)))
 
 (defn enumerate [xs]
   (if (< 1 (count xs))
-    (if-let [and (some-> "[data-k=and]" qs .-innerText)]
+    (if-let [and (some-> "[data-k=and]" dom/qs .-innerText)]
       (str (str/join ", " (butlast xs)) " " and " " (last xs))
       (str/join ", " xs))
     (str/join xs)))
@@ -95,7 +90,7 @@
 (defn update-summary [foods]
   (let [id->energy (map (juxt :id :energyKj) foods)
         equivalents (diff/get-energy-equivalents id->energy)
-        summary (qs ".mvtc-rating-summary")]
+        summary (dom/qs ".mvtc-rating-summary")]
     (when-let [rating-text (get-energy-rating-text id->energy)]
       (let [text (-> (.-innerHTML summary)
                      (.replace "${rating}" rating-text)
@@ -125,7 +120,7 @@
         (.remove (.-classList container) "mmm-container-focused")
         (.add (.-classList container) "mmm-container")))
     (update-summary foods)
-    (let [statistics (some-> (qs ".mvtc-statistics")
+    (let [statistics (some-> (dom/qs ".mvtc-statistics")
                              .-innerText
                              js/JSON.parse
                              js->clj)
@@ -134,7 +129,7 @@
                                  (diff/find-notable-diffs 0.5)
                                  keys
                                  set)]
-      (doseq [row (qsa ".mvtc-comparison")]
+      (doseq [row (dom/qsa ".mvtc-comparison")]
         (when (notably-different (.getAttribute row "data-nutrient-id"))
           (.add (.-classList row) "mmm-highlight"))
         (let [template (.-lastChild row)]
@@ -142,7 +137,7 @@
             (.appendChild row (.cloneNode template true))))
         (doseq [[el food] (map vector (next (seq (.-childNodes row))) foods)]
           (prepare-comparison-el el food))))
-    (doseq [share-button (qsa ".mvtc-share")]
+    (doseq [share-button (dom/qsa ".mvtc-share")]
       (let [url (str js/window.location.pathname "?food-ids=" (get params "food-ids"))]
         (->> (fn [e]
                (.preventDefault e)
@@ -159,7 +154,7 @@
        (js/localStorage.setItem comparison-k)))
 
 (defn update-buttons [foods selector]
-  (doseq [button (qsa selector)]
+  (doseq [button (dom/qsa selector)]
     (let [selected? (some (comp #{(.getAttribute button "data-food-id")} :id) foods)]
       (cond
         (.contains (.-classList button) "mmm-button")
@@ -256,7 +251,7 @@
                (js/requestAnimationFrame #(update-food-store foods nil)))
              (.addEventListener (.querySelector drawer ".mmm-icon-button") "click"))))
     (update-comparison-uis foods buttons-selector drawer-selector)
-    (doseq [button (qsa buttons-selector)]
+    (doseq [button (dom/qsa buttons-selector)]
       (.remove (.-classList button) "mmm-hidden")
       (->> (fn [_e]
              (toggle-comparison foods {:id (.getAttribute button "data-food-id")
