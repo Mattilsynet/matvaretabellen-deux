@@ -28,6 +28,6 @@
     :title [:i18n ::stage-for-comparison]}
    (icons/render :fontawesome.solid/code-compare {:class :mmm-svg})])
 
-(defn render-toggle-cell [food locale]
+(defn render-toggle-cell [food locale & [class]]
   {:text (render-toggle-button food locale)
-   :class "mmm-tac mmm-pas"})
+   :class (concat [:mmm-tac :mmm-pas] class)})

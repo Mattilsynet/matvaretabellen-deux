@@ -19,7 +19,7 @@
              {:text [:i18n :i18n/lookup (:nutrient/name nutrient)]
               :class "mmm-tar mmm-td-min"}
              {:text [:i18n ::compare]
-              :class "mmm-td-min"}]
+              :class "mmm-td-min mmm-desktop"}]
    :id "filtered-table"
    :rows (for [food foods]
            {:data-food-group-id (:food-group/id (:food/food-group food))
@@ -28,7 +28,7 @@
                      [:i18n :i18n/lookup (:food/name food)]]}
              {:text (food/get-nutrient-quantity food (:nutrient/id nutrient))
               :class "mmm-tar mmm-nbr"}
-             (comparison/render-toggle-cell food locale)]})})
+             (comparison/render-toggle-cell food locale [:mmm-desktop])]})})
 
 (defn render-nutrient-foods-table
   "Really, ALL of the foods on one page? Well, not all of them, just the ones that
