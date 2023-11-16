@@ -1,0 +1,6 @@
+[{:trivia/food-id "06.525"
+  :trivia/definite {:nb "bananen" :en "the banana"}
+  :trivia/photo "/images/trivia/banan.jpg"
+  :trivia/prose {:nb "Banan er den frukten med høyest innhold av karbohydrater blant fruktene i Matvaretabellen. Den har også et høyt innhold av magnesium."
+                 :en "The banana is the fruit with the highest carbohydrate content among the fruits in the Food Composition Table. It also has a high content of magnesium."}
+  }]

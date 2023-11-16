@@ -115,13 +115,12 @@
  #:matvaretabellen.pages.frontpage
  {:all-food-groups "Matvaregrupper →"
   :all-nutrients "Næringsstoffer →"
-  :banana-nutrition-facts "Banan er den frukten med høyest innhold av karbohydrater blant fruktene i Matvaretabellen. Den har også et høyt innhold av magnesium."
   :common-food-searches "Vanlige matvaresøk"
   :did-you-know "Visste du at..."
   :new-in-food-table "Nytt i Matvaretabellen"
   :open-graph-description "Matvaretabellen har inngående informasjon om energi- og næringsinnholdet i tusenvis av matvarer. Du kan søke opp spesifikke matvarer, sammenligne dem, og lære mer om hvilke matvarer som byr på mye eller lite av de forskjellige næringsstoffene."
   :open-graph-title "Matvaretabellen.no - en tjeneste fra Mattilsynet"
-  :read-more-about-banana "Les mer om bananen her."
+  :read-more-about [:fn/str "Les mer om {{:definite}} her."]
   :seasonal-goods "Sesongvarer"
   :see-all-food-groups-overview "Oversikt over alle matvaregrupper."
   :see-all-nutrients-overview "Oversikt over alle næringsstoffer."}

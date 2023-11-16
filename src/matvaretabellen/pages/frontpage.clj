@@ -28,17 +28,17 @@
     {:title food-name
      :href (urls/get-food-url locale food-name)}))
 
-(defn BananaTeaserBox [locale db]
+(defn TriviaBox [locale food-db trivia]
   [:div.mmm-banner-media-buttons.mmm-section.mmm-brand-theme2
    [:div.mmm-container
     [:div.mmm-media
      [:aside
-      [:img.mvt-card-img-l {:src "/images/trivia/banana.jpg"}]]
+      [:img.mvt-card-img-l {:src (:trivia/photo trivia)}]]
      [:article.mmm-text.mmm-tight.mmm-vert-layout-s
       [:h4 [:i18n ::did-you-know]]
-      [:p [:i18n ::banana-nutrition-facts]]
-      [:p [:a.mmm-nbr (get-food-info locale db "06.525")
-           [:i18n ::read-more-about-banana]]]]]
+      [:p (get-in trivia [:trivia/prose locale])]
+      [:p [:a.mmm-nbr (get-food-info locale food-db (:trivia/food-id trivia))
+           [:i18n ::read-more-about {:definite (get-in trivia [:trivia/definite locale])}]]]]]
     [:div.mmm-buttons.mmm-text.mmm-tight
      [:a.mmm-banner-button.mmm-vert-layout-s
       {:href (urls/get-food-groups-url locale)}
@@ -59,8 +59,9 @@
    {:nb "Ris" :en "Rice"}
    {:nb "Blåbær" :en "Blueberries"}])
 
-(defn render [context db page]
-  (let [locale (:page/locale page)]
+(defn render [context food-db page]
+  (let [locale (:page/locale page)
+        app-db (:app/db context)]
     (layout/layout
      context
      [:head
@@ -77,7 +78,11 @@
        (SearchInput {:button {:text [:i18n :i18n/search-button]}
                      :input {:name "foods-search"}
                      :autocomplete-id "foods-results"})]
-      (BananaTeaserBox locale db)
+      (TriviaBox locale food-db (rng/rand-nth*
+                                 (/ (.getEpochSecond (:time/instant context)) 17)
+                                 (map #(d/entity app-db %)
+                                      (d/q '[:find [?e ...] :where [?e :trivia/food-id]]
+                                           app-db))))
       [:div.mmm-container.mmm-section.mmm-cols
        (Toc {:title [:i18n ::common-food-searches]
              :contents (take 5 (rng/shuffle*
@@ -92,12 +97,12 @@
                :contents (for [id (take 5 (rng/shuffle*
                                            (/ (.getEpochSecond (:time/instant context)) 5)
                                            (:food-ids new-foods)))]
-                           (get-food-info locale db id))
+                           (get-food-info locale food-db id))
                :class :mmm-col}))
        (Toc {:title [:i18n ::seasonal-goods]
              :contents (for [id (take 5 (rng/shuffle*
                                          (/ (.getEpochSecond (:time/instant context)) 7)
                                          (get-season-food-ids (:app/db context)
                                                               (MonthDay/now))))]
-                         (get-food-info locale db id))
+                         (get-food-info locale food-db id))
              :class :mmm-col})]])))
