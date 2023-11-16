@@ -665,8 +665,6 @@ table > tr.mmm-highlight {
 }
 
 .mmm-flex-gap {gap: var(--mt-column-gap);}
-.mmm-flex-gap-wide {gap: var(--mt-column-gap-wide);}
-.mmm-flex-gap-huge {gap: var(--mt-column-gap-huge);}
 
 /* Media */
 

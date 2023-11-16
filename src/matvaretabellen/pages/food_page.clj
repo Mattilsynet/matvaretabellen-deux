@@ -434,7 +434,7 @@
          (render-portion-select locale (:food/portions food))]]]
 
       (passepartout-wide
-       [:div.mmm-flex-gap-huge.mvt-cols-2-1-labeled
+       [:div.mvt-cols-2-1-labeled
         [:div.col-2
          [:div.label [:h3.mmm-h3 [:i18n ::composition]]]
          (PieChart {:slices (assoc-degrees 70 (prepare-value-slices food #{"Fett" "Karbo" "Protein" "Vann" "Fiber" "Alko"}))
