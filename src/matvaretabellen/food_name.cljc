@@ -7,8 +7,13 @@
 (defn stop-word? [w]
   (stop-words (str/trim w)))
 
+;; Hopefully temporary workaround that the ClojureScript compiler refuses to
+;; include ES2018 features in regexes (lookbehind/lookahead)
+(def tokenize-re #?(:clj #"(?<!\d),(?!\d)"
+                    :cljs #","))
+
 (defn tokenize-name [s]
-  (->> (interpose "," (str/split s #"(?<!\d),(?!\d)"))
+  (->> (interpose "," (str/split s tokenize-re))
        (mapcat (fn [s]
                  (str/split (str/trim s) #" +")))
        (map-indexed (fn [i w]
