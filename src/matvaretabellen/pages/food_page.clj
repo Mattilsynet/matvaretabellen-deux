@@ -307,9 +307,9 @@
     :secondary? true
     :inline? true}))
 
-(def source-toggle
+(defn get-source-toggle [& [label]]
   [:p.mmm-p.mmm-desktop
-   (Checkbox {:label [:i18n ::show-sources]
+   (Checkbox {:label (or label [:i18n ::show-sources])
               :class :mvt-source-toggler})])
 
 (defn passepartout-title [id title & rest]
@@ -482,17 +482,17 @@
            [:li energy-label ": " (energy food)]
            [:li [:i18n ::edible-part
                  {:pct (-> food :food/edible-part :measurement/percent)}]]]
-          source-toggle]
+          (get-source-toggle)]
          (render-table (prepare-nutrition-table (:app/db context) locale food))]]]
 
       (passepartout
-       (passepartout-title "karbohydrater" [:i18n ::carbohydrates-title] source-toggle)
+       (passepartout-title "karbohydrater" [:i18n ::carbohydrates-title] (get-source-toggle))
        (->> (food/get-nutrient-group food "Karbo")
             (prepare-nutrient-tables (:app/db context) locale)
             (map render-table)))
 
       (passepartout
-       (passepartout-title "fett" [:i18n ::fat-title] source-toggle)
+       (passepartout-title "fett" [:i18n ::fat-title] (get-source-toggle))
        (->> (food/get-nutrient-group food "Fett")
             (prepare-nutrient-tables (:app/db context) locale)
             (map render-table)))
@@ -537,7 +537,7 @@
       [:div.mmm-container.mmm-section-spaced
        [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
         [:h3#kilder [:i18n ::sources]]
-        [:div source-toggle-button]
+        (get-source-toggle [:i18n ::show-all-sources])
         (->> (food/get-sources food)
              (render-sources page))]]
 
