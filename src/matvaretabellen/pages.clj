@@ -113,3 +113,11 @@
       :page.kind/nutrient (nutrient-page/render context db page)
       :page.kind/nutrients (nutrients-page/render context db page)
       :page.kind/rda-data (rda/render-json context page))))
+
+(comment
+  (def conn matvaretabellen.dev/conn)
+
+  (for [id (:food-ids (load-edn "data/new-food-ids.edn"))]
+    [id (d/entity (d/db conn) [:food/id id])])
+
+  )

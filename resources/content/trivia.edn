@@ -1,6 +1,38 @@
 [{:trivia/food-id "06.525"
   :trivia/definite {:nb "bananen" :en "the banana"}
   :trivia/photo "/images/trivia/banan.jpg"
-  :trivia/prose {:nb "Banan er den frukten med høyest innhold av karbohydrater blant fruktene i Matvaretabellen. Den har også et høyt innhold av magnesium."
-                 :en "The banana is the fruit with the highest carbohydrate content among the fruits in the Food Composition Table. It also has a high content of magnesium."}
-  }]
+  :trivia/prose {:nb "at banan er den frukten med høyest innhold av karbohydrater blant fruktene i Matvaretabellen? Den har også et høyt innhold av magnesium."
+                 :en "that the banana is the fruit with the highest carbohydrate content among the fruits in the Food Composition Table? It also has a high content of magnesium."}}
+
+ {:trivia/food-id "06.048"
+  :trivia/definite {:nb "paprikaen" :en "the sweet pepper"}
+  :trivia/photo "/images/trivia/paprika.jpg"
+  :trivia/prose {:nb "at en halv paprika dekker dagsbehovet for vitamin C? Paprika, uansett farge, er den grønnsaken som har høyest innhold av vitamin C i Matvaretabellen."
+                 :en "that half a sweet pepper covers the daily requirement for vitamin C? Sweet pepper, regardless of color, is the vegetable with the highest content of vitamin C in the Food Composition Table."}}
+
+ {:trivia/food-id "05.003"
+  :trivia/definite {:nb "havregryn" :en "rolled oats"}
+  :trivia/photo "/images/trivia/havregryn.jpg"
+  :trivia/prose {:nb "at havregryn har like mye jern som tilberedt elgkjøtt? Havregryn er en god kilde til kostfiber, og har et høyere innhold av vitamin B1, jern, magnesium og sink sammenlignet med flere andre kornarter."
+                 :en "that rolled oats have as much iron as cooked moose meat? Rolled oats are a good source of dietary fiber, and have a higher content of vitamin B1, iron, magnesium, and zinc compared to several other grains."}}
+
+ {:trivia/food-id "02.001"
+  :trivia/definite {:nb "egget" :en "the egg"}
+  :trivia/photo "/images/trivia/egg.jpg"
+  :trivia/prose {:nb "at egg er en god kilde til protein? Egg inneholder også alle vitaminer og mineraler, utenom vitamin C."
+                 :en "that eggs are a good source of protein? Eggs also contain all vitamins and minerals, except for vitamin C."}}
+
+ {:trivia/food-id "06.504"
+  :trivia/definite {:nb "jordbæret" :en "the strawberry"}
+  :trivia/photo "/images/trivia/jordbaer.jpg"
+  :trivia/prose {:nb "jordbær har et høyere innhold av vitamin C enn appelsin? Jordbæret er også rikt på vitamin C og folat."
+                 :en "that strawberries have a higher content of vitamin C than oranges? Strawberries are also rich in vitamin C and folate."}}
+
+ ]
+
+;; krabbe
+;; laks
+;; potet
+;; reinsdyr
+;; spinat
+;; valnøtt

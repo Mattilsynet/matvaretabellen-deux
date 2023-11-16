@@ -116,7 +116,7 @@
  {:all-food-groups "Food Groups →"
   :all-nutrients "Nutrients →"
   :common-food-searches "Common Searches"
-  :did-you-know "Did you know..."
+  :did-you-know "Did you know ..."
   :new-in-food-table "New in Matvaretabellen"
   :open-graph-description "Matvaretabellen provides in-depth information on the energy and nutritional content of thousands of foods. You can search for specific foods, compare them, and learn about which foods offer high or low levels of various nutrients."
   :open-graph-title "Matvaretabellen.no - a service from Mattilsynet"
