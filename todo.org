@@ -53,7 +53,7 @@
 ** TODO Respekter antall desimaler på tall i Excel-arket
 ** DONE [M] Energiinnhold må beregnes
 ** TODO Redirect fra www til ikke
-* Sammenligning [13/14]
+* Sammenligning [13/13]
 ** DONE Lag page-entity for sammenligning
 ** DONE Rendre en statisk sammenligning mellom tre matvarer
 ** DONE Lag en diff for energiinnhold
@@ -64,7 +64,6 @@
 ** DONE Marker de mest forskjellige radene i sammenligningstabellen
 ** DONE Legg ut statistikk om næringsstoffer på comparison-siden
 ** DONE Lag payload med alle matvarene
-** TODO Lag disabled knapp
 ** DONE Query-parametere til sammenligningssiden for lenkbare sammenligninger
 ** DONE Dele-ikon på sammenligningssiden
 ** DONE Animer ut/inn på skuff
