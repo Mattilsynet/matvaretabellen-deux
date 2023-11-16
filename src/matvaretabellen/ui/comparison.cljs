@@ -214,9 +214,6 @@
       (if (< 0 (count @foods))
         (open-drawer drawer opt)
         (close-drawer drawer opt))
-      (if (< 1 (count @foods))
-        (.remove (.-classList button) "mmm-button-disabled")
-        (.add (.-classList button) "mmm-button-disabled"))
       (set! (.-href button) (str (first (str/split (.-href button) #"\?"))
                                  "?food-ids=" (str/join "," (map :id @foods))))
       (set! (.-innerHTML pills) "")
@@ -229,6 +226,12 @@
                                                  (update-food-store foods))))
           (.appendChild pills pill))))))
 
+
+(defn get-food-data [el]
+  (when-let [id (some-> el (.getAttribute "data-food-id"))]
+    {:id id
+     :foodName (.getAttribute el "data-food-name")}))
+
 (defn update-comparison-uis [foods buttons-selector drawer-selector & [opt]]
   (update-buttons @foods buttons-selector)
   (update-drawer foods drawer-selector opt))
@@ -238,6 +241,16 @@
                   (remove #(= (:id data) (:id %)) @foods)
                   (concat @foods [data]))]
     (update-food-store foods updated)))
+
+(defn initialize-drawer [drawer foods]
+  (->> (fn [_e]
+         (js/requestAnimationFrame #(update-food-store foods nil)))
+       (.addEventListener (.querySelector drawer ".mmm-icon-button") "click"))
+  (when-let [page-food (get-food-data (dom/qs "#food-data"))]
+    (->> (fn [_e]
+           (when-not ((set (map :id @foods)) (:id page-food))
+             (update-food-store foods (conj @foods page-food))))
+         (.addEventListener (dom/qs drawer ".mmm-button") "click"))))
 
 (defn initialize-tooling
   "Initialize the compare button and the comparison drawer on pages that are not
@@ -249,14 +262,10 @@
            (update-comparison-uis foods buttons-selector drawer-selector {:animate? true}))
          (add-watch foods ::director))
     (when (< 0 (count @foods))
-      (when-let [drawer (js/document.querySelector drawer-selector)]
-        (->> (fn [_e]
-               (js/requestAnimationFrame #(update-food-store foods nil)))
-             (.addEventListener (.querySelector drawer ".mmm-icon-button") "click"))))
+      (some-> (dom/qs drawer-selector) (initialize-drawer foods)))
     (update-comparison-uis foods buttons-selector drawer-selector)
     (doseq [button (dom/qsa buttons-selector)]
       (.remove (.-classList button) "mmm-hidden")
       (->> (fn [_e]
-             (toggle-comparison foods {:id (.getAttribute button "data-food-id")
-                                       :foodName (.getAttribute button "data-food-name")}))
+             (toggle-comparison foods (get-food-data button)))
            (.addEventListener button "click")))))

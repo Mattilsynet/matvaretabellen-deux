@@ -522,4 +522,9 @@
         (->> (food/get-sources food)
              (render-sources page))]]
 
+      [:script#food-data
+       {:type "text/plain"
+        :data-food-id (:food/id food)
+        :data-food-name [:i18n :i18n/lookup (:food/name food)]}]
+
       (comparison/render-comparison-drawer locale)])))
