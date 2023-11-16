@@ -100,20 +100,21 @@
 (defn render-sidebar [app-db nutrient foods locale]
   (let [target (or (:nutrient/parent nutrient) nutrient)]
     [:div.mmm-col.mmm-desktop {:id filter-panel-id}
-     (when-let [links (render-nutrient-links locale target nutrient)]
-       [:div.mmm-divider.mmm-vert-layout-m.mmm-mbm
-        [:div.mmm-mobile.mmm-pos-tr.mmm-mts
-         (layout/render-sidebar-close-button filter-panel-id)]
-        (let [{:keys [url text]} (get-back-link locale nutrient)]
-          [:h2.mmm-h5 [:a.mmm-link {:href url} text]])
-        links])
-     [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider
-      [:div.mmm-mobile.mmm-pos-tr.mmm-mts
-       (layout/render-sidebar-close-button filter-panel-id)]
-      [:h2.mmm-h5
-       [:a.mmm-link {:href (urls/get-food-groups-url locale)}
-        [:i18n ::food-groups]]]
-      (render-food-group-filters app-db (d/entity-db nutrient) foods locale)]]))
+     [:div.mmm-sidebar-content
+      (when-let [links (render-nutrient-links locale target nutrient)]
+        [:div.mmm-divider.mmm-vert-layout-m.mmm-mbm
+         [:div.mmm-mobile.mmm-pos-tr.mmm-mts
+          (layout/render-sidebar-close-button filter-panel-id)]
+         (let [{:keys [url text]} (get-back-link locale nutrient)]
+           [:h2.mmm-h5 [:a.mmm-link {:href url} text]])
+         links])
+      [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider
+       [:div.mmm-mobile.mmm-pos-tr.mmm-mts
+        (layout/render-sidebar-close-button filter-panel-id)]
+       [:h2.mmm-h5
+        [:a.mmm-link {:href (urls/get-food-groups-url locale)}
+         [:i18n ::food-groups]]]
+       (render-food-group-filters app-db (d/entity-db nutrient) foods locale)]]]))
 
 (defn render [context db page]
   (let [nutrient (d/entity (:foods/db context) [:nutrient/id (:page/nutrient-id page)])

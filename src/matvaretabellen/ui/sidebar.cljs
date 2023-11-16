@@ -12,8 +12,12 @@
 
 (defn toggle-sidebar [sidebar]
   (if (.contains (.-classList sidebar) "mmm-sidebar-closed")
-    (.remove (.-classList sidebar) "mmm-sidebar-closed")
-    (.add (.-classList sidebar) "mmm-sidebar-closed")))
+    (do
+      (.add (.-classList js/document.body) "mmm-with-modal")
+      (.remove (.-classList sidebar) "mmm-sidebar-closed"))
+    (do
+      (.remove (.-classList js/document.body) "mmm-with-modal")
+      (.add (.-classList sidebar) "mmm-sidebar-closed"))))
 
 (defn get-sidebar [toggler]
   (dom/qs (.getAttribute toggler "data-sidebar-target")))

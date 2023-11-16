@@ -846,6 +846,10 @@ table > tr.mmm-highlight {
  *** Mobile sidebar ***
  **********************/
 
+.mmm-with-modal {
+    overflow: hidden;
+}
+
 .mmm-sidebar,
 .mmm .mmm-sidebar {
     display: block;
@@ -853,18 +857,21 @@ table > tr.mmm-highlight {
 
 .mmm-sidebar {
     background: var(--mt-color-beige-200);
-    height: 100vh;
+    bottom: 0;
     left: 0;
-    margin-left: 0;
-    padding: 24px;
     position: fixed;
     top: 0;
-    transition: margin-left 0.25s ease-in;
-    width: 100vw;
+    overflow-y: scroll;
+    transition: left 0.25s ease-in;
+    width: 100%;
+}
+
+.mmm-sidebar .mmm-sidebar-content {
+    padding: 24px;
 }
 
 .mmm-sidebar-closed {
-    margin-left: -100vw;
+    left: -100%;
 }
 
 /***************
