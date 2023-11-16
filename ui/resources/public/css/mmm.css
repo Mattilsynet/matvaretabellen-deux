@@ -1332,3 +1332,26 @@ a.mmm-button-secondary:link {
 .mmm-abbr {
     text-decoration: underline dotted;
 }
+
+/***********************
+ *** Component: Tabs ***
+ ***********************/
+
+.mmm-tabs {
+    display: inline-flex;
+    background: var(--mt-brand-theme-secondary-bg);
+    border-radius: 0.25em 0.25em 0 0;
+    padding: 2px;
+    gap: 2px;
+}
+
+.mmm-tabs .tab {
+    padding: 0.25rem 1.25rem;
+    cursor: pointer;
+}
+.mmm-tabs .tab.selected {
+    background: var(--mt-brand-theme-main-bg);
+    border-radius: 0.18em 0.18em 0 0;
+    cursor: default;
+    margin-bottom: -2px;
+}

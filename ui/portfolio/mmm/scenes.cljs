@@ -8,6 +8,7 @@
             [mmm.components.search-input-scenes]
             [mmm.components.select-scenes]
             [mmm.components.site-header-scenes]
+            [mmm.components.tabs-scenes]
             [mmm.components.text-input-scenes]
             [mmm.components.toc-scenes]
             [mmm.elements.image-scenes]
@@ -33,6 +34,7 @@
 :mmm.components.search-input-scenes/keep
 :mmm.components.select-scenes/keep
 :mmm.components.site-header-scenes/keep
+:mmm.components.tabs-scenes/keep
 :mmm.components.text-input-scenes/keep
 :mmm.components.toc-scenes/keep
 :mmm.elements.image-scenes/keep
