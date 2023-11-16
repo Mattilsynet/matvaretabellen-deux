@@ -23,7 +23,12 @@
 
     (is (= (-> "Barnemat, middag, potet og brokkoli, fra 4 mnd"
                (sut/shorten-name {:abbreviate-words? true}))
-           "Barnemat, middag"))))
+           "Barnemat, middag")))
+
+  (testing "Does not abbreviate numbers"
+    (is (= (-> "Vitamineral, 0,55 g/stk, Vitaplex"
+               sut/shorten-name)
+           "Vitamineral"))))
 
 (deftest shorten-names-test
   (testing "Shortens food names"

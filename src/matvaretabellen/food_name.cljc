@@ -8,7 +8,7 @@
   (stop-words (str/trim w)))
 
 (defn tokenize-name [s]
-  (->> (interpose "," (str/split s #","))
+  (->> (interpose "," (str/split s #"(?<!\d),(?!\d)"))
        (mapcat (fn [s]
                  (str/split (str/trim s) #" +")))
        (map-indexed (fn [i w]
