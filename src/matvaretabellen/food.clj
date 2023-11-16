@@ -18,7 +18,8 @@
     [:i18n :i18n/number {:n n :decimals decimals}]))
 
 (defn wrap-in-portion-span [num & [{:keys [decimals class]}]]
-  [:span (cond-> {:data-portion (str num)}
+  [:span (cond-> {:data-portion (str num)
+                  :data-value (str num)}
            decimals (assoc :data-decimals (str decimals))
            class (assoc :class class))
    (format-number num {:decimals decimals})])
@@ -110,6 +111,16 @@
 (defn get-all-food-group-foods [food-group]
   (apply concat (:food/_food-group food-group)
          (map get-all-food-group-foods (:food-group/_parent food-group))))
+
+(defn get-top-level-food-group [food-group]
+  (or (some-> (:food-group/parent food-group)
+              get-top-level-food-group)
+      food-group))
+
+(defn get-top-level-food-groups [foods]
+  (->> foods
+       (map (comp get-top-level-food-group :food/food-group))
+       set))
 
 (defn ->nutrient-lookup [constituents]
   (->> constituents

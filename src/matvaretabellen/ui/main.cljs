@@ -132,7 +132,8 @@
                    0
                    ;; Max 2 extra decimals if no decimals where specified
                    (or decimals (+ 2 orig-decimals)))]
-    (.toLocaleString scaled lang #js {:maximumFractionDigits decimals})))
+    [(.toFixed scaled decimals)
+     (.toLocaleString scaled lang #js {:maximumFractionDigits decimals})]))
 
 (defn handle-portion-select-event [e lang portion-elements portion-label-elements]
   (let [value (.-value (.-target e))
@@ -145,13 +146,14 @@
     (doseq [elem (seq portion-label-elements)]
       (set! (.-innerHTML elem) label))
     (doseq [elem (seq portion-elements)]
-      (set! (.-innerHTML elem)
-            (calc-new-portion-fraction
-             lang
-             portion-size
-             (js/Number. (.getAttribute elem "data-portion"))
-             (when-let [decimals (.getAttribute elem "data-decimals")]
-               {:decimals (js/Number. decimals)}))))))
+      (let [[scaled formatted] (calc-new-portion-fraction
+                                lang
+                                portion-size
+                                (js/Number. (.getAttribute elem "data-portion"))
+                                (when-let [decimals (.getAttribute elem "data-decimals")]
+                                  {:decimals (js/Number. decimals)}))]
+        (.setAttribute elem "data-value" scaled)
+        (set! (.-innerHTML elem) formatted)))))
 
 (defn initialize-portion-selector [lang select-element portion-elements portion-label-elements event-bus]
   (when select-element
@@ -214,20 +216,14 @@
         (get-in recommendation ["minAmount" 0])
         (get-in recommendation ["averageAmount" 0]))))
 
-(defn parse-formatted-float [n]
-  (-> n
-      (str/replace #"," ".")
-      (str/replace #"[^\d]" "")
-      js/parseFloat))
-
 (defn update-rda-values [profile]
   (doseq [el (dom/qsa ".mvt-rda")]
     (let [nutrient-id (.getAttribute el "data-nutrient-id")]
       (set! (.-innerHTML el)
             (-> (.closest el "tr")
                 (.querySelector "[data-portion]")
-                .-innerText
-                parse-formatted-float
+                (.getAttribute "data-value")
+                js/parseFloat
                 (/ (get-recommended-amount profile nutrient-id))
                 (* 100)
                 (.toFixed 0)
