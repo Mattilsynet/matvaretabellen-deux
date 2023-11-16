@@ -79,7 +79,9 @@
     --mt-typography-small-font-size: 16px;
     --mt-typography-base-font-size: 18px;
 
-    --mt-typography-heading-xxs-font-weight: var(--mt-font-weight-normal);
+    --mt-typography-heading-xxs-font-weight: var(--mt-font-weight-bold);
+    --mt-typography-heading-xxs-font-size: 1rem;
+    --mt-typography-heading-xxs-line-height: var(--mt-font-line-height-tight);
 
     --mt-typography-heading-xs-font-size: 1.125rem;
     --mt-typography-heading-xs-line-height: var(--mt-font-line-height-tight);
@@ -210,6 +212,9 @@
     --mt-component-checkbox-inactive-color: var(--mt-color-beige-500);
     --mt-component-checkbox-active-color: var(--mt-color-blue-500);
 
+    --mt-component-divider-border-color: var(--mt-color-beige-500);
+    --mt-component-divider-padding: var(--mt-spacing-x1_4);
+
     --mt-component-drawer-background: var(--mt-color-white);
     --mt-component-drawer-border-color: var(--mt-color-red-200);
 
@@ -237,6 +242,10 @@
     --mt-component-icon-button-border-radius: var(--mt-border-radius-s);
     --mt-component-icon-button-active-color: var(--mt-color-blue-500);
     --mt-component-icon-button-active-background: var(--mt-color-blue-100);
+
+    --mt-component-list-nested-margin-top: 0.25em;
+    --mt-component-list-nested-margin-bottom: 0.5em;
+    --mt-component-list-ul-margin-left: 1.25rem;
 
     --mt-component-pill-background: var(--mt-color-beige-200);
     --mt-component-pill-padding: var(--mt-spacing-x0_5) var(--mt-spacing-x1);

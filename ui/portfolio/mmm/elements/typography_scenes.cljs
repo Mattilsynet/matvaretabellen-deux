@@ -56,6 +56,18 @@
    [:li "Det er kun fantasien som setter grenser"]
    [:li "Siden den er \"unadorned\" har den ingen kulepunkter"]))
 
+(defscene nested-unadorned-list
+  (e/ul {:class "mmm-unadorned-list"}
+   [:li "Dette er en unummerert liste"]
+   [:li "Den kan ha mange punkter"]
+   [:li "Siden den er \"unadorned\" har den ingen kulepunkter"
+    (e/ul {:class "mmm-unadorned-list"}
+          [:li "Men klart"]
+          [:li "Nøsta lister"]
+          [:li "Må allikevel"]
+          [:li "...ha innrykk"])]
+   [:li "Det er kun fantasien som setter grenser"]))
+
 (defscene definition-list
   [:dl.mmm-dl
    [:dt "Klovneforskning"]
