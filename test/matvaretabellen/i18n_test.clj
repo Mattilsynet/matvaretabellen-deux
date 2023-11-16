@@ -1,6 +1,6 @@
-(ns matvaretabellen.core-test
+(ns matvaretabellen.i18n-test
   (:require [clojure.test :refer [deftest is testing]]
-            [matvaretabellen.core :as sut]))
+            [matvaretabellen.i18n :as sut]))
 
 (deftest format-number-test
   (testing "Rounds to the desired number of decimals"
@@ -20,15 +20,15 @@
 
 (deftest enumerate-test
   (testing "Enumerates in norwegian"
-    (is (= (sut/enumerate {:locale :nb} {} ["Banan" "Eple" "Kake"])
+    (is (= (sut/enumerate :nb ["Banan" "Eple" "Kake"])
            "Banan, Eple og Kake")))
 
   (testing "Enumerates in english"
-    (is (= (sut/enumerate {:locale :en} {} ["Banan" "Eple" "Kake"])
+    (is (= (sut/enumerate :en ["Banan" "Eple" "Kake"])
            "Banan, Eple and Kake")))
 
   (testing "Enumerates nothing"
-    (is (= (sut/enumerate {:locale :en} {} []) "")))
+    (is (= (sut/enumerate :en []) "")))
 
   (testing "Enumerates a single word"
-    (is (= (sut/enumerate {:locale :en} {} ["Banan"]) "Banan"))))
+    (is (= (sut/enumerate :en ["Banan"]) "Banan"))))
