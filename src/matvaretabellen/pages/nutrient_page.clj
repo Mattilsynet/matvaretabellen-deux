@@ -87,53 +87,52 @@
                                 :url (urls/get-nutrient-url
                                       ({:en :nb :nb :en} locale)
                                       nutrient)}})
-      [:div
-       [:div.mmm-themed.mmm-brand-theme1
-        (layout/render-toolbar
-         {:locale locale
-          :crumbs [{:text [:i18n ::crumbs/all-nutrients]
-                    :url (urls/get-nutrients-url locale)}
-                   {:text nutrient-name}]})
-        (let [details (d/entity (:app/db context) [:nutrient/id (:nutrient/id nutrient)])
-              desc (get-in details [:nutrient/long-description locale])
-              illustration (:nutrient/illustration details)]
-          [:div.mmm-container.mmm-section
-           [:div.mmm-media
-            [:article.mmm-vert-layout-m
-             [:div.mmm-vert-layout-s
-              [:h1.mmm-h1 nutrient-name]
-              (when (seq foods)
-                [:p.mmm-p [:i18n :i18n/number-of-foods {:count (count foods)}]])]
-             (when desc
-               [:div.mmm-text.mmm-preamble
-                [:p (if (string? desc)
-                      (mashdown/render db locale desc)
-                      desc)]])
+      [:div.mmm-themed.mmm-brand-theme1
+       (layout/render-toolbar
+        {:locale locale
+         :crumbs [{:text [:i18n ::crumbs/all-nutrients]
+                   :url (urls/get-nutrients-url locale)}
+                  {:text nutrient-name}]})
+       (let [details (d/entity (:app/db context) [:nutrient/id (:nutrient/id nutrient)])
+             desc (get-in details [:nutrient/long-description locale])
+             illustration (:nutrient/illustration details)]
+         [:div.mmm-container.mmm-section
+          [:div.mmm-media
+           [:article.mmm-vert-layout-m
+            [:div.mmm-vert-layout-s
+             [:h1.mmm-h1 nutrient-name]
              (when (seq foods)
-               [:div
-                (Button {:text [:i18n ::download-these]
-                         :href (urls/get-nutrient-excel-url locale nutrient)
-                         :icon :fontawesome.solid/arrow-down
-                         :inline? true
-                         :secondary? true})])]
-            (when (and desc illustration) ;; looks horrible without text
-              [:aside.mmm-desktop {:style {:flex-basis "40%"}}
-               [:img {:src illustration :width 300}]])]])]
+               [:p.mmm-p [:i18n :i18n/number-of-foods {:count (count foods)}]])]
+            (when desc
+              [:div.mmm-text.mmm-preamble
+               [:p (if (string? desc)
+                     (mashdown/render db locale desc)
+                     desc)]])
+            (when (seq foods)
+              [:div
+               (Button {:text [:i18n ::download-these]
+                        :href (urls/get-nutrient-excel-url locale nutrient)
+                        :icon :fontawesome.solid/arrow-down
+                        :inline? true
+                        :secondary? true})])]
+           (when (and desc illustration) ;; looks horrible without text
+             [:aside.mmm-desktop {:style {:flex-basis "40%"}}
+              [:img {:src illustration :width 300}]])]])]
 
-       (when (seq foods)
-         (let [sidebar (render-sidebar nutrient foods locale)]
-           [:div.mmm-container.mmm-section.mmm-mobile-phn
-            [:div.mmm-flex.mmm-mobile-container-p
-             (when sidebar
-               (layout/render-sidebar-filter-button filter-panel-id))
-             [:p.mmm-p.mmm-tar.mmm-mbm.mmm-flex-grow
-              [:i18n ::per-100g
-               {:nutrient (get-in nutrient [:nutrient/name locale])}]]]
-            [:div.mmm-cols.mmm-cols-d1_2
-             sidebar
-             (render-nutrient-foods-table nutrient foods locale)]]))
+      (when (seq foods)
+        (let [sidebar (render-sidebar nutrient foods locale)]
+          [:div.mmm-container.mmm-section.mmm-mobile-phn
+           [:div.mmm-flex.mmm-mobile-container-p
+            (when sidebar
+              (layout/render-sidebar-filter-button filter-panel-id))
+            [:p.mmm-p.mmm-tar.mmm-mbm.mmm-flex-grow
+             [:i18n ::per-100g
+              {:nutrient (get-in nutrient [:nutrient/name locale])}]]]
+           [:div.mmm-cols.mmm-cols-d1_2
+            sidebar
+            (render-nutrient-foods-table nutrient foods locale)]]))
 
-       (comparison/render-comparison-drawer locale)]])))
+      (comparison/render-comparison-drawer locale)])))
 
 (comment
 
