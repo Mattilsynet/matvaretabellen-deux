@@ -72,7 +72,9 @@
                  :class "mvt-source"}
                 {:text (food/get-nutrient-quantity food id)
                  :class "mmm-tar mvt-amount"}
-                {:text (str (int (* 100 (/ value total))) "%")
+                {:text (str (if (zero? total)
+                              0
+                              (int (* 100 (/ value total)))) "%")
                  :class "mmm-tar mvt-amount"}]))}))
 
 (defn get-kj [food & [opt]]
