@@ -2,6 +2,7 @@
   (:require [matvaretabellen.crumbs :as crumbs]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.footer :refer [CompactSiteFooter]]
+            [mmm.components.icon-button :refer [IconButton]]
             [mmm.components.search-input :refer [SearchInput]]))
 
 (defn layout [context head body]
@@ -28,3 +29,17 @@
               :placeholder [:i18n :i18n/search-label]}
       :autocomplete-id "foods-results"
       :size :small})]])
+
+(defn render-sidebar-filter-button [target-id]
+  (IconButton
+   {:title [:i18n ::filter]
+    :class :mvt-sidebar-toggle
+    :data-sidebar-target (str "#" target-id)
+    :icon :fontawesome.solid/filter}))
+
+(defn render-sidebar-close-button [target-id]
+  (IconButton
+   {:title [:i18n ::close-sidebar]
+    :class :mvt-sidebar-toggle
+    :data-sidebar-target (str "#" target-id)
+    :icon :fontawesome.solid/x}))

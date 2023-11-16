@@ -11,3 +11,7 @@
    (js/document.querySelector selector))
   ([el selector]
    (.querySelector el selector)))
+
+(defn visible? [el]
+  (let [bcr (.getBoundingClientRect el)]
+    (< 0 (* (.-width bcr) (.-height bcr)))))

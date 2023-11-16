@@ -38,6 +38,10 @@
   :significant "significantly different"
   :dramatic "highly varying"}
 
+ #:matvaretabellen.layout
+ {:close-sidebar "Close"
+  :filter "Filter"}
+
  #:matvaretabellen.pages.comparison-page
  {:and "and"
   :compare-foods "Compare foods"
@@ -127,4 +131,5 @@
  #:matvaretabellen.pages.nutrient-page
  {:download-these "Download the table"
   :food "Food"
-  :nutrient-header [:fn/str "{{:en}} per 100 g"]}]
+  :nutrients "Nutrients"
+  :per-100g [:fn/str "{{:nutrient}} per 100 grams of food"]}]

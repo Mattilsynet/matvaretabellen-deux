@@ -307,7 +307,9 @@
       (ensure-rda-data
        (str "rda-data-" (name locale))
        locale
-       #(initialize-rda-selectors (js->clj %) selects event-bus))))
+       #(initialize-rda-selectors (js->clj %) selects event-bus)))
+
+    (sidebar/initialize ".mvt-sidebar-toggle"))
 
   (hoverable/set-up js/document))
 

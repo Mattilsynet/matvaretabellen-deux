@@ -38,6 +38,10 @@
   :significant "nokså forskjellig"
   :dramatic "svært forskjellig"}
 
+ #:matvaretabellen.layout
+ {:close-sidebar "Lukk"
+  :filter "Filter"}
+
  #:matvaretabellen.pages.comparison-page
  {:and "og"
   :compare-foods "Sammenlign matvarer"
@@ -127,4 +131,5 @@
  #:matvaretabellen.pages.nutrient-page
  {:download-these "Last ned tabellen"
   :food "Matvare"
-  :nutrient-header [:fn/str "{{:nb}} per 100 g"]}]
+  :nutrients "Næringsstoffer"
+  :per-100g [:fn/str "{{:nutrient}} per 100 gram matvare"]}]
