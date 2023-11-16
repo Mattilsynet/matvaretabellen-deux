@@ -16,7 +16,7 @@
 (defn prepare-foods-table [nutrient locale foods]
   {:headers [{:text [:i18n ::food]}
              {:text [:i18n :i18n/lookup (nutrient/get-name nutrient)]
-              :class "mmm-tar mmm-nbr mmm-to"}
+              :class "mmm-tar"}
              {}]
    :rows (for [food foods]
            [{:text [:a.mmm-link {:href (urls/get-food-url locale food)}
