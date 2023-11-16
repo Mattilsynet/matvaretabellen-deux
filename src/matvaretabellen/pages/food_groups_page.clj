@@ -39,13 +39,12 @@
        [:div.mmm-container.mmm-section.mmm-mvxl
         [:div.mmm-media
          [:article.mmm-vert-layout-m
-          [:div [:h1.mmm-h1 [:i18n ::all-food-groups]]
-           [:i18n :i18n/number-of-foods
-            {:count (d/q '[:find (count ?e) .
-                           :where [?e :food/id]] food-db)}]]
+          [:div [:h1.mmm-h1 [:i18n ::all-food-groups]]]
           [:div.mmm-text.mmm-preamble
            [:p [:i18n ::prose
-                {:count (count food-groups)}]]]
+                {:food-count (d/q '[:find (count ?e) .
+                                    :where [?e :food/id]] food-db)
+                 :group-count (count food-groups)}]]]
           [:div
            (Button {:text [:i18n ::download-everything]
                     :href [:i18n ::download-url]

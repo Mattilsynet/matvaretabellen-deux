@@ -99,7 +99,7 @@
 
  #:matvaretabellen.pages.food-groups-page
  {:all-food-groups "Food Groups"
-  :prose (list "The foods in the Food Composition Table are divided into " [:fn/get :count] " main groups based on origin and use. Under these groups, there are also specific categories.")
+  :prose (list "In the Norwegian Food Composition Table there are " [:fn/get :food-count] " foods divided into " [:fn/get :group-count] " main groups based on origin and use. Under these groups, there are also specific categories.")
   :download-everything "Download the entire table"
   :download-url "/all-foods.xlsx"}
 

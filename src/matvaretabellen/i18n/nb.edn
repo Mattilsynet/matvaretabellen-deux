@@ -99,7 +99,7 @@
 
  #:matvaretabellen.pages.food-groups-page
  {:all-food-groups "Matvaregrupper"
-  :prose (list "Matvarene i Matvaretabellen er fordelt på " [:fn/get :count] " hovedgrupper etter opprinnelse og bruk. Under disse gruppene finnes det også egne kategorier.")
+  :prose (list "I Matvaretabellen finnes det " [:fn/get :food-count] " matvarer fordelt på " [:fn/get :group-count] " hovedgrupper etter opprinnelse og bruk. Under disse gruppene finnes det også egne kategorier.")
   :download-everything "Last ned hele tabellen"
   :download-url "/alle-matvarer.xlsx"}
 
