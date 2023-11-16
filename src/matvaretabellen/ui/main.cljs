@@ -214,6 +214,12 @@
         (get-in recommendation ["minAmount" 0])
         (get-in recommendation ["averageAmount" 0]))))
 
+(defn parse-formatted-float [n]
+  (-> n
+      (str/replace #"," ".")
+      (str/replace #"[^\d]" "")
+      js/parseFloat))
+
 (defn update-rda-values [profile]
   (doseq [el (dom/qsa ".mvt-rda")]
     (let [nutrient-id (.getAttribute el "data-nutrient-id")]
@@ -221,7 +227,7 @@
             (-> (.closest el "tr")
                 (.querySelector "[data-portion]")
                 .-innerText
-                js/parseFloat
+                parse-formatted-float
                 (/ (get-recommended-amount profile nutrient-id))
                 (* 100)
                 (.toFixed 0)
