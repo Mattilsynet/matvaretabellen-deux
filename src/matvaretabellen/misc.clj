@@ -61,14 +61,12 @@
       (b/quantity conversion quantity)
       quantity)))
 
-(defn ->map [entity]
-  (->> (for [[k v] entity]
-         [k (cond
-              (:db/id v) (->map v)
-              (map? v) v
-              (coll? v) (map ->map v)
-              :else v)])
-       (into {})))
+(defn ->map [x]
+  (cond
+    (:db/id x) (update-vals (into {:db/id (:db/id x)} x) ->map)
+    (map? x) (update-vals x ->map)
+    (coll? x) (map ->map x)
+    :else x))
 
 (defn update-existing [m k & args]
   (if (contains? m k)
