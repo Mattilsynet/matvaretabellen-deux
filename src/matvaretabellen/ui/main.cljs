@@ -3,6 +3,7 @@
             [matvaretabellen.search :as search]
             [matvaretabellen.ui.comparison :as comparison]
             [matvaretabellen.ui.dom :as dom]
+            [matvaretabellen.ui.food-page :as food-page]
             [matvaretabellen.ui.foods-search :as foods-search]
             [matvaretabellen.ui.hoverable :as hoverable]
             [matvaretabellen.ui.sidebar :as sidebar]
@@ -313,6 +314,7 @@
 
     (sidebar/initialize ".mvt-sidebar-toggle"))
 
+  (food-page/set-up-tabs)
   (hoverable/set-up js/document))
 
 (defonce ^:export kicking-out-the-jams (boot))

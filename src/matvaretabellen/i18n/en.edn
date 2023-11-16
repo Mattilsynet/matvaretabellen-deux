@@ -95,6 +95,8 @@
   :scientific-name (list [:strong "Scientific name:"] " " [:fn/get :name])
   :show-all-sources "Show sources in all tables"
   :show-sources "Show sources"
+  :tab-diagram "Diagram"
+  :tab-table "Table"
   :total [:fn/str "{{:en}}, total"]
   :toc-title "Contents"
   :trace-elements-title "Trace elements"

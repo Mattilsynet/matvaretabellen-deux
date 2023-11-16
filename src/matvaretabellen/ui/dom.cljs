@@ -12,6 +12,9 @@
   ([el selector]
    (.querySelector el selector)))
 
+(defn by-id [id]
+  (js/document.getElementById id))
+
 (defn visible? [el]
   (let [bcr (.getBoundingClientRect el)]
     (< 0 (* (.-width bcr) (.-height bcr)))))

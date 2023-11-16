@@ -197,6 +197,29 @@
     }
 }
 
+/* Food page shenanigans
+ *
+ * Getting the "Nutritional Information" section of the food page
+ * just right ended up requiring some responsive shenanigans, not worth
+ * generalizing.
+ */
+
+@media only screen and (max-width: 767px) {
+    .mtv-food-page-top-section-h2 {
+        margin-bottom: 20px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .mtv-food-page-top-section {
+        margin-bottom: -60px;
+    }
+
+    .mtv-food-page-top-section-h2 {
+        margin-bottom: 40px;
+    }
+}
+
 /* Toggle references */
 .mvt-source-hide .mvt-source {
     display: none;
