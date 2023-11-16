@@ -97,8 +97,6 @@
   :sources "Kilder"
   :show-all-sources "Vis kilder i alle tabeller"
   :show-sources "Vis kilder"
-  :tab-diagram "Diagram"
-  :tab-table "Tabell"
   :toc-title "Innhold"
   :total [:fn/str "{{:nb}}, total"]
   :trace-elements-title "Sporstoffer"
