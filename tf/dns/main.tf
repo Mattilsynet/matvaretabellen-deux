@@ -14,7 +14,7 @@ resource "google_dns_record_set" "matvaretabellen" {
   type = "A"
   ttl = 300
   project = var.project_id
-  rrdatas = ["34.36.51.153"]
+  rrdatas = ["194.19.30.143"]
 }
 
 resource "google_dns_record_set" "www-matvaretabellen" {
@@ -23,5 +23,5 @@ resource "google_dns_record_set" "www-matvaretabellen" {
   type = "A"
   ttl = 300
   project = var.project_id
-  rrdatas = ["34.36.51.153"]
+  rrdatas = ["194.19.30.143"]
 }
