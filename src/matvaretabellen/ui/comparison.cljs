@@ -113,6 +113,20 @@
        (map #(keywordize-some (js->clj (aget data %))))
        with-short-names))
 
+(defn initialize-share-button [button food-ids]
+  (let [url (str js/window.location.pathname "?food-ids=" food-ids)]
+    (->> (fn [e]
+           (.preventDefault e)
+           (js/navigator.clipboard.writeText (str js/window.location.origin url))
+           (when-let [receipt (some-> button
+                                      (.getAttribute "data-receipt")
+                                      dom/qs)]
+             (.remove (.-classList receipt) "mmm-hidden")
+             (.add (.-classList receipt) "mmm-flash")
+             (.removeChild (.-parentNode button) button)))
+         (.addEventListener button "click"))
+    (set! (.-href button) url)))
+
 (defn initialize-page
   "Initialize the comparison page"
   [data params]
@@ -140,13 +154,9 @@
             (.appendChild row (.cloneNode template true))))
         (doseq [[el food] (map vector (next (seq (.-childNodes row))) foods)]
           (prepare-comparison-el el food))))
-    (doseq [share-button (dom/qsa ".mvtc-share")]
-      (let [url (str js/window.location.pathname "?food-ids=" (get params "food-ids"))]
-        (->> (fn [e]
-               (.preventDefault e)
-               (js/navigator.clipboard.writeText (str js/window.location.origin url)))
-             (.addEventListener share-button "click"))
-        (set! (.-href share-button) url)))))
+    (let [food-ids (get params "food-ids")]
+      (doseq [share-button (dom/qsa ".mvtc-share")]
+        (initialize-share-button share-button food-ids)))))
 
 ;; Comparison UI on other pages
 

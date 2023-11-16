@@ -1170,12 +1170,17 @@ a.mmm-button-secondary:link {
     }
 }
 
-.mmm-focus:target {
+.mmm-focus:target,
+.mmm-flash {
     animation: fadeout 5s;
     animation-iteration-count: 1;
     padding: 8px 16px;
     margin: -8px -16px;
     border-radius: var(--mt-border-radius-s);
+}
+
+.mmm-flash {
+    display: block;
 }
 
 /*************************

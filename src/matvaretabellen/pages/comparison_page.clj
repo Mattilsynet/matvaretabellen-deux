@@ -37,12 +37,14 @@
       [:p.mmm-p.mvtc-rating-summary.mmm-hidden [:i18n ::energy-summary]]
       [:p.mmm-p [:i18n ::diff-intro]]
       [:p.mmm-p
-       (Button {:text "Kopier lenke"
+       (Button {:text [:i18n ::share-comparison]
                 :href (urls/get-comparison-url locale)
+                :data-receipt "#share-receipt"
                 :secondary? true
                 :icon :fontawesome.solid/share-from-square
                 :inline? true
-                :class [:mvtc-share]})]]
+                :class [:mvtc-share]})
+       [:span.mmm-hidden#share-receipt [:i18n ::url-copied]]]]
      (food-page/render-toc {:contents (drop-last 2 (food-page/get-toc-items))
                             :class :mmm-nbr})]]])
 

@@ -48,7 +48,9 @@
   :composition "Sammensetning"
   :diff-intro "Nedenfor kan du sammenligne matvarene næringsstoff for næringsstoff. De største forskjellene er uthevet med blå bakgrunn."
   :edible-part "Spiselig del"
-  :energy-summary "Disse matvarene har ${rating} energiinnhold. Det er like mye energi i ${reference} som i ${comparisons}."}
+  :energy-summary "Disse matvarene har ${rating} energiinnhold. Det er like mye energi i ${reference} som i ${comparisons}."
+  :share-comparison "Del sammenligning"
+  :url-copied "Vi har kopiert en lenke til denne siden, lim den inn der du vil dele den."}
 
  #:matvaretabellen.pages.food-page
  {:adi-title "Anbefalt dagsinntak (AI)"
