@@ -301,6 +301,13 @@
     [:div.mmm-container-medium.mmm-vert-layout-m
      body]]])
 
+(def source-toggle-button
+  (Button
+   {:class [:mmm-desktop :mvt-source-toggler]
+    :text [:i18n ::show-sources]
+    :secondary? true
+    :inline? true}))
+
 (def source-toggle
   [:p.mmm-p.mmm-desktop
    (Checkbox {:label [:i18n ::show-sources]
@@ -309,12 +316,11 @@
 (defn passepartout-title [id title & rest]
   [:div.mmm-flex.mmm-flex-bottom
    [:h3.mmm-h3 {:id id} title]
-   source-toggle
    rest])
 
 (defn render-rda-select [db selected]
   (let [profiles (rda/get-profiles-per-demographic db)]
-    [:div.mmm-container-medium.mmm-section.mmm-flex.mmm-flex-jr
+    [:div.mmm-flex.mmm-flex-jr
      [:div.mmm-vert-layout-s.mmm-alr
       [:p [:i18n ::rda-select-label]]
       (Select
@@ -485,21 +491,20 @@
          (render-table (prepare-nutrition-table (:app/db context) locale food))]]]
 
       (passepartout
-       (passepartout-title "karbohydrater" [:i18n ::carbohydrates-title])
+       (passepartout-title "karbohydrater" [:i18n ::carbohydrates-title] source-toggle)
        (->> (food/get-nutrient-group food "Karbo")
             (prepare-nutrient-tables (:app/db context) locale)
             (map render-table)))
 
       (passepartout
-       (passepartout-title "fett" [:i18n ::fat-title])
+       (passepartout-title "fett" [:i18n ::fat-title] source-toggle)
        (->> (food/get-nutrient-group food "Fett")
             (prepare-nutrient-tables (:app/db context) locale)
             (map render-table)))
 
-      (render-rda-select (:app/db context) rda-profile)
-
       (passepartout
-       (passepartout-title "vitaminer" [:i18n ::vitamins-title])
+       (->> (render-rda-select (:app/db context) rda-profile)
+            (passepartout-title "vitaminer" [:i18n ::vitamins-title]))
        (->> (assoc (food/get-nutrient-group food "FatSolubleVitamins")
                    :recommendations recommendations)
             (prepare-nested-nutrient-table (:app/db context) locale)
@@ -509,10 +514,9 @@
             (prepare-nutrient-tables (:app/db context) locale)
             (map render-table)))
 
-      (render-rda-select (:app/db context) rda-profile)
-
       (passepartout
-       (passepartout-title "mineraler-sporstoffer" [:i18n ::minerals-trace-elements-title])
+       (->> (render-rda-select (:app/db context) rda-profile)
+            (passepartout-title "mineraler-sporstoffer" [:i18n ::minerals-trace-elements-title]))
        (->> (assoc (food/get-flattened-nutrient-group food "Minerals")
                    :recommendations recommendations)
             (prepare-nutrient-tables (:app/db context) locale)
@@ -538,6 +542,7 @@
       [:div.mmm-container.mmm-section-spaced
        [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
         [:h3#kilder [:i18n ::sources]]
+        [:div source-toggle-button]
         (->> (food/get-sources food)
              (render-sources page))]]
 

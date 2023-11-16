@@ -165,13 +165,20 @@
        (handle-portion-select-event e lang portion-elements portion-label-elements)
        (reset! event-bus ::changed-portions)))))
 
+(defn update-source-toggler [el showing?]
+  (if (.contains (.-classList el) "mmm-button")
+    (if showing?
+      (.remove (.-classList el) "mmm-button-secondary")
+      (.add (.-classList el) "mmm-button-secondary"))
+    (set! (.-checked el) showing?)))
+
 ;; There's a script tag at the beginning of the body tag that sets the
 ;; mvt-source-hide class immediately to avoid any flickering. Please keep it in
 ;; mind if you change this.
 (defn toggle-sources [_e selector]
   (let [show? (boolean (js/document.body.classList.contains "mvt-source-hide"))]
-    (doseq [checkbox (dom/qsa selector)]
-      (set! (.-checked checkbox) show?))
+    (doseq [el (dom/qsa selector)]
+      (update-source-toggler el show?))
     (js/localStorage.setItem "show-sources" show?)
     (if show?
       (js/document.body.classList.remove "mvt-source-hide")
@@ -182,9 +189,16 @@
     (when-not showing?
       (js/document.body.classList.add "mvt-source-hide"))
     (doseq [checkbox (dom/qsa selector)]
-      (when showing?
-        (set! (.-checked checkbox) true))
+      (update-source-toggler checkbox showing?)
       (.addEventListener checkbox "input" #(toggle-sources % selector)))))
+
+(defn initialize-source-button [selector]
+  (let [showing? (= "true" (js/localStorage.getItem "show-sources"))]
+    (when-not showing?
+      (js/document.body.classList.add "mvt-source-hide"))
+    (doseq [button (dom/qsa selector)]
+      (update-source-toggler button showing?)
+      (.addEventListener button "click" #(toggle-sources % selector)))))
 
 (defn get-session-item [k]
   (try
@@ -297,6 +311,7 @@
      event-bus)
 
     (initialize-source-toggler ".mvt-source-toggler input")
+    (initialize-source-button ".mvt-source-toggler.mmm-button")
 
     (comparison/initialize-tooling ".mvt-compare-food" ".mvtc-drawer")
 

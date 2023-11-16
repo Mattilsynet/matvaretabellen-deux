@@ -530,23 +530,19 @@ table > tr.mmm-highlight {
     --mt-grid-column-width: var(--mt-grid-mobile-column-width);
 }
 
-.mmm .mmm-desktop {
-    display: none;
-}
-
 @media only screen and (max-width: 767px) {
     .mmm-mobile-scroll {
         overflow-x: scroll;
+    }
+
+    .mmm .mmm-desktop {
+        display: none;
     }
 }
 
 @media only screen and (min-width: 768px) {
     .mmm .mmm-mobile {
         display: none;
-    }
-
-    .mmm .mmm-desktop {
-        display: block;
     }
 }
 
