@@ -147,6 +147,10 @@
       (doseq [row (dom/qsa ".mvtc-comparison")]
         (when (notably-different (.getAttribute row "data-nutrient-id"))
           (.add (.-classList row) "mmm-highlight"))
+        (when-let [attr (some-> row (.getAttribute "data-compare-abs") keyword)]
+          (let [ns (sort (map attr foods))]
+            (when (< 1.5 (/ (last ns) (first ns)))
+              (.add (.-classList row) "mmm-highlight"))))
         (let [template (.-lastChild row)]
           (doseq [_food (next foods)]
             (.appendChild row (.cloneNode template true))))

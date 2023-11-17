@@ -42,15 +42,21 @@
                             :class :mmm-nbr})]]])
 
 (defn prepare-energy-rows [food]
-  [[{:text food-page/energy-label}
-    {:text (food-page/get-kj food {:class "mvt-kj"})
-     :class [:mmm-nbr :mvtc-energy]}]
-   [{:text food-page/kcal-label}
-    {:text (food-page/get-kcal food {:class "mvt-kcal"})
-     :class [:mmm-nbr :mvtc-energy]}]
-   [{:text [:i18n ::edible-part]}
-    {:text (list [:span.mvtc-edible-part (-> food :food/edible-part :measurement/percent)] " %")
-     :class [:mvt-amount]}]])
+  [{:class [:mvtc-comparison]
+    :data-compare-abs "energyKj"
+    :cols [{:text food-page/energy-label}
+           {:text (food-page/get-kj food {:class "mvt-kj"})
+            :class [:mmm-nbr :mvtc-energy]}]}
+   {:class [:mvtc-comparison]
+    :data-compare-abs "energyKcal"
+    :cols [{:text food-page/kcal-label}
+           {:text (food-page/get-kcal food {:class "mvt-kcal"})
+            :class [:mmm-nbr :mvtc-energy]}]}
+   {:class [:mvtc-comparison]
+    :data-compare-abs "ediblePart"
+    :cols [{:text [:i18n ::edible-part]}
+           {:text (list [:span.mvtc-edible-part (-> food :food/edible-part :measurement/percent)] " %")
+            :class [:mvt-amount]}]}])
 
 (defn get-nutrient-row [app-db locale food nutrient]
   {:data-nutrient-id (:nutrient/id nutrient)
