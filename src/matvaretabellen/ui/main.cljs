@@ -1,119 +1,16 @@
 (ns ^:figwheel-hooks matvaretabellen.ui.main
   (:require [clojure.string :as str]
-            [matvaretabellen.search :as search]
             [matvaretabellen.ui.comparison :as comparison]
             [matvaretabellen.ui.dom :as dom]
             [matvaretabellen.ui.food-group :as food-group]
-            [matvaretabellen.ui.foods-search :as foods-search]
             [matvaretabellen.ui.hoverable :as hoverable]
             [matvaretabellen.ui.portions :as portions]
+            [matvaretabellen.ui.search :as search-ui]
             [matvaretabellen.ui.sidebar :as sidebar]
             [matvaretabellen.urls :as urls]))
 
-(defonce search-engine (atom {:index-status :pending
-                              :names-status :pending}))
-
-(defn load-json [url]
-  (-> (js/fetch url)
-      (.then #(.text %))
-      (.then #(js->clj (js/JSON.parse %)))))
-
-(defn populate-search-engine [locale]
-  (when-not (:schema @search-engine)
-    (swap! search-engine assoc :schema (search/create-schema (keyword locale))))
-  (when (#{:pending :error} (:index-status @search-engine))
-    (swap! search-engine assoc :index-status :loading)
-    (-> (load-json (str "/search/index/" locale ".json"))
-        (.then #(swap! search-engine assoc
-                       :index %
-                       :index-status :ready))
-        (.catch (fn [e]
-                  (js/console.error e)
-                  (swap! search-engine assoc :index-status :error)))))
-  (when (#{:pending :error} (:names-status @search-engine))
-    (swap! search-engine assoc :names-status :loading)
-    (-> (load-json (str "/search/names/" locale ".json"))
-        (.then #(swap! search-engine assoc
-                       :names %
-                       :names-status :ready))
-        (.catch (fn [e]
-                  (js/console.error e)
-                  (swap! search-engine assoc :names-status :error))))))
-
-(defn waiting? []
-  (or (#{:pending :loading} (:index-status @search-engine))
-      (#{:pending :loading} (:names-status @search-engine))))
-
-(defn handle-autocomplete-input-event [e element locale]
-  (let [q (.-value (.-target e))
-        n (or (some-> (.-target e) (.getAttribute "data-suggestions") js/parseInt) 10)]
-    (if (< (.-length q) 3)
-      (set! (.-innerHTML element) "")
-      (if (waiting?)
-        (do (set! (.-innerHTML element) "<ol class='mmm-ac-results'><li class='mmm-ac-result tac'><span class='mmm-loader'></span></li></ol>")
-            (add-watch search-engine ::waiting-for-load
-                       #(when-not (waiting?)
-                          (remove-watch search-engine ::waiting-for-load)
-                          (handle-autocomplete-input-event e element locale))))
-        (set! (.-innerHTML element)
-              (str/join
-               (flatten
-                ["<ol class='mmm-ac-results'>"
-                 (for [{:keys [url text]} (take n (foods-search/search @search-engine q locale))]
-                   ["<li class='mmm-ac-result'>"
-                    ["<a href='" url "'>" text "</a>"]
-                    "</li>"])
-                 "</ol>"])))))))
-
-(defn get-target-element [results selected d]
-  (when (< 0 (.-length results))
-    (cond
-      (and selected (= :down d))
-      (.-nextSibling selected)
-
-      (and selected (= :up d))
-      (.-previousSibling selected)
-
-      (= :down d)
-      (aget results 0)
-
-      (= :up d)
-      (aget results (dec (.-length results))))))
-
-(defn navigate-results [element d]
-  (let [selected (.querySelector element ".mmm-ac-selected")
-        target-element (get-target-element (.querySelectorAll element ".mmm-ac-result") selected d)]
-    (when target-element
-      (when selected
-        (.remove (.-classList selected) "mmm-ac-selected"))
-      (.add (.-classList target-element) "mmm-ac-selected"))))
-
-(defn handle-autocomplete-key-event [e element]
-  (case (.-key e)
-    "ArrowUp" (navigate-results element :up)
-    "ArrowDown" (navigate-results element :down)
-    nil))
-
-(defn handle-autocomplete-submit-event [e]
-  (.preventDefault e)
-  (when-let [selected (.querySelector (.-target e) ".mmm-ac-selected a")]
-    (set! js/window.location (.-href selected))))
-
-(defn initialize-foods-autocomplete [dom-element locale initial-query]
-  (when-let [input (some-> dom-element (.querySelector "#foods-search"))]
-    (let [element (js/document.createElement "div")]
-      (.appendChild dom-element element)
-      (.addEventListener dom-element "input" #(handle-autocomplete-input-event % element locale))
-      (.addEventListener dom-element "keyup" #(handle-autocomplete-key-event % element))
-      (when-let [form (.closest dom-element "form")]
-        (.addEventListener form "submit" #(handle-autocomplete-submit-event %)))
-      (when (and initial-query (empty? (.-value input)))
-        (set! (.-value input) initial-query))
-      (when (seq (.-value input))
-        (handle-autocomplete-input-event #js {:target input} element locale)))))
-
 (defn ^:after-load main []
-  (populate-search-engine js/document.documentElement.lang))
+  (search-ui/populate-search-engine js/document.documentElement.lang))
 
 (defn get-params []
   (when (seq js/location.search)
@@ -247,7 +144,7 @@
   (main)
   (let [locale (keyword js/document.documentElement.lang)
         event-bus (atom nil)]
-    (initialize-foods-autocomplete
+    (search-ui/initialize-foods-autocomplete
      (js/document.querySelector ".mmm-search-input")
      locale
      (get (get-params) "search"))
@@ -285,16 +182,3 @@
   (hoverable/set-up js/document))
 
 (defonce ^:export kicking-out-the-jams (boot))
-
-(comment
-  (reset! search-engine {:index-status :pending
-                         :names-status :pending})
-
-  (main)
-  (select-keys @search-engine [:names-status :index-status])
-
-  (foods-search/search @search-engine "laks" :nb)
-
-  (get-in @search-engine [:index "foodNameEdgegrams" "eple" "11.076"])
-
-  )
