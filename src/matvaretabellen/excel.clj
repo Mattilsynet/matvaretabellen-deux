@@ -6,6 +6,7 @@
             [matvaretabellen.misc :as misc]
             [matvaretabellen.nutrient :as nutrient])
   (:import (java.io ByteArrayOutputStream FileOutputStream)
+           (java.text DecimalFormat)
            (org.apache.poi.ss.util CellRangeAddress)
            (org.apache.poi.xssf.usermodel XSSFWorkbook)))
 
@@ -68,9 +69,11 @@
                                             :field :measurement/percent}}
    (d/entity db [:nutrient/id "Vann"])
    {:title "Kilojoule (kJ)" :measurement {:path [:food/energy]
-                                          :field :measurement/quantity}}
+                                          :field :measurement/quantity
+                                          :decimal-precision 0}}
    {:title "Kilokalorier (kcal)" :measurement {:path [:food/calories]
-                                               :field :measurement/observation}}
+                                               :field :measurement/observation
+                                               :decimal-precision 0}}
    (d/entity db [:nutrient/id "Fett"])
    (d/entity db [:nutrient/id "Karbo"])
    (d/entity db [:nutrient/id "Fiber"])
@@ -98,21 +101,26 @@
       b/num)))
 
 (defn to-fixed [number precision]
-  (String/format (str "%." precision "f") number))
+  (if (= 0 precision)
+    (str (int number))
+    (let [pattern (str "#." (apply str (repeat precision "#")))]
+      (.format (DecimalFormat. pattern) number))))
 
 (defn to-nutrient-decimal-precision [number nutrient]
   (if-let [precision (:nutrient/decimal-precision nutrient)]
     (to-fixed number precision)
     number))
 
-(defn get-measurement-number [measurement field]
-  (case field
-    :measurement/percent (str (:measurement/percent measurement))
-    :measurement/observation (if-let [num (parse-long (:measurement/observation measurement))]
-                               (to-nutrient-decimal-precision num (:measurement/nutrient measurement))
-                               (:measurement/observation measurement))
-    :measurement/quantity (to-nutrient-decimal-precision (-> measurement :measurement/quantity b/num)
-                                                         (-> measurement :measurement/nutrient))))
+(defn get-measurement-number [measurement field & [decimal-precision]]
+  (let [fix (if decimal-precision
+              #(to-fixed % decimal-precision)
+              #(to-nutrient-decimal-precision % (:measurement/nutrient measurement)))]
+    (case field
+      :measurement/percent (str (:measurement/percent measurement))
+      :measurement/observation (if-let [num (parse-long (:measurement/observation measurement))]
+                                 (fix num)
+                                 (:measurement/observation measurement))
+      :measurement/quantity (some-> measurement :measurement/quantity b/num fix))))
 
 (defn prepare-food-cells [fields food]
   (for [{:keys [path measurement] :as f} fields]
@@ -120,7 +128,8 @@
                   path (get-scalar-at-path food path)
                   measurement (get-measurement-number
                                (get-in food (:path measurement))
-                               (:field measurement))
+                               (:field measurement)
+                               (:decimal-precision measurement))
                   (:nutrient/id f) (get-measurement-number
                                     (get-constituent food (:nutrient/id f))
                                     :measurement/quantity)))}))
@@ -293,8 +302,12 @@
   (prepare-food-cells fields food)
 
   (prepare-food-cells [{:title "Kilojoule (kJ)",
-                        :measurement {:path [:food/energy], :field :measurement/quantity}}]
+                        :measurement {:path [:food/energy]
+                                      :field :measurement/quantity
+                                      :decimal-precision 0}}]
                       food)
+
+
 
   (def foods [food])
   (def foods (for [eid (d/q '[:find [?e ...] :where [?e :food/id]] db)]

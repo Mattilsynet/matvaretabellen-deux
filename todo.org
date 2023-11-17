@@ -1,8 +1,8 @@
 * Ønskeliste til søket [0/2]
 ** TODO Benevnede tall (eks "4 mnd") kan kanskje få leve som tokens i indeksen?
 ** TODO Redusere score på lange navn
-* Tickets [0/8]
-** TODO [M] Respekter antall desimaler på tall i Excel-arket
+* Tickets [1/8]
+** DONE [M] Respekter antall desimaler på tall i Excel-arket
 ** TODO Stolpediagrammer
 ** TODO Ta en runde med ipad-bredde 800px
 ** TODO Sorter høyt/lavt på næringsstoff-sidene
