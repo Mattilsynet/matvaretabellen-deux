@@ -73,14 +73,14 @@
   :edible-part [:fn/str "Edible part: {{:pct}} %"]
   :energy-content "Energy content"
   :energy-content-title-mobile (list "Per " [:fn/get :portion])
-  :energy-content-title (list "Energy in " [:fn/get :portion])
+  :energy-content-title (list "Energy (kJ) in " [:fn/get :portion])
   :energy [:fn/str "Caloric content: {{:kilo-joules}} ({{:calories}} kcal)"]
   :energy-highlight-title [:fn/str "Energy →"]
   :energy-title "Composition and energy"
   :composition-title [:fn/str "{{:title}} composition"]
   :fat-title "Fatty acids"
   :food-id (list [:strong "Food ID:"] " " [:fn/get :id])
-  :kcal-content-title (list "Calories in " [:fn/get :portion])
+  :kcal-content-title (list "Energy (kcal) in " [:fn/get :portion])
   :langual-code-label "LanguaL"
   :langual-description-label "Classification"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
