@@ -1,6 +1,7 @@
 {:paths ["src" "resources" "ui/src" "ui/resources"]
  :deps {org.clojure/clojure {:mvn/version "1.11.1"}
-        org.clojure/clojurescript {:mvn/version "1.11.60"}
+        org.clojure/clojurescript {:git/url "https://github.com/clojure/clojurescript.git"
+                                   :sha "0c5ecd7b8030b610c979b06bc85ff0991d882f69"}
         org.clojure/data.json {:mvn/version "2.4.0"}
         cjohansen/courier {:mvn/version "2021.12.08"}
         cjohansen/dumdom {:mvn/version "2023.11.06"}
@@ -18,11 +19,15 @@
  :aliases
  {:dev {:extra-paths ["dev" "dev-resources" "test" "ui/test" "ui/dev-resources" "ui/portfolio"]
         :extra-deps {cider/piggieback {:mvn/version "0.5.3"}
-                     com.bhauman/figwheel-main {:mvn/version "0.2.18"}
+                     com.bhauman/figwheel-main {:git/url "https://github.com/cjohansen/figwheel-main"
+                                                :sha "df756e460f4370e5351872cd50e73b7817b6cd2c"
+                                                :exclusions [org.clojure/clojurescript]}
                      kaocha-noyoda/kaocha-noyoda {:mvn/version "2019-06-03"}
                      lambdaisland/kaocha {:mvn/version "1.87.1366"}
                      no.cjohansen/portfolio {:mvn/version "2023.07.15"}
                      org.clojars.abhinav/snitch {:mvn/version "0.1.14"}}}
   :build {:extra-paths ["target"]
-          :extra-deps {com.bhauman/figwheel-main {:mvn/version "0.2.18"}}
+          :extra-deps {com.bhauman/figwheel-main {:git/url "https://github.com/cjohansen/figwheel-main"
+                                                  :sha "df756e460f4370e5351872cd50e73b7817b6cd2c"
+                                                  :exclusions [org.clojure/clojurescript]}}
           :exec-fn matvaretabellen.export/export}}}
