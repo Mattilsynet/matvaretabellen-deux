@@ -142,7 +142,8 @@
                        into-array
                        (filter #(= value (.-value %)))
                        first
-                       .-innerText)
+                       .-innerText
+                       str/trim)
         portion-size (js/Number. (.-value (.-target e)))]
     (doseq [elem (seq portion-label-elements)]
       (set! (.-innerHTML elem) label))
