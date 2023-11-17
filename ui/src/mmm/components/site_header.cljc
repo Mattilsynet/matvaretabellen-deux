@@ -25,7 +25,7 @@
       [:a.mmm-link {:href (:url extra-link)}
        (:text extra-link)])
     (when extra-links
-      [:ul.mmm-horizontal-list.mmm-desktop
+      [:ul.mmm-horizontal-list
        (for [link extra-links]
          [:li (if-let [url (:url link)]
                 [:a.mmm-link (assoc (dissoc link :text :url) :href url) (:text link)]
