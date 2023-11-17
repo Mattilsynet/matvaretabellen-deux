@@ -1,77 +1,17 @@
-* Ønskeliste [0/2]
+* Ønskeliste til søket [0/2]
 ** TODO Benevnede tall (eks "4 mnd") kan kanskje få leve som tokens i indeksen?
 ** TODO Redusere score på lange navn
-* Todos [6/6]
-** DONE Er noen av 0-ene egentlig "ukjent"?
-** DONE Dra opp _alle_ næringsstoffer i tabellene på topp
-** DONE Vis vitaminer
-** DONE Vis mineraler
-** DONE Vis klassifiseringer
-** DONE Lag enklere footer
-* Tickets [34/44]
-** DONE Lage checkbox-komponent
-** DONE Vise referanser nederst på siden
-** DONE [C] Vise referanser
-** DONE [M] Matvaregrupper-siden
+* Tickets [0/10]
 ** TODO [M] Matvaregruppe-sidene
-** DONE Side for næringsstoff
-** DONE Lenke opp næringsstoffer fra tabellene på matvaresiden
-** DONE ADI: Lese inn data
-** DONE ADI: Vise på matvaresiden
-** DONE [M] Alle næringsstoffer-siden
-** DONE [M] Språkskifte i header
-** DONE Analyseverktøy
-** DONE Rå jordbær har ikke tilsatt sukker (sjekk beregning)
 ** TODO Flere trivia-bolker
-** DONE [M] Sesongvarer for hele året
-** DONE [M] Illustrasjoner til hver matvaregruppe
-** DONE [M] Tekster til hver matvaregruppe
-** DONE [M] Tekster til hvert næringsstoff
-** DONE [M] Merke XL med kilder
-** DONE Søkefelt på alle sider
-** DONE Kortnavn på matvare i brødsmuler
-** DONE Fast bredde på TOC og søkefelt
-** DONE [C] Matvare-id og latinsk navn => klassifisering
 ** TODO Stolpediagrammer
-** DONE [M] Internasjonalisering av porsjonsstørrelser
-** DONE [M] Skill matvarer på matvaregrupper i excel-arket
-** DONE [M] Lag egne excel-ark for hver matvaregruppe
-** DONE [M] Lag egne excel-ark for hvert næringsstoff
-** DONE OpenGraph på matvaresidene
 ** TODO Ta en runde med ipad-bredde 800px
 ** TODO Sorter høyt/lavt på næringsstoff-sidene
-** DONE [C] Vis filtrering i venstrekolonnen på næringsstoff-sidene
-** DONE [C] Vis hierarki over næringsstoffer i venstrekolonnen på næringsstoff-sidene
-** DONE Støtt oppslag på food-id via søkefeltet, eks 05.448
-** DONE Avrunde kJ og kcal til hele tall (minimum 1) - aldri desimaler
 ** TODO Søk på næringsstoff
-** DONE Bytte punktum med komma
-** DONE Sjekk muligheter for å style pila i selecten litt bedre
-** DONE Flytt kilde til venstre for mengde
 ** TODO Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter
 ** TODO Trigge analytics-events på interaksjoner
 ** TODO Respekter antall desimaler på tall i Excel-arket
-** DONE [M] Energiinnhold må beregnes
 ** TODO Redirect fra www til ikke
-* Sammenligning [13/13]
-** DONE Lag page-entity for sammenligning
-** DONE Rendre en statisk sammenligning mellom tre matvarer
-** DONE Lag en diff for energiinnhold
-** DONE Lag skuff-komponent
-** DONE Legg JSON-data på hver matvareside
-** DONE Flytt Matvare-JSON til localStorage ved klikk på "sammenlign"
-** DONE Oppdater sammenligningsside fra localStorage
-** DONE Marker de mest forskjellige radene i sammenligningstabellen
-** DONE Legg ut statistikk om næringsstoffer på comparison-siden
-** DONE Lag payload med alle matvarene
-** DONE Query-parametere til sammenligningssiden for lenkbare sammenligninger
-** DONE Dele-ikon på sammenligningssiden
-** DONE Animer ut/inn på skuff
-* Småfiks [5/6]
-** DONE Vis triviabilde på samme måte som matvaregruppe-kortene (til venstre på mobil)
-** DONE Flytt matvaregruppe og næringsstoff-knappene over triviaboksen på mobil
-** DONE Slå sammen vitaminer og mineraler til "Ikke-energigivende næringsstoffer"
-** DONE Flytt "Karbohydrater per 100g" ut av tabellen pga mobil
-** DONE Fjern marginer på matvarelister på mobil
+* Småfiks [0/1]
 ** DONT Vis "Sist oppdatert" på matvare (har ikke datoen i datasettet vårt)
 ** TODO Flere lenker i headeren, "Matvaregrupper", "Næringsstoffer", "Om Matvaretabellen" (og "In English") (må skjules på mobil, evnt lage hamburger)
