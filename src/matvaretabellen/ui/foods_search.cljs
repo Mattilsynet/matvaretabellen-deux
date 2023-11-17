@@ -1,6 +1,7 @@
 (ns matvaretabellen.ui.foods-search
   (:require [clojure.set :as set]
-            [matvaretabellen.search :as search]))
+            [matvaretabellen.search :as search]
+            [matvaretabellen.urls :as urls]))
 
 (defn score-term [index fields term]
   (->> fields
@@ -101,11 +102,20 @@
                  :terms (apply merge-with + (map :terms xs))}))
          (sort-by (comp - :score)))))
 
-(defn lookup-food [{:keys [foods]} q]
-  (when (get foods q)
+(defn lookup-food [{:keys [names]} q]
+  (when (get names q)
     [{:id q}]))
 
-(defn search [engine q]
+(defn search-nutrients [engine q]
+  (for [match (query
+               (:index engine)
+               {:queries [ ;; "Autocomplete" what the user is typing
+                          (-> (:nutrientNameEdgegrams (:schema engine))
+                              (assoc :q q)
+                              (assoc :fields ["nutrientNameEdgegrams"]))]})]
+    (assoc match :name (get (:names engine) (:id match)))))
+
+(defn search-foods [engine q]
   (for [match
         (concat
          (lookup-food engine q)
@@ -129,4 +139,14 @@
                                  :min-accuracy 0.8
                                  }))]
            :operator :or}))]
-    (assoc match :name (get (:foods engine) (:id match)))))
+    (assoc match :name (get (:names engine) (:id match)))))
+
+(defn search [engine q locale]
+  (->> (concat
+        (->> (for [result (search-nutrients engine q)]
+               {:text (:name result)
+                :url (urls/get-nutrient-url locale (:name result))})
+             (take 3))
+        (for [result (search-foods engine q)]
+          {:text (:name result)
+           :url (urls/get-food-url locale (:name result))}))))

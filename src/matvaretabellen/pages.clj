@@ -31,17 +31,17 @@
     :page/kind :page.kind/frontpage
     :page/details {:new-foods (load-edn "data/new-food-ids.edn")}
     :page/locale :en}
-   {:page/uri "/index/nb.json"
+   {:page/uri "/search/index/nb.json"
     :page/kind :page.kind/foods-index
     :page/locale :nb}
-   {:page/uri "/index/en.json"
+   {:page/uri "/search/index/en.json"
     :page/kind :page.kind/foods-index
     :page/locale :en}
-   {:page/uri "/foods/nb.json"
-    :page/kind :page.kind/foods-lookup
+   {:page/uri "/search/names/nb.json"
+    :page/kind :page.kind/names-lookup
     :page/locale :nb}
-   {:page/uri "/foods/en.json"
-    :page/kind :page.kind/foods-lookup
+   {:page/uri "/search/names/en.json"
+    :page/kind :page.kind/names-lookup
     :page/locale :en}
    {:page/uri "/matvaregrupper/"
     :page/kind :page.kind/food-groups
@@ -84,17 +84,25 @@
   {:headers {"content-type" "application/json"}
    :body (index/build-index db (:page/locale page))})
 
-(defn render-foods-lookup [db page]
+(defn render-names-lookup [db page]
   {:headers {"content-type" "application/json"}
-   :body (into
-          {}
-          (for [eid (d/q '[:find [?food ...]
-                           :where
-                           [?food :food/id]]
-                         db)]
-            (let [food (d/entity db eid)]
-              [(:food/id food)
-               (get-in food [:food/name (:page/locale page)])])))})
+   :body (-> {}
+             (into
+              (for [eid (d/q '[:find [?food ...]
+                               :where
+                               [?food :food/id]]
+                             db)]
+                (let [food (d/entity db eid)]
+                  [(:food/id food)
+                   (get-in food [:food/name (:page/locale page)])])))
+             (into
+              (for [eid (d/q '[:find [?nutrient ...]
+                               :where
+                               [?nutrient :nutrient/id]]
+                             db)]
+                (let [nutrient (d/entity db eid)]
+                  [(:nutrient/id nutrient)
+                   (get-in nutrient [:nutrient/name (:page/locale page)])]))))})
 
 (defn render-page [context page]
   (let [db (:foods/db context)]
@@ -102,7 +110,7 @@
       :page.kind/comparison (comparison-page/render-page context page)
       :page.kind/comparison-data (comparison-page/render-data context page)
       :page.kind/foods-index (render-foods-index db page)
-      :page.kind/foods-lookup (render-foods-lookup db page)
+      :page.kind/names-lookup (render-names-lookup db page)
       :page.kind/frontpage (frontpage/render context db page)
       :page.kind/food (food-page/render context db page)
       :page.kind/food-group (food-group-page/render context db page)

@@ -10,7 +10,7 @@
             [matvaretabellen.urls :as urls]))
 
 (defonce search-engine (atom {:index-status :pending
-                              :foods-status :pending}))
+                              :names-status :pending}))
 
 (defn load-json [url]
   (-> (js/fetch url)
@@ -22,26 +22,26 @@
     (swap! search-engine assoc :schema (search/create-schema (keyword locale))))
   (when (#{:pending :error} (:index-status @search-engine))
     (swap! search-engine assoc :index-status :loading)
-    (-> (load-json (str "/index/" locale ".json"))
+    (-> (load-json (str "/search/index/" locale ".json"))
         (.then #(swap! search-engine assoc
                        :index %
                        :index-status :ready))
         (.catch (fn [e]
                   (js/console.error e)
                   (swap! search-engine assoc :index-status :error)))))
-  (when (#{:pending :error} (:foods-status @search-engine))
-    (swap! search-engine assoc :foods-status :loading)
-    (-> (load-json (str "/foods/" locale ".json"))
+  (when (#{:pending :error} (:names-status @search-engine))
+    (swap! search-engine assoc :names-status :loading)
+    (-> (load-json (str "/search/names/" locale ".json"))
         (.then #(swap! search-engine assoc
-                       :foods %
-                       :foods-status :ready))
+                       :names %
+                       :names-status :ready))
         (.catch (fn [e]
                   (js/console.error e)
-                  (swap! search-engine assoc :foods-status :error))))))
+                  (swap! search-engine assoc :names-status :error))))))
 
 (defn waiting? []
   (or (#{:pending :loading} (:index-status @search-engine))
-      (#{:pending :loading} (:foods-status @search-engine))))
+      (#{:pending :loading} (:names-status @search-engine))))
 
 (defn handle-autocomplete-input-event [e element locale]
   (let [q (.-value (.-target e))
@@ -58,9 +58,9 @@
               (str/join
                (flatten
                 ["<ol class='mmm-ac-results'>"
-                 (for [result (take n (foods-search/search @search-engine q))]
+                 (for [{:keys [url text]} (take n (foods-search/search @search-engine q locale))]
                    ["<li class='mmm-ac-result'>"
-                    ["<a href='" (urls/get-food-url locale (:name result)) "'>" (:name result) "</a>"]
+                    ["<a href='" url "'>" text "</a>"]
                     "</li>"])
                  "</ol>"])))))))
 
@@ -334,12 +334,12 @@
 
 (comment
   (reset! search-engine {:index-status :pending
-                         :foods-status :pending})
+                         :names-status :pending})
 
   (main)
-  (select-keys @search-engine [:foods-status :index-status])
+  (select-keys @search-engine [:names-status :index-status])
 
-  (foods-search/search @search-engine "laks")
+  (foods-search/search @search-engine "laks" :nb)
 
   (get-in @search-engine [:index "foodNameEdgegrams" "eple" "11.076"])
 

@@ -132,4 +132,10 @@
    {:f #(get-in % [:food/name locale])
     :tokenizers [tokenize-lower-case
                  remove-diacritics
+                 (partial tokenize-edge-ngrams 3 10)]}
+
+   :nutrientNameEdgegrams
+   {:f #(get-in % [:nutrient/name locale])
+    :tokenizers [tokenize-lower-case
+                 remove-diacritics
                  (partial tokenize-edge-ngrams 3 10)]}})

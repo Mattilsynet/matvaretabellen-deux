@@ -54,24 +54,33 @@
                  (assoc-in index [field sym id] weight))
                index)))
 
-(defn index-foods [index db locale]
-  (let [schema (search/create-schema locale)]
-    (reduce (fn [index food]
-              (index-document index schema (:food/id food) food))
-            index
-            (->> (d/q '[:find [?food ...]
-                        :where
-                        [?food :food/id]]
-                      db)
-                 (map #(d/entity db %))))))
+(defn index-foods [schema db & [index]]
+  (->> (d/q '[:find [?food ...]
+              :where
+              [?food :food/id]]
+            db)
+       (map #(d/entity db %))
+       (reduce (fn [index food]
+                 (index-document index schema (:food/id food) food))
+               index)))
+
+(defn index-nutrients [schema db & [index]]
+  (->> (d/q '[:find [?nutrient ...]
+              :where
+              [?nutrient :nutrient/id]]
+            db)
+       (map #(d/entity db %))
+       (reduce (fn [index nutrient]
+                 (index-document index schema (:nutrient/id nutrient) nutrient))
+               index)))
 
 (defn build-index [db locale]
-  (index-foods nil db locale))
+  (let [schema (search/create-schema locale)]
+    (->> (index-foods schema db)
+         (index-nutrients schema db))))
 
 (comment
 
   (index-document {} (search/create-schema :nb) "lol" {:food/name {:nb "Vitamin D12"}})
-
-  ;; low-relevance #{"vitamin"}
 
   )
