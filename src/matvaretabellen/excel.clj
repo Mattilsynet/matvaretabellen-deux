@@ -97,14 +97,33 @@
       (instance? broch.impl.Quantity v)
       b/num)))
 
+(defn to-fixed [number precision]
+  (String/format (str "%." precision "f") number))
+
+(defn to-nutrient-decimal-precision [number nutrient]
+  (if-let [precision (:nutrient/decimal-precision nutrient)]
+    (to-fixed number precision)
+    number))
+
+(defn get-measurement-number [measurement field]
+  (case field
+    :measurement/percent (str (:measurement/percent measurement))
+    :measurement/observation (if-let [num (parse-long (:measurement/observation measurement))]
+                               (to-nutrient-decimal-precision num (:measurement/nutrient measurement))
+                               (:measurement/observation measurement))
+    :measurement/quantity (to-nutrient-decimal-precision (-> measurement :measurement/quantity b/num)
+                                                         (-> measurement :measurement/nutrient))))
+
 (defn prepare-food-cells [fields food]
   (for [{:keys [path measurement] :as f} fields]
     {:text (str (cond
                   path (get-scalar-at-path food path)
-                  measurement (get-in food (conj (:path measurement) (:field measurement)))
-                  (:nutrient/id f) (some-> (get-constituent food (:nutrient/id f))
-                                           :measurement/quantity
-                                           b/num)))}))
+                  measurement (get-measurement-number
+                               (get-in food (:path measurement))
+                               (:field measurement))
+                  (:nutrient/id f) (get-measurement-number
+                                    (get-constituent food (:nutrient/id f))
+                                    :measurement/quantity)))}))
 
 (defn prepare-reference-cells [fields food]
   (for [{:keys [path measurement] :as f} fields]
@@ -272,6 +291,10 @@
   (prepare-foods-cover-sheet :nb 2023 "Her finner du informasjon om næringsstoffer i matvarene i Matvaretabellen.")
 
   (prepare-food-cells fields food)
+
+  (prepare-food-cells [{:title "Kilojoule (kJ)",
+                        :measurement {:path [:food/energy], :field :measurement/quantity}}]
+                      food)
 
   (def foods [food])
   (def foods (for [eid (d/q '[:find [?e ...] :where [?e :food/id]] db)]
