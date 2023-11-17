@@ -43,7 +43,7 @@
   (try
     (some-> (js/sessionStorage.getItem k)
             js/JSON.parse)
-    (catch :default _e
+    (catch :default e
       (js/console.error "Unable to read from session storage" e)
       nil)))
 
