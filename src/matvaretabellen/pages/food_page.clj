@@ -285,10 +285,9 @@
                  {:id (str id (hash ids))
                   :value value
                   :color (nutrient-id->color id)
-                  :hover-content [:div.mmm-tac
+                  :hover-content [:span.mmm-tac
                                   [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]
-                                  ": "
-                                  [:div [:strong (int value) " kJ (" (int (* 100 (/ value total))) " E%)"]]]})))
+                                  ": " [:strong (Math/round (* 100 (/ value total))) " E%"]]})))
            (remove nil?)
            (remove #(= 0.0 (:value %)))
            (sort-by (comp - :value))))))
