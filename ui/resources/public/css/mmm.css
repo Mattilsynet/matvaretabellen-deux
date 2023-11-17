@@ -1270,6 +1270,10 @@ a.mmm-button-secondary:link {
     gap: var(--mt-horizontal-list-gap);
 }
 
+.mmm-horizontal-list-wide {
+    --mt-horizontal-list-gap: calc(2 * var(--mt-horizontal-gap));
+}
+
 .mmm-horizontal-list li {
     margin: 0;
     padding: 0;

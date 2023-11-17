@@ -25,7 +25,7 @@
       [:a.mmm-link {:href (:url extra-link)}
        (:text extra-link)])
     (when extra-links
-      [:ul.mmm-horizontal-list
+      [:ul.mmm-horizontal-list.mmm-horizontal-list-wide
        (for [{:keys [url text class]} extra-links]
          [:li {:class class}
           (if url
