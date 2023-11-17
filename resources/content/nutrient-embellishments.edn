@@ -78,8 +78,8 @@
   :nutrient/category {:db/ident :nutrient.category/micro}
   :nutrient/photo "/images/nutrients/vannloselige-vitaminer/photo.jpg"
   :nutrient/illustration "/images/nutrients/vannloselige-vitaminer/illustration.svg"
-  :nutrient/short-description {:nb "Inneholder vitamin C og en rekke B-vitaminer. Vitaminene finnes typisk i frukt og grønnsaker."
-                               :en "Contains vitamin C and a range of B-vitamins. These vitamins are typically found in fruits and vegetables."}
+  :nutrient/short-description {:nb "Inkluderer vitamin C og B-vitaminer, som folat og kobalamin (B12)."
+                               :en "Includes vitamin C and a range of B-vitamins, such as folate and cobalamin (B12)."}
   :nutrient/long-description
   {:nb "Vannløselige vitaminer er ikke-energigivende næringsstoffer sammen med [fettløselige vitaminer|FatSolubleVitamins], [mineraler|Minerals] og [sporstoffer|TraceElements].
         De består av [vitamin C|Vit C] og en en rekke B-vitaminer
@@ -95,8 +95,8 @@
   :nutrient/category {:db/ident :nutrient.category/micro}
   :nutrient/photo "/images/nutrients/fettloselige-vitaminer/photo.jpg"
   :nutrient/illustration "/images/nutrients/fettloselige-vitaminer/illustration.svg"
-  :nutrient/short-description {:nb "Inkluderer vitamin A (retinol og betakaroten), vitamin D og vitamin E. Finnes typisk i fettholdig mat."
-                               :en "Includes vitamin A (retinol and beta-carotene), vitamin D, and vitamin E. These are typically found in fatty foods."}
+  :nutrient/short-description {:nb "Inkluderer vitamin A (retinol og betakaroten), vitamin D og vitamin E."
+                               :en "Includes vitamin A (retinol and beta-carotene), vitamin D, and vitamin E."}
   :nutrient/long-description
   {:nb "Fettløselige vitaminer er ikke-energigivende næringsstoffer sammen med [vannløselige vitaminer|WaterSolubleVitamins], [mineraler|Minerals] og [sporstoffer|TraceElements].
         De består av [A-vitaminene|Vit A] [retinol] og [betakaroten|B-karo], i tillegg til [vitamin D|Vit D] og [E|Vit E]. Vitaminene finnes typisk i fettrike matvarer."
