@@ -11,8 +11,8 @@
 
 (def filter-panel-id "filter-panel")
 
-(defn render-food-group-links [app-db locale parent current]
-  (when-let [food-groups (->> (:food-group/_parent parent)
+(defn render-food-group-links [app-db locale current food-groups]
+  (when-let [food-groups (->> food-groups
                               (sort-by #(food/food-group->sort-key app-db %))
                               seq)]
     [:ul.mmm-ul.mmm-unadorned-list
@@ -20,9 +20,14 @@
        [:li
         (if (= group current)
           (list [:strong [:i18n :i18n/lookup (:food-group/name group)]]
-                (render-food-group-links app-db locale group current))
+                (render-food-group-links app-db locale current (:food-group/_parent group)))
           [:a.mmm-link {:href (urls/get-food-group-url locale group)}
            [:i18n :i18n/lookup (:food-group/name group)]])])]))
+
+(defn render-filter-links [app-db locale target food-group]
+  (->> (or (:food-group/_parent food-group)
+           (food/get-food-groups (d/entity-db food-group)))
+       (render-food-group-links app-db locale target)))
 
 (defn get-back-link [locale food-group]
   (if-let [parent (:food-group/parent food-group)]
@@ -36,9 +41,15 @@
     [:div.mmm-col.mmm-desktop {:id filter-panel-id}
      [:div.mmm-sidebar-content
       ;; Sub groups don't make for interesting filtering options, as they don't
-      ;; list any foods above their level in the hierarchy - use links instead
-      (if (:food-group/parent food-group)
-        (when-let [links (render-food-group-links app-db locale target food-group)]
+      ;; list any foods above their level in the hierarchy.
+      ;;
+      ;; Food groups without sub groups also don't make interesting filtering
+      ;; options.
+      ;;
+      ;; In both case we offer links to other food groups instead.
+      (if (or (:food-group/parent food-group)
+              (empty? (:food-group/_parent food-group)))
+        (when-let [links (render-filter-links app-db locale target food-group)]
           [:div.mmm-divider.mmm-bottom-divider.mmm-vert-layout-m.mmm-mbm
            [:div.mmm-mobile.mmm-pos-tr.mmm-mts
             (layout/render-sidebar-close-button filter-panel-id)]
