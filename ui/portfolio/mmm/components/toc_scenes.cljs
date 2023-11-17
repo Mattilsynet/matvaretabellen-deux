@@ -12,7 +12,7 @@
     :icon (icons/icon :fontawesome.solid/circle-info)
     :contents [{:title "Næringsinnhold"
                 :href "#naeringsinnhold"
-                :contents [{:title "Sammensetning og energiinnhold"
+                :contents [{:title "Energigivende næringsstoffer"
                             :href "#energi"}
                            {:title "Fettsyrer"
                             :href "#fett"}
