@@ -134,7 +134,7 @@
       (let [container (js/document.getElementById "container")]
         (.remove (.-classList container) "mmm-container-focused")
         (.add (.-classList container) "mmm-container")))
-    (update-summary foods)
+    (comment (update-summary foods))
     (let [statistics (some-> (dom/qs ".mvtc-statistics")
                              .-innerText
                              js/JSON.parse
