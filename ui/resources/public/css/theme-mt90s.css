@@ -173,7 +173,7 @@
 
     --mt-focusable-shadow: 0 0 0 2px var(--mt-color-beige-100), 0 0 0 0.35rem var(--mt-color-blue-200);
 
-    --mt-horizontal-gap: var(--mt-spacing-x0_5);
+    --mt-horizontal-gap: var(--mt-spacing-x1);
     --mt-column-gap: var(--mt-spacing-x1);
     --mt-column-gap-wide: var(--mt-spacing-x1_4);
     --mt-column-gap-huge: var(--mt-spacing-x3_6);
@@ -250,7 +250,6 @@
     --mt-component-pill-background: var(--mt-color-beige-200);
     --mt-component-pill-padding: var(--mt-spacing-x0_5) var(--mt-spacing-x1);
     --mt-component-pill-icon-gap: var(--mt-spacing-x0_5);
-    --mt-component-pill-gap: var(--mt-spacing-x1);
 
     --mt-component-table-background-zebra: var(--mt-color-white);
     --mt-component-table-background-hover: var(--mt-color-beige-200);

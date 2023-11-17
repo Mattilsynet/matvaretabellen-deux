@@ -1305,10 +1305,6 @@ a.mmm-button-secondary:link {
     height: 16px;
 }
 
-.mmm-pills {
-    --mt-horizontal-list-gap: var(--mt-component-pill-gap);
-}
-
 /************************************
  *** Component: Table of contents ***
  ************************************/
