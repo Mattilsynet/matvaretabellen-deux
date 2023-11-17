@@ -8,7 +8,6 @@
             [matvaretabellen.food :as food]
             [matvaretabellen.food-name :as food-name]
             [matvaretabellen.layout :as layout]
-            [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.rda :as rda]
             [matvaretabellen.urls :as urls]
             [mmm.components.button :refer [Button]]
@@ -299,13 +298,6 @@
    [:div.mmm-passepartout
     [:div.mmm-container-medium.mmm-vert-layout-m.mmm-mobile-phn
      body]]])
-
-(def source-toggle-button
-  (Button
-   {:class [:mmm-desktop :mvt-source-toggler]
-    :text [:i18n ::show-sources]
-    :secondary? true
-    :inline? true}))
 
 (defn get-source-toggle [& [label]]
   [:p.mmm-p.mmm-desktop
