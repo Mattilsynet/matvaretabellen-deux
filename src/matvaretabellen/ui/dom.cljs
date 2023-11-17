@@ -38,3 +38,20 @@
 
 (defn set-local-edn [k v]
   (some->> v clj->js (set-local-json k)))
+
+(defn get-session-json [k]
+  (try
+    (some-> (js/sessionStorage.getItem k)
+            js/JSON.parse)
+    (catch :default _e
+      (js/console.error "Unable to read from session storage" e)
+      nil)))
+
+(defn set-session-json [k item]
+  (try
+    (some->> item
+             js/JSON.stringify
+             (js/sessionStorage.setItem k))
+    (catch :default e
+      (js/console.error "Unable to write to session storage" e)
+      nil)))
