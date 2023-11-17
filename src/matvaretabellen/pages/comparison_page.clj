@@ -9,14 +9,7 @@
             [matvaretabellen.statistics :as statistics]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
-            [mmm.components.button :refer [Button]]
-            [mmm.components.site-header :refer [SiteHeader]]))
-
-(defn render-header [locale]
-  (SiteHeader
-   {:home-url (urls/get-base-url locale)
-    :extra-link {:text [:i18n :i18n/other-language]
-                 :url (urls/get-comparison-url ({:en :nb :nb :en} locale))}}))
+            [mmm.components.button :refer [Button]]))
 
 (defn render-breadcrumbs [locale]
   [:div.mmm-container.mmm-section
@@ -104,7 +97,7 @@
      [:head
       [:title [:i18n ::compare-foods]]]
      [:body#comparison
-      (render-header locale)
+      (layout/render-header locale urls/get-comparison-url)
       (render-top-banner locale context)
       [:div.mmm-container-focused.mmm-section.mmm-mobile-phn.mmm-vert-layout-m.mmm-mobile-scroll
        {:id "container"}

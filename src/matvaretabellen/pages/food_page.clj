@@ -14,7 +14,6 @@
             [mmm.components.card :refer [DetailFocusCard]]
             [mmm.components.checkbox :refer [Checkbox]]
             [mmm.components.select :refer [Select]]
-            [mmm.components.site-header :refer [SiteHeader]]
             [mmm.components.toc :refer [Toc]]))
 
 (defn get-nutrient-link [db locale nutrient]
@@ -416,10 +415,7 @@
        (str "if (localStorage.getItem(\"show-sources\") != \"true\") {\n"
             "  document.body.classList.add(\"mvt-source-hide\");\n"
             "}")]
-      (SiteHeader {:home-url (urls/get-base-url locale)
-                   :extra-link {:text [:i18n :i18n/other-language]
-                                :url (urls/get-food-url
-                                      ({:en :nb :nb :en} locale) food)}})
+      (layout/render-header locale #(urls/get-food-url % food))
       [:div.mmm-themed.mmm-brand-theme1
        (layout/render-toolbar
         {:locale locale

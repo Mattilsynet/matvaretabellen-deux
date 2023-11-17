@@ -5,7 +5,6 @@
             [matvaretabellen.seeded-random :as rng]
             [matvaretabellen.urls :as urls]
             [mmm.components.search-input :refer [SearchInput]]
-            [mmm.components.site-header :refer [SiteHeader]]
             [mmm.components.toc :refer [Toc]])
   (:import (java.time MonthDay)))
 
@@ -69,10 +68,7 @@
       [:meta {:property "og:title" :content [:i18n ::open-graph-title]}]
       [:meta {:property "og:description" :content [:i18n ::open-graph-description]}]]
      [:body
-      (SiteHeader {:home-url (urls/get-base-url locale)
-                   :extra-link {:text [:i18n :i18n/other-language]
-                                :url (urls/get-base-url
-                                      ({:en :nb :nb :en} locale))}})
+      (layout/render-header locale urls/get-base-url)
       [:form.mmm-container-narrow.mmm-section.mmm-mbxxl.mmm-mtxl
        [:h1.mmm-h2.mmm-mbm [:i18n :i18n/search-label]]
        (SearchInput {:button {:text [:i18n :i18n/search-button]}

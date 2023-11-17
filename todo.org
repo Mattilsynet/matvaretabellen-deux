@@ -1,14 +1,14 @@
 * Ønskeliste til søket [0/2]
 ** TODO Benevnede tall (eks "4 mnd") kan kanskje få leve som tokens i indeksen?
 ** TODO Redusere score på lange navn
-* Tickets [1/7]
+* Tickets [2/7]
 ** DONE [M] Respekter antall desimaler på tall i Excel-arket
 ** TODO Stolpediagrammer
 ** TODO Ta en runde med ipad-bredde 800px
 ** TODO Sorter høyt/lavt på næringsstoff-sidene
 ** TODO Søk på næringsstoff
 ** TODO Trigge analytics-events på interaksjoner
-** TODO Flere lenker i headeren, "Matvaregrupper", "Næringsstoffer", "Om Matvaretabellen" (og "In English") (må skjules på mobil, evnt lage hamburger)
+** DONE Flere lenker i headeren, "Matvaregrupper", "Næringsstoffer", "Om Matvaretabellen" (og "In English") (må skjules på mobil, evnt lage hamburger)
 * To-DONT
 ** DONT Vis "Sist oppdatert" på matvare (har ikke datoen i datasettet vårt)
 ** DONT Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter (sparer ikke tid på dette de siste få dagene)

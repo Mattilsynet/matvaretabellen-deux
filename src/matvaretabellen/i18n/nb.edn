@@ -43,7 +43,9 @@
 
  #:matvaretabellen.layout
  {:close-sidebar "Lukk"
-  :filter "Filter"}
+  :filter "Filter"
+  :food-groups "Matvaregrupper"
+  :nutrients "Næringsstoffer"}
 
  #:matvaretabellen.pages.comparison-page
  {:and "og"

@@ -4,8 +4,7 @@
             [matvaretabellen.layout :as layout]
             [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.urls :as urls]
-            [mmm.components.button :refer [Button]]
-            [mmm.components.site-header :refer [SiteHeader]]))
+            [mmm.components.button :refer [Button]]))
 
 (defn embellish-food-group [food-group app-db]
   (-> (into {} food-group)
@@ -26,10 +25,7 @@
      [:head
       [:title [:i18n ::all-food-groups]]]
      [:body
-      (SiteHeader {:home-url (urls/get-base-url locale)
-                   :extra-link {:text [:i18n :i18n/other-language]
-                                :url (urls/get-food-groups-url
-                                      ({:en :nb :nb :en} locale))}})
+      (layout/render-header locale urls/get-food-groups-url)
       [:div.mmm-themed.mmm-brand-theme1
        (layout/render-toolbar
         {:locale locale

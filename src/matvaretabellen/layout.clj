@@ -1,9 +1,11 @@
 (ns matvaretabellen.layout
   (:require [matvaretabellen.crumbs :as crumbs]
+            [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.icon-button :refer [IconButton]]
-            [mmm.components.search-input :refer [SearchInput]]))
+            [mmm.components.search-input :refer [SearchInput]]
+            [mmm.components.site-header :refer [SiteHeader]]))
 
 (defn layout [context head body]
   [:html {:class "mmm"}
@@ -16,6 +18,27 @@
                            (:matomo/site-id context) "&rec=1")
                  :style "border:0"
                  :alt ""}]))])
+
+(defn prepare-header-links [locale get-current-url]
+  (let [current-url (get-current-url locale)]
+    (for [link [{:text [:i18n ::food-groups]
+                 :url (urls/get-food-groups-url locale)
+                 :class :mmm-desktop}
+                {:text [:i18n ::nutrients]
+                 :url (urls/get-nutrients-url locale)
+                 :class :mmm-desktop}
+                {:text [:i18n :i18n/other-language]
+                 :url (get-current-url ({:en :nb :nb :en} locale))}]]
+      (cond-> link
+        (= current-url (:url link))
+        (dissoc :url)))))
+
+(defn render-header [locale get-current-url]
+  (SiteHeader
+   {:home-url (let [url (urls/get-base-url locale)]
+                (when-not (= url (get-current-url locale))
+                  url))
+    :extra-links (prepare-header-links locale get-current-url)}))
 
 (defn render-toolbar [{:keys [locale crumbs]}]
   [:div.mmm-container.mmm-section.mmm-flex-desktop.mmm-flex-desktop-middle.mmm-mobile-vert-layout-m

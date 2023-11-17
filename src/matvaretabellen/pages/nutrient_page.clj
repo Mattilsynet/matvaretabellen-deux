@@ -8,9 +8,7 @@
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.urls :as urls]
-            [mmm.components.button :refer [Button]]
-            [mmm.components.checkbox :refer [Checkbox]]
-            [mmm.components.site-header :refer [SiteHeader]]))
+            [mmm.components.button :refer [Button]]))
 
 (def filter-panel-id "filter-panel")
 
@@ -104,11 +102,7 @@
      [:head
       [:title nutrient-name]]
      [:body
-      (SiteHeader {:home-url (urls/get-base-url locale)
-                   :extra-link {:text [:i18n :i18n/other-language]
-                                :url (urls/get-nutrient-url
-                                      ({:en :nb :nb :en} locale)
-                                      nutrient)}})
+      (layout/render-header locale #(urls/get-nutrient-url % nutrient))
       [:div.mmm-themed.mmm-brand-theme1
        (layout/render-toolbar
         {:locale locale

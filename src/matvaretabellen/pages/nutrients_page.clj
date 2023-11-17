@@ -2,8 +2,7 @@
   (:require [datomic-type-extensions.api :as d]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.layout :as layout]
-            [matvaretabellen.urls :as urls]
-            [mmm.components.site-header :refer [SiteHeader]]))
+            [matvaretabellen.urls :as urls]))
 
 (defn embellish-nutrient [nutrient app-db]
   (-> (into {} nutrient)
@@ -24,10 +23,7 @@
      [:head
       [:title [:i18n ::all-nutrients]]]
      [:body
-      (SiteHeader {:home-url (urls/get-base-url locale)
-                   :extra-link {:text [:i18n :i18n/other-language]
-                                :url (urls/get-nutrients-url
-                                      ({:en :nb :nb :en} locale))}})
+      (layout/render-header locale urls/get-nutrients-url)
       [:div.mmm-themed.mmm-brand-theme1
        (layout/render-toolbar
         {:locale locale

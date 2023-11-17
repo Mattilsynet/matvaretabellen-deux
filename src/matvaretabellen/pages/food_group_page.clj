@@ -6,8 +6,7 @@
             [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.urls :as urls]
-            [mmm.components.button :refer [Button]]
-            [mmm.components.site-header :refer [SiteHeader]]))
+            [mmm.components.button :refer [Button]]))
 
 (def filter-panel-id "filter-panel")
 
@@ -92,12 +91,7 @@
      [:head
       [:title (get-in food-group [:food-group/name locale])]]
      [:body
-      (SiteHeader
-       {:home-url (urls/get-base-url locale)
-        :extra-link {:text [:i18n :i18n/other-language]
-                     :url (urls/get-food-group-url
-                           ({:en :nb :nb :en} locale)
-                           food-group)}})
+      (layout/render-header locale #(urls/get-food-group-url % food-group))
       [:div.mmm-themed.mmm-brand-theme1
        (layout/render-toolbar
         {:locale locale
