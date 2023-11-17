@@ -282,7 +282,8 @@ ol.mmm-unadorned-list li {
 }
 
 tbody tr.mmm-highlight,
-table > tr.mmm-highlight {
+table > tr.mmm-highlight,
+table.mmm-table-zebra tr.mmm-highlight {
     background-color: var(--mt-component-table-background-highlight);
 }
 
