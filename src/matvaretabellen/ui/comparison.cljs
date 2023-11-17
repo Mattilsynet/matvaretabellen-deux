@@ -74,12 +74,12 @@
      (set-nutrient-content el food))))
 
 (defn get-energy-rating-text [id->energy]
-  (let [rating (->> id->energy
-                    (sort-by (comp - second))
-                    diff/rate-energy-diff
-                    (sort-by (comp - diff/get-rating-severity :rating))
-                    first
-                    :rating)]
+  (when-let [rating (->> id->energy
+                         (sort-by (comp - second))
+                         diff/rate-energy-diff
+                         (sort-by (comp - diff/get-rating-severity :rating))
+                         first
+                         :rating)]
     (some-> (str "[data-rating=" (name rating) "]") dom/qs .-innerText)))
 
 (defn enumerate [xs]
@@ -113,19 +113,17 @@
        (map #(keywordize-some (js->clj (aget data %))))
        with-short-names))
 
-(defn initialize-share-button [button food-ids]
-  (let [url (str js/window.location.pathname "?food-ids=" food-ids)]
-    (->> (fn [e]
-           (.preventDefault e)
-           (js/navigator.clipboard.writeText (str js/window.location.origin url))
-           (when-let [receipt (some-> button
-                                      (.getAttribute "data-receipt")
-                                      dom/qs)]
-             (.remove (.-classList receipt) "mmm-hidden")
-             (.add (.-classList receipt) "mmm-flash")
-             (.removeChild (.-parentNode button) button)))
-         (.addEventListener button "click"))
-    (set! (.-href button) url)))
+(defn initialize-share-button [button url]
+  (->> (fn [e]
+         (.preventDefault e)
+         (js/navigator.clipboard.writeText (str js/window.location.origin url))
+         (when-let [receipt (some-> button
+                                    (.getAttribute "data-receipt")
+                                    dom/qs)]
+           (.remove (.-classList receipt) "mmm-hidden")
+           (.add (.-classList receipt) "mmm-flash")
+           (.removeChild (.-parentNode button) button)))
+       (.addEventListener button "click")))
 
 (defn initialize-page
   "Initialize the comparison page"
@@ -154,9 +152,13 @@
             (.appendChild row (.cloneNode template true))))
         (doseq [[el food] (map vector (next (seq (.-childNodes row))) foods)]
           (prepare-comparison-el el food))))
-    (let [food-ids (get params "food-ids")]
+    (let [food-ids (get params "food-ids")
+          url (str js/window.location.pathname "?food-ids=" food-ids)]
+      (doseq [link (concat (dom/qsa (str "a[href='" js/window.location.pathname "']"))
+                           (dom/qsa ".mvt-other-lang"))]
+        (set! (.-href link) (str (.-href link) "?food-ids=" food-ids)))
       (doseq [share-button (dom/qsa ".mvtc-share")]
-        (initialize-share-button share-button food-ids)))))
+        (initialize-share-button share-button url)))))
 
 ;; Comparison UI on other pages
 

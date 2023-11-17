@@ -28,6 +28,7 @@
                  :url (urls/get-nutrients-url locale)
                  :class :mmm-desktop}
                 {:text [:i18n :i18n/other-language]
+                 :class :mvt-other-lang
                  :url (get-current-url ({:en :nb :nb :en} locale))}]]
       (cond-> link
         (= current-url (:url link))
