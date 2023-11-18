@@ -55,17 +55,15 @@
            (let [{:keys [url text]} (get-back-link locale food-group)]
              [:h2.mmm-h5 [:a.mmm-link {:href url} text]])
            links])
-        [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider
-         [:div.mmm-mobile.mmm-pos-tr.mmm-mts
-          (layout/render-sidebar-close-button filter-panel-id)]
-         [:h2.mmm-h5
-          [:a.mmm-link {:href (urls/get-food-groups-url locale)}
-           [:i18n ::food-groups]]]
-         (food/render-food-group-list
-          app-db
-          (:food-group/_parent food-group)
-          (set foods)
-          locale)])]]))
+        (let [food-groups (:food-group/_parent food-group)]
+          [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider
+           [:div.mmm-mobile.mmm-pos-tr.mmm-mts
+            (layout/render-sidebar-close-button filter-panel-id)]
+           [:h2.mmm-h5
+            [:a.mmm-link {:href (urls/get-food-groups-url locale)}
+             [:i18n ::food-groups]]]
+           (food/render-filter-data food-groups)
+           (food/render-food-group-list app-db food-groups (set foods) locale)]))]]))
 
 (defn prepare-foods-table [locale foods]
   {:headers [{:text [:i18n ::food]}
@@ -73,7 +71,7 @@
               :class :mmm-td-min}]
    :id "filtered-table"
    :rows (for [food foods]
-           {:data-food-group-id (:food-group/id (:food/food-group food))
+           {:data-id (:food-group/id (:food/food-group food))
             :cols [{:text [:a.mmm-link {:href (urls/get-food-url locale food)}
                            [:i18n :i18n/lookup (:food/name food)]]}
                    (comparison/render-toggle-cell food locale)]})})

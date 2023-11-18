@@ -20,7 +20,7 @@
               :class "mmm-td-min mmm-desktop"}]
    :id "filtered-table"
    :rows (for [food foods]
-           {:data-food-group-id (:food-group/id (:food/food-group food))
+           {:data-id (:food-group/id (:food/food-group food))
             :cols
             [{:text [:a.mmm-link {:href (urls/get-food-url locale food)}
                      [:i18n :i18n/lookup (:food/name food)]]}
@@ -67,11 +67,10 @@
            [:i18n :i18n/lookup (:nutrient/name n)]])])]))
 
 (defn render-food-group-filters [app-db food-db foods locale]
-  (food/render-food-group-list
-   app-db
-   (food/get-food-groups food-db)
-   (set foods)
-   locale))
+  (let [food-groups (food/get-food-groups food-db)]
+    (list
+     (food/render-filter-data food-groups)
+     (food/render-food-group-list app-db food-groups (set foods) locale))))
 
 (defn render-sidebar [app-db nutrient foods locale]
   (let [target (or (:nutrient/parent nutrient) nutrient)]

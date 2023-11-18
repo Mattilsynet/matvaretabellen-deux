@@ -1,5 +1,6 @@
 (ns matvaretabellen.food
   (:require [broch.core :as b]
+            [clojure.data.json :as json]
             [clojure.set :as set]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
@@ -159,10 +160,11 @@
                                      (or (some-> constituent :measurement/quantity b/symbol) "g")]}])
                       (into {}))})
 
-(defn render-food-group-list [app-db food-groups foods locale & [{:keys [class]}]]
+(defn render-food-group-list [app-db food-groups foods locale & [{:keys [class id]}]]
   (when (seq food-groups)
     [:ul.mmm-ul.mmm-unadorned-list
-     {:class class}
+     (cond-> {:class class}
+       id (assoc :data-filter-list-id id))
      (->> food-groups
           (sort-by #(food-group->sort-key app-db %))
           (map (juxt identity #(count (get-foods-in-group % foods))))
@@ -170,7 +172,7 @@
           (map (fn [[group n]]
                  [:li
                   (Checkbox
-                   {:data-food-group-id (:food-group/id group)
+                   {:data-filter-id (:food-group/id group)
                     :label [:i18n ::food-group
                             {:food-group (get-in group [:food-group/name locale])
                              :n n}]})
@@ -179,7 +181,20 @@
                    (:food-group/_parent group)
                    foods
                    locale
-                   {:class :mmm-hidden})])))]))
+                   {:class :mmm-hidden
+                    :id (:food-group/id group)})])))]))
+
+(defn get-food-group-paths [food-groups & [path]]
+  (mapcat
+   (fn [group]
+     (let [path (conj (vec path) (:food-group/id group))]
+       (->> (get-food-group-paths (:food-group/_parent group) path)
+            (cons path))))
+   food-groups))
+
+(defn render-filter-data [food-groups]
+  [:script.mvt-filter-paths {:type "application/json"}
+   (json/write-str (get-food-group-paths food-groups))])
 
 (comment
 

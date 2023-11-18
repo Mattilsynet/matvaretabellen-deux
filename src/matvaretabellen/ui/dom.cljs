@@ -47,6 +47,9 @@
       (js/console.error "Unable to read from session storage" e)
       nil)))
 
+(defn get-session-edn [k]
+  (some-> (get-session-json k) (js->clj :keywordize-keys true)))
+
 (defn set-session-json [k item]
   (try
     (some->> item
@@ -55,3 +58,15 @@
     (catch :default e
       (js/console.error "Unable to write to session storage" e)
       nil)))
+
+(defn set-session-edn [k v]
+  (some->> v clj->js (set-session-json k)))
+
+(defn remove-class [el class]
+  (.remove (.-classList el) class))
+
+(defn add-class [el class]
+  (.add (.-classList el) class))
+
+(defn has-class [el class]
+  (.contains (.-classList el) class))
