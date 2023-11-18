@@ -126,7 +126,7 @@
   :common-food-searches "Common Searches"
   :did-you-know "Did you know ..."
   :new-in-food-table "New in Matvaretabellen"
-  :open-graph-description "Matvaretabellen provides in-depth information on the energy and nutritional content of thousands of foods. You can search for specific foods, compare them, and learn about which foods offer high or low levels of various nutrients."
+  :open-graph-description "Information about the energy and nutritional content of thousands of foods. Search for foods, compare, and learn about nutrients."
   :open-graph-title "Matvaretabellen.no - a service from Mattilsynet"
   :read-more-about [:fn/str "Read more about {{:definite}} here."]
   :seasonal-goods "Seasonal Goods"
