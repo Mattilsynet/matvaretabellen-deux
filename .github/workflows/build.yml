@@ -118,6 +118,13 @@ jobs:
           key: ${{ runner.os }}-gitlibs-build-${{ hashFiles('deps.edn') }}
           restore-keys: |
             ${{ runner.os }}-gitlibs-build
+      - name: Cache exported xlsx files
+        uses: actions/cache@v3
+        with:
+          path: |
+            docker/build/**/*.xlsx
+            docker/build/etags.edn
+          key: xlsx-files
       - name: Build docker image
         run: make docker
       - id: auth

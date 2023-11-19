@@ -266,6 +266,14 @@
          #(map (fn [food] (foodcase-food->food food id->nutrient)) (get % "foods")))
         i18n-attrs))]))
 
+(defn get-last-modified []
+  (->> ["data/foodcase-data-en.json"
+        "data/foodcase-data-nb.json"
+        "data/foodcase-food-en.json"
+        "data/foodcase-food-nb.json"]
+       (map #(.lastModified (io/file %)))
+       (apply max 0)))
+
 (defn create-database-from-scratch [uri]
   (d/delete-database uri)
   (let [schema (read-string (slurp (io/resource "foods-schema.edn")))

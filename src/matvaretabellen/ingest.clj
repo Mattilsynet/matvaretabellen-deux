@@ -1,6 +1,8 @@
 (ns matvaretabellen.ingest
   (:require [clojure.java.io :as io]
             [datomic-type-extensions.api :as d]
+            [matvaretabellen.excel :as excel]
+            [matvaretabellen.foodcase-import :as import]
             [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.pages :as pages]
             [matvaretabellen.rda :as rda]
@@ -87,6 +89,15 @@
                                       (remove (comp #{1} val)))})))
   entity-maps)
 
+(defn add-excel-etags [pages]
+  (let [etag (str excel/version "-" (import/get-last-modified))]
+    (for [page pages]
+      (cond-> page
+        (#{:page.kind/nutrient-excel
+           :page.kind/food-group-excel
+           :page.kind/foods-excel} (:page/kind page))
+        (assoc :page/etag etag)))))
+
 (defn on-started [foods-conn powerpack-app]
   (let [db (d/db foods-conn)
         app-db (d/db (:datomic/conn powerpack-app))
@@ -95,6 +106,7 @@
                  (get-food-pages db)
                  (get-food-group-pages db app-db)
                  (get-nutrient-pages db app-db))
+         add-excel-etags
          (ensure-unique-page-uris)
          (concat rda-profiles)
          (d/transact (:datomic/conn powerpack-app))

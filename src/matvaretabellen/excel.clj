@@ -10,6 +10,13 @@
            (org.apache.poi.ss.util CellRangeAddress)
            (org.apache.poi.xssf.usermodel XSSFWorkbook)))
 
+;; To avoid spending 30min generating Excel files on every build, exported files
+;; will have an etag added to them that consist of this version and the modified
+;; time on the data files. In other words: code changes will not automatically
+;; be reflected in the export. Change this version string when you need for new
+;; Excel files to be generated.
+(def version "2023.11.19")
+
 (defn add-index [coll]
   (map-indexed (fn [i m] (assoc m :index i)) coll))
 
