@@ -106,7 +106,7 @@
                  (get-food-pages db)
                  (get-food-group-pages db app-db)
                  (get-nutrient-pages db app-db))
-         add-excel-etags
+         ;;add-excel-etags
          (ensure-unique-page-uris)
          (concat rda-profiles)
          (d/transact (:datomic/conn powerpack-app))
