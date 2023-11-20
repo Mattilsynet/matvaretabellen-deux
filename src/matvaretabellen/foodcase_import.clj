@@ -18,6 +18,9 @@
   (->> (str/split (str/trim s) (or re #" +"))
        (remove empty?)))
 
+(def nutrient-id->decimal-precision
+  (read-string (slurp "data/nutrient-decimal-precision.edn")))
+
 (def known-non-constituents
   #{"Netto"
     "Energi1"
@@ -172,7 +175,8 @@
                :nutrient/euro-fir-id euroFIR
                :nutrient/euro-fir-name euroFIRname
                :nutrient/unit unit
-               :nutrient/decimal-precision (some-> decimals parse-long)}
+               :nutrient/decimal-precision (or (nutrient-id->decimal-precision id)
+                                               (some-> decimals parse-long))}
         parent
         (assoc :nutrient/parent parent)))))
 
@@ -270,7 +274,8 @@
   (->> ["data/foodcase-data-en.json"
         "data/foodcase-data-nb.json"
         "data/foodcase-food-en.json"
-        "data/foodcase-food-nb.json"]
+        "data/foodcase-food-nb.json"
+        "data/nutrient-decimal-precision.edn"]
        (map #(.lastModified (io/file %)))
        (apply max 0)))
 

@@ -205,7 +205,8 @@
           :nutrient/euro-fir-id "WATER"
           :nutrient/euro-fir-name "water"
           :nutrient/unit "g"
-          :nutrient/decimal-precision 1}))
+          :nutrient/decimal-precision 0 ;; ignored from FoodCASE, uses our
+          }))
 
   (testing "Includes parentId when non-empty"
     (is (= (:nutrient/parent (sut/foodcase-nutrient->nutrient
