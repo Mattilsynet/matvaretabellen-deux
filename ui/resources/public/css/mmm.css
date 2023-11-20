@@ -1000,6 +1000,11 @@ table.mmm-table-zebra tr.mmm-highlight {
     .mmm-mobile-pan, .mmm-mobile-pvn, .mmm-mobile-ptn {padding-top: 0;}
     .mmm-mobile-pan, .mmm-mobile-pvn, .mmm-mobile-pbn {padding-bottom: 0;}
 
+    .mmm-mobile-man, .mmm-mobile-mhn, .mmm-mobile-mln {margin-left: 0;}
+    .mmm-mobile-man, .mmm-mobile-mhn, .mmm-mobile-mrn {margin-right: 0;}
+    .mmm-mobile-man, .mmm-mobile-mvn, .mmm-mobile-mtn {margin-top: 0;}
+    .mmm-mobile-man, .mmm-mobile-mvn, .mmm-mobile-mbn {margin-bottom: 0;}
+
     .mmm-mobile-container-p {
         padding: 0 var(--mt-layout-container-gutter);
     }

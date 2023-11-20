@@ -29,7 +29,7 @@
       [:h1.mmm-h1 [:i18n ::compare-foods]]
       [:p.mmm-p.mvtc-rating-summary.mmm-hidden [:i18n ::energy-summary]]
       [:p.mmm-p [:i18n ::diff-intro]]
-      [:p.mmm-p
+      [:p.mmm-p.mmm-desktop
        (Button {:text [:i18n ::share-comparison]
                 :href (urls/get-comparison-url locale)
                 :data-receipt "#share-receipt"
@@ -39,7 +39,7 @@
                 :class [:mvtc-share]})
        [:span.mmm-hidden#share-receipt [:i18n ::url-copied]]]]
      (food-page/render-toc {:contents (drop-last 2 (food-page/get-toc-items))
-                            :class :mmm-nbr})]]])
+                            :class [:mmm-nbr :mmm-desktop]})]]])
 
 (defn prepare-energy-rows [food]
   [{:class [:mvtc-comparison]
@@ -105,7 +105,7 @@
      [:body#comparison
       (layout/render-header locale urls/get-comparison-url)
       (render-top-banner locale context)
-      [:div.mmm-container-focused.mmm-section.mmm-mobile-phn.mmm-vert-layout-m.mmm-mobile-scroll
+      [:div.mmm-container-focused.mmm-section.mmm-mobile-phn.mmm-mobile-mtn.mmm-vert-layout-m.mmm-mobile-scroll
        {:id "container"}
        (food-page/render-table
         {:headers {:cols [{:text [:i18n ::composition]
