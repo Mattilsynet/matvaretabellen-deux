@@ -25,14 +25,35 @@
  {:trivia/food-id "06.504"
   :trivia/definite {:nb "jordbæret" :en "the strawberry"}
   :trivia/photo "/images/trivia/jordbaer.jpg"
-  :trivia/prose {:nb "jordbær har et høyere innhold av vitamin C enn appelsin? Jordbæret er også rikt på vitamin C og folat."
-                 :en "that strawberries have a higher content of vitamin C than oranges? Strawberries are also rich in vitamin C and folate."}}
+  :trivia/prose {:nb "jordbær har et høyere innhold av vitamin C enn appelsin? Jordbæret er også rikt på folat."
+                 :en "that strawberries have a higher content of vitamin C than oranges? Strawberries are also rich in folate."}}
 
- ]
+ {:trivia/food-id "04.055"
+  :trivia/definite {:nb "krabben" :en "the crab"}
+  :trivia/photo "/images/trivia/krabbe.jpg"
+  :trivia/prose {:nb "at kokt krabbe inneholder omtrent fire ganger mer kalsium enn lettmelk? Matvaren har også det høyeste innholdet av kalsium blant fisk og skalldyr, og har et høyt innhold av flere ulike vitaminer og mineraler."
+                 :en "that cooked crab contains about four times more calcium than skimmed milk? This food also has the highest content of calcium among fish and shellfish, and is high in several different vitamins and minerals."}}
 
-;; krabbe
-;; laks
-;; potet
-;; reinsdyr
-;; spinat
-;; valnøtt
+ {:trivia/food-id "04.220"
+  :trivia/definite {:nb "laksen" :en "salmon"}
+  :trivia/photo "/images/trivia/laks.jpg"
+  :trivia/prose {:nb "at en porsjon ovnsstekt laks dekker halvparten av dagsbehovet for vitamin D? Laks er også en god kilde til omega-3 fettsyrer."
+                 :en "that a serving of oven-baked salmon covers half of the daily requirement for vitamin D? Salmon is also a good source of omega-3 fatty acids."}}
+
+ {:trivia/food-id "06.003"
+  :trivia/definite {:nb "poteten" :en "the potato"}
+  :trivia/photo "/images/trivia/potet.jpg"
+  :trivia/prose {:nb "at poteten har det laveste innholdet av stivelse og det høyeste innholdet av kalium og vitamin C sammenlignet med andre stivelsesrike matvarer?"
+                 :en "that the potato has the lowest content of starch and the highest content of potassium and vitamin C compared to other starchy foods?"}}
+
+ {:trivia/food-id "06.064"
+  :trivia/definite {:nb "spinaten" :en "spinach"}
+  :trivia/photo "/images/trivia/spinat.jpg"
+  :trivia/prose {:nb "at spinat har det høyeste innholdet av folat blant grønnsaker? Det er også en av grønnsakene som har høyest innhold av jern, kalsium, magnesium, sink og kalium."
+                 :en "that spinach has the highest content of folate among vegetables? It is also one of the vegetables with the highest content of iron, calcium, magnesium, zinc, and potassium."}}
+
+ {:trivia/food-id "06.560"
+  :trivia/definite {:nb "valnøtten" :en "the walnut"}
+  :trivia/photo "/images/trivia/valnott.jpg"
+  :trivia/prose {:nb "at valnøtter inneholder mer omega-3 fettsyrer enn laks og makrell i tomat? Matvaren har også den høyeste andelen av flerumettede omega-3 fettsyrer blant nøtter."
+                 :en "that walnuts contain more omega-3 fatty acids than salmon and mackerel in tomato? This food also has the highest proportion of polyunsaturated omega-3 fatty acids among nuts."}}]
