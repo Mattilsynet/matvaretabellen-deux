@@ -294,7 +294,7 @@
            (sort-by (comp - :value))))))
 
 (defn passepartout [& body]
-  [:div.mmm-container.mmm-section.mmm-mobile-phn
+  [:div.mmm-container.mmm-section.mmm-mobile-phn.mmm-mobile-mvn
    [:div.mmm-passepartout
     [:div.mmm-container-medium.mmm-vert-layout-m.mmm-mobile-phn
      body]]])
@@ -447,7 +447,7 @@
          [:div.mmm-desktop (render-compare-button food {:inline? true})]
          (render-portion-select locale (:food/portions food))]]]
 
-      [:div.mmm-container.mmm-section.mmm-mobile-phn
+      [:div.mmm-container.mmm-section.mmm-mobile-phn.mmm-mobile-mvn
        [:div.mmm-passepartout
         [:div.mmm-container-medium.mmm-vert-layout-m
          [:h3.mmm-h3#energi.mmm-mbm [:i18n ::nutrition-heading]]
