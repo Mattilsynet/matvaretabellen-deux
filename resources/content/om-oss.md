@@ -7,10 +7,10 @@
 
 # Om Matvaretabellen
 
-Matvaretabellen ble sist fornyet i november 2023. Nettsiden er en tjeneste
-levert av Mattilsynet. Produktet inneholder 2049 matvarer, fordelt på ulike
-matvaregrupper og deres næringsinnhold. Det er mulig å søke direkte etter en
-matvare eller navigere blant matvaregrupper og næringsstoffer.
+Matvaretabellen ble sist fornyet i {{:update-date}}. Nettsiden er en tjeneste
+levert av Mattilsynet. Produktet inneholder {{:num-food-items}} matvarer,
+fordelt på ulike matvaregrupper og deres næringsinnhold. Det er mulig å søke
+direkte etter en matvare eller navigere blant matvaregrupper og næringsstoffer.
 
 ## Matvaresidene
 

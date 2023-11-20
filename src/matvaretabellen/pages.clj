@@ -20,8 +20,11 @@
       slurp
       edn/read-string))
 
+(defn get-auxiliary-info []
+  (load-edn "data/new-food-ids.edn"))
+
 (defn get-latest-year []
-  (:year (load-edn "data/new-food-ids.edn")))
+  (:year (get-auxiliary-info)))
 
 (defn get-static-pages []
   [{:page/uri "/"
@@ -108,7 +111,7 @@
 (defn render-page [context page]
   (let [db (:foods/db context)]
     (case (:page/kind page)
-      :page.kind/article (article-page/render-page context db page)
+      :page.kind/article (article-page/render-page context db page (get-auxiliary-info))
       :page.kind/comparison (comparison-page/render-page context page)
       :page.kind/comparison-data (comparison-page/render-data context page)
       :page.kind/foods-index (render-foods-index db page)

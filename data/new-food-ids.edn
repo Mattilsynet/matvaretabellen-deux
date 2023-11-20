@@ -1,4 +1,5 @@
 {:year 2023
+ :month {:nb "november" :en "November"}
  :food-ids #{"13.142"
              "10.185"
              "05.502"

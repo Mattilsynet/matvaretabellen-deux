@@ -7,11 +7,11 @@
 
 # About the Norwegian Food Composition Table
 
-The Norwegian Food Composition Table was last updated in November 2023. The
+The Norwegian Food Composition Table was last updated in {{:update-date}}. The
 website is a service provided by the Norwegian Food Safety Authority. The
-product contains 2,049 food items, divided into various food groups and their
-nutritional content. It is possible to search directly for a food item or
-navigate among food groups and nutrients.
+product contains {{:num-food-items}} food items, divided into various food
+groups and their nutritional content. It is possible to search directly for a
+food item or navigate among food groups and nutrients.
 
 ## Food Item Pages
 
