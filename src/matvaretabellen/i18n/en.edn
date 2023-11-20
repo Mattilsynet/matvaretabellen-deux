@@ -9,7 +9,9 @@
  #:mmm.components.footer
  {:footer-title "Footer"
   :about-site "About the site"
-  :about-text (list "Matvaretabellen is a service from Mattilsynet. For more services, see " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
+  :about-text (list "Matvaretabellen is a service from Mattilsynet. "
+                    [:a {:href "/about-us/"} "Read more about it here."]
+                    " For more services, see " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
   :newsletter "Newsletter"
   :privacy-and-cookies "Privacy Policy and Cookies"
   :accessibility-statement "Accessibility Statement (uustatus.no)"

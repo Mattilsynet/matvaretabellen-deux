@@ -1,9 +1,11 @@
 * Ønskeliste til søket [0/2]
 ** TODO Benevnede tall (eks "4 mnd") kan kanskje få leve som tokens i indeksen?
 ** TODO Redusere score på lange navn
-* Tickets [4/8]
+* Tickets [5/10]
 ** DONE [M] Respekter antall desimaler på tall i Excel-arket
 ** DONE Redirect fra ikke til www
+** DONE Om Matvaretabellen-side
+** TODO Vis matvare-lister på faux næringsstoffer
 ** TODO Stolpediagrammer
 ** TODO Ta en runde med ipad-bredde 800px
 ** TODO Sorter høyt/lavt på næringsstoff-sidene

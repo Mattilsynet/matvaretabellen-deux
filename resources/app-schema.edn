@@ -20,6 +20,10 @@
   :dte/valueType :data/edn
   :db/cardinality :db.cardinality/one}
 
+ {:db/ident :page/i18n-uris
+  :dte/valueType :i18n/edn
+  :db/cardinality :db.cardinality/one}
+
  ;; Sesongvarer
  {:db/ident :season/id
   :db/valueType :db.type/string

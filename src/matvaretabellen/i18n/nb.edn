@@ -9,7 +9,9 @@
  #:mmm.components.footer
  {:footer-title "Footer"
   :about-site "Om nettstedet"
-  :about-text (list "Matvaretabellen er en tjeneste fra Mattilsynet. For øvrige tjenester, se " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
+  :about-text (list "Matvaretabellen er en tjeneste fra Mattilsynet. "
+                    [:a {:href "/om-oss/"} "Les mer om den her."]
+                    " For øvrige tjenester, se " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
   :newsletter "Nyhetsbrev"
   :privacy-and-cookies "Personvernerklæring og informasjonskapsler"
   :accessibility-statement "Tilgjengelegheitserklæring (uustatus.no)"

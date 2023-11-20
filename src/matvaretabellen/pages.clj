@@ -3,6 +3,7 @@
             [clojure.java.io :as io]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.excel :as excel]
+            [matvaretabellen.pages.article-page :as article-page]
             [matvaretabellen.pages.comparison-page :as comparison-page]
             [matvaretabellen.pages.food-group-page :as food-group-page]
             [matvaretabellen.pages.food-groups-page :as food-groups-page]
@@ -107,6 +108,7 @@
 (defn render-page [context page]
   (let [db (:foods/db context)]
     (case (:page/kind page)
+      :page.kind/article (article-page/render-page context db page)
       :page.kind/comparison (comparison-page/render-page context page)
       :page.kind/comparison-data (comparison-page/render-data context page)
       :page.kind/foods-index (render-foods-index db page)
