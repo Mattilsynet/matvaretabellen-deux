@@ -108,7 +108,8 @@
                         (or (some-> constituent
                                     :measurement/quantity
                                     b/num)
-                            0))
+                            0)
+                        {:decimals (-> constituent :constituent/nutrient :nutrient/decimal-precision)})
                  (some->> constituent :measurement/quantity b/symbol (str " "))]
         :href (str "#" anchor)}))))
 
@@ -269,7 +270,7 @@
                               [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]
                               ": "
                               [:strong
-                               (food/wrap-in-portion-span value)
+                               (food/wrap-in-portion-span value {:decimals (-> constituent :constituent/nutrient :nutrient/decimal-precision)})
                                (some->> constituent :measurement/quantity b/symbol (str " "))]]})))
        (remove nil?)
        (remove #(= 0.0 (:value %)))

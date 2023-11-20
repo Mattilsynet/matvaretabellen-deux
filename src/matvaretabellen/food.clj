@@ -33,9 +33,10 @@
           [:span.mvt-sym (b/symbol q)])))
 
 (defn get-nutrient-quantity [food nutrient-id]
-  (or (some->> (get-nutrient-measurement food nutrient-id)
-               get-calculable-quantity)
-      "–"))
+  (let [measurement (get-nutrient-measurement food nutrient-id)]
+    (or (some-> measurement
+                (get-calculable-quantity {:decimals (-> measurement :constituent/nutrient :nutrient/decimal-precision)}))
+        "–")))
 
 (defn get-nutrients [food nutrient-id]
   (->> (:food/constituents food)
