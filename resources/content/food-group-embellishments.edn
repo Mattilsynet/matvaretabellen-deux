@@ -141,8 +141,8 @@
   :food-group/illustration "/images/food-groups/frukt-og-bar/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer frukt og bær. De har ofte et lavt fettinnhold og er en god kilde til flere vitaminer og mineraler."
                                 :en "This food group includes fruits and berries. They often have a low fat content and are a good source of various vitamins and minerals."}
-  :food-group/short-description {:nb "Inkluderer frukt og bær."
-                                 :en "Includes fruits and berries."}}
+  :food-group/short-description {:nb "Inkluderer frukt, bær, og produkter av frukt og bær."
+                                 :en "Includes fruits, berries, and products made with fruits and berries."}}
 
  ;; "Nøtter og frø"
  {:food-group/id "14"
@@ -151,8 +151,8 @@
   :food-group/illustration "/images/food-groups/notter-og-fro/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer nøtter og frø. Nøtter og frø er en kilde til [umettet fett|Fett] og [kostfiber|Fiber]. De er også rike på vitaminer og mineraler. "
                                 :en "This food group includes nuts and seeds. Nuts and seeds are a source of [unsaturated fats|Fett] and [dietary fiber|Fiber]. They are also rich in vitamins and minerals."}
-  :food-group/short-description {:nb "Inkluderer nøtter og frø."
-                                 :en "Includes nuts and seeds."}}
+  :food-group/short-description {:nb "Inkluderer nøtter, frø, og produkter av nøtter og frø."
+                                 :en "Includes nuts, seeds, and products made with nuts and seeds."}}
 
  ;; "Poteter"
  {:food-group/id "15"

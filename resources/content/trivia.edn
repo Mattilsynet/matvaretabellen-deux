@@ -19,8 +19,8 @@
  {:trivia/food-id "02.001"
   :trivia/definite {:nb "egget" :en "the egg"}
   :trivia/photo "/images/trivia/egg.jpg"
-  :trivia/prose {:nb "at egg er en god kilde til protein? Egg inneholder også alle vitaminer og mineraler, utenom vitamin C."
-                 :en "that eggs are a good source of protein? Eggs also contain all vitamins and minerals, except for vitamin C."}}
+  :trivia/prose {:nb "at egg inneholder alle vitaminer og mineraler, utenom vitamin C? Egg er også en god kilde til protein."
+                 :en "that eggs contain all vitamins and minerals, except for vitamin C? Eggs are also a good source of protein."}}
 
  {:trivia/food-id "06.504"
   :trivia/definite {:nb "jordbæret" :en "the strawberry"}
