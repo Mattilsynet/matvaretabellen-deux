@@ -58,7 +58,7 @@
 (defn create-build-app []
   (let [uri "datomic:mem://foods-export"]
     (foodcase-import/create-database-from-scratch uri)
-    (create-app :prod (d/connect uri))))
+    (assoc (create-app :prod (d/connect uri)) :powerpack/log-level :info)))
 
 (defn create-dev-app [config]
   (create-app :dev (d/connect (:foods/datomic-uri config))))
