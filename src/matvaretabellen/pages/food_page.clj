@@ -96,7 +96,7 @@
      :detail [:span (get-kj food)
               (when-let [formatted-kcal (get-kcal food)]
                 [:div.small formatted-kcal])]
-     :href "#naeringsinnhold"
+     :href "#naringsinnhold"
      :class "mmm-mobile"
      :aria-hidden "true"}]
    (for [[id anchor] [["Fett" "fett"] ["Protein" "energi"] ["Karbo" "karbohydrater"]]]
