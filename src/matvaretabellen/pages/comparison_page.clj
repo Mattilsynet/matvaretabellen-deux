@@ -27,7 +27,7 @@
     [:div.mmm-media-d.mmm-media-at
      [:article.mmm-vert-layout-m
       [:h1.mmm-h1 [:i18n ::compare-foods]]
-      [:p.mmm-p.mvtc-rating-summary.mmm-hidden [:i18n ::energy-summary]]
+      #_[:p.mmm-p.mvtc-rating-summary.mmm-hidden [:i18n ::energy-summary]]
       [:p.mmm-p [:i18n ::diff-intro]]
       [:p.mmm-p.mmm-desktop
        (Button {:text [:i18n ::share-comparison]
