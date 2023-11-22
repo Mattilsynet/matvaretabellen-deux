@@ -1,7 +1,7 @@
 [#:i18n
  {:lookup [:fn/str "{{:nb}}"]
   :other-language "In English"
-  :number-of-foods (list "Antall matvarer: " [:fn/get :count] " stk")
+  :number-of-foods (list [:fn/get :count] " matvarer.")
   :number [:fn/num [:fn/get :n] [:fn/param]]
   :search-button "Søk"
   :search-label "Søk i Matvaretabellen"}
