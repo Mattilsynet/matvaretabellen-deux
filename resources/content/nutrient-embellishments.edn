@@ -71,7 +71,12 @@
   :nutrient/photo "/images/nutrients/kostfiber/photo.jpg"
   :nutrient/illustration "/images/nutrients/kostfiber/illustration.svg"
   :nutrient/short-description {:nb "Kilder til kostfiber er blant annet grove kornprodukter, belgfrukter og grønnsaker."
-                               :en "Sources of dietary fiber include whole grain products, legumes, and vegetables."}}
+                               :en "Sources of dietary fiber include whole grain products, legumes, and vegetables."}
+  :nutrient/long-description
+  {:nb "Kostfiber er en av de energigivende næringsstoffene, sammen med [protein], [fett|Fett], [karbohydrater|Karbo] og [alkohol|Alko].
+        Kilder til kostfiber er blant annet grove [kornprodukter|fg-5], [belgfruker|fg-12] og [grønnsaker|fg-6]."
+   :en "Dietary fiber is one of the energy-yielding nutrients, along with [protein], [fat|Fett], [carbohydrates|Karbo], and [alcohol|Alko].
+        Sources of dietary fiber include whole [cereal products|fg-5], [legumes|fg-12], and [vegetables|fg-6]."}}
 
  {:nutrient/id "WaterSolubleVitamins"
   :category/order 0
