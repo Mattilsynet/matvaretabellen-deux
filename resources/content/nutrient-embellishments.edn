@@ -388,55 +388,55 @@
  {:nutrient/id "Vit B1"
   :nutrient/long-description
   {:nb "Vitamin B1, eller tiamin, er en type vannløselig vitamin sammen med vitamin
-        [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat], [B12|Vit B12]) og [C|Vit C].
+        [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat], [B12|Vit B12] og [C|Vit C].
         Tiamin finnes typisk i [kornprodukter|fg-5], [kjøtt|fg-3] og [meieriprodukter|fg-1]."
    :en "Vitamin B1, or thiamin, is a type of water-soluble vitamin along with vitamins
-        [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat], [B12|Vit B12]) and [C|Vit C].
+        [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat], [B12|Vit B12] and [C|Vit C].
         Thiamin is typically found in [cereal products|fg-5], [meat|fg-3], and [dairy products|fg-1]."}}
 
  {:nutrient/id "Vit B2"
   :nutrient/long-description
   {:nb "Vitamin B2, eller riboflavin, er en type vannløselig vitamin sammen med vitamin
-        ([B1|Vit B1], [B3|Niacin], [B6|Vit B6], [B9|Folat], [B12|Vit B12]) og [C|Vit C].
+        [B1|Vit B1], [B3|Niacin], [B6|Vit B6], [B9|Folat], [B12|Vit B12] og [C|Vit C].
         Matvarer som [kjøtt|fg-3], [meieriprodukter|fg-1], [grønne grønnsaker|fg-6], [belgvekster|fg-12] og [mandler|06.107] er kilder til riboflavin."
    :en "Vitamin B2, or riboflavin, is a type of water-soluble vitamin along with vitamins
-        ([B1|Vit B1], [B3|Niacin], [B6|Vit B6], [B9|Folat], [B12|Vit B12]) and [C|Vit C].
+        [B1|Vit B1], [B3|Niacin], [B6|Vit B6], [B9|Folat], [B12|Vit B12] and [C|Vit C].
         Foods such as [meat|fg-3], [dairy products|fg-1], [green vegetables|fg-6], [legumes|fg-12], and [almonds|06.107] are sources of riboflavin."}}
 
  {:nutrient/id "Niacin"
   :nutrient/long-description
   {:nb "Vitamin B3, eller niacin, er en type vannløselig vitamin sammen med vitamin
-        ([B1|Vit B1], [B2|Vit B2], [B6|Vit B6], [B9|Folat], [B12|Vit B12]) og [C|Vit C].
+        [B1|Vit B1], [B2|Vit B2], [B6|Vit B6], [B9|Folat], [B12|Vit B12] og [C|Vit C].
         Matvarer som er gode kilder til niacin inkluderer [kjøtt|fg-3], [egg|fg-2], [fisk|fg-4.1], [meieriprodukter|fg-1], og [belgvekster|fg-12]."
    :en "Vitamin B3, or niacin, is a type of water-soluble vitamin along with vitamins
-        ([B1|Vit B1], [B2|Vit B2], [B6|Vit B6], [B9|Folat], [B12|Vit B12]) and [C|Vit C].
+        [B1|Vit B1], [B2|Vit B2], [B6|Vit B6], [B9|Folat], [B12|Vit B12] and [C|Vit C].
         Foods that are good sources of niacin include [meat|fg-3], [eggs|fg-2], [fish|fg-4.1], [dairy products|fg-1], and [legumes|fg-12]."}}
 
  {:nutrient/id "Vit B6"
   :nutrient/long-description
   {:nb "Vitamin B6, eller pyridoksin, er en type vannløselig vitamin sammen med vitamin
-        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B9|Folat], [B12|Vit B12]) og [C|Vit C].
+        [B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B9|Folat], [B12|Vit B12] og [C|Vit C].
         Gode kilder til pyridoksin inkluderer [kjøtt|fg-3], [fisk|fg-4.1], [poteter|fg-15], [brød|fg-5], og [meieriprodukter|fg-1]."
    :en "Vitamin B6, or pyridoxine, is a type of water-soluble vitamin along with vitamins
-        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B9|Folat], [B12|Vit B12]) and [C|Vit C].
+        [B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B9|Folat], [B12|Vit B12] and [C|Vit C].
         Good sources of pyridoxine include [meat|fg-3], [fish|fg-4.1], [potatoes|fg-15], [bread|fg-5], and [dairy products|fg-1]."}}
 
  {:nutrient/id "Folat"
   :nutrient/long-description
   {:nb "Vitamin B9, eller folat, er en type vannløselig vitamin sammen med vitamin
-        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B12|Vit B12]) og [C|Vit C].
+        [B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B12|Vit B12] og [C|Vit C].
         [Grønne bladgrønnsaker|fg-6], [belgfrukter|fg-12] og [nøtter|fg-14.2] er gode kilder til folat."
    :en "Vitamin B9, or folate, is a type of water-soluble vitamin along with vitamins
-        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B12|Vit B12]) and [C|Vit C].
+        [B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B12|Vit B12] and [C|Vit C].
         [Green leafy vegetables|fg-6], [legumes|fg-12], and [nuts|fg-14.2] are good sources of folate."}}
 
  {:nutrient/id "Vit B12"
   :nutrient/long-description
   {:nb "Vitamin B12, eller kobalamin, er en type vannløselig vitamin sammen med vitamin
-        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat]) og [C|Vit C].
+        [B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat] og [C|Vit C].
         Dette vitaminet finnes typisk i animalske matvarer som [kjøtt|fg-3] og [fisk|fg-4.1]."
    :en "Vitamin B12, or cobalamin, is a type of water-soluble vitamin along with vitamins
-        ([B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat]) and [C|Vit C].
+        [B1|Vit B1], [B2|Vit B2], [B3|Niacin], [B6|Vit B6], [B9|Folat] and [C|Vit C].
         This vitamin is typically found in animal foods such as [meat|fg-3] and [fish|fg-4.1]."}}
 
  {:nutrient/id "Vit C"
