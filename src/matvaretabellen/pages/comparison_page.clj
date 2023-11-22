@@ -95,7 +95,7 @@
          :group %}))
     nutrients)))
 
-(defn render-page [context {:page/keys [locale]}]
+(defn render-page [context {:page/keys [locale] :as page}]
   (let [app-db (:app/db context)
         food (d/entity (:foods/db context) [:food/id "05.448"])]
     (layout/layout
