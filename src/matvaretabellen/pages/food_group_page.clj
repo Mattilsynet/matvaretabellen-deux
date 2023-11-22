@@ -86,6 +86,7 @@
                    (sort-by (comp locale :food/name)))]
     (layout/layout
      context
+     page
      [:head
       [:title (get-in food-group [:food-group/name locale])]]
      [:body

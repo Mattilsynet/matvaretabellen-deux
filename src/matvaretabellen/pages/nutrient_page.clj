@@ -98,6 +98,7 @@
         foods (nutrient/get-foods-by-nutrient-density nutrient)]
     (layout/layout
      context
+     page
      [:head
       [:title nutrient-name]]
      [:body

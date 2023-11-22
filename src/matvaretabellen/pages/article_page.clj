@@ -22,6 +22,7 @@
         _app-db (:app/db context)]
     (layout/layout
      context
+     page
      [:head
       [:title (:page/title page)]]
      [:body

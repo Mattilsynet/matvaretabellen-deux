@@ -410,6 +410,7 @@
                              (into {}))]
     (layout/layout
      context
+     page
      [:head
       [:title food-name]
       (get-open-graph-description food locale)]

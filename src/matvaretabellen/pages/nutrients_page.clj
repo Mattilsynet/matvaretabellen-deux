@@ -20,6 +20,7 @@
         locale (:page/locale page)]
     (layout/layout
      context
+     page
      [:head
       [:title [:i18n ::all-nutrients]]]
      [:body

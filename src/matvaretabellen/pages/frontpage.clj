@@ -63,6 +63,7 @@
         app-db (:app/db context)]
     (layout/layout
      context
+     page
      [:head
       [:title [:i18n :i18n/search-label]]
       [:meta {:property "og:title" :content [:i18n ::open-graph-title]}]

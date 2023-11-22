@@ -7,7 +7,7 @@
             [mmm.components.search-input :refer [SearchInput]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
-(defn layout [context head body]
+(defn layout [context page head body]
   [:html {:class "mmm"}
    head
    (into
@@ -15,7 +15,9 @@
     (list [:div.mmm-container.mmm-section
            (CompactSiteFooter)]
           [:img {:src (str "https://mattilsynet.matomo.cloud/matomo.php?idsite="
-                           (:matomo/site-id context) "&rec=1")
+                           (:matomo/site-id context)
+                           "&rec=1"
+                           "&action_name=" (:page/uri page))
                  :style "border:0"
                  :alt ""}]))])
 

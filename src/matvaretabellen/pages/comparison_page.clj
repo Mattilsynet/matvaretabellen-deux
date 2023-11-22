@@ -100,6 +100,7 @@
         food (d/entity (:foods/db context) [:food/id "05.448"])]
     (layout/layout
      context
+     page
      [:head
       [:title [:i18n ::compare-foods]]]
      [:body#comparison
