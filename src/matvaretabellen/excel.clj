@@ -15,7 +15,7 @@
 ;; time on the data files. In other words: code changes will not automatically
 ;; be reflected in the export. Change this version string when you need for new
 ;; Excel files to be generated.
-(def version "2023.11.20")
+(def version "2023.11.22")
 
 (defn add-index [coll]
   (map-indexed (fn [i m] (assoc m :index i)) coll))
