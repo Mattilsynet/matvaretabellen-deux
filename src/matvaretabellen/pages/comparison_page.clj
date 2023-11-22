@@ -43,6 +43,7 @@
 
 (defn prepare-energy-rows [food]
   [{:class [:mvtc-comparison]
+    :id :energi
     :data-compare-abs "energyKj"
     :cols [{:text food-page/energy-label}
            {:text (food-page/get-kj food {:class "mvt-kj"})
