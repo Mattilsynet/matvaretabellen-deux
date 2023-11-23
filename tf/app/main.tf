@@ -34,22 +34,17 @@ module "matvaretabellen-ui" {
 }
 
 module "matvaretabellen-lb" {
-  source = "github.com/Mattilsynet/map-tf-cloudrun-shared-lb?ref=v1.3.0"
+  source = "github.com/Mattilsynet/map-tf-cloudrun-shared-lb?ref=v1.5.0"
   lb_name = "matvaretabellen-shared-lb"
   lb_project_id = var.project_id
   managed_zone_name = "matvaretabellen-dns-zone"
   location = "europe-north1"
   backends = {
     matvaretabellen = {
-      fqdn = "matvaretabellen.no."
-      separate_certificate = true
-      enable_ipv6 = true
-    }
-
-    matvaretabellen = {
       fqdn = "www.matvaretabellen.no."
       separate_certificate = true
       enable_ipv6 = true
+      subject_alternative_names = ["matvaretabellen.no."]
     }
   }
 
