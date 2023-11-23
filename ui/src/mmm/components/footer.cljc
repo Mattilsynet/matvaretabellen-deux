@@ -14,7 +14,8 @@
            [:li (if url
                   [:a.mmm-link {:href url} text]
                   text)])])])
-   [:a {:href "https://www.mattilsynet.no"}
+   [:a {:href "https://www.mattilsynet.no"
+        :title "Mattilsynet"}
     (MattilsynetLogo)]])
 
 (defn CompactSiteFooter []
