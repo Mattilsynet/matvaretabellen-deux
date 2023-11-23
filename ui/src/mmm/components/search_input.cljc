@@ -13,14 +13,15 @@
        (:name input)
        (assoc :id (:name input))
 
-       autocomplete-id
+       (and autocomplete-id
+            (seq results))
        (assoc :aria-autocomplete "list"
               :autocomplete "off"
               :aria-controls autocomplete-id
               :aria-haspopup "menu")))
     (Button (assoc button :type "submit" :inline? true :size size))]
    (when (seq results)
-     [:ol.mmm-ac-results
+     [:ol.mmm-ac-results {:id autocomplete-id}
       (for [result results]
         [:li.mmm-ac-result
          (when (:selected? result)
