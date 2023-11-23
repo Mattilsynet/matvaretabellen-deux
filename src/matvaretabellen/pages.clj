@@ -59,10 +59,10 @@
    {:page/uri "/en/nutrients/"
     :page/kind :page.kind/nutrients
     :page/locale :en}
-   {:page/uri "/alle-matvarer.xlsx"
+   {:page/uri (urls/get-foods-excel-url :nb)
     :page/kind :page.kind/foods-excel
     :page/locale :nb}
-   {:page/uri "/all-foods.xlsx"
+   {:page/uri (urls/get-foods-excel-url :en)
     :page/kind :page.kind/foods-excel
     :page/locale :en}
    {:page/uri (urls/get-api-foods-json-url :nb)

@@ -44,7 +44,7 @@
                  :group-count (count food-groups)}]]]
           [:div
            (Button {:text [:i18n ::download-everything]
-                    :href [:i18n ::download-url]
+                    :href (urls/get-foods-excel-url locale)
                     :icon :fontawesome.solid/arrow-down
                     :inline? true
                     :secondary? true})]]

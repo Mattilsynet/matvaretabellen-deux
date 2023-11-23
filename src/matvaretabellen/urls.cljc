@@ -73,6 +73,11 @@
   (str/replace (get-food-group-url locale group-or-name)
                #"/$" ".xlsx"))
 
+(defn get-foods-excel-url [locale]
+  (case locale
+    :nb "/alle-matvarer.xlsx"
+    :en "/all-foods.xlsx"))
+
 (comment
 
   (slugify "Müsli og grøt fra ørten 5gr D12 vitamin kål")
