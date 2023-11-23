@@ -788,6 +788,10 @@ table.mmm-table-zebra tr.mmm-highlight {
     flex-grow: 1;
 }
 
+.mmm-twocols .mmm-col {
+    flex-basis: 48%;
+}
+
 .mmm-threecol .mmm-col {
     flex-basis: 0;
     flex-grow: 5;
