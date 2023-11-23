@@ -70,3 +70,9 @@
 
 (defn has-class [el class]
   (.contains (.-classList el) class))
+
+(defn show [el]
+  (remove-class el "mmm-hidden"))
+
+(defn hide [el]
+  (add-class el "mmm-hidden"))

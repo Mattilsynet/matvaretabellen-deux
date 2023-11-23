@@ -28,12 +28,6 @@
 (defn get-rows [table ids]
   (mapcat #(dom/qsa table (str "[data-id='" % "']")) ids))
 
-(defn show [el]
-  (dom/remove-class el "mmm-hidden"))
-
-(defn hide [el]
-  (dom/add-class el "mmm-hidden"))
-
 (defn check [checkbox]
   (set! (.-checked checkbox) true))
 
@@ -48,10 +42,10 @@
 
 (defn update-ui [panel table prev next]
   (let [next-active (fd/get-active next)]
-    (doall (map show (get-lists panel (:selected next))))
-    (doall (map hide (get-lists panel (remove (:selected next) (:selected prev)))))
-    (doall (map show (get-rows table next-active)))
-    (doall (map hide (get-rows table (remove next-active (fd/get-active prev)))))
+    (doall (map dom/show (get-lists panel (:selected next))))
+    (doall (map dom/hide (get-lists panel (remove (:selected next) (:selected prev)))))
+    (doall (map dom/show (get-rows table next-active)))
+    (doall (map dom/hide (get-rows table (remove next-active (fd/get-active prev)))))
     (re-zebra-table table)))
 
 (defn get-filter-id [el]
