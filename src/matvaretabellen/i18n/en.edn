@@ -145,4 +145,13 @@
   :food-group [:fn/str "{{:food-group}} ({{:n}})"]
   :food-groups "Food groups"
   :nutrients "Nutrients"
-  :per-100g [:fn/str "{{:nutrient}} per 100 grams of food"]}]
+  :per-100g [:fn/str "{{:nutrient}} per 100 grams of food"]}
+
+ #:matvaretabellen.pages.table-page
+ {:columns "Choose columns"
+  :download "Download full table"
+  :energy-kcal "Energy (kcal)"
+  :energy-kj "Energy (kJ)"
+  :food "Food"
+  :open-graph-description "All the foods in Matvaretabellen in one big table"
+  :page-title "Table display of all foods"}]

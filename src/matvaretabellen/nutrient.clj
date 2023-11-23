@@ -17,13 +17,23 @@
          reverse
          (map #(d/entity db (first %))))))
 
+(defn get-used-nutrients [food-db]
+  (for [eid (d/q '[:find [?n ...]
+                   :where
+                   [?n :nutrient/id]
+                   [?c :constituent/nutrient ?n]]
+                 food-db)]
+    (d/entity food-db eid)))
+
 (def sort-names
   (->> ["Fett"
         "Karbo"
+        "Fiber"
         "Stivel"
         "Mono+Di"
         "Sukker"
         "Protein"
+        "Vann"
         "Mettet"
         "Trans"
         "Enumet"

@@ -11,6 +11,7 @@
             [matvaretabellen.pages.frontpage :as frontpage]
             [matvaretabellen.pages.nutrient-page :as nutrient-page]
             [matvaretabellen.pages.nutrients-page :as nutrients-page]
+            [matvaretabellen.pages.table-page :as table-page]
             [matvaretabellen.rda :as rda]
             [matvaretabellen.search-index :as index]
             [matvaretabellen.urls :as urls]))
@@ -82,6 +83,12 @@
     :page/locale :nb}
    {:page/uri (urls/get-comparison-url :en)
     :page/kind :page.kind/comparison
+    :page/locale :en}
+   {:page/uri (urls/get-table-url :nb)
+    :page/kind :page.kind/table
+    :page/locale :nb}
+   {:page/uri (urls/get-table-url :en)
+    :page/kind :page.kind/table
     :page/locale :en}])
 
 (defn render-foods-index [db page]
@@ -125,7 +132,8 @@
       :page.kind/nutrient-excel (excel/render-nutrient-foods db (get-latest-year) page)
       :page.kind/nutrient (nutrient-page/render context db page)
       :page.kind/nutrients (nutrients-page/render context db page)
-      :page.kind/rda-data (rda/render-json context page))))
+      :page.kind/rda-data (rda/render-json context page)
+      :page.kind/table (table-page/render context page))))
 
 (comment
   (def conn matvaretabellen.dev/conn)

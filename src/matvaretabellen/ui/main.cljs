@@ -9,6 +9,7 @@
             [matvaretabellen.ui.search :as search-ui]
             [matvaretabellen.ui.sidebar :as sidebar]
             [matvaretabellen.ui.sources :as sources]
+            [matvaretabellen.ui.table :as table]
             [matvaretabellen.urls :as urls]))
 
 (defn ^:after-load main []
@@ -87,6 +88,11 @@
         table (js/document.getElementById "filtered-table")]
     (when (and panel table)
       (filters/initialize-filter panel table)))
+
+  (let [filter-panel (js/document.getElementById "filter-panel")
+        mother-of-all-tables (js/document.getElementById "filtered-table")]
+    (when (and filter-panel mother-of-all-tables)
+      (table/init-giant-table filter-panel mother-of-all-tables)))
 
   (hoverable/set-up js/document))
 
