@@ -686,6 +686,12 @@ table.mmm-table-zebra tr.mmm-highlight {
 
 .mmm-flex-gap {gap: var(--mt-column-gap);}
 
+/* Sidescroller */
+
+.mmm-sidescroller {
+    overflow-x: scroll;
+}
+
 /* Media */
 
 .mmm-media {
