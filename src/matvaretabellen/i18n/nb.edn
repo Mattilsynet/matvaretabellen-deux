@@ -145,7 +145,7 @@
   :food-group [:fn/str "{{:food-group}} ({{:n}})"]
   :food-groups "Matvaregrupper"
   :nutrients "Næringsstoffer"
-  :per-100g [:fn/str "{{:nutrient}} per 100 gram matvare"]}
+  :per-100g [:fn/str "{{:nutrient}} per 100 gram"]}
 
  #:matvaretabellen.pages.table-page
  {:columns "Velg kolonner"

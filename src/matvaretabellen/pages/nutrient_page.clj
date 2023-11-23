@@ -138,10 +138,10 @@
       (when (seq foods)
         (let [sidebar (render-sidebar (:app/db context) nutrient foods locale)]
           [:div.mmm-container.mmm-section.mmm-mobile-phn
-           [:div.mmm-flex.mmm-mobile-container-p
+           [:div.mmm-flex.mmm-flex-middle.mmm-mobile-container-p.mmm-mbm
             (when sidebar
               (layout/render-sidebar-filter-button filter-panel-id))
-            [:p.mmm-p.mmm-tar.mmm-mbm.mmm-flex-grow
+            [:p.mmm-p.mmm-tar.mmm-flex-grow
              [:i18n ::per-100g
               {:nutrient (get-in nutrient [:nutrient/name locale])}]]]
            [:div.mmm-cols.mmm-cols-d1_2

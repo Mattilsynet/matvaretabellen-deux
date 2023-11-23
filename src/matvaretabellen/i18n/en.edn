@@ -145,7 +145,7 @@
   :food-group [:fn/str "{{:food-group}} ({{:n}})"]
   :food-groups "Food groups"
   :nutrients "Nutrients"
-  :per-100g [:fn/str "{{:nutrient}} per 100 grams of food"]}
+  :per-100g [:fn/str "{{:nutrient}} per 100 grams"]}
 
  #:matvaretabellen.pages.table-page
  {:columns "Choose columns"
