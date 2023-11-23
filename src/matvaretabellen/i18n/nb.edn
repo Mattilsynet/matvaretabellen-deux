@@ -51,7 +51,7 @@
 
  #:matvaretabellen.pages.comparison-page
  {:and "og"
-  :compare-foods "Sammenlign matvarer"
+  :compare-foods (list "Sammenlign" [:span.mmm-desktop " matvarer"])
   :composition "Sammensetning"
   :diff-intro "Nedenfor kan du sammenligne matvarene næringsstoff for næringsstoff. De største forskjellene er uthevet med blå bakgrunn."
   :edible-part "Spiselig del"

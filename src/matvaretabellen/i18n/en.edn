@@ -51,7 +51,7 @@
 
  #:matvaretabellen.pages.comparison-page
  {:and "and"
-  :compare-foods "Compare foods"
+  :compare-foods (list "Compare" [:span.mmm-desktop " foods"])
   :composition "Composition"
   :diff-intro "You can compare the foods nutrient by nutrient below. The most marked differences are highlighted with a blue background."
   :edible-part "Edible part"
