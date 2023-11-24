@@ -68,6 +68,12 @@
           [:li "...ha innrykk"])]
    [:li "Det er kun fantasien som setter grenser"]))
 
+(defscene horizontal-list
+  (e/ul {:class "mmm-horizontal-list"}
+        [:li "Dette er en unummerert liste"]
+        [:li "Den kan ha mange punkter"]
+        [:li "Det er kun fantasien som setter grenser"]))
+
 (defscene definition-list
   [:dl.mmm-dl
    [:dt "Klovneforskning"]
