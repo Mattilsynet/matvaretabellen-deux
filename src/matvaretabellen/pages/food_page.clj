@@ -361,7 +361,6 @@
   [:aside.mvt-aside-col
    (Toc
     {:title [:i18n ::toc-title]
-     :icon :fontawesome.solid/circle-info
      :contents contents
      :class class})])
 
