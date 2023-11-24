@@ -208,6 +208,18 @@ ol.mmm-unadorned-list li {
 
 .mmm-small {
     font-size: var(--mt-typography-small-font-size);
+    --mt-typography-paragraph-long-s-font-size: var(--mt-typography-small-font-size);
+}
+
+.mmm-inline p,
+.mmm-inline ul,
+.mmm-inline ol {
+    display: inline;
+    line-height: var(--mt-font-line-height-normal);
+}
+
+.mmm-inline li + li {
+    padding-left: 0.5rem;
 }
 
 /******************
