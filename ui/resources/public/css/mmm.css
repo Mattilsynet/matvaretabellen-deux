@@ -1312,6 +1312,23 @@ a.mmm-button-secondary:link {
     margin-right: 0;
 }
 
+.mmm .mmm-hl-divider li,
+.mmm .mmm-hl-slash li {
+    padding-left: 0;
+}
+
+.mmm-hl-divider li + li:before {
+    content: "• ";
+    padding-left: calc(0.75 * var(--mt-horizontal-gap));
+    padding-right: calc(0.25 * var(--mt-horizontal-gap));
+}
+
+.mmm-hl-slash li + li:before {
+    content: "/ ";
+    padding-left: calc(0.75 * var(--mt-horizontal-gap));
+    padding-right: calc(0.25 * var(--mt-horizontal-gap));
+}
+
 /***********************
  *** Component: Pill ***
  ***********************/

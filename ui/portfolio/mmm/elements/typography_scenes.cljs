@@ -89,6 +89,26 @@
            [:li "...ha innrykk"])]
     [:li "Det er kun fantasien som setter grenser"]]])
 
+(defscene inline-with-dot
+  "Under .mmm-inline kan det være greit å ha noen skiller mellom listepunktene
+   `mmm-hl-divider` gir deg noen dotter."
+  [:div.mmm-inline
+   [:strong "Noen punkter: "]
+   [:ul.mmm-horizontal-list.mmm-hl-divider
+    [:li "Dette er en unummerert liste"]
+    [:li "Den kan ha mange punkter"]
+    [:li "Det er kun fantasien som setter grenser"]]])
+
+(defscene inline-with-slash
+  "Under .mmm-inline kan det være greit å ha noen skiller mellom listepunktene
+   `mmm-hl-slash` gir deg skråstreker."
+  [:div.mmm-inline
+   [:strong "Noen punkter: "]
+   [:ul.mmm-horizontal-list.mmm-hl-slash
+    [:li "Dette er en unummerert liste"]
+    [:li "Den kan ha mange punkter"]
+    [:li "Det er kun fantasien som setter grenser"]]])
+
 (defscene definition-list
   [:dl.mmm-dl
    [:dt "Klovneforskning"]
