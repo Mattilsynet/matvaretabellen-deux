@@ -204,6 +204,30 @@
   [:script.mvt-filter-paths {:type "application/json"}
    (json/write-str (get-food-group-paths food-groups))])
 
+(defn get-first-word [s]
+  (first (str/split s #",")))
+
+(defn infer-food-kind [food locale]
+  (get-first-word (get-in food [:food/name locale])))
+
+(defn get-variant-name [food locale inferred-kind]
+  (-> (get-in food [:food/name locale])
+      (str/replace (re-pattern (str "^" inferred-kind)) "")
+      (str/replace #"^\s*," "")
+      str/trim))
+
+(defn find-related-foods [food locale]
+  (let [db (d/entity-db food)
+        categoryish (infer-food-kind food locale)]
+    (->> (d/q '[:find [?f ...]
+                :where
+                [?f :food/id]]
+              db)
+         (map #(d/entity db %))
+         (filter #(= categoryish (infer-food-kind % locale)))
+         (remove #(= (:db/id food) (:db/id %)))
+         seq)))
+
 (comment
 
   (def conn matvaretabellen.dev/conn)
