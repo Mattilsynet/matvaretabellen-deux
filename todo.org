@@ -12,6 +12,6 @@
 ** DONE Søk på næringsstoff
 ** TODO Trigge analytics-events på interaksjoner
 ** DONE Flere lenker i headeren, "Matvaregrupper", "Næringsstoffer", "Om Matvaretabellen" (og "In English") (må skjules på mobil, evnt lage hamburger)
+** DONE Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter (sparer ikke tid på dette de siste få dagene)
 * To-DONT
 ** DONT Vis "Sist oppdatert" på matvare (har ikke datoen i datasettet vårt)
-** DONT Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter (sparer ikke tid på dette de siste få dagene)
