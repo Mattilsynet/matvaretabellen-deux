@@ -1129,6 +1129,16 @@ a.mmm-button-secondary:link {
     font-size: var(--mt-typography-small-font-size);
 }
 
+/***************************
+ *** Component: Footnote ***
+ ***************************/
+
+.mmm-footnote {
+    border-top: 1px solid var(--mt-component-footnote-border-color);
+    margin: 0 var(--mt-column-gap-wide);
+    padding: var(--mt-layout-vertical-spacing-medium) 0;
+}
+
 /******************************
  *** Component: Icon button ***
  ******************************/

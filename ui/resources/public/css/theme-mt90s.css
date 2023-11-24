@@ -121,6 +121,7 @@
 
     /* Ønsker fra utviklerne */
     --mt-layout-vertical-spacing-tight: var(--mt-spacing-x0_25);
+    --mt-layout-vertical-spacing-medium: var(--mt-spacing-x1);
     --mt-layout-vertical-spacing-normal: var(--mt-spacing-x1_4);
     --mt-layout-vertical-spacing-airy: var(--mt-spacing-x2);
     --mt-layout-vertical-spacing-spacey: var(--mt-spacing-x3_6);
@@ -227,6 +228,8 @@
 
     --mt-component-footer-border-color: var(--mt-color-red-200);
     --mt-component-footer-gap: var(--mt-spacing-x1_4);
+
+    --mt-component-footnote-border-color: var(--mt-color-beige-200);
 
     --mt-component-header-border-color: var(--mt-color-red-200);
     --mt-component-header-logo-color: var(--mt-color-red-200);

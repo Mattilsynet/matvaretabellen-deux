@@ -3,6 +3,7 @@
             [mmm.components.button-scenes]
             [mmm.components.checkbox-scenes]
             [mmm.components.footer-scenes]
+            [mmm.components.footnote-scenes]
             [mmm.components.icon-button-scenes]
             [mmm.components.pill-scenes]
             [mmm.components.search-input-scenes]
@@ -29,6 +30,7 @@
 :mmm.components.button-scenes/keep
 :mmm.components.checkbox-scenes/keep
 :mmm.components.footer-scenes/keep
+:mmm.components.footnote-scenes/keep
 :mmm.components.icon-button-scenes/keep
 :mmm.components.pill-scenes/keep
 :mmm.components.search-input-scenes/keep
