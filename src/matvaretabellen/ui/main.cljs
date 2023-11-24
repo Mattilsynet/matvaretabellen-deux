@@ -10,6 +10,7 @@
             [matvaretabellen.ui.sidebar :as sidebar]
             [matvaretabellen.ui.sources :as sources]
             [matvaretabellen.ui.table :as table]
+            [matvaretabellen.ui.toggler :as toggler]
             [matvaretabellen.urls :as urls]))
 
 (defn ^:after-load main []
@@ -93,6 +94,8 @@
         mother-of-all-tables (js/document.getElementById "filtered-table")]
     (when (and filter-panel mother-of-all-tables)
       (table/init-giant-table filter-panel mother-of-all-tables)))
+
+  (toggler/init)
 
   (hoverable/set-up js/document))
 
