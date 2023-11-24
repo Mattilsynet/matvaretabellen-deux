@@ -89,6 +89,7 @@
   :kcal-content-title (list "Energi (kcal) i " [:fn/get :portion])
   :minerals-title "Mineraler"
   :minerals-trace-elements-title "Mineraler og sporstoffer"
+  :more [:fn/str "Mer {{:categoryish}}:"]
   :nutrients "Næringsstoff"
   :nutrition-heading "Energigivende næringsstoffer"
   :nutrition-title "Næringsinnhold"
