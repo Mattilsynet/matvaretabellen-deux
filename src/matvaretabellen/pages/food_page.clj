@@ -440,20 +440,20 @@
             (->> (prepare-macro-highlights food)
                  (map DetailFocusCard))]]
           [:div.mmm-mobile.mmm-mtm (render-compare-button food {:inline? false})]]
-         (render-toc {:contents (get-toc-items)})]]]
+         (render-toc {:contents (get-toc-items)})]]
 
-      (when-let [related (seq (food/find-related-foods food locale))]
-        (let [categoryish (food/infer-food-kind food locale)]
-          [:div.mmm-container.mmm-section.mmm-inline
-           [:strong [:i18n ::more {:categoryish (str/lower-case categoryish)}] " "]
-           [:ul.mmm-horizontal-list.mmm-hl-slash
-            (for [food related]
-              [:li
-               [:span
-                [:a.mmm-link {:href (urls/get-food-url locale food)
-                              :data-comparison-suggestion-id (:food/id food)
-                              :data-comparison-suggestion-name (get-in food [:food/name locale])}
-                 (food/get-variant-name food locale categoryish)]]])]]))
+       (when-let [related (seq (food/find-related-foods food locale))]
+         (let [categoryish (food/infer-food-kind food locale)]
+           [:div.mmm-container.mmm-section.mmm-inline
+            [:strong [:i18n ::more {:categoryish (str/lower-case categoryish)}] " "]
+            [:ul.mmm-horizontal-list.mmm-hl-slash
+             (for [food related]
+               [:li
+                [:span
+                 [:a.mmm-link {:href (urls/get-food-url locale food)
+                               :data-comparison-suggestion-id (:food/id food)
+                               :data-comparison-suggestion-name (get-in food [:food/name locale])}
+                  (food/get-variant-name food locale categoryish)]]])]]))]
 
       [:div.mmm-container.mmm-section
        [:div.mmm-flex-desktop.mmm-flex-bottom.mmm-mbl
