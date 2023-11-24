@@ -222,6 +222,27 @@
       (.add (.-classList drawer) "mmm-drawer-closed")
       (animate-height drawer (str (get-height drawer) "px") "0" #(.add (.-classList drawer) "mmm-drawer-closed")))))
 
+(defn get-suggestions []
+  (for [el (dom/qsa "[data-comparison-suggestion-id]")]
+    {:id (.getAttribute el "data-comparison-suggestion-id")
+     :foodName (.getAttribute el "data-comparison-suggestion-name")}))
+
+(defn update-suggestions [el foods suggestions]
+  (if-not (seq suggestions)
+    (dom/hide el)
+    (let [list (dom/qs el "ul")
+          template (.-firstChild list)]
+      (dom/show el)
+      (set! (.-innerHTML list) "")
+      (doseq [suggestion suggestions]
+        (let [li (.cloneNode template true)]
+          (set! (.-innerHTML (.-firstChild li)) (:foodName suggestion))
+          (->> (fn [_e]
+                 (->> (conj (get-foods-to-compare) suggestion)
+                      (update-food-store foods)))
+               (.addEventListener li "click"))
+          (.appendChild list li))))))
+
 (defn update-drawer [foods selector opt]
   (when-let [drawer (js/document.querySelector selector)]
     (let [pills (.querySelector drawer ".mmm-pills")
@@ -240,8 +261,10 @@
                                             (->> (get-foods-to-compare)
                                                  (remove #(= (:id food) (:id %)))
                                                  (update-food-store foods))))
-          (.appendChild pills pill))))))
-
+          (.appendChild pills pill)))
+      (->> (get-suggestions)
+           (remove (comp (set (map :id @foods)) :id))
+           (update-suggestions (.querySelector drawer ".mvtc-suggestions") foods)))))
 
 (defn get-food-data [el]
   (when-let [id (some-> el (.getAttribute "data-food-id"))]
