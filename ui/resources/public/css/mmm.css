@@ -84,7 +84,13 @@ body.mmm {
 .mmm-text h3:not(:first-child),
 .mmm-text h4:not(:first-child),
 .mmm-text h5:not(:first-child),
-.mmm-text h6:not(:first-child) {
+.mmm-text h6:not(:first-child),
+.mmm-h1:not(:first-child),
+.mmm-h2:not(:first-child),
+.mmm-h3:not(:first-child),
+.mmm-h4:not(:first-child),
+.mmm-h5:not(:first-child),
+.mmm-h6:not(:first-child) {
     margin-top: var(--mt-typography-heading-top-spacing);
 }
 
