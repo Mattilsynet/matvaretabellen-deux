@@ -1,5 +1,5 @@
 (ns matvaretabellen.pages.table-page
-  (:require [datomic-type-extensions.api :as d]
+  (:require [broch.core :as b]
             [matvaretabellen.food :as food]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.nutrient :as nutrient]
@@ -10,70 +10,64 @@
 
 (def default-checked #{"Fett" "Karbo" "Protein" "Fiber"})
 
-(defn prepare-foods-table [app-db locale nutrients foods]
-  {:headers (concat [{:text [:i18n ::food]}
+(defn prepare-foods-table [app-db locale nutrients]
+  {:headers (concat [{:text [:i18n ::food]
+                      :data-id "foodName"}
                      {:text [:i18n ::energy-kj]
-                      :class [:mmm-nbr :mmm-tar]}
+                      :class [:mmm-nbr :mmm-tar]
+                      :data-id "energyKj"}
                      {:text [:i18n ::energy-kcal]
-                      :class [:mmm-nbr :mmm-tar]}]
+                      :class [:mmm-nbr :mmm-tar]
+                      :data-id "energyKcal"}]
                     (for [nutrient nutrients]
                       {:text (food-page/get-nutrient-link app-db locale nutrient)
                        :data-id (:nutrient/id nutrient)
                        :class (when (not (default-checked (:nutrient/id nutrient)))
                                 [:mmm-hidden])}))
    :id "filtered-table"
-   :rows (for [food foods]
+   :rows [{:cols
            (concat
-            [{:text [:a.mmm-link {:href (urls/get-food-url locale food)}
-                     [:i18n :i18n/lookup (:food/name food)]]}
-             {:text (food-page/get-kj food)
-              :class :mmm-tar}
-             {:text (food-page/get-kcal food)
-              :class :mmm-tar}]
+            [{:text [:a.mmm-link]
+              :data-id "foodName"}
+             {:text (list [:span.mvt-num "0"] " "
+                          [:span.mvt-sym "kJ"])
+              :class :mmm-tar
+              :data-id "energyKj"}
+             {:text "0 kcal"
+              :class :mmm-tar
+              :data-id "energyKcal"}]
             (for [nutrient nutrients]
-              {:text (food/get-nutrient-quantity food (:nutrient/id nutrient))
+              {:text (food/get-calculable-quantity
+                      {:measurement/quantity (b/from-edn [0 (:nutrient/unit nutrient)])}
+                      {:decimals (:nutrient/decimal-precision nutrient)})
                :class (cond-> [:mmm-tar :mmm-nbr :mvt-amount]
                         (not (default-checked (:nutrient/id nutrient)))
                         (conj :mmm-hidden))
-               :data-id (:nutrient/id nutrient)})))})
+               :data-id (:nutrient/id nutrient)}))}]})
 
-(defn render-nutrient-filter-list [selectable-ids nutrients]
-  (when (seq nutrients)
+(defn render-filter-list [options]
+  (when (seq options)
     [:ul.mmm-ul.mmm-unadorned-list
-     (for [nutrient nutrients]
+     (for [filter-m options]
        [:li
-        (if (selectable-ids (:nutrient/id nutrient))
-          (Checkbox
-           {:data-filter-id (:nutrient/id nutrient)
-            :label [:i18n :i18n/lookup (:nutrient/name nutrient)]
-            :checked? (default-checked (:nutrient/id nutrient))})
-          [:strong [:i18n :i18n/lookup (:nutrient/name nutrient)]])
-        (render-nutrient-filter-list
-         selectable-ids
-         (nutrient/sort-by-preference (:nutrient/_parent nutrient)))])]))
+        (Checkbox filter-m)
+        (render-filter-list (:options filter-m))])]))
 
-(defn render-nutrient-filters [selectable-ids nutrients]
-  (let [left-col? (comp #{"Fett" "FatSolubleVitamins"} :nutrient/id)]
-    (list
-     [:div.mmm-col.mmm-vert-layout-m
-      (->> (filter left-col? nutrients)
-           (render-nutrient-filter-list selectable-ids))]
-     [:div.mmm-col.mmm-vert-layout-m
-      (for [nutrient (remove left-col? (nutrient/sort-by-preference nutrients))]
-        (render-nutrient-filter-list selectable-ids [nutrient]))])))
+(defn render-nutrient-filter-column [filters]
+  [:div.mmm-col.mmm-vert-layout-m
+   (for [filter-m filters]
+     (if (:data-filter-id filter-m)
+       (render-filter-list [filter-m])
+       (->> (list (when (:label filter-m)
+                    [:h3 (select-keys filter-m [:class]) (:label filter-m)])
+                  (render-filter-list (:options filter-m)))
+            (remove nil?))))])
 
-(defn render-column-settings [foods-db nutrients]
-  (let [used-nutrients (set (map :nutrient/id nutrients))]
-    [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider
-     [:h2.mmm-h5 [:a.mmm-link {:data-toggle-target "#filter-panel"} [:i18n ::columns]]]
-     [:div.mmm-cols.mmm-twocols.mmm-hidden#filter-panel
-      (->> (d/q '[:find [?n ...]
-                  :where
-                  [?n :nutrient/id]
-                  (not [?n :nutrient/parent])]
-                foods-db)
-           (map #(d/entity foods-db %))
-           (render-nutrient-filters used-nutrients))]]))
+(defn render-column-settings [foods-db]
+  [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider.mmm-hidden#filter-panel
+   [:div.mmm-cols.mmm-twocols
+    (->> (nutrient/prepare-filters foods-db {:columns 2})
+         (map render-nutrient-filter-column))]])
 
 (defn render [context page]
   (layout/layout
@@ -105,9 +99,14 @@
                   :secondary? true})]]]]]
     (let [nutrients (->> (nutrient/get-used-nutrients (:foods/db context))
                          nutrient/sort-by-preference)]
-      [:div.mmm-container.mmm-section.mmm-mobile-phn.mmm-sidescroller
-       (render-column-settings (:foods/db context) nutrients)
-       (->> (food/get-foods (:foods/db context))
-            (sort-by (comp (:page/locale page) :food/name))
-            (prepare-foods-table (:app/db context) (:page/locale page) nutrients)
+      [:div.mmm-container.mmm-section.mmm-mobile-phn.mmm-sidescroller.mmm-vert-layout-m
+       [:div.mmm-flex.mmm-flex-middle.mmm-pvs
+        (Button
+         {:text [:i18n ::columns]
+          :data-toggle-target "#filter-panel"
+          :secondary? true
+          :inline? true
+          :icon :fontawesome.solid/table})]
+       (render-column-settings (:foods/db context))
+       (->> (prepare-foods-table (:app/db context) (:page/locale page) nutrients)
             food-page/render-table)])]))

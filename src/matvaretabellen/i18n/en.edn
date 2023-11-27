@@ -150,7 +150,7 @@
   :per-100g [:fn/str "{{:nutrient}} per 100 grams"]}
 
  #:matvaretabellen.pages.table-page
- {:columns "Choose columns"
+ {:columns "Columns"
   :download "Download full table"
   :energy-kcal "Energy (kcal)"
   :energy-kj "Energy (kJ)"
