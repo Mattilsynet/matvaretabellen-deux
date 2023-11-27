@@ -158,4 +158,5 @@
                      [?f :food/id]]
                    (:foods/db context))
               (map #(d/entity (:foods/db context) %))
+              (sort-by (comp (:page/locale page) :food/name))
               (map #(food/food->json-data (:page/locale page) %)))})
