@@ -34,9 +34,9 @@
 
 (defn browse-foods [foods offset n]
   (let [max-n (count foods)]
-    {:current (->> foods
-                   (drop offset)
-                   (take n))
+    {:current foods
+     :offset offset
+     :n n
      :prev (when (< 0 offset)
              [::browse-foods (Math/max 0 (- offset page-size)) page-size])
      :next (when (< (+ offset n) max-n)
@@ -47,6 +47,8 @@
     (if (<= 3 (.-length q))
       {:current (for [id (map :id (search/search @search/search-engine q locale))]
                   (get idx id))
+       :sort-by nil
+       :offset 0
        :next nil
        :prev nil}
       (browse-foods foods 0 page-size))))
@@ -89,9 +91,27 @@
       (dom/show button)
       (dom/hide button))))
 
-(defn render-table [table {:keys [current columns prev next sort-by]} template lang]
+(defn get-sort-f [id]
+  (case id
+    "foodName" :foodName
+    "energyKj" :energyKj
+    "energyKcal" :energyKcal
+    #(get-in % [:constituents id :quantity])))
+
+(defn sort-foods [[id dir] foods]
+  (cond-> (sort-by (get-sort-f id) foods)
+    (= dir :sort.order/desc) reverse))
+
+(defn get-current-foods [{:keys [current offset n sort-by]}]
+  (cond->> current
+    sort-by (sort-foods sort-by)
+    offset (drop offset)
+    n (take n)))
+
+(defn render-table [table {:keys [sort-by columns prev next] :as data} template lang]
   (let [tbody (dom/qs table "tbody")
         rows (.-length (.-childNodes tbody))
+        current (get-current-foods data)
         desired (count current)
         [sort-id sort-order] sort-by
         container (.-parentNode table)]
@@ -133,13 +153,6 @@
            (dispatch-action store (k @store)))
          (.addEventListener button "click"))))
 
-(defn get-sort-f [id]
-  (case id
-    "foodName" :foodName
-    "energyKj" :energyKj
-    "energyKcal" :energyKcal
-    #(get-in % [:constituents id :quantity])))
-
 (defn change-sort [store e]
   (when-let [th (.closest (.-target e) "th")]
     (swap!
@@ -150,12 +163,8 @@
              dir (if (and (= curr-id id)
                           (= curr-dir :sort.order/desc))
                    :sort.order/asc
-                   :sort.order/desc)
-             sf (get-sort-f (.getAttribute th "data-id"))]
-         (merge data
-                {:current (cond-> (sort-by sf (:current data))
-                            (= dir :sort.order/desc) reverse)
-                 :sort-by [id dir]}))))))
+                   :sort.order/desc)]
+         (assoc data :sort-by [id dir]))))))
 
 (defn init-customizable-table [store lang table filter-panel]
   (let [rows (dom/qsa table "tbody tr")
