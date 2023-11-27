@@ -2,7 +2,8 @@
   (:require [clojure.string :as str]
             [matvaretabellen.diff :as diff]
             [matvaretabellen.food-name :as food-name]
-            [matvaretabellen.ui.dom :as dom]))
+            [matvaretabellen.ui.dom :as dom]
+            [matvaretabellen.ui.food :as food]))
 
 (defn with-short-names [foods]
   (map (fn [food name]
@@ -15,24 +16,11 @@
 
 (def comparison-k "comparisonFoods")
 
-(defn keywordize-some
-  "Keyborizes most keys except for contituent ids, which are strings with
-  keyword-unfriendly characters"
-  [food]
-  (-> food
-      (update-keys keyword)
-      (update :constituents
-              (fn [constituents]
-                (->> (for [[nutrient-id x] constituents]
-                       [nutrient-id (update-keys x keyword)])
-                     (into {}))))))
-
 (defn get-foods-to-compare []
   (some->> (js/localStorage.getItem comparison-k)
            not-empty
            js/JSON.parse
-           js->clj
-           (map keywordize-some)))
+           (map food/from-js)))
 
 (defn get-abbreviated-name [food]
   (let [short (:shortName food)]
@@ -110,7 +98,7 @@
 
 (defn get-comparison-data [data ids]
   (->> ids
-       (map #(keywordize-some (js->clj (aget data %))))
+       (map #(food/from-js (aget data %)))
        with-short-names))
 
 (defn initialize-share-button [button url]
