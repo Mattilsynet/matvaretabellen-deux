@@ -9,7 +9,7 @@
   [:fieldset.mmm-search-input {:class [(size-classes size) class]}
    [:div.mmm-action-input
     (TextInput
-     (cond-> (assoc input :type "search" :size size)
+     (cond-> (assoc input :type "search" :size size :autocomplete "off")
        (:name input)
        (assoc :id (:name input))
 
