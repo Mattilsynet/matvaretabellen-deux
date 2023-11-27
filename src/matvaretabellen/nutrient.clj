@@ -49,7 +49,11 @@
         "Fe"
         "Cu"
         "Zn"
-        "Se"]
+        "Se"
+        "FatSolubleVitamins"
+        "WaterSolubleVitamins"
+        "Minerals"
+        "TraceElements"]
        (map-indexed #(vector %2 (format " %02d" %1)))
        (into
         {"Niacin" "Vit B03"
@@ -121,6 +125,69 @@
               [k (f (map (comp b/num second) xs))]))
        (sort-by first)
        (into {})))
+
+(defn get-top-level-nutrients [foods-db]
+  (->> (d/q '[:find [?n ...]
+              :where
+              [?n :nutrient/id]
+              (not [?n :nutrient/parent])]
+            foods-db)
+       (map #(d/entity foods-db %))))
+
+(def default-checked #{"Fett" "Karbo" "Protein" "Fiber"})
+
+(defn ->filter-option [selectable? nutrient]
+  (let [children (sort-by-preference (:nutrient/_parent nutrient))]
+    (cond-> {:label [:i18n :i18n/lookup (:nutrient/name nutrient)]
+             :sort-id (:nutrient/id nutrient)}
+      (selectable? nutrient)
+      (merge {:data-filter-id (:nutrient/id nutrient)
+              :checked? (boolean (default-checked (:nutrient/id nutrient)))})
+
+      (seq children)
+      (assoc :options (map #(->filter-option selectable? %) children)))))
+
+(defn create-filters [foods-db]
+  (let [selectable? (comp (->> (get-used-nutrients foods-db)
+                               (map :nutrient/id)
+                               set)
+                          :nutrient/id)
+        nutrients (get-top-level-nutrients foods-db)
+        has-children? (comp boolean seq :nutrient/_parent)
+        by-children (group-by has-children? nutrients)]
+    (conj (map #(assoc (->filter-option selectable? %) :class :mmm-h6) (get by-children true))
+          (let [nutrients (get by-children false)]
+            {:sort-id (:nutrient/id (first nutrients))
+             :options (->> (sort-by-preference nutrients)
+                           (map #(->filter-option selectable? %)))}))))
+
+(defn count-filter-options [filter-m]
+  (->> (tree-seq coll? identity filter-m)
+       (filter #{:label})
+       count))
+
+(defn balance-filters [filters columns]
+  (loop [filters (->> filters
+                      (map (juxt count-filter-options identity))
+                      (sort-by (comp - first)))
+         lengths (vec (repeat columns 0))
+         columns (vec (repeat columns []))]
+    (if-let [[n filter-m] (first filters)]
+      (let [idx (.indexOf lengths (apply min lengths))]
+        (recur
+         (next filters)
+         (update lengths idx + n)
+         (update columns idx conj filter-m)))
+      (for [column columns]
+        (sort-by
+         (fn [filter-m]
+           (let [id (or (:data-filter-id filter-m)
+                        (:sort-id filter-m))]
+             (sort-names id id)))
+         column)))))
+
+(defn prepare-filters [foods-db & [{:keys [columns]}]]
+  (balance-filters (create-filters foods-db) (or columns 2)))
 
 (comment
 
