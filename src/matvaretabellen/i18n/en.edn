@@ -156,4 +156,5 @@
   :energy-kj "Energy (kJ)"
   :food "Food"
   :open-graph-description "All the foods in Matvaretabellen in one big table"
-  :page-title "Table display of all foods"}]
+  :page-title "Table display of all foods"
+  :placeholder "Filter tabell"}]

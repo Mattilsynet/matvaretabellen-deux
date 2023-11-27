@@ -32,8 +32,8 @@
                                 (ifn? process-raw-data) process-raw-data)]
                      (dom/set-session-json k data)
                      (f data))))))
-    (catch :default _e
-      (f nil))))
+    (catch :default e
+      (js/console.error "Failed to load session data" e))))
 
 (defn map-json-by [k data]
   (->> (js->clj data)
@@ -41,7 +41,7 @@
        (into {})
        clj->js))
 
-(defn ensure-comparison-data [k locale f]
+(defn ensure-food-data [k locale f]
   (ensure-session-data
    k (urls/get-api-foods-json-url locale) f
    {:process-raw-data #(map-json-by "id" %)}))
@@ -71,11 +71,15 @@
 
     (comparison/initialize-tooling ".mvt-compare-food" ".mvtc-drawer")
 
-    (let [k (str "comparison-data-" (name locale))]
+    (let [k (str "food-data-" (name locale))]
       (->> (fn [data]
              (when (= "comparison" js/document.body.id)
-               (comparison/initialize-page data (get-params))))
-           (ensure-comparison-data k locale)))
+               (comparison/initialize-page data (get-params)))
+             (let [filter-panel (js/document.getElementById "filter-panel")
+                   mother-of-all-tables (js/document.getElementById "filtered-table")]
+               (when (and filter-panel mother-of-all-tables)
+                 (table/init-giant-table data filter-panel mother-of-all-tables locale))))
+           (ensure-food-data k locale)))
 
     (when-let [selects (dom/qsa ".mvt-rda-selector")]
       (ensure-rda-data
@@ -83,17 +87,12 @@
        locale
        #(rda/initialize-rda-selectors (js->clj %) selects event-bus)))
 
-    (sidebar/initialize ".mvt-sidebar-toggle"))
+    (sidebar/initialize ".mvt-sidebar-toggle")
 
-  (let [panel (js/document.getElementById "filter-panel")
-        table (js/document.getElementById "filtered-table")]
-    (when (and panel table)
-      (filters/initialize-filter panel table)))
-
-  (let [filter-panel (js/document.getElementById "filter-panel")
-        mother-of-all-tables (js/document.getElementById "filtered-table")]
-    (when (and filter-panel mother-of-all-tables)
-      (table/init-giant-table filter-panel mother-of-all-tables)))
+    (let [panel (js/document.getElementById "filter-panel")
+          table (js/document.getElementById "filtered-table")]
+      (when (and panel table)
+        (filters/initialize-filter panel table))))
 
   (toggler/init)
 

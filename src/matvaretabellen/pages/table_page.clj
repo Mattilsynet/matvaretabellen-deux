@@ -6,7 +6,8 @@
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.urls :as urls]
             [mmm.components.button :refer [Button]]
-            [mmm.components.checkbox :refer [Checkbox]]))
+            [mmm.components.checkbox :refer [Checkbox]]
+            [mmm.components.search-input :refer [SearchInput]]))
 
 (def default-checked #{"Fett" "Karbo" "Protein" "Fiber"})
 
@@ -100,12 +101,21 @@
     (let [nutrients (->> (nutrient/get-used-nutrients (:foods/db context))
                          nutrient/sort-by-preference)]
       [:div.mmm-container.mmm-section.mmm-mobile-phn.mmm-sidescroller.mmm-vert-layout-m
-       [:div.mmm-flex.mmm-flex-middle.mmm-pvs
+       [:div.mmm-flex-desktop.mmm-flex-middle.mmm-pvs.mmm-mobile-container-p
+        [:form.mmm-block.mvt-filter-search
+         (SearchInput
+          {:button {:text [:i18n :i18n/search-button]}
+           :input {:name "foods-search"
+                   :data-suggestions "8"
+                   :placeholder [:i18n ::placeholder]}
+           :autocomplete-id "foods-results"
+           :size :small})]
         (Button
          {:text [:i18n ::columns]
           :data-toggle-target "#filter-panel"
           :secondary? true
           :inline? true
+          :class [:mmm-desktop]
           :icon :fontawesome.solid/table})]
        (render-column-settings (:foods/db context))
        (->> (prepare-foods-table (:app/db context) (:page/locale page) nutrients)

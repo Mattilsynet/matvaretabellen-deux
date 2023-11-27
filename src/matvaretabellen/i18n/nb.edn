@@ -156,4 +156,5 @@
   :energy-kj "Energi (kJ)"
   :food "Matvare"
   :open-graph-description "Alle matvarene i matvaretabellen i en eneste stor tabell"
-  :page-title "Tabellvisning av alle matvarer"}]
+  :page-title "Tabellvisning av alle matvarer"
+  :placeholder "Filtrer tabell"}]

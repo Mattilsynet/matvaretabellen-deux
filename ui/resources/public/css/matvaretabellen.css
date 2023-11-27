@@ -258,3 +258,7 @@
         flex-basis: 25rem;
     }
 }
+
+.mvt-filter-search {
+    max-width: 400px;
+}
