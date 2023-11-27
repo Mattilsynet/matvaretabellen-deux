@@ -262,3 +262,10 @@
 .mvt-filter-search {
     max-width: 400px;
 }
+
+.mvt-sort-icon {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    margin-left: 16px;
+}

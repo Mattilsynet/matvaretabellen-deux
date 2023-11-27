@@ -1,5 +1,6 @@
 (ns matvaretabellen.pages.table-page
   (:require [broch.core :as b]
+            [fontawesome.icons :as icons]
             [matvaretabellen.food :as food]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.nutrient :as nutrient]
@@ -11,20 +12,30 @@
 
 (def default-checked #{"Fett" "Karbo" "Protein" "Fiber"})
 
-(defn prepare-foods-table [app-db locale nutrients]
-  {:headers (concat [{:text [:i18n ::food]
+(defn prepare-foods-table [nutrients]
+  {:headers (concat [{:text (list [:i18n ::food]
+                                  [:span.mvt-sort-icon
+                                   (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
+                      :class [:mmm-nbr]
                       :data-id "foodName"}
-                     {:text [:i18n ::energy-kj]
+                     {:text (list [:i18n ::energy-kj]
+                                  [:span.mvt-sort-icon
+                                   (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
                       :class [:mmm-nbr :mmm-tar]
                       :data-id "energyKj"}
-                     {:text [:i18n ::energy-kcal]
+                     {:text (list [:i18n ::energy-kcal]
+                                  [:span.mvt-sort-icon
+                                   (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
                       :class [:mmm-nbr :mmm-tar]
                       :data-id "energyKcal"}]
                     (for [nutrient nutrients]
-                      {:text (food-page/get-nutrient-link app-db locale nutrient)
+                      {:text (list [:i18n :i18n/lookup (:nutrient/name nutrient)]
+                                   [:span.mvt-sort-icon
+                                    (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
                        :data-id (:nutrient/id nutrient)
-                       :class (when (not (default-checked (:nutrient/id nutrient)))
-                                [:mmm-hidden])}))
+                       :class (if (not (default-checked (:nutrient/id nutrient)))
+                                [:mmm-nbr :mmm-tar :mmm-hidden]
+                                [:mmm-nbr :mmm-tar])}))
    :id "filtered-table"
    :classes [:mmm-hidden]
    :rows [{:cols
@@ -119,7 +130,7 @@
           :class [:mmm-desktop]
           :icon :fontawesome.solid/table})]
        (render-column-settings (:foods/db context))
-       (->> (prepare-foods-table (:app/db context) (:page/locale page) nutrients)
+       (->> (prepare-foods-table nutrients)
             food-page/render-table)
        [:div.mmm-buttons.mmm-mbm
         (Button
@@ -134,4 +145,9 @@
           :secondary? true
           :inline? true
           :icon :fontawesome.solid/chevron-right
-          :icon-position :after})]])]))
+          :icon-position :after})]
+       [:div.mmm-hidden
+        (icons/render :fontawesome.solid/sort {:class [:mmm-svg :mvt-sort]})
+        (icons/render :fontawesome.solid/arrow-up-wide-short {:class [:mmm-svg :mvt-desc]})
+        (icons/render :fontawesome.solid/arrow-down-short-wide {:class [:mmm-svg :mvt-asc]})]])])
+  )

@@ -89,10 +89,12 @@
       (dom/show button)
       (dom/hide button))))
 
-(defn render-table [table {:keys [current columns prev next]} template lang]
+(defn render-table [table {:keys [current columns prev next sort-by]} template lang]
   (let [tbody (dom/qs table "tbody")
         rows (.-length (.-childNodes tbody))
-        desired (count current)]
+        desired (count current)
+        [sort-id sort-order] sort-by
+        container (.-parentNode table)]
     (doseq [_i (range (- rows desired))]
       (.removeChild tbody (.-firstChild tbody)))
     (doseq [[i food] (map vector (range) current)]
@@ -102,13 +104,22 @@
                      row))]
         (render-food el food columns lang)))
     (doseq [th (dom/qsa table "thead th")]
-      (if (columns (.getAttribute th "data-id"))
-        (dom/show th)
-        (dom/hide th)))
+      (let [id (.getAttribute th "data-id")]
+        (if (columns (.getAttribute th "data-id"))
+          (dom/show th)
+          (dom/hide th))
+        (let [icon (dom/qs th ".mvt-sort-icon")
+              selector (if (= sort-id id)
+                         (if (= sort-order :sort.order/asc)
+                           ".mvt-asc"
+                           ".mvt-desc")
+                         ".mvt-sort")]
+          (set! (.-innerHTML icon) "")
+          (.appendChild icon (.cloneNode (dom/qs container selector) true)))))
     (dom/re-zebra-table table)
     (dom/show table)
-    (update-button (dom/qs (.-parentNode table) ".mvt-prev") prev)
-    (update-button (dom/qs (.-parentNode table) ".mvt-next") next)))
+    (update-button (dom/qs container ".mvt-prev") prev)
+    (update-button (dom/qs container ".mvt-next") next)))
 
 (defn dispatch-action [store action]
   (let [[action & args] action]
@@ -122,6 +133,30 @@
            (dispatch-action store (k @store)))
          (.addEventListener button "click"))))
 
+(defn get-sort-f [id]
+  (case id
+    "foodName" :foodName
+    "energyKj" :energyKj
+    "energyKcal" :energyKcal
+    #(get-in % [:constituents id :quantity])))
+
+(defn change-sort [store e]
+  (when-let [th (.closest (.-target e) "th")]
+    (swap!
+     store
+     (fn [data]
+       (let [id (.getAttribute th "data-id")
+             [curr-id curr-dir] (:sort-by data)
+             dir (if (and (= curr-id id)
+                          (= curr-dir :sort.order/desc))
+                   :sort.order/asc
+                   :sort.order/desc)
+             sf (get-sort-f (.getAttribute th "data-id"))]
+         (merge data
+                {:current (cond-> (sort-by sf (:current data))
+                            (= dir :sort.order/desc) reverse)
+                 :sort-by [id dir]}))))))
+
 (defn init-customizable-table [store lang table filter-panel]
   (let [rows (dom/qsa table "tbody tr")
         template (first rows)
@@ -130,6 +165,7 @@
     (init-checkboxes store filter-panel)
     (init-button (dom/qs (.-parentNode table) ".mvt-prev") store :prev)
     (init-button (dom/qs (.-parentNode table) ".mvt-next") store :next)
+    (.addEventListener (dom/qs table "thead") "click" #(change-sort store %))
     (add-watch
      store ::self
      (fn [_ _ old data]
