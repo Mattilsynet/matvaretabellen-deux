@@ -1135,6 +1135,14 @@ a.mmm-button-secondary:link {
     font-size: var(--mt-typography-small-font-size);
 }
 
+.mmm-buttons .mmm-button {
+    margin-right: var(--mt-column-gap-wide);
+}
+
+.mmm-buttons .mmm-button + .mmm-button {
+    margin-right: 0;
+}
+
 /***************************
  *** Component: Footnote ***
  ***************************/

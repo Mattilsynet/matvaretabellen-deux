@@ -30,23 +30,26 @@
             250)))
        (.addEventListener filter-panel "input")))
 
+(def page-size 250)
+
 (defn browse-foods [foods offset n]
   (let [max-n (count foods)]
-    (cond-> {:current (->> foods
-                           (drop offset)
-                           (take n))}
-      (< 0 offset)
-      (assoc :previous [(Math/max 0 (- offset 250)) 250])
-
-      (< (+ offset n) max-n)
-      (assoc :next [(+ offset n) 250]))))
+    {:current (->> foods
+                   (drop offset)
+                   (take n))
+     :prev (when (< 0 offset)
+             [::browse-foods (Math/max 0 (- offset page-size)) page-size])
+     :next (when (< (+ offset n) max-n)
+             [::browse-foods (+ offset n) page-size])}))
 
 (defn filter-by-query [{:keys [foods idx]} locale e]
   (let [q (.-value (.-target e))]
     (if (<= 3 (.-length q))
       {:current (for [id (map :id (search/search @search/search-engine q locale))]
-                  (get idx id))}
-      (browse-foods foods 0 250))))
+                  (get idx id))
+       :next nil
+       :prev nil}
+      (browse-foods foods 0 page-size))))
 
 (defn init-filter-search [store form locale]
   (let [f (debounce #(->> (filter-by-query @store locale %)
@@ -66,8 +69,9 @@
           (set! (.-innerText a) (:foodName food)))
 
         "energyKj"
-        (set! (.-innerText (dom/qs td ".mvt-num"))
-              (.toLocaleString (:energyKj food) lang #js {:maximumFractionDigits 0}))
+        (when (:energyKj food)
+          (set! (.-innerText (dom/qs td ".mvt-num"))
+                (.toLocaleString (:energyKj food) lang #js {:maximumFractionDigits 0})))
 
         "energyKcal"
         (set! (.-innerText td) (str (:energyKcal food) " kcal"))
@@ -79,7 +83,13 @@
           (.setAttribute el "data-value" n)
           (.setAttribute el "data-portion" n))))))
 
-(defn render-table [table {:keys [current columns]} template lang]
+(defn update-button [button action]
+  (when button
+    (if action
+      (dom/show button)
+      (dom/hide button))))
+
+(defn render-table [table {:keys [current columns prev next]} template lang]
   (let [tbody (dom/qs table "tbody")
         rows (.-length (.-childNodes tbody))
         desired (count current)]
@@ -96,7 +106,21 @@
         (dom/show th)
         (dom/hide th)))
     (dom/re-zebra-table table)
-    (dom/show table)))
+    (dom/show table)
+    (update-button (dom/qs (.-parentNode table) ".mvt-prev") prev)
+    (update-button (dom/qs (.-parentNode table) ".mvt-next") next)))
+
+(defn dispatch-action [store action]
+  (let [[action & args] action]
+    (case action
+      ::browse-foods (swap! store #(merge % (apply browse-foods (:foods %) args))))))
+
+(defn init-button [button store k]
+  (when button
+    (->> (fn [e]
+           (.preventDefault e)
+           (dispatch-action store (k @store)))
+         (.addEventListener button "click"))))
 
 (defn init-customizable-table [store lang table filter-panel]
   (let [rows (dom/qsa table "tbody tr")
@@ -104,6 +128,8 @@
         tbody (.-parentNode template)]
     (doall (map #(.removeChild tbody %) rows))
     (init-checkboxes store filter-panel)
+    (init-button (dom/qs (.-parentNode table) ".mvt-prev") store :prev)
+    (init-button (dom/qs (.-parentNode table) ".mvt-next") store :next)
     (add-watch
      store ::self
      (fn [_ _ old data]
@@ -138,4 +164,4 @@
   (let [store (create-foods-store data (get-initial-columns table filter-panel))]
     (init-customizable-table store (name locale) table filter-panel)
     (init-filter-search store (dom/qs ".mvt-filter-search") locale)
-    (swap! store #(merge % (browse-foods (:foods %) 0 250)))))
+    (swap! store #(merge % (browse-foods (:foods %) 0 page-size)))))

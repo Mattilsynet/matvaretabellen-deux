@@ -155,6 +155,8 @@
   :energy-kcal "Energy (kcal)"
   :energy-kj "Energy (kJ)"
   :food "Food"
+  :next "Neste"
   :open-graph-description "All the foods in Matvaretabellen in one big table"
   :page-title "Table display of all foods"
-  :placeholder "Filter tabell"}]
+  :placeholder "Filter tabell"
+  :prev "Forrige"}]

@@ -120,4 +120,18 @@
           :icon :fontawesome.solid/table})]
        (render-column-settings (:foods/db context))
        (->> (prepare-foods-table (:app/db context) (:page/locale page) nutrients)
-            food-page/render-table)])]))
+            food-page/render-table)
+       [:div.mmm-buttons.mmm-mbm
+        (Button
+         {:text [:i18n ::prev]
+          :class [:mvt-prev :mmm-hidden]
+          :secondary? true
+          :inline? true
+          :icon :fontawesome.solid/chevron-left})
+        (Button
+         {:text [:i18n ::next]
+          :class [:mvt-next :mmm-hidden]
+          :secondary? true
+          :inline? true
+          :icon :fontawesome.solid/chevron-right
+          :icon-position :after})]])]))
