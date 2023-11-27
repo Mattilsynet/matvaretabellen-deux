@@ -53,7 +53,8 @@
                 :url (urls/get-nutrient-url locale (:name result))})
              (take 3))
         (for [result (search-foods engine q)]
-          {:text (:name result)
+          {:id (:id result)
+           :text (:name result)
            :url (urls/get-food-url locale (:name result))}))))
 
 (defn load-json [url]
