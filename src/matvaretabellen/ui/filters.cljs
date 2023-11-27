@@ -31,22 +31,13 @@
 (defn check [checkbox]
   (set! (.-checked checkbox) true))
 
-(defn re-zebra-table [table]
-  (dom/remove-class table "mmm-table-zebra")
-  (doseq [[i tr] (->> (dom/qsa table "tbody tr")
-                      (remove #(dom/has-class % "mmm-hidden"))
-                      (map vector (range)))]
-    (if (= 0 (mod i 2))
-      (dom/add-class tr "mmm-zebra-strip")
-      (dom/remove-class tr "mmm-zebra-strip"))))
-
 (defn update-ui [panel table prev next]
   (let [next-active (fd/get-active next)]
     (doall (map dom/show (get-lists panel (:selected next))))
     (doall (map dom/hide (get-lists panel (remove (:selected next) (:selected prev)))))
     (doall (map dom/show (get-rows table next-active)))
     (doall (map dom/hide (get-rows table (remove next-active (fd/get-active prev)))))
-    (re-zebra-table table)))
+    (dom/re-zebra-table table)))
 
 (defn get-filter-id [el]
   (let [label (.closest el "label")]
