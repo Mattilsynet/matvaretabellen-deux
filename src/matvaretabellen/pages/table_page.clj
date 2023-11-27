@@ -26,6 +26,7 @@
                        :class (when (not (default-checked (:nutrient/id nutrient)))
                                 [:mmm-hidden])}))
    :id "filtered-table"
+   :classes [:mmm-hidden]
    :rows [{:cols
            (concat
             [{:text [:a.mmm-link]

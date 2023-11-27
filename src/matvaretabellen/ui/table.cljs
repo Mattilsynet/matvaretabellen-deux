@@ -95,7 +95,8 @@
       (if (columns (.getAttribute th "data-id"))
         (dom/show th)
         (dom/hide th)))
-    (dom/re-zebra-table table)))
+    (dom/re-zebra-table table)
+    (dom/show table)))
 
 (defn init-customizable-table [store lang table filter-panel]
   (let [rows (dom/qsa table "tbody tr")
