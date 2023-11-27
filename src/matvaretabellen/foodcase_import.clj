@@ -292,13 +292,16 @@
       @(d/transact conn tx))
     conn))
 
+(defn create-data-txes [db]
+  (create-foodcase-transactions
+   db
+   {:nb (merge (load-json "data/foodcase-data-nb.json"))
+    :en (merge (load-json "data/foodcase-data-en.json"))}))
+
 (defn create-data-database [uri]
   (let [schema (read-string (slurp (io/resource "foods-schema.edn")))
         conn (db/create-database uri schema)]
-    (doseq [tx (create-foodcase-transactions
-                (d/db conn)
-                {:nb (merge (load-json "data/foodcase-data-nb.json"))
-                 :en (merge (load-json "data/foodcase-data-en.json"))})]
+    (doseq [tx (create-data-txes (d/db conn))]
       @(d/transact conn tx))
     conn))
 

@@ -2,6 +2,7 @@
   (:require [clojure.string :as str]
             [clojure.test :refer [deftest is testing]]
             [datomic-type-extensions.api :as d]
+            [matvaretabellen.faux-food-db :as fdb]
             [matvaretabellen.foodcase-import :as foodcase-import]
             [matvaretabellen.rda :as sut]))
 
@@ -24,16 +25,9 @@
         ";140;11;Jente;10-13 år;4,9975;;Høyt aktivitetsnivå;;;;1,85;9,25;9245,375;2209,644625;45;60;<10;18;28;25;40;<10;<1;10;20;5;10;1;5;10;20;;<6;600;10;7;1;1,2;;;1,1;200;2;50;900;11;3100;700;<2300;280;8;0,7;40;150\r"]
        (str/join "\n")))
 
-(def test-conn (atom nil))
-
-(defn get-foods-db []
-  (when-not @test-conn
-    (reset! test-conn (foodcase-import/create-data-database "datomic:mem://rda-test")))
-  (d/db @test-conn))
-
 (deftest parse-csv-test
   (testing "Builds rda datastructure based on loose information in headers"
-    (is (= (->> (sut/read-csv (get-foods-db) csv)
+    (is (= (->> (sut/read-csv (fdb/get-food-data-db) csv)
                 (drop 5)
                 first)
            {:rda/id "rda1743657494"
@@ -121,7 +115,7 @@
                           (take 4)
                           (str/join "\n"))]
              (->> (str/replace csv #"Gutt;6-9 år" "Generell;10 MJ")
-                  (sut/read-csv (get-foods-db))
+                  (sut/read-csv (fdb/get-food-data-db))
                   first
                   :rda/demographic))
            {:nb "Generell 6-65 år"
@@ -137,7 +131,7 @@
                     (str/replace template #"Gutt;6-9 år;4,535;;Lavt aktivitetsnivå"
                                  "Gravid  ;Andre trimester;5,8;1,375;STILLESITTENDE ARBEID")])
                   (str/join "\n")
-                  (sut/read-csv (get-foods-db))
+                  (sut/read-csv (fdb/get-food-data-db))
                   (map :rda/demographic)
                   set))
            #{{:nb "Gravid"
@@ -151,7 +145,7 @@
                    [(str/replace template #"Gutt;6-9 år" "Ammende;STILLESITTENDE ARBEID")
                     (str/replace template #"Gutt;6-9 år" "Ammende;STÅENDE ARBEID")])
                   (str/join "\n")
-                  (sut/read-csv (get-foods-db))
+                  (sut/read-csv (fdb/get-food-data-db))
                   (map :rda/demographic)
                   set))
            #{{:nb "Ammende"
@@ -159,7 +153,7 @@
 
 (deftest json-conversion-test
   (testing "Simplifies data for JSON export"
-    (is (= (->> (sut/read-csv (get-foods-db) csv)
+    (is (= (->> (sut/read-csv (fdb/get-food-data-db) csv)
                 first
                 (sut/->json :nb))
            {:id "rda1521056637"

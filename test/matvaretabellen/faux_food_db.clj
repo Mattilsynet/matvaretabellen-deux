@@ -1,7 +1,8 @@
 (ns matvaretabellen.faux-food-db
   (:require [clojure.java.io :as io]
             [datomic-type-extensions.api :as d]
-            [matvaretabellen.db :as db]))
+            [matvaretabellen.db :as db]
+            [matvaretabellen.foodcase-import :as foodcase-import]))
 
 (defn create-test-db [tx]
   (let [uri (str "datomic:mem://" (random-uuid))
@@ -19,3 +20,12 @@
          res# (do ~@body)]
      (d/release (:conn m#))
      res#))
+
+(def test-conn (atom nil))
+
+(defn get-food-data-db [& [txes]]
+  (when-not @test-conn
+    (reset! test-conn (foodcase-import/create-data-database "datomic:mem://rda-test")))
+  (if txes
+    (:db-after (d/with (d/db @test-conn) txes))
+    (d/db @test-conn)))
