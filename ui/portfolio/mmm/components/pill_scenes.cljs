@@ -7,24 +7,24 @@
 
 (defscene basic-pill
   [:a.mmm-pill.mmm-actionable
-   (icons/render (icons/icon :fontawesome.solid/x) {:class :mmm-svg})
-   "Pilletekst"])
+   "Pilletekst"
+   (icons/render (icons/icon :fontawesome.solid/x) {:class :mmm-svg})])
 
 (defscene list-of-pills
   [:ul.mmm-ul.mmm-horizontal-list.mmm-pills
    [:li
     [:a.mmm-pill.mmm-actionable
-     (icons/render (icons/icon :fontawesome.solid/x) {:class :mmm-svg})
-     "Brød"]]
+     "Brød"
+     (icons/render (icons/icon :fontawesome.solid/x) {:class :mmm-svg})]]
    [:li
     [:a.mmm-pill.mmm-actionable
-     (icons/render (icons/icon :fontawesome.solid/x) {:class :mmm-svg})
-     "Epler"]]
+     "Epler"
+     (icons/render (icons/icon :fontawesome.solid/x) {:class :mmm-svg})]]
    [:li
     [:a.mmm-pill.mmm-actionable
-     (icons/render (icons/icon :fontawesome.solid/x) {:class :mmm-svg})
-     "Bananer"]]
+     "Bananer"
+     (icons/render (icons/icon :fontawesome.solid/x) {:class :mmm-svg})]]
    [:li
     [:a.mmm-pill.mmm-actionable
-     (icons/render (icons/icon :fontawesome.solid/x) {:class :mmm-svg})
-     "Piller"]]])
+     "Piller"
+     (icons/render (icons/icon :fontawesome.solid/x) {:class :mmm-svg})]]])
