@@ -38,6 +38,7 @@
                                 [:mmm-nbr :mmm-tar])}))
    :id "filtered-table"
    :classes [:mmm-hidden]
+   :data-page-size 250
    :rows [{:cols
            (concat
             [{:text [:a.mmm-link]
