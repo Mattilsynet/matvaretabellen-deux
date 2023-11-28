@@ -30,10 +30,11 @@
             250)))
        (.addEventListener filter-panel "input")))
 
-(defn browse-foods [{:keys [foods page-size]} offset]
+(defn browse-foods [{:keys [foods page-size current]} offset]
   (let [max-n (count foods)]
     {:foods foods
      :offset offset
+     :sort-by (or (:sort-by current) [:foodName :sort.order/asc])
      :n page-size
      :prev (when (< 0 offset)
              [::browse-foods (Math/max 0 (- offset page-size))])
@@ -102,13 +103,10 @@
     offset (drop offset)
     n (take n)))
 
-(defn render-table [table {:keys [columns current]} template lang]
-  (let [tbody (dom/qs table "tbody")
-        rows (.-length (.-childNodes tbody))
+(defn render-rows [tbody template {:keys [current columns lang]}]
+  (let [rows (.-length (.-childNodes tbody))
         foods (get-current-foods current)
-        desired (count foods)
-        [sort-id sort-order] (:sort-by current)
-        container (.-parentNode table)]
+        desired (count foods)]
     (doseq [_i (range (- rows desired))]
       (.removeChild tbody (.-firstChild tbody)))
     (doseq [[i food] (map vector (range) foods)]
@@ -116,7 +114,12 @@
                    (let [row (.cloneNode template true)]
                      (.appendChild tbody row)
                      row))]
-        (render-food el food columns lang)))
+        (render-food el food columns lang)))))
+
+(defn render-table [table template {:keys [columns current] :as data}]
+  (let [[sort-id sort-order] (:sort-by current)
+        container (.-parentNode table)]
+    (render-rows (dom/qs table "tbody") template data)
     (doseq [th (dom/qsa table "thead th")]
       (let [id (.getAttribute th "data-id")]
         (if (columns (.getAttribute th "data-id"))
@@ -138,13 +141,14 @@
 (defn dispatch-action [store action]
   (let [[action & args] action]
     (case action
-      ::browse-foods (swap! store #(assoc % :current (apply browse-foods (:foods %) args))))))
+      ::browse-foods (swap! store #(assoc % :current (apply browse-foods % args))))))
 
 (defn init-button [button store k]
   (when button
     (->> (fn [e]
            (.preventDefault e)
-           (dispatch-action store (k @store)))
+           (when-let [action (k (:current @store))]
+             (dispatch-action store action)))
          (.addEventListener button "click"))))
 
 (defn change-sort [store e]
@@ -160,7 +164,7 @@
                    :sort.order/desc)]
          (assoc-in data [:current :sort-by] [id dir]))))))
 
-(defn init-customizable-table [store lang table filter-panel]
+(defn init-customizable-table [store table filter-panel]
   (let [rows (dom/qsa table "tbody tr")
         template (first rows)
         tbody (.-parentNode template)]
@@ -168,21 +172,23 @@
     (init-checkboxes store filter-panel)
     (init-button (dom/qs (.-parentNode table) ".mvt-prev") store :prev)
     (init-button (dom/qs (.-parentNode table) ".mvt-next") store :next)
-    (.addEventListener (dom/qs table "thead") "click" #(change-sort store %))
+    (->> #(change-sort store %)
+         (.addEventListener (dom/qs table "thead") "click"))
     (add-watch
      store ::self
      (fn [_ _ old data]
-       (render-table table data template lang)
+       (render-table table template data)
        (when (not= (:columns old) (:columns data))
          (dom/set-local-edn "table-columns" (:columns data)))))))
 
-(defn create-foods-store [data {:keys [columns page-size]}]
+(defn create-foods-store [data {:keys [columns page-size]} lang]
   (let [foods (->> (seq (.map (js/Object.values data) food/from-js))
                    (sort-by :foodName))]
     (atom {:foods foods
            :columns (set columns)
            :page-size (or page-size 250)
-           :idx (into {} (map (juxt :id identity) foods))})))
+           :idx (into {} (map (juxt :id identity) foods))
+           :lang lang})))
 
 (defn get-initial-table-columns [table]
   (->> (dom/qsa table "thead th")
@@ -202,7 +208,7 @@
    :page-size (some-> (.getAttribute table "data-page-size") parse-long)})
 
 (defn init-giant-table [data filter-panel table locale]
-  (let [store (create-foods-store data (get-table-data table filter-panel))]
-    (init-customizable-table store (name locale) table filter-panel)
+  (let [store (create-foods-store data (get-table-data table filter-panel) (name locale))]
+    (init-customizable-table store table filter-panel)
     (init-filter-search store (dom/qs ".mvt-filter-search") locale)
     (swap! store #(assoc % :current (browse-foods % 0)))))
