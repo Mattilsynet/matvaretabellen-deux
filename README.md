@@ -337,3 +337,9 @@ med søket.
 
 Frontend-koden sparkes igang fra
 [`matvaretabellen.ui.main`](./src/matvaretabellen/ui/main.cljs).
+
+## Kontakt
+
+Dersom du har spørsmål, tilbakemeldinger, eller har lyst til å få tak i oss av
+en annen grunn kan du enten bruke issues/pull requests her på Github, eller
+sende oss en epost på [team.mat@mattilsynet.no](mailto:team.mat@mattilsynet.no).
