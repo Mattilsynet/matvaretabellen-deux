@@ -12,7 +12,8 @@
 
   There are tokenizers for words in strings, ngrams and edge ngrams. See
   individual functions for details."
-  (:require [clojure.string :as str])
+  (:require [clojure.string :as str]
+            #?(:clj [matvaretabellen.search.morph :as morph]))
   #?(:clj (:import (java.text Normalizer))))
 
 (def sep-re #"[/\.,_\-\?!\s\n\r\(\)\[\]:]+")
@@ -34,6 +35,10 @@
 
 (defn tokenize-numberless [s]
   [(str/replace s #"\d" "")])
+
+(defn split-compound-words [s]
+  #?(:cljs [s]
+     :clj (morph/get-indexable-words s)))
 
 (defn tokenize-ngrams
   "Converts a string to ngram tokens. When only one number is passed, only that
@@ -114,7 +119,8 @@
     :tokenizers [tokenize-numberless
                  remove-diacritics
                  tokenize-lower-case
-                 tokenize-unique-words]
+                 tokenize-unique-words
+                 split-compound-words]
     :token-filters [(stop-words locale)
                     #(short? 1 %)]}
 
