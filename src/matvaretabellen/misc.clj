@@ -81,7 +81,7 @@
 
 (defn summarize-food [food]
   (-> food
-      (select-keys [:food/id :food/calories :food/name :food/energy :food/constituents])
+      (select-keys [:food/id :food/calories :food/name :food/search-keywords :food/energy :food/constituents])
       (update :food/calories select-keys [:measurement/observation])
       (update :food/name select-keys [:nb])
       (update :food/energy select-keys [:measurement/quantity])
