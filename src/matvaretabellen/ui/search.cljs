@@ -20,31 +20,32 @@
                               (assoc :fields ["nutrientNameEdgegrams"]))]})]
     (assoc match :name (get (:names engine) (:id match)))))
 
-(defn search-foods [engine q]
-  (for [match
-        (concat
-         (lookup-food engine q)
-         (qe/query
-          (:index engine)
-          {:queries [;; "Autocomplete" what the user is typing
-                     (-> (:foodNameEdgegrams (:schema engine))
-                         (assoc :q q)
-                         (assoc :fields ["foodNameEdgegrams"])
-                         (assoc :boost 10))
-                     ;; Boost exact matches
-                     (-> (:foodName (:schema engine))
-                         (assoc :q q)
-                         (assoc :fields ["foodName" "foodId"])
-                         (assoc :boost 5))
-                     ;; Add fuzziness
-                     (-> (:foodNameNgrams (:schema engine))
-                         (merge {:q q
-                                 :fields ["foodNameNgrams"]
-                                 :operator :or
-                                 :min-accuracy 0.8
-                                 }))]
-           :operator :or}))]
-    (assoc match :name (get (:names engine) (:id match)))))
+(defn search-foods
+  ([q] (search-foods @search-engine q))
+  ([engine q]
+   (for [match
+         (concat
+          (lookup-food engine q)
+          (qe/query
+           (:index engine)
+           {:queries [;; "Autocomplete" what the user is typing
+                      (-> (:foodNameEdgegrams (:schema engine))
+                          (assoc :q q)
+                          (assoc :fields ["foodNameEdgegrams"])
+                          (assoc :boost 10))
+                      ;; Boost exact matches
+                      (-> (:foodName (:schema engine))
+                          (assoc :q q)
+                          (assoc :fields ["foodName" "foodId"])
+                          (assoc :boost 10))
+                      ;; Add fuzziness
+                      (-> (:foodNameNgrams (:schema engine))
+                          (merge {:q q
+                                  :fields ["foodNameNgrams"]
+                                  :operator :or
+                                  :min-accuracy 0.8}))]
+            :operator :or}))]
+     (assoc match :name (get (:names engine) (:id match))))))
 
 (defn search [engine q locale]
   (->> (concat

@@ -41,15 +41,20 @@
      :next (when (< (+ offset page-size) max-n)
              [::browse-foods (+ offset page-size)])}))
 
-(defn filter-by-query [{:keys [foods idx]} locale e]
+(defn filter-by-query [{:keys [foods idx]} e]
   (let [q (.-value (.-target e))]
     (if (<= 3 (.-length q))
-      {:foods (for [id (map :id (search/search @search/search-engine q locale))]
-                (get idx id))}
+      (let [results (search/search-foods q)
+            cutoff (* 0.1 (:score (first results)))]
+        {:foods (for [x (->> results
+                             ;; Try to loose the most irrelevant ngram noise at
+                             ;; the tail end
+                             (remove #(< (:score %) cutoff)))]
+                  (get idx (:id x)))})
       (browse-foods foods 0))))
 
-(defn init-filter-search [store form locale]
-  (let [f (debounce #(->> (filter-by-query @store locale %)
+(defn init-filter-search [store form]
+  (let [f (debounce #(->> (filter-by-query @store %)
                           (swap! store assoc :current)) 250)]
     (.addEventListener (dom/qs form "input") "input" f)))
 
@@ -210,5 +215,5 @@
 (defn init-giant-table [data filter-panel table locale]
   (let [store (create-foods-store data (get-table-data table filter-panel) (name locale))]
     (init-customizable-table store table filter-panel)
-    (init-filter-search store (dom/qs ".mvt-filter-search") locale)
+    (init-filter-search store (dom/qs ".mvt-filter-search"))
     (swap! store #(assoc % :current (browse-foods % 0)))))
