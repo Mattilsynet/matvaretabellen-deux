@@ -76,7 +76,7 @@
              (when (= "comparison" js/document.body.id)
                (comparison/initialize-page data (get-params)))
              (let [filter-panel (js/document.getElementById "filter-panel")
-                   mother-of-all-tables (js/document.getElementById "filtered-table")]
+                   mother-of-all-tables (js/document.getElementById "filtered-giant-table")]
                (when (and filter-panel mother-of-all-tables)
                  (table/init-giant-table data filter-panel mother-of-all-tables locale))))
            (ensure-food-data k locale)))

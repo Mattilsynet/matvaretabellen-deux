@@ -36,7 +36,7 @@
                        :class (if (not (default-checked (:nutrient/id nutrient)))
                                 [:mmm-nbr :mmm-tar :mmm-hidden]
                                 [:mmm-nbr :mmm-tar])}))
-   :id "filtered-table"
+   :id "filtered-giant-table"
    :classes [:mmm-hidden]
    :data-page-size 250
    :rows [{:cols
