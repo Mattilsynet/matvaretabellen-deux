@@ -145,12 +145,12 @@
   (for [{:keys [path measurement] :as f} fields]
     (let [text (str (cond
                       path (get-scalar-at-path food path)
-                      measurement (get-in food (into (:path measurement) [:measurement/origin :origin/id]))
+                      measurement (get-in food (into (:path measurement) [:measurement/source :source/id]))
                       (:nutrient/id f) (some-> (get-constituent food (:nutrient/id f))
-                                               :measurement/origin
-                                               :origin/id)))]
+                                               :measurement/source
+                                               :source/id)))]
       (cond-> {:text text}
-        (not path) (assoc :origin/id text)))))
+        (not path) (assoc :source/id text)))))
 
 (defn prepare-foods-header-row [fields locale]
   {:bold? true
@@ -186,14 +186,14 @@
 
 (defn prepare-reference-lookup-sheet [db locale title reference-sheet]
   {:title title
-   :rows (for [origin-id (->> (:rows reference-sheet)
+   :rows (for [source-id (->> (:rows reference-sheet)
                               (mapcat :cells)
-                              (keep :origin/id)
+                              (keep :source/id)
                               set
                               (sort-by misc/natural-order-comparator-ish))]
-           {:cells [{:text origin-id}
-                    {:text (get-in (d/entity db [:origin/id origin-id])
-                                   [:origin/description locale])}]})})
+           {:cells [{:text source-id}
+                    {:text (get-in (d/entity db [:source/id source-id])
+                                   [:source/description locale])}]})})
 
 (def cover-sheet-text
   {:nb [{:header? true :cells [{:text "Matvaretabellen {:year}"}]}
@@ -320,7 +320,7 @@
   (def foods (for [eid (d/q '[:find [?e ...] :where [?e :food/id]] db)]
                (d/entity db eid)))
 
-  (set (keep :origin/id (mapcat :cells (:rows (prepare-reference-sheet locale "Referanser" fields foods)))))
+  (set (keep :source/id (mapcat :cells (:rows (prepare-reference-sheet locale "Referanser" fields foods)))))
 
   (prepare-foods-sheet locale "Matvarer" (get-basic-food-fields db locale) foods)
   (prepare-foods-sheet locale "Matvarer (alle næringsstoffer)" (get-all-food-fields db locale) foods)

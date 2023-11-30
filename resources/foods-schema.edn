@@ -78,7 +78,7 @@
   :db/valueType :db.type/long
   :db/cardinality :db.cardinality/one}
 
- {:db/ident :measurement/origin
+ {:db/ident :measurement/source
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one}
 
@@ -169,12 +169,12 @@
  ;;
  ;; En kilde for hvordan en måling er beregnet / funnet.
 
- {:db/ident :origin/id
+ {:db/ident :source/id
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/unique :db.unique/identity}
 
- {:db/ident :origin/description
+ {:db/ident :source/description
   :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 

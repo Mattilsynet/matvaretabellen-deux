@@ -37,7 +37,7 @@
                                        (filter (fn [[_ v]] (get v "ref"))))]
      (let [amount (parse-double value)]
        (cond-> {:constituent/nutrient [:nutrient/id id]
-                :measurement/origin [:origin/id ref]}
+                :measurement/source [:source/id ref]}
          amount (assoc :measurement/quantity
                        (b/from-edn [amount (get-in id->nutrient [id :nutrient/unit])])))))))
 
@@ -58,7 +58,7 @@
   (try
     (when-let [kj (parse-doublish value)]
       {:measurement/quantity (misc/kilojoules kj)
-       :measurement/origin [:origin/id ref]})
+       :measurement/source [:source/id ref]})
     (catch Exception e
       (throw (ex-info "Can't get me no energy" {:ref ref :value value} e)))))
 
@@ -66,7 +66,7 @@
   (try
     (when-let [pct (parse-doublish value)]
       {:measurement/percent (Math/round pct)
-       :measurement/origin [:origin/id ref]})
+       :measurement/source [:source/id ref]})
     (catch Exception e
       (throw (ex-info "Can't get me no edible part" {:ref ref :value value} e)))))
 
@@ -82,7 +82,7 @@
                                    [:langual-code/id id]))
         :food/energy (get-energy Energi1)
         :food/calories {:measurement/observation (get Energi2 "value")
-                        :measurement/origin [:origin/id (get Energi2 "ref")]}
+                        :measurement/source [:source/id (get Energi2 "ref")]}
         :food/constituents (get-constituents food id->nutrient)
         :food/portions (get-portions Portion)
         :food/edible-part (get-edible-part Netto)}
@@ -180,9 +180,9 @@
         parent
         (assoc :nutrient/parent parent)))))
 
-(defn foodcase-reference->origin [{:strs [id text]}]
-  {:origin/id id
-   :origin/description text})
+(defn foodcase-reference->source [{:strs [id text]}]
+  {:source/id id
+   :source/description text})
 
 (defn foodcase-langualcode->langual-code [{:strs [id text]}]
   {:langual-code/id id
@@ -251,9 +251,9 @@
      ;; faux nutrient groups
      (nutrient/get-apriori-groups)
 
-     ;; origins
+     ;; sources (FoodCASE calls them references, but trust me - they're sources)
      (combine-i18n-sources
-      (update-vals locale->datas #(map foodcase-reference->origin (get % "references")))
+      (update-vals locale->datas #(map foodcase-reference->source (get % "references")))
       i18n-attrs)
 
      ;; langual-codes

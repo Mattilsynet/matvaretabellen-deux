@@ -85,9 +85,9 @@
 
 (defn get-sources [food]
   (->> (:food/constituents food)
-       (keep :measurement/origin)
+       (keep :measurement/source)
        set
-       (sort-by (comp misc/natural-order-comparator-ish :origin/id))))
+       (sort-by (comp misc/natural-order-comparator-ish :source/id))))
 
 (defn hyperlink-string [desc]
   (loop [words (-> (str/replace desc #"," ", ")

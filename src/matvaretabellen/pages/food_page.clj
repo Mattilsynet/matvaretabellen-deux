@@ -24,13 +24,13 @@
       label)))
 
 (defn get-source [food id]
-  (when-let [origin (some->> (:food/constituents food)
+  (when-let [source (some->> (:food/constituents food)
                              (filter (comp #{id} :nutrient/id :constituent/nutrient))
                              first
-                             :measurement/origin)]
-    [:a.mmm-link {:href (str "#" (:origin/id origin))
-                  :title [:i18n :i18n/lookup (:origin/description origin)]}
-     (:origin/id origin)]))
+                             :measurement/source)]
+    [:a.mmm-link {:href (str "#" (:source/id source))
+                  :title [:i18n :i18n/lookup (:source/description source)]}
+     (:source/id source)]))
 
 (def nutrition-table-row-ids
   ["Fett" "Karbo" "Fiber" "Protein" "Alko" "Vann"])
@@ -237,7 +237,7 @@
 (defn render-sources [page sources]
   [:dl.mmm-dl
    (map
-    (fn [{:origin/keys [id description]}]
+    (fn [{:source/keys [id description]}]
       [:div
        [:div.mmm-focus {:id id}
         [:dt id]
