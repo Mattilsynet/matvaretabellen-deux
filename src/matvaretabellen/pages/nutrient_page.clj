@@ -14,7 +14,7 @@
 
 (defn prepare-foods-table [nutrient locale foods]
   {:headers [{:text [:i18n ::food]}
-             {:text [:i18n :i18n/lookup (:nutrient/name nutrient)]
+             {:text [:i18n ::amount]
               :class "mmm-tar mmm-td-min"}
              {:text [:i18n ::compare]
               :class "mmm-td-min mmm-desktop"}]
