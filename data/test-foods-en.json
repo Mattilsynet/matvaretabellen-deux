@@ -1,0 +1,249 @@
+{
+  "foods": [
+    {
+      "groupId": "5.1",
+      "id": "05.383",
+      "name": "Gram flour",
+      "slug": "gram-flour",
+      "synonym": "",
+      "sortName": "",
+      "additionalInfo": "",
+      "latinFamilyName": "",
+      "latinName": "Cicer arietinum L.",
+      "latinAuthor": "",
+      "langualCodes": "A0149 A0813 B1172 C0155 E0106 F0003 G0003 H0138 J0116 K0003 M0001 N0001 P0024",
+      "Netto": {
+        "ref": "0",
+        "value": "100"
+      },
+      "Vann": {
+        "ref": "MI0142",
+        "value": "8"
+      },
+      "Energi1": {
+        "ref": "MI0114",
+        "value": "1581.1"
+      },
+      "Energi2": {
+        "ref": "MI0115",
+        "value": "375"
+      },
+      "Fett": {
+        "ref": "450c",
+        "value": "5.4"
+      },
+      "Mettet": {
+        "ref": "450c",
+        "value": "0.6"
+      },
+      "C12:0Laurinsyre": {
+        "ref": "30",
+        "value": "0"
+      },
+      "C14:0Myristinsyre": {
+        "ref": "30",
+        "value": "0.01"
+      },
+      "C16:0Palmitinsyre": {
+        "ref": "30",
+        "value": "0.46"
+      },
+      "C18:0Stearinsyre": {
+        "ref": "30",
+        "value": "0.08"
+      },
+      "Trans": {
+        "ref": "450c",
+        "value": "0"
+      },
+      "Enumet": {
+        "ref": "450c",
+        "value": "1"
+      },
+      "C16:1": {
+        "ref": "30",
+        "value": "0.01"
+      },
+      "C18:1": {
+        "ref": "30",
+        "value": "1.25"
+      },
+      "Flerum": {
+        "ref": "450c",
+        "value": "2.8"
+      },
+      "C18:2n-6Linolsyre": {
+        "ref": "30",
+        "value": "2.4"
+      },
+      "C18:3n-3AlfaLinolensyre": {
+        "ref": "30",
+        "value": "0.09"
+      },
+      "C20:3n-3Eikosatriensyre": {
+        "ref": "30",
+        "value": "0"
+      },
+      "C20:3n-6DihomoGammaLinolensyre": {
+        "ref": "30",
+        "value": "0"
+      },
+      "C20:4n-3Eikosatetraensyre": {
+        "ref": "30",
+        "value": "0"
+      },
+      "C20:4n-6Arakidonsyre": {
+        "ref": "30",
+        "value": "0"
+      },
+      "C20:5n-3Eikosapentaensyre": {
+        "ref": "30",
+        "value": "0"
+      },
+      "C22:5n-3Dokosapentaensyre": {
+        "ref": "30",
+        "value": "0"
+      },
+      "C22:6n-3Dokosaheksaensyre": {
+        "ref": "30",
+        "value": "0"
+      },
+      "Omega-3": {
+        "ref": "30",
+        "value": "0.09"
+      },
+      "Omega-6": {
+        "ref": "30",
+        "value": "2.4"
+      },
+      "Kolest": {
+        "ref": "50",
+        "value": "0"
+      },
+      "Karbo": {
+        "ref": "MI0181",
+        "value": "53.8"
+      },
+      "Stivel": {
+        "ref": "331",
+        "value": "51.5"
+      },
+      "Mono+Di": {
+        "ref": "MI_SUGAR_NO",
+        "value": "2.3"
+      },
+      "Sukker": {
+        "ref": "50",
+        "value": "0"
+      },
+      "Fiber": {
+        "ref": "450c",
+        "value": "10"
+      },
+      "Protein": {
+        "ref": "450c",
+        "value": "22.7"
+      },
+      "NaCl": {
+        "ref": "MI0120",
+        "value": "0"
+      },
+      "Alko": {
+        "ref": "50",
+        "value": "0"
+      },
+      "Vit A": {
+        "ref": "MI0325",
+        "value": "3"
+      },
+      "Retinol": {
+        "ref": "50",
+        "value": "0"
+      },
+      "B-karo": {
+        "ref": "450c",
+        "value": "32"
+      },
+      "Vit D": {
+        "ref": "450c",
+        "value": "0"
+      },
+      "Vit E": {
+        "ref": "450c",
+        "value": "2.5"
+      },
+      "Vit B1": {
+        "ref": "450c",
+        "value": "0.45"
+      },
+      "Vit B2": {
+        "ref": "450c",
+        "value": "0.17"
+      },
+      "Niacin": {
+        "ref": "450c",
+        "value": "1.9"
+      },
+      "Vit B6": {
+        "ref": "450c",
+        "value": "0.45"
+      },
+      "Folat": {
+        "ref": "450c",
+        "value": "193"
+      },
+      "Vit B12": {
+        "ref": "50",
+        "value": "0"
+      },
+      "Vit C": {
+        "ref": "60a",
+        "value": "0"
+      },
+      "Ca": {
+        "ref": "450c",
+        "value": "58"
+      },
+      "Fe": {
+        "ref": "450c",
+        "value": "2.6"
+      },
+      "Na": {
+        "ref": "450c",
+        "value": "2"
+      },
+      "K": {
+        "ref": "450c",
+        "value": "297"
+      },
+      "Mg": {
+        "ref": "450c",
+        "value": "62"
+      },
+      "Zn": {
+        "ref": "450c",
+        "value": "1.5"
+      },
+      "Se": {
+        "ref": "450c",
+        "value": "4"
+      },
+      "Cu": {
+        "ref": "450c",
+        "value": "0.27"
+      },
+      "P": {
+        "ref": "450c",
+        "value": "220"
+      },
+      "I": {
+        "ref": "10",
+        "value": ""
+      },
+      "Portion": {
+        "ref": "",
+        "value": ""
+      }
+    }
+  ]
+}

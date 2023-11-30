@@ -29,3 +29,20 @@
   (if txes
     (:db-after (d/with (d/db @test-conn) txes))
     (d/db @test-conn)))
+
+(def foods-conn (atom nil))
+
+(defn get-test-food-db [& [txes]]
+  (when-not @foods-conn
+    (let [conn (foodcase-import/create-database "datomic:mem://foods-test")]
+      (doseq [tx (foodcase-import/create-foodcase-transactions
+                  (d/db conn)
+                  {:nb (merge (foodcase-import/load-json "data/foodcase-data-nb.json")
+                              (foodcase-import/load-json "data/test-foods-nb.json"))
+                   :en (merge (foodcase-import/load-json "data/foodcase-data-en.json")
+                              (foodcase-import/load-json "data/test-foods-en.json"))})]
+        @(d/transact conn tx))
+      (reset! foods-conn conn)))
+  (if txes
+    (:db-after (d/with (d/db @foods-conn) txes))
+    (d/db @foods-conn)))

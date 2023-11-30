@@ -279,10 +279,13 @@
        (map #(.lastModified (io/file %)))
        (apply max 0)))
 
+(defn create-database [uri]
+  (let [schema (read-string (slurp (io/resource "foods-schema.edn")))]
+    (db/create-database uri schema)))
+
 (defn create-database-from-scratch [uri]
   (d/delete-database uri)
-  (let [schema (read-string (slurp (io/resource "foods-schema.edn")))
-        conn (db/create-database uri schema)]
+  (let [conn (create-database uri)]
     (doseq [tx (create-foodcase-transactions
                 (d/db conn)
                 {:nb (merge (load-json "data/foodcase-data-nb.json")
@@ -299,8 +302,7 @@
     :en (merge (load-json "data/foodcase-data-en.json"))}))
 
 (defn create-data-database [uri]
-  (let [schema (read-string (slurp (io/resource "foods-schema.edn")))
-        conn (db/create-database uri schema)]
+  (let [conn (create-database uri)]
     (doseq [tx (create-data-txes (d/db conn))]
       @(d/transact conn tx))
     conn))
