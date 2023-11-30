@@ -50,5 +50,5 @@ resource "google_dns_record_set" "empty_spf1_txt_record" {
   ttl = 300
   project = var.project_id
   managed_zone = resource.google_dns_managed_zone.mvt_dns_zone.name
-  rrdatas = ["v=spf1 -all"]
+  rrdatas = ["\"v=spf1\" \"-all\""]
 }
