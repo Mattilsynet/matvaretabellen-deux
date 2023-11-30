@@ -442,7 +442,7 @@
            [:div.mmm-mobile.mmm-mtm (render-compare-button food {:inline? false})]
            (when-let [related (seq (food/find-related-foods food locale))]
              (let [categoryish (food/infer-food-kind food locale)]
-               [:div.mmm-inline.mmm-mtm
+               [:div.mmm-inline.mmm-mtm.mmm-small
                 [:strong [:i18n ::more {:categoryish (str/lower-case categoryish)}] " "]
                 [:ul.mmm-horizontal-list.mmm-hl-slash
                  (for [food related]
