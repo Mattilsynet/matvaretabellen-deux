@@ -120,7 +120,7 @@
 
       (let [sidebar (render-sidebar (:app/db context) food-group foods locale)]
         [:div.mmm-container.mmm-section.mmm-mobile-phn
-         [:div.mmm-flex.mmm-mobile-container-p
+         [:div.mmm-flex.mmm-mobile-container-p.mmm-mbm
           (when sidebar
             (layout/render-sidebar-filter-button filter-panel-id))]
          [:div.mmm-cols.mmm-cols-d1_2
