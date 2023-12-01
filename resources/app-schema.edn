@@ -24,6 +24,10 @@
   :dte/valueType :i18n/edn
   :db/cardinality :db.cardinality/one}
 
+ {:db/ident :page/format
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one}
+
  ;; Sesongvarer
  {:db/ident :season/id
   :db/valueType :db.type/string

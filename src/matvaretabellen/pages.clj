@@ -90,7 +90,23 @@
     :page/locale :nb}
    {:page/uri (urls/get-table-url :en)
     :page/kind :page.kind/table
-    :page/locale :en}])
+    :page/locale :en}
+   {:page/uri (urls/get-foods-api-url :nb :json)
+    :page/kind :page.kind/food-data
+    :page/locale :nb
+    :page/format :json}
+   {:page/uri (urls/get-foods-api-url :en :json)
+    :page/kind :page.kind/food-data
+    :page/locale :en
+    :page/format :json}
+   {:page/uri (urls/get-foods-api-url :nb :edn)
+    :page/kind :page.kind/food-data
+    :page/locale :nb
+    :page/format :edn}
+   {:page/uri (urls/get-foods-api-url :en :edn)
+    :page/kind :page.kind/food-data
+    :page/locale :en
+    :page/format :edn}])
 
 (defn render-foods-index [db page]
   {:headers {"content-type" "application/json"}
@@ -122,6 +138,7 @@
       :page.kind/article (article-page/render-page context db page (get-auxiliary-info))
       :page.kind/compact-food-data (api/render-compact-foods context page)
       :page.kind/comparison (comparison-page/render-page context page)
+      :page.kind/food-data (api/render-food-data context page)
       :page.kind/foods-index (render-foods-index db page)
       :page.kind/names-lookup (render-names-lookup db page)
       :page.kind/frontpage (frontpage/render context db page)

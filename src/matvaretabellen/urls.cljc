@@ -30,6 +30,9 @@
 (defn get-compact-foods-json-url [locale]
   (str "/api/" (name locale) "/compact-foods.json"))
 
+(defn get-foods-api-url [locale format]
+  (str "/api/" (name locale) "/foods." (name format)))
+
 (defn get-api-rda-json-url [locale]
   (str "/api/" (name locale) "/rda.json"))
 
