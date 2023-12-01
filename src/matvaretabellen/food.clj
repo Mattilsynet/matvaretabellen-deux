@@ -47,13 +47,6 @@
        nutrient/sort-by-preference
        seq))
 
-(defn get-foods [db]
-  (->> (d/q '[:find [?f ...]
-              :where
-              [?f :food/id]]
-            db)
-       (map #(d/entity db %))))
-
 (defn get-nutrient-group [food nutrient-id]
   {:food food
    :nutrients (get-nutrients food nutrient-id)
