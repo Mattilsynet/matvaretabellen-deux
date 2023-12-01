@@ -168,6 +168,44 @@
                                      (or (some-> constituent :measurement/quantity b/symbol) "g")]}])
                       (into {}))})
 
+(defn ->api-quantity [quantity]
+  {:quantity/number (b/num quantity)
+   :quantity/unit (b/symbol quantity)})
+
+(defn ->api-measurement [e & [observation-unit]]
+  (cond-> (select-keys (into {} e) [:measurement/percent])
+    (:measurement/source e)
+    (assoc :source/id (:source/id (:measurement/source e)))
+
+    (:measurement/quantity e)
+    (merge (->api-quantity (:measurement/quantity e)))
+
+    (:measurement/observation e)
+    (merge {:quantity/number (parse-long (:measurement/observation e))
+            :quantity/unit observation-unit})
+
+    (:constituent/nutrient e)
+    (assoc :nutrient/id (-> e :constituent/nutrient :nutrient/id))))
+
+(defn ->api-portion [locale portion]
+  (merge
+   {:portion-kind/name (get-in (:portion/kind portion) [:portion-kind/name locale])
+    :portion-kind/unit (:portion-kind/unit (:portion/kind portion))}
+   (->api-quantity (:portion/quantity portion))))
+
+(defn food->api-data [locale food]
+  (-> (into {:page/uri (urls/get-food-url locale food)} food)
+      (update :food/name locale)
+      (dissoc :food/food-group)
+      (assoc :food-group/id (-> food :food/food-group :food-group/id))
+      (update :food/search-keywords locale)
+      (update :food/langual-codes #(set (map :langual-code/id %)))
+      (update :food/edible-part ->api-measurement)
+      (update :food/energy ->api-measurement)
+      (update :food/calories ->api-measurement "kcal")
+      (update :food/portions #(set (map (partial ->api-portion locale) %)))
+      (update :food/constituents #(set (map ->api-measurement %)))))
+
 (defn render-food-group-list [app-db food-groups foods locale & [{:keys [class id]}]]
   (when (seq food-groups)
     [:ul.mmm-ul.mmm-unadorned-list

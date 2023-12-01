@@ -5,7 +5,7 @@
       "id": "05.383",
       "name": "Kikertmel",
       "slug": "kikertmel",
-      "synonym": "kikert mel",
+      "synonym": "kikert;mel",
       "sortName": "",
       "additionalInfo": "",
       "latinFamilyName": "",
@@ -241,8 +241,8 @@
         "value": ""
       },
       "Portion": {
-        "ref": "",
-        "value": ""
+        "ref": "porsjon dl",
+        "value": "95 60"
       }
     }
   ]
