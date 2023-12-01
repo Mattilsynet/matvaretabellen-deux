@@ -13,9 +13,7 @@
 /dev-resources/public/js/compiled
 /.clj-kondo/http-kit/
 /docker/build
-/tf/.terraform*
+*.terraform*
 /.clj-kondo/.lock
 /.clj-kondo/inline-configs/
 /ui/resources/fontawesome-icons/
-/tf/dns/.terraform/
-/tf/dns/.terraform.lock.hcl
