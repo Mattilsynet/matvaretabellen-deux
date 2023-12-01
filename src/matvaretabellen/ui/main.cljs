@@ -43,7 +43,7 @@
 
 (defn ensure-food-data [k locale f]
   (ensure-session-data
-   k (urls/get-api-foods-json-url locale) f
+   k (urls/get-compact-foods-json-url locale) f
    {:process-raw-data #(map-json-by "id" %)}))
 
 (defn ensure-rda-data [k locale f]

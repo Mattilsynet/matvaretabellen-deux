@@ -3,6 +3,7 @@
             [clojure.java.io :as io]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.excel :as excel]
+            [matvaretabellen.pages.api :as api]
             [matvaretabellen.pages.article-page :as article-page]
             [matvaretabellen.pages.comparison-page :as comparison-page]
             [matvaretabellen.pages.food-group-page :as food-group-page]
@@ -66,11 +67,11 @@
    {:page/uri (urls/get-foods-excel-url :en)
     :page/kind :page.kind/foods-excel
     :page/locale :en}
-   {:page/uri (urls/get-api-foods-json-url :nb)
-    :page/kind :page.kind/comparison-data
+   {:page/uri (urls/get-compact-foods-json-url :nb)
+    :page/kind :page.kind/compact-food-data
     :page/locale :nb}
-   {:page/uri (urls/get-api-foods-json-url :en)
-    :page/kind :page.kind/comparison-data
+   {:page/uri (urls/get-compact-foods-json-url :en)
+    :page/kind :page.kind/compact-food-data
     :page/locale :en}
    {:page/uri (urls/get-api-rda-json-url :nb)
     :page/kind :page.kind/rda-data
@@ -119,8 +120,8 @@
   (let [db (:foods/db context)]
     (case (:page/kind page)
       :page.kind/article (article-page/render-page context db page (get-auxiliary-info))
+      :page.kind/compact-food-data (api/render-compact-foods context page)
       :page.kind/comparison (comparison-page/render-page context page)
-      :page.kind/comparison-data (comparison-page/render-data context page)
       :page.kind/foods-index (render-foods-index db page)
       :page.kind/names-lookup (render-names-lookup db page)
       :page.kind/frontpage (frontpage/render context db page)

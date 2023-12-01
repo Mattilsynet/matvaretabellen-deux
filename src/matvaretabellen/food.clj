@@ -148,7 +148,7 @@
 (defn food->diffable [food]
   [(:food/id food) (get-nutrient-group-lookup food)])
 
-(defn food->json-data [locale food]
+(defn food->compact-api-data [locale food]
   {:id (:food/id food)
    :url (urls/get-food-url locale food)
    :foodName (get (:food/name food) locale)

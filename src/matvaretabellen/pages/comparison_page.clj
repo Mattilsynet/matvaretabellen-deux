@@ -150,13 +150,3 @@
 
       [:script.mvtc-statistics {:type "application/json"}
        (json/write-str (nutrient/get-nutrient-statistics (:foods/db context) statistics/get-median))]])))
-
-(defn render-data [context page]
-  {:content-type :json
-   :body (->> (d/q '[:find [?f ...]
-                     :where
-                     [?f :food/id]]
-                   (:foods/db context))
-              (map #(d/entity (:foods/db context) %))
-              (sort-by (comp (:page/locale page) :food/name))
-              (map #(food/food->json-data (:page/locale page) %)))})
