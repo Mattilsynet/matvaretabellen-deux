@@ -46,13 +46,12 @@
              :powerpack/render-page #'pages/render-page
              :powerpack/get-context #(get-context config foods-conn)
              :powerpack/on-started #(on-started foods-conn %)
-
              :m1p/dictionaries {:nb ["src/matvaretabellen/i18n/nb.edn"]
                                 :en ["src/matvaretabellen/i18n/en.edn"]}
              :m1p/dictionary-fns {:fn/num #'i18n/m1p-fn-num
                                   :fn/enumerate #'i18n/m1p-fn-enumerate}}
       (= :build env)
-      (assoc :site/base-url "https://matvaretabellen.mattilsynet.io")
+      (assoc :site/base-url "https://www.matvaretabellen.no")
 
       (= :dev env) ;; serve figwheel compiled js
       (assoc :powerpack/dev-assets-root-path "public"))))
