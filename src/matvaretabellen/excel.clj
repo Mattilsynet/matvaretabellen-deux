@@ -2,7 +2,7 @@
   (:require [broch.core :as b]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
-            [matvaretabellen.food :as food]
+            [matvaretabellen.food-group :as food-group]
             [matvaretabellen.misc :as misc]
             [matvaretabellen.nutrient :as nutrient])
   (:import (java.io ByteArrayOutputStream FileOutputStream)
@@ -282,7 +282,7 @@
 (defn render-food-group-foods [db year page]
   (let [food-group (d/entity db [:food-group/id (:page/food-group-id page)])
         food-group-name (get-in food-group [:food-group/name (:page/locale page)])
-        foods (food/get-all-food-group-foods food-group)]
+        foods (food-group/get-all-food-group-foods food-group)]
     (render-some-foods db year page
                        {:nb (str "Her finner du informasjon om de " (count foods) " matvarene under " food-group-name " i Matvaretabellen.")
                         :en (str "This document provides information about the " (count foods) " foods under " food-group-name " listed in the Norwegian Food Composition Table.")}

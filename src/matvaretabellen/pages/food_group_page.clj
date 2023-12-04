@@ -1,7 +1,7 @@
 (ns matvaretabellen.pages.food-group-page
   (:require [datomic-type-extensions.api :as d]
             [matvaretabellen.components.comparison :as comparison]
-            [matvaretabellen.food :as food]
+            [matvaretabellen.food-group :as food-group]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.pages.food-page :as food-page]
@@ -12,7 +12,7 @@
 
 (defn render-food-group-links [app-db locale current food-groups]
   (when-let [food-groups (->> food-groups
-                              (sort-by #(food/food-group->sort-key app-db %))
+                              (sort-by #(food-group/food-group->sort-key app-db %))
                               seq)]
     [:ul.mmm-ul.mmm-unadorned-list
      (for [group food-groups]
@@ -25,7 +25,7 @@
 
 (defn render-filter-links [app-db locale target food-group]
   (->> (or (:food-group/_parent food-group)
-           (food/get-food-groups (d/entity-db food-group)))
+           (food-group/get-food-groups (d/entity-db food-group)))
        (render-food-group-links app-db locale target)))
 
 (defn get-back-link [locale food-group]
@@ -62,8 +62,7 @@
            [:h2.mmm-h5
             [:a.mmm-link {:href (urls/get-food-groups-url locale)}
              [:i18n ::food-groups]]]
-           (food/render-filter-data food-groups)
-           (food/render-food-group-list app-db food-groups (set foods) locale)]))]]))
+           (food-group/render-food-group-filters app-db food-group foods locale)]))]]))
 
 (defn prepare-foods-table [locale foods]
   {:headers [{:text [:i18n ::food]}
@@ -82,7 +81,7 @@
                              [:food-group/id (:page/food-group-id page)])
         details (d/entity (:app/db context)
                           [:food-group/id (:page/food-group-id page)])
-        foods (->> (food/get-all-food-group-foods food-group)
+        foods (->> (food-group/get-all-food-group-foods food-group)
                    (sort-by (comp locale :food/name)))]
     (layout/layout
      context

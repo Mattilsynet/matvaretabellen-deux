@@ -41,7 +41,7 @@
   :significant "significantly different"
   :dramatic "highly varying"}
 
- #:matvaretabellen.food
+ #:matvaretabellen.food-group
  {:food-group [:fn/str "{{:food-group}} ({{:n}})"]}
 
  #:matvaretabellen.layout

@@ -3,6 +3,7 @@
             [matvaretabellen.components.comparison :as comparison]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
+            [matvaretabellen.food-group :as food-group]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.nutrient :as nutrient]
@@ -66,12 +67,6 @@
           [:a.mmm-link {:href (urls/get-nutrient-url locale n)}
            [:i18n :i18n/lookup (:nutrient/name n)]])])]))
 
-(defn render-food-group-filters [app-db food-db foods locale]
-  (let [food-groups (food/get-food-groups food-db)]
-    (list
-     (food/render-filter-data food-groups)
-     (food/render-food-group-list app-db food-groups (set foods) locale))))
-
 (defn render-sidebar [app-db nutrient foods locale]
   (let [target (or (:nutrient/parent nutrient) nutrient)]
     [:div.mmm-col.mmm-desktop {:id filter-panel-id}
@@ -89,7 +84,7 @@
        [:h2.mmm-h5
         [:a.mmm-link {:href (urls/get-food-groups-url locale)}
          [:i18n ::food-groups]]]
-       (render-food-group-filters app-db (d/entity-db nutrient) foods locale)]]]))
+       (food-group/render-food-group-filters app-db (d/entity-db nutrient) foods locale)]]]))
 
 (defn render [context db page]
   (let [nutrient (d/entity (:foods/db context) [:nutrient/id (:page/nutrient-id page)])
