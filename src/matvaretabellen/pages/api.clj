@@ -12,13 +12,14 @@
        (map #(d/entity (:foods/db context) %))
        (sort-by (comp (:page/locale page) :food/name))))
 
-(defn camel-case [s]
+(defn camel-case-k [s]
   (let [[w & ws] (str/split s #"-")]
-    (str w (str/join (map str/capitalize ws)))))
+    (keyword (str w (str/join (map str/capitalize ws))))))
 
 (def bespoke-json-keys
   {:food/id :foodId
    :food/name :foodName
+   :food-group/id :foodGroupId
    :portion-kind/name :portionName
    :portion-kind/unit :portionUnit
    :quantity/number :quantity
@@ -30,7 +31,7 @@
    (fn [x]
      (if (keyword? x)
        (or (bespoke-json-keys x)
-           (camel-case (name x)))
+           (camel-case-k (name x)))
        x))
    data))
 
@@ -50,6 +51,8 @@
 
 (defn render-food-data [context page]
   {:content-type (:page/format page)
-   :body (->> (get-all-foods context page)
-              (map #(food/food->api-data (:page/locale page) %))
-              (prepare-response context page))})
+   :body {:foods (->> (get-all-foods context page)
+                      (map #(food/food->api-data (:page/locale page) %))
+                      (prepare-response context page))
+          :locale (:page/locale page)}})
+
