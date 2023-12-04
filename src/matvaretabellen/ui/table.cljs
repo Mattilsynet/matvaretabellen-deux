@@ -59,6 +59,7 @@
     (.addEventListener (dom/qs form "input") "input" f)))
 
 (defn render-food [el food columns lang]
+  (.setAttribute el "data-id" (:foodGroupId food))
   (doseq [td (.-childNodes el)]
     (let [id (.getAttribute td "data-id")]
       (if (columns id)

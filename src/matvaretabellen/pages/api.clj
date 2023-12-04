@@ -50,6 +50,7 @@
 
 (defn food->compact-api-data [locale food]
   {:id (:food/id food)
+   :foodGroupId (:food-group/id (:food/food-group food))
    :url (urls/get-food-url locale food)
    :foodName (get (:food/name food) locale)
    :energyKj (some-> food :food/energy :measurement/quantity b/num int)
