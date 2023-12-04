@@ -102,3 +102,86 @@
                             :quantity 60.0
                             :unit "g"}}}]
              :locale :nb}}))))
+
+(deftest nutrients-api-test
+  (testing "Returns EDN data"
+    (is (= (-> (sut/render-nutrient-data
+                {:foods/db (fdb/get-test-food-db)
+                 :powerpack/app {:site/base-url "https://mvt.no"}}
+                {:page/format :edn
+                 :page/locale :nb})
+               (update-in [:body :nutrients] #(take 4 %)))
+           {:content-type :edn,
+            :body
+            {:nutrients
+             [{:page/uri "https://mvt.no/fett/"
+               :nutrient/id "Fett"
+               :nutrient/name "Fett"
+               :nutrient/euro-fir-id "FAT"
+               :nutrient/euro-fir-name "fat, total"
+               :nutrient/unit "g"
+               :nutrient/decimal-precision 1}
+              {:page/uri "https://mvt.no/karbohydrat/"
+               :nutrient/id "Karbo"
+               :nutrient/name "Karbohydrat"
+               :nutrient/euro-fir-id "CHO"
+               :nutrient/euro-fir-name "carbohydrate"
+               :nutrient/unit "g"
+               :nutrient/decimal-precision 1}
+              {:page/uri "https://mvt.no/kostfiber/"
+               :nutrient/id "Fiber"
+               :nutrient/name "Kostfiber"
+               :nutrient/euro-fir-id "FIBT"
+               :nutrient/euro-fir-name "fibre, total dietary"
+               :nutrient/unit "g"
+               :nutrient/decimal-precision 1}
+              {:page/uri "https://mvt.no/stivelse/"
+               :nutrient/id "Stivel"
+               :nutrient/name "Stivelse"
+               :nutrient/euro-fir-id "STARCH"
+               :nutrient/euro-fir-name "starch, total"
+               :nutrient/unit "g"
+               :nutrient/decimal-precision 1
+               :nutrient/parent-id "Karbo"}]
+             :locale :nb}})))
+
+  (testing "Returns JSON data"
+    (is (= (-> (sut/render-nutrient-data
+                {:foods/db (fdb/get-test-food-db)
+                 :powerpack/app {:site/base-url "https://mvt.no"}}
+                {:page/format :json
+                 :page/locale :nb})
+               (update-in [:body :nutrients] #(take 4 %)))
+           {:content-type :json
+            :body
+            {:nutrients
+             [{:uri "https://mvt.no/fett/"
+               :nutrientId "Fett"
+               :name "Fett"
+               :euroFirId "FAT"
+               :euroFirName "fat, total"
+               :unit "g"
+               :decimalPrecision 1}
+              {:uri "https://mvt.no/karbohydrat/"
+               :nutrientId "Karbo"
+               :name "Karbohydrat"
+               :euroFirId "CHO"
+               :euroFirName "carbohydrate"
+               :unit "g"
+               :decimalPrecision 1}
+              {:uri "https://mvt.no/kostfiber/"
+               :nutrientId "Fiber"
+               :name "Kostfiber"
+               :euroFirId "FIBT"
+               :euroFirName "fibre, total dietary"
+               :unit "g"
+               :decimalPrecision 1}
+              {:uri "https://mvt.no/stivelse/"
+               :nutrientId "Stivel"
+               :name "Stivelse"
+               :euroFirId "STARCH"
+               :euroFirName "starch, total"
+               :unit "g"
+               :decimalPrecision 1
+               :parentId "Karbo"}]
+             :locale :nb}}))))

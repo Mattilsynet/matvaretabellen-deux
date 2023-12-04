@@ -106,6 +106,22 @@
    {:page/uri (urls/get-foods-api-url :en :edn)
     :page/kind :page.kind/food-data
     :page/locale :en
+    :page/format :edn}
+   {:page/uri (urls/get-nutrients-api-url :nb :json)
+    :page/kind :page.kind/nutrient-data
+    :page/locale :nb
+    :page/format :json}
+   {:page/uri (urls/get-nutrients-api-url :en :json)
+    :page/kind :page.kind/nutrient-data
+    :page/locale :en
+    :page/format :json}
+   {:page/uri (urls/get-nutrients-api-url :nb :edn)
+    :page/kind :page.kind/nutrient-data
+    :page/locale :nb
+    :page/format :edn}
+   {:page/uri (urls/get-nutrients-api-url :en :edn)
+    :page/kind :page.kind/nutrient-data
+    :page/locale :en
     :page/format :edn}])
 
 (defn render-foods-index [db page]
@@ -147,6 +163,7 @@
       :page.kind/food-groups (food-groups-page/render context db page)
       :page.kind/foods-excel (excel/render-all-foods db (get-latest-year) page)
       :page.kind/food-group-excel (excel/render-food-group-foods db (get-latest-year) page)
+      :page.kind/nutrient-data (api/render-nutrient-data context page)
       :page.kind/nutrient-excel (excel/render-nutrient-foods db (get-latest-year) page)
       :page.kind/nutrient (nutrient-page/render context db page)
       :page.kind/nutrients (nutrients-page/render context db page)

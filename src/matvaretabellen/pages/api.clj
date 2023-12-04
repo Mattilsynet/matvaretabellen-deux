@@ -2,7 +2,9 @@
   (:require [clojure.string :as str]
             [clojure.walk :as walk]
             [datomic-type-extensions.api :as d]
-            [matvaretabellen.food :as food]))
+            [matvaretabellen.food :as food]
+            [matvaretabellen.nutrient :as nutrient]
+            [matvaretabellen.urls :as urls]))
 
 (defn get-all-foods [context page]
   (->> (d/q '[:find [?f ...]
@@ -56,3 +58,18 @@
                       (prepare-response context page))
           :locale (:page/locale page)}})
 
+(defn nutrient->api-data [locale nutrient]
+  (-> (cond-> {:page/uri (urls/get-nutrient-url locale nutrient)}
+        (:nutrient/parent nutrient)
+        (assoc :nutrient/parent-id (-> nutrient :nutrient/parent :nutrient/id)))
+      (into nutrient)
+      (update :nutrient/name locale)
+      (dissoc :nutrient/parent)))
+
+(defn render-nutrient-data [context page]
+  {:content-type (:page/format page)
+   :body {:nutrients (->> (nutrient/get-used-nutrients (:foods/db context))
+                          nutrient/sort-by-preference
+                          (map #(nutrient->api-data (:page/locale page) %))
+                          (prepare-response context page))
+          :locale (:page/locale page)}})
