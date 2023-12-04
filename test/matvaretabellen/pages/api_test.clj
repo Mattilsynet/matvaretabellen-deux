@@ -432,3 +432,36 @@
                :decimalPrecision 1
                :parentId "Karbo"}]
              :locale :nb}}))))
+
+(deftest langual-codes-api-test
+  (testing "Returns EDN data"
+    (is (= (-> (sut/render-langual-data
+                {:foods/db (fdb/get-test-food-db)
+                 :powerpack/app {:site/base-url "https://mvt.no"}}
+                {:page/format :edn})
+               (update-in [:body :codes] #(take 3 %)))
+           {:content-type :edn
+            :body
+            {:codes
+             [{:langual-code/id "0"
+               :langual-code/description "Langual thesaurus root"}
+              {:langual-code/id "A0001"
+               :langual-code/description "Product type, not known"}
+              {:langual-code/id "A0004"
+               :langual-code/description "Product type, other"}]}})))
+
+  (testing "Returns JSON data"
+    (is (= (-> (sut/render-langual-data
+                {:foods/db (fdb/get-test-food-db)
+                 :powerpack/app {:site/base-url "https://mvt.no"}}
+                {:page/format :json})
+               (update-in [:body :codes] #(take 3 %)))
+           {:content-type :json
+            :body
+            {:codes
+             [{:langualCode "0"
+               :description "Langual thesaurus root"}
+              {:langualCode "A0001"
+               :description "Product type, not known"}
+              {:langualCode "A0004"
+               :description "Product type, other"}]}}))))

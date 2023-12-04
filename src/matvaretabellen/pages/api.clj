@@ -23,6 +23,7 @@
   {:food/id :foodId
    :food/name :foodName
    :food-group/id :foodGroupId
+   :langual-code/id :langualCode
    :portion-kind/name :portionName
    :portion-kind/unit :portionUnit
    :quantity/number :quantity
@@ -125,3 +126,15 @@
                           (map #(nutrient->api-data (:page/locale page) %))
                           (prepare-response context page))
           :locale (:page/locale page)}})
+
+(defn render-langual-data [context page]
+  {:content-type (:page/format page)
+   :body {:codes (->> (d/q '[:find [?e ...]
+                             :where
+                             [?e :langual-code/id]]
+                           (:foods/db context))
+                      (map #(d/entity (:foods/db context) %))
+                      (sort-by :langual-code/id)
+                      (map #(-> (into {} %)
+                                (update :langual-code/description food/humanize-langual-classification)))
+                      (prepare-response context page))}})
