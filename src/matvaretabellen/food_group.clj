@@ -63,8 +63,7 @@
             foods-db)
        (map #(d/entity foods-db %))))
 
-(defn render-food-group-filters [app-db food-db foods locale]
-  (let [food-groups (get-food-groups food-db)]
-    (list
-     (render-filter-data food-groups)
-     (render-food-group-list app-db food-groups (set foods) locale))))
+(defn render-food-group-filters [app-db food-groups foods locale]
+  (list
+   (render-filter-data food-groups)
+   (render-food-group-list app-db food-groups (set foods) locale)))

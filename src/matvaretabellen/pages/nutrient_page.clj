@@ -84,7 +84,11 @@
        [:h2.mmm-h5
         [:a.mmm-link {:href (urls/get-food-groups-url locale)}
          [:i18n ::food-groups]]]
-       (food-group/render-food-group-filters app-db (d/entity-db nutrient) foods locale)]]]))
+       (food-group/render-food-group-filters
+        app-db
+        (food-group/get-food-groups (d/entity-db nutrient))
+        foods
+        locale)]]]))
 
 (defn render [context db page]
   (let [nutrient (d/entity (:foods/db context) [:nutrient/id (:page/nutrient-id page)])

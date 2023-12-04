@@ -55,14 +55,13 @@
            (let [{:keys [url text]} (get-back-link locale food-group)]
              [:h2.mmm-h5 [:a.mmm-link {:href url} text]])
            links])
-        (let [food-groups (:food-group/_parent food-group)]
-          [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider
-           [:div.mmm-mobile.mmm-pos-tr.mmm-mts
-            (layout/render-sidebar-close-button filter-panel-id)]
-           [:h2.mmm-h5
-            [:a.mmm-link {:href (urls/get-food-groups-url locale)}
-             [:i18n ::food-groups]]]
-           (food-group/render-food-group-filters app-db food-group foods locale)]))]]))
+        [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider
+         [:div.mmm-mobile.mmm-pos-tr.mmm-mts
+          (layout/render-sidebar-close-button filter-panel-id)]
+         [:h2.mmm-h5
+          [:a.mmm-link {:href (urls/get-food-groups-url locale)}
+           [:i18n ::food-groups]]]
+         (food-group/render-food-group-filters app-db (:food-group/_parent food-group) foods locale)])]]))
 
 (defn prepare-foods-table [locale foods]
   {:headers [{:text [:i18n ::food]}

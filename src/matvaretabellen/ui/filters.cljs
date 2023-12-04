@@ -26,7 +26,7 @@
   (keep #(dom/qs panel (str "label[data-filter-id='" % "'] input")) ids))
 
 (defn get-rows [table ids]
-  (mapcat #(dom/qsa table (str "[data-id='" % "']")) ids))
+  (mapcat #(dom/qsa table (str "tr[data-id='" % "']")) ids))
 
 (defn check [checkbox]
   (set! (.-checked checkbox) true))
