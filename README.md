@@ -129,10 +129,10 @@ opp både backenden og frontenden.
 - Fløtt dem over til vår datakatalog ferdig formatert:
 
     ```
-    jq '.' foodcase-food-nb.json > work/matvaretabellen/data/foodcase-food-nb.json
-    jq '.' foodcase-food-en.json > work/matvaretabellen/data/foodcase-food-en.json
-    jq '.' foodcase-data-nb.json > work/matvaretabellen/data/foodcase-data-nb.json
-    jq '.' foodcase-data-en.json > work/matvaretabellen/data/foodcase-data-en.json
+    jq '.' foodcase-food-nb.json > data/foodcase-food-nb.json
+    jq '.' foodcase-food-en.json > data/foodcase-food-en.json
+    jq '.' foodcase-data-nb.json > data/foodcase-data-nb.json
+    jq '.' foodcase-data-en.json > data/foodcase-data-en.json
     ```
 
 - Prøv å kjøre en import. Det gjør du fra `dev/matvaretabellen/dev.clj` ved å
