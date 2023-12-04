@@ -1,5 +1,6 @@
 (ns matvaretabellen.pages.api
-  (:require [clojure.string :as str]
+  (:require [broch.core :as b]
+            [clojure.string :as str]
             [clojure.walk :as walk]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.food :as food]
@@ -46,15 +47,66 @@
              data)
       (= :json (:page/format page)) ->json)))
 
+(defn food->compact-api-data [locale food]
+  {:id (:food/id food)
+   :url (urls/get-food-url locale food)
+   :foodName (get (:food/name food) locale)
+   :energyKj (some-> food :food/energy :measurement/quantity b/num int)
+   :energyKcal (some-> food :food/calories :measurement/observation parse-long)
+   :ediblePart (:measurement/percent (:food/edible-part food))
+   :constituents (->> (for [constituent (:food/constituents food)]
+                        [(-> constituent :constituent/nutrient :nutrient/id)
+                         {:quantity [(or (some-> constituent :measurement/quantity b/num) 0)
+                                     (or (some-> constituent :measurement/quantity b/symbol) "g")]}])
+                      (into {}))})
+
 (defn render-compact-foods [context page]
   {:content-type :json
    :body (->> (get-all-foods context page)
-              (map #(food/food->compact-api-data (:page/locale page) %)))})
+              (map #(food->compact-api-data (:page/locale page) %)))})
+
+(defn ->api-quantity [quantity]
+  {:quantity/number (b/num quantity)
+   :quantity/unit (b/symbol quantity)})
+
+(defn ->api-measurement [e & [observation-unit]]
+  (cond-> (select-keys (into {} e) [:measurement/percent])
+    (:measurement/source e)
+    (assoc :source/id (:source/id (:measurement/source e)))
+
+    (:measurement/quantity e)
+    (merge (->api-quantity (:measurement/quantity e)))
+
+    (:measurement/observation e)
+    (merge {:quantity/number (parse-long (:measurement/observation e))
+            :quantity/unit observation-unit})
+
+    (:constituent/nutrient e)
+    (assoc :nutrient/id (-> e :constituent/nutrient :nutrient/id))))
+
+(defn ->api-portion [locale portion]
+  (merge
+   {:portion-kind/name (get-in (:portion/kind portion) [:portion-kind/name locale])
+    :portion-kind/unit (:portion-kind/unit (:portion/kind portion))}
+   (->api-quantity (:portion/quantity portion))))
+
+(defn food->api-data [locale food]
+  (-> (into {:page/uri (urls/get-food-url locale food)} food)
+      (update :food/name locale)
+      (dissoc :food/food-group)
+      (assoc :food-group/id (-> food :food/food-group :food-group/id))
+      (update :food/search-keywords locale)
+      (update :food/langual-codes #(set (map :langual-code/id %)))
+      (update :food/edible-part ->api-measurement)
+      (update :food/energy ->api-measurement)
+      (update :food/calories ->api-measurement "kcal")
+      (update :food/portions #(set (map (partial ->api-portion locale) %)))
+      (update :food/constituents #(set (map ->api-measurement %)))))
 
 (defn render-food-data [context page]
   {:content-type (:page/format page)
    :body {:foods (->> (get-all-foods context page)
-                      (map #(food/food->api-data (:page/locale page) %))
+                      (map #(food->api-data (:page/locale page) %))
                       (prepare-response context page))
           :locale (:page/locale page)}})
 
