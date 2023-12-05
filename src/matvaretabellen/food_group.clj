@@ -29,7 +29,8 @@
          (map get-all-food-group-foods (:food-group/_parent food-group))))
 
 (defn get-foods-in-group [group foods]
-  (set/intersection (set foods) (set (get-all-food-group-foods group))))
+  (cond->> (set (get-all-food-group-foods group))
+    (seq foods) (set/intersection (set foods))))
 
 (defn render-food-group-list [app-db food-groups foods locale & [{:keys [class id]}]]
   (when (seq food-groups)
@@ -44,9 +45,11 @@
                  [:li
                   (Checkbox
                    {:data-filter-id (:food-group/id group)
-                    :label [:i18n ::food-group
-                            {:food-group (get-in group [:food-group/name locale])
-                             :n n}]})
+                    :label (if foods
+                             [:i18n ::food-group
+                              {:food-group (get-in group [:food-group/name locale])
+                               :n n}]
+                             (get-in group [:food-group/name locale]))})
                   (render-food-group-list
                    app-db
                    (:food-group/_parent group)
@@ -66,4 +69,4 @@
 (defn render-food-group-filters [app-db food-groups foods locale]
   (list
    (render-filter-data food-groups)
-   (render-food-group-list app-db food-groups (set foods) locale)))
+   (render-food-group-list app-db food-groups (some-> foods set) locale)))
