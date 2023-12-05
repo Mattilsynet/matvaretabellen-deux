@@ -76,7 +76,7 @@
   :edible-part [:fn/str "Spiselig del: {{:pct}}&nbsp;%"]
   :energy-content "Energiinnhold"
   :energy-content-title-mobile (list "Per " [:fn/get :portion])
-  :energy-content-title (list "Energi (kJ) i " [:fn/get :portion])
+  :energy-content-title (list "Energi i " [:fn/get :portion])
   :energy [:fn/str "Kaloriinnhold: {{:kilo-joules}} ({{:calories}} kcal)"]
   :energy-highlight-title [:fn/str "Energi →"]
   :energy-title "Energigivende næringsstoffer"
