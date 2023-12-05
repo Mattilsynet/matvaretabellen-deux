@@ -89,8 +89,8 @@
 
     (sidebar/initialize ".mvt-sidebar-toggle")
 
-    (let [panel (js/document.getElementById "filter-panel")
-          table (js/document.getElementById "filtered-table")]
+    (let [panel (dom/qs ".mvt-food-group-filters")
+          table (dom/qs ".mvt-filtered-table")]
       (when (and panel table)
         (filters/initialize-filter panel table))))
 

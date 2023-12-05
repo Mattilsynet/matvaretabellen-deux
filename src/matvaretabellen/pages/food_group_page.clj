@@ -37,7 +37,7 @@
 
 (defn render-sidebar [app-db food-group foods locale]
   (let [target (or (:food-group/parent food-group) food-group)]
-    [:div.mmm-col.mmm-desktop {:id filter-panel-id}
+    [:div.mmm-col.mmm-desktop.mvt-food-group-filters {:id filter-panel-id}
      [:div.mmm-sidebar-content
       ;; Sub groups don't make for interesting filtering options, as they don't
       ;; list any foods above their level in the hierarchy.
@@ -68,6 +68,7 @@
              {:text [:i18n ::compare]
               :class :mmm-td-min}]
    :id "filtered-table"
+   :classes [:mvt-filtered-table]
    :rows (for [food foods]
            {:data-id (:food-group/id (:food/food-group food))
             :cols [{:text [:a.mmm-link {:href (urls/get-food-url locale food)}

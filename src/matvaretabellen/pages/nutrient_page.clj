@@ -20,6 +20,7 @@
              {:text [:i18n ::compare]
               :class "mmm-td-min mmm-desktop"}]
    :id "filtered-table"
+   :classes [:mvt-filtered-table]
    :rows (for [food foods]
            {:data-id (:food-group/id (:food/food-group food))
             :cols
@@ -78,7 +79,7 @@
          (let [{:keys [url text]} (get-back-link locale nutrient)]
            [:h2.mmm-h5 [:a.mmm-link {:href url} text]])
          links])
-      [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider
+      [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider.mvt-food-group-filters
        [:div.mmm-mobile.mmm-pos-tr.mmm-mts
         (layout/render-sidebar-close-button filter-panel-id)]
        [:h2.mmm-h5
