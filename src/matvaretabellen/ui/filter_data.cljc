@@ -1,17 +1,20 @@
 (ns matvaretabellen.ui.filter-data)
 
 (defn create [paths & [selected]]
-  {:selected (set selected)
-   :paths paths
-   :id->path (->> (map (juxt last identity) paths)
-                  (into {}))})
+  {::selected (set selected)
+   ::paths paths
+   ::id->path (->> (map (juxt last identity) paths)
+                   (into {}))})
 
 (defn get-children [paths path]
   (->> paths
        (filter #(= path (drop-last %)))
        (map last)))
 
-(defn get-active [{:keys [selected paths id->path]}]
+(defn get-selected [{::keys [selected]}]
+  selected)
+
+(defn get-active [{::keys [selected paths id->path]}]
   (set
    (if (empty? selected)
      (keys id->path)
@@ -24,8 +27,8 @@
       selected))))
 
 (defn select-id [filters id]
-  (update filters :selected conj id))
+  (update filters ::selected conj id))
 
 (defn deselect-id [filters id]
-  (let [ids (cons id (get-children (:paths filters) ((:id->path filters) id)))]
-    (update filters :selected #(reduce disj % ids))))
+  (let [ids (cons id (get-children (::paths filters) ((::id->path filters) id)))]
+    (update filters ::selected #(reduce disj % ids))))

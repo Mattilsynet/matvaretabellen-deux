@@ -11,12 +11,15 @@
            js/JSON.parse
            js->clj))
 
-(defn get-filter-store [panel]
+(defn init-filters [panel]
   (let [paths (get-filter-paths panel)
         selected (dom/get-session-edn (get-session-storage-k))]
-    (atom (fd/create paths selected))))
+    (fd/create paths selected)))
 
-(defn sync-filters [{:keys [selected]}]
+(defn persist-filters
+  "Sync filters to session storage for sticky filters across reloads and page
+  navigations"
+  [{:keys [selected]}]
   (dom/set-session-edn (get-session-storage-k) selected))
 
 (defn get-lists [panel ids]
@@ -31,13 +34,19 @@
 (defn check [checkbox]
   (set! (.-checked checkbox) true))
 
-(defn update-ui [panel table prev next]
+(defn render-filters [panel prev next]
+  (doall (map dom/show (get-lists panel (fd/get-selected next))))
+  (doall (map dom/hide (get-lists panel (remove (fd/get-selected next) (fd/get-selected prev))))))
+
+(defn render-table [table prev next]
   (let [next-active (fd/get-active next)]
-    (doall (map dom/show (get-lists panel (:selected next))))
-    (doall (map dom/hide (get-lists panel (remove (:selected next) (:selected prev)))))
     (doall (map dom/show (get-rows table next-active)))
     (doall (map dom/hide (get-rows table (remove next-active (fd/get-active prev)))))
     (dom/re-zebra-table table)))
+
+(defn update-ui [panel table prev next]
+  (render-filters panel prev next)
+  (render-table table prev next))
 
 (defn get-filter-id [el]
   (let [label (.closest el "label")]
@@ -51,12 +60,12 @@
         (swap! store fd/deselect-id (get-filter-id el))))))
 
 (defn initialize-filter [panel table]
-  (let [store (get-filter-store panel)
+  (let [store (atom (init-filters panel))
         filters @store]
     (add-watch store ::filters (fn [_ _ prev next]
                                  (update-ui panel table prev next)
-                                 (sync-filters next)))
+                                 (persist-filters next)))
     (.addEventListener panel "click" #(toggle-filter % store))
-    (when (seq (:selected filters))
-      (doall (map check (get-checkboxes panel (:selected filters))))
-      (update-ui panel table (dissoc filters :selected) filters))))
+    (when-let [selected (seq (fd/get-selected filters))]
+      (doall (map check (get-checkboxes panel selected)))
+      (update-ui panel table nil filters))))
