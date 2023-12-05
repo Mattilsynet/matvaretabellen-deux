@@ -68,7 +68,7 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
     clj -M:dev -m figwheel.main -b dev -r
     ```
 
-- [Se på UI-komponentene](http://localhost:5054/)
+- [Se på UI-komponentene med Portfolio](http://localhost:5054/)
 
 - Kopier eksempelkonfigurasjonen:
 
