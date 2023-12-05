@@ -16,7 +16,7 @@
                   text)])])])
    [:a {:href "https://www.mattilsynet.no"
         :title "Mattilsynet"}
-    (MattilsynetLogo)]])
+    (MattilsynetLogo {:class :mmm-logo})]])
 
 (defn CompactSiteFooter []
   (Footer

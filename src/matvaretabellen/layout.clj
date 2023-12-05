@@ -9,7 +9,7 @@
             [mmm.components.site-header :refer [SiteHeader]]))
 
 (defn layout [context page head body]
-  [:html {:class "mmm"}
+  [:html {:class "mmm mt90s"}
    head
    (into
     body

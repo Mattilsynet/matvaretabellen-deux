@@ -1,5 +1,5 @@
 /* The Mattilsynet 90s theme */
-:root {
+.mt90s {
     --mt-color-red-100: #f9d6d4;
     --mt-color-red-200: #e23128;
     --mt-color-red-500: #a41d16;
@@ -273,7 +273,7 @@
 }
 
 @media only screen and (min-width: 768px) {
-    .mmm {
+    .mt90s {
         --mt-typography-small-font-size: 16px;
         --mt-typography-base-font-size: 21.5px;
         --mt-column-gap: var(--mt-spacing-x1_4);
@@ -283,8 +283,8 @@
 
 /* Brand themes */
 
-.mmm, /* Default theme */
-.mmm-brand-theme1 {
+.mt90s, /* Default theme */
+.mt90s .mmm-brand-theme1 {
     --mt-brand-theme-bg: var(--mt-color-beige-200);
     --mt-brand-theme-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-main-bg: var(--mt-color-white);
@@ -295,7 +295,7 @@
     --mt-brand-theme-secondary-action-color: var(--mt-color-text-action-default);
 }
 
-.mmm-brand-theme2 {
+.mt90s .mmm-brand-theme2 {
     --mt-brand-theme-bg: var(--mt-color-blue-100);
     --mt-brand-theme-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-main-bg: var(--mt-color-white);
@@ -306,7 +306,7 @@
     --mt-brand-theme-secondary-action-color: var(--mt-color-white);
 }
 
-.mmm-brand-theme3 {
+.mt90s .mmm-brand-theme3 {
     --mt-brand-theme-bg: var(--mt-color-green-100);
     --mt-brand-theme-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-main-bg: var(--mt-color-white);
@@ -316,3 +316,6 @@
     --mt-brand-theme-secondary-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-secondary-action-color: var(--mt-color-text-neutral-default);
 }
+
+.mmm .mmm-theme-toggled {display: none;}
+.mt90s .show-for-mt90s {display: block;}
