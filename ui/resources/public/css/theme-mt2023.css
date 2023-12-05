@@ -1,30 +1,100 @@
-/* The Mattilsynet 90s theme */
-.mt90s {
-    --mt-color-red-100: #f9d6d4;
-    --mt-color-red-200: #e23128;
-    --mt-color-red-500: #a41d16;
-    --mt-color-beige-50: #afab8980; /* ? */
-    --mt-color-beige-100: #f9f6f1;
-    --mt-color-beige-200: #f1eadf;
-    --mt-color-beige-500: #afab89;
-    --mt-color-brown-900: #3f3e3e;
-    --mt-color-blue-100: #d6e8ed;
-    --mt-color-blue-200: #348ba3;
-    --mt-color-blue-500: #075b7a;
-    --mt-color-green-100: #dfe9cb;
-    --mt-color-green-500: #b0c87c;
-    --mt-color-orange-100: #fae4b6;
-    --mt-color-orange-500: #efa60b;
-    --mt-color-white: #ffffff;
+/* The Mattilsynet 2023 theme */
 
-    --mt-color-fat: #cfe5f3;
-    --mt-color-carbs: #a8d7f4;
-    --mt-color-protein: #71abd0;
-    --mt-color-water: #2a5473;
-    --mt-color-fiber: var(--mt-color-green-100);
-    --mt-color-alco: var(--mt-color-green-500);
+/* Alle farger er akkurat nå kopiert over fra 90s-theme */
 
-    --mt-font-family-main: Helvetica;
+.mt2023 {
+    --mt-cool-grey-100: #F7F7F8;
+    --mt-cool-grey-200: #EEEFF1;
+    --mt-cool-grey-300: #E0E2E6;
+    --mt-cool-grey-400: #B6BCC3;
+    --mt-cool-grey-500: #818A98;
+    --mt-cool-grey-600: #5C6470;
+    --mt-cool-grey-700: #3E444C;
+    --mt-cool-grey-800: #22262A;
+    --mt-cool-grey-900: #121416;
+    --mt-warm-grey-100: #F8F7F7;
+    --mt-warm-grey-200: #F1EFEE;
+    --mt-warm-grey-300: #E6E2E0;
+    --mt-warm-grey-400: #C3BAB6;
+    --mt-warm-grey-500: #988781;
+    --mt-warm-grey-600: #70625C;
+    --mt-warm-grey-700: #4C423E;
+    --mt-warm-grey-800: #2A2522;
+    --mt-warm-grey-900: #161412;
+    --mt-grey-100: #F7F7F7;
+    --mt-grey-200: #F0F0F0;
+    --mt-grey-300: #E3E3E3;
+    --mt-grey-400: #BDBDBD;
+    --mt-grey-500: #8C8C8C;
+    --mt-grey-600: #666666;
+    --mt-grey-700: #454545;
+    --mt-grey-800: #262626;
+    --mt-grey-900: #141414;
+    --mt-brown-100: #FBF6F4;
+    --mt-brown-200: #F6EDE9;
+    --mt-brown-300: #EFDED7;
+    --mt-brown-400: #D7B2A2;
+    --mt-brown-500: #BA795F;
+    --mt-brown-600: #8E553E;
+    --mt-brown-700: #60392A;
+    --mt-brown-800: #8C8C8C;
+    --mt-brown-900: #1C110C;
+    --mt-red-100: #FFF3F0;
+    --mt-red-200: #FFE7E2;
+    --mt-red-300: #F6D7D0;
+    --mt-red-400: #EAA090;
+    --mt-red-500: #DA5A3E;
+    --mt-red-600: #AB3921;
+    --mt-red-700: #742616;
+    --mt-red-800: #40150C;
+    --mt-red-900: #220B07;
+    --mt-yellow-100: #FEF9F0;
+    --mt-yellow-200: #FEF4E2;
+    --mt-yellow-300: #FDEBC9;
+    --mt-yellow-400: #F6D683;
+    --mt-yellow-500: #F5AD23;
+    --mt-yellow-600: #C38309;
+    --mt-yellow-700: #845906;
+    --mt-yellow-800: #493103;
+    --mt-yellow-900: #231906;
+    --mt-green-100: #F8FAF5;
+    --mt-green-200: #F0F4EB;
+    --mt-green-300: #E4ECDA;
+    --mt-green-400: #BFD1A9;
+    --mt-green-500: #91B068;
+    --mt-green-600: #6A8646;
+    --mt-green-700: #485A30;
+    --mt-green-800: #28321A;
+    --mt-green-900: #151B0E;
+    --mt-mint-100: #F5FAF8;
+    --mt-mint-200: #EBF4F1;
+    --mt-mint-300: #DAECE5;
+    --mt-mint-400: #9DDDC5;
+    --mt-mint-500: #68B096;
+    --mt-mint-600: #46866F;
+    --mt-mint-700: #2F5A4B;
+    --mt-mint-800: #1A322A;
+    --mt-mint-900: #0E1B16;
+    --mt-mt-100: #F1FDFE;
+    --mt-mt-200: #E2FBFD;
+    --mt-mt-300: #CBF8FB;
+    --mt-mt-400: #84EFF6;
+    --mt-mt-500: #28E3F0;
+    --mt-mt-600: #0DAEBA;
+    --mt-mt-700: #08676E;
+    --mt-mt-800: #054449;
+    --mt-mt-900: #032426;
+    --mt-blue-100: #F2F6FD;
+    --mt-blue-200: #E4EEFB;
+    --mt-blue-300: #CFE0F7;
+    --mt-blue-400: #8EB5EC;
+    --mt-blue-500: #3B7EDE;
+    --mt-blue-600: #1E59AE;
+    --mt-blue-700: #143C76;
+    --mt-blue-800: #0B2141;
+    --mt-blue-900: #061223;
+
+    --mt-font-family-main: avenir;
 
     --mt-font-weight-light: 300;
     --mt-font-weight-normal: 400;
@@ -34,47 +104,47 @@
     --mt-font-line-height-tight: 1.2;
     --mt-font-line-height-normal: 1.5;
 
-    --mt-color-background-default: var(--mt-color-beige-100);
-    --mt-color-surface-default: var(--mt-color-white);
-    --mt-color-surface-subtle: var(--mt-color-beige-100);
-    --mt-color-surface-action-default: var(--mt-color-blue-500);
-    --mt-color-surface-action-hover: var(--mt-color-brown-900);
-    --mt-color-surface-success-subtle: var(--mt-color-green-100);
-    --mt-color-surface-success-default: var(--mt-color-green-500);
-    --mt-color-surface-info-subtle: var(--mt-color-blue-100);
-    --mt-color-surface-info-default: var(--mt-color-blue-500);
-    --mt-color-surface-warning-subtle: var(--mt-color-orange-100);
-    --mt-color-surface-warning-default: var(--mt-color-orange-500);
-    --mt-color-surface-danger-subtle: var(--mt-color-red-100);
-    --mt-color-surface-danger-default: var(--mt-color-red-500);
-    --mt-color-surface-danger-no-fill: var(--mt-color-white);
-    --mt-color-surface-danger-no-fill-hover: var(--mt-color-red-100);
-    --mt-color-text-neutral-default: var(--mt-color-brown-900);
-    --mt-color-text-neutral-on-inverted: var(--mt-color-white);
-    --mt-color-text-action-default: var(--mt-color-blue-500);
-    --mt-color-text-danger-default: var(--mt-color-brown-900);
-    --mt-color-text-success-default: var(--mt-color-brown-900);
-    --mt-color-text-status-warning: var(--mt-color-brown-900);
-    --mt-color-border-action-default: var(--mt-color-blue-200);
-    --mt-color-border-action-active: var(--mt-color-blue-500);
-    --mt-color-border-neutral-default: var(--mt-color-beige-500);
-    --mt-color-border-info-default: var(--mt-color-brown-900);
-    --mt-color-border-success-default: var(--mt-color-green-500);
-    --mt-color-border-danger-default: var(--mt-color-red-500);
-    --mt-color-border-warning-default: var(--mt-color-orange-500);
-    --mt-color-border-on-inverted-default: var(--mt-color-white);
-    --mt-color-border-on-inverted-hover: var(--mt-color-white);
-    --mt-color-border-on-inverted-active: var(--mt-color-beige-500);
-    --mt-color-border-input-default: var(--mt-color-beige-500);
-    --mt-color-border-input-hover: var(--mt-color-blue-500);
-    --mt-color-border-input-active: var(--mt-color-blue-200);
-    --mt-color-icon: var(--mt-color-brown-900);
-    --mt-color-icon-primary: var(--mt-color-blue-900);
-    --mt-color-icon-primary-inverted: var(--mt-color-white);
-    --mt-color-icon-status-danger: var(--mt-color-red-500);
-    --mt-color-border-status-success: var(--mt-color-green-500);
-    --mt-color-border-status-warning: var(--mt-color-orange-500);
-    --mt-color-border-status-info: var(--mt-color-blue-500);
+    --mt-color-background-default: #f9f6f1;
+    --mt-color-surface-default: #ffffff;
+    --mt-color-surface-subtle: #f9f6f1;
+    --mt-color-surface-action-default: #075b7a;
+    --mt-color-surface-action-hover: #3f3e3e;
+    --mt-color-surface-success-subtle: #dfe9cb;
+    --mt-color-surface-success-default: #b0c87c;
+    --mt-color-surface-info-subtle: #d6e8ed;
+    --mt-color-surface-info-default: #075b7a;
+    --mt-color-surface-warning-subtle: #fae4b6;
+    --mt-color-surface-warning-default: #efa60b;
+    --mt-color-surface-danger-subtle: #f9d6d4;
+    --mt-color-surface-danger-default: #a41d16;
+    --mt-color-surface-danger-no-fill: #ffffff;
+    --mt-color-surface-danger-no-fill-hover: #f9d6d4;
+    --mt-color-text-neutral-default: #3f3e3e;
+    --mt-color-text-neutral-on-inverted: #ffffff;
+    --mt-color-text-action-default: #075b7a;
+    --mt-color-text-danger-default: #3f3e3e;
+    --mt-color-text-success-default: #3f3e3e;
+    --mt-color-text-status-warning: #3f3e3e;
+    --mt-color-border-action-default: #348ba3;
+    --mt-color-border-action-active: #075b7a;
+    --mt-color-border-neutral-default: #afab89800;
+    --mt-color-border-info-default: #3f3e3e;
+    --mt-color-border-success-default: #b0c87c;
+    --mt-color-border-danger-default: #a41d16;
+    --mt-color-border-warning-default: #efa60b;
+    --mt-color-border-on-inverted-default: #ffffff;
+    --mt-color-border-on-inverted-hover: #ffffff;
+    --mt-color-border-on-inverted-active: #afab89800;
+    --mt-color-border-input-default: #afab89800;
+    --mt-color-border-input-hover: #075b7a;
+    --mt-color-border-input-active: #348ba3;
+    --mt-color-icon: #3f3e3e;
+    --mt-color-icon-primary: var(--mt-color-blue-900); 
+    --mt-color-icon-primary-inverted: #ffffff;
+    --mt-color-icon-status-danger: #a41d16;
+    --mt-color-border-status-success: #b0c87c;
+    --mt-color-border-status-warning: #efa60b;
+    --mt-color-border-status-info: #075b7a;
 
     --mt-typography-small-font-size: 16px;
     --mt-typography-base-font-size: 18px;
@@ -173,7 +243,7 @@
     --mt-border-radius-m: 5px;
     --mt-border-radius-circle: 50%;
 
-    --mt-focusable-shadow: 0 0 0 2px var(--mt-color-beige-100), 0 0 0 0.35rem var(--mt-color-blue-200);
+    --mt-focusable-shadow: 0 0 0 2px #f9f6f1, 0 0 0 0.35rem #348ba3;
 
     --mt-horizontal-gap: var(--mt-spacing-x1);
     --mt-column-gap: var(--mt-spacing-x1);
@@ -192,7 +262,7 @@
 
     --mt-component-ac-background: var(--mt-component-form-field-background);
     --mt-component-ac-border-color: var(--mt-component-form-field-border);
-    --mt-component-ac-active-background: var(--mt-color-blue-100);
+    --mt-component-ac-active-background: #d6e8ed;
 
     --mt-component-banner-media-buttons-padding: var(--mt-spacing-x2);
 
@@ -201,7 +271,7 @@
 
     --mt-component-button-background: var(--mt-color-surface-action-default);
     --mt-component-button-color: var(--mt-color-text-neutral-on-inverted);
-    --mt-component-button-disabled-background: var(--mt-color-blue-200);
+    --mt-component-button-disabled-background: #348ba3;
     --mt-component-button-disabled-color: var(--mt-color-text-neutral-on-inverted);
     --mt-component-button-font-size: 1.125rem;
     --mt-component-button-border-radius: 0.25em;
@@ -210,30 +280,31 @@
     --mt-component-button-secondary-color: var(--mt-color-surface-action-default);
     --mt-component-button-secondary-border: var(--mt-color-surface-action-default);
 
-    --mt-component-checkbox-inactive-bg: var(--mt-color-white);
-    --mt-component-checkbox-inactive-color: var(--mt-color-beige-500);
-    --mt-component-checkbox-active-color: var(--mt-color-blue-500);
+    --mt-component-checkbox-inactive-bg: #ffffff;
+    --mt-component-checkbox-inactive-color: #afab89800;
+    --mt-component-checkbox-active-color: #075b7a;
 
-    --mt-component-divider-border-color: var(--mt-color-beige-500);
+    --mt-component-divider-border-color: #afab89800;
     --mt-component-divider-padding: var(--mt-spacing-x1_4);
 
-    --mt-component-drawer-background: var(--mt-color-white);
-    --mt-component-drawer-border-color: var(--mt-color-red-200);
+    --mt-component-drawer-background: #ffffff;
+    --mt-component-drawer-border-color: #e23128;
 
-    --mt-component-form-field-border: var(--mt-color-beige-500);
-    --mt-component-form-field-background: var(--mt-color-white);
+    --mt-component-form-field-border: #afab89800;
+    --mt-component-form-field-background: #ffffff;
     --mt-component-form-field-padding-h: 0.75em;
     --mt-component-form-field-padding-v: 0.75em;
 
     --mt-component-form-select-size: 0.9em;
 
-    --mt-component-footer-border-color: var(--mt-color-red-200);
+    --mt-component-footer-border-color: #e23128;
     --mt-component-footer-gap: var(--mt-spacing-x1_4);
 
-    --mt-component-footnote-border-color: var(--mt-color-beige-200);
+    --mt-component-footnote-border-color: #f1eadf;
 
-    --mt-component-header-border-color: var(--mt-color-red-200);
-    --mt-component-header-logo-color: var(--mt-color-red-200);
+    --mt-component-header-border-color: #e23128;
+    --mt-component-header-logo-color: #e23128;
+    --mt-component-header-background-color: #ffffff;
 
     --mt-component-hover-popup-padding: var(--mt-spacing-box-padding-s);
     --mt-component-hover-popup-radius: var(--mt-spacing-box-padding-s);
@@ -244,36 +315,36 @@
     --mt-component-icon-button-size-small: 32px;
     --mt-component-icon-button-size-medium: 48px;
     --mt-component-icon-button-border-radius: var(--mt-border-radius-s);
-    --mt-component-icon-button-active-color: var(--mt-color-blue-500);
-    --mt-component-icon-button-active-background: var(--mt-color-blue-100);
+    --mt-component-icon-button-active-color: #075b7a;
+    --mt-component-icon-button-active-background: #d6e8ed;
 
     --mt-component-list-nested-margin-top: 0.25em;
     --mt-component-list-nested-margin-bottom: 0.5em;
     --mt-component-list-ul-margin-left: 1.25rem;
 
-    --mt-component-pill-background: var(--mt-color-beige-200);
+    --mt-component-pill-background: #f1eadf;
     --mt-component-pill-padding: var(--mt-spacing-x0_5) var(--mt-spacing-x1);
     --mt-component-pill-icon-gap: var(--mt-spacing-x0_5);
 
-    --mt-component-table-background-zebra: var(--mt-color-white);
-    --mt-component-table-background-hover: var(--mt-color-beige-200);
-    --mt-component-table-background-highlight: var(--mt-color-blue-100);
+    --mt-component-table-background-zebra: #ffffff;
+    --mt-component-table-background-hover: #f1eadf;
+    --mt-component-table-background-highlight: #d6e8ed;
     --mt-component-table-cell-padding: var(--mt-spacing-x1_4);
-    --mt-component-table-cell-border-color: var(--mt-color-beige-50);
-    --mt-component-table-thead-background: var(--mt-color-beige-200);
+    --mt-component-table-cell-border-color: #afab8980;
+    --mt-component-table-thead-background: #f1eadf;
     --mt-component-table-thead-th-font-size: 18px;
     --mt-component-table-thead-th-font-weight: var(--mt-font-weight-bold);
     --mt-component-table-tbody-th-font-size: var(--mt-typography-small-font-size);
     --mt-component-table-tbody-th-font-weight: var(--mt-font-weight-normal);
 
-    --mt-component-toc-icon-color: var(--mt-color-blue-200);
-    --mt-component-toc-border-color: var(--mt-color-beige-500);
+    --mt-component-toc-icon-color: #348ba3;
+    --mt-component-toc-border-color: #afab89800;
 
-    --mt-component-legend-color-outline: var(--mt-color-brown-900);
+    --mt-component-legend-color-outline: #3f3e3e;
 }
 
 @media only screen and (min-width: 768px) {
-    .mt90s {
+    .mt2023 {
         --mt-typography-small-font-size: 16px;
         --mt-typography-base-font-size: 21.5px;
         --mt-column-gap: var(--mt-spacing-x1_4);
@@ -283,40 +354,47 @@
 
 /* Brand themes */
 
-.mt90s, /* Default theme */
-.mt90s .mmm-brand-theme1 {
-    --mt-brand-theme-bg: var(--mt-color-beige-200);
+.mt2023, /* Default theme */
+.mt2023 .mmm-brand-theme1 {
+    --mt-brand-theme-bg: #f1eadf;
     --mt-brand-theme-color: var(--mt-color-text-neutral-default);
-    --mt-brand-theme-main-bg: var(--mt-color-white);
+    --mt-brand-theme-main-bg: #ffffff;
     --mt-brand-theme-main-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-main-action-color: var(--mt-color-text-action-default);
-    --mt-brand-theme-secondary-bg: var(--mt-color-blue-100);
+    --mt-brand-theme-secondary-bg: #d6e8ed;
     --mt-brand-theme-secondary-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-secondary-action-color: var(--mt-color-text-action-default);
 }
 
-.mt90s .mmm-brand-theme2 {
-    --mt-brand-theme-bg: var(--mt-color-blue-100);
+.mt2023 .mmm-brand-theme2 {
+    --mt-brand-theme-bg: #d6e8ed;
     --mt-brand-theme-color: var(--mt-color-text-neutral-default);
-    --mt-brand-theme-main-bg: var(--mt-color-white);
+    --mt-brand-theme-main-bg: #ffffff;
     --mt-brand-theme-main-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-main-action-color: var(--mt-color-text-action-default);
-    --mt-brand-theme-secondary-bg: var(--mt-color-blue-500);
-    --mt-brand-theme-secondary-color: var(--mt-color-white);
-    --mt-brand-theme-secondary-action-color: var(--mt-color-white);
+    --mt-brand-theme-secondary-bg: #075b7a;
+    --mt-brand-theme-secondary-color: #ffffff;
+    --mt-brand-theme-secondary-action-color: #ffffff;
 }
 
-.mt90s .mmm-brand-theme3 {
-    --mt-brand-theme-bg: var(--mt-color-green-100);
+.mt2023 .mmm-brand-theme3 {
+    --mt-brand-theme-bg: #dfe9cb;
     --mt-brand-theme-color: var(--mt-color-text-neutral-default);
-    --mt-brand-theme-main-bg: var(--mt-color-white);
+    --mt-brand-theme-main-bg: #ffffff;
     --mt-brand-theme-main-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-main-action-color: var(--mt-color-text-action-default);
-    --mt-brand-theme-secondary-bg: var(--mt-color-green-500);
+    --mt-brand-theme-secondary-bg: #b0c87c;
     --mt-brand-theme-secondary-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-secondary-action-color: var(--mt-color-text-neutral-default);
 }
 
 .mmm .mmm-theme-toggled {display: none;}
-.mmm .mt90s .show-for-mt90s, /* Help Portfolio theme switcher out */
-.mmm.mt90s .show-for-mt90s {display: block;}
+.mmm.mt2023 .show-for-mt2023, /* Help Portfolio theme switcher out */
+.mmm .mt2023 .show-for-mt2023 {display: block;}
+
+@font-face {
+    font-family: avenir;
+    font-style: normal;
+    font-weight: 400;
+    src: local('Avenir'), url(https://fonts.cdnfonts.com/s/71748/avenir_roman_12.woff) format('woff');
+}

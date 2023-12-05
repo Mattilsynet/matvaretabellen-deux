@@ -1287,6 +1287,7 @@ a.mmm-button-secondary:link {
  *************************/
 
 .mmm-header {
+    background: var(--mt-component-header-background-color);
     border-bottom: 2px solid var(--mt-component-header-border-color);
 }
 

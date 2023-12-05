@@ -34,5 +34,14 @@
    {:config
     {:canvas-path "canvas.html"
      :css-paths ["/css/theme-mt90s.css"
+                 "/css/theme-mt2023.css"
                  "/css/mmm.css"
-                 "/css/matvaretabellen.css"]}}))
+                 "/css/matvaretabellen.css"]
+     :background/options [{:id :mt90s-mode
+                           :title "Mattilsynet 90s"
+                           :value {:background/background-color "#fff"
+                                   :background/body-class "mt90s"}}
+                          {:id :mt2023-mode
+                           :title "Mattilsynet 2023"
+                           :value {:background/background-color "#fff"
+                                   :background/body-class "mt2023"}}]}}))
