@@ -150,6 +150,10 @@
   :nutrients "Nutrients"
   :per-100g [:fn/str "{{:nutrient}} per 100 grams"]}
 
+ #:matvaretabellen.pages.search-page
+ {:page-title "Search Matvaretabellen"
+  :open-graph-description "Search, sort and browse Matvaretabellen"}
+
  #:matvaretabellen.pages.table-page
  {:columns "Nutrients"
   :download "Download full table"

@@ -82,7 +82,8 @@
                   locale
                   {:column-panel (js/document.getElementById "columns-panel")
                    :filter-panel (js/document.getElementById "food-group-panel")
-                   :table mother-of-all-tables}))))
+                   :table mother-of-all-tables}
+                  {:query (get (get-params) "q")}))))
            (ensure-food-data k locale)))
 
     (when-let [selects (dom/qsa ".mvt-rda-selector")]

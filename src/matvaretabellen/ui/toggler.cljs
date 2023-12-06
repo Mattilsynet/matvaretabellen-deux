@@ -10,10 +10,19 @@
   (->> (fn [e]
          (when-let [[el target] (get-target (.-target e))]
            (let [hidden? (dom/has-class target "mmm-hidden")]
+             ;; Toggle buttons primary/secondary
              (when (and hidden? (dom/has-class el "mmm-button-secondary"))
                (dom/remove-class el "mmm-button-secondary"))
              (when (and (not hidden?) (dom/has-class el "mmm-button"))
                (dom/add-class el "mmm-button-secondary"))
+
+             ;; Toggle icons buttons active/not
+             (when (and hidden? (dom/has-class el "mmm-icon-button"))
+               (dom/add-class el "mmm-icon-button-active"))
+             (when (and (not hidden?) (dom/has-class el "mmm-icon-button"))
+               (dom/remove-class el "mmm-icon-button-active"))
+
+             ;; Show/hide
              (if hidden?
                (dom/show target)
                (dom/hide target)))))

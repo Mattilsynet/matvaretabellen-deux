@@ -93,6 +93,12 @@
          :nb "klassisk/"
          :en "classic/")))
 
+(defn get-search-url [locale]
+  (str (get-base-url locale)
+       (case locale
+         :nb "sok/"
+         :en "search/")))
+
 (comment
 
   (slugify "Müsli og grøt fra ørten 5gr D12 vitamin kål")

@@ -150,6 +150,10 @@
   :nutrients "Næringsstoffer"
   :per-100g [:fn/str "{{:nutrient}} per 100 gram"]}
 
+ #:matvaretabellen.pages.search-page
+ {:page-title "Søk i Matvaretabellen"
+  :open-graph-description "Søk, sorter og let i Matvaretabellen"}
+
  #:matvaretabellen.pages.table-page
  {:columns "Næringsstoffer"
   :download "Last ned hele tabellen"

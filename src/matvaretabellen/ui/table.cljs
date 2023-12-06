@@ -70,10 +70,13 @@
       ::browse-foods (assoc state ::current (apply browse-foods state args))
       ::search-foods (assoc state ::current (apply filter-by-query state args)))))
 
-(defn init-filter-search [store form]
-  (let [f (debounce #(->> (filter-by-query @store (.-value (.-target %)))
-                          (swap! store assoc ::current)) 250)]
-    (.addEventListener (dom/qs form "input") "input" f)))
+(defn init-filter-search [store input]
+  (when input
+    (let [f (debounce #(swap! store (fn [state]
+                                      (-> state
+                                          (assoc ::current (filter-by-query state (.-value (.-target %))))
+                                          fd/clear))) 250)]
+      (.addEventListener input "input" f))))
 
 (defn render-food [el food columns lang]
   (.setAttribute el "data-id" (:foodGroupId food))
@@ -243,7 +246,9 @@
       (let [id (filters/get-filter-id checkbox)]
         (if (show? id)
           (dom/show (.closest checkbox "li"))
-          (dom/hide (.closest checkbox "li")))))))
+          (do
+            (set! (.-checked checkbox) false)
+            (dom/hide (.closest checkbox "li"))))))))
 
 (defn on-update [store {:keys [table filter-panel]} prev next]
   (when (filters/render-filters filter-panel prev next)
@@ -261,13 +266,19 @@
     (->> next ::current :food-groups (mapcat #(fd/get-path next %)) set
          (toggle-food-groups filter-panel (fd/get-selected next)))))
 
-(defn init-giant-table [data locale {:keys [column-panel table filter-panel] :as els}]
+(defn init-giant-table [data locale {:keys [column-panel table filter-panel] :as els} & [{:keys [query]}]]
   (let [store (atom (merge (init-foods-state data (get-table-data table column-panel) (name locale))
                            (when filter-panel
-                             (filters/init-filters filter-panel))))]
+                             (filters/init-filters filter-panel))))
+        search-input (dom/qs ".mvt-filter-search input")]
     (some->> filter-panel (filters/init-filter-panel store))
     (init-column-settings store column-panel)
     (init-customizable-table store table)
-    (init-filter-search store (dom/qs ".mvt-filter-search"))
+    (init-filter-search store search-input)
     (add-watch store ::self (fn [_ _ old new] (on-update store els old new)))
-    (swap! store #(assoc % ::current (browse-foods % 0)))))
+    (if query
+      (do
+        (set! (.-value search-input) query)
+        (search/on-ready (fn []
+                           (swap! store #(assoc % ::current (filter-by-query % query))))))
+      (swap! store #(assoc % ::current (browse-foods % 0))))))

@@ -9,6 +9,9 @@
 (defn get-path [{::keys [id->path]} id]
   (get id->path id))
 
+(defn clear [filters]
+  (assoc filters ::selected #{}))
+
 (defn get-children [paths path]
   (->> paths
        (filter #(= path (drop-last %)))

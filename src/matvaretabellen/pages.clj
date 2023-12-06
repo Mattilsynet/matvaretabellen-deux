@@ -12,6 +12,7 @@
             [matvaretabellen.pages.frontpage :as frontpage]
             [matvaretabellen.pages.nutrient-page :as nutrient-page]
             [matvaretabellen.pages.nutrients-page :as nutrients-page]
+            [matvaretabellen.pages.search-page :as search-page]
             [matvaretabellen.pages.table-page :as table-page]
             [matvaretabellen.rda :as rda]
             [matvaretabellen.search-index :as index]
@@ -90,6 +91,12 @@
     :page/locale :nb}
    {:page/uri (urls/get-table-url :en)
     :page/kind :page.kind/table
+    :page/locale :en}
+   {:page/uri (urls/get-search-url :nb)
+    :page/kind :page.kind/search-page
+    :page/locale :nb}
+   {:page/uri (urls/get-search-url :en)
+    :page/kind :page.kind/search-page
     :page/locale :en}
    {:page/uri (urls/get-foods-api-url :nb :json)
     :page/kind :page.kind/food-data
@@ -175,6 +182,7 @@
       :page.kind/nutrient (nutrient-page/render context db page)
       :page.kind/nutrients (nutrients-page/render context db page)
       :page.kind/rda-data (rda/render-json context page)
+      :page.kind/search-page (search-page/render context page)
       :page.kind/table (table-page/render context page))))
 
 (comment

@@ -89,6 +89,15 @@
   (or (#{:pending :loading} (:index-status @search-engine))
       (#{:pending :loading} (:names-status @search-engine))))
 
+(defn on-ready [f]
+  (if (waiting?)
+    (let [id (random-uuid)]
+      (add-watch search-engine id (fn [_ _ _ _]
+                                    (when-not (waiting?)
+                                      (f)
+                                      (remove-watch search-engine id)))))
+    (f)))
+
 (defn handle-autocomplete-input-event [e element locale]
   (let [q (.-value (.-target e))
         n (or (some-> (.-target e) (.getAttribute "data-suggestions") js/parseInt) 10)]
