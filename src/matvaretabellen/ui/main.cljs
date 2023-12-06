@@ -56,7 +56,7 @@
   (let [locale (keyword js/document.documentElement.lang)
         event-bus (atom nil)]
     (search-ui/initialize-foods-autocomplete
-     (js/document.querySelector ".mmm-search-input")
+     (dom/qs ".mvt-autocomplete")
      locale
      (get (get-params) "search"))
 

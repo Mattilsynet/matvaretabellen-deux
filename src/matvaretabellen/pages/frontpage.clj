@@ -73,6 +73,7 @@
       [:form.mmm-container-narrow.mmm-section.mmm-mbxxl.mmm-mtxl
        [:h1.mmm-h2.mmm-mbm [:i18n :i18n/search-label]]
        (SearchInput {:button {:text [:i18n :i18n/search-button]}
+                     :class :mvt-autocomplete
                      :input {:name "foods-search"}
                      :autocomplete-id "foods-results"})]
       (TriviaBox locale food-db (rng/rand-nth*

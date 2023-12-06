@@ -51,6 +51,7 @@
    [:form.mvt-aside-col.mvt-search-col
     (SearchInput
      {:button {:text [:i18n :i18n/search-button]}
+      :class :mvt-autocomplete
       :input {:name "foods-search"
               :data-suggestions "8"
               :placeholder [:i18n :i18n/search-label]}
