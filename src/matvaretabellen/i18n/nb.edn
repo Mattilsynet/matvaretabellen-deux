@@ -156,6 +156,7 @@
   :energy-kcal "Energi (kcal)"
   :energy-kj "Energi (kJ)"
   :food "Matvare"
+  :food-groups "Matvaregrupper"
   :next "Neste"
   :open-graph-description "Alle matvarene i matvaretabellen i en eneste stor tabell"
   :page-title "Tabellvisning av alle matvarer"

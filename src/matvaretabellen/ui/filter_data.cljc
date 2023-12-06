@@ -6,6 +6,9 @@
    ::id->path (->> (map (juxt last identity) paths)
                    (into {}))})
 
+(defn get-path [{::keys [id->path]} id]
+  (get id->path id))
+
 (defn get-children [paths path]
   (->> paths
        (filter #(= path (drop-last %)))
@@ -14,7 +17,11 @@
 (defn get-selected [{::keys [selected]}]
   selected)
 
-(defn get-active [{::keys [selected paths id->path]}]
+(defn get-active
+  "Given the currently selected filter checkboxes, computes all effectively active
+  filters based on the tree structure (e.g. when all children of a selected
+  parent are unselected, they're all considered selected)."
+  [{::keys [selected paths id->path]}]
   (set
    (if (empty? selected)
      (keys id->path)

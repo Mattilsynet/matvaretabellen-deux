@@ -2,6 +2,7 @@
   (:require [broch.core :as b]
             [fontawesome.icons :as icons]
             [matvaretabellen.food :as food]
+            [matvaretabellen.food-group :as food-group]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
@@ -78,10 +79,41 @@
             (remove nil?))))])
 
 (defn render-column-settings [foods-db]
-  [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider.mmm-hidden#filter-panel
+  [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider.mmm-hidden#columns-panel
    [:div.mmm-cols.mmm-twocols
     (->> (nutrient/prepare-filters foods-db {:columns 2})
          (map render-nutrient-filter-column))]])
+
+(defn render-food-group-settings [context page]
+  [:div.mmm-vert-layout-m.mmm-col.mmm-hidden#food-group-panel
+   (food-group/render-food-group-filters
+    (:app/db context)
+    (food-group/get-food-groups (:foods/db context))
+    nil
+    (:page/locale page))])
+
+(defn render-table-skeleton [nutrients]
+  [:div.mmm-sidescroller.mmm-col
+   [:div.mmm-hidden
+    (icons/render :fontawesome.solid/sort {:class [:mmm-svg :mvt-sort]})
+    (icons/render :fontawesome.solid/arrow-up-wide-short {:class [:mmm-svg :mvt-desc]})
+    (icons/render :fontawesome.solid/arrow-down-short-wide {:class [:mmm-svg :mvt-asc]})]
+   (->> (prepare-foods-table nutrients)
+        food-page/render-table)
+   [:div.mmm-buttons.mmm-mbm
+    (Button
+     {:text [:i18n ::prev]
+      :class [:mvt-prev :mmm-hidden]
+      :secondary? true
+      :inline? true
+      :icon :fontawesome.solid/chevron-left})
+    (Button
+     {:text [:i18n ::next]
+      :class [:mvt-next :mmm-hidden]
+      :secondary? true
+      :inline? true
+      :icon :fontawesome.solid/chevron-right
+      :icon-position :after})]])
 
 (defn render [context page]
   (layout/layout
@@ -113,7 +145,7 @@
                   :secondary? true})]]]]]
     (let [nutrients (->> (nutrient/get-used-nutrients (:foods/db context))
                          nutrient/sort-by-preference)]
-      [:div.mmm-container.mmm-section.mmm-mobile-phn.mmm-sidescroller.mmm-vert-layout-m
+      [:div.mmm-container.mmm-section.mmm-mobile-phn.mmm-vert-layout-m
        [:div.mmm-flex-desktop.mmm-flex-middle.mmm-pvs.mmm-mobile-container-p
         [:form.mmm-block.mvt-filter-search
          (SearchInput
@@ -123,32 +155,22 @@
                    :placeholder [:i18n ::placeholder]}
            :autocomplete-id "foods-results"
            :size :small})]
-        (Button
-         {:text [:i18n ::columns]
-          :data-toggle-target "#filter-panel"
-          :secondary? true
-          :inline? true
-          :class [:mmm-desktop]
-          :icon :fontawesome.solid/table})]
+        [:div.mmm-flex.mmm-flex-gap
+         (Button
+          {:text [:i18n ::food-groups]
+           :data-toggle-target "#food-group-panel"
+           :secondary? true
+           :inline? true
+           :class [:mmm-desktop]
+           :icon :fontawesome.solid/gear})
+         (Button
+          {:text [:i18n ::columns]
+           :data-toggle-target "#columns-panel"
+           :secondary? true
+           :inline? true
+           :class [:mmm-desktop]
+           :icon :fontawesome.solid/table})]]
        (render-column-settings (:foods/db context))
-       (->> (prepare-foods-table nutrients)
-            food-page/render-table)
-       [:div.mmm-buttons.mmm-mbm
-        (Button
-         {:text [:i18n ::prev]
-          :class [:mvt-prev :mmm-hidden]
-          :secondary? true
-          :inline? true
-          :icon :fontawesome.solid/chevron-left})
-        (Button
-         {:text [:i18n ::next]
-          :class [:mvt-next :mmm-hidden]
-          :secondary? true
-          :inline? true
-          :icon :fontawesome.solid/chevron-right
-          :icon-position :after})]
-       [:div.mmm-hidden
-        (icons/render :fontawesome.solid/sort {:class [:mmm-svg :mvt-sort]})
-        (icons/render :fontawesome.solid/arrow-up-wide-short {:class [:mmm-svg :mvt-desc]})
-        (icons/render :fontawesome.solid/arrow-down-short-wide {:class [:mmm-svg :mvt-asc]})]])])
-  )
+       [:div.mmm-cols.mmm-cols-d1_2
+        (render-food-group-settings context page)
+        (render-table-skeleton nutrients)]])]))

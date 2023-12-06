@@ -22,11 +22,18 @@
   [{:keys [selected]}]
   (dom/set-session-edn (get-session-storage-k) selected))
 
-(defn get-lists [panel ids]
-  (keep #(dom/qs panel (str "ul[data-filter-list-id='" % "']")) ids))
+(defn get-list-id [ul]
+  (.getAttribute ul "data-filter-list-id"))
 
-(defn get-checkboxes [panel ids]
-  (keep #(dom/qs panel (str "label[data-filter-id='" % "'] input")) ids))
+(defn get-lists [panel & [ids]]
+  (if ids
+    (keep #(dom/qs panel (str "ul[data-filter-list-id='" % "']")) ids)
+    (dom/qsa panel (str "ul[data-filter-list-id]"))))
+
+(defn get-checkboxes [panel & [ids]]
+  (if ids
+    (keep #(dom/qs panel (str "label[data-filter-id='" % "'] input")) ids)
+    (dom/qsa panel (str "label[data-filter-id] input"))))
 
 (defn get-rows [table ids]
   (mapcat #(dom/qsa table (str "tr[data-id='" % "']")) ids))
@@ -35,18 +42,18 @@
   (set! (.-checked checkbox) true))
 
 (defn render-filters [panel prev next]
-  (doall (map dom/show (get-lists panel (fd/get-selected next))))
-  (doall (map dom/hide (get-lists panel (remove (fd/get-selected next) (fd/get-selected prev))))))
+  (let [prev-selected (fd/get-selected prev)
+        next-selected (fd/get-selected next)]
+    (when-not (= prev-selected next-selected)
+      (doall (map dom/show (get-lists panel next-selected)))
+      (doall (map dom/hide (get-lists panel (remove next-selected prev-selected))))
+      true)))
 
 (defn render-table [table prev next]
   (let [next-active (fd/get-active next)]
     (doall (map dom/show (get-rows table next-active)))
     (doall (map dom/hide (get-rows table (remove next-active (fd/get-active prev)))))
     (dom/re-zebra-table table)))
-
-(defn update-ui [panel table prev next]
-  (render-filters panel prev next)
-  (render-table table prev next))
 
 (defn get-filter-id [el]
   (let [label (.closest el "label")]
@@ -59,13 +66,20 @@
         (swap! store fd/select-id (get-filter-id el))
         (swap! store fd/deselect-id (get-filter-id el))))))
 
+(defn init-filter-panel [store filter-panel]
+  (.addEventListener filter-panel "click" #(toggle-filter % store))
+  (let [filters @store]
+    (when-let [selected (seq (fd/get-selected filters))]
+      (doall (map check (get-checkboxes filter-panel selected)))
+      (render-filters filter-panel nil filters))))
+
 (defn initialize-filter [panel table]
   (let [store (atom (init-filters panel))
         filters @store]
     (add-watch store ::filters (fn [_ _ prev next]
-                                 (update-ui panel table prev next)
+                                 (render-filters panel prev next)
+                                 (render-table table prev next)
                                  (persist-filters next)))
-    (.addEventListener panel "click" #(toggle-filter % store))
-    (when-let [selected (seq (fd/get-selected filters))]
-      (doall (map check (get-checkboxes panel selected)))
-      (update-ui panel table nil filters))))
+    (init-filter-panel store panel)
+    (when (seq (fd/get-selected filters))
+      (render-table table nil @store))))

@@ -75,10 +75,14 @@
       (->> (fn [data]
              (when (= "comparison" js/document.body.id)
                (comparison/initialize-page data (get-params)))
-             (let [filter-panel (js/document.getElementById "filter-panel")
-                   mother-of-all-tables (js/document.getElementById "filtered-giant-table")]
-               (when (and filter-panel mother-of-all-tables)
-                 (table/init-giant-table data filter-panel mother-of-all-tables locale))))
+             (let [mother-of-all-tables (js/document.getElementById "filtered-giant-table")]
+               (when mother-of-all-tables
+                 (table/init-giant-table
+                  data
+                  locale
+                  {:column-panel (js/document.getElementById "columns-panel")
+                   :filter-panel (js/document.getElementById "food-group-panel")
+                   :table mother-of-all-tables}))))
            (ensure-food-data k locale)))
 
     (when-let [selects (dom/qsa ".mvt-rda-selector")]
