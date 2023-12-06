@@ -10,10 +10,22 @@
    {:title "Sammenlign"}
    (icons/render (icons/icon :fontawesome.solid/code-compare) {:class :mmm-svg})])
 
+(defscene icon-button-with-text
+  [:span.mmm-icon-button.mmm-actionable
+   {:title "Sammenlign"}
+   (icons/render (icons/icon :fontawesome.solid/code-compare) {:class :mmm-svg})
+   [:span.mmm-ib-label "Sammenlign"]])
+
 (defscene active-icon-button
   [:span.mmm-icon-button.mmm-actionable.mmm-icon-button-active
    {:title "Sammenlign"}
    (icons/render (icons/icon :fontawesome.solid/code-compare) {:class :mmm-svg})])
+
+(defscene active-icon-button-with-text
+  [:span.mmm-icon-button.mmm-actionable.mmm-icon-button-active
+   {:title "Sammenlign"}
+   (icons/render (icons/icon :fontawesome.solid/code-compare) {:class :mmm-svg})
+   [:span.mmm-ib-label "Sammenlign"]])
 
 (defscene medium-icon-buttons
   [:ul.mmm-horizontal-list
@@ -25,3 +37,9 @@
     [:span.mmm-icon-button.mmm-actionable.mmm-icon-button-m.mmm-icon-button-active
      {:title "Sammenlign"}
      (icons/render (icons/icon :fontawesome.solid/code-compare) {:class :mmm-svg})]]])
+
+(defscene medium-icon-button-with-text
+  [:span.mmm-icon-button.mmm-actionable.mmm-icon-button-m
+   {:title "Sammenlign"}
+   (icons/render (icons/icon :fontawesome.solid/code-compare) {:class :mmm-svg})
+   [:span.mmm-ib-label "Sammenlign"]])

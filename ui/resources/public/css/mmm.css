@@ -1158,22 +1158,30 @@ a.mmm-button-secondary:link {
  ******************************/
 
 .mmm-icon-button {
+    --icon-button-size: var(--mt-component-icon-button-size-small);
+    --icon-button-font-size: var(--mt-typography-small-font-size);
     border-radius: var(--mt-component-icon-button-border-radius);
-    display: inline-block;
+    display: inline-flex;
+    gap: var(--mt-spacing-box-padding-s);
     padding: var(--mt-component-icon-button-padding);
     transition: background 0.25s;
-    height: var(--mt-component-icon-button-size-small);
-    width: var(--mt-component-icon-button-size-small);
+    height: var(--icon-button-size);
+    min-width: var(--icon-button-size);
 }
 
 .mmm-icon-button-m {
-    height: var(--mt-component-icon-button-size-medium);
-    width: var(--mt-component-icon-button-size-medium);
+    --icon-button-size: var(--mt-component-icon-button-size-medium);
+    --icon-button-font-size: var(--mt-typography-heading-s-font-size);
 }
 
 .mmm-icon-button-active {
     color: var(--mt-component-icon-button-active-color);
     background: var(--mt-component-icon-button-active-background);
+}
+
+.mmm-ib-label {
+    align-self: center;
+    font-size: var(--icon-button-font-size);
 }
 
 /*************************
