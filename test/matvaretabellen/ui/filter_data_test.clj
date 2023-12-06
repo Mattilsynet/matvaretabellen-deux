@@ -20,14 +20,14 @@
 
 (deftest filter-selection-test
   (testing "Selects leaf filter"
-    (is (= (:selected (sut/select-id filters "1.4.1"))
+    (is (= (sut/get-selected (sut/select-id filters "1.4.1"))
            #{"1.4.1"})))
 
   (testing "Deselects leaf filter"
     (is (= (-> filters
                (sut/select-id "1.4.1")
                (sut/deselect-id "1.4.1")
-               :selected)
+               sut/get-selected)
            #{})))
 
   (testing "Deselects filter: Also deselects selected children"
@@ -35,7 +35,7 @@
                (sut/select-id "1.4")
                (sut/select-id "1.4.1")
                (sut/deselect-id "1.4")
-               :selected)
+               sut/get-selected)
            #{}))))
 
 (deftest get-active-filters-test
