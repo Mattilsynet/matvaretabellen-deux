@@ -107,6 +107,7 @@
      :page/kind :page.kind/langual-data
      :page/format :json}]
    (create-api-pages :page.kind/food-data urls/get-foods-api-url #{:nb :en} #{:edn :json})
+   (create-api-pages :page.kind/food-group-data urls/get-food-groups-api-url #{:nb :en} #{:edn :json})
    (create-api-pages :page.kind/nutrient-data urls/get-nutrients-api-url #{:nb :en} #{:edn :json})
    (create-api-pages :page.kind/source-data urls/get-sources-api-url #{:nb :en} #{:edn :json})))
 
@@ -148,6 +149,7 @@
       :page.kind/food-group (food-group-page/render context db page)
       :page.kind/food-groups (food-groups-page/render context db page)
       :page.kind/foods-excel (excel/render-all-foods db (get-latest-year) page)
+      :page.kind/food-group-data (api/render-food-group-data context page)
       :page.kind/food-group-excel (excel/render-food-group-foods db (get-latest-year) page)
       :page.kind/langual-data (api/render-langual-data context page)
       :page.kind/nutrient-data (api/render-nutrient-data context page)

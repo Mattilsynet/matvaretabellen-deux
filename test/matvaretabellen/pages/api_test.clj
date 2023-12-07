@@ -476,7 +476,8 @@
                (update-in [:body :sources] #(take 3 %)))
            {:content-type :edn
             :body
-            {:sources
+            {:locale :nb
+             :sources
              [{:source/id "0"
                :source/description "Vurdert som 100 % spiselig (netto)."}
               {:source/id "10"
@@ -492,10 +493,49 @@
                  :page/locale :nb})
                (update-in [:body :sources] #(take 3 %)))
            {:content-type :json
-            :body {:sources
+            :body {:locale :nb
+                   :sources
                    [{:sourceId "0"
                      :description "Vurdert som 100 % spiselig (netto)."}
                     {:sourceId "10"
                      :description "Manglende verdi, ukjent innhold."}
                     {:sourceId "100"
                      :description "Data levert av industrien 1992-2000, uspesifisert grunnlag."}]}}))))
+
+(deftest food-groups-api-test
+  (testing "Returns EDN data"
+    (is (= (-> (sut/render-food-group-data
+                {:foods/db (fdb/get-test-food-db)
+                 :powerpack/app {:site/base-url "https://mvt.no"}}
+                {:page/format :edn
+                 :page/locale :nb})
+               (update-in [:body :food-groups] #(take 3 (drop 14 %))))
+           {:content-type :edn
+            :body
+            {:food-groups
+             [{:food-group/id "15"
+               :food-group/name "Poteter"}
+              {:food-group/id "16"
+               :food-group/name "Urter og krydder"}
+              {:food-group/id "1.1"
+               :food-group/name "Melk"
+               :food-group/parent-id "1"}]
+             :locale :nb}})))
+
+  (testing "Returns JSON data"
+    (is (= (-> (sut/render-food-group-data
+                {:foods/db (fdb/get-test-food-db)
+                 :powerpack/app {:site/base-url "https://mvt.no"}}
+                {:page/format :json
+                 :page/locale :nb})
+               (update-in [:body :foodGroups] #(take 3 (drop 14 %))))
+           {:content-type :json
+            :body {:foodGroups
+                   [{:foodGroupId "15"
+                     :name "Poteter"}
+                    {:foodGroupId "16"
+                     :name "Urter og krydder"}
+                    {:foodGroupId "1.1"
+                     :name "Melk"
+                     :parentId "1"}]
+                   :locale :nb}}))))

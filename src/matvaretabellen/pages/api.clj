@@ -128,6 +128,21 @@
                           (prepare-response context page))
           :locale (:page/locale page)}})
 
+(defn render-food-group-data [context page]
+  {:content-type (:page/format page)
+   :body (->> {:food-groups
+               (->> (d/q '[:find [?e ...]
+                           :where [?e :food-group/id]]
+                         (:foods/db context))
+                    (map #(d/entity (:foods/db context) %))
+                    (map #(cond-> (-> (into {} %)
+                                      (update :food-group/name (:page/locale page))
+                                      (dissoc :food-group/parent))
+                            (:food-group/parent %)
+                            (assoc :food-group/parent-id (-> % :food-group/parent :food-group/id)))))
+               :locale (:page/locale page)}
+              (prepare-response context page))})
+
 (defn render-langual-data [context page]
   {:content-type (:page/format page)
    :body {:codes (->> (d/q '[:find [?e ...]
@@ -151,4 +166,5 @@
                         (map #(-> (into {} %)
                                   (update :source/description (:page/locale page))))
                         (filter (comp not-empty :source/id))
-                        (prepare-response context page))}})
+                        (prepare-response context page))
+          :locale (:page/locale page)}})
