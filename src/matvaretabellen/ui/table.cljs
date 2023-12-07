@@ -148,7 +148,9 @@
 (defn render-table [table {:keys [columns current] :as data}]
   (let [[sort-id sort-order] (:sort-by current)
         container (.-parentNode table)]
+    (js/console.log "Table render-table 1")
     (render-rows (dom/qs table "tbody") (.-rowTemplate table) data)
+    (js/console.log "Table render-table 2")
     (doseq [th (dom/qsa table "thead th")]
       (let [id (.getAttribute th "data-id")]
         (if (columns (.getAttribute th "data-id"))
@@ -162,10 +164,15 @@
                          ".mvt-sort")]
           (set! (.-innerHTML icon) "")
           (.appendChild icon (.cloneNode (dom/qs container selector) true)))))
+    (js/console.log "Table render-table 3")
     (dom/re-zebra-table table)
+    (js/console.log "Table render-table 4")
     (dom/show table)
+    (js/console.log "Table render-table 5")
     (update-button (dom/qs container ".mvt-prev") (:prev current))
-    (update-button (dom/qs container ".mvt-next") (:next current))))
+    (js/console.log "Table render-table 6")
+    (update-button (dom/qs container ".mvt-next") (:next current))
+    (js/console.log "Table render-table 7")))
 
 (defn get-table-render-data [{::keys [current columns lang]}]
   {:current current
@@ -251,34 +258,56 @@
             (dom/hide (.closest checkbox "li"))))))))
 
 (defn on-update [store {:keys [table filter-panel]} prev next]
+  (js/console.log "Table on-update 1")
   (when (filters/render-filters filter-panel prev next)
-    (js/setTimeout (fn [_] (swap! store select-foods-in-groups (fd/get-active next))) 100))
+    (js/console.log "Table on-update 2")
+    (js/setTimeout (fn [_]
+                     (js/console.log "Table on-update 3")
+                     (swap! store select-foods-in-groups (fd/get-active next))) 100))
 
   (let [table-data (get-table-render-data next)]
+    (js/console.log "Table on-update 4")
     (when-not (= (get-table-render-data prev) table-data)
+      (js/console.log "Table on-update 5")
       (render-table table table-data)))
 
   (when (not= (::columns prev) (::columns next))
+    (js/console.log "Table on-update 6")
     (dom/set-local-edn "table-columns" (::columns next)))
 
   (when (not= (-> prev ::current :food-groups)
               (-> next ::current :food-groups))
+    (js/console.log "Table on-update 7")
     (->> next ::current :food-groups (mapcat #(fd/get-path next %)) set
-         (toggle-food-groups filter-panel (fd/get-selected next)))))
+         (toggle-food-groups filter-panel (fd/get-selected next))))
+
+  (js/console.log "Table on-update 8"))
 
 (defn init-giant-table [data locale {:keys [column-panel table filter-panel] :as els} & [{:keys [query]}]]
+  (js/console.log "Table 1")
   (let [store (atom (merge (init-foods-state data (get-table-data table column-panel) (name locale))
                            (when filter-panel
                              (filters/init-filters filter-panel))))
         search-input (dom/qs ".mvt-filter-search input")]
+    (js/console.log "Table 2")
     (some->> filter-panel (filters/init-filter-panel store))
+    (js/console.log "Table 3")
     (init-column-settings store column-panel)
+    (js/console.log "Table 4")
     (init-customizable-table store table)
+    (js/console.log "Table 5")
     (init-filter-search store search-input)
+    (js/console.log "Table 6")
     (add-watch store ::self (fn [_ _ old new] (on-update store els old new)))
+    (js/console.log "Table 7")
     (if query
       (do
         (set! (.-value search-input) query)
+        (js/console.log "Table 8A.1")
         (search/on-ready (fn []
+                           (js/console.log "Table 8A.2")
                            (swap! store #(assoc % ::current (filter-by-query % query))))))
-      (swap! store #(assoc % ::current (browse-foods % 0))))))
+      (do
+        (js/console.log "Table 8B.1")
+        (swap! store #(assoc % ::current (browse-foods % 0)))
+        (js/console.log "Table 8B.2")))))
