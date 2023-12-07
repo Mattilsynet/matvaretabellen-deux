@@ -234,8 +234,13 @@
          (get-column-id checkbox))
        set))
 
+(defn get-local-columns []
+  (when-let [columns (dom/get-local-edn "table-columns")]
+    (when (and (coll? columns) (not (map? columns)))
+      (seq (remove nil? columns)))))
+
 (defn get-table-data [table filter-panel]
-  {:columns (or (dom/get-local-edn "table-columns")
+  {:columns (or (get-local-columns)
                 (into (get-initial-table-columns table)
                       (get-initial-filter-columns filter-panel)))
    :page-size (some-> (.getAttribute table "data-page-size") parse-long)})
@@ -269,7 +274,8 @@
       (render-table table table-data)))
 
   (when (not= (::columns prev) (::columns next))
-    (dom/set-local-edn "table-columns" (::columns next)))
+    (when-let [columns (not-empty (remove nil? (::columns next)))]
+      (dom/set-local-edn "table-columns" columns)))
 
   (when (not= (-> prev ::current :food-groups)
               (-> next ::current :food-groups))
