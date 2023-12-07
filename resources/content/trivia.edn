@@ -56,4 +56,29 @@
   :trivia/definite {:nb "valnøtten" :en "the walnut"}
   :trivia/photo "/images/trivia/valnott.jpg"
   :trivia/prose {:nb "at valnøtter inneholder mer omega-3 fettsyrer enn laks og makrell i tomat? Matvaren har også den høyeste andelen av flerumettede omega-3 fettsyrer blant nøtter."
-                 :en "that walnuts contain more omega-3 fatty acids than salmon and mackerel in tomato? This food also has the highest proportion of polyunsaturated omega-3 fatty acids among nuts."}}]
+                 :en "that walnuts contain more omega-3 fatty acids than salmon and mackerel in tomato? This food also has the highest proportion of polyunsaturated omega-3 fatty acids among nuts."}}
+
+ {:trivia/food-id "01.186"
+  :trivia/definite {:nb "brunosten" :en "whey cheese"}
+  :trivia/photo "/images/trivia/brunost.jpg"
+  :trivia/prose {:nb "at brunost er et av de meieriproduktene som har høyest innhold av kalium, magnesium og jod? Den er også en av matvarene i Matvaretabellen som har høyest innhold av kalsium."
+                 :en "that whey cheese is one of the dairy products with the highest content of potassium, magnesium, and iodine? It is also one of the foods in the Norwegian Food Composition Table that has the highest content of calcium."}}
+
+ {:trivia/food-id "06.035"
+  :trivia/definite {:nb "grønnkålen" :en "kale"}
+  :trivia/photo "/images/trivia/gronnkaal.jpg"
+  :trivia/prose {:nb "at grønnkål er en nesten like god kilde til betakaroten som gulrot? Den inneholder også flere B-vitaminer, og dobbelt så mye vitamin C som appelsin."
+                 :en "that kale is almost as good a source of beta-carotene as carrots? It also contains several B vitamins and twice as much vitamin C as an orange."}}
+
+ {:trivia/food-id "06.546"
+  :trivia/definite {:nb "pæren" :en "the pear"}
+  :trivia/photo "/images/trivia/paere.jpg"
+  :trivia/prose {:nb "at pære inneholder like mye fiber som grovt brød? Det er også den frukten med høyest innhold av fiber i Matvaretabellen."
+                 :en "that pears contain as much fiber as whole grain bread? They are also the fruit with the highest fiber content in the Norwegian Food Composition Table."}}
+
+ {:trivia/food-id "04.039"
+  :trivia/definite {:nb "torsken" :en "cod"}
+  :trivia/photo "/images/trivia/torsk.jpg"
+  :trivia/prose {:nb "at torsk er en av matvarene med høyest innhold av jod i Matvaretabellen? Det er en mager fisk med et høyt innhold av protein."
+                 :en "that cod is one of the foods with the highest iodine content in the Food Composition Table? It is a lean fish with a high protein content."}}
+ ]
