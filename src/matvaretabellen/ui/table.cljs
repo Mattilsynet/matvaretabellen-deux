@@ -101,12 +101,13 @@
           (set! (.-innerText a) (:foodName food)))
 
         "energyKj"
-        (when (:energyKj food)
-          (set! (.-innerText (dom/qs td ".mvt-num"))
-                (.toLocaleString (:energyKj food) lang #js {:maximumFractionDigits 0})))
+        (set! (.-innerText (dom/qs td ".mvt-num"))
+              (if (:energyKj food)
+                (.toLocaleString (:energyKj food) lang #js {:maximumFractionDigits 0})
+                "–"))
 
         "energyKcal"
-        (set! (.-innerText td) (str (:energyKcal food) " kcal"))
+        (set! (.-innerText td) (str (or (:energyKcal food) "–") " kcal"))
 
         (let [el (.-firstChild td)
               decimals (some-> (.getAttribute el "data-decimals") parse-long)
@@ -114,7 +115,7 @@
           (set! (.-innerText el)
                 (if n
                   (.toLocaleString n lang #js {:maximumFractionDigits (or decimals 1)})
-                  "-"))
+                  "–"))
           (.setAttribute el "data-value" n)
           (.setAttribute el "data-portion" n))))))
 
