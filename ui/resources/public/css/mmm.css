@@ -1133,7 +1133,7 @@ a.mmm-button-secondary:link {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     min-width: 6ch;
-    font-size: var(--mt-typography-small-font-size);
+    font-size: var(--mt-typography-base-font-size);
 }
 
 .mmm-buttons .mmm-button {
