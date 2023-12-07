@@ -1,11 +1,11 @@
 (ns mmm.components.tabs)
 
-(defn Tabs [{:keys [tabs class]}]
-  [:div.mmm-tabs {:class class}
-   (for [{:keys [selected? text id]} tabs]
+(defn Tabs [{:keys [tabs] :as attrs}]
+  [:div.mmm-tabs (dissoc attrs :tabs)
+   (for [{:keys [selected? text] :as tab} tabs]
      [:div.tab
-      {:class (when selected? :selected)
-       :id id}
+      (-> (dissoc tab :selected? :text)
+          (assoc :class (when selected? :selected)))
       text])])
 
 (defn PillTabs [params]
