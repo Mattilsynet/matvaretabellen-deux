@@ -155,7 +155,7 @@
  {:page-title "Søk i Matvaretabellen"
   :open-graph-description "Søk, sorter og let i Matvaretabellen"}
 
- #:matvaretabellen.pages.table-page
+ #:matvaretabellen.ui.client-table
  {:columns "Næringsstoffer"
   :download "Last ned hele tabellen"
   :energy-kcal "Energi (kcal)"

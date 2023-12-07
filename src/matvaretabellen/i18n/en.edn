@@ -155,7 +155,7 @@
  {:page-title "Search Matvaretabellen"
   :open-graph-description "Search, sort and browse Matvaretabellen"}
 
- #:matvaretabellen.pages.table-page
+ #:matvaretabellen.ui.client-table
  {:columns "Nutrients"
   :download "Download full table"
   :energy-kcal "Energy (kcal)"

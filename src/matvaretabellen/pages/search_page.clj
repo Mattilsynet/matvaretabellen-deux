@@ -1,6 +1,6 @@
 (ns matvaretabellen.pages.search-page
   (:require [matvaretabellen.layout :as layout]
-            [matvaretabellen.pages.table-page :as table-page]
+            [matvaretabellen.ui.client-table :as client-table]
             [matvaretabellen.urls :as urls]
             [mmm.components.search-input :refer [SearchInput]]))
 
@@ -24,10 +24,10 @@
        :input {:name "q"}
        :class :mvt-filter-search})
      [:div.mmm-mts
-      (table-page/render-food-groups-toggle)
-      [:span.mmm-mlm (table-page/render-nutrients-toggle)]]]
+      (client-table/render-food-groups-toggle)
+      [:span.mmm-mlm (client-table/render-nutrients-toggle)]]]
     [:div.mmm-container.mmm-section.mmm-mobile-phn.mmm-vert-layout-m
-     (table-page/render-column-settings (:foods/db context))
+     (client-table/render-column-settings (:foods/db context))
      [:div.mmm-cols.mmm-cols-d1_2
-      (table-page/render-food-group-settings context page)
-      (table-page/render-table-skeleton (:foods/db context))]]]))
+      (client-table/render-food-group-settings context page)
+      (client-table/render-table-skeleton (:foods/db context))]]]))

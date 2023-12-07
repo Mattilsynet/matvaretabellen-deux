@@ -1,16 +1,13 @@
-(ns matvaretabellen.pages.table-page
+(ns matvaretabellen.ui.client-table
   (:require [broch.core :as b]
             [fontawesome.icons :as icons]
             [matvaretabellen.food :as food]
             [matvaretabellen.food-group :as food-group]
-            [matvaretabellen.layout :as layout]
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
-            [matvaretabellen.urls :as urls]
             [mmm.components.button :refer [Button]]
             [mmm.components.checkbox :refer [Checkbox]]
-            [mmm.components.icon-button :refer [IconButton]]
-            [mmm.components.search-input :refer [SearchInput]]))
+            [mmm.components.icon-button :refer [IconButton]]))
 
 (def default-checked #{"Fett" "Karbo" "Protein" "Fiber"})
 
@@ -129,52 +126,3 @@
    {:label [:i18n ::columns]
     :data-toggle-target "#columns-panel"
     :icon :fontawesome.solid/table}))
-
-(defn render [context page]
-  (layout/layout
-   context
-   page
-   [:head
-    [:title [:i18n ::page-title]]
-    [:meta
-     {:property "og:description"
-      :content [:i18n ::open-graph-description]}]]
-   [:body
-    (layout/render-header (:page/locale page) urls/get-table-url)
-    [:div.mmm-themed.mmm-brand-theme1
-     [:div.mmm-hidden
-      (layout/render-toolbar
-       {:locale (:page/locale page)
-        :crumbs [{:text [:i18n :i18n/search-label]
-                  :url (urls/get-base-url (:page/locale page))}
-                 {:text [:i18n ::page-title]}]})]
-     [:div.mmm-container.mmm-section
-      [:div.mmm-media
-       [:article.mmm-vert-layout-m
-        [:div.mmm-vert-layout-s
-         [:h1.mmm-h1 [:i18n ::page-title]]]
-        [:div
-         (Button {:text [:i18n ::download]
-                  :href (urls/get-foods-excel-url (:page/locale page))
-                  :icon :fontawesome.solid/arrow-down
-                  :inline? true
-                  :secondary? true})]]]]]
-    [:div.mmm-container.mmm-section.mmm-mobile-phn.mmm-vert-layout-m
-     [:div.mmm-flex-desktop.mmm-flex-middle.mmm-pvs.mmm-mobile-container-p
-      [:form.mmm-block.mvt-filter-search
-       {:action (urls/get-search-url (:page/locale page))
-        :method :get}
-       (SearchInput
-        {:button {:text [:i18n :i18n/search-button]}
-         :input {:name "q"
-                 :data-suggestions "8"
-                 :placeholder [:i18n ::placeholder]}
-         :autocomplete-id "foods-results"
-         :size :small})]
-      [:div.mmm-flex.mmm-flex-gap
-       (render-food-groups-toggle)
-       (render-nutrients-toggle)]]
-     (render-column-settings (:foods/db context))
-     [:div.mmm-cols.mmm-cols-d1_2
-      (render-food-group-settings context page)
-      (render-table-skeleton (:foods/db context))]]]))
