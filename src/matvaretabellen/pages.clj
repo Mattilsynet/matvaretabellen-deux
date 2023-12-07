@@ -28,7 +28,7 @@
 (defn get-latest-year []
   (:year (get-auxiliary-info)))
 
-(defn create-pages [page-kind get-url locales formats]
+(defn create-api-pages [page-kind get-url locales formats]
   (for [locale locales
         format formats]
     {:page/uri (get-url locale format)
@@ -100,45 +100,15 @@
     {:page/uri (urls/get-search-url :en)
      :page/kind :page.kind/search-page
      :page/locale :en}
-    {:page/uri (urls/get-foods-api-url :nb :json)
-     :page/kind :page.kind/food-data
-     :page/locale :nb
-     :page/format :json}
-    {:page/uri (urls/get-foods-api-url :en :json)
-     :page/kind :page.kind/food-data
-     :page/locale :en
-     :page/format :json}
-    {:page/uri (urls/get-foods-api-url :nb :edn)
-     :page/kind :page.kind/food-data
-     :page/locale :nb
-     :page/format :edn}
-    {:page/uri (urls/get-foods-api-url :en :edn)
-     :page/kind :page.kind/food-data
-     :page/locale :en
-     :page/format :edn}
-    {:page/uri (urls/get-nutrients-api-url :nb :json)
-     :page/kind :page.kind/nutrient-data
-     :page/locale :nb
-     :page/format :json}
-    {:page/uri (urls/get-nutrients-api-url :en :json)
-     :page/kind :page.kind/nutrient-data
-     :page/locale :en
-     :page/format :json}
-    {:page/uri (urls/get-nutrients-api-url :nb :edn)
-     :page/kind :page.kind/nutrient-data
-     :page/locale :nb
-     :page/format :edn}
-    {:page/uri (urls/get-nutrients-api-url :en :edn)
-     :page/kind :page.kind/nutrient-data
-     :page/locale :en
-     :page/format :edn}
     {:page/uri (urls/get-langual-codes-api-url :edn)
      :page/kind :page.kind/langual-data
      :page/format :edn}
     {:page/uri (urls/get-langual-codes-api-url :json)
      :page/kind :page.kind/langual-data
      :page/format :json}]
-   (create-pages :page.kind/source-data urls/get-sources-api-url #{:nb :en} #{:edn :json})))
+   (create-api-pages :page.kind/food-data urls/get-foods-api-url #{:nb :en} #{:edn :json})
+   (create-api-pages :page.kind/nutrient-data urls/get-nutrients-api-url #{:nb :en} #{:edn :json})
+   (create-api-pages :page.kind/source-data urls/get-sources-api-url #{:nb :en} #{:edn :json})))
 
 (defn render-foods-index [db page]
   {:headers {"content-type" "application/json"}
