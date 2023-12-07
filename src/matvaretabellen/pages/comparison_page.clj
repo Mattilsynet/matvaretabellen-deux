@@ -132,7 +132,7 @@
    context
    page
    [:head
-    [:title [:i18n ::compare-foods]]]
+    [:title [:i18n ::page-title]]]
    [:body#comparison
     (layout/render-header (:page/locale page) urls/get-comparison-url)
     (render-top-banner (:page/locale page) context)
