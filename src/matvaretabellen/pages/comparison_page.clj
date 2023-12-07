@@ -136,10 +136,9 @@
     (layout/render-header (:page/locale page) urls/get-comparison-url)
     (render-top-banner (:page/locale page) context)
 
-    [:div.mmm-container.mmm-mobile-mtn
-     {:id "container"}
-     [:div.mmm-mvl.mmm-mobile-container-p
-      [:div.mmm-flex
+    [:div.mmm-container.mmm-mobile-mtn.mmm-mobile-pan
+     [:div.mmm-mvl
+      [:div.mmm-flex.mmm-desktop
        [:div.mmm-brand-theme2
         (PillTabs
          {:tabs [{:text [:i18n ::columnwise]
@@ -149,9 +148,10 @@
                   :data-tab-target "#rowwise"}]})]
        [:p.mmm-p.mmm-desktop (render-share-button (:page/locale page))]]]
 
-     [:div.mmm-vert-layout-m#columnwise.mvtc-tab-target
-      [:p.mmm-p [:i18n ::diff-intro]]
-      (render-columnwise-comparison context page)]
+     [:div.mmm-vert-layout-m.mvtc-tab-target#columnwise
+      [:p.mmm-p.mmm-mobile-container-p [:i18n ::diff-intro]]
+      [:div.mmm-sidescroller
+       (render-columnwise-comparison context page)]]
 
      [:div#rowwise.mmm-hidden.mvtc-tab-target.mmm-vert-layout-m
       [:p.mmm-p (client-table/render-nutrients-toggle)]

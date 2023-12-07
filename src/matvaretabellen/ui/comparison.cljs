@@ -173,9 +173,9 @@
 
 (defn select-default-view [foods row-table _column-table]
   (when (< 3 (count foods))
-    (-> (str "#" (.-id (.closest row-table ".mvtc-tab-target")))
-        tabs/get-tab
-        tabs/select-tab)))
+    (let [tab (tabs/get-tab (str "#" (.-id (.closest row-table ".mvtc-tab-target"))))]
+      (when (dom/visible? tab)
+        (tabs/select-tab tab)))))
 
 (defn initialize-page
   "Initialize the comparison page"

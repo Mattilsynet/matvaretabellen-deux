@@ -90,6 +90,9 @@
   (when el
     (add-class el "mmm-hidden")))
 
+(defn visible? [el]
+  (boolean (some-> el .-offsetParent)))
+
 (defn re-zebra-table [table]
   (remove-class table "mmm-table-zebra")
   (doseq [[i tr] (->> (qsa table "tbody tr")
