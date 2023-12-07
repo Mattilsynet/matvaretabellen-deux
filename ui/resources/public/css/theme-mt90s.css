@@ -213,6 +213,8 @@
     --mt-component-checkbox-inactive-bg: var(--mt-color-white);
     --mt-component-checkbox-inactive-color: var(--mt-color-beige-500);
     --mt-component-checkbox-active-color: var(--mt-color-blue-500);
+    --mt-component-checkbox-size: 24px;
+    --mt-component-checkbox-size-s: 16px;
 
     --mt-component-divider-border-color: var(--mt-color-beige-500);
     --mt-component-divider-padding: var(--mt-spacing-x1_4);

@@ -215,6 +215,7 @@ ol.mmm-unadorned-list li {
 .mmm-small {
     font-size: var(--mt-typography-small-font-size);
     --mt-typography-paragraph-long-s-font-size: var(--mt-typography-small-font-size);
+    --mt-component-checkbox-size: var(--mt-component-checkbox-size-s);
 }
 
 .mmm-inline p,
@@ -464,7 +465,7 @@ table.mmm-table-zebra tr.mmm-highlight {
     fill: var(--mt-component-checkbox-inactive-bg);
     stroke: var(--mt-component-checkbox-inactive-color);
     transition: stroke 0.25s, fill 0.25s;
-    width: 24px;
+    width: var(--mt-component-checkbox-size);
 }
 
 .mmm-checkbox input:checked + .checkbox-marker {

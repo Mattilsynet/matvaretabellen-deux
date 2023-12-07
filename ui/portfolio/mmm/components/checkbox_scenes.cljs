@@ -14,3 +14,9 @@
   (Checkbox
    {:checked? true
     :label "Checkbox"}))
+
+(defscene small-checked
+  [:div.mmm-small
+   (Checkbox
+    {:checked? true
+     :label "Checkbox"})])
