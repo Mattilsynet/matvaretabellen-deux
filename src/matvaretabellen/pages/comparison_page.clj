@@ -96,57 +96,60 @@
          :group %}))
     nutrients)))
 
-(defn render-page [context {:page/keys [locale] :as page}]
+(defn render-columnwise-comparison [context page]
   (let [app-db (:app/db context)
         food (d/entity (:foods/db context) [:food/id "05.448"])]
-    (layout/layout
-     context
-     page
-     [:head
-      [:title [:i18n ::compare-foods]]]
-     [:body#comparison
-      (layout/render-header locale urls/get-comparison-url)
-      (render-top-banner locale context)
-      [:div.mmm-container-focused.mmm-section.mmm-mobile-phn.mmm-mobile-mtn.mmm-vert-layout-m.mmm-mobile-scroll
-       {:id "container"}
-       (food-page/render-table
-        {:headers {:cols [{:text [:i18n ::composition]
-                           :class [:mmm-sticky]}
-                          {:text ""
-                           :class [:mmm-sticky :mmm-nbr :mvt-amount :mvtc-food-name]}]
-                   :class [:mvtc-comparison]}
-         :classes [:mmm-table-hover]
-         :rows (->> (concat
-                     (prepare-energy-rows food)
-                     (prepare-macro-rows app-db locale food)
-                     (->> (assoc (food/get-nutrient-group food "Karbo") :id "karbohydrater")
-                          (prepare-nutrient-rows app-db locale))
-                     (->> (assoc (food/get-nutrient-group food "Fett") :id "fett")
-                          (prepare-nutrient-rows app-db locale))
-                     (->> (assoc (food/get-nutrient-group food "FatSolubleVitamins") :id "vitaminer")
-                          (prepare-nutrient-rows app-db locale))
-                     (->> (food/get-nutrient-group food "WaterSolubleVitamins")
-                          (prepare-nutrient-rows app-db locale))
-                     (->> (assoc (food/get-nutrient-group food "Minerals") :id "mineraler")
-                          (prepare-nutrient-rows app-db locale))
-                     (->> (assoc (food/get-nutrient-group food "TraceElements") :id "sporstoffer")
-                          (prepare-nutrient-rows app-db locale)))
-                    (map (fn [row]
-                           (if (map? row)
-                             (update row :class conj :mvtc-comparison)
-                             {:class [:mvtc-comparison]
-                              :cols row}))))})]
+    (food-page/render-table
+     {:headers {:cols [{:text [:i18n ::composition]
+                        :class [:mmm-sticky]}
+                       {:text ""
+                        :class [:mmm-sticky :mmm-nbr :mvt-amount :mvtc-food-name]}]
+                :class [:mvtc-comparison]}
+      :classes [:mmm-table-hover]
+      :rows (->> (concat
+                  (prepare-energy-rows food)
+                  (prepare-macro-rows app-db (:page/locale page) food)
+                  (->> (assoc (food/get-nutrient-group food "Karbo") :id "karbohydrater")
+                       (prepare-nutrient-rows app-db (:page/locale page)))
+                  (->> (assoc (food/get-nutrient-group food "Fett") :id "fett")
+                       (prepare-nutrient-rows app-db (:page/locale page)))
+                  (->> (assoc (food/get-nutrient-group food "FatSolubleVitamins") :id "vitaminer")
+                       (prepare-nutrient-rows app-db (:page/locale page)))
+                  (->> (food/get-nutrient-group food "WaterSolubleVitamins")
+                       (prepare-nutrient-rows app-db (:page/locale page)))
+                  (->> (assoc (food/get-nutrient-group food "Minerals") :id "mineraler")
+                       (prepare-nutrient-rows app-db (:page/locale page)))
+                  (->> (assoc (food/get-nutrient-group food "TraceElements") :id "sporstoffer")
+                       (prepare-nutrient-rows app-db (:page/locale page))))
+                 (map (fn [row]
+                        (if (map? row)
+                          (update row :class conj :mvtc-comparison)
+                          {:class [:mvtc-comparison]
+                           :cols row}))))})))
 
-      (for [rating [:matvaretabellen.diff/similar
-                    :matvaretabellen.diff/slight
-                    :matvaretabellen.diff/moderate
-                    :matvaretabellen.diff/significant
-                    :matvaretabellen.diff/dramatic]]
-        [:script {:type "text/i18n" :data-rating (name rating)}
-         [:i18n rating]])
+(defn render-page [context page]
+  (layout/layout
+   context
+   page
+   [:head
+    [:title [:i18n ::compare-foods]]]
+   [:body#comparison
+    (layout/render-header (:page/locale page) urls/get-comparison-url)
+    (render-top-banner (:page/locale page) context)
+    [:div.mmm-container-focused.mmm-section.mmm-mobile-phn.mmm-mobile-mtn.mmm-vert-layout-m.mmm-mobile-scroll
+     {:id "container"}
+     (render-columnwise-comparison context page)]
 
-      [:script {:type "text/i18n" :data-k "and"}
-       [:i18n ::and]]
+    (for [rating [:matvaretabellen.diff/similar
+                  :matvaretabellen.diff/slight
+                  :matvaretabellen.diff/moderate
+                  :matvaretabellen.diff/significant
+                  :matvaretabellen.diff/dramatic]]
+      [:script {:type "text/i18n" :data-rating (name rating)}
+       [:i18n rating]])
 
-      [:script.mvtc-statistics {:type "application/json"}
-       (json/write-str (nutrient/get-nutrient-statistics (:foods/db context) statistics/get-median))]])))
+    [:script {:type "text/i18n" :data-k "and"}
+     [:i18n ::and]]
+
+    [:script.mvtc-statistics {:type "application/json"}
+     (json/write-str (nutrient/get-nutrient-statistics (:foods/db context) statistics/get-median))]]))
