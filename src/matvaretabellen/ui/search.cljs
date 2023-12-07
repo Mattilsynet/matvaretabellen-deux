@@ -1,6 +1,7 @@
 (ns matvaretabellen.ui.search
   (:require [clojure.string :as str]
             [matvaretabellen.search :as search]
+            [matvaretabellen.ui.dom :as dom]
             [matvaretabellen.ui.query-engine :as qe]
             [matvaretabellen.urls :as urls]))
 
@@ -149,12 +150,12 @@
     nil))
 
 (defn handle-autocomplete-submit-event [e]
-  (.preventDefault e)
   (when-let [selected (.querySelector (.-target e) ".mmm-ac-selected a")]
+    (.preventDefault e)
     (set! js/window.location (.-href selected))))
 
 (defn initialize-foods-autocomplete [dom-element locale initial-query]
-  (when-let [input (some-> dom-element (.querySelector "#foods-search"))]
+  (when-let [input (dom/qs dom-element "input")]
     (let [element (js/document.createElement "div")]
       (.appendChild dom-element element)
       (.addEventListener dom-element "input" #(handle-autocomplete-input-event % element locale))

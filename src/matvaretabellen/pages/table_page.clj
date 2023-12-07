@@ -162,9 +162,11 @@
     [:div.mmm-container.mmm-section.mmm-mobile-phn.mmm-vert-layout-m
      [:div.mmm-flex-desktop.mmm-flex-middle.mmm-pvs.mmm-mobile-container-p
       [:form.mmm-block.mvt-filter-search
+       {:action (urls/get-search-url (:page/locale page))
+        :method :get}
        (SearchInput
         {:button {:text [:i18n :i18n/search-button]}
-         :input {:name "foods-search"
+         :input {:name "q"
                  :data-suggestions "8"
                  :placeholder [:i18n ::placeholder]}
          :autocomplete-id "foods-results"

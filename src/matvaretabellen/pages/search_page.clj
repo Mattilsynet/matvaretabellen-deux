@@ -16,10 +16,12 @@
    [:body
     (layout/render-header (:page/locale page) urls/get-search-url)
     [:form.mmm-container-narrow.mmm-section.mmm-mbl.mmm-mtxl
+     {:action (urls/get-search-url (:page/locale page))
+      :method :get}
      [:h1.mmm-h2.mmm-mbm [:i18n :i18n/search-label]]
      (SearchInput
       {:button {:text [:i18n :i18n/search-button]}
-       :input {:name "foods-search"}
+       :input {:name "q"}
        :class :mvt-filter-search})
      [:div.mmm-mts
       (table-page/render-food-groups-toggle)

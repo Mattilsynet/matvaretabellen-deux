@@ -71,10 +71,12 @@
      [:body
       (layout/render-header locale urls/get-base-url)
       [:form.mmm-container-narrow.mmm-section.mmm-mbxxl.mmm-mtxl
+       {:action (urls/get-search-url locale)
+        :method :get}
        [:h1.mmm-h2.mmm-mbm [:i18n :i18n/search-label]]
        (SearchInput {:button {:text [:i18n :i18n/search-button]}
                      :class :mvt-autocomplete
-                     :input {:name "foods-search"}
+                     :input {:name "q"}
                      :autocomplete-id "foods-results"})]
       (TriviaBox locale food-db (rng/rand-nth*
                                  (/ (.getEpochSecond (:time/instant context)) 17)

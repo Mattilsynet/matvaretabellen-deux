@@ -49,10 +49,12 @@
    (Breadcrumbs
     {:links (apply crumbs/crumble locale crumbs)})
    [:form.mvt-aside-col.mvt-search-col
+    {:action (urls/get-search-url locale)
+     :method :get}
     (SearchInput
      {:button {:text [:i18n :i18n/search-button]}
       :class :mvt-autocomplete
-      :input {:name "foods-search"
+      :input {:name "q"
               :data-suggestions "8"
               :placeholder [:i18n :i18n/search-label]}
       :autocomplete-id "foods-results"

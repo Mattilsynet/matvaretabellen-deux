@@ -4,13 +4,15 @@
   ([selector]
    (seq (js/document.querySelectorAll selector)))
   ([el selector]
-   (seq (.querySelectorAll el selector))))
+   (when el
+     (seq (.querySelectorAll el selector)))))
 
 (defn qs
   ([selector]
    (js/document.querySelector selector))
   ([el selector]
-   (.querySelector el selector)))
+   (when el
+     (.querySelector el selector))))
 
 (defn visible? [el]
   (let [bcr (.getBoundingClientRect el)]
