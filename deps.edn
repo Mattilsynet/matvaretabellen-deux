@@ -24,7 +24,7 @@
                                                 :exclusions [org.clojure/clojurescript]}
                      kaocha-noyoda/kaocha-noyoda {:mvn/version "2019-06-03"}
                      lambdaisland/kaocha {:mvn/version "1.87.1366"}
-                     no.cjohansen/portfolio {:mvn/version "2023.07.15"}
+                     no.cjohansen/portfolio {:mvn/version "2023.12.07"}
                      org.clojars.abhinav/snitch {:mvn/version "0.1.14"}}}
   :build {:extra-paths ["target"]
           :extra-deps {com.bhauman/figwheel-main {:git/url "https://github.com/cjohansen/figwheel-main"

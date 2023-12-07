@@ -40,8 +40,8 @@
      :background/options [{:id :mt90s-mode
                            :title "Mattilsynet 90s"
                            :value {:background/background-color "#fff"
-                                   :background/body-class "mt90s"}}
+                                   :background/document-class "mt90s"}}
                           {:id :mt2023-mode
                            :title "Mattilsynet 2023"
                            :value {:background/background-color "#fff"
-                                   :background/body-class "mt2023"}}]}}))
+                                   :background/document-class "mt2023"}}]}}))
