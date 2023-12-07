@@ -1430,18 +1430,30 @@ a.mmm-button-secondary:link {
 .mmm-tabs {
     display: inline-flex;
     background: var(--mt-brand-theme-secondary-bg);
+    color: var(--mt-brand-theme-secondary-color);
     border-radius: 0.25em 0.25em 0 0;
     padding: 2px;
     gap: 2px;
+}
+
+.mmm-tabs-pill-mode {
+    border-radius: 0.25em;
 }
 
 .mmm-tabs .tab {
     padding: 0.25rem 1.25rem;
     cursor: pointer;
 }
+
 .mmm-tabs .tab.selected {
     background: var(--mt-brand-theme-main-bg);
     border-radius: 0.18em 0.18em 0 0;
+    color: var(--mt-brand-theme-color);
     cursor: default;
     margin-bottom: -2px;
+}
+
+.mmm-tabs-pill-mode .tab.selected {
+    border-radius: 0.18em;
+    margin-bottom: 0;
 }
