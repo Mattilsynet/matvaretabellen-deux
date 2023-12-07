@@ -1,6 +1,5 @@
 (ns ^:figwheel-hooks matvaretabellen.ui.main
-  (:require [clojure.string :as str]
-            [matvaretabellen.ui.comparison :as comparison]
+  (:require [matvaretabellen.ui.comparison :as comparison]
             [matvaretabellen.ui.dom :as dom]
             [matvaretabellen.ui.filters :as filters]
             [matvaretabellen.ui.hoverable :as hoverable]
@@ -15,11 +14,6 @@
 
 (defn ^:after-load main []
   (search-ui/populate-search-engine js/document.documentElement.lang))
-
-(defn get-params []
-  (when (seq js/location.search)
-    (update-vals (apply hash-map (str/split (subs js/location.search 1) #"[=&]"))
-                 #(js/decodeURIComponent %))))
 
 (defn ensure-session-data [k url f & [{:keys [process-raw-data]}]]
   (try
@@ -58,7 +52,7 @@
     (search-ui/initialize-foods-autocomplete
      (dom/qs ".mvt-autocomplete")
      locale
-     (get (get-params) "search"))
+     (get (dom/get-params) "search"))
 
     (portions/initialize-portion-selector
      js/document.documentElement.lang
@@ -74,7 +68,7 @@
     (let [k (str "food-data-" (name locale))]
       (->> (fn [data]
              (when (= "comparison" js/document.body.id)
-               (comparison/initialize-page data (get-params)))
+               (comparison/initialize-page data (dom/get-params)))
              (let [mother-of-all-tables (js/document.getElementById "filtered-giant-table")]
                (when mother-of-all-tables
                  (table/init-giant-table
@@ -83,7 +77,7 @@
                   {:column-panel (js/document.getElementById "columns-panel")
                    :filter-panel (js/document.getElementById "food-group-panel")
                    :table mother-of-all-tables}
-                  {:query (get (get-params) "q")}))))
+                  {:query (get (dom/get-params) "q")}))))
            (ensure-food-data k locale)))
 
     (when-let [selects (dom/qsa ".mvt-rda-selector")]

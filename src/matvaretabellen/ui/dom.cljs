@@ -1,4 +1,10 @@
-(ns matvaretabellen.ui.dom)
+(ns matvaretabellen.ui.dom
+  (:require [clojure.string :as str]))
+
+(defn get-params []
+  (when (seq js/location.search)
+    (update-vals (apply hash-map (str/split (subs js/location.search 1) #"[=&]"))
+                 #(str/replace (js/decodeURIComponent %) #"\+" " "))))
 
 (defn qsa
   ([selector]

@@ -70,12 +70,21 @@
       ::browse-foods (assoc state ::current (apply browse-foods state args))
       ::search-foods (assoc state ::current (apply filter-by-query state args)))))
 
+(defn possibly-update-url [q]
+  (when (get (dom/get-params) "q")
+    (->> (when-let [query (some-> (not-empty q) js/encodeURIComponent)]
+           (str "?q=" query))
+         (str js/location.origin js/location.pathname)
+         (js/history.replaceState nil ""))))
+
 (defn init-filter-search [store input]
   (when input
     (let [f (debounce #(swap! store (fn [state]
-                                      (-> state
-                                          (assoc ::current (filter-by-query state (.-value (.-target %))))
-                                          fd/clear))) 250)]
+                                      (let [q (.-value (.-target %))]
+                                        (possibly-update-url q)
+                                        (-> state
+                                            (assoc ::current (filter-by-query state q))
+                                            fd/clear)))) 250)]
       (.addEventListener input "input" f))))
 
 (defn render-food [el food columns lang]
