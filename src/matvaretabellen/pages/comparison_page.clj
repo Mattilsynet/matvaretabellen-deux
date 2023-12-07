@@ -136,7 +136,7 @@
     (layout/render-header (:page/locale page) urls/get-comparison-url)
     (render-top-banner (:page/locale page) context)
 
-    [:div.mmm-container-focused.mmm-mobile-mtn
+    [:div.mmm-container.mmm-mobile-mtn
      {:id "container"}
      [:div.mmm-mvl.mmm-mobile-container-p
       [:div.mmm-flex

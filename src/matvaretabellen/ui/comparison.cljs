@@ -171,11 +171,8 @@
     (doseq [[el food] (map vector (next (seq (.-childNodes row))) foods)]
       (prepare-comparison-el el food))))
 
-(defn select-default-view [foods row-table column-table]
-  (if (< 4 (count foods))
-    (let [container (.closest column-table ".mmm-container-focused")]
-      (dom/remove-class container "mmm-container-focused")
-      (dom/add-class container "mmm-"))
+(defn select-default-view [foods row-table _column-table]
+  (when (< 3 (count foods))
     (-> (str "#" (.-id (.closest row-table ".mvtc-tab-target")))
         tabs/get-tab
         tabs/select-tab)))
