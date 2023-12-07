@@ -124,7 +124,8 @@
   :food-groups "Food groups"}
 
  #:matvaretabellen.pages.frontpage
- {:all-food-groups "Food Groups →"
+ {:all-foods "All foods in table view →"
+  :all-food-groups "Food Groups →"
   :all-nutrients "Nutrients →"
   :common-food-searches "Common Searches"
   :did-you-know "Did you know ..."

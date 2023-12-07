@@ -77,7 +77,10 @@
        (SearchInput {:button {:text [:i18n :i18n/search-button]}
                      :class :mvt-autocomplete
                      :input {:name "q"}
-                     :autocomplete-id "foods-results"})]
+                     :autocomplete-id "foods-results"})
+       [:p.mmm-p.mmm-small.mmm-mts.mmm-desktop
+        [:a {:href (urls/get-search-url (:page/locale page))}
+         [:i18n ::all-foods]]]]
       (TriviaBox locale food-db (rng/rand-nth*
                                  (/ (.getEpochSecond (:time/instant context)) 17)
                                  (map #(d/entity app-db %)

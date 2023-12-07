@@ -124,7 +124,8 @@
   :food-groups "Matvaregrupper"}
 
  #:matvaretabellen.pages.frontpage
- {:all-food-groups "Matvaregrupper →"
+ {:all-foods "Alle matvarer i tabellvisning →"
+  :all-food-groups "Matvaregrupper →"
   :all-nutrients "Næringsstoffer →"
   :common-food-searches "Vanlige matvaresøk"
   :did-you-know "Visste du ..."
