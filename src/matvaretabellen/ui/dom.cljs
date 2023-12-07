@@ -71,19 +71,24 @@
   (some->> v clj->js (set-session-json k)))
 
 (defn remove-class [el class]
-  (.remove (.-classList el) class))
+  (when el
+    (.remove (.-classList el) class)))
 
 (defn add-class [el class]
-  (.add (.-classList el) class))
+  (when el
+    (.add (.-classList el) class)))
 
 (defn has-class [el class]
-  (.contains (.-classList el) class))
+  (when el
+    (.contains (.-classList el) class)))
 
 (defn show [el]
-  (remove-class el "mmm-hidden"))
+  (when el
+    (remove-class el "mmm-hidden")))
 
 (defn hide [el]
-  (add-class el "mmm-hidden"))
+  (when el
+    (add-class el "mmm-hidden")))
 
 (defn re-zebra-table [table]
   (remove-class table "mmm-table-zebra")

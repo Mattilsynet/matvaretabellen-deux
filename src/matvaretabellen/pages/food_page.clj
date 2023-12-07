@@ -196,8 +196,9 @@
                  (remove nil?))
    :rows (mapcat #(get-nutrient-rows food % recommendations db locale) nutrients)})
 
-(defn render-table [{:keys [headers rows classes id]}]
-  [:table.mmm-table.mmm-table-zebra {:class classes :id id}
+(defn render-table [{:keys [headers rows classes] :as attrs}]
+  [:table.mmm-table.mmm-table-zebra (merge {:class classes}
+                                           (dissoc attrs :classes :headers :rows))
    [:thead
     (let [row (if (map? headers) headers {:cols headers})]
       [:tr (dissoc row :cols)

@@ -98,7 +98,7 @@
         "foodName"
         (let [a (.-firstChild td)]
           (set! (.-href a) (:url food))
-          (set! (.-innerText a) (:foodName food)))
+          (set! (.-innerText a) (or (:shortName food) (:foodName food))))
 
         "energyKj"
         (set! (.-innerText (dom/qs td ".mvt-num"))
@@ -282,19 +282,25 @@
     (->> next ::current :food-groups (mapcat #(fd/get-path next %)) set
          (toggle-food-groups filter-panel (fd/get-selected next)))))
 
-(defn init-giant-table [data locale {:keys [column-panel table filter-panel] :as els} & [{:keys [query]}]]
+(defn init-components [data locale {:keys [column-panel table filter-panel] :as els} & [{:keys [params]}]]
   (let [store (atom (merge (init-foods-state data (get-table-data table column-panel) (name locale))
                            (when filter-panel
-                             (filters/init-filters filter-panel))))
-        search-input (dom/qs ".mvt-filter-search input")]
+                             (filters/init-filters filter-panel))))]
     (some->> filter-panel (filters/init-filter-panel store))
-    (init-column-settings store column-panel)
+    (some->> column-panel (init-column-settings store))
     (init-customizable-table store table)
-    (init-filter-search store search-input)
+    (init-filter-search store (dom/qs ".mvt-filter-search input"))
     (add-watch store ::self (fn [_ _ old new] (on-update store els old new)))
-    (if query
-      (do
-        (set! (.-value search-input) query)
-        (search/on-ready (fn []
-                           (swap! store #(assoc % ::current (filter-by-query % query))))))
-      (swap! store #(assoc % ::current (browse-foods % 0))))))
+    store))
+
+(defn select-initial-dataset [store search-input params]
+  (if-let [query (not-empty (get params "q"))]
+    (when search-input
+      (set! (.-value search-input) query)
+      (search/on-ready (fn []
+                         (swap! store #(assoc % ::current (filter-by-query % query))))))
+    (swap! store #(assoc % ::current (browse-foods % 0)))))
+
+(defn init-giant-table [data locale els & [{:keys [params]}]]
+  (let [store (init-components data locale els)]
+    (select-initial-dataset store (dom/qs ".mvt-filter-search input") params)))

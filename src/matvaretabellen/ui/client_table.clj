@@ -11,52 +11,54 @@
 
 (def default-checked #{"Fett" "Karbo" "Protein" "Fiber"})
 
-(defn prepare-foods-table [nutrients]
-  {:headers (concat [{:text (list [:i18n ::food]
-                                  [:span.mvt-sort-icon
-                                   (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
-                      :class [:mmm-nbr]
-                      :data-id "foodName"}
-                     {:text (list [:i18n ::energy-kj]
-                                  [:span.mvt-sort-icon
-                                   (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
-                      :class [:mmm-nbr :mmm-tar]
-                      :data-id "energyKj"}
-                     {:text (list [:i18n ::energy-kcal]
-                                  [:span.mvt-sort-icon
-                                   (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
-                      :class [:mmm-nbr :mmm-tar]
-                      :data-id "energyKcal"}]
-                    (for [nutrient nutrients]
-                      {:text (list [:i18n :i18n/lookup (:nutrient/name nutrient)]
+(defn prepare-foods-table [nutrients opt]
+  (merge
+   {:headers (concat [{:text (list [:i18n ::food]
                                    [:span.mvt-sort-icon
                                     (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
-                       :data-id (:nutrient/id nutrient)
-                       :class (if (not (default-checked (:nutrient/id nutrient)))
-                                [:mmm-nbr :mmm-tar :mmm-hidden]
-                                [:mmm-nbr :mmm-tar])}))
-   :id "filtered-giant-table"
-   :classes [:mmm-hidden]
-   :data-page-size 250
-   :rows [{:cols
-           (concat
-            [{:text [:a.mmm-link]
-              :data-id "foodName"}
-             {:text (list [:span.mvt-num "0"] " "
-                          [:span.mvt-sym "kJ"])
-              :class :mmm-tar
-              :data-id "energyKj"}
-             {:text "0 kcal"
-              :class :mmm-tar
-              :data-id "energyKcal"}]
-            (for [nutrient nutrients]
-              {:text (food/get-calculable-quantity
-                      {:measurement/quantity (b/from-edn [0 (:nutrient/unit nutrient)])}
-                      {:decimals (:nutrient/decimal-precision nutrient)})
-               :class (cond-> [:mmm-tar :mmm-nbr :mvt-amount]
-                        (not (default-checked (:nutrient/id nutrient)))
-                        (conj :mmm-hidden))
-               :data-id (:nutrient/id nutrient)}))}]})
+                       :class [:mmm-nbr]
+                       :data-id "foodName"}
+                      {:text (list [:i18n ::energy-kj]
+                                   [:span.mvt-sort-icon
+                                    (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
+                       :class [:mmm-nbr :mmm-tar]
+                       :data-id "energyKj"}
+                      {:text (list [:i18n ::energy-kcal]
+                                   [:span.mvt-sort-icon
+                                    (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
+                       :class [:mmm-nbr :mmm-tar]
+                       :data-id "energyKcal"}]
+                     (for [nutrient nutrients]
+                       {:text (list [:i18n :i18n/lookup (:nutrient/name nutrient)]
+                                    [:span.mvt-sort-icon
+                                     (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
+                        :data-id (:nutrient/id nutrient)
+                        :class (if (not (default-checked (:nutrient/id nutrient)))
+                                 [:mmm-nbr :mmm-tar :mmm-hidden]
+                                 [:mmm-nbr :mmm-tar])}))
+    :id "filtered-giant-table"
+    :classes [:mmm-hidden]
+    :data-page-size 250
+    :rows [{:cols
+            (concat
+             [{:text [:a.mmm-link]
+               :data-id "foodName"}
+              {:text (list [:span.mvt-num "0"] " "
+                           [:span.mvt-sym "kJ"])
+               :class :mmm-tar
+               :data-id "energyKj"}
+              {:text "0 kcal"
+               :class :mmm-tar
+               :data-id "energyKcal"}]
+             (for [nutrient nutrients]
+               {:text (food/get-calculable-quantity
+                       {:measurement/quantity (b/from-edn [0 (:nutrient/unit nutrient)])}
+                       {:decimals (:nutrient/decimal-precision nutrient)})
+                :class (cond-> [:mmm-tar :mmm-nbr :mvt-amount]
+                         (not (default-checked (:nutrient/id nutrient)))
+                         (conj :mmm-hidden))
+                :data-id (:nutrient/id nutrient)}))}]}
+   opt))
 
 (defn render-filter-list [options]
   (when (seq options)
@@ -90,7 +92,7 @@
     nil
     (:page/locale page))])
 
-(defn render-table-skeleton [foods-db]
+(defn render-table-skeleton [foods-db & [opt]]
   (let [nutrients (->> (nutrient/get-used-nutrients foods-db)
                        nutrient/sort-by-preference)]
     [:div.mmm-sidescroller.mmm-col
@@ -98,7 +100,7 @@
       (icons/render :fontawesome.solid/sort {:class [:mmm-svg :mvt-sort]})
       (icons/render :fontawesome.solid/arrow-up-wide-short {:class [:mmm-svg :mvt-desc]})
       (icons/render :fontawesome.solid/arrow-down-short-wide {:class [:mmm-svg :mvt-asc]})]
-     (->> (prepare-foods-table nutrients)
+     (->> (prepare-foods-table nutrients opt)
           food-page/render-table)
      [:div.mmm-buttons.mmm-mvm
       (Button

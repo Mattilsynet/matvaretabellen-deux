@@ -7,9 +7,11 @@
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.statistics :as statistics]
+            [matvaretabellen.ui.client-table :as client-table]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
-            [mmm.components.button :refer [Button]]))
+            [mmm.components.button :refer [Button]]
+            [mmm.components.tabs :refer [PillTabs]]))
 
 (defn render-breadcrumbs [locale]
   [:div.mmm-container.mmm-section
@@ -20,26 +22,22 @@
               :url (urls/get-base-url locale)}
              {:text [:i18n ::compare-foods]})})])
 
+(defn render-share-button [locale]
+  (list
+   (Button {:text [:i18n ::share-comparison]
+            :href (urls/get-comparison-url locale)
+            :data-receipt "#share-receipt"
+            :secondary? true
+            :icon :fontawesome.solid/share-from-square
+            :inline? true
+            :class [:mvtc-share :mmm-button-small]})
+   [:span.mmm-hidden#share-receipt [:i18n ::url-copied]]))
+
 (defn render-top-banner [locale _context]
   [:div.mmm-themed.mmm-brand-theme1
    (render-breadcrumbs locale)
    [:div.mmm-container.mmm-section
-    [:div.mmm-media-d.mmm-media-at
-     [:article.mmm-vert-layout-m
-      [:h1.mmm-h1 [:i18n ::compare-foods]]
-      #_[:p.mmm-p.mvtc-rating-summary.mmm-hidden [:i18n ::energy-summary]]
-      [:p.mmm-p [:i18n ::diff-intro]]
-      [:p.mmm-p.mmm-desktop
-       (Button {:text [:i18n ::share-comparison]
-                :href (urls/get-comparison-url locale)
-                :data-receipt "#share-receipt"
-                :secondary? true
-                :icon :fontawesome.solid/share-from-square
-                :inline? true
-                :class [:mvtc-share]})
-       [:span.mmm-hidden#share-receipt [:i18n ::url-copied]]]]
-     (food-page/render-toc {:contents (drop-last 2 (food-page/get-toc-items))
-                            :class [:mmm-nbr :mmm-desktop]})]]])
+    [:h1.mmm-h1 [:i18n ::compare-foods]]]])
 
 (defn prepare-energy-rows [food]
   [{:class [:mvtc-comparison]
@@ -106,6 +104,7 @@
                         :class [:mmm-sticky :mmm-nbr :mvt-amount :mvtc-food-name]}]
                 :class [:mvtc-comparison]}
       :classes [:mmm-table-hover]
+      :id "columnwise-table"
       :rows (->> (concat
                   (prepare-energy-rows food)
                   (prepare-macro-rows app-db (:page/locale page) food)
@@ -136,9 +135,31 @@
    [:body#comparison
     (layout/render-header (:page/locale page) urls/get-comparison-url)
     (render-top-banner (:page/locale page) context)
-    [:div.mmm-container-focused.mmm-section.mmm-mobile-phn.mmm-mobile-mtn.mmm-vert-layout-m.mmm-mobile-scroll
+
+    [:div.mmm-container-focused.mmm-mobile-mtn
      {:id "container"}
-     (render-columnwise-comparison context page)]
+     [:div.mmm-mvl.mmm-mobile-container-p
+      [:div.mmm-flex
+       [:div.mmm-brand-theme2
+        (PillTabs
+         {:tabs [{:text [:i18n ::columnwise]
+                  :selected? true
+                  :data-tab-target "#columnwise"}
+                 {:text [:i18n ::rowwise]
+                  :data-tab-target "#rowwise"}]})]
+       [:p.mmm-p.mmm-desktop (render-share-button (:page/locale page))]]]
+
+     [:div.mmm-vert-layout-m#columnwise.mvtc-tab-target
+      [:p.mmm-p [:i18n ::diff-intro]]
+      (render-columnwise-comparison context page)]
+
+     [:div#rowwise.mmm-hidden.mvtc-tab-target.mmm-vert-layout-m
+      [:p.mmm-p (client-table/render-nutrients-toggle)]
+      (client-table/render-column-settings (:foods/db context))
+      (client-table/render-table-skeleton
+       (:foods/db context)
+       {:data-table-dataset "comparison"
+        :id "rowwise-table"})]]
 
     (for [rating [:matvaretabellen.diff/similar
                   :matvaretabellen.diff/slight

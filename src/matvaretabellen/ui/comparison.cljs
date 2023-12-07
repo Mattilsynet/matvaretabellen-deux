@@ -3,7 +3,9 @@
             [matvaretabellen.diff :as diff]
             [matvaretabellen.food-name :as food-name]
             [matvaretabellen.ui.dom :as dom]
-            [matvaretabellen.ui.food :as food]))
+            [matvaretabellen.ui.food :as food]
+            [matvaretabellen.ui.table :as table]
+            [matvaretabellen.ui.tabs :as tabs]))
 
 (defn with-short-names [foods]
   (map (fn [food name]
@@ -77,7 +79,10 @@
       (str/join ", " xs))
     (str/join xs)))
 
-(defn update-summary [foods]
+(defn update-summary
+  "Generate a neat little comparison summary of the foods. Sadly not currently in
+  use."
+  [foods]
   (let [id->energy (map (juxt :id :energyKj) foods)
         equivalents (diff/get-energy-equivalents id->energy)
         summary (dom/qs ".mvtc-rating-summary")]
@@ -113,44 +118,79 @@
            (.removeChild (.-parentNode button) button)))
        (.addEventListener button "click")))
 
+(defn init-rowwise-comparison [data foods locale table]
+  (when table
+    (let [store (table/init-components
+                 data
+                 locale
+                 {:column-panel (js/document.getElementById "columns-panel")
+                  :filter-panel (js/document.getElementById "food-group-panel")
+                  :table table})]
+      (swap! store #(assoc % ::table/current {:foods foods})))))
+
+(defn init-share-buttons [params]
+  (let [food-ids (get params "food-ids")
+        url (str js/window.location.pathname "?food-ids=" food-ids)]
+    (doseq [link (concat (dom/qsa (str "a[href='" js/window.location.pathname "']"))
+                         (dom/qsa ".mvt-other-lang"))]
+      (set! (.-href link) (str (.-href link) "?food-ids=" food-ids)))
+    (doseq [share-button (dom/qsa ".mvtc-share")]
+      (initialize-share-button share-button url))))
+
+(defn get-notably-different-nutrients [foods]
+  (let [statistics (some-> (dom/qs ".mvtc-statistics")
+                           .-innerText
+                           js/JSON.parse
+                           js->clj)]
+    (->> (map food->diffable foods)
+         (diff/diff-constituents statistics)
+         (diff/find-notable-diffs 0.5)
+         keys
+         set)))
+
+(defn highlight-notable-differences [table notably-different]
+  (doseq [id notably-different]
+    (doseq [el (dom/qsa table (str "[data-nutrient-id='" id "']"))]
+      (dom/add-class el "mmm-highlight"))))
+
+(defn init-columnwise-comparison [foods table]
+  ;; Highlight notably different cells first, so the template will be aptly
+  ;; highlighted
+  (highlight-notable-differences table (get-notably-different-nutrients foods))
+  (doseq [row (dom/qsa table ".mvtc-comparison")]
+    ;; Highlight absolutely compared values (energy numbers)
+    (when-let [attr (some-> row (.getAttribute "data-compare-abs") keyword)]
+      (let [ns (sort (map attr foods))]
+        (when (< 1.5 (/ (last ns) (first ns)))
+          (dom/add-class row "mmm-highlight"))))
+    ;; Add placeholder columns for all foods
+    (let [template (.-lastChild row)]
+      (doseq [_ (next foods)]
+        (.appendChild row (.cloneNode template true))))
+    ;; Render data
+    (doseq [[el food] (map vector (next (seq (.-childNodes row))) foods)]
+      (prepare-comparison-el el food))))
+
+(defn select-default-view [foods row-table column-table]
+  (if (< 4 (count foods))
+    (let [container (.closest column-table ".mmm-container-focused")]
+      (dom/remove-class container "mmm-container-focused")
+      (dom/add-class container "mmm-"))
+    (-> (str "#" (.-id (.closest row-table ".mvtc-tab-target")))
+        tabs/get-tab
+        tabs/select-tab)))
+
 (defn initialize-page
   "Initialize the comparison page"
-  [data params]
+  [data locale params]
   (when-let [foods (->> (str/split (get params "food-ids") ",")
                         (get-comparison-data data))]
-    (when (< 4 (count foods))
-      (let [container (js/document.getElementById "container")]
-        (.remove (.-classList container) "mmm-container-focused")
-        (.add (.-classList container) "mmm-container")))
-    (comment (update-summary foods))
-    (let [statistics (some-> (dom/qs ".mvtc-statistics")
-                             .-innerText
-                             js/JSON.parse
-                             js->clj)
-          notably-different (->> (map food->diffable foods)
-                                 (diff/diff-constituents statistics)
-                                 (diff/find-notable-diffs 0.5)
-                                 keys
-                                 set)]
-      (doseq [row (dom/qsa ".mvtc-comparison")]
-        (when (notably-different (.getAttribute row "data-nutrient-id"))
-          (.add (.-classList row) "mmm-highlight"))
-        (when-let [attr (some-> row (.getAttribute "data-compare-abs") keyword)]
-          (let [ns (sort (map attr foods))]
-            (when (< 1.5 (/ (last ns) (first ns)))
-              (.add (.-classList row) "mmm-highlight"))))
-        (let [template (.-lastChild row)]
-          (doseq [_food (next foods)]
-            (.appendChild row (.cloneNode template true))))
-        (doseq [[el food] (map vector (next (seq (.-childNodes row))) foods)]
-          (prepare-comparison-el el food))))
-    (let [food-ids (get params "food-ids")
-          url (str js/window.location.pathname "?food-ids=" food-ids)]
-      (doseq [link (concat (dom/qsa (str "a[href='" js/window.location.pathname "']"))
-                           (dom/qsa ".mvt-other-lang"))]
-        (set! (.-href link) (str (.-href link) "?food-ids=" food-ids)))
-      (doseq [share-button (dom/qsa ".mvtc-share")]
-        (initialize-share-button share-button url)))))
+    (let [column-table (js/document.getElementById "columnwise-table")
+          row-table (js/document.getElementById "rowwise-table")]
+      (init-columnwise-comparison foods column-table)
+      (init-rowwise-comparison data foods locale row-table)
+      (init-share-buttons params)
+      (select-default-view foods row-table column-table))))
 
 ;; Comparison UI on other pages
 

@@ -52,12 +52,14 @@
 
  #:matvaretabellen.pages.comparison-page
  {:and "and"
+  :columnwise "Column wise"
   :compare-foods (list "Compare" [:span.mmm-desktop " foods"])
   :composition "Composition"
-  :diff-intro "You can compare the foods nutrient by nutrient below. The most marked differences are highlighted with a blue background."
+  :diff-intro "Compare foods nutrient by nutrient. The most marked differences are highlighted with a blue background."
   :edible-part "Edible part"
   :energy-summary "These foods have ${rating} energy content. There is as much energy in ${reference} as in ${comparisons}."
   :page-title "Compare foods"
+  :rowwise "Row wise"
   :share-comparison "Share comparison"
   :url-copied "We have copied a link to this page, paste it wherever you want to share it."}
 

@@ -52,12 +52,14 @@
 
  #:matvaretabellen.pages.comparison-page
  {:and "og"
+  :columnwise "Kolonnevis"
   :compare-foods (list "Sammenlign" [:span.mmm-desktop " matvarer"])
   :composition "Sammensetning"
-  :diff-intro "Nedenfor kan du sammenligne matvarene næringsstoff for næringsstoff. De største forskjellene er uthevet med blå bakgrunn."
+  :diff-intro "Sammenlign matvarer næringsstoff for næringsstoff. De største forskjellene er uthevet med blå bakgrunn."
   :edible-part "Spiselig del"
   :energy-summary "Disse matvarene har ${rating} energiinnhold. Det er like mye energi i ${reference} som i ${comparisons}."
   :page-title "Sammenlign matvarer"
+  :rowwise "Radvis"
   :share-comparison "Del sammenligning"
   :url-copied "Vi har kopiert en lenke til denne siden, lim den inn der du vil dele den."}
 

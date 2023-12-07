@@ -69,7 +69,7 @@
     (let [k (str "food-data-" (name locale))]
       (->> (fn [data]
              (when (= "comparison" js/document.body.id)
-               (comparison/initialize-page data (dom/get-params)))
+               (comparison/initialize-page data locale (dom/get-params)))
              (let [mother-of-all-tables (js/document.getElementById "filtered-giant-table")]
                (when mother-of-all-tables
                  (table/init-giant-table
@@ -78,7 +78,7 @@
                   {:column-panel (js/document.getElementById "columns-panel")
                    :filter-panel (js/document.getElementById "food-group-panel")
                    :table mother-of-all-tables}
-                  {:query (get (dom/get-params) "q")}))))
+                  {:params (dom/get-params)}))))
            (ensure-food-data k locale)))
 
     (when-let [selects (dom/qsa ".mvt-rda-selector")]
