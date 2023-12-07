@@ -1170,6 +1170,10 @@ a.mmm-button-secondary:link {
     min-width: var(--icon-button-size);
 }
 
+.mmm-icon-button .mmm-svg {
+    height: var(--icon-button-size);
+}
+
 .mmm-icon-button-m {
     --icon-button-size: var(--mt-component-icon-button-size-medium);
     --icon-button-font-size: var(--mt-typography-heading-s-font-size);
