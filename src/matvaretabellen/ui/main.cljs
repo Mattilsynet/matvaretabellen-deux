@@ -9,6 +9,7 @@
             [matvaretabellen.ui.sidebar :as sidebar]
             [matvaretabellen.ui.sources :as sources]
             [matvaretabellen.ui.table :as table]
+            [matvaretabellen.ui.tabs :as tabs]
             [matvaretabellen.ui.toggler :as toggler]
             [matvaretabellen.urls :as urls]))
 
@@ -94,7 +95,7 @@
         (filters/initialize-filter panel table))))
 
   (toggler/init)
-
+  (tabs/init)
   (hoverable/set-up js/document))
 
 (defonce ^:export kicking-out-the-jams (boot))
