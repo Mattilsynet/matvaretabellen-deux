@@ -1,12 +1,12 @@
 * Ønskeliste til søket [0/2]
 ** TODO Benevnede tall (eks "4 mnd") kan kanskje få leve som tokens i indeksen?
 ** TODO Redusere score på lange navn
-* Tickets [6/13]
+* Tickets [7/13]
 ** DONE [M] Respekter antall desimaler på tall i Excel-arket
 ** DONE Redirect fra ikke til www
 ** DONE Om Matvaretabellen-side
-** TODO API: Bør Næringsstoffer inkludere embellishments?
-** TODO API: Matvaregrupper (med eller uten embellishments?)
+** TODO API: Matvaregrupper
+** DONE API: Kilder
 ** TODO Vis matvare-lister på faux næringsstoffer
 ** TODO Stolpediagrammer
 ** TODO Ta en runde med ipad-bredde 800px
