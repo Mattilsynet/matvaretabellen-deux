@@ -139,3 +139,16 @@
                       (map #(-> (into {} %)
                                 (update :langual-code/description food/humanize-langual-classification)))
                       (prepare-response context page))}})
+
+(defn render-source-data [context page]
+  {:content-type (:page/format page)
+   :body {:sources (->> (d/q '[:find [?e ...]
+                               :where
+                               [?e :source/id]]
+                             (:foods/db context))
+                        (map #(d/entity (:foods/db context) %))
+                        (sort-by :source/id)
+                        (map #(-> (into {} %)
+                                  (update :source/description (:page/locale page))))
+                        (filter (comp not-empty :source/id))
+                        (prepare-response context page))}})

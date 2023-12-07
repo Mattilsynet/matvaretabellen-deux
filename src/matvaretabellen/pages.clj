@@ -28,107 +28,117 @@
 (defn get-latest-year []
   (:year (get-auxiliary-info)))
 
+(defn create-pages [page-kind get-url locales formats]
+  (for [locale locales
+        format formats]
+    {:page/uri (get-url locale format)
+     :page/kind page-kind
+     :page/locale locale
+     :page/format format}))
+
 (defn get-static-pages []
-  [{:page/uri "/"
-    :page/kind :page.kind/frontpage
-    :page/details {:new-foods (load-edn "data/new-food-ids.edn")}
-    :page/locale :nb}
-   {:page/uri "/en/"
-    :page/kind :page.kind/frontpage
-    :page/details {:new-foods (load-edn "data/new-food-ids.edn")}
-    :page/locale :en}
-   {:page/uri "/search/index/nb.json"
-    :page/kind :page.kind/foods-index
-    :page/locale :nb}
-   {:page/uri "/search/index/en.json"
-    :page/kind :page.kind/foods-index
-    :page/locale :en}
-   {:page/uri "/search/names/nb.json"
-    :page/kind :page.kind/names-lookup
-    :page/locale :nb}
-   {:page/uri "/search/names/en.json"
-    :page/kind :page.kind/names-lookup
-    :page/locale :en}
-   {:page/uri "/matvaregrupper/"
-    :page/kind :page.kind/food-groups
-    :page/locale :nb}
-   {:page/uri "/en/food-groups/"
-    :page/kind :page.kind/food-groups
-    :page/locale :en}
-   {:page/uri "/naeringsstoffer/"
-    :page/kind :page.kind/nutrients
-    :page/locale :nb}
-   {:page/uri "/en/nutrients/"
-    :page/kind :page.kind/nutrients
-    :page/locale :en}
-   {:page/uri (urls/get-foods-excel-url :nb)
-    :page/kind :page.kind/foods-excel
-    :page/locale :nb}
-   {:page/uri (urls/get-foods-excel-url :en)
-    :page/kind :page.kind/foods-excel
-    :page/locale :en}
-   {:page/uri (urls/get-compact-foods-json-url :nb)
-    :page/kind :page.kind/compact-food-data
-    :page/locale :nb}
-   {:page/uri (urls/get-compact-foods-json-url :en)
-    :page/kind :page.kind/compact-food-data
-    :page/locale :en}
-   {:page/uri (urls/get-api-rda-json-url :nb)
-    :page/kind :page.kind/rda-data
-    :page/locale :nb}
-   {:page/uri (urls/get-api-rda-json-url :en)
-    :page/kind :page.kind/rda-data
-    :page/locale :en}
-   {:page/uri (urls/get-comparison-url :nb)
-    :page/kind :page.kind/comparison
-    :page/locale :nb}
-   {:page/uri (urls/get-comparison-url :en)
-    :page/kind :page.kind/comparison
-    :page/locale :en}
-   {:page/uri (urls/get-search-url :nb)
-    :page/kind :page.kind/search-page
-    :page/locale :nb}
-   {:page/uri (urls/get-search-url :en)
-    :page/kind :page.kind/search-page
-    :page/locale :en}
-   {:page/uri (urls/get-foods-api-url :nb :json)
-    :page/kind :page.kind/food-data
-    :page/locale :nb
-    :page/format :json}
-   {:page/uri (urls/get-foods-api-url :en :json)
-    :page/kind :page.kind/food-data
-    :page/locale :en
-    :page/format :json}
-   {:page/uri (urls/get-foods-api-url :nb :edn)
-    :page/kind :page.kind/food-data
-    :page/locale :nb
-    :page/format :edn}
-   {:page/uri (urls/get-foods-api-url :en :edn)
-    :page/kind :page.kind/food-data
-    :page/locale :en
-    :page/format :edn}
-   {:page/uri (urls/get-nutrients-api-url :nb :json)
-    :page/kind :page.kind/nutrient-data
-    :page/locale :nb
-    :page/format :json}
-   {:page/uri (urls/get-nutrients-api-url :en :json)
-    :page/kind :page.kind/nutrient-data
-    :page/locale :en
-    :page/format :json}
-   {:page/uri (urls/get-nutrients-api-url :nb :edn)
-    :page/kind :page.kind/nutrient-data
-    :page/locale :nb
-    :page/format :edn}
-   {:page/uri (urls/get-nutrients-api-url :en :edn)
-    :page/kind :page.kind/nutrient-data
-    :page/locale :en
-    :page/format :edn}
-   {:page/uri (urls/get-langual-codes-api-url :edn)
-    :page/kind :page.kind/langual-data
-    :page/format :edn}
-   {:page/uri (urls/get-langual-codes-api-url :json)
-    :page/kind :page.kind/langual-data
-    :page/format :json}])
+  (concat
+   [{:page/uri "/"
+     :page/kind :page.kind/frontpage
+     :page/details {:new-foods (load-edn "data/new-food-ids.edn")}
+     :page/locale :nb}
+    {:page/uri "/en/"
+     :page/kind :page.kind/frontpage
+     :page/details {:new-foods (load-edn "data/new-food-ids.edn")}
+     :page/locale :en}
+    {:page/uri "/search/index/nb.json"
+     :page/kind :page.kind/foods-index
+     :page/locale :nb}
+    {:page/uri "/search/index/en.json"
+     :page/kind :page.kind/foods-index
+     :page/locale :en}
+    {:page/uri "/search/names/nb.json"
+     :page/kind :page.kind/names-lookup
+     :page/locale :nb}
+    {:page/uri "/search/names/en.json"
+     :page/kind :page.kind/names-lookup
+     :page/locale :en}
+    {:page/uri "/matvaregrupper/"
+     :page/kind :page.kind/food-groups
+     :page/locale :nb}
+    {:page/uri "/en/food-groups/"
+     :page/kind :page.kind/food-groups
+     :page/locale :en}
+    {:page/uri "/naeringsstoffer/"
+     :page/kind :page.kind/nutrients
+     :page/locale :nb}
+    {:page/uri "/en/nutrients/"
+     :page/kind :page.kind/nutrients
+     :page/locale :en}
+    {:page/uri (urls/get-foods-excel-url :nb)
+     :page/kind :page.kind/foods-excel
+     :page/locale :nb}
+    {:page/uri (urls/get-foods-excel-url :en)
+     :page/kind :page.kind/foods-excel
+     :page/locale :en}
+    {:page/uri (urls/get-compact-foods-json-url :nb)
+     :page/kind :page.kind/compact-food-data
+     :page/locale :nb}
+    {:page/uri (urls/get-compact-foods-json-url :en)
+     :page/kind :page.kind/compact-food-data
+     :page/locale :en}
+    {:page/uri (urls/get-api-rda-json-url :nb)
+     :page/kind :page.kind/rda-data
+     :page/locale :nb}
+    {:page/uri (urls/get-api-rda-json-url :en)
+     :page/kind :page.kind/rda-data
+     :page/locale :en}
+    {:page/uri (urls/get-comparison-url :nb)
+     :page/kind :page.kind/comparison
+     :page/locale :nb}
+    {:page/uri (urls/get-comparison-url :en)
+     :page/kind :page.kind/comparison
+     :page/locale :en}
+    {:page/uri (urls/get-search-url :nb)
+     :page/kind :page.kind/search-page
+     :page/locale :nb}
+    {:page/uri (urls/get-search-url :en)
+     :page/kind :page.kind/search-page
+     :page/locale :en}
+    {:page/uri (urls/get-foods-api-url :nb :json)
+     :page/kind :page.kind/food-data
+     :page/locale :nb
+     :page/format :json}
+    {:page/uri (urls/get-foods-api-url :en :json)
+     :page/kind :page.kind/food-data
+     :page/locale :en
+     :page/format :json}
+    {:page/uri (urls/get-foods-api-url :nb :edn)
+     :page/kind :page.kind/food-data
+     :page/locale :nb
+     :page/format :edn}
+    {:page/uri (urls/get-foods-api-url :en :edn)
+     :page/kind :page.kind/food-data
+     :page/locale :en
+     :page/format :edn}
+    {:page/uri (urls/get-nutrients-api-url :nb :json)
+     :page/kind :page.kind/nutrient-data
+     :page/locale :nb
+     :page/format :json}
+    {:page/uri (urls/get-nutrients-api-url :en :json)
+     :page/kind :page.kind/nutrient-data
+     :page/locale :en
+     :page/format :json}
+    {:page/uri (urls/get-nutrients-api-url :nb :edn)
+     :page/kind :page.kind/nutrient-data
+     :page/locale :nb
+     :page/format :edn}
+    {:page/uri (urls/get-nutrients-api-url :en :edn)
+     :page/kind :page.kind/nutrient-data
+     :page/locale :en
+     :page/format :edn}
+    {:page/uri (urls/get-langual-codes-api-url :edn)
+     :page/kind :page.kind/langual-data
+     :page/format :edn}
+    {:page/uri (urls/get-langual-codes-api-url :json)
+     :page/kind :page.kind/langual-data
+     :page/format :json}]
+   (create-pages :page.kind/source-data urls/get-sources-api-url #{:nb :en} #{:edn :json})))
 
 (defn render-foods-index [db page]
   {:headers {"content-type" "application/json"}
@@ -175,7 +185,8 @@
       :page.kind/nutrient (nutrient-page/render context db page)
       :page.kind/nutrients (nutrients-page/render context db page)
       :page.kind/rda-data (rda/render-json context page)
-      :page.kind/search-page (search-page/render context page))))
+      :page.kind/search-page (search-page/render context page)
+      :page.kind/source-data (api/render-source-data context page))))
 
 (comment
   (def conn matvaretabellen.dev/conn)

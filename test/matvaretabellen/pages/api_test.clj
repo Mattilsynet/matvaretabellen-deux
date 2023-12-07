@@ -465,3 +465,37 @@
                :description "Product type, not known"}
               {:langualCode "A0004"
                :description "Product type, other"}]}}))))
+
+(deftest sources-api-test
+  (testing "Returns EDN data"
+    (is (= (-> (sut/render-source-data
+                {:foods/db (fdb/get-test-food-db)
+                 :powerpack/app {:site/base-url "https://mvt.no"}}
+                {:page/format :edn
+                 :page/locale :nb})
+               (update-in [:body :sources] #(take 3 %)))
+           {:content-type :edn
+            :body
+            {:sources
+             [{:source/id "0"
+               :source/description "Vurdert som 100 % spiselig (netto)."}
+              {:source/id "10"
+               :source/description "Manglende verdi, ukjent innhold."}
+              {:source/id "100"
+               :source/description "Data levert av industrien 1992-2000, uspesifisert grunnlag."}]}})))
+
+  (testing "Returns JSON data"
+    (is (= (-> (sut/render-source-data
+                {:foods/db (fdb/get-test-food-db)
+                 :powerpack/app {:site/base-url "https://mvt.no"}}
+                {:page/format :json
+                 :page/locale :nb})
+               (update-in [:body :sources] #(take 3 %)))
+           {:content-type :json
+            :body {:sources
+                   [{:sourceId "0"
+                     :description "Vurdert som 100 % spiselig (netto)."}
+                    {:sourceId "10"
+                     :description "Manglende verdi, ukjent innhold."}
+                    {:sourceId "100"
+                     :description "Data levert av industrien 1992-2000, uspesifisert grunnlag."}]}}))))
