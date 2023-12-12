@@ -26,6 +26,10 @@
      [:div.mmm-mts
       (client-table/render-food-groups-toggle)
       [:span.mmm-mlm (client-table/render-nutrients-toggle)]]]
+    [:div.mmm-section.mmm-container.mmm-flex.mmm-flex-jl.mmm-flex-gap
+     (client-table/render-download-csv-button)
+     [:p.mmm-p.mmm-mts.mmm-small.mvt-clear-downloads.mmm-hidden
+      [:a.mmm-link [:i18n ::clear-download]]]]
     [:div.mmm-mobile-phn
      (client-table/render-column-settings (:foods/db context))
      [:div.mmm-cols.mmm-cols-d1_2.mmm-container-spacing.mmm-mtm

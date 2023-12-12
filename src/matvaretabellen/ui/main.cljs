@@ -78,7 +78,8 @@
                   {:column-panel (js/document.getElementById "columns-panel")
                    :filter-panel (js/document.getElementById "food-group-panel")
                    :table mother-of-all-tables
-                   :download-buttons (dom/qsa ".mvt-download")}
+                   :download-buttons (dom/qsa ".mvt-download")
+                   :clear-download-buttons (dom/qsa ".mvt-clear-downloads")}
                   {:params (dom/get-params)}))))
            (ensure-food-data k locale)))
 

@@ -155,7 +155,8 @@
   :per-100g [:fn/str "{{:nutrient}} per 100 gram"]}
 
  #:matvaretabellen.pages.search-page
- {:page-title "Søk i Matvaretabellen"
+ {:clear-download "Tøm liste"
+  :page-title "Søk i Matvaretabellen"
   :open-graph-description "Søk, sorter og let i Matvaretabellen"}
 
  #:matvaretabellen.ui.client-table
@@ -171,4 +172,5 @@
   :open-graph-description "Alle matvarene i matvaretabellen i en eneste stor tabell"
   :page-title "Tabellvisning av alle matvarer"
   :placeholder "Filtrer tabell"
-  :prev "Forrige"}]
+  :prev "Forrige"
+  :stage-for-download "Legg til nedlasting"}]

@@ -5,7 +5,8 @@
             [matvaretabellen.ui.dom :as dom]
             [matvaretabellen.ui.food :as food]
             [matvaretabellen.ui.table :as table]
-            [matvaretabellen.ui.tabs :as tabs]))
+            [matvaretabellen.ui.tabs :as tabs]
+            [matvaretabellen.ui.toggler :as toggler]))
 
 (defn with-short-names [foods]
   (map (fn [food name]
@@ -129,7 +130,7 @@
                   :table table})]
       (swap! store #(-> %
                         (assoc ::table/current {:foods foods})
-                        (assoc ::table/selected foods))))))
+                        (assoc ::table/selected (map :id foods)))))))
 
 (defn init-share-buttons [params]
   (let [food-ids (get params "food-ids")

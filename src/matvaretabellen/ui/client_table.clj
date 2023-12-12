@@ -13,7 +13,9 @@
 
 (defn prepare-foods-table [nutrients opt]
   (merge
-   {:headers (concat [{:text (list [:i18n ::food]
+   {:headers (concat [{:class [:mmm-tac :mmm-pas :mmm-hidden]
+                       :data-id "download"}
+                      {:text (list [:i18n ::food]
                                    [:span.mvt-sort-icon
                                     (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
                        :class [:mmm-nbr :mmm-sticky-hor]
@@ -36,8 +38,14 @@
     :data-page-size 250
     :rows [{:cols
             (concat
-             [{:text [:a.mmm-link]
-               :class [:mmm-sticky-hor]
+             [{:text (IconButton
+                      {:class [:mvt-add-to-list]
+                       :title [:i18n ::stage-for-download]
+                       :icon :fontawesome.solid/arrow-down})
+               :class [:mmm-tac :mmm-pas]
+               :data-id "download"}
+              {:text [:a.mmm-link]
+               :class [:mmm-sticky-hor :mmm-et-wrap]
                :data-id "foodName"}
               {:text ""
                :class [:mmm-tar :mmm-nbr]

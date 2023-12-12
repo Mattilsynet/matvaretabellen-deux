@@ -4,7 +4,8 @@
             [matvaretabellen.ui.filter-data :as fd]
             [matvaretabellen.ui.filters :as filters]
             [matvaretabellen.ui.food :as food]
-            [matvaretabellen.ui.search :as search]))
+            [matvaretabellen.ui.search :as search]
+            [matvaretabellen.ui.toggler :as toggler]))
 
 (defn debounce [f timeout]
   (let [timer (atom nil)]
@@ -97,7 +98,7 @@
         (dom/hide td))
       (case id
         "foodName"
-        (let [a (.-firstChild td)]
+        (let [a (dom/qs td "a")]
           (set! (.-href a) (:url food))
           (set! (.-innerText a) (or (:shortName food) (:foodName food))))
 
@@ -109,6 +110,9 @@
                       (str kcal "&nbsp;kcal"))]
                    (remove empty?)
                    (str/join " / ")))
+
+        "download"
+        (.setAttribute (.-firstChild td) "data-food-id" (:id food))
 
         (let [el (.-firstChild td)
               decimals (some-> (.getAttribute el "data-decimals") parse-long)
@@ -166,14 +170,14 @@
         (if (columns (.getAttribute th "data-id"))
           (dom/show th)
           (dom/hide th))
-        (let [icon (dom/qs th ".mvt-sort-icon")
-              selector (if (= sort-id id)
-                         (if (= sort-order :sort.order/asc)
-                           ".mvt-asc"
-                           ".mvt-desc")
-                         ".mvt-sort")]
-          (set! (.-innerHTML icon) "")
-          (.appendChild icon (.cloneNode (dom/qs container selector) true)))))
+        (when-let [icon (dom/qs th ".mvt-sort-icon")]
+          (let [selector (if (= sort-id id)
+                           (if (= sort-order :sort.order/asc)
+                             ".mvt-asc"
+                             ".mvt-desc")
+                           ".mvt-sort")]
+            (set! (.-innerHTML icon) "")
+            (.appendChild icon (.cloneNode (dom/qs container selector) true))))))
     (dom/re-zebra-table table)
     (dom/show table)
     (update-button (dom/qs container ".mvt-prev") (:prev current))
@@ -222,6 +226,7 @@
     {::foods foods
      ::columns (set columns)
      ::page-size (or page-size 250)
+     ::selected #{}
      ::idx (into {} (map (juxt :id identity) foods))
      ::lang lang}))
 
@@ -236,8 +241,14 @@
          (get-column-id checkbox))
        set))
 
+(def columns-k
+  (str js/location.pathname "table-columns"))
+
+(defn persist-columns [columns]
+  (dom/set-local-edn columns-k columns))
+
 (defn get-local-columns []
-  (when-let [columns (dom/get-local-edn "table-columns")]
+  (when-let [columns (dom/get-local-edn columns-k)]
     (when (and (coll? columns) (not (map? columns)))
       (seq (remove nil? columns)))))
 
@@ -280,7 +291,12 @@
     (enable-button button)
     (disable-button button)))
 
-(defn on-update [store {:keys [table filter-panel download-buttons]} prev next]
+(defn render-clear-download-button [selected button]
+  (if (< 0 (count selected))
+    (dom/show button)
+    (dom/hide button)))
+
+(defn on-update [store {:keys [table filter-panel download-buttons clear-download-buttons]} prev next]
   (when (filters/render-filters filter-panel prev next)
     (js/setTimeout (fn [_] (swap! store select-foods-in-groups (fd/get-active next))) 100))
 
@@ -290,7 +306,7 @@
 
   (when (not= (::columns prev) (::columns next))
     (when-let [columns (not-empty (remove nil? (::columns next)))]
-      (dom/set-local-edn "table-columns" columns)))
+      (persist-columns columns)))
 
   (when (not= (-> prev ::current :food-groups)
               (-> next ::current :food-groups))
@@ -299,9 +315,11 @@
 
   (when (not= (::selected prev) (::selected next))
     (doseq [button download-buttons]
-      (render-download-button (::selected next) button))))
+      (render-download-button (::selected next) button))
+    (doseq [button clear-download-buttons]
+      (render-clear-download-button (::selected next) button))))
 
-(defn export-csv [{::keys [selected columns]} column-order]
+(defn export-csv [{::keys [foods selected columns]} column-order]
   (->> (let [fields (filter (comp columns first) column-order)
              ids (map (comp keyword first) fields)]
          (->> (cons (->> (for [[id header] fields]
@@ -309,7 +327,7 @@
                              (str header " (kJ)\t" header " (kcal)")
                              header))
                          (str/join "\t"))
-                    (for [food (:foods selected)]
+                    (for [food (filter (comp (set selected) :id) foods)]
                       (->> (for [id ids]
                              (case id
                                :foodName
@@ -322,7 +340,7 @@
                            (str/join "\t"))))
               (str/join "\n")))
        js/encodeURIComponent
-       (str "data:text/csv;charset=UTF-8,\uFEFF")))
+       (str "data:text/csv;charset=UTF-9,\uFEFF")))
 
 (defn get-column-order [table]
   (mapv (fn [el]
@@ -340,7 +358,25 @@
   (render-download-button (::selected @store) button)
   (dom/show button))
 
-(defn init-components [data locale {:keys [column-panel table filter-panel download-buttons] :as els}]
+(defn init-stage-download-buttons [store table]
+  (->> (fn [e]
+         (when-let [icon-button (some-> (.-target e) (.closest ".mvt-add-to-list"))]
+           (let [id (.getAttribute icon-button "data-food-id")
+                 selected? ((::selected @store) id)]
+             (swap! store update ::selected (if selected? disj conj) id)
+             (toggler/toggle-icon-button icon-button (not selected?)))))
+       (.addEventListener table "click")))
+
+(defn init-clear-download-button [store button]
+  (->> (fn [e]
+         (when (some-> (.-target e) (.closest ".mvt-clear-downloads"))
+           (doseq [id (::selected @store)]
+             (doseq [el (dom/qsa (str ".mmm-icon-button[data-food-id='" id "']"))]
+               (toggler/toggle-icon-button el false)))
+           (swap! store assoc ::selected #{})))
+       (.addEventListener button "click")))
+
+(defn init-components [data locale {:keys [column-panel table filter-panel download-buttons clear-download-buttons] :as els}]
   (let [store (atom (merge (init-foods-state data (get-table-data table column-panel) (name locale))
                            (when filter-panel
                              (filters/init-filters filter-panel))))]
@@ -351,6 +387,9 @@
     (add-watch store ::self (fn [_ _ old new] (on-update store els old new)))
     (doseq [button download-buttons]
       (init-download-button store table button))
+    (doseq [button clear-download-buttons]
+      (init-clear-download-button store button))
+    (init-stage-download-buttons store table)
     store))
 
 (defn select-initial-dataset [store search-input params]
@@ -362,5 +401,9 @@
     (swap! store #(assoc % ::current (browse-foods % 0)))))
 
 (defn init-giant-table [data locale els & [{:keys [params]}]]
+  (doseq [el (dom/qsa (:table els) "th[data-id='download']")]
+    (dom/show el))
   (let [store (init-components data locale els)]
-    (select-initial-dataset store (dom/qs ".mvt-filter-search input") params)))
+    (select-initial-dataset store (dom/qs ".mvt-filter-search input") params))
+  (when-let [form (.closest (dom/qs ".mvt-filter-search input") "form")]
+    (.addEventListener form "submit" (fn [e] (.preventDefault e)))))
