@@ -162,6 +162,7 @@
  #:matvaretabellen.ui.client-table
  {:columns "Nutrients"
   :download (list "Download (" [:span.mvt-num-foods "0"] ")")
+  :energy "Energy"
   :energy-kcal "Energy (kcal)"
   :energy-kj "Energy (kJ)"
   :file-name "my-foods.csv"
