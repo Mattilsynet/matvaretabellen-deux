@@ -210,9 +210,7 @@
           (.add (.-classList button) "mmm-button-secondary"))
 
         (.contains (.-classList button) "mmm-icon-button")
-        (if selected?
-          (.add (.-classList button) "mmm-icon-button-active")
-          (.remove (.-classList button) "mmm-icon-button-active"))))))
+        (toggler/toggle-icon-button button selected?)))))
 
 (defn get-pill-template [pills]
   (when-not (aget pills "template")

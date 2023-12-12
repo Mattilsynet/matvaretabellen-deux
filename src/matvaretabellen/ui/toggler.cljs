@@ -28,5 +28,10 @@
                (dom/hide target)))))
        (.addEventListener toggler "click")))
 
+(defn toggle-icon-button [button selected?]
+  (if selected?
+    (dom/add-class button "mmm-icon-button-active")
+    (dom/remove-class button "mmm-icon-button-active")))
+
 (defn init []
   (doall (map init-toggler (dom/qsa "[data-toggle-target]"))))
