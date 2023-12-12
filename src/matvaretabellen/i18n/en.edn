@@ -166,8 +166,8 @@
   :file-name "my-foods.csv"
   :food "Food"
   :food-groups "Food groups"
-  :next "Neste"
+  :next "Next"
   :open-graph-description "All the foods in Matvaretabellen in one big table"
   :page-title "Table display of all foods"
   :placeholder "Filter tabell"
-  :prev "Forrige"}]
+  :prev "Previous"}]
