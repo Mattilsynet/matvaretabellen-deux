@@ -121,3 +121,13 @@
    {:label [:i18n ::columns]
     :data-toggle-target "#columns-panel"
     :icon :fontawesome.solid/table}))
+
+(defn render-download-csv-button []
+  (Button
+   {:text [:i18n ::download]
+    :secondary? true
+    :inline? true
+    :download [:i18n ::file-name]
+    :href "#"
+    :class [:mmm-button-small :mvt-download :mmm-hidden]
+    :icon :fontawesome.solid/arrow-down}))

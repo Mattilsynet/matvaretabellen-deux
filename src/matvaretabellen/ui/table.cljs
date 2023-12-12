@@ -1,5 +1,6 @@
 (ns matvaretabellen.ui.table
-  (:require [matvaretabellen.ui.dom :as dom]
+  (:require [clojure.string :as str]
+            [matvaretabellen.ui.dom :as dom]
             [matvaretabellen.ui.filter-data :as fd]
             [matvaretabellen.ui.filters :as filters]
             [matvaretabellen.ui.food :as food]
@@ -266,7 +267,20 @@
             (set! (.-checked checkbox) false)
             (dom/hide (.closest checkbox "li"))))))))
 
-(defn on-update [store {:keys [table filter-panel]} prev next]
+(defn disable-button [el]
+  (dom/add-class el "mmm-button-disabled"))
+
+(defn enable-button [el]
+  (dom/remove-class el "mmm-button-disabled"))
+
+(defn render-download-button [foods button]
+  (when-let [el (dom/qs button ".mvt-num-foods")]
+    (set! (.-innerText el) (count foods)))
+  (if (< 0 (count foods))
+    (enable-button button)
+    (disable-button button)))
+
+(defn on-update [store {:keys [table filter-panel download-buttons]} prev next]
   (when (filters/render-filters filter-panel prev next)
     (js/setTimeout (fn [_] (swap! store select-foods-in-groups (fd/get-active next))) 100))
 
@@ -281,9 +295,52 @@
   (when (not= (-> prev ::current :food-groups)
               (-> next ::current :food-groups))
     (->> next ::current :food-groups (mapcat #(fd/get-path next %)) set
-         (toggle-food-groups filter-panel (fd/get-selected next)))))
+         (toggle-food-groups filter-panel (fd/get-selected next))))
 
-(defn init-components [data locale {:keys [column-panel table filter-panel] :as els} & [{:keys [params]}]]
+  (when (not= (::selected prev) (::selected next))
+    (doseq [button download-buttons]
+      (render-download-button (::selected next) button))))
+
+(defn export-csv [{::keys [selected columns]} column-order]
+  (->> (let [fields (filter (comp columns first) column-order)
+             ids (map (comp keyword first) fields)]
+         (->> (cons (->> (for [[id header] fields]
+                           (if (= id "energy")
+                             (str header " (kJ)\t" header " (kcal)")
+                             header))
+                         (str/join "\t"))
+                    (for [food (:foods selected)]
+                      (->> (for [id ids]
+                             (case id
+                               :foodName
+                               (:foodName food)
+
+                               :energy
+                               (str (:energyKj food) "\t" (:energyKcal food))
+
+                               (get-in food [:constituents (name id) :quantity 0])))
+                           (str/join "\t"))))
+              (str/join "\n")))
+       js/encodeURIComponent
+       (str "data:text/csv;charset=UTF-8,\uFEFF")))
+
+(defn get-column-order [table]
+  (mapv (fn [el]
+          [(.getAttribute el "data-id")
+           (.-innerText el)])
+        (dom/qsa table "thead th")))
+
+(defn init-download-button [store table button]
+  (let [column-order (get-column-order table)]
+    (->> (fn [e]
+           (if (dom/has-class button "mmm-button-disabled")
+             (.preventDefault e)
+             (set! (.-href button) (export-csv @store column-order))))
+         (.addEventListener button "click")))
+  (render-download-button (::selected @store) button)
+  (dom/show button))
+
+(defn init-components [data locale {:keys [column-panel table filter-panel download-buttons] :as els}]
   (let [store (atom (merge (init-foods-state data (get-table-data table column-panel) (name locale))
                            (when filter-panel
                              (filters/init-filters filter-panel))))]
@@ -292,6 +349,8 @@
     (init-customizable-table store table)
     (init-filter-search store (dom/qs ".mvt-filter-search input"))
     (add-watch store ::self (fn [_ _ old new] (on-update store els old new)))
+    (doseq [button download-buttons]
+      (init-download-button store table button))
     store))
 
 (defn select-initial-dataset [store search-input params]

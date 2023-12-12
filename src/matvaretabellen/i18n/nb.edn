@@ -160,10 +160,11 @@
 
  #:matvaretabellen.ui.client-table
  {:columns "Næringsstoffer"
-  :download "Last ned hele tabellen"
+  :download (list "Last ned (" [:span.mvt-num-foods "0"] ")")
   :energy "Energi"
   :energy-kcal "Energi (kcal)"
   :energy-kj "Energi (kJ)"
+  :file-name "mine-matvarer.csv"
   :food "Matvare"
   :food-groups "Matvaregrupper"
   :next "Neste"

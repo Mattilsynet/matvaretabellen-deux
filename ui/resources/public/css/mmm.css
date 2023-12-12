@@ -1141,6 +1141,13 @@ a.mmm-button:link {
     border: 2px solid var(--mt-component-button-secondary-border);
 }
 
+.mmm-button-secondary.mmm-button-disabled,
+.mmm-button-secondary.mmm-button-disabled:link {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
 a.mmm-button-secondary:link {
     color: var(--mt-component-button-secondary-color);
 }

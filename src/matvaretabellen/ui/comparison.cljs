@@ -125,8 +125,11 @@
                  locale
                  {:column-panel (js/document.getElementById "columns-panel")
                   :filter-panel (js/document.getElementById "food-group-panel")
+                  :download-buttons (dom/qsa ".mvt-download")
                   :table table})]
-      (swap! store #(assoc % ::table/current {:foods foods})))))
+      (swap! store #(-> %
+                        (assoc ::table/current {:foods foods})
+                        (assoc ::table/selected foods))))))
 
 (defn init-share-buttons [params]
   (let [food-ids (get params "food-ids")

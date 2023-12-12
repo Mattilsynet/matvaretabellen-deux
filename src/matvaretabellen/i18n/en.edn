@@ -160,10 +160,10 @@
 
  #:matvaretabellen.ui.client-table
  {:columns "Nutrients"
-  :download "Download full table"
-  :download "Download"
+  :download (list "Download (" [:span.mvt-num-foods "0"] ")")
   :energy-kcal "Energy (kcal)"
   :energy-kj "Energy (kJ)"
+  :file-name "my-foods.csv"
   :food "Food"
   :food-groups "Food groups"
   :next "Neste"
