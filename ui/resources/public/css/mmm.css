@@ -366,8 +366,7 @@ table.mmm-table-zebra tr.mmm-highlight {
     width: 1rem;
 }
 
-.mmm-elastic-table tbody th:first-child,
-.mmm-elastic-table tbody td:first-child {
+.mmm-elastic-table tbody .mmm-et-wrap {
     width: auto;
     min-width: 10rem;
     max-width: 15rem;
