@@ -161,6 +161,7 @@
  #:matvaretabellen.ui.client-table
  {:columns "Næringsstoffer"
   :download "Last ned hele tabellen"
+  :energy "Energi"
   :energy-kcal "Energi (kcal)"
   :energy-kj "Energi (kJ)"
   :food "Matvare"

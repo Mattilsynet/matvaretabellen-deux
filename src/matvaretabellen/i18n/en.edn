@@ -161,6 +161,7 @@
  #:matvaretabellen.ui.client-table
  {:columns "Nutrients"
   :download "Download full table"
+  :download "Download"
   :energy-kcal "Energy (kcal)"
   :energy-kj "Energy (kJ)"
   :food "Food"

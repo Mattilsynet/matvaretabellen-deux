@@ -18,16 +18,11 @@
                                     (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
                        :class [:mmm-nbr :mmm-sticky-hor]
                        :data-id "foodName"}
-                      {:text (list [:i18n ::energy-kj]
+                      {:text (list [:i18n ::energy]
                                    [:span.mvt-sort-icon
                                     (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
-                       :class [:mmm-nbr :mmm-tar]
-                       :data-id "energyKj"}
-                      {:text (list [:i18n ::energy-kcal]
-                                   [:span.mvt-sort-icon
-                                    (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
-                       :class [:mmm-nbr :mmm-tar]
-                       :data-id "energyKcal"}]
+                       :class [:mmm-nbr]
+                       :data-id "energy"}]
                      (for [nutrient nutrients]
                        {:text (list [:i18n :i18n/lookup (:nutrient/name nutrient)]
                                     [:span.mvt-sort-icon
@@ -44,13 +39,9 @@
              [{:text [:a.mmm-link]
                :class [:mmm-sticky-hor]
                :data-id "foodName"}
-              {:text (list [:span.mvt-num "0"] " "
-                           [:span.mvt-sym "kJ"])
-               :class :mmm-tar
-               :data-id "energyKj"}
-              {:text "0 kcal"
-               :class :mmm-tar
-               :data-id "energyKcal"}]
+              {:text ""
+               :class [:mmm-tar :mmm-nbr]
+               :data-id "energy"}]
              (for [nutrient nutrients]
                {:text (food/get-calculable-quantity
                        {:measurement/quantity (b/from-edn [0 (:nutrient/unit nutrient)])}

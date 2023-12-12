@@ -100,14 +100,14 @@
           (set! (.-href a) (:url food))
           (set! (.-innerText a) (or (:shortName food) (:foodName food))))
 
-        "energyKj"
-        (set! (.-innerText (dom/qs td ".mvt-num"))
-              (if (:energyKj food)
-                (.toLocaleString (:energyKj food) lang #js {:maximumFractionDigits 0})
-                "–"))
-
-        "energyKcal"
-        (set! (.-innerText td) (str (or (:energyKcal food) "–") " kcal"))
+        "energy"
+        (set! (.-innerHTML td)
+              (->> [(when-let [kj (:energyKj food)]
+                      (str (.toLocaleString kj lang #js {:maximumFractionDigits 0}) "&nbsp;kJ"))
+                    (when-let [kcal (:energyKcal food)]
+                      (str kcal "&nbsp;kcal"))]
+                   (remove empty?)
+                   (str/join " / ")))
 
         (let [el (.-firstChild td)
               decimals (some-> (.getAttribute el "data-decimals") parse-long)
@@ -128,6 +128,7 @@
 (defn get-sort-f [id]
   (case id
     "foodName" :foodName
+    "energy" :energyKj
     "energyKj" :energyKj
     "energyKcal" :energyKcal
     #(get-in % [:constituents id :quantity])))
