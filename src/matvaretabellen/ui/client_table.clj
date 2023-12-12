@@ -14,7 +14,11 @@
 (defn prepare-foods-table [nutrients opt]
   (merge
    {:headers (concat [{:class [:mmm-tac :mmm-pas :mmm-hidden]
-                       :data-id "download"}
+                       :data-id "download"
+                       :text (IconButton
+                              {:class [:mvt-add-to-list]
+                               :title [:i18n ::stage-for-download]
+                               :icon :fontawesome.solid/arrow-down})}
                       {:text (list [:i18n ::food]
                                    [:span.mvt-sort-icon
                                     (icons/render :fontawesome.solid/sort {:class :mmm-svg})])

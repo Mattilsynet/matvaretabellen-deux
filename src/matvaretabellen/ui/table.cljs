@@ -197,17 +197,18 @@
          (.addEventListener button "click"))))
 
 (defn change-sort [store e]
-  (when-let [th (.closest (.-target e) "th")]
-    (swap!
-     store
-     (fn [data]
-       (let [id (.getAttribute th "data-id")
-             [curr-id curr-dir] (-> data ::current :sort-by)
-             dir (if (and (= curr-id id)
-                          (= curr-dir :sort.order/desc))
-                   :sort.order/asc
-                   :sort.order/desc)]
-         (assoc-in data [::current :sort-by] [id dir]))))))
+  (let [th (.closest (.-target e) "th")]
+    (when (dom/qs th ".mvt-sort-icon")
+      (swap!
+       store
+       (fn [data]
+         (let [id (.getAttribute th "data-id")
+               [curr-id curr-dir] (-> data ::current :sort-by)
+               dir (if (and (= curr-id id)
+                            (= curr-dir :sort.order/desc))
+                     :sort.order/asc
+                     :sort.order/desc)]
+           (assoc-in data [::current :sort-by] [id dir])))))))
 
 (defn init-customizable-table [store table]
   (let [rows (dom/qsa table "tbody tr")
@@ -358,21 +359,30 @@
   (render-download-button (::selected @store) button)
   (dom/show button))
 
+(defn toggle-every-icon-button [ids active]
+  (doseq [id ids]
+    (doseq [el (dom/qsa (str ".mmm-icon-button[data-food-id='" id "']"))]
+      (toggler/toggle-icon-button el active))))
+
 (defn init-stage-download-buttons [store table]
   (->> (fn [e]
          (when-let [icon-button (some-> (.-target e) (.closest ".mvt-add-to-list"))]
-           (let [id (.getAttribute icon-button "data-food-id")
-                 selected? ((::selected @store) id)]
-             (swap! store update ::selected (if selected? disj conj) id)
-             (toggler/toggle-icon-button icon-button (not selected?)))))
+           (.preventDefault e)
+           (.stopPropagation e)
+           (let [{::keys [selected current]} @store
+                 id (.getAttribute icon-button "data-food-id")
+                 ids (if id #{id} (set (map :id (:foods current))))
+                 selected? (every? selected ids)]
+             (swap! store update ::selected (if selected? #(set (remove ids %)) #(into % ids)))
+             (if id
+               (toggler/toggle-icon-button icon-button (not selected?))
+               (toggle-every-icon-button ids (not selected?))))))
        (.addEventListener table "click")))
 
 (defn init-clear-download-button [store button]
   (->> (fn [e]
          (when (some-> (.-target e) (.closest ".mvt-clear-downloads"))
-           (doseq [id (::selected @store)]
-             (doseq [el (dom/qsa (str ".mmm-icon-button[data-food-id='" id "']"))]
-               (toggler/toggle-icon-button el false)))
+           (toggle-every-icon-button (::selected @store) false)
            (swap! store assoc ::selected #{})))
        (.addEventListener button "click")))
 
