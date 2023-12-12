@@ -743,6 +743,10 @@ tbody td.mmm-sticky-hor {
     justify-content: flex-end;
 }
 
+.mmm-flex-jl {
+    justify-content: flex-start;
+}
+
 .mmm-flex-grow {
     flex-grow: 1;
 }
