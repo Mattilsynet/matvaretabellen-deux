@@ -1226,6 +1226,7 @@ a.mmm-button-secondary:link {
 
 .mmm-icon-button .mmm-svg {
     height: var(--icon-button-size);
+    width: calc(var(--icon-button-size) - (2 * var(--mt-component-icon-button-padding)));
 }
 
 .mmm-icon-button-m {
