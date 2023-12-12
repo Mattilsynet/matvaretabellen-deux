@@ -357,6 +357,7 @@ table.mmm-table-zebra tr.mmm-highlight {
 
 .mmm-elastic-table {
     width: auto;
+    min-width: min(100%, calc(var(--mt-layout-container-width) - 2*var(--mt-layout-container-gutter)));
     margin: 0 auto;
 }
 
