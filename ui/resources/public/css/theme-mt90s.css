@@ -261,6 +261,7 @@
     --mt-component-table-background-hover: var(--mt-color-beige-200);
     --mt-component-table-background-highlight: var(--mt-color-blue-100);
     --mt-component-table-cell-padding: var(--mt-spacing-x1_4);
+    --mt-component-table-cell-padding-s: var(--mt-spacing-x0_5);
     --mt-component-table-cell-border-color: var(--mt-color-beige-50);
     --mt-component-table-thead-background: var(--mt-color-beige-200);
     --mt-component-table-thead-th-font-size: 18px;

@@ -16,7 +16,7 @@
    {:headers (concat [{:text (list [:i18n ::food]
                                    [:span.mvt-sort-icon
                                     (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
-                       :class [:mmm-nbr]
+                       :class [:mmm-nbr :mmm-sticky-hor]
                        :data-id "foodName"}
                       {:text (list [:i18n ::energy-kj]
                                    [:span.mvt-sort-icon
@@ -37,11 +37,12 @@
                                  [:mmm-nbr :mmm-tar :mmm-hidden]
                                  [:mmm-nbr :mmm-tar])}))
     :id "filtered-giant-table"
-    :classes [:mmm-hidden]
+    :classes [:mmm-hidden :mmm-elastic-table]
     :data-page-size 250
     :rows [{:cols
             (concat
              [{:text [:a.mmm-link]
+               :class [:mmm-sticky-hor]
                :data-id "foodName"}
               {:text (list [:span.mvt-num "0"] " "
                            [:span.mvt-sym "kJ"])
@@ -79,10 +80,11 @@
             (remove nil?))))])
 
 (defn render-column-settings [foods-db]
-  [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider.mmm-hidden#columns-panel
-   [:div.mmm-cols.mmm-twocols
-    (->> (nutrient/prepare-filters foods-db {:columns 2})
-         (map render-nutrient-filter-column))]])
+  [:div.mmm-container
+   [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider.mmm-hidden#columns-panel
+    [:div.mmm-cols.mmm-twocols
+     (->> (nutrient/prepare-filters foods-db {:columns 2})
+          (map render-nutrient-filter-column))]]])
 
 (defn render-food-group-settings [context page]
   [:div.mmm-vert-layout-m.mmm-col.mmm-hidden#food-group-panel

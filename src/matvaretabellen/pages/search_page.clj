@@ -26,8 +26,8 @@
      [:div.mmm-mts
       (client-table/render-food-groups-toggle)
       [:span.mmm-mlm (client-table/render-nutrients-toggle)]]]
-    [:div.mmm-container.mmm-section.mmm-mobile-phn.mmm-vert-layout-m
+    [:div.mmm-mobile-phn
      (client-table/render-column-settings (:foods/db context))
-     [:div.mmm-cols.mmm-cols-d1_2
+     [:div.mmm-cols.mmm-cols-d1_2.mmm-container-spacing.mmm-mtm
       (client-table/render-food-group-settings context page)
       (client-table/render-table-skeleton (:foods/db context))]]]))

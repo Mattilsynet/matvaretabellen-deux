@@ -355,6 +355,25 @@ table.mmm-table-zebra tr.mmm-highlight {
     white-space: nowrap;
 }
 
+.mmm-elastic-table {
+    width: auto;
+    margin: 0 auto;
+}
+
+.mmm-elastic-table tbody th,
+.mmm-elastic-table tbody td {
+    width: 1rem;
+}
+
+.mmm-elastic-table tbody th:first-child,
+.mmm-elastic-table tbody td:first-child {
+    width: auto;
+    min-width: 10rem;
+    max-width: 15rem;
+    padding-bottom: var(--mt-component-table-cell-padding-s);
+    padding-top: var(--mt-component-table-cell-padding-s);
+}
+
 /***********************
  *** Sticky elements ***
  ***********************/
@@ -363,6 +382,23 @@ table.mmm-table-zebra tr.mmm-highlight {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
+}
+
+.mmm-sticky-hor {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    line-height: 1.5;
+}
+
+tbody td.mmm-sticky-hor {
+    background: var(--mt-color-background-default);
+}
+
+.mmm-table-zebra tbody tr:nth-child(odd) td.mmm-sticky-hor,
+.mmm-table tbody .mmm-zebra-strip td.mmm-sticky-hor,
+.mmm-table-zebra > tr:nth-child(even) td.mmm-sticky-hor {
+    background-color: var(--mt-component-table-background-zebra);
 }
 
 /*************************
@@ -652,6 +688,13 @@ table.mmm-table-zebra tr.mmm-highlight {
 .mmm-container-narrow,
 .mmm-container-medium {
     max-width: var(--mt-layout-container-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--mt-layout-container-gutter);
+}
+
+.mmm-container-spacing {
+    min-width: 100%;
     margin-left: auto;
     margin-right: auto;
     padding: 0 var(--mt-layout-container-gutter);

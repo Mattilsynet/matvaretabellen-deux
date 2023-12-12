@@ -146,16 +146,20 @@
                   :data-tab-target "#columnwise"}
                  {:text [:i18n ::rowwise]
                   :data-tab-target "#rowwise"}]})]
-       [:p.mmm-p.mmm-desktop (render-share-button (:page/locale page))]]]
+       [:p.mmm-p.mmm-desktop.mmm-flex.mmm-flex-gap
+        (client-table/render-download-csv-button)
+        (render-share-button (:page/locale page))]]]]
 
-     [:div.mmm-vert-layout-m.mvtc-tab-target#columnwise
-      [:p.mmm-p.mmm-mobile-container-p [:i18n ::diff-intro]]
-      [:div.mmm-sidescroller
-       (render-columnwise-comparison context page)]]
+    [:div.mmm-vert-layout-m.mvtc-tab-target#columnwise
+     [:p.mmm-p.mmm-mobile-container-p [:i18n ::diff-intro]]
+     [:div.mmm-sidescroller
+      (render-columnwise-comparison context page)]]
 
-     [:div#rowwise.mmm-hidden.mvtc-tab-target.mmm-vert-layout-m
-      [:p.mmm-p (client-table/render-nutrients-toggle)]
-      (client-table/render-column-settings (:foods/db context))
+    [:div#rowwise.mmm-hidden.mvtc-tab-target
+     [:div.mmm-container.mmm-mbm.mmm-vert-layout-m
+      [:p.mmm-p (client-table/render-nutrients-toggle)]]
+     (client-table/render-column-settings (:foods/db context))
+     [:div.mmm-container-spacing
       (client-table/render-table-skeleton
        (:foods/db context)
        {:data-table-dataset "comparison"
