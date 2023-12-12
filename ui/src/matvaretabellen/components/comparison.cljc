@@ -1,7 +1,8 @@
 (ns matvaretabellen.components.comparison
   (:require [fontawesome.icons :as icons]
+            [matvaretabellen.urls :as urls]
             [mmm.components.button :refer [Button]]
-            [matvaretabellen.urls :as urls]))
+            [mmm.components.icon-button :refer [IconButton]]))
 
 (defn render-comparison-drawer [locale]
   [:div.mmm-drawer.mmm-drawer-closed.mvtc-drawer
@@ -25,11 +26,12 @@
      [:li.mmm-subtle [:a.mmm-link]]]]])
 
 (defn render-toggle-button [food locale]
-  [:span.mmm-icon-button.mmm-actionable.mvt-compare-food
-   {:data-food-id (:food/id food)
+  (IconButton
+   {:class [:mvt-compare-food]
+    :data-food-id (:food/id food)
     :data-food-name (get-in food [:food/name locale])
-    :title [:i18n ::stage-for-comparison]}
-   (icons/render :fontawesome.solid/code-compare {:class :mmm-svg})])
+    :title [:i18n ::stage-for-comparison]
+    :icon :fontawesome.solid/code-compare}))
 
 (defn render-toggle-cell [food locale & [class]]
   {:text (render-toggle-button food locale)
