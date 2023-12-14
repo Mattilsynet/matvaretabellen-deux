@@ -399,7 +399,7 @@
            (swap! store assoc ::selected #{})))
        (.addEventListener button "click")))
 
-(defn init-download-buttons [store {:keys [table download-buttons clear-download-buttons] :as els}]
+(defn init-download-buttons [store {:keys [table download-buttons clear-download-buttons]}]
   (doseq [button download-buttons]
     (init-download-button store table button))
   (doseq [button clear-download-buttons]
