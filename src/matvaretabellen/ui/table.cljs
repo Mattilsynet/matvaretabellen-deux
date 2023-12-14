@@ -303,13 +303,23 @@
     (dom/show button)
     (dom/hide button)))
 
-(defn on-update [store {:keys [table filter-panel download-buttons clear-download-buttons]} prev next]
+(defn render-downloads [{:keys [download-buttons clear-download-buttons table]} selected]
+  (doseq [button download-buttons]
+    (render-download-button selected button))
+  (doseq [button clear-download-buttons]
+    (render-clear-download-button selected button))
+  (doseq [button (dom/qsa table "tbody .mvt-add-to-list")]
+    (->> (get selected (.getAttribute button "data-food-id"))
+         (toggler/toggle-icon-button button))))
+
+(defn on-update [store {:keys [table filter-panel] :as els} prev next]
   (when (filters/render-filters filter-panel prev next)
     (js/setTimeout (fn [_] (swap! store select-foods-in-groups (fd/get-active next))) 100))
 
   (let [table-data (get-table-render-data next)]
     (when-not (= (get-table-render-data prev) table-data)
-      (render-table table table-data)))
+      (render-table table table-data)
+      (render-downloads els (::selected next))))
 
   (when (not= (::columns prev) (::columns next))
     (when-let [columns (not-empty (remove nil? (::columns next)))]
@@ -321,11 +331,7 @@
          (toggle-food-groups filter-panel (fd/get-selected next))))
 
   (when (not= (::selected prev) (::selected next))
-    (save-selected-foods (::selected next))
-    (doseq [button download-buttons]
-      (render-download-button (::selected next) button))
-    (doseq [button clear-download-buttons]
-      (render-clear-download-button (::selected next) button))))
+    (render-downloads els (::selected next))))
 
 (defn export-csv [{::keys [foods selected columns]} column-order]
   (->> (let [fields (filter (comp columns first) column-order)
@@ -393,7 +399,14 @@
            (swap! store assoc ::selected #{})))
        (.addEventListener button "click")))
 
-(defn init-components [data locale {:keys [column-panel table filter-panel download-buttons clear-download-buttons] :as els}]
+(defn init-download-buttons [store {:keys [table download-buttons clear-download-buttons] :as els}]
+  (doseq [button download-buttons]
+    (init-download-button store table button))
+  (doseq [button clear-download-buttons]
+    (init-clear-download-button store button))
+  (init-stage-download-buttons store table))
+
+(defn init-components [data locale {:keys [column-panel table filter-panel] :as els}]
   (let [store (atom (merge (init-foods-state data (get-table-data table column-panel) (name locale))
                            (when filter-panel
                              (filters/init-filters filter-panel))))]
@@ -402,11 +415,7 @@
     (init-customizable-table store table)
     (init-filter-search store (dom/qs ".mvt-filter-search input"))
     (add-watch store ::self (fn [_ _ old new] (on-update store els old new)))
-    (doseq [button download-buttons]
-      (init-download-button store table button))
-    (doseq [button clear-download-buttons]
-      (init-clear-download-button store button))
-    (init-stage-download-buttons store table)
+    (init-download-buttons store els)
     store))
 
 (defn select-initial-dataset [store search-input params]
@@ -421,6 +430,10 @@
   (doseq [el (dom/qsa (:table els) "th[data-id='download']")]
     (dom/show el))
   (let [store (init-components data locale els)]
-    (select-initial-dataset store (dom/qs ".mvt-filter-search input") params))
+    (select-initial-dataset store (dom/qs ".mvt-filter-search input") params)
+    (render-downloads els (::selected @store))
+    (add-watch store ::save-selected (fn [_ _ old next]
+                                       (when-not (= (::selected old) (::selected next))
+                                         (save-selected-foods (::selected next))))))
   (when-let [form (.closest (dom/qs ".mvt-filter-search input") "form")]
     (.addEventListener form "submit" (fn [e] (.preventDefault e)))))
