@@ -103,7 +103,7 @@
                        {:text ""
                         :class [:mmm-sticky :mmm-nbr :mvt-amount :mvtc-food-name]}]
                 :class [:mvtc-comparison]}
-      :classes [:mmm-table-hover]
+      :classes [:mmm-table-hover :mmm-elastic-table]
       :id "columnwise-table"
       :rows (->> (concat
                   (prepare-energy-rows food)
@@ -150,10 +150,13 @@
         (client-table/render-download-csv-button)
         (render-share-button (:page/locale page))]]]]
 
-    [:div.mmm-vert-layout-m.mvtc-tab-target#columnwise
-     [:p.mmm-p.mmm-mobile-container-p [:i18n ::diff-intro]]
-     [:div.mmm-sidescroller
-      (render-columnwise-comparison context page)]]
+    [:div.mvtc-tab-target#columnwise
+     [:div.mmm-container
+      [:p.mmm-p.mmm-mobile-container-p.mmm-mbm
+       [:i18n ::diff-intro]]]
+     [:div.mmm-container-spacing
+      [:div.mmm-sidescroller
+       (render-columnwise-comparison context page)]]]
 
     [:div#rowwise.mmm-hidden.mvtc-tab-target
      [:div.mmm-container.mmm-mbm.mmm-vert-layout-m
