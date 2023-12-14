@@ -333,14 +333,15 @@
   (when (not= (::selected prev) (::selected next))
     (render-downloads els (::selected next))))
 
-(defn export-csv [{::keys [foods selected columns]} column-order]
-  (->> (let [fields (filter (comp columns first) column-order)
-             ids (map (comp keyword first) fields)]
+(defn export-csv [{::keys [foods selected columns]} column-order locale]
+  (->> (let [fields (filter (comp (disj columns "download") first) column-order)
+             ids (map (comp keyword first) fields)
+             lang (name locale)]
          (->> (cons (->> (for [[id header] fields]
                            (if (= id "energy")
-                             (str header " (kJ)\t" header " (kcal)")
-                             header))
-                         (str/join "\t"))
+                             (str "\"" header " (kJ)\",\"" header " (kcal)\"")
+                             (str "\"" header "\"")))
+                         (str/join ","))
                     (for [food (filter (comp (set selected) :id) foods)]
                       (->> (for [id ids]
                              (case id
@@ -348,10 +349,14 @@
                                (:foodName food)
 
                                :energy
-                               (str (:energyKj food) "\t" (:energyKcal food))
+                               (str (:energyKj food) "\",\"" (:energyKcal food))
 
                                (get-in food [:constituents (name id) :quantity 0])))
-                           (str/join "\t"))))
+                           (map #(cond-> %
+                                   (number? %)
+                                   (.toLocaleString lang #js {:maximumFractionDigits 2})))
+                           (map #(str "\"" % "\""))
+                           (str/join ","))))
               (str/join "\n")))
        js/encodeURIComponent
        (str "data:text/csv;charset=UTF-9,\uFEFF")))
@@ -362,12 +367,12 @@
            (.-innerText el)])
         (dom/qsa table "thead th")))
 
-(defn init-download-button [store table button]
+(defn init-download-button [store table button locale]
   (let [column-order (get-column-order table)]
     (->> (fn [e]
            (if (dom/has-class button "mmm-button-disabled")
              (.preventDefault e)
-             (set! (.-href button) (export-csv @store column-order))))
+             (set! (.-href button) (export-csv @store column-order locale))))
          (.addEventListener button "click")))
   (render-download-button (::selected @store) button)
   (dom/show button))
@@ -399,9 +404,9 @@
            (swap! store assoc ::selected #{})))
        (.addEventListener button "click")))
 
-(defn init-download-buttons [store {:keys [table download-buttons clear-download-buttons]}]
+(defn init-download-buttons [store {:keys [table download-buttons clear-download-buttons]} locale]
   (doseq [button download-buttons]
-    (init-download-button store table button))
+    (init-download-button store table button locale))
   (doseq [button clear-download-buttons]
     (init-clear-download-button store button))
   (init-stage-download-buttons store table))
@@ -415,7 +420,7 @@
     (init-customizable-table store table)
     (init-filter-search store (dom/qs ".mvt-filter-search input"))
     (add-watch store ::self (fn [_ _ old new] (on-update store els old new)))
-    (init-download-buttons store els)
+    (init-download-buttons store els locale)
     store))
 
 (defn select-initial-dataset [store search-input params]
