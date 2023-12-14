@@ -343,3 +343,11 @@ Frontend-koden sparkes igang fra
 Dersom du har spørsmål, tilbakemeldinger, eller har lyst til å få tak i oss av
 en annen grunn kan du enten bruke issues/pull requests her på Github, eller
 sende oss en epost på [team.mat@mattilsynet.no](mailto:team.mat@mattilsynet.no).
+
+## Bidrag
+
+Har du funnet en feil, eller ønsker du deg en eller annen liten feature? Ja, så
+kom med det. Vi er åpne for både issues og pull requests. Hvis du har lyst til å
+legge til kode så vil vi anmode om å starte med å ta en diskusjon om ønsket
+endring så vi er enige om at hva enn du har lyst til å gjøre passer inn før du
+legger for mye jobb i saken.
