@@ -221,13 +221,19 @@
     (->> #(change-sort store %)
          (.addEventListener (dom/qs table "thead") "click"))))
 
+(defn load-selected-foods []
+  (set (dom/get-local-edn "selected-foods")))
+
+(defn save-selected-foods [selected]
+  (dom/set-local-edn "selected-foods" selected))
+
 (defn init-foods-state [data {:keys [columns page-size]} lang]
   (let [foods (->> (seq (.map (js/Object.values data) food/from-js))
                    (sort-by :foodName))]
     {::foods foods
      ::columns (set columns)
      ::page-size (or page-size 250)
-     ::selected #{}
+     ::selected (load-selected-foods)
      ::idx (into {} (map (juxt :id identity) foods))
      ::lang lang}))
 
@@ -315,6 +321,7 @@
          (toggle-food-groups filter-panel (fd/get-selected next))))
 
   (when (not= (::selected prev) (::selected next))
+    (save-selected-foods (::selected next))
     (doseq [button download-buttons]
       (render-download-button (::selected next) button))
     (doseq [button clear-download-buttons]
