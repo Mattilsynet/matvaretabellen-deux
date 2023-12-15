@@ -339,9 +339,9 @@
              lang (name locale)]
          (->> (cons (->> (for [[id header] fields]
                            (if (= id "energy")
-                             (str "\"" header " (kJ)\",\"" header " (kcal)\"")
-                             (str "\"" header "\"")))
-                         (str/join ","))
+                             (str header " (kJ);" header " (kcal)")
+                             header))
+                         (str/join ";"))
                     (for [food (filter (comp (set selected) :id) foods)]
                       (->> (for [id ids]
                              (case id
@@ -349,17 +349,16 @@
                                (:foodName food)
 
                                :energy
-                               (str (:energyKj food) "\",\"" (:energyKcal food))
+                               (str (:energyKj food) ";" (:energyKcal food))
 
                                (get-in food [:constituents (name id) :quantity 0])))
                            (map #(cond-> %
                                    (number? %)
                                    (.toLocaleString lang #js {:maximumFractionDigits 2})))
-                           (map #(str "\"" % "\""))
-                           (str/join ","))))
+                           (str/join ";"))))
               (str/join "\n")))
        js/encodeURIComponent
-       (str "data:text/csv;charset=UTF-9,\uFEFF")))
+       (str "data:text/csv;charset=UTF-8,\uFEFF")))
 
 (defn get-column-order [table]
   (mapv (fn [el]
