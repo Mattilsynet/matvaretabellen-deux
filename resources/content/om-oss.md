@@ -81,3 +81,14 @@ med nye namn på matvarer og matvaregrupper når omgrepa er avklart.
 ## Kontakt oss
 
 Spørsmål og innspill kan sendes til [matvaretabellen@mattilsynet.no](mailto:matvaretabellen@mattilsynet.no).
+
+## API
+
+All data i Matvaretabellen er tilgjengelig som både JSON og EDN data i et lite
+[API](/api/).
+
+## Kildekode
+
+[Matvaretabellens
+kildekode](https://github.com/mattilsynet/matvaretabellen-deux) er åpen og fritt
+tilgjengelig på Github.

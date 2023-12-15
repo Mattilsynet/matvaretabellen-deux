@@ -12,6 +12,7 @@
   :about-text (list "Matvaretabellen er en tjeneste fra Mattilsynet. "
                     [:a {:href "/om-oss/"} "Les mer om den her."]
                     " For øvrige tjenester, se " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
+  :api-text [:a {:href "/api/"} "Matvaretabellens API"]
   :newsletter "Nyhetsbrev"
   :privacy-and-cookies "Personvernerklæring og informasjonskapsler"
   :accessibility-statement "Tilgjengelegheitserklæring (uustatus.no)"

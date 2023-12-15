@@ -87,3 +87,13 @@ clarified.
 
 Questions and feedback can be sent to
 [matvaretabellen@mattilsynet.no](mailto:matvaretabellen@mattilsynet.no).
+
+## API
+
+All data in the Food Table is available in both JSON and EDN formats through a
+small [API](/en/api/).
+
+## Source Code
+
+[The source code](https://github.com/mattilsynet/matvaretabellen-deux) for the
+food composition table is open and freely available on Github.

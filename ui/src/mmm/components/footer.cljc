@@ -3,10 +3,12 @@
 
 (defn Footer [{:keys [cols]}]
   [:footer.mmm-footer
-   (for [{:keys [title items text header-class]} cols]
-     [:div.mmm-footer-col
+   (for [{:keys [title items text texts header-class]} cols]
+     [:div.mmm-footer-col.mmm-vert-layout-m
       [:h3 {:class (or header-class "mmm-h3")} title]
       (when text
+        [:p.mmm-p text])
+      (for [text texts]
         [:p.mmm-p text])
       (when (seq items)
         [:ul.mmm-ul.mmm-unadorned-list
@@ -22,7 +24,8 @@
   (Footer
    {:cols [{:title [:i18n ::about-site]
             :header-class "mmm-h6"
-            :text [:i18n ::about-text]}
+            :texts [[:i18n ::about-text]
+                    [:i18n ::api-text]]}
            {:title [:i18n ::about-mattilsynet]
             :header-class "mmm-h6"
             :items [{:url "https://www.mattilsynet.no/varsle"

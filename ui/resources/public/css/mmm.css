@@ -1329,10 +1329,6 @@ a.mmm-button-secondary:link {
     font-weight: var(--mt-font-weight-bold);
 }
 
-.mmm-footer .mmm-h6 {
-    margin-bottom: var(--mt-layout-vertical-spacing-normal);
-}
-
 .mmm-footer-col {
     flex-basis: 0;
     flex-grow: 1;
