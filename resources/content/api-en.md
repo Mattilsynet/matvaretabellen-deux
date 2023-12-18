@@ -25,7 +25,7 @@ We request that the Food Table be cited as the source when using data from us.
 <a id="foods"></a>
 ## Foods
 
-There is only one endpoint to retrieve all foods.
+You can get all foods from a single endpoint.
 
 ### JSON
 

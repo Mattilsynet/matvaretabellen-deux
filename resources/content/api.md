@@ -26,7 +26,7 @@ selv. Vi ber om at Matvaretabellen oppgis som kilde når du bruker data fra oss.
 <a id="matvarer"></a>
 ## Matvarer
 
-Det finnes kun ett endepunkt for å hente alle matvarer.
+Du kan hente alle matvarer i en smekk fra foods-endepunktet.
 
 ### JSON
 
