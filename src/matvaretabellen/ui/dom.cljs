@@ -21,8 +21,9 @@
      (.querySelector el selector))))
 
 (defn visible? [el]
-  (let [bcr (.getBoundingClientRect el)]
-    (< 0 (* (.-width bcr) (.-height bcr)))))
+  (and (boolean (some-> el .-offsetParent))
+       (let [bcr (.getBoundingClientRect el)]
+         (< 0 (* (.-width bcr) (.-height bcr))))))
 
 (defn get-local-json [k]
   (try
@@ -89,9 +90,6 @@
 (defn hide [el]
   (when el
     (add-class el "mmm-hidden")))
-
-(defn visible? [el]
-  (boolean (some-> el .-offsetParent)))
 
 (defn re-zebra-table [table]
   (remove-class table "mmm-table-zebra")
