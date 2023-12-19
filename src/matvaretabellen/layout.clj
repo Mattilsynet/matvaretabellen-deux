@@ -8,17 +8,21 @@
             [mmm.components.search-input :refer [SearchInput]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
-(defn layout [context page head body]
+(defn layout [context _page head body]
   [:html {:class [:mmm (:app/theme (:app/config context))]}
    head
    (into
     body
     (list [:div.mmm-container.mmm-section
            (CompactSiteFooter)]
-          [:img {:src (str "https://mattilsynet.matomo.cloud/matomo.php?idsite="
-                           (:matomo/site-id context)
-                           "&rec=1"
-                           "&action_name=" (:page/uri page))
+          [:img {:data-src (str "https://mattilsynet.matomo.cloud/matomo.php?idsite="
+                                (:matomo/site-id context)
+                                "&rec=1"
+                                "&url={url}"
+                                "&action_name={title}"
+                                "&ua={ua}"
+                                "&urlref={referrer}")
+                 :id "mvt-tracking-pixel"
                  :style "border:0"
                  :alt ""}]))])
 

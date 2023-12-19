@@ -5,7 +5,8 @@
             [matvaretabellen.ui.filters :as filters]
             [matvaretabellen.ui.food :as food]
             [matvaretabellen.ui.search :as search]
-            [matvaretabellen.ui.toggler :as toggler]))
+            [matvaretabellen.ui.toggler :as toggler]
+            [matvaretabellen.ui.tracking :as tracking]))
 
 (defn debounce [f timeout]
   (let [timer (atom nil)]
@@ -74,10 +75,11 @@
 
 (defn possibly-update-url [q]
   (when (get (dom/get-params) "q")
-    (->> (when-let [query (some-> (not-empty q) js/encodeURIComponent)]
-           (str "?q=" query))
-         (str js/location.origin js/location.pathname)
-         (js/history.replaceState nil ""))))
+    (let [url (->> (when-let [query (some-> (not-empty q) js/encodeURIComponent)]
+                     (str "?q=" query))
+                   (str js/location.pathname))]
+      (js/history.replaceState nil "" (str js/location.origin url))
+      (tracking/track url js/document.title))))
 
 (defn init-filter-search [store input]
   (when input

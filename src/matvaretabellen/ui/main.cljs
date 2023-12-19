@@ -11,6 +11,7 @@
             [matvaretabellen.ui.table :as table]
             [matvaretabellen.ui.tabs :as tabs]
             [matvaretabellen.ui.toggler :as toggler]
+            [matvaretabellen.ui.tracking :as tracking]
             [matvaretabellen.urls :as urls]))
 
 (defn ^:after-load main []
@@ -50,6 +51,8 @@
   (main)
   (let [locale (keyword js/document.documentElement.lang)
         event-bus (atom nil)]
+    (tracking/track-page-view)
+
     (search-ui/initialize-foods-autocomplete
      (dom/qs ".mvt-autocomplete")
      locale
