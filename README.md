@@ -246,6 +246,8 @@ gcloud auth configure-docker europe-north1-docker.pkg.dev
 
 ## Arkitektur
 
+Noen viktige beslutninger er dokumentert som [ADR-er](/adr/).
+
 Som nevnt innledningsvis er Matvaretabellen en statisk site. Det betyr at vi i
 byggesteget bygger alle HTML-sidene som utgjør løsningen til disk, og så
 serveres disse bare av nginx i produksjon. Produksjonsmiljøet er dermed svært
