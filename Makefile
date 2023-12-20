@@ -24,7 +24,7 @@ docker/build: target/public/js/compiled/app.js ui/resources/fontawesome-icons
 	clojure -X:build
 
 tracer/target: tracer/src/matvaretabellen/*.clj
-	cd tracer && clj -T:build uber
+	cd tracer && clojure -T:build uber
 
 docker/tracer.jar: tracer/target
 	cp tracer/target/tracer.jar docker
