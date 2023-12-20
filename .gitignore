@@ -17,3 +17,5 @@
 /.clj-kondo/.lock
 /.clj-kondo/inline-configs/
 /ui/resources/fontawesome-icons/
+/tracer/.cpcache/
+/tracer/target/
