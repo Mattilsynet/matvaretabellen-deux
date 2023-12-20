@@ -23,7 +23,13 @@ target/public/js/compiled/app.js: ui/resources/fontawesome-icons
 docker/build: target/public/js/compiled/app.js ui/resources/fontawesome-icons
 	clojure -X:build
 
-docker: docker/build
+tracer/target: tracer/src/matvaretabellen/*.clj
+	cd tracer && clj -T:build uber
+
+docker/tracer.jar: tracer/target
+	cp tracer/target/tracer.jar docker
+
+docker: docker/build docker/tracer.jar
 	cd docker && docker build -t $(IMAGE) .
 
 publish:
@@ -36,6 +42,6 @@ prepare-dev: ui/resources/fontawesome-icons
 
 clean:
 	rm -f datomic-pro-$(DATOMIC_VERSION).zip
-	rm -fr target docker/build dev-resources/public/js/compiled
+	rm -fr target docker/build dev-resources/public/js/compiled tracer/target docker/tracer.jar
 
 .PHONY: start-transactor docker publish test clean prepare-dev
