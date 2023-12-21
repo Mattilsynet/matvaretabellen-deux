@@ -5,8 +5,6 @@
             [confair.config-admin :as ca]
             [courier.http :as http]
             [datomic-type-extensions.api :as d]
-            [integrant.core :as ig]
-            [integrant.repl.state]
             [matvaretabellen.core :as matvaretabellen]
             [matvaretabellen.export :as export]
             [matvaretabellen.foodcase-import :as foodcase-import]
@@ -19,14 +17,14 @@
   (-> (config/from-file "./config/local-config.edn")
       (config/mask-config)))
 
-(defmethod ig/init-key :powerpack/powerpack [_ _]
+(defmethod dev/configure! :default []
   (set! *print-namespace-maps* false)
   (repl/set-refresh-dirs "src" "dev" "test" "ui/src")
   (matvaretabellen/create-dev-app (load-local-config)))
 
 (comment
 
-  (def app-db (d/db (-> integrant.repl.state/system :powerpack/app :datomic/conn)))
+  (def app-db (d/db (:datomic/conn (dev/get-app))))
   (def config (load-local-config))
   (def conn (d/connect (:foods/datomic-uri config)))
 
@@ -73,7 +71,7 @@
 
   (index/index-foods {} (d/db conn) :en)
 
-  (seq (d/datoms (d/db (:datomic/conn integrant.repl.state/system))
+  (seq (d/datoms (d/db (:datomic/conn (dev/get-app)))
                  :avet :page/uri))
 
   ;; config-admin
