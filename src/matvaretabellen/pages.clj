@@ -15,6 +15,7 @@
             [matvaretabellen.pages.search-page :as search-page]
             [matvaretabellen.rda :as rda]
             [matvaretabellen.search-index :as index]
+            [matvaretabellen.tracer :as tracer]
             [matvaretabellen.urls :as urls]))
 
 (defn load-edn [file-name]
@@ -158,7 +159,8 @@
       :page.kind/nutrients (nutrients-page/render context db page)
       :page.kind/rda-data (rda/render-json context page)
       :page.kind/search-page (search-page/render context page)
-      :page.kind/source-data (api/render-source-data context page))))
+      :page.kind/source-data (api/render-source-data context page)
+      :page.kind/tracer-proxy (tracer/handler context))))
 
 (comment
   (def conn matvaretabellen.dev/conn)

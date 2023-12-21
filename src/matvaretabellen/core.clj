@@ -61,5 +61,14 @@
   (-> (create-app :build config)
       (assoc :powerpack/log-level :info)))
 
+(defn wrap-tracer-pages [on-started]
+  (fn [powerpack-app]
+    @(d/transact (:datomic/conn powerpack-app)
+                 [{:page/uri "/tracer/no-script/" :page/kind :page.kind/tracer-proxy}
+                  {:page/uri "/tracer/report/" :page/kind :page.kind/tracer-proxy}
+                  {:page/uri "/tracer/infos/" :page/kind :page.kind/tracer-proxy}])
+    (on-started powerpack-app)))
+
 (defn create-dev-app [config]
-  (create-app :dev config))
+  (-> (create-app :dev config)
+      (update :powerpack/on-started wrap-tracer-pages)))

@@ -1,4 +1,4 @@
-{:paths ["src" "resources" "ui/src" "ui/resources"]
+{:paths ["src" "resources" "ui/src" "ui/resources" "tracer/src"]
  :deps {org.clojure/clojure {:mvn/version "1.11.1"}
         org.clojure/clojurescript {:git/url "https://github.com/clojure/clojurescript.git"
                                    :sha "0c5ecd7b8030b610c979b06bc85ff0991d882f69"}

@@ -1,5 +1,6 @@
 {:paths ["src"]
  :deps {org.clojure/clojure {:mvn/version "1.11.1"}
-        http-kit/http-kit {:mvn/version "2.7.0"}}
+        http-kit/http-kit {:mvn/version "2.7.0"}
+        cjohansen/dumdom {:mvn/version "2023.11.06"}}
  :aliases {:build {:deps {io.github.clojure/tools.build {:git/tag "v0.9.6" :git/sha "8e78bcc"}}
                    :ns-default build}}}

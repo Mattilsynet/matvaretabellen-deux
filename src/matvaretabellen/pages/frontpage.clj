@@ -79,7 +79,8 @@
                      :input {:name "q"}
                      :autocomplete-id "foods-results"})
        [:noscript
-        [:div.mmm-card.mmm-mtm.mmm-themed [:i18n ::no-script-search-info]]]
+        [:div.mmm-card.mmm-mtm.mmm-themed [:i18n ::no-script-search-info]]
+        [:img {:src "/tracer/no-script/" :height 0 :width 0}]]
        [:p.mmm-p.mmm-small.mmm-mts.mmm-desktop.mmm-js-required
         [:a {:href (urls/get-search-url (:page/locale page))}
          [:i18n ::all-foods]]]]
