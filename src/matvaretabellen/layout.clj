@@ -42,11 +42,14 @@
         (dissoc :url)))))
 
 (defn render-header [locale get-current-url]
-  (SiteHeader
-   {:home-url (let [url (urls/get-base-url locale)]
-                (when-not (= url (get-current-url locale))
-                  url))
-    :extra-links (prepare-header-links locale get-current-url)}))
+  [:div
+   [:script {:type "text/javascript"}
+    "document.body.classList.add(\"mmm-js-enabled\");"]
+   (SiteHeader
+    {:home-url (let [url (urls/get-base-url locale)]
+                 (when-not (= url (get-current-url locale))
+                   url))
+     :extra-links (prepare-header-links locale get-current-url)})])
 
 (defn render-toolbar [{:keys [locale crumbs]}]
   [:div.mmm-container.mmm-section.mmm-flex-desktop.mmm-flex-desktop-middle.mmm-mobile-vert-layout-m
@@ -55,14 +58,15 @@
    [:form.mvt-aside-col.mvt-search-col
     {:action (urls/get-search-url locale)
      :method :get}
-    (SearchInput
-     {:button {:text [:i18n :i18n/search-button]}
-      :class :mvt-autocomplete
-      :input {:name "q"
-              :data-suggestions "8"
-              :placeholder [:i18n :i18n/search-label]}
-      :autocomplete-id "foods-results"
-      :size :small})]])
+    [:div.mmm-js-required
+     (SearchInput
+      {:button {:text [:i18n :i18n/search-button]}
+       :class :mvt-autocomplete
+       :input {:name "q"
+               :data-suggestions "8"
+               :placeholder [:i18n :i18n/search-label]}
+       :autocomplete-id "foods-results"
+       :size :small})]]])
 
 (defn render-sidebar-filter-button [target-id]
   [:p.mmm-p.mmm-mobile

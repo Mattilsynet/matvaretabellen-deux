@@ -457,7 +457,7 @@
       [:div.mmm-container.mmm-section
        [:div.mmm-flex-desktop.mmm-flex-bottom.mmm-mbl
         [:h2.mmm-h2.mmm-mbn#naringsinnhold [:i18n ::nutrition-title]]
-        [:div.mmm-flex.mmm-flex-bottom.mmm-flex-gap
+        [:div.mmm-flex.mmm-flex-bottom.mmm-flex-gap.mmm-js-required
          [:div.mmm-desktop (render-compare-button food {:inline? true})]
          (render-portion-select locale (:food/portions food))]]]
 

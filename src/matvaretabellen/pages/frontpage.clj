@@ -80,7 +80,7 @@
                      :autocomplete-id "foods-results"})
        [:noscript
         [:div.mmm-card.mmm-mtm.mmm-themed [:i18n ::no-script-search-info]]]
-       [:p.mmm-p.mmm-small.mmm-mts.mmm-desktop
+       [:p.mmm-p.mmm-small.mmm-mts.mmm-desktop.mmm-js-required
         [:a {:href (urls/get-search-url (:page/locale page))}
          [:i18n ::all-foods]]]]
       (TriviaBox locale food-db (rng/rand-nth*
