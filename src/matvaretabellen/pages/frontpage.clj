@@ -78,6 +78,8 @@
                      :class :mvt-autocomplete
                      :input {:name "q"}
                      :autocomplete-id "foods-results"})
+       [:noscript
+        [:div.mmm-card.mmm-mtm.mmm-themed [:i18n ::no-script-search-info]]]
        [:p.mmm-p.mmm-small.mmm-mts.mmm-desktop
         [:a {:href (urls/get-search-url (:page/locale page))}
          [:i18n ::all-foods]]]]

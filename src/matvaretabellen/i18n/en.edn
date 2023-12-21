@@ -134,6 +134,10 @@
   :common-food-searches "Common Searches"
   :did-you-know "Did you know ..."
   :new-in-food-table "New in Matvaretabellen"
+  :no-script-search-info [:span "Unfortunately, the search does not work without JavaScript turned on, but you can still find food items categorized under "
+                          [:a.mmm-link {:href "/en/food-groups/"} "food groups"]
+                          " and "
+                          [:a.mmm-link {:href "/en/nutrients/"} "nutrients"] "."]
   :open-graph-description "Information about the energy and nutritional content of thousands of foods. Search for foods, compare, and learn about nutrients."
   :open-graph-title "Matvaretabellen.no - a service from Mattilsynet"
   :read-more-about [:fn/str "Read more about {{:definite}} here."]

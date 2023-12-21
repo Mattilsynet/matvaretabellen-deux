@@ -134,6 +134,10 @@
   :common-food-searches "Vanlige matvaresøk"
   :did-you-know "Visste du ..."
   :new-in-food-table "Nytt i Matvaretabellen"
+  :no-script-search-info [:span "Søket fungerer dessverre ikke uten JavaScript skrudd på, men du kan fortsatt finne matvarer kategorisert under "
+                          [:a.mmm-link {:href "/matvaregrupper/"} "matvaregrupper"]
+                          " og "
+                          [:a.mmm-link {:href "/naeringstoffer/"} "næringsstoffer"] "."]
   :open-graph-description "Informasjon om energi- og næringsinnholdet i tusenvis av matvarer. Søk opp spesifikke matvarer, sammenligne, og lære mer de forskjellige næringsstoffene."
   :open-graph-title "Matvaretabellen.no - en tjeneste fra Mattilsynet"
   :read-more-about [:fn/str "Les mer om {{:definite}} her."]
