@@ -7,8 +7,20 @@
 (defn stop-word? [w]
   (stop-words (str/trim w)))
 
+;; Lookbehind
+(def tokenize-re
+  (try
+    ;; Negative lookbehind and lookahead is a relatively new browser feature.
+    ;; Some browsers in the wild have been observed not supporting it. Detect
+    ;; this failure, and use a simpler one for those browsers.
+    (let [fancy-re #"(?<!\d),(?!\d)"
+          _ (re-find fancy-re "a,b")]
+      fancy-re)
+    (catch #?(:clj Error :cljs :default) e
+      #",")))
+
 (defn tokenize-name [s]
-  (->> (interpose "," (str/split s #"(?<!\d),(?!\d)"))
+  (->> (interpose "," (str/split s tokenize-re))
        (mapcat (fn [s]
                  (str/split (str/trim s) #" +")))
        (map-indexed (fn [i w]
