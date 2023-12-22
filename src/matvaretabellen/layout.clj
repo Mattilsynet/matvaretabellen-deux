@@ -8,9 +8,23 @@
             [mmm.components.search-input :refer [SearchInput]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
+(def report-errors-to-tracer
+  "
+var tracerStatus = {};
+window.onerror = function(message) {
+  if (tracerStatus.reported) { return; }
+  tracerStatus.reported = true;
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '/tracer/report/?error=' + encodeURIComponent(message), true);
+  xhr.send();
+};
+")
+
 (defn layout [context _page head body]
   [:html {:class [:mmm (:app/theme (:app/config context))]}
-   head
+   (into
+    head
+    (list [:script {:type "text/javascript"} report-errors-to-tracer]))
    (into
     body
     (list [:div.mmm-container.mmm-section
