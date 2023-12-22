@@ -29,8 +29,11 @@
           {:status 200 :body "OK"})
 
       "/tracer/report/"
-      (let [error (or (:error (query-map (:uri req)))
-                      "Overraskende ingen error på rapporten")]
+      (let [error (or (:error (query-map (str "/?" (:query-string req))))
+                      ["Overraskende ingen error på rapporten"
+                       (keys req)
+                       (:uri req)
+                       (:query-string req)])]
         (swap! store update error ++)
         {:status 200 :body "OK"})
 
