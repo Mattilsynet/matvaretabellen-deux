@@ -13,7 +13,7 @@
     ;; Negative lookbehind and lookahead is a relatively new browser feature.
     ;; Some browsers in the wild have been observed not supporting it. Detect
     ;; this failure, and use a simpler one for those browsers.
-    (let [fancy-re #"(?<!\d),(?!\d)"
+    (let [fancy-re (re-pattern "(?<!\\d),(?!\\d)")
           _ (re-find fancy-re "a,b")]
       fancy-re)
     (catch #?(:clj Error :cljs :default) _
