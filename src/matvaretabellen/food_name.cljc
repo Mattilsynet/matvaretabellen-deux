@@ -16,7 +16,7 @@
     (let [fancy-re #"(?<!\d),(?!\d)"
           _ (re-find fancy-re "a,b")]
       fancy-re)
-    (catch #?(:clj Error :cljs :default) e
+    (catch #?(:clj Error :cljs :default) _
       #",")))
 
 (defn tokenize-name [s]

@@ -22,10 +22,11 @@
   (if (nil? n) 1 (inc n)))
 
 (defn handler [req]
-  (let [uri (uri (:uri req))] ;; Bjarne, Bjarne, Bjarne
+  (let [uri (uri (:uri req)) ;; Bjarne, Bjarne, Bjarne
+        ua (get-in req [:headers "user-agent"])]
     (case (:path uri)
       "/tracer/no-script/"
-      (do (swap! store update "No script" ++)
+      (do (swap! store update-in ["No script" ua] ++)
           {:status 200 :body "OK"})
 
       "/tracer/report/"
@@ -34,7 +35,7 @@
                        (keys req)
                        (:uri req)
                        (:query-string req)])]
-        (swap! store update error ++)
+        (swap! store update-in [error ua] ++)
         {:status 200 :body "OK"})
 
       "/tracer/infos/"
