@@ -3,7 +3,8 @@
   (:require [clojure.pprint :as pprint]
             [dumdom.string :as dumdom]
             [lambdaisland.uri :refer [uri query-map]]
-            [org.httpkit.server :as http-kit]))
+            [org.httpkit.server :as http-kit])
+  (:import (java.time ZonedDateTime ZoneId)))
 
 (defonce store (atom {}))
 
@@ -18,15 +19,16 @@
      ut noen følere for å se etter problemer med klienten i jula. God jul, da!"]
      [:pre (with-out-str (pprint/pprint @store))]])})
 
-(defn ++ [n]
-  (if (nil? n) 1 (inc n)))
+(defn trace [{:keys [num]}]
+  {:num (if num (inc num) 1)
+   :last-date (str (.toLocalDateTime (ZonedDateTime/now (ZoneId/of "Europe/Oslo"))))})
 
 (defn handler [req]
   (let [uri (uri (:uri req)) ;; Bjarne, Bjarne, Bjarne
         ua (get-in req [:headers "user-agent"])]
     (case (:path uri)
       "/tracer/no-script/"
-      (do (swap! store update-in ["No script" ua] ++)
+      (do (swap! store update-in ["No script" ua] trace)
           {:status 200 :body "OK"})
 
       "/tracer/report/"
@@ -35,7 +37,7 @@
                        (keys req)
                        (:uri req)
                        (:query-string req)])]
-        (swap! store update-in [error ua] ++)
+        (swap! store update-in [error ua] trace)
         {:status 200 :body "OK"})
 
       "/tracer/infos/"
