@@ -14,7 +14,7 @@ module "matvaretabellen-ui" {
   ignore_image = true
 
   replicas = {
-    minScale = 1
+    minScale = 0
     maxScale = 2
   }
 
