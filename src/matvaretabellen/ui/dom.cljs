@@ -3,8 +3,12 @@
 
 (defn get-params []
   (when (seq js/location.search)
-    (update-vals (apply hash-map (str/split (subs js/location.search 1) #"[=&]"))
-                 #(str/replace (js/decodeURIComponent %) #"\+" " "))))
+    (let [raw-tokens (str/split (subs js/location.search 1) #"[=&]")
+          tokens (cond-> raw-tokens
+                   (odd? (count raw-tokens))
+                   butlast)]
+      (update-vals (apply hash-map tokens)
+                   #(str/replace (js/decodeURIComponent %) #"\+" " ")))))
 
 (defn qsa
   ([selector]
