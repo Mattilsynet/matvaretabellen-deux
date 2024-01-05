@@ -121,14 +121,15 @@
     (let [nutrient-id (->> (:constituent/nutrient measurement)
                            :nutrient/id)
           recommendation (recommendations nutrient-id)]
-      (when-let [v (or (:rda.recommendation/max-amount recommendation)
-                       (:rda.recommendation/min-amount recommendation)
-                       (:rda.recommendation/average-amount recommendation)
-                       ;; Min/max/average energy percent not yet supported
-                       )]
-        [:span.mvt-rda
-         {:data-nutrient-id nutrient-id}
-         (pct (b// q v))]))))
+      (when-not (#{"NaCl" "Na"} nutrient-id)
+        (when-let [v (or (:rda.recommendation/max-amount recommendation)
+                         (:rda.recommendation/min-amount recommendation)
+                         (:rda.recommendation/average-amount recommendation)
+                         ;; Min/max/average energy percent not yet supported
+                         )]
+          [:span.mvt-rda
+           {:data-nutrient-id nutrient-id}
+           (pct (b// q v))])))))
 
 (defn prepare-nutrient-tables [db locale {:keys [food recommendations nutrients group]}]
   (->> (concat
