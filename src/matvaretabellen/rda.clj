@@ -147,13 +147,22 @@
        (str/starts-with? demographic "Generell") 0
        (str/starts-with? demographic "Kvinne") 1
        (str/starts-with? demographic "Mann") 2
-       (str/starts-with? demographic "Jente") 3
-       (str/starts-with? demographic "Gutt") 4
-       (str/starts-with? demographic "Spedbarn") 5
-       (str/starts-with? demographic "Gravid") 6
-       (str/starts-with? demographic "Ammende") 7
-       :else 8)
+       (str/starts-with? demographic "Jente 1-3 år") 3
+       (str/starts-with? demographic "Jente 4-6 år") 4
+       (str/starts-with? demographic "Jente 7-10 år") 5
+       (str/starts-with? demographic "Jente") 6
+       (str/starts-with? demographic "Gutt 1-3 år") 7
+       (str/starts-with? demographic "Gutt 4-6 år") 8
+       (str/starts-with? demographic "Gutt 7-10 år") 9
+       (str/starts-with? demographic "Gutt") 10
+       (str/starts-with? demographic "Spedbarn") 11
+       (str/starts-with? demographic "Gravid") 12
+       (str/starts-with? demographic "Ammende") 13
+       :else 14)
      demographic]))
+
+(defn irrelevant? [profile]
+  (#{"Spedbarn 12-23 mnd"} (:nb (:rda/demographic profile))))
 
 (defn get-profiles-per-demographic [db]
   (->> (d/q '[:find [?e ...]
@@ -163,6 +172,7 @@
        (map #(d/entity db %))
        (group-by :rda/demographic)
        (map #(first (sort-by :rda/id (second %))))
+       (remove irrelevant?)
        (sort-by sort-order)))
 
 (defn unbroch [q]
