@@ -32,6 +32,6 @@
       [:a.mmm-link [:i18n ::clear-download]]]]
     [:div.mmm-mobile-phn
      (client-table/render-column-settings (:foods/db context))
-     [:div.mmm-cols.mmm-cols-d1_2.mmm-container-spacing.mmm-mtm
-      (client-table/render-food-group-settings context page)
+     (client-table/render-food-group-settings context page)
+     [:div.mmm-container-spacing.mmm-mtm
       (client-table/render-table-skeleton (:foods/db context))]]]))

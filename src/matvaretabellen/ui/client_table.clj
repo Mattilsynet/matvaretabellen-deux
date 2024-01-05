@@ -90,12 +90,13 @@
           (map render-nutrient-filter-column))]]])
 
 (defn render-food-group-settings [context page]
-  [:div.mmm-vert-layout-m.mmm-col.mmm-hidden#food-group-panel
-   (food-group/render-food-group-filters
-    (:app/db context)
-    (food-group/get-food-groups (:foods/db context))
-    nil
-    (:page/locale page))])
+  [:div.mmm-container
+   [:div.mmm-divider.mmm-vert-layout-m.mmm-col.mmm-hidden#food-group-panel
+    (food-group/render-food-group-filters
+     (:app/db context)
+     (food-group/get-food-groups (:foods/db context))
+     nil
+     (:page/locale page))]])
 
 (defn render-table-skeleton [foods-db & [opt]]
   (let [nutrients (->> (nutrient/get-used-nutrients foods-db)
