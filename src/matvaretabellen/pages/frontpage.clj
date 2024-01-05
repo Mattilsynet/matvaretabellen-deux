@@ -23,9 +23,11 @@
        (sort)))
 
 (defn get-food-info [locale db id]
-  (let [food-name (get-in (d/entity db [:food/id id]) [:food/name locale])]
-    {:title food-name
-     :href (urls/get-food-url locale food-name)}))
+  (if-let [food (d/entity db [:food/id id])]
+    (let [food-name (get-in food [:food/name locale])]
+      {:title food-name
+       :href (urls/get-food-url locale food-name)})
+    (prn "Sesongmatvaren med id" id "finnes ikke! Rydd opp i season-foods.edn")))
 
 (defn TriviaBox [locale food-db trivia]
   [:div.mmm-banner-media-buttons.mmm-section.mmm-brand-theme2
@@ -100,15 +102,14 @@
              :class :mmm-col})
        (let [new-foods (:new-foods (:page/details page))]
          (Toc {:title (list [:i18n ::new-in-food-table] " " (:year new-foods))
-               :contents (for [id (take 5 (rng/shuffle*
-                                           (/ (.getEpochSecond (:time/instant context)) 5)
-                                           (:food-ids new-foods)))]
-                           (get-food-info locale food-db id))
+               :contents (->> (:food-ids new-foods)
+                              (rng/shuffle* (/ (.getEpochSecond (:time/instant context)) 5))
+                              (take 5)
+                              (keep #(get-food-info locale food-db %)))
                :class :mmm-col}))
        (Toc {:title [:i18n ::seasonal-goods]
-             :contents (for [id (take 5 (rng/shuffle*
-                                         (/ (.getEpochSecond (:time/instant context)) 7)
-                                         (get-season-food-ids (:app/db context)
-                                                              (MonthDay/now))))]
-                         (get-food-info locale food-db id))
+             :contents (->> (get-season-food-ids (:app/db context) (MonthDay/now))
+                            (rng/shuffle* (/ (.getEpochSecond (:time/instant context)) 7))
+                            (take 5)
+                            (keep #(get-food-info locale food-db %)))
              :class :mmm-col})]])))
