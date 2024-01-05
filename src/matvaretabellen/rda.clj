@@ -19,40 +19,41 @@
    "gjsn" :rda.recommendation/average-amount})
 
 (def nb-aliases
-  {"Generell 10 mj" "Generell 6-65 år"})
+  {"Generell 10 mj" "Generell 18-70 år"})
 
 (def en-dictionary
-  {"Ammende" "Breastfeeding"
-   "Generell 6-65 år" "General 6-65 years"
-   "Gravid" "Pregnant"
-   "Gutt 10-13 år" "Boy 10-13 years"
-   "Gutt 14-17 år" "Boy 14-17 years"
-   "Gutt 2-5 år" "Boy 2-5 years"
-   "Gutt 6-9 år" "Boy 6-9 years"
-   "Jente 10-13 år" "Girl 10-13 years"
-   "Jente 14-17 år" "Girl 14-17 years"
-   "Jente 2-5 år" "Girl 2-5 years"
-   "Jente 6-9 år" "Girl 6-9 years"
-   "Kvinne 18-30 år" "Woman 18-30 years"
-   "Kvinne 31-60 år" "Woman 31-60 years"
-   "Kvinne 61-74 år" "Woman 61-74 years"
-   "Kvinne 75+ år" "Woman 75+ years"
-   "Mann 18-30 år" "Man 18-30 years"
-   "Mann 31-60 år" "Man 31-60 years"
-   "Mann 61-74 år" "Man 61-74 years"
-   "Mann 75+ år" "Man 75+ years"
-   "Spedbarn 12-23 mnd" "Infant 12-23 months"
-   "Spedbarn 6-11 mnd" "Infant 6-11 months"
-   "Sykehjem/hjemmetjeneste - Energi- og næringstett kost" "Nursing home/home care - Energy and nutrient-dense diet"
-   "Sykehjem/hjemmetjeneste - Nøkkelrådskost" "Nursing home/home care - Key dietary advice"
-
-   "Aktiv 2-3 timer trening per uke" "Active 2-3 hours of exercise per week"
+  {"Aktiv 2-3 timer trening per uke" "Active 2-3 hours of exercise per week"
+   "Ammende" "Breastfeeding"
    "Fysisk hardt arbeid" "Physically demanding work"
+   "Generell 18-70 år" "General 18-70 years"
    "Gjennomsnittlig aktivitetsnivå" "Moderate activity level"
+   "Gravid" "Pregnant"
+   "Gutt 1-3 år" "Boy 1-3 years"
+   "Gutt 11-14 år" "Boy 11-14 years"
+   "Gutt 15-17 år" "Boy 15-17 years"
+   "Gutt 4-6 år" "Boy 4-6 years"
+   "Gutt 7-10 år" "Boy 7-10 years"
    "Høyt aktivitetsnivå" "High activity level"
+   "Institusjon - Energi- og næringstett kost" "Institution - Energy and Nutrient-dense Diet."
+   "Institusjon - Nøkkelrådskost" "Institution - Key Advisory Cost."
+   "Jente 1-3 år" "Girl 1-3 years"
+   "Jente 11-14 år" "Girl 11-14 years"
+   "Jente 15-17 år" "Girl 15-17 years"
+   "Jente 4-6 år" "Girl 4-6 years"
+   "Jente 7-10 år" "Girl 7-10 years"
+   "Kvinne 18-24 år" "Woman 18-24 years"
+   "Kvinne 25-50 år" "Woman 25-50 years"
+   "Kvinne 51-70 år" "Woman 51-70 years"
+   "Kvinne 70+ år" "Woman 70+ years"
    "Lavt aktivitetsnivå" "Low activity level"
    "Lite aktiv mindre enn 2 timer trening per uke" "Sedentary, less than 2 hours of exercise per week"
+   "Mann 18-24 år" "Man 18-24 years"
+   "Mann 25-50 år" "Man 25-50 years"
+   "Mann 51-70 år" "Man 51-70 years"
+   "Mann 70+ år" "Man 70+ years"
    "Sengeliggende/inaktiv" "Bedridden/Inactive"
+   "Spedbarn 12-23 mnd" "Infant 12-23 months"
+   "Spedbarn 7-11 mnd" "Infant 7-11 months"
    "Stillesittende arbeid" "Sedentary work"
    "Stående arbeid" "Standing work"
    "Svært aktiv mer enn 3 timer trening per uke" "Very active, more than 3 hours of exercise per week"})
@@ -84,7 +85,10 @@
          (get-recommendation (d/entity foods-db [:nutrient/id nutrient-id]) header kind v))
        (into {:rda.recommendation/nutrient-id nutrient-id})))
 
+(def texts (atom #{}))
+
 (defn internationalize [nb]
+  (swap! texts conj nb)
   (let [nb (get nb-aliases nb nb)]
     {:nb nb
      :en (en-dictionary nb)}))
@@ -203,6 +207,21 @@
   (def conn matvaretabellen.dev/conn)
   (def app-db matvaretabellen.dev/app-db)
 
-  (read-csv (d/db conn) (slurp (io/file "data/adi.csv")))
+  (def old (read-csv (d/db conn) (slurp (io/file "data/adi.csv"))))
+  (def new (read-csv (d/db conn) (slurp (io/file "data/adi2024.csv"))))
+
+  (count old)
+  (count new)
+
+  (->> new
+       (sort-by :rda/order)
+       (map #(select-keys % [:rda/demographic :rda/work-activity-level])))
+
+  (count @texts)
+  (remove (set (keys en-dictionary)) @texts)
+
+  (->> (for [k (filter @texts (keys en-dictionary))]
+         [k (get en-dictionary k)])
+       (into {}))
 
 )
