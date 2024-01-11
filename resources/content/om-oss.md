@@ -14,14 +14,27 @@ direkte etter en matvare eller navigere blant matvaregrupper og næringsstoffer.
 
 ## Matvaresidene
 
-Hver matvare har sin egen side med informasjon om næringsinnhold, informasjon om
-klassifisering og kilder.
+Hver matvare har sin egen side med informasjon om næringsinnhold, klassifisering
+og kilder. Mesteparten av innholdet presenteres i tabeller. Næringsinnholdet
+inkluderer verdier som karbohydrater, proteiner, fett, vitaminer og mineraler.
+
+#### Porsjonsstørrelse
+
+Næringsstoffverdiene på matvaresidene presenteres først og fremst per 100 g.
+Dette er den vanligste måten å fremvise mengdeinnholdet i matvarer på. Det
+er også slik matvareindustrien vanligvis presenterer næringsstoffverdiene.
+
+For å gjøre det enklere og raskere å finne næringsinnholdet på matvarer som
+oftest presenteres i f.eks. per stykk eller per skive har vi også valgt å legge
+til flere typer porsjonsstørrelser. [Les mer om porsjonsstørrelsene i
+Matvaretabellen](https://www.mattilsynet.no/mat-og-drikke/matvaretabellen/mal-vekt-og-porsjonsstorleikar).
 
 #### Kakediagrammer
 
 Øverst på siden er det to kakediagrammer med informasjon om sammensetningen av
 de energigivende næringsstoffene. Den første viser mengden i gram, og den andre
-viser fordeling av energi i matvaren.
+viser fordeling av energi i matvaren. Diagrammene er lagt til for å gjøre
+informasjonen lettere fordøyelig.
 
 #### Anbefalt dagsinntak
 
@@ -31,11 +44,9 @@ av innholdet av næringsstoffer i en gitt mengde matvare, for å vise hvor mye
 matvaren dekker av det anbefalte dagsinntaket. Dagsinntaket er inndelt per
 gruppe, for det meste etter kjønn og alder.
 
-Funksjonen viser for eksempel hvor mye et eple bidrar til at “kvinne, 18-30 år"
+Funksjonen viser for eksempel hvor mye et eple bidrar til at “kvinne, 18-24 år"
 når anbefalt daglig inntak av hvert enkelt vitamin og mineral. Verdiene for
-anbefalt dagsinntak er hentet fra Helsedirektoratets [Anbefalinger om kosthold,
-ernæring og fysisk
-aktivitet](https://www.helsedirektoratet.no/rapporter/anbefalinger-om-kosthold-ernaering-og-fysisk-aktivitet/Anbefalinger%20om%20kosthold%20ernæring%20og%20fysisk%20aktivitet.pdf/_/attachment/inline/2f5d80b2-e0f7-4071-a2e5-3b080f99d37d:2aed64b5b986acd14764b3aa7fba3f3c48547d2d/Anbefalinger%20om%20kosthold%20ernæring%20og%20fysisk%20aktivitet.pdf).
+anbefalt dagsinntak er hentet fra Helsedirektoratets [Referanseverdier for energi og næringsstoffer](https://www.helsedirektoratet.no/rapporter/referanseverdier-for-energi-og-naeringsstoffer).
 
 #### Sammenlign matvarer
 
