@@ -16,13 +16,27 @@ food item or navigate among food groups and nutrients.
 ## Food Item Pages
 
 Each food item has its own page with information about nutritional content,
-classification, and sources.
+classification, and sources. Most of the content is presented in tables. The
+nutritional content includes values such as carbohydrates, proteins, fats,
+vitamins, and minerals.
+
+#### Portion Size
+
+The nutritional values on the food item pages are primarily presented per 100 g.
+This is the most common way to display the quantity content in food items. It is
+also the way the food industry usually presents nutritional values.
+
+To make it easier and faster to find the nutritional content of food items that
+are often presented per piece or per slice, we have also chosen to include
+several types of portion sizes. [Read more about the portion sizes in the Food
+Table](https://www.mattilsynet.no/mat-og-drikke/matvaretabellen/mal-vekt-og-porsjonsstorleikar).
 
 #### Pie Charts
 
 At the top of the page, there are two pie charts with information about the
-composition of energy-yielding nutrients. The first shows the amount in grams,
-and the second shows the distribution of energy in the food item.
+composition of energy-providing nutrients. The first shows the amount in grams,
+and the second shows the distribution of energy in the food item. These diagrams
+are added to make the information more digestible.
 
 #### Recommended Daily Intake
 
@@ -33,10 +47,9 @@ much the food item covers of the recommended daily intake. The daily intake is
 divided per group, mostly by gender and age.
 
 For example, the function shows how much an apple contributes to the recommended
-daily intake of each individual vitamin and mineral for “women, ages 18-30.” The
+daily intake of each individual vitamin and mineral for “women, ages 18-24.” The
 values for recommended daily intake are taken from the Norwegian Directorate of
-Health's [Recommendations on Diet, Nutrition, and Physical
-Activity](https://www.helsedirektoratet.no/rapporter/anbefalinger-om-kosthold-ernaering-og-fysisk-aktivitet/Anbefalinger%20om%20kosthold%20ernæring%20og%20fysisk%20aktivitet.pdf/_/attachment/inline/2f5d80b2-e0f7-4071-a2e5-3b080f99d37d:2aed64b5b986acd14764b3aa7fba3f3c48547d2d/Anbefalinger%20om%20kosthold%20ernæring%20og%20fysisk%20aktivitet.pdf).
+Health's [Reference Values for Energy and Nutrients](https://www.helsedirektoratet.no/rapporter/referanseverdier-for-energi-og-naeringsstoffer).
 
 #### Compare Food Items
 
