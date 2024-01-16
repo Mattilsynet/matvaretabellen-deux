@@ -89,13 +89,35 @@
                                       (remove (comp #{1} val)))})))
   entity-maps)
 
-(defn add-excel-etags [pages]
-  (let [etag (str excel/version "-" (import/get-last-modified))]
+(defn add-page-etags [pages]
+  (let [last-updated-at (import/get-last-modified)
+        code-version (or (not-empty (System/getenv "GIT_SHA")) (System/currentTimeMillis))
+        etag (str code-version "-" last-updated-at)
+        excel-etag (str excel/version "-" last-updated-at)]
     (for [page pages]
       (cond-> page
         (#{:page.kind/nutrient-excel
            :page.kind/food-group-excel
            :page.kind/foods-excel} (:page/kind page))
+        (assoc :page/etag excel-etag)
+
+        (#{:page.kind/article
+           :page.kind/compact-food-data
+           :page.kind/comparison
+           :page.kind/food
+           :page.kind/food-data
+           :page.kind/food-group
+           :page.kind/food-group-data
+           :page.kind/food-groups
+           :page.kind/foods-index
+           :page.kind/langual-data
+           :page.kind/names-lookup
+           :page.kind/nutrient
+           :page.kind/nutrient-data
+           :page.kind/nutrients
+           :page.kind/rda-data
+           :page.kind/search-page
+           :page.kind/source-data} (:page/kind page))
         (assoc :page/etag etag)))))
 
 (defn on-started [foods-conn powerpack-app]
@@ -106,7 +128,7 @@
                  (get-food-pages db)
                  (get-food-group-pages db app-db)
                  (get-nutrient-pages db app-db))
-         add-excel-etags
+         add-page-etags
          (ensure-unique-page-uris)
          (concat rda-profiles)
          (d/transact (:datomic/conn powerpack-app))
