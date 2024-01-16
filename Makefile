@@ -21,7 +21,7 @@ target/public/js/compiled/app.js: ui/resources/fontawesome-icons
 	clojure -M:build -m figwheel.main -bo prod
 
 docker/build: target/public/js/compiled/app.js ui/resources/fontawesome-icons
-	clojure -X:build
+	env GIT_SHA=$(VERSION) clojure -X:build
 
 tracer/target: tracer/src/matvaretabellen/*.clj
 	cd tracer && clojure -T:build uber
