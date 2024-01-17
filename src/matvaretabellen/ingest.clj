@@ -90,10 +90,10 @@
   entity-maps)
 
 (defn add-page-etags [pages]
-  (let [last-updated-at (import/get-last-modified)
+  (let [content-hash (import/get-content-hash)
         code-version (or (not-empty (System/getenv "GIT_SHA")) (System/currentTimeMillis))
-        etag (str code-version "-" last-updated-at)
-        excel-etag (str excel/version "-" last-updated-at)]
+        etag (str code-version "-" content-hash)
+        excel-etag (str excel/version "-" content-hash)]
     (for [page pages]
       (cond-> page
         (#{:page.kind/nutrient-excel

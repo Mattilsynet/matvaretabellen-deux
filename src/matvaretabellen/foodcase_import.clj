@@ -270,14 +270,13 @@
          #(map (fn [food] (foodcase-food->food food id->nutrient)) (get % "foods")))
         i18n-attrs))]))
 
-(defn get-last-modified []
-  (->> ["data/foodcase-data-en.json"
-        "data/foodcase-data-nb.json"
-        "data/foodcase-food-en.json"
-        "data/foodcase-food-nb.json"
-        "data/nutrient-decimal-precision.edn"]
-       (map #(.lastModified (io/file %)))
-       (apply max 0)))
+(defn get-content-hash []
+  (hash (for [file ["data/foodcase-data-en.json"
+                    "data/foodcase-data-nb.json"
+                    "data/foodcase-food-en.json"
+                    "data/foodcase-food-nb.json"
+                    "data/nutrient-decimal-precision.edn"]]
+          (slurp (io/file file)))))
 
 (defn create-database [uri]
   (let [schema (read-string (slurp (io/resource "foods-schema.edn")))]
