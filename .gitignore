@@ -16,6 +16,8 @@
 *.terraform*
 /.clj-kondo/.lock
 /.clj-kondo/inline-configs/
+/.clj-kondo/magnars.com/
+/.clj-kondo/no.cjohansen/
 /ui/resources/fontawesome-icons/
 /tracer/.cpcache/
 /tracer/target/
