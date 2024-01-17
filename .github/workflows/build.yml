@@ -123,7 +123,9 @@ jobs:
         with:
           path: |
             docker/build/**/*
-          key: exported-files
+          key: exported-files-${{ github.sha }}
+          restore-keys: |
+            exported-files-
       - name: Build docker image
         run: make docker
       - id: auth
