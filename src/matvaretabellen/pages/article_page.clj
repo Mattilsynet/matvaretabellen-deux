@@ -32,7 +32,7 @@
        {:locale locale
         :crumbs [{:text [:i18n :i18n/search-label]
                   :url (urls/get-base-url locale)}]})
-      [:div.mmm-container.mmm-section.mmm-text.mmm-vert-layout-m
+      [:div.mmm-container-medium.mmm-section.mmm-text.mmm-vert-layout-m
        (-> (:page/body page)
            (replace-placeholders food-db locale infos)
            md/render-html)]])))

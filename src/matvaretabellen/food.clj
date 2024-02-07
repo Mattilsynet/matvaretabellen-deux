@@ -1,13 +1,9 @@
 (ns matvaretabellen.food
   (:require [broch.core :as b]
-            [clojure.data.json :as json]
-            [clojure.set :as set]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.misc :as misc]
-            [matvaretabellen.nutrient :as nutrient]
-            [matvaretabellen.urls :as urls]
-            [mmm.components.checkbox :refer [Checkbox]]))
+            [matvaretabellen.nutrient :as nutrient]))
 
 (defn get-nutrient-measurement [food nutrient-id]
   (->> (:food/constituents food)
