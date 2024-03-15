@@ -1,9 +1,7 @@
-{:linters {:unresolved-var {:exclude [portfolio.dumdom/defscene]}
-           :unresolved-namespace {:exclude [integrant.repl.state
+{:linters {:unresolved-namespace {:exclude [integrant.repl.state
                                             matvaretabellen.dev]}
            :clojure-lsp/unused-public-var
            {:exclude-when-defined-by #{portfolio.dumdom/defscene}
             :exclude-when-contains-meta #{:to-be-continued}}}
- :lint-as {portfolio.dumdom/defscene clojure.core/def
-           broch.core/defunit clojure.core/def
+ :lint-as {broch.core/defunit clojure.core/def
            broch.core/defunit-once clojure.core/def}}
