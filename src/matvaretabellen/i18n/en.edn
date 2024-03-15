@@ -1,7 +1,7 @@
 [#:i18n
  {:lookup [:fn/str "{{:en}}"]
   :other-language "På norsk"
-  :number-of-foods (list [:fn/get :count] " food items.")
+  :number-of-foods ([:fn/get :count] " food items.")
   :number [:fn/num [:fn/get :n] [:fn/param]]
   :search-button "Search"
   :search-label "Search in Matvaretabellen"}
@@ -9,9 +9,9 @@
  #:mmm.components.footer
  {:footer-title "Footer"
   :about-site "About the site"
-  :about-text (list "Matvaretabellen is a service from Mattilsynet. "
-                    [:a {:href "/about-us/"} "Read more about it here."]
-                    " For more services, see " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
+  :about-text ("Matvaretabellen is a service from Mattilsynet. "
+               [:a {:href "/about-us/"} "Read more about it here."]
+               " For more services, see " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
   :api-text [:a {:href "/en/api/"} "Food composition table API"]
   :newsletter "Newsletter"
   :privacy-and-cookies "Privacy Policy and Cookies"
@@ -54,7 +54,7 @@
  #:matvaretabellen.pages.comparison-page
  {:and "and"
   :columnwise "Column wise"
-  :compare-foods (list "Compare" [:span.mmm-desktop " foods"])
+  :compare-foods ("Compare" [:span.mmm-desktop " foods"])
   :composition "Composition"
   :diff-intro "Compare foods nutrient by nutrient. The most marked differences are highlighted with a blue background."
   :edible-part "Edible part"
@@ -71,7 +71,7 @@
   :category [:fn/str "Category: {{:category}}"]
   :classification-title "Classification"
   :classification-intro
-  (list "The foods in Matvaretabellen are described using a classification
+  ("The foods in Matvaretabellen are described using a classification
   system called " [:a {:href [:fn/get :langual-url]} "LanguaL"]
         ". LanguaL stands for \"" [:strong "Langua aL"] "imentaria\" or \"language of
    food\". This language enables standardized descriptions of foods.")
@@ -79,15 +79,15 @@
   :composition "Composition"
   :edible-part [:fn/str "Edible part: {{:pct}} %"]
   :energy-content "Energy content"
-  :energy-content-title-mobile (list "Per " [:fn/get :portion])
-  :energy-content-title (list "Energy in " [:fn/get :portion])
+  :energy-content-title-mobile ("Per " [:fn/get :portion])
+  :energy-content-title ("Energy in " [:fn/get :portion])
   :energy [:fn/str "Caloric content: {{:kilo-joules}} ({{:calories}} kcal)"]
   :energy-highlight-title [:fn/str "Energy →"]
   :energy-title "Composition and energy"
   :composition-title [:fn/str "{{:title}} composition"]
   :fat-title "Fatty acids"
-  :food-id (list [:strong "Food ID:"] " " [:fn/get :id])
-  :kcal-content-title (list "Energy (kcal) in " [:fn/get :portion])
+  :food-id ([:strong "Food ID:"] " " [:fn/get :id])
+  :kcal-content-title ("Energy (kcal) in " [:fn/get :portion])
   :langual-code-label "LanguaL"
   :langual-description-label "Classification"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
@@ -107,7 +107,7 @@
   :select-portion-with-grams [:fn/str "{{:portion}} ({{:grams}} grams)    "]
   :source "Source"
   :sources "Sources"
-  :scientific-name (list [:strong "Scientific name:"] " " [:fn/get :name])
+  :scientific-name ([:strong "Scientific name:"] " " [:fn/get :name])
   :show-all-sources "Show sources in all tables"
   :show-sources "Show sources"
   :total [:fn/str "{{:en}}, total"]
@@ -118,7 +118,7 @@
 
  #:matvaretabellen.pages.food-groups-page
  {:all-food-groups "Food Groups"
-  :prose (list "In the Norwegian Food Composition Table there are " [:fn/get :food-count] " foods divided into " [:fn/get :group-count] " main groups based on origin and use. Under these groups, there are also specific categories.")
+  :prose ("In the Norwegian Food Composition Table there are " [:fn/get :food-count] " foods divided into " [:fn/get :group-count] " main groups based on origin and use. Under these groups, there are also specific categories.")
   :download-everything "Download the entire table"}
 
  #:matvaretabellen.pages.food-group-page
@@ -166,7 +166,7 @@
 
  #:matvaretabellen.ui.client-table
  {:columns "Nutrients"
-  :download (list "Download (" [:span.mvt-num-foods "0"] ")")
+  :download ("Download (" [:span.mvt-num-foods "0"] ")")
   :energy "Energy"
   :energy-kcal "Energy (kcal)"
   :energy-kj "Energy (kJ)"

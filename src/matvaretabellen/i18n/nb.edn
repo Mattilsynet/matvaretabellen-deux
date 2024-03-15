@@ -1,7 +1,7 @@
 [#:i18n
  {:lookup [:fn/str "{{:nb}}"]
   :other-language "In English"
-  :number-of-foods (list [:fn/get :count] " matvarer.")
+  :number-of-foods ([:fn/get :count] " matvarer.")
   :number [:fn/num [:fn/get :n] [:fn/param]]
   :search-button "Søk"
   :search-label "Søk i Matvaretabellen"}
@@ -9,9 +9,9 @@
  #:mmm.components.footer
  {:footer-title "Footer"
   :about-site "Om nettstedet"
-  :about-text (list "Matvaretabellen er en tjeneste fra Mattilsynet. "
-                    [:a {:href "/om-oss/"} "Les mer om den her."]
-                    " For øvrige tjenester, se " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
+  :about-text ("Matvaretabellen er en tjeneste fra Mattilsynet. "
+               [:a {:href "/om-oss/"} "Les mer om den her."]
+               " For øvrige tjenester, se " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
   :api-text [:a {:href "/api/"} "Matvaretabellens API"]
   :newsletter "Nyhetsbrev"
   :privacy-and-cookies "Personvernerklæring og informasjonskapsler"
@@ -54,7 +54,7 @@
  #:matvaretabellen.pages.comparison-page
  {:and "og"
   :columnwise "Kolonnevis"
-  :compare-foods (list "Sammenlign" [:span.mmm-desktop " matvarer"])
+  :compare-foods ("Sammenlign" [:span.mmm-desktop " matvarer"])
   :composition "Sammensetning"
   :diff-intro "Sammenlign matvarer næringsstoff for næringsstoff. De største forskjellene er uthevet med blå bakgrunn."
   :edible-part "Spiselig del"
@@ -71,7 +71,7 @@
   :category [:fn/str "Kategori: {{:category}}"]
   :classification-title "Klassifisering"
   :classification-intro
-  (list "Matvarene i Matvaretabellen beskrives ved hjelp
+  ("Matvarene i Matvaretabellen beskrives ved hjelp
   av et klassifiseringssystem som heter " [:a {:href [:fn/get :langual-url]} "LanguaL"]
         ". LanguaL står for “" [:strong "Langua aL"] "imentaria” eller “language of
   food”. Språket gjør det mulig å gi standardiserte beskrivelser av matvarene.")
@@ -79,19 +79,19 @@
   :composition "Sammensetning"
   :edible-part [:fn/str "Spiselig del: {{:pct}}&nbsp;%"]
   :energy-content "Energiinnhold"
-  :energy-content-title-mobile (list "Per " [:fn/get :portion])
-  :energy-content-title (list "Energi i " [:fn/get :portion])
+  :energy-content-title-mobile ("Per " [:fn/get :portion])
+  :energy-content-title ("Energi i " [:fn/get :portion])
   :energy [:fn/str "Kaloriinnhold: {{:kilo-joules}} ({{:calories}} kcal)"]
   :energy-highlight-title [:fn/str "Energi →"]
   :energy-title "Energigivende næringsstoffer"
   :composition-title [:fn/str "{{:title}}, sammensetning"]
   :fat-title "Fettsyrer"
-  :food-id (list [:strong "Matvare-ID:"] " " [:fn/get :id])
+  :food-id ([:strong "Matvare-ID:"] " " [:fn/get :id])
   :langual-code-label "LanguaL"
   :langual-description-label "Klassifisering"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
   :highlight-title [:fn/str "{{:nb}} →"]
-  :kcal-content-title (list "Energi (kcal) i " [:fn/get :portion])
+  :kcal-content-title ("Energi (kcal) i " [:fn/get :portion])
   :minerals-title "Mineraler"
   :minerals-trace-elements-title "Mineraler og sporstoffer"
   :more [:fn/str "Mer {{:categoryish}}:"]
@@ -103,7 +103,7 @@
   :rda-explanation "Anbefalt Dagdinntak"
   :rda-pct "% av AI"
   :rda-select-label "Anbefalt dagsinntak (AI)"
-  :scientific-name (list [:strong "Vitenskapelig navn:"] " " [:fn/get :name])
+  :scientific-name ([:strong "Vitenskapelig navn:"] " " [:fn/get :name])
   :select-grams [:fn/str "{{:value}} gram    "]
   :select-portion-with-grams [:fn/str "{{:portion}} ({{:grams}} gram)    "]
   :source "Kilde"
@@ -118,7 +118,7 @@
 
  #:matvaretabellen.pages.food-groups-page
  {:all-food-groups "Matvaregrupper"
-  :prose (list "I Matvaretabellen finnes det " [:fn/get :food-count] " matvarer fordelt på " [:fn/get :group-count] " hovedgrupper etter opprinnelse og bruk. Under disse gruppene finnes det også egne kategorier.")
+  :prose ("I Matvaretabellen finnes det " [:fn/get :food-count] " matvarer fordelt på " [:fn/get :group-count] " hovedgrupper etter opprinnelse og bruk. Under disse gruppene finnes det også egne kategorier.")
   :download-everything "Last ned hele tabellen"}
 
  #:matvaretabellen.pages.food-group-page
@@ -166,7 +166,7 @@
 
  #:matvaretabellen.ui.client-table
  {:columns "Næringsstoffer"
-  :download (list "Last ned (" [:span.mvt-num-foods "0"] ")")
+  :download ("Last ned (" [:span.mvt-num-foods "0"] ")")
   :energy "Energi"
   :energy-kcal "Energi (kcal)"
   :energy-kj "Energi (kJ)"
