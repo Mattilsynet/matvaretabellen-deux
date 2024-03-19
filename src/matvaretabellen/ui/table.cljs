@@ -107,9 +107,9 @@
         "energy"
         (set! (.-innerHTML td)
               (->> [(when-let [kj (:energyKj food)]
-                      (str (.toLocaleString kj lang #js {:maximumFractionDigits 0}) "&nbsp;kJ"))
+                      (str (.toLocaleString kj lang #js {:maximumFractionDigits 0}) " kJ"))
                     (when-let [kcal (:energyKcal food)]
-                      (str kcal "&nbsp;kcal"))]
+                      (str kcal " kcal"))]
                    (remove empty?)
                    (str/join " / ")))
 

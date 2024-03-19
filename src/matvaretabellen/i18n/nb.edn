@@ -20,7 +20,7 @@
   :about-mattilsynet "Om Mattilsynet"
   :about-us "Om oss"
   :job-openings "Ledige stillinger"
-  :call-us "Ring oss på 22&nbsp;40&nbsp;00&nbsp;00"
+  :call-us "Ring oss på 22 40 00 00"
   :contact-us "Kontakt oss"
   :report-to-us "Varsle oss"}
 
@@ -77,7 +77,7 @@
   food”. Språket gjør det mulig å gi standardiserte beskrivelser av matvarene.")
   :compare-food "Sammenlign"
   :composition "Sammensetning"
-  :edible-part [:fn/str "Spiselig del: {{:pct}}&nbsp;%"]
+  :edible-part [:fn/str "Spiselig del: {{:pct}} %"]
   :energy-content "Energiinnhold"
   :energy-content-title-mobile ("Per " [:fn/get :portion])
   :energy-content-title ("Energi i " [:fn/get :portion])

@@ -114,7 +114,7 @@
         :href (str "#" anchor)}))))
 
 (defn pct [n]
-  (str (int (* 100 n)) "&nbsp;%"))
+  (str (int (* 100 n)) " %"))
 
 (defn get-recommended-daily-allowance [recommendations measurement]
   (when-let [q (:measurement/quantity measurement)]

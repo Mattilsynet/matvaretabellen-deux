@@ -20,7 +20,7 @@
                 (/ (get-recommended-amount profile nutrient-id))
                 (* 100)
                 (.toFixed 0)
-                (str "&nbsp;%"))))))
+                (str " %"))))))
 
 (defn select-profile [selects profile-data]
   (update-rda-values profile-data)
