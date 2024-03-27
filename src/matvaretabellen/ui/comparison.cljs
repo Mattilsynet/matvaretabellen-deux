@@ -275,9 +275,6 @@
     (let [pills (.querySelector drawer ".mmm-pills")
           template (get-pill-template pills)
           button (.querySelector drawer ".mmm-button")]
-      (if (< 0 (count @foods))
-        (open-drawer drawer opt)
-        (close-drawer drawer opt))
       (set! (.-href button) (str (first (str/split (.-href button) #"\?"))
                                  "?food-ids=" (str/join "," (map :id @foods))))
       (set! (.-innerHTML pills) "")
@@ -291,7 +288,10 @@
           (.appendChild pills pill)))
       (->> (get-suggestions)
            (remove (comp (set (map :id @foods)) :id))
-           (update-suggestions (.querySelector drawer ".mvtc-suggestions") foods)))))
+           (update-suggestions (.querySelector drawer ".mvtc-suggestions") foods))
+      (if (< 0 (count @foods))
+        (open-drawer drawer opt)
+        (close-drawer drawer opt)))))
 
 (defn get-food-data [el]
   (when-let [id (some-> el (.getAttribute "data-food-id"))]
