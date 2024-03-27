@@ -310,7 +310,7 @@
 
 (defn initialize-drawer [drawer foods]
   (->> (fn [_e]
-         (js/requestAnimationFrame #(update-food-store foods nil)))
+         (update-food-store foods nil))
        (.addEventListener (.querySelector drawer ".mmm-icon-button") "click"))
   (when-let [page-food (get-food-data (dom/qs "#food-data"))]
     (->> (fn [_e]
@@ -327,8 +327,7 @@
            (stage-comparisons new-foods)
            (update-comparison-uis foods buttons-selector drawer-selector {:animate? true}))
          (add-watch foods ::director))
-    (when (< 0 (count @foods))
-      (some-> (dom/qs drawer-selector) (initialize-drawer foods)))
+    (some-> (dom/qs drawer-selector) (initialize-drawer foods))
     (update-comparison-uis foods buttons-selector drawer-selector)
     (doseq [button (dom/qsa buttons-selector)]
       (.remove (.-classList button) "mmm-hidden")
