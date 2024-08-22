@@ -191,6 +191,8 @@
 (def english-portion-kinds
   {"desiliter" "decilitre"
    "glass" "glass"
+   "glass (lite)" "glass (small)"
+   "glass (stort)" "glass (large)"
    "kopp" "cup"
    "beger" "cup"
    "spiseskje" "tablespoon"
