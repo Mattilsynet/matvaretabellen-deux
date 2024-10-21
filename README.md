@@ -107,13 +107,15 @@ opp både backenden og frontenden.
 <a id="import"></a>
 ## Nytt år, ny import av FoodCASE
 
-- Få tak i bearer token fra FoodCASE. Snakk med en av utviklerne eller Jorån.
+- Hent bearer token for FoodCASE fra GCP secrets:
+
+    ```
+    export FC_BEARER=$(gcloud secrets versions access latest --secret foodcase-bearer-token --project matvaretabellen-b327)
+    ```
 
 - Dra ned dataene fra Sveits:
 
     ```
-    export FC_BEARER=<bearer>
-
     curl https://foodcase.prod.nfsa.foodcase-services.com/FoodCASE_WebAppMattilsynet/ws/dataexport/food_norwegian -H "Authorization: Bearer $FC_BEARER" > foodcase-food-nb.json
     curl https://foodcase.prod.nfsa.foodcase-services.com/FoodCASE_WebAppMattilsynet/ws/dataexport/food_english -H "Authorization: Bearer $FC_BEARER" > foodcase-food-en.json
     curl https://foodcase.prod.nfsa.foodcase-services.com/FoodCASE_WebAppMattilsynet/ws/dataexport/data_norwegian -H "Authorization: Bearer $FC_BEARER" > foodcase-data-nb.json
