@@ -107,34 +107,23 @@ opp både backenden og frontenden.
 <a id="import"></a>
 ## Nytt år, ny import av FoodCASE
 
-- Hent bearer token for FoodCASE fra GCP secrets:
-
-    ```
-    export FC_BEARER=$(gcloud secrets versions access latest --secret foodcase-bearer-token --project matvaretabellen-b327)
-    ```
-
-- Dra ned dataene fra Sveits:
-
-    ```
-    curl https://foodcase.prod.nfsa.foodcase-services.com/FoodCASE_WebAppMattilsynet/ws/dataexport/food_norwegian -H "Authorization: Bearer $FC_BEARER" > foodcase-food-nb.json
-    curl https://foodcase.prod.nfsa.foodcase-services.com/FoodCASE_WebAppMattilsynet/ws/dataexport/food_english -H "Authorization: Bearer $FC_BEARER" > foodcase-food-en.json
-    curl https://foodcase.prod.nfsa.foodcase-services.com/FoodCASE_WebAppMattilsynet/ws/dataexport/data_norwegian -H "Authorization: Bearer $FC_BEARER" > foodcase-data-nb.json
-    curl https://foodcase.prod.nfsa.foodcase-services.com/FoodCASE_WebAppMattilsynet/ws/dataexport/data_english -H "Authorization: Bearer $FC_BEARER" > foodcase-data-en.json
-    ```
-
 - Skaff deg `jq` hvis det mangler:
 
     ```
     brew install jq
     ```
 
-- Fløtt dem over til vår datakatalog ferdig formatert:
+- Logg inn med gcloud:
 
     ```
-    jq '.' foodcase-food-nb.json > data/foodcase-food-nb.json
-    jq '.' foodcase-food-en.json > data/foodcase-food-en.json
-    jq '.' foodcase-data-nb.json > data/foodcase-data-nb.json
-    jq '.' foodcase-data-en.json > data/foodcase-data-en.json
+    gcloud auth login
+    gcloud auth application-default login
+    ```
+
+- Importer FoodCASE-data med `Make`:
+
+    ```
+    make import-foodcase
     ```
 
 - Prøv å kjøre en import. Det gjør du fra `dev/matvaretabellen/dev.clj` ved å

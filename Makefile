@@ -44,4 +44,11 @@ clean:
 	rm -f datomic-pro-$(DATOMIC_VERSION).zip
 	rm -fr target docker/build dev-resources/public/js/compiled tracer/target docker/tracer.jar
 
-.PHONY: start-transactor docker publish test clean prepare-dev
+import-foodcase:
+	export FC_BEARER=$(gcloud secrets versions access latest --secret foodcase-bearer-token --project matvaretabellen-b327)
+	curl https://foodcase.prod.nfsa.foodcase-services.com/FoodCASE_WebAppMattilsynet/ws/dataexport/food_norwegian -H "Authorization: Bearer $$FC_BEARER" | jq '.' > data/foodcase-food-nb.json
+	curl https://foodcase.prod.nfsa.foodcase-services.com/FoodCASE_WebAppMattilsynet/ws/dataexport/food_english -H "Authorization: Bearer $$FC_BEARER" | jq '.' > data/foodcase-food-en.json
+	curl https://foodcase.prod.nfsa.foodcase-services.com/FoodCASE_WebAppMattilsynet/ws/dataexport/data_norwegian -H "Authorization: Bearer $$FC_BEARER" | jq '.' > data/foodcase-data-nb.json
+	curl https://foodcase.prod.nfsa.foodcase-services.com/FoodCASE_WebAppMattilsynet/ws/dataexport/data_english -H "Authorization: Bearer $$FC_BEARER" | jq '.' > data/foodcase-data-en.json
+
+.PHONY: start-transactor docker publish test clean prepare-dev import-foodcase
