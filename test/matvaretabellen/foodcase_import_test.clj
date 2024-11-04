@@ -34,7 +34,10 @@
 
    :id->portion-kind
    {:porsjon {}
-    :dl {}}})
+    :dl {}
+    :glass {}
+    :glass_stort {}
+    :glass_lite {}}})
 
 (deftest foodcase-food->food-test
   (testing "Parses synonyms"
@@ -70,6 +73,30 @@
               :portion/quantity #broch/quantity[18.0 "g"]}
              {:portion/kind [:portion-kind/id :porsjon]
               :portion/quantity #broch/quantity[35.0 "g"]}})))
+
+  (testing "Parses tricky portion"
+    (is (= (-> wheat-flakes
+               (assoc "Portion" {"ref" "glass glass (stort) glass (lite) dl"
+                                 "value" "200 320 150 100"})
+               (sut/foodcase-food->food opt)
+               :food/portions)
+           #{{:portion/kind [:portion-kind/id :glass]
+              :portion/quantity #broch/quantity[200.0 "g"]}
+             {:portion/kind [:portion-kind/id :glass_lite]
+              :portion/quantity #broch/quantity[150.0 "g"]}
+             {:portion/kind [:portion-kind/id :glass_stort]
+              :portion/quantity #broch/quantity[320.0 "g"]}
+             {:portion/kind [:portion-kind/id :dl]
+              :portion/quantity #broch/quantity[100.0 "g"]}})))
+
+  (testing "Parses tricky portion kind when building index"
+    (is (= (sut/foodcase-portiontype->portion-kind
+            {"id" "glass (stort)"
+             "name" "Glass (stort)"
+             "unit" ""})
+           {:portion-kind/id :glass_stort
+            :portion-kind/name {:nb "glass (stort)", :en "glass (large)"}
+            :portion-kind/unit ""})))
 
   (testing "Parses constituents"
     (is (= (->> (sut/foodcase-food->food wheat-flakes opt)

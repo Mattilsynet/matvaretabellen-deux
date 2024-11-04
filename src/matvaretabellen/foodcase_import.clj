@@ -18,6 +18,22 @@
   (->> (str/split (str/trim s) (or re #" +"))
        (remove empty?)))
 
+(defn parse-portion-kinds [s]
+  (loop [xs (seq (get-words s))
+         res []]
+    (cond
+      (nil? xs)
+      res
+
+      (some-> (second xs) (str/starts-with? "("))
+      (recur (next (next xs))
+             (conj res (keyword
+                        (str (first xs) "_"
+                             (str/replace (second xs) #"[\(\)]" "")))))
+
+      :else
+      (recur (next xs) (conj res (keyword (first xs)))))))
+
 (def nutrient-id->decimal-precision
   (read-string (slurp "data/nutrient-decimal-precision.edn")))
 
@@ -42,19 +58,18 @@
                        (b/from-edn [amount (get-in id->nutrient [id :nutrient/unit])])))))))
 
 (defn get-portions [{:strs [ref value]} id->portion-kind]
-  (->> (mapv (fn [r v]
+  (->> (mapv (fn [portion-kind-id v]
+               (when-not (id->portion-kind portion-kind-id)
+                 (throw (ex-info "Unknown portion kind"
+                                 {:kind portion-kind-id, :value v})))
                (try
                  (when-let [grams (parse-doublish v)]
-                   (let [portion-kind-id (keyword r)]
-                     (when-not (id->portion-kind portion-kind-id)
-                       (throw (ex-info "Unknown portion kind"
-                                       {:kind portion-kind-id, :value v})))
-                     {:portion/kind [:portion-kind/id portion-kind-id]
-                      :portion/quantity (b/grams grams)}))
+                   {:portion/kind [:portion-kind/id portion-kind-id]
+                    :portion/quantity (b/grams grams)})
                  (catch Exception e
-                   (throw (ex-info "Can't get me no portions" {:ref r :value v} e)))))
-            (get-words ref)
-            (get-words value))
+                   (throw (ex-info "Can't get me no portions" {:ref portion-kind-id :value v} e)))))
+             (parse-portion-kinds ref)
+             (get-words value))
        (remove nil?)
        set))
 
@@ -238,7 +253,10 @@
 
 (defn foodcase-portiontype->portion-kind [{:strs [id name unit]}]
   (let [name (str/lower-case name)]
-    {:portion-kind/id (keyword id)
+    {:portion-kind/id (-> id
+                          (str/replace #" +" "_")
+                          (str/replace #"[\(\)]" "")
+                          keyword)
      :portion-kind/name {:nb name
                          :en (or (english-portion-kinds name)
                                  (throw (ex-info (str  "Missing translation for portion kind " name) {:id id :name name :unit unit})))}
