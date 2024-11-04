@@ -17,3 +17,11 @@
 ** DONE Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter (sparer ikke tid på dette de siste få dagene)
 * To-DONT
 ** DONT Vis "Sist oppdatert" på matvare (har ikke datoen i datasettet vårt)
+* 2024 [2/7]
+** TODO Nytt næringsstoff: fritt sukker
+** TODO NIAEQ
+** TODO VITA - skal beregnes
+** TODO Matfett redirecte til Spisefett
+** TODO Oppdatere vanlige matvaresøk
+** DONE Oppdatere nytt i MVT24
+** DONE Les inn nye data
