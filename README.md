@@ -120,10 +120,10 @@ opp både backenden og frontenden.
     gcloud auth application-default login
     ```
 
-- Importer FoodCASE-data med `Make`:
+- Importer FoodCASE-data:
 
     ```
-    make import-foodcase
+    ./import-foodcase.sh
     ```
 
 - Prøv å kjøre en import. Det gjør du fra `dev/matvaretabellen/dev.clj` ved å
