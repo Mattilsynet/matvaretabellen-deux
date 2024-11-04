@@ -41,14 +41,18 @@
          amount (assoc :measurement/quantity
                        (b/from-edn [amount (get-in id->nutrient [id :nutrient/unit])])))))))
 
-(defn get-portions [{:strs [ref value]}]
-  (->> (map (fn [r v]
-              (try
-                (when-let [grams (parse-doublish v)]
-                  {:portion/kind [:portion-kind/id (keyword r)]
-                   :portion/quantity (b/grams grams)})
-                (catch Exception e
-                  (throw (ex-info "Can't get me no portions" {:ref r :value v} e)))))
+(defn get-portions [{:strs [ref value]} id->portion-kind]
+  (->> (mapv (fn [r v]
+               (try
+                 (when-let [grams (parse-doublish v)]
+                   (let [portion-kind-id (keyword r)]
+                     (when-not (id->portion-kind portion-kind-id)
+                       (throw (ex-info "Unknown portion kind"
+                                       {:kind portion-kind-id, :value v})))
+                     {:portion/kind [:portion-kind/id portion-kind-id]
+                      :portion/quantity (b/grams grams)}))
+                 (catch Exception e
+                   (throw (ex-info "Can't get me no portions" {:ref r :value v} e)))))
             (get-words ref)
             (get-words value))
        (remove nil?)
@@ -72,22 +76,25 @@
 
 (defn foodcase-food->food [{:strs [id name groupId synonym latinName Netto
                                    langualCodes Energi1 Energi2 Portion] :as food}
-                           id->nutrient]
-  (->> {:food/id id
-        :food/name name
-        :food/food-group [:food-group/id groupId]
-        :food/search-keywords (set (get-words synonym #";"))
-        :food/latin-name latinName
-        :food/langual-codes (set (for [id (get-words langualCodes)]
-                                   [:langual-code/id id]))
-        :food/energy (get-energy Energi1)
-        :food/calories {:measurement/observation (get Energi2 "value")
-                        :measurement/source [:source/id (get Energi2 "ref")]}
-        :food/constituents (get-constituents food id->nutrient)
-        :food/portions (get-portions Portion)
-        :food/edible-part (get-edible-part Netto)}
-       (remove (comp nil? second))
-       (into {})))
+                           {:keys [id->nutrient id->portion-kind]}]
+  (try
+    (->> {:food/id id
+          :food/name name
+          :food/food-group [:food-group/id groupId]
+          :food/search-keywords (set (get-words synonym #";"))
+          :food/latin-name latinName
+          :food/langual-codes (set (for [id (get-words langualCodes)]
+                                     [:langual-code/id id]))
+          :food/energy (get-energy Energi1)
+          :food/calories {:measurement/observation (get Energi2 "value")
+                          :measurement/source [:source/id (get Energi2 "ref")]}
+          :food/constituents (get-constituents food id->nutrient)
+          :food/portions (get-portions Portion id->portion-kind)
+          :food/edible-part (get-edible-part Netto)}
+         (remove (comp nil? second))
+         (into {}))
+    (catch Exception e
+      (throw (ex-info "Failed to import food" {:food/id id} e)))))
 
 (defn strip-i18n-attrs [attrs data]
   (walk/postwalk
@@ -241,7 +248,8 @@
   (let [i18n-attrs (db/get-i18n-attrs db)
         nutrients (combine-i18n-sources
                    (update-vals locale->datas #(keep foodcase-nutrient->nutrient (get % "nutrients")))
-                   i18n-attrs)]
+                   i18n-attrs)
+        portion-kinds (map foodcase-portiontype->portion-kind (get (first (vals locale->datas)) "portiontypes"))]
     [;; food-groups
      (combine-i18n-sources
       (update-vals locale->datas #(keep foodcase-foodgroup->food-group (get % "foodgroups")))
@@ -262,14 +270,15 @@
      (map foodcase-langualcode->langual-code (get (first (vals locale->datas)) "langualcodes"))
 
      ;; portion-kinds
-     (map foodcase-portiontype->portion-kind (get (first (vals locale->datas)) "portiontypes"))
+     portion-kinds
 
      ;; foods
-     (let [id->nutrient (into {} (map (juxt :nutrient/id identity) nutrients))]
+     (let [opt {:id->nutrient (into {} (map (juxt :nutrient/id identity) nutrients))
+                :id->portion-kind (into {} (map (juxt :portion-kind/id identity) portion-kinds))}]
        (combine-i18n-sources
         (update-vals
          locale->datas
-         #(map (fn [food] (foodcase-food->food food id->nutrient)) (get % "foods")))
+         #(map (fn [food] (foodcase-food->food food opt)) (get % "foods")))
         i18n-attrs))]))
 
 (defn get-content-hash []

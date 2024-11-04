@@ -26,40 +26,45 @@
    "Ca" {"ref" "10", "value" "M"}
    "Fe" {"ref" "MI0232", "value" ""}})
 
-(def id->nutrient
-  {"Vann" {:nutrient/unit "g"}
-   "Fett" {:nutrient/unit "g"}
-   "Vit A" {:nutrient/unit "µg-RE"}})
+(def opt
+  {:id->nutrient
+   {"Vann" {:nutrient/unit "g"}
+    "Fett" {:nutrient/unit "g"}
+    "Vit A" {:nutrient/unit "µg-RE"}}
+
+   :id->portion-kind
+   {:porsjon {}
+    :dl {}}})
 
 (deftest foodcase-food->food-test
   (testing "Parses synonyms"
-    (is (= (-> (sut/foodcase-food->food wheat-flakes id->nutrient)
+    (is (= (-> (sut/foodcase-food->food wheat-flakes opt)
                :food/search-keywords)
            #{"kellogg's"
              "ultra processed"
              "breakfast cereal"})))
 
   (testing "Parses LanguaL codes"
-    (is (= (-> (sut/foodcase-food->food wheat-flakes id->nutrient)
+    (is (= (-> (sut/foodcase-food->food wheat-flakes opt)
                :food/langual-codes)
            #{[:langual-code/id "B1312"]
              [:langual-code/id "A0816"]
              [:langual-code/id "A0258"]})))
 
   (testing "Parses energy"
-    (is (= (-> (sut/foodcase-food->food wheat-flakes id->nutrient)
+    (is (= (-> (sut/foodcase-food->food wheat-flakes opt)
                :food/energy)
            {:measurement/quantity #broch/quantity[1418.5 "kJ"]
             :measurement/source [:source/id "MI0114"]})))
 
   (testing "Parses calories"
-    (is (= (-> (sut/foodcase-food->food wheat-flakes id->nutrient)
+    (is (= (-> (sut/foodcase-food->food wheat-flakes opt)
                :food/calories)
            {:measurement/observation "336"
             :measurement/source [:source/id "MI0115"]})))
 
   (testing "Parses portions"
-    (is (= (-> (sut/foodcase-food->food wheat-flakes id->nutrient)
+    (is (= (-> (sut/foodcase-food->food wheat-flakes opt)
                :food/portions)
            #{{:portion/kind [:portion-kind/id :dl]
               :portion/quantity #broch/quantity[18.0 "g"]}
@@ -67,7 +72,7 @@
               :portion/quantity #broch/quantity[35.0 "g"]}})))
 
   (testing "Parses constituents"
-    (is (= (->> (sut/foodcase-food->food wheat-flakes id->nutrient)
+    (is (= (->> (sut/foodcase-food->food wheat-flakes opt)
                 :food/constituents)
            #{{:constituent/nutrient [:nutrient/id "Fett"]
               :measurement/quantity #broch/quantity[1.8 "g"]
