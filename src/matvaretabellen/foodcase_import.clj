@@ -262,6 +262,15 @@
                                  (throw (ex-info (str  "Missing translation for portion kind " name) {:id id :name name :unit unit})))}
      :portion-kind/unit unit}))
 
+(defn validate-foods [foods]
+  (when-let [duplicate-ids (->> (map :food/id foods)
+                                frequencies
+                                (remove #(= 1 (second %)))
+                                (map first)
+                                seq)]
+    (throw (ex-info "Found duplicate :food/ids" {:ids (set duplicate-ids)})))
+  foods)
+
 (defn create-foodcase-transactions [db locale->datas]
   (let [i18n-attrs (db/get-i18n-attrs db)
         nutrients (combine-i18n-sources
@@ -293,11 +302,12 @@
      ;; foods
      (let [opt {:id->nutrient (into {} (map (juxt :nutrient/id identity) nutrients))
                 :id->portion-kind (into {} (map (juxt :portion-kind/id identity) portion-kinds))}]
-       (combine-i18n-sources
-        (update-vals
-         locale->datas
-         #(map (fn [food] (foodcase-food->food food opt)) (get % "foods")))
-        i18n-attrs))]))
+       (validate-foods
+        (combine-i18n-sources
+         (update-vals
+          locale->datas
+          #(map (fn [food] (foodcase-food->food food opt)) (get % "foods")))
+         i18n-attrs)))]))
 
 (defn get-content-hash []
   (hash (for [file ["data/foodcase-data-en.json"
