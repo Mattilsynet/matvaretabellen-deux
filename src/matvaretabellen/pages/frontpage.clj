@@ -53,12 +53,13 @@
 (def popular-search-terms
   [{:nb "Egg" :en "Egg"}
    {:nb "Banan" :en "Banana"}
-   {:nb "Gulrot" :en "Carrot"}
    {:nb "Havregryn" :en "Oat"}
-   {:nb "Potet" :en "Potato"}
+   {:nb "Gulrot" :en "Carrot"}
+   {:nb "Karbohydrat" :en "Carbohydrate"}
    {:nb "Avokado" :en "Avocado"}
-   {:nb "Ris" :en "Rice"}
-   {:nb "Blåbær" :en "Blueberries"}])
+   {:nb "Norvegia gulost" :en "Norvegia"}
+   {:nb "Agurk" :en "Cucumber"}
+   {:nb "Paprika" :en "Sweet pepper"}])
 
 (defn render [context food-db page]
   (let [locale (:page/locale page)
