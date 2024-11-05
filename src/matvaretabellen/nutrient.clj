@@ -57,6 +57,7 @@
        (map-indexed #(vector %2 (format " %02d" %1)))
        (into
         {"Niacin" "Vit B03"
+         "NIAEQ" "Vit B031"
          "Folat" "Vit B09"
          "Vit B1" "Vit B01"
          "Vit B2" "Vit B02"
@@ -77,6 +78,7 @@
                          "Vit B2"
                          "Folat"
                          "Niacin"
+                         "NIAEQ"
                          "Vit B6"
                          "Vit C"]}
         {:nutrient/id "FatSolubleVitamins"
