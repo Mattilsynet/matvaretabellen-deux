@@ -32,6 +32,7 @@
         "Stivel"
         "Mono+Di"
         "Sukker"
+        "SUGAN"
         "Protein"
         "Vann"
         "Mettet"
@@ -102,14 +103,19 @@
                      (::nutrient-ids %)))
        (into {})))
 
+(def apriori-parent-id
+  {"SUGAN" "Karbo"})
+
 (defn get-parent
-  "The FoodCase data currently does not group certain good groups that we want
+  "The FoodCase data currently does not group certain nutrients that we want
   grouped, such as vitamins. This function provides a apriori parent while we
   wait for more structured source data."
   [id parent-id]
   (or (when (seq parent-id)
         {:nutrient/id parent-id})
       (when-let [parent-id (get apriori-index id)]
+        {:nutrient/id parent-id})
+      (when-let [parent-id (apriori-parent-id id)]
         {:nutrient/id parent-id})))
 
 (defn get-apriori-groups []
