@@ -2,6 +2,7 @@
   (:require [broch.core :as b]
             [clojure.data.json :as json]
             [clojure.java.io :as io]
+            [clojure.set :as set]
             [clojure.string :as str]
             [clojure.walk :as walk]
             [datomic-type-extensions.api :as d]
@@ -93,7 +94,11 @@
                                    langualCodes Energi1 Energi2 Portion] :as food}
                            {:keys [id->nutrient id->portion-kind]}]
   (try
-    (->> {:food/id id
+    (->> {:food/id (if (and (#{"Brød, halvgrovt (25-50 %), kjøpt, Odelsbrød"
+                               "Bread, semi-coarse (25-50 %), Odelsbrød"} name)
+                            (= "05.362" id))
+                     "05.359"
+                     id)
           :food/name name
           :food/food-group [:food-group/id groupId]
           :food/search-keywords (set (get-words synonym #";"))
@@ -321,15 +326,16 @@
   (let [schema (read-string (slurp (io/resource "foods-schema.edn")))]
     (db/create-database uri schema)))
 
+(defn load-locale->datas []
+  {:nb (merge (load-json "data/foodcase-data-nb.json")
+              (load-json "data/foodcase-food-nb.json"))
+   :en (merge (load-json "data/foodcase-data-en.json")
+              (load-json "data/foodcase-food-en.json"))})
+
 (defn create-database-from-scratch [uri]
   (d/delete-database uri)
   (let [conn (create-database uri)]
-    (doseq [tx (create-foodcase-transactions
-                (d/db conn)
-                {:nb (merge (load-json "data/foodcase-data-nb.json")
-                            (load-json "data/foodcase-food-nb.json"))
-                 :en (merge (load-json "data/foodcase-data-en.json")
-                            (load-json "data/foodcase-food-en.json"))})]
+    (doseq [tx (create-foodcase-transactions (d/db conn) (load-locale->datas))]
       @(d/transact conn tx))
     conn))
 
@@ -345,11 +351,41 @@
       @(d/transact conn tx))
     conn))
 
+(defn find-new-food-ids [new-foods old-foods]
+  (set/difference
+   (set (map #(get % "id") (get (load-json new-foods) "foods")))
+   (set (map #(get % "id") (get (load-json old-foods) "foods")))))
+
+(defn summarize-food [{:strs [id name groupId synonym latinName
+                              langualCodes Energi1 Energi2 Portion]}]
+  {:id id
+   :name name
+   :synonym synonym
+   :latinName latinName
+   :groupId groupId
+   :langualCodes langualCodes
+   :Energi1 Energi1
+   :Energi2 Energi2
+   :Portion Portion})
+
 (comment
   (def conn (create-database-from-scratch "datomic:mem://matvaretabellen"))
   (def conn (d/connect "datomic:mem://matvaretabellen"))
   (def db (d/db conn))
 
-  (d/touch (d/entity db [:food/id "05.421"]))
+  (def locale->datas (load-locale->datas))
+  (get (first (vals locale->datas)) "portiontypes")
+
+  (def raw-foods (->> (get (load-json "data/foodcase-food-nb.json") "foods")
+                      (map (juxt #(get % "id") identity))
+                      (into {})))
+
+  (summarize-food (raw-foods "01.228"))
+
+  (->> (get (load-json "data/foodcase-food-en.json") "foods")
+       (filter (comp #{"05.362"} #(get % "id")))
+       (map summarize-food))
+
+  (find-new-food-ids "data/foodcase-food-nb.json" "data/foodcase-food-nb.old.json")
 
   )
