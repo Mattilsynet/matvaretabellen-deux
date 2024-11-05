@@ -106,7 +106,13 @@
      :page/format :edn}
     {:page/uri (urls/get-langual-codes-api-url :json)
      :page/kind :page.kind/langual-data
-     :page/format :json}]
+     :page/format :json}
+    {:page/uri "/gruppe/matfett.xlsx"
+     :page/kind :page.kind/redirect
+     :page/redirect-uri "/gruppe/spisefett.xlsx"}
+    {:page/uri "/gruppe/matfett/"
+     :page/kind :page.kind/redirect
+     :page/redirect-uri "/gruppe/spisefett/"}]
    (create-api-pages :page.kind/food-data urls/get-foods-api-url #{:nb :en} #{:edn :json})
    (create-api-pages :page.kind/food-group-data urls/get-food-groups-api-url #{:nb :en} #{:edn :json})
    (create-api-pages :page.kind/nutrient-data urls/get-nutrients-api-url #{:nb :en} #{:edn :json})
@@ -158,6 +164,7 @@
       :page.kind/nutrient (nutrient-page/render context db page)
       :page.kind/nutrients (nutrients-page/render context db page)
       :page.kind/rda-data (rda/render-json context page)
+      :page.kind/redirect {:status 301 :headers {"location" (:page/redirect-uri page)}}
       :page.kind/search-page (search-page/render context page)
       :page.kind/source-data (api/render-source-data context page)
       :page.kind/tracer-proxy (tracer/handler context))))
