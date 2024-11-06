@@ -30,7 +30,7 @@ docker/tracer.jar: tracer/target
 	cp tracer/target/tracer.jar docker
 
 docker: docker/build docker/tracer.jar
-	cd docker && docker build -t $(IMAGE) .
+	cd docker && docker build --platform linux/amd64 -t $(IMAGE) .
 
 publish:
 	docker push $(IMAGE)
