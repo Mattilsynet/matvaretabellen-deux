@@ -17,11 +17,16 @@
             [mmm.components.toc :refer [Toc]]))
 
 (defn get-nutrient-link [db locale nutrient]
-  (let [label [:i18n :i18n/lookup (:nutrient/name nutrient)]
-        url (urls/get-nutrient-url locale nutrient)]
-    (if (d/entity db [:page/uri url])
-      [:a.mmm-link {:href (urls/get-nutrient-url locale nutrient)} label]
-      label)))
+  (try
+    (let [label [:i18n :i18n/lookup (:nutrient/name nutrient)]
+          url (urls/get-nutrient-url locale nutrient)]
+      (if (d/entity db [:page/uri url])
+        [:a.mmm-link {:href (urls/get-nutrient-url locale nutrient)} label]
+        label))
+    (catch Exception _
+      (throw (ex-info "Can't get me no nutrient link"
+                      {:locale locale
+                       :nutrient (some->> nutrient (into {}))})))))
 
 (defn get-source [food id]
   (when-let [source (some->> (:food/constituents food)

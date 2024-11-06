@@ -54,14 +54,20 @@
               {:text ""
                :class [:mmm-tar :mmm-nbr]
                :data-id "energy"}]
-             (for [nutrient nutrients]
-               {:text (food/get-calculable-quantity
-                       {:measurement/quantity (b/from-edn [0 (:nutrient/unit nutrient)])}
-                       {:decimals (:nutrient/decimal-precision nutrient)})
-                :class (cond-> [:mmm-tar :mmm-nbr :mvt-amount]
-                         (not (default-checked (:nutrient/id nutrient)))
-                         (conj :mmm-hidden))
-                :data-id (:nutrient/id nutrient)}))}]}
+             (mapv (fn [nutrient]
+                     (try
+                       {:text (food/get-calculable-quantity
+                               {:measurement/quantity (b/from-edn [0 (:nutrient/unit nutrient)])}
+                               {:decimals (:nutrient/decimal-precision nutrient)})
+                        :class (cond-> [:mmm-tar :mmm-nbr :mvt-amount]
+                                 (not (default-checked (:nutrient/id nutrient)))
+                                 (conj :mmm-hidden))
+                        :data-id (:nutrient/id nutrient)}
+                       (catch Exception e
+                         (throw (ex-info "Failed to render nutrient"
+                                         {:nutrient (into {} nutrient)}
+                                         e)))))
+                   nutrients))}]}
    opt))
 
 (defn render-filter-list [options]
