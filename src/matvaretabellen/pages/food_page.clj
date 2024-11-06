@@ -238,13 +238,18 @@
 
 (defn render-sources [page sources]
   [:dl.mmm-dl
-   (map
-    (fn [{:source/keys [id description]}]
-      [:div
-       [:div.mmm-focus {:id id}
-        [:dt id]
-        [:dd (-> (get description (:page/locale page))
-                 food/hyperlink-string)]]])
+   (mapv
+    (fn [{:source/keys [id description] :as source}]
+      (try
+        [:div
+         [:div.mmm-focus {:id id}
+          [:dt id]
+          [:dd (-> (get description (:page/locale page))
+                   food/hyperlink-string)]]]
+        (catch Exception e
+          (throw (ex-info "Failed to render source"
+                          {:source (into {} source)
+                           :uri (:page/uri page)})))))
     sources)])
 
 (def slice-legend
