@@ -5,6 +5,9 @@
             [clojure.java.io :as io]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
+            [datomic-type-extensions.types :as dte-types]
+            [datoms-differ.api :as dd]
+            [datoms-differ.reporter :as diff-reporter]
             [matvaretabellen.misc :as misc]))
 
 (defn blank-line? [s]
@@ -109,9 +112,10 @@
 (defn parse-row [foods-db headers row]
   (try
     (let [cols (map str/trim (str/split row #";"))
-          leisure-activity (not-empty (nth cols 8))]
+          leisure-activity (not-empty (nth cols 8))
+          id (str "rda" (hash (nth cols 1)))]
       (cond->
-          {:rda/id (str "rda" (hash (nth cols 1)))
+          {:rda/id id
            :rda/order (parse-long (nth cols 2))
            :rda/demographic (get-demographic (nth cols 3) (nth cols 4))
            :rda/energy-recommendation (misc/kilojoules (parse-nor-double (nth cols 13)))
@@ -121,6 +125,7 @@
                                      (group-by second)
                                      (remove (comp empty? first))
                                      (map (partial ->recommendation foods-db))
+                                     (map #(assoc % :db/id (str id (hash (:rda.recommendation/nutrient-id %)))))
                                      set)}
         leisure-activity (assoc :rda/leisure-activity-level (->> leisure-activity
                                                                  str/capitalize
@@ -219,26 +224,53 @@
     (for [profile (get-profiles-per-demographic (:app/db context))]
       (->json (:page/locale page) profile))}})
 
+(def dd-schema
+  (->> "app-schema.edn"
+       io/resource
+       slurp
+       read-string
+       (map (juxt :db/ident identity))
+       (into {})))
+
+(defn prepare-for-diff [adi]
+  (->> (for [[k v] adi]
+         [k (if-let [dte-type (get-in dd-schema [k :dte/valueType])]
+              (dte-types/serialize dte-type v)
+              v)])
+       (into {})))
+
+(defn diff [old-adi new-adi]
+  (let [dd-conn (dd/create-conn dd-schema)]
+    (dd/transact! dd-conn :adi (map prepare-for-diff old-adi))
+    (dd/transact! dd-conn :adi (map prepare-for-diff new-adi))))
+
+(defn relevant-eavs [{:keys [eavs]}]
+  (remove (fn [[_ a v]]
+            (and (= :db/id a) (string? v))) eavs))
+
+(defn report-diff [{:keys [db-before db-after]}]
+  (let [idx (->> (:refs db-after)
+                 (remove (comp #{:db/id} ffirst))
+                 (map (juxt second first))
+                 (into {}))]
+    (->> (diff-reporter/find-individual-changes
+          (relevant-eavs db-before)
+          (relevant-eavs db-after))
+         diff-reporter/group-changes
+         (map (fn [change]
+                (update change 3 (fn [id->vs]
+                                   (map (juxt #(idx (first %) (first %)) second) id->vs))))))))
+
 (comment
 
   (def conn matvaretabellen.dev/conn)
   (def app-db matvaretabellen.dev/app-db)
 
   (def old (read-csv (d/db conn) (slurp (io/file "data/adi.csv"))))
-  (def new (read-csv (d/db conn) (slurp (io/file "data/adi2024.csv"))))
+  (def new (read-csv (d/db conn) (slurp (io/file "data/adi2.csv"))))
 
-  (count old)
-  (count new)
+  (report-diff (diff old new))
 
-  (->> new
-       (sort-by :rda/order)
-       (map #(select-keys % [:rda/demographic :rda/work-activity-level])))
-
-  (count @texts)
-  (remove (set (keys en-dictionary)) @texts)
-
-  (->> (for [k (filter @texts (keys en-dictionary))]
-         [k (get en-dictionary k)])
-       (into {}))
+  (def res (diff old new))
 
 )
