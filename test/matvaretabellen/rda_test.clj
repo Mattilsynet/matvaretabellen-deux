@@ -23,11 +23,15 @@
         ";140;11;Jente;10-13 år;4,9975;;Høyt aktivitetsnivå;;;;1,85;9,25;9245,375;2209,644625;45;60;<10;18;28;25;40;<10;<1;10;20;5;10;1;5;10;20;;<6;600;10;7;1;1,2;;;1,1;200;2;50;900;11;3100;700;<2300;280;8;0,7;40;150\r"]
        (str/join "\n")))
 
+(defn make-comparable [rda]
+  (update rda :rda/recommendations (fn [xs] (set (map #(dissoc % :db/id) xs)))))
+
 (deftest parse-csv-test
   (testing "Builds rda datastructure based on loose information in headers"
     (is (= (->> (sut/read-csv (fdb/get-food-data-db) csv)
                 (drop 5)
-                first)
+                first
+                make-comparable)
            {:rda/id "rda1743657494"
             :rda/order 8
             :rda/demographic {:nb "Jente 11-14 år"

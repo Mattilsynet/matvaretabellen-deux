@@ -107,23 +107,29 @@
              " år"))))))
 
 (defn parse-row [foods-db headers row]
-  (let [cols (map str/trim (str/split row #";"))
-        leisure-activity (not-empty (nth cols 8))]
-    (cond->
-        {:rda/id (str "rda" (hash (nth cols 1)))
-         :rda/order (parse-long (nth cols 2))
-         :rda/demographic (get-demographic (nth cols 3) (nth cols 4))
-         :rda/energy-recommendation (misc/kilojoules (parse-nor-double (nth cols 13)))
-         :rda/kcal-recommendation (parse-nor-double (nth cols 14))
-         :rda/work-activity-level (internationalize (str/capitalize (nth cols 7)))
-         :rda/recommendations (->> (map conj (drop 15 headers) (drop 15 cols))
-                                   (group-by second)
-                                   (remove (comp empty? first))
-                                   (map (partial ->recommendation foods-db))
-                                   set)}
-      leisure-activity (assoc :rda/leisure-activity-level (->> leisure-activity
-                                                               str/capitalize
-                                                               internationalize)))))
+  (try
+    (let [cols (map str/trim (str/split row #";"))
+          leisure-activity (not-empty (nth cols 8))]
+      (cond->
+          {:rda/id (str "rda" (hash (nth cols 1)))
+           :rda/order (parse-long (nth cols 2))
+           :rda/demographic (get-demographic (nth cols 3) (nth cols 4))
+           :rda/energy-recommendation (misc/kilojoules (parse-nor-double (nth cols 13)))
+           :rda/kcal-recommendation (parse-nor-double (nth cols 14))
+           :rda/work-activity-level (internationalize (str/capitalize (nth cols 7)))
+           :rda/recommendations (->> (map conj (drop 15 headers) (drop 15 cols))
+                                     (group-by second)
+                                     (remove (comp empty? first))
+                                     (map (partial ->recommendation foods-db))
+                                     set)}
+        leisure-activity (assoc :rda/leisure-activity-level (->> leisure-activity
+                                                                 str/capitalize
+                                                                 internationalize))))
+    (catch Exception e
+      (throw (ex-info "Can't parse RDA row"
+                      {:headers headers
+                       :row row}
+                      e)))))
 
 (defn read-csv
   "This reads the CSV file as exported from the very hand-tailored spreadsheet we
@@ -131,15 +137,15 @@
   source CSV file is stored in the data directory of this repo."
   [foods-db csv-str]
   (let [[names ids modes & rows] (str/split csv-str #"\n")
-        headers (map vector
-                     (map str/trim (str/split names #";"))
-                     (map str/trim (str/split ids #";"))
-                     (map str/trim (str/split modes #";")))]
+        headers (mapv vector
+                      (mapv str/trim (str/split names #";"))
+                      (mapv str/trim (str/split ids #";"))
+                      (mapv str/trim (str/split modes #";")))]
     (->> rows
          (partition-by blank-line?)
          (partition-all 2)
          (mapcat first)
-         (map #(parse-row foods-db headers %)))))
+         (mapv #(parse-row foods-db headers %)))))
 
 (defn sort-order [rda-profile]
   (let [demographic (get-in rda-profile [:rda/demographic :nb])]
