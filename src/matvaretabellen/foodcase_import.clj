@@ -73,7 +73,8 @@
 (defn get-constituents [food id->nutrient]
   (set
    (for [[id {:strs [ref value]}] (->> (apply dissoc food known-non-constituents)
-                                       (filter (fn [[_ v]] (get v "ref"))))]
+                                       (filter (fn [[_ v]] (get v "ref")))
+                                       (filter (comp id->nutrient first)))]
      (let [amount (parse-double value)]
        (cond-> {:constituent/nutrient [:nutrient/id id]
                 :measurement/source [:source/id ref]}
@@ -218,7 +219,7 @@
       (assoc :food-group/parent {:food-group/id parentId}))))
 
 (defn foodcase-nutrient->nutrient [{:strs [id name euroFIR euroFIRname unit decimals parentId]}]
-  (when-not (known-non-constituents id)
+  (when (and (not (known-non-constituents id)) (not-empty unit))
     (let [parent (nutrient/get-parent id parentId)]
       (cond-> {:nutrient/id id
                :nutrient/name name
