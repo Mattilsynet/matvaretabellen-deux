@@ -48,6 +48,28 @@
   (when-not (#{"" "M" nil} x)
     (parse-double x)))
 
+(defn get-nutrient-quantity [nutrient-id constituent-txes]
+  (->> constituent-txes
+       ;; The constituent tx data holds a [:nutrient/id id] ref for :constituent/nutrient
+       (filter (comp #{nutrient-id} second :constituent/nutrient))
+       first
+       :measurement/quantity))
+
+(defn calculate-vitamin-a-quantity-2024
+  "Calculates Vit A per 2024 as VITA[µg] = RETOL[µg] + (CARTB[µg] / 6)"
+  [constituents]
+  (let [retol (get-nutrient-quantity "Retinol" constituents)
+        cartb (get-nutrient-quantity "B-karo"  constituents)]
+    (when (and (some-> retol b/num)
+               (some-> cartb b/num))
+      (b/quantity #broch/quantity [0 "µg-RE"] (b/num (b/+ retol (b// cartb 6)))))))
+
+(defn get-vitamin-a-2024 [constituents]
+  {:constituent/nutrient [:nutrient/id "Vit A RE"]
+   :measurement/source [:source/id "MI0322"]
+   :measurement/quantity (or (calculate-vitamin-a-quantity-2024 constituents)
+                             #broch/quantity[0 "µg"])})
+
 (defn get-constituents [food id->nutrient]
   (set
    (for [[id {:strs [ref value]}] (->> (apply dissoc food known-non-constituents)
@@ -108,7 +130,8 @@
           :food/energy (get-energy Energi1)
           :food/calories {:measurement/observation (get Energi2 "value")
                           :measurement/source [:source/id (get Energi2 "ref")]}
-          :food/constituents (get-constituents food id->nutrient)
+          :food/constituents (let [constituents (get-constituents food id->nutrient)]
+                               (conj constituents (get-vitamin-a-2024 constituents)))
           :food/portions (get-portions Portion id->portion-kind)
           :food/edible-part (get-edible-part Netto)}
          (remove (comp nil? second))
@@ -211,6 +234,12 @@
   {:source/id id
    :source/description text})
 
+(def apriori-sources
+  [{:source/id "MI0322"
+    :source/description
+    {:en "Vitamin A activity calculated from retinol and beta-carotene (factor 1/6) (VITA[µg] = RETOL[µg] + (CARTB[µg] / 6))"
+     :nb "Vitamin A-aktivitet beregnet fra retinol og betakaroten (faktor 1/6) (VITA[µg] = RETOL[µg] + (CARTB[µg] / 6))"}}])
+
 (defn foodcase-langualcode->langual-code [{:strs [id text]}]
   {:langual-code/id id
    :langual-code/description text})
@@ -276,11 +305,16 @@
     (throw (ex-info "Found duplicate :food/ids" {:ids (set duplicate-ids)})))
   foods)
 
+(defn load-nutrients [i18n-attrs locale->datas]
+  (into
+   (combine-i18n-sources
+    (update-vals locale->datas #(keep foodcase-nutrient->nutrient (get % "nutrients")))
+    i18n-attrs)
+   nutrient/apriori-nutrients))
+
 (defn create-foodcase-transactions [db locale->datas]
   (let [i18n-attrs (db/get-i18n-attrs db)
-        nutrients (combine-i18n-sources
-                   (update-vals locale->datas #(keep foodcase-nutrient->nutrient (get % "nutrients")))
-                   i18n-attrs)
+        nutrients (load-nutrients i18n-attrs locale->datas)
         portion-kinds (map foodcase-portiontype->portion-kind (get (first (vals locale->datas)) "portiontypes"))]
     [;; food-groups
      (combine-i18n-sources
@@ -297,6 +331,9 @@
      (combine-i18n-sources
       (update-vals locale->datas #(map foodcase-reference->source (get % "references")))
       i18n-attrs)
+
+     ;; A priori sources
+     apriori-sources
 
      ;; langual-codes
      (map foodcase-langualcode->langual-code (get (first (vals locale->datas)) "langualcodes"))
@@ -370,10 +407,13 @@
 
 (comment
   (def conn (create-database-from-scratch "datomic:mem://matvaretabellen"))
-  (def conn (d/connect "datomic:mem://matvaretabellen"))
+  (def conn matvaretabellen.dev/conn)
   (def db (d/db conn))
 
   (def locale->datas (load-locale->datas))
+
+  (load-nutrients (db/get-i18n-attrs db) locale->datas)
+
   (get (first (vals locale->datas)) "portiontypes")
 
   (def raw-foods (->> (get (load-json "data/foodcase-food-nb.json") "foods")

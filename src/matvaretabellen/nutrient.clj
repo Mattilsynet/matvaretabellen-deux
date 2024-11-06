@@ -54,7 +54,9 @@
         "FatSolubleVitamins"
         "WaterSolubleVitamins"
         "Minerals"
-        "TraceElements"]
+        "TraceElements"
+        "Vit A RE"
+        "Vit A"]
        (map-indexed #(vector %2 (format " %02d" %1)))
        (into
         {"Niacin" "Vit B03"
@@ -69,6 +71,16 @@
 (defn sort-by-preference [nutrients]
   (->> nutrients
        (sort-by (comp #(sort-names % %) :nutrient/id))))
+
+(def apriori-nutrients
+  [{:nutrient/id "Vit A RE"
+    :nutrient/name {:nb "Vitamin A (RE)"
+                    :en "Vitamin A (RE)"}
+    :nutrient/euro-fir-id "VITARE"
+    :nutrient/euro-fir-name "vitamin A; retinol equiv from retinol and carotenoid activities"
+    :nutrient/unit "µg"
+    :nutrient/decimal-precision 0
+    :nutrient/parent {:nutrient/id "FatSolubleVitamins"}}])
 
 (def apriori-groups
   (->> [{:nutrient/id "WaterSolubleVitamins"
