@@ -134,11 +134,18 @@
        (sort-by first)
        (into {})))
 
-(defn get-top-level-nutrients [foods-db]
+(defn get-top-level-nutrients
+  "Get all top level nutrients that contains at least one nutrient for which we
+  have measurements."
+  [foods-db]
   (->> (d/q '[:find [?n ...]
               :where
               [?n :nutrient/id]
-              (not [?n :nutrient/parent])]
+              (not [?n :nutrient/parent])
+              (or-join [?n]
+                       [_ :constituent/nutrient ?n]
+                       (and [?sn :nutrient/parent ?n]
+                            [_ :constituent/nutrient ?sn]))]
             foods-db)
        (map #(d/entity foods-db %))))
 
