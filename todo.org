@@ -17,11 +17,15 @@
 ** DONE Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter (sparer ikke tid på dette de siste få dagene)
 * To-DONT
 ** DONT Vis "Sist oppdatert" på matvare (har ikke datoen i datasettet vårt)
-* 2024 [2/7]
-** TODO Nytt næringsstoff: fritt sukker
-** TODO NIAEQ
-** TODO VITA - skal beregnes
-** TODO Matfett redirecte til Spisefett
-** TODO Oppdatere vanlige matvaresøk
+* 2024 [8/9]
+** DONE Nytt næringsstoff: fritt sukker
+** DONE NIAEQ
+** DONE Oppdatere anbefalt daglig inntak
+** TODO Deploye testversjon
+** DONE VITA - skal beregnes
+Navn på gammel Vitamin A: Vitamin A (RAE)
+Navn på ny Vitamin A: Vitamin A (RE)
+** DONE Matfett redirecte til Spisefett
+** DONE Oppdatere vanlige matvaresøk
 ** DONE Oppdatere nytt i MVT24
 ** DONE Les inn nye data
