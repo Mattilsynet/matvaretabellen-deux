@@ -1,4 +1,5 @@
 (ns matvaretabellen.dev
+  (:refer-clojure :exclude [e->map])
   (:require [clojure.data.json :as json]
             [clojure.tools.namespace.repl :as repl]
             [confair.config :as config]
@@ -21,6 +22,17 @@
   (set! *print-namespace-maps* false)
   (repl/set-refresh-dirs "src" "dev" "test" "ui/src")
   (matvaretabellen/create-dev-app (load-local-config)))
+
+(defn e->map [x]
+  (cond
+    (:db/id x) (update-vals (into {:db/id (:db/id x)} x) e->map)
+    (map? x) (update-vals x e->map)
+    (vector? x) (mapv e->map x)
+    (set? x) (set (map e->map x))
+    (coll? x) (map e->map x)
+    :else x))
+
+(intern 'clojure.core (with-meta 'e->map (meta #'e->map)) #'e->map)
 
 (comment
 
