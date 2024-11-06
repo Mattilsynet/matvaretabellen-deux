@@ -216,7 +216,8 @@
              ["Karbo"
               [["Stivel"]
                ["Mono+Di"]
-               ["Sukker"]]]
+               ["Sukker"]
+               ["SUGAN"]]]
              [[["Fiber"]
                ["Protein"]
                ["Vann"]
@@ -232,6 +233,7 @@
               [["Vit B1"]
                ["Vit B2"]
                ["Niacin"]
+               ["NIAEQ"]
                ["Vit B6"]
                ["Folat"]
                ["Vit B12"]
