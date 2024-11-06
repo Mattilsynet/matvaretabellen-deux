@@ -8,7 +8,7 @@
             [matvaretabellen.misc :as misc]))
 
 (defn blank-line? [s]
-  (re-find #"^;+\r$" s))
+  (re-find #"^;+\r?$" s))
 
 (defn parse-nor-double [s]
   (parse-double (str/replace s #"," ".")))
@@ -145,6 +145,7 @@
          (partition-by blank-line?)
          (partition-all 2)
          (mapcat first)
+         (remove blank-line?) ;; May be one dangling blank line
          (mapv #(parse-row foods-db headers %)))))
 
 (defn sort-order [rda-profile]
