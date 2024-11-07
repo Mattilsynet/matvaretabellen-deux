@@ -145,6 +145,10 @@
                :quantity/number 0.0
                :quantity/unit "g"
                :source/id "30"}
+              {:nutrient/id "Vit A RE"
+               :quantity/number 5.333333333333333
+               :quantity/unit "µg-RE"
+               :source/id "MI0322"}
               {:nutrient/id "Vit A"
                :quantity/number 3.0
                :quantity/unit "µg-RE"

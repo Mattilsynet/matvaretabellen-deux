@@ -18,6 +18,8 @@
      :measurement/quantity #broch/quantity[0.04 "g"]}
     {:constituent/nutrient [:nutrient/id "Vit A"]
      :measurement/quantity #broch/quantity[8.0 "µg-RE"]}
+    {:constituent/nutrient [:nutrient/id "Vit A RE"]
+     :measurement/quantity #broch/quantity[8.0 "µg-RE"]}
     {:constituent/nutrient [:nutrient/id "Na"]
      :measurement/quantity #broch/quantity[16.0 "mg"]}
     {:constituent/nutrient [:nutrient/id "Fiber"]
@@ -157,31 +159,34 @@
     (is (= (->> (sut/create-filters (fdb/get-food-data-db [dried-apple]))
                 (filter #((set (map :data-filter-id (:options %))) "Vit A"))
                 first)
-           {:label [:i18n :i18n/lookup {:nb "Fettløselige vitaminer", :en "Fat-soluble vitamins"}]
+           {:label [:i18n :i18n/lookup {:nb "Fettløselige vitaminer", :en "Fat-soluble vitamins"}],
             :sort-id "FatSolubleVitamins"
-            :class :mmm-h6
             :options
-            [{:sort-id "Vit A"
+            [{:label [:i18n :i18n/lookup {:nb "Vitamin A (RE)", :en "Vitamin A (RE)"}]
+              :sort-id "Vit A RE"
+              :data-filter-id "Vit A RE"
+              :checked? false
+              :options [{:label [:i18n :i18n/lookup {:nb "Betakaroten", :en "Beta-carotene"}]
+                         :sort-id "B-karo"
+                         :data-filter-id "B-karo"
+                         :checked? false}
+                        {:label [:i18n :i18n/lookup {:nb "Retinol", :en "Retinol"}]
+                         :sort-id "Retinol"
+                         :data-filter-id "Retinol"
+                         :checked? false}]}
+             {:sort-id "Vit A"
               :label [:i18n :i18n/lookup {:nb "Vitamin A", :en "Vitamin A"}]
               :data-filter-id "Vit A"
-              :checked? false
-              :options
-              [{:sort-id "B-karo"
-                :label [:i18n :i18n/lookup {:nb "Betakaroten", :en "Beta-carotene"}],
-                :data-filter-id "B-karo"
-                :checked? false}
-               {:sort-id "Retinol"
-                :label [:i18n :i18n/lookup {:nb "Retinol", :en "Retinol"}]
-                :data-filter-id "Retinol"
-                :checked? false}]}
-             {:sort-id "Vit D"
-              :label [:i18n :i18n/lookup {:nb "Vitamin D", :en "Vitamin D"}]
+              :checked? false}
+             {:label [:i18n :i18n/lookup {:nb "Vitamin D", :en "Vitamin D"}]
+              :sort-id "Vit D"
               :data-filter-id "Vit D"
               :checked? false}
-             {:sort-id "Vit E"
-              :label [:i18n :i18n/lookup {:nb "Vitamin E", :en "Vitamin E"}]
+             {:label [:i18n :i18n/lookup {:nb "Vitamin E", :en "Vitamin E"}]
+              :sort-id "Vit E"
               :data-filter-id "Vit E"
-              :checked? false}]})))
+              :checked? false}]
+            :class :mmm-h6})))
 
   (testing "Marks top-level selectables with heading-class"
     (is (= (->> (sut/create-filters (fdb/get-food-data-db [dried-apple]))
@@ -199,7 +204,9 @@
                  ["C16:0Palmitinsyre"]
                  ["C18:0Stearinsyre"]]]
                ["Trans"]
-               ["Enumet" [["C16:1"] ["C18:1"]]]
+               ["Enumet"
+                [["C16:1"]
+                 ["C18:1"]]]
                ["Flerum"
                 [["C18:2n-6Linolsyre"]
                  ["C18:3n-3AlfaLinolensyre"]
@@ -213,7 +220,13 @@
                ["Omega-3"]
                ["Omega-6"]
                ["Kolest"]]]
-             ["Karbo"
+             ["TraceElements"
+              [["Fe"]
+               ["Cu"]
+               ["Zn"]
+               ["Se"]
+               ["I"]]]]
+            [["Karbo"
               [["Stivel"]
                ["Mono+Di"]
                ["Sukker"]
@@ -221,12 +234,12 @@
              [[["Fiber"]
                ["Protein"]
                ["Vann"]
-               ["Alko"]]]]
-
-            [["FatSolubleVitamins"
-              [["Vit A"
+               ["Alko"]]]
+             ["FatSolubleVitamins"
+              [["Vit A RE"
                 [["B-karo"]
                  ["Retinol"]]]
+               ["Vit A"]
                ["Vit D"]
                ["Vit E"]]]
              ["WaterSolubleVitamins"
@@ -244,10 +257,4 @@
                ["Na"]
                ["NaCl"]
                ["P"]
-               ["Mg"]]]
-             ["TraceElements"
-              [["Fe"]
-               ["Cu"]
-               ["Zn"]
-               ["Se"]
-               ["I"]]]]]))))
+               ["Mg"]]]]]))))

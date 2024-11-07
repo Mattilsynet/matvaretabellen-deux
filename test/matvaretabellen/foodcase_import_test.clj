@@ -107,21 +107,12 @@
              {:constituent/nutrient [:nutrient/id "Vann"]
               :measurement/quantity #broch/quantity[11.0 "g"]
               :measurement/source [:source/id "MI0142"]}
-             {:constituent/nutrient [:nutrient/id "Vit A"],
-              :measurement/source [:source/id "MI0114"],
-              :measurement/quantity #broch/quantity[23.0 "µg-RE"]}
-
-             ;; constituents without a known quantity still needs to be
-             ;; represented due to differing reasons for said void.
-             {:constituent/nutrient [:nutrient/id "Folat"]
-              :measurement/source [:source/id "MI0232"]}
-             {:constituent/nutrient [:nutrient/id "Fe"]
-              :measurement/source [:source/id "MI0232"]}
-             {:constituent/nutrient [:nutrient/id "Ca"]
-              :measurement/source [:source/id "10"]}
-             {:constituent/nutrient [:nutrient/id "Vit C"]
-              :measurement/source [:source/id "10"]}})))
-  )
+             {:constituent/nutrient [:nutrient/id "Vit A RE"],
+              :measurement/source [:source/id "MI0322"],
+              :measurement/quantity #broch/quantity[0 "µg"]}
+             {:constituent/nutrient [:nutrient/id "Vit A"]
+              :measurement/source [:source/id "MI0114"]
+              :measurement/quantity #broch/quantity[23.0 "µg-RE"]}}))))
 
 (deftest find-key-paths--test
   (testing "finds interesting keys in nested data"
@@ -242,5 +233,6 @@
 
   (testing "Includes parentId when non-empty"
     (is (= (:nutrient/parent (sut/foodcase-nutrient->nutrient
-                              {"parentId" "Vit A"}))
+                              {"parentId" "Vit A"
+                               "unit" "g"}))
            {:nutrient/id "Vit A"}))))
