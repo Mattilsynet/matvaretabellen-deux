@@ -21,7 +21,8 @@
   (for [eid (d/q '[:find [?n ...]
                    :where
                    [?n :nutrient/id]
-                   [?c :constituent/nutrient ?n]]
+                   [?c :constituent/nutrient ?n]
+                   [?c :measurement/quantity]]
                  food-db)]
     (d/entity food-db eid)))
 
@@ -156,10 +157,11 @@
               :where
               [?n :nutrient/id]
               (not [?n :nutrient/parent])
-              (or-join [?n]
-                       [_ :constituent/nutrient ?n]
+              (or-join [?n ?c]
+                       [?c :constituent/nutrient ?n]
                        (and [?sn :nutrient/parent ?n]
-                            [_ :constituent/nutrient ?sn]))]
+                            [?c :constituent/nutrient ?sn]))
+              [?c :measurement/quantity]]
             foods-db)
        (map #(d/entity foods-db %))))
 
