@@ -44,6 +44,11 @@
     "Energi2"
     "Portion"})
 
+(def ignored-nutrients
+  "Nutrients for which we have measurements, but still isn't desired displayed at
+  this time."
+  #{"TRP" "PANTAC" "ASH"})
+
 (defn parse-doublish [x]
   (when-not (#{"" "M" nil} x)
     (parse-double x)))
@@ -72,7 +77,7 @@
 
 (defn get-constituents [food id->nutrient]
   (set
-   (for [[id {:strs [ref value]}] (->> (apply dissoc food known-non-constituents)
+   (for [[id {:strs [ref value]}] (->> (apply dissoc food (concat known-non-constituents ignored-nutrients))
                                        (filter (fn [[_ v]] (get v "ref")))
                                        (filter (comp id->nutrient first)))]
      (let [amount (parse-double value)]
