@@ -58,8 +58,8 @@
    :ediblePart (:measurement/percent (:food/edible-part food))
    :constituents (->> (for [constituent (:food/constituents food)]
                         [(-> constituent :constituent/nutrient :nutrient/id)
-                         {:quantity [(or (some-> constituent :measurement/quantity b/num) 0)
-                                     (or (some-> constituent :measurement/quantity b/symbol) "g")]}])
+                         (let [quantity (some-> constituent :measurement/quantity b/num)]
+                           {:quantity [quantity (or (some-> constituent :measurement/quantity b/symbol) "g")]})])
                       (into {}))})
 
 (defn render-compact-foods [context page]

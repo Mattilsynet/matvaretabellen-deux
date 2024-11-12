@@ -119,6 +119,8 @@
         (let [el (.-firstChild td)
               decimals (some-> (.getAttribute el "data-decimals") parse-long)
               n (get-in food [:constituents id :quantity 0])]
+          (when-let [el (dom/qs td ".mvt-sym")]
+            (set! (.. el -style -display) (if n nil "none")))
           (set! (.-innerText el)
                 (if n
                   (.toLocaleString n lang #js {:maximumFractionDigits (or decimals 1)})
