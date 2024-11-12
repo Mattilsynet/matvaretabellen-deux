@@ -56,8 +56,8 @@
         "WaterSolubleVitamins"
         "Minerals"
         "TraceElements"
-        "Vit A RE"
-        "Vit A"]
+        "Vit A"
+        "Vit A RE"]
        (map-indexed #(vector %2 (format " %02d" %1)))
        (into
         {"Niacin" "Vit B03"
