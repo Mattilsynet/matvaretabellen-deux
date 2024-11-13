@@ -24,13 +24,17 @@
    "Vit A" {"ref" "MI0114" "value" "23"}
    "Vit C" {"ref" "10", "value" ""}
    "Ca" {"ref" "10", "value" "M"}
-   "Fe" {"ref" "MI0232", "value" ""}})
+   "Fe" {"ref" "MI0232", "value" ""}
+   "Retinol" {"ref" "20", "value" "30"}
+   "B-karo" {"ref" "20", "value" "180"}})
 
 (def opt
   {:id->nutrient
    {"Vann" {:nutrient/unit "g"}
     "Fett" {:nutrient/unit "g"}
-    "Vit A" {:nutrient/unit "µg-RE"}}
+    "Vit A" {:nutrient/unit "µg-RE"}
+    "Retinol" {:nutrient/unit "µg"}
+    "B-karo" {:nutrient/unit "µg"}}
 
    :id->portion-kind
    {:porsjon {}
@@ -107,12 +111,18 @@
              {:constituent/nutrient [:nutrient/id "Vann"]
               :measurement/quantity #broch/quantity[11.0 "g"]
               :measurement/source [:source/id "MI0142"]}
-             {:constituent/nutrient [:nutrient/id "Vit A RE"],
-              :measurement/source [:source/id "MI0322"],
-              :measurement/quantity #broch/quantity[0 "µg"]}
+             {:constituent/nutrient [:nutrient/id "Vit A RE"]
+              :measurement/source [:source/id "MI0322"]
+              :measurement/quantity #broch/quantity[60.0 "µg-RE"]}
              {:constituent/nutrient [:nutrient/id "Vit A"]
               :measurement/source [:source/id "MI0114"]
-              :measurement/quantity #broch/quantity[23.0 "µg-RE"]}}))))
+              :measurement/quantity #broch/quantity[23.0 "µg-RE"]}
+             {:constituent/nutrient [:nutrient/id "Retinol"]
+              :measurement/source [:source/id "20"]
+              :measurement/quantity #broch/quantity[30.0 "µg"]}
+             {:constituent/nutrient [:nutrient/id "B-karo"]
+              :measurement/source [:source/id "20"]
+              :measurement/quantity #broch/quantity[180.0 "µg"]}}))))
 
 (deftest find-key-paths--test
   (testing "finds interesting keys in nested data"

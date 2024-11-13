@@ -70,10 +70,10 @@
       (b/quantity #broch/quantity [0 "µg-RE"] (b/num (b/+ retol (b// cartb 6)))))))
 
 (defn get-vitamin-a-2024 [constituents]
-  {:constituent/nutrient [:nutrient/id "Vit A RE"]
-   :measurement/source [:source/id "MI0322"]
-   :measurement/quantity (or (calculate-vitamin-a-quantity-2024 constituents)
-                             #broch/quantity[0 "µg"])})
+  (let [quantity (calculate-vitamin-a-quantity-2024 constituents)]
+    (cond-> {:constituent/nutrient [:nutrient/id "Vit A RE"]}
+      quantity (assoc :measurement/source [:source/id "MI0322"])
+      quantity (assoc :measurement/quantity quantity))))
 
 (defn get-constituents [food id->nutrient]
   (set
