@@ -162,7 +162,11 @@
            {:label [:i18n :i18n/lookup {:nb "Fettløselige vitaminer", :en "Fat-soluble vitamins"}],
             :sort-id "FatSolubleVitamins"
             :options
-            [{:label [:i18n :i18n/lookup {:nb "Vitamin A (RE)", :en "Vitamin A (RE)"}]
+            [{:sort-id "Vit A"
+              :label [:i18n :i18n/lookup {:nb "Vitamin A", :en "Vitamin A"}]
+              :data-filter-id "Vit A"
+              :checked? false}
+             {:label [:i18n :i18n/lookup {:nb "Vitamin A (RE)", :en "Vitamin A (RE)"}]
               :sort-id "Vit A RE"
               :data-filter-id "Vit A RE"
               :checked? false
@@ -174,10 +178,6 @@
                          :sort-id "Retinol"
                          :data-filter-id "Retinol"
                          :checked? false}]}
-             {:sort-id "Vit A"
-              :label [:i18n :i18n/lookup {:nb "Vitamin A", :en "Vitamin A"}]
-              :data-filter-id "Vit A"
-              :checked? false}
              {:label [:i18n :i18n/lookup {:nb "Vitamin D", :en "Vitamin D"}]
               :sort-id "Vit D"
               :data-filter-id "Vit D"
@@ -236,10 +236,10 @@
                ["Vann"]
                ["Alko"]]]
              ["FatSolubleVitamins"
-              [["Vit A RE"
+              [["Vit A"]
+               ["Vit A RE"
                 [["B-karo"]
                  ["Retinol"]]]
-               ["Vit A"]
                ["Vit D"]
                ["Vit E"]]]
              ["WaterSolubleVitamins"
