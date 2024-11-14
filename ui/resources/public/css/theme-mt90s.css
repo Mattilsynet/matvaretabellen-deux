@@ -213,6 +213,9 @@
     --mt-component-button-secondary-color: var(--mt-color-surface-action-default);
     --mt-component-button-secondary-border: var(--mt-color-surface-action-default);
 
+    --mt-component-card-border-radius: 0;
+    --mt-component-card-border: none;
+
     --mt-component-checkbox-inactive-bg: var(--mt-color-white);
     --mt-component-checkbox-inactive-color: var(--mt-color-beige-500);
     --mt-component-checkbox-active-color: var(--mt-color-blue-500);

@@ -637,11 +637,16 @@ tbody td.mmm-sticky-hor {
 }
 
 .mmm-card {
+    border-radius: var(--mt-component-card-border-radius);
     flex-shrink: 0;
     flex-grow: 1;
     padding: var(--mt-column-gap);
     background: var(--mt-brand-theme-main-bg);
     display: flex;
+}
+
+.mmm-card:has(*) {
+    border: var(--mt-component-card-border);
 }
 
 .mmm-card.mmm-link {
