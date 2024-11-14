@@ -133,7 +133,10 @@
    [:head
     [:title [:i18n ::page-title]]]
    [:body#comparison
-    (layout/render-header (:page/locale page) urls/get-comparison-url)
+    (layout/render-header
+     {:locale (:page/locale page)
+      :app/config (:app/config context)}
+     urls/get-comparison-url)
     (render-top-banner (:page/locale page) context)
 
     [:div.mmm-container.mmm-mobile-mtn.mmm-mobile-pan

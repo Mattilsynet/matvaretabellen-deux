@@ -24,7 +24,10 @@
      [:head
       [:title [:i18n ::all-nutrients]]]
      [:body
-      (layout/render-header locale urls/get-nutrients-url)
+      (layout/render-header
+       {:locale locale
+        :app/config (:app/config context)}
+       urls/get-nutrients-url)
       [:div.mmm-themed.mmm-brand-theme1
        (layout/render-toolbar
         {:locale locale

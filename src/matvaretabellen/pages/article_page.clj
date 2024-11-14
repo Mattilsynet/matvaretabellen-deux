@@ -26,8 +26,10 @@
      [:head
       [:title (:page/title page)]]
      [:body
-      (layout/render-header locale (or (:page/i18n-uris page)
-                                       (constantly (:page/uri page))))
+      (layout/render-header {:locale locale
+                             :app/config (:app/config context)}
+        (or (:page/i18n-uris page)
+            (constantly (:page/uri page))))
       (layout/render-toolbar
        {:locale locale
         :crumbs [{:text [:i18n :i18n/search-label]

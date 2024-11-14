@@ -55,7 +55,7 @@ window.onerror = function(message) {
         (= current-url (:url link))
         (dissoc :url)))))
 
-(defn render-header [locale get-current-url]
+(defn render-header [{:keys [locale app/config]} get-current-url]
   [:div
    [:script {:type "text/javascript"}
     "document.body.classList.add(\"mmm-js-enabled\");"]
@@ -63,7 +63,8 @@ window.onerror = function(message) {
     {:home-url (let [url (urls/get-base-url locale)]
                  (when-not (= url (get-current-url locale))
                    url))
-     :extra-links (prepare-header-links locale get-current-url)})])
+     :extra-links (prepare-header-links locale get-current-url)
+     :theme (:app/theme config)})])
 
 (defn render-toolbar [{:keys [locale crumbs]}]
   [:div.mmm-container.mmm-section.mmm-flex-desktop.mmm-flex-desktop-middle.mmm-mobile-vert-layout-m

@@ -26,7 +26,10 @@
      [:head
       [:title [:i18n ::all-food-groups]]]
      [:body
-      (layout/render-header locale urls/get-food-groups-url)
+      (layout/render-header
+       {:locale locale
+        :app/config (:app/config context)}
+       urls/get-food-groups-url)
       [:div.mmm-themed.mmm-brand-theme1
        (layout/render-toolbar
         {:locale locale

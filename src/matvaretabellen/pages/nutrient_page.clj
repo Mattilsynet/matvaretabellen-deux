@@ -102,7 +102,10 @@
      [:head
       [:title nutrient-name]]
      [:body
-      (layout/render-header locale #(urls/get-nutrient-url % nutrient))
+      (layout/render-header
+       {:locale locale
+        :app/config (:app/config context)}
+       #(urls/get-nutrient-url % nutrient))
       [:div.mmm-themed.mmm-brand-theme1
        (layout/render-toolbar
         {:locale locale

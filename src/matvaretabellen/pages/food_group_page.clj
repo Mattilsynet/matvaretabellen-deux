@@ -89,7 +89,10 @@
      [:head
       [:title (get-in food-group [:food-group/name locale])]]
      [:body
-      (layout/render-header locale #(urls/get-food-group-url % food-group))
+      (layout/render-header
+       {:locale locale
+        :app/config (:app/config context)}
+       #(urls/get-food-group-url % food-group))
       [:div.mmm-themed.mmm-brand-theme1
        (layout/render-toolbar
         {:locale locale

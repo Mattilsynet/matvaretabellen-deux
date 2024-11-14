@@ -14,7 +14,10 @@
      {:property "og:description"
       :content [:i18n ::open-graph-description]}]]
    [:body
-    (layout/render-header (:page/locale page) urls/get-search-url)
+    (layout/render-header
+     {:locale (:page/locale page)
+      :app/config (:app/config context)}
+     urls/get-search-url)
     [:form.mmm-container-narrow.mmm-section.mmm-mbl.mmm-mtxl
      {:action (urls/get-search-url (:page/locale page))
       :method :get}

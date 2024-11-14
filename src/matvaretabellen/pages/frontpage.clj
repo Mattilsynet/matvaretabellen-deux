@@ -72,7 +72,10 @@
       [:meta {:property "og:title" :content [:i18n ::open-graph-title]}]
       [:meta {:property "og:description" :content [:i18n ::open-graph-description]}]]
      [:body
-      (layout/render-header locale urls/get-base-url)
+      (layout/render-header
+       {:locale locale
+        :app/config (:app/config context)}
+       urls/get-base-url)
       [:form.mmm-container-narrow.mmm-section.mmm-mbxxl.mmm-mtxl
        {:action (urls/get-search-url locale)
         :method :get}

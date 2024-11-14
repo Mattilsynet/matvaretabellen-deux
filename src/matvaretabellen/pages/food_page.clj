@@ -430,7 +430,10 @@
        (str "if (localStorage.getItem(\"show-sources\") != \"true\") {\n"
             "  document.body.classList.add(\"mvt-source-hide\");\n"
             "}")]
-      (layout/render-header locale #(urls/get-food-url % food))
+      (layout/render-header
+       {:locale locale
+        :app/config (:app/config context)}
+       #(urls/get-food-url % food))
       [:div.mmm-themed.mmm-brand-theme1
        (layout/render-toolbar
         {:locale locale
