@@ -339,3 +339,11 @@
 .mmm .mmm-theme-toggled {display: none;}
 .mmm .mt90s .show-for-mt90s, /* Help Portfolio theme switcher out */
 .mmm.mt90s .show-for-mt90s {display: block;}
+
+.mt90s .mmm-banner-title:after {
+    content: " →";
+}
+
+.mt90s .mmm-banner-title {
+    font-weight: bold;
+}

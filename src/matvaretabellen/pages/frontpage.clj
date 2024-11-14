@@ -43,11 +43,11 @@
     [:div.mmm-buttons.mmm-text.mmm-tight
      [:a.mmm-banner-button.mmm-vert-layout-s
       {:href (urls/get-food-groups-url locale)}
-      [:p [:strong [:i18n ::all-food-groups]]]
+      [:p.mmm-banner-title [:i18n ::all-food-groups]]
       [:p [:i18n ::see-all-food-groups-overview]]]
      [:a.mmm-banner-button.mmm-vert-layout-s
       {:href (urls/get-nutrients-url locale)}
-      [:p [:strong [:i18n ::all-nutrients]]]
+      [:p.mmm-banner-title [:i18n ::all-nutrients]]
       [:p [:i18n ::see-all-nutrients-overview]]]]]])
 
 (def popular-search-terms

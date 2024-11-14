@@ -330,3 +330,11 @@
 .mt2023 .mmm-table {
     --mt-color-background-default: transparent;
 }
+
+.mmm-banner-title {
+    text-decoration: underline;
+}
+
+.mmm-banner-title:hover {
+    text-decoration: none;
+}
