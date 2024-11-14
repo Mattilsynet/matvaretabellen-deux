@@ -28,9 +28,11 @@
 
              :optimus/bundles {"styles.css"
                                {:public-dir "public"
-                                :paths [(str "/css/theme-" (:app/theme config) ".css")
-                                        "/css/mmm.css"
-                                        "/css/matvaretabellen.css"]}
+                                :paths (cond-> [(str "/css/theme-" (:app/theme config) ".css")
+                                                "/css/mmm.css"
+                                                "/css/matvaretabellen.css"]
+                                         (= "mt2023" (:app/theme config))
+                                         (conj "/mtds/styles.css"))}
 
                                "/app.js"
                                {:public-dir "public"

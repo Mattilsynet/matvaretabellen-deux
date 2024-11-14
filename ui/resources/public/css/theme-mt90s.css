@@ -273,6 +273,8 @@
     --mt-component-toc-border-color: var(--mt-color-beige-500);
 
     --mt-component-legend-color-outline: var(--mt-color-brown-900);
+
+    font-family: var(--mt-font-family-main), system-ui, sans-serif;
 }
 
 @media only screen and (min-width: 768px) {
