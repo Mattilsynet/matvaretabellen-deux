@@ -205,7 +205,7 @@
     --mt-component-drawer-background: #ffffff;
     --mt-component-drawer-border-color: #e23128;
 
-    --mt-component-form-field-border: #afab89800;
+    --mt-component-form-field-border: var(--mt-granskog);
     --mt-component-form-field-background: #ffffff;
     --mt-component-form-field-padding-h: 0.75em;
     --mt-component-form-field-padding-v: 0.75em;
