@@ -257,13 +257,16 @@
     --mt-component-pill-padding: var(--mt-spacing-x0_5) var(--mt-spacing-x1);
     --mt-component-pill-icon-gap: var(--mt-spacing-x0_5);
 
+    --mt-component-table-background: transparent;
     --mt-component-table-background-zebra: var(--mt-color-white);
     --mt-component-table-background-hover: var(--mt-color-beige-200);
     --mt-component-table-background-highlight: var(--mt-color-blue-100);
     --mt-component-table-cell-padding: var(--mt-spacing-x1_4);
     --mt-component-table-cell-padding-s: var(--mt-spacing-x0_5);
     --mt-component-table-cell-border-color: var(--mt-color-beige-50);
+    --mt-component-table-cell-border-h-width: 1px;
     --mt-component-table-thead-background: var(--mt-color-beige-200);
+    --mt-component-table-thead-border-width: 2px;
     --mt-component-table-thead-th-font-size: 18px;
     --mt-component-table-thead-th-font-weight: var(--mt-font-weight-bold);
     --mt-component-table-tbody-th-font-size: var(--mt-typography-small-font-size);

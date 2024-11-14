@@ -309,11 +309,15 @@ table.mmm-table-zebra tr.mmm-highlight {
     background-color: var(--mt-component-table-background-highlight);
 }
 
+.mmm-table {
+    background: var(--mt-component-table-background);
+}
+
 .mmm-table td,
 .mmm-table th {
     padding: var(--mt-component-table-cell-padding);
     border-bottom: 1px solid var(--mt-component-table-cell-border-color);
-    border-right: 1px solid var(--mt-component-table-cell-border-color);
+    border-right: var(--mt-component-table-cell-border-h-width) solid var(--mt-component-table-cell-border-color);
 }
 
 @media only screen and (max-width: 767px) {
@@ -327,8 +331,8 @@ table.mmm-table-zebra tr.mmm-highlight {
 .mmm-table .mmm-thead td,
 .mmm-table .mmm-thead th {
     background: var(--mt-component-table-thead-background);
-    border-bottom: 2px solid var(--mt-component-table-cell-border-color);
-    border-top: 2px solid var(--mt-component-table-cell-border-color);
+    border-bottom: var(--mt-component-table-thead-border-width) solid var(--mt-component-table-cell-border-color);
+    border-top: var(--mt-component-table-thead-border-width) solid var(--mt-component-table-cell-border-color);
 }
 
 .mmm-table > tr:first-child td,
