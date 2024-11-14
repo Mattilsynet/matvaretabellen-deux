@@ -90,20 +90,13 @@
        [:p.mmm-p.mmm-small.mmm-mts.mmm-desktop.mmm-js-required
         [:a {:href (urls/get-search-url (:page/locale page))}
          [:i18n ::all-foods]]]]
-      (TriviaBox locale food-db (rng/rand-nth*
-                                 (/ (.getEpochSecond (:time/instant context)) 17)
-                                 (map #(d/entity app-db %)
-                                      (d/q '[:find [?e ...] :where [?e :trivia/food-id]]
-                                           app-db))))
+      (TriviaBox locale food-db
+                 (rng/rand-nth*
+                  (/ (.getEpochSecond (:time/instant context)) 17)
+                  (map #(d/entity app-db %)
+                       (d/q '[:find [?e ...] :where [?e :trivia/food-id]]
+                            app-db))))
       [:div.mmm-container.mmm-section.mmm-cols
-       (Toc {:title [:i18n ::common-food-searches]
-             :contents (take 5 (rng/shuffle*
-                                (/ (.getEpochSecond (:time/instant context)) 11)
-                                (for [m popular-search-terms]
-                                  (let [term (get m locale)]
-                                    {:title term
-                                     :href (str "?search=" (str/lower-case term))}))))
-             :class :mmm-col})
        (let [new-foods (:new-foods (:page/details page))]
          (Toc {:title (list [:i18n ::new-in-food-table] " " (:year new-foods))
                :contents (->> (:food-ids new-foods)
@@ -116,4 +109,12 @@
                             (rng/shuffle* (/ (.getEpochSecond (:time/instant context)) 7))
                             (take 5)
                             (keep #(get-food-info locale food-db %)))
+             :class :mmm-col})
+       (Toc {:title [:i18n ::common-food-searches]
+             :contents (->> (for [m popular-search-terms]
+                              (let [term (get m locale)]
+                                {:title term
+                                 :href (str "?search=" (str/lower-case term))}))
+                            (rng/shuffle* (/ (.getEpochSecond (:time/instant context)) 11))
+                            (take 5))
              :class :mmm-col})]])))
