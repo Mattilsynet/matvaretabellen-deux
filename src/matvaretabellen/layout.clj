@@ -22,15 +22,16 @@ window.onerror = function(message) {
 ")
 
 (defn render-illustration [illustration]
-  [:svg.mvt-illustration
-   {:viewBox (->> illustration
-                  (str "public")
-                  io/resource
-                  slurp
-                  (re-find #"viewBox=\"([^\"]+)\"")
-                  last)
-    :xmlns "http://www.w3.org/2000/svg"}
-   [:use {:xlink:href (str illustration "#illustration")}]])
+  (when-let [view-box (some->> illustration
+                               (str "public")
+                               io/resource
+                               slurp
+                               (re-find #"viewBox=\"([^\"]+)\"")
+                               last)]
+    [:svg.mvt-illustration
+     {:viewBox view-box
+      :xmlns "http://www.w3.org/2000/svg"}
+     [:use {:xlink:href (str illustration "#illustration")}]]))
 
 (defn layout [context _page head body]
   [:html {:class [:mmm (:app/theme (:app/config context))]}
