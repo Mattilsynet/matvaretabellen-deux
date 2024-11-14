@@ -1,5 +1,5 @@
 (ns mmm.components.footer-scenes
-  (:require [mmm.components.footer :refer [Footer CompactSiteFooter]]
+  (:require [mmm.components.footer :refer [Footer]]
             [mmm.elements :as e]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
