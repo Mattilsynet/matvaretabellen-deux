@@ -17,11 +17,11 @@
 ** DONE Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter (sparer ikke tid på dette de siste få dagene)
 * To-DONT
 ** DONT Vis "Sist oppdatert" på matvare (har ikke datoen i datasettet vårt)
-* 2024 [8/9]
+* 2024 [9/9]
 ** DONE Nytt næringsstoff: fritt sukker
 ** DONE NIAEQ
 ** DONE Oppdatere anbefalt daglig inntak
-** TODO Deploye testversjon
+** DONE Deploye testversjon
 ** DONE VITA - skal beregnes
 Navn på gammel Vitamin A: Vitamin A (RAE)
 Navn på ny Vitamin A: Vitamin A (RE)
