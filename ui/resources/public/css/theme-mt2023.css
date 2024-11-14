@@ -231,7 +231,7 @@
     --mt-component-icon-button-size-medium: 48px;
     --mt-component-icon-button-border-radius: var(--mt-border-radius-s);
     --mt-component-icon-button-active-color: #075b7a;
-    --mt-component-icon-button-active-background: #d6e8ed;
+    --mt-component-icon-button-active-background: var(--mt-lav);
 
     --mt-component-list-nested-margin-top: 0.25em;
     --mt-component-list-nested-margin-bottom: 0.5em;
