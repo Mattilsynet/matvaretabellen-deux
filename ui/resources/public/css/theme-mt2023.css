@@ -153,7 +153,7 @@
     --mt-border-radius-m: 5px;
     --mt-border-radius-circle: 50%;
 
-    --mt-focusable-shadow: 0 0 0 2px #f9f6f1, 0 0 0 0.35rem #348ba3;
+    --mt-focusable-shadow: 0 0 0 2px #f9f6f1, 0 0 0 0.35rem var(--mt-granskog);
 
     --mt-horizontal-gap: var(--mt-spacing-x1);
     --mt-column-gap: var(--mt-spacing-x1);
