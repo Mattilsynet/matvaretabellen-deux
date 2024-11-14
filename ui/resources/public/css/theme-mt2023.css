@@ -195,6 +195,9 @@
     --mt-component-checkbox-inactive-bg: #ffffff;
     --mt-component-checkbox-inactive-color: #afab89800;
     --mt-component-checkbox-active-color: #075b7a;
+    --mt-component-checkbox-border-color: var(--mt-granskog);
+    --mt-component-checkbox-size: 24px;
+    --mt-component-checkbox-size-s: 16px;
 
     --mt-component-divider-border-color: #afab89800;
     --mt-component-divider-padding: var(--mt-spacing-x1_4);
