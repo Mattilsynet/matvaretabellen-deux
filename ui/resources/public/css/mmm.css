@@ -984,6 +984,7 @@ tbody td.mmm-sticky-hor {
 }
 
 .mmm-banner-media-buttons .mmm-media {
+    border-radius: var(--mt-component-banner-media-buttons-container-border-radius);
     background: var(--mt-brand-theme-main-bg);
     color: var(--mt-brand-theme-main-color);
     flex-grow: 19.5;
@@ -1003,7 +1004,7 @@ tbody td.mmm-sticky-hor {
 
 .mmm-banner-button {
     background: var(--mt-brand-theme-secondary-bg);
-    border-radius: var(--mt-border-radius-s);
+    border-radius: var(--mt-component-banner-media-buttons-button-border-radius);
     color: var(--mt-brand-theme-secondary-color);
     display: flex;
     flex-direction: column;
