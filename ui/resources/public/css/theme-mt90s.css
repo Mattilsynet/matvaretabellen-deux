@@ -325,6 +325,17 @@
     --mt-brand-theme-secondary-action-color: var(--mt-color-text-neutral-default);
 }
 
+.mt90s .mmm-brand-theme4 {
+    --mt-brand-theme-bg: var(--mt-color-background-default);
+    --mt-brand-theme-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-main-bg: var(--mt-color-white);
+    --mt-brand-theme-main-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-main-action-color: var(--mt-color-text-action-default);
+    --mt-brand-theme-secondary-bg: var(--mt-color-green-500);
+    --mt-brand-theme-secondary-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-secondary-action-color: var(--mt-color-text-neutral-default);
+}
+
 .mmm .mmm-theme-toggled {display: none;}
 .mmm .mt90s .show-for-mt90s, /* Help Portfolio theme switcher out */
 .mmm.mt90s .show-for-mt90s {display: block;}

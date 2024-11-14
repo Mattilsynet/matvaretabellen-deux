@@ -34,4 +34,8 @@
   [:img.mmm-img attrs])
 
 (defn ^:export block [& args]
-  (into [:div.mmm-block] args))
+  (into [:div.mmm-block
+         (when (map? (first args))
+           (first args))]
+        (cond-> args
+          (map? (first args)) rest)))

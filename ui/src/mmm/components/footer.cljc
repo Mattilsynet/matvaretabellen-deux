@@ -1,8 +1,13 @@
 (ns mmm.components.footer
-  (:require [mmm.components.mattilsynet-logo :refer [MattilsynetLogo]]))
+  (:require [mmm.components.mattilsynet-logo :refer [MattilsynetLogo]]
+            [mattilsynet.design :as mtds]))
 
-(defn Footer [{:keys [cols]}]
+(defn Footer2023 [{:keys [cols]}]
   [:footer.mmm-footer
+   [:div.mmm-footer-col
+    [:a {:href "https://www.mattilsynet.no"
+         :title "Mattilsynet"
+         :class (mtds/classes :logo :mtds-logo)}]]
    (for [{:keys [title items text texts header-class]} cols]
      [:div.mmm-footer-col.mmm-vert-layout-m
       [:h3 {:class (or header-class "mmm-h3")} title]
@@ -15,14 +20,33 @@
          (for [{:keys [url text]} items]
            [:li (if url
                   [:a.mmm-link {:href url} text]
-                  text)])])])
-   [:a {:href "https://www.mattilsynet.no"
-        :title "Mattilsynet"}
-    (MattilsynetLogo {:class :mmm-logo})]])
+                  text)])])])])
 
-(defn CompactSiteFooter []
+(defn Footer [{:keys [cols theme] :as data}]
+  (if (= "mt2023" theme)
+    (Footer2023 data)
+    [:footer.mmm-footer
+     (for [{:keys [title items text texts header-class]} cols]
+       [:div.mmm-footer-col.mmm-vert-layout-m
+        [:h3 {:class (or header-class "mmm-h3")} title]
+        (when text
+          [:p.mmm-p text])
+        (for [text texts]
+          [:p.mmm-p text])
+        (when (seq items)
+          [:ul.mmm-ul.mmm-unadorned-list
+           (for [{:keys [url text]} items]
+             [:li (if url
+                    [:a.mmm-link {:href url} text]
+                    text)])])])
+     [:a {:href "https://www.mattilsynet.no"
+          :title "Mattilsynet"}
+      (MattilsynetLogo {:class :mmm-logo})]]))
+
+(defn CompactSiteFooter [config]
   (Footer
-   {:cols [{:title [:i18n ::about-site]
+   {:theme (:app/theme config)
+    :cols [{:title [:i18n ::about-site]
             :header-class "mmm-h6"
             :texts [[:i18n ::about-text]
                     [:i18n ::api-text]]}

@@ -5,6 +5,8 @@
 .mt2023 {
     --mt-font-family-main: avenir;
 
+    --mt-lav: #e2f1df;
+
     --mt-font-weight-light: 300;
     --mt-font-weight-normal: 400;
     --mt-font-weight-bold: 600;
@@ -205,8 +207,8 @@
 
     --mt-component-form-select-size: 0.9em;
 
-    --mt-component-footer-border-color: #e23128;
-    --mt-component-footer-gap: var(--mt-spacing-x1_4);
+    --mt-component-footer-border-color: transparent;
+    --mt-component-footer-gap: var(--mt-spacing-x2);
 
     --mt-component-footnote-border-color: #f1eadf;
 
@@ -297,6 +299,21 @@
     --mt-brand-theme-secondary-bg: #b0c87c;
     --mt-brand-theme-secondary-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-secondary-action-color: var(--mt-color-text-neutral-default);
+}
+
+.mt2023 .mmm-brand-theme4 {
+    --mt-brand-theme-bg: var(--mt-granskog);
+    --mt-brand-theme-color: var(--mt-lav);
+    --mt-brand-theme-main-bg: #ffffff;
+    --mt-brand-theme-main-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-main-action-color: var(--mt-color-text-action-default);
+    --mt-brand-theme-secondary-bg: #b0c87c;
+    --mt-brand-theme-secondary-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-secondary-action-color: var(--mt-color-text-neutral-default);
+    --mt-color-text-action-default: var(--mt-lav);
+    --mt-typography-decoration-action-default: underline;
+    --mt-color-border-action-active: var(--mt-lav);
+    --mt-typography-decoration-action-active: none;
 }
 
 .mmm .mmm-theme-toggled {display: none;}

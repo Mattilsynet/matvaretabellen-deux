@@ -27,18 +27,20 @@ window.onerror = function(message) {
     (list [:script {:type "text/javascript"} report-errors-to-tracer]))
    (into
     body
-    (list [:div.mmm-container.mmm-section
-           (CompactSiteFooter)]
-          [:img {:data-src (str "https://mattilsynet.matomo.cloud/matomo.php?idsite="
-                                (:matomo/site-id context)
-                                "&rec=1"
-                                "&url={url}"
-                                "&action_name={title}"
-                                "&ua={ua}"
-                                "&urlref={referrer}")
-                 :id "mvt-tracking-pixel"
-                 :style "border:0"
-                 :alt ""}]))])
+    (list
+     [:div.mmm-themed.mmm-brand-theme4
+      [:div.mmm-container
+       (CompactSiteFooter (:app/config context))]
+      [:img {:data-src (str "https://mattilsynet.matomo.cloud/matomo.php?idsite="
+                            (:matomo/site-id context)
+                            "&rec=1"
+                            "&url={url}"
+                            "&action_name={title}"
+                            "&ua={ua}"
+                            "&urlref={referrer}")
+             :id "mvt-tracking-pixel"
+             :style "border:0"
+             :alt ""}]]))])
 
 (defn prepare-header-links [locale get-current-url]
   (let [current-url (get-current-url locale)]
