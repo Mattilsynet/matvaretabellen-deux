@@ -36,7 +36,8 @@
      :css-paths ["/css/theme-mt90s.css"
                  "/css/theme-mt2023.css"
                  "/css/mmm.css"
-                 "/css/matvaretabellen.css"]
+                 "/css/matvaretabellen.css"
+                 "/mtds/styles.css"]
      :background/options [{:id :mt90s-mode
                            :title "Mattilsynet 90s"
                            :value {:background/background-color "#fff"

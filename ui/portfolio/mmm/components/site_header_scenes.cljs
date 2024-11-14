@@ -16,3 +16,12 @@
   (SiteHeader {:home-url "#"
                :extra-link {:text "In English"
                             :url "#"}}))
+
+(defscene new-header-with-link
+  :canvas/layout {:kind :rows
+                  :xs [{:viewport/padding [0 0 0 0]}]}
+  (SiteHeader
+   {:theme "mt2023"
+    :home-url "#"
+    :extra-link {:text "In English"
+                 :url "#"}}))
