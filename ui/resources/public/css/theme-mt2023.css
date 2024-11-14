@@ -211,8 +211,8 @@
 
     --mt-component-footnote-border-color: #f1eadf;
 
-    --mt-component-header-border-color: #e23128;
-    --mt-component-header-logo-color: #e23128;
+    --mt-component-header-border-color: transparent;
+    --mt-component-header-logo-color: var(--mt-granskog);
     --mt-component-header-background-color: #ffffff;
 
     --mt-component-hover-popup-padding: var(--mt-spacing-box-padding-s);

@@ -7,12 +7,14 @@
 .mmm ::after {
     box-sizing: border-box;
     border: none;
+}
+
+.mmm * {
     margin: 0;
     padding: 0;
 }
 
 .mmm {
-    font-family: var(--mt-font-family-main), system-ui, sans-serif;
     /* Prevent adjustments of font size after orientation changes in iOS. */
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
@@ -27,6 +29,7 @@ body.mmm {
     background: var(--mt-color-background-default);
     color: var(--mt-color-text-neutral-default);
     margin: 0;
+    font-size: 1rem;
 }
 
 /************************
@@ -1364,6 +1367,10 @@ a.mmm-button-secondary:link {
 .mmm-header .mmm-svg {
     color: var(--mt-component-header-logo-color);
     height: 28.8px;
+}
+
+.mmm-header .mtds-logo {
+    font-size: 1.72rem;
 }
 
 /***********************************
