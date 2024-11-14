@@ -6,6 +6,17 @@
     --mt-font-family-main: avenir;
 
     --mt-lav: #e2f1df;
+    --mt-bekk: #cde5f2;
+    --mt-nype: #f9c4aa;
+    --mt-lys-furu: #9bcab9;
+    --mt-blå-himmel: #9ecced;
+
+    --mt-color-fat: var(--mt-lys-furu);
+    --mt-color-carbs: var(--mt-granskog);
+    --mt-color-protein: var(--mt-nype);
+    --mt-color-water: var(--mt-blå-himmel);
+    --mt-color-fiber: var(--mt-bekk);
+    --mt-color-alco: var(--mt-lav);
 
     --mt-font-weight-light: 300;
     --mt-font-weight-normal: 400;
@@ -193,6 +204,9 @@
     --mt-component-button-secondary-color: var(--mt-color-surface-action-default);
     --mt-component-button-secondary-border: var(--mt-color-surface-action-default);
 
+    --mt-component-card-border-radius: 8px;
+    --mt-component-card-border: 1px solid rgba(5, 68, 73, 0.10);
+
     --mt-component-checkbox-inactive-bg: #ffffff;
     --mt-component-checkbox-inactive-color: #afab89800;
     --mt-component-checkbox-active-color: #075b7a;
@@ -275,7 +289,7 @@
 
 .mt2023, /* Default theme */
 .mt2023 .mmm-brand-theme1 {
-    --mt-brand-theme-bg: #f1eadf;
+    --mt-brand-theme-bg: var(--mt-lav);
     --mt-brand-theme-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-main-bg: #ffffff;
     --mt-brand-theme-main-color: var(--mt-color-text-neutral-default);
@@ -286,14 +300,25 @@
 }
 
 .mt2023 .mmm-brand-theme2 {
-    --mt-brand-theme-bg: #d6e8ed;
+    --mt-brand-theme-bg: var(--mt-lav);
     --mt-brand-theme-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-main-bg: #ffffff;
     --mt-brand-theme-main-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-main-action-color: var(--mt-color-text-action-default);
-    --mt-brand-theme-secondary-bg: #075b7a;
-    --mt-brand-theme-secondary-color: #ffffff;
-    --mt-brand-theme-secondary-action-color: #ffffff;
+    --mt-brand-theme-secondary-bg: #ffffff;
+    --mt-brand-theme-secondary-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-secondary-action-color: var(--mt-color-text-action-default);
+}
+
+.mt2023 .mmm-brand-theme2b {
+    --mt-brand-theme-bg: var(--mt-color-background-default);
+    --mt-brand-theme-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-main-bg: #ffffff;
+    --mt-brand-theme-main-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-main-action-color: var(--mt-color-text-action-default);
+    --mt-brand-theme-secondary-bg: #ffffff;
+    --mt-brand-theme-secondary-color: var(--mt-color-text-neutral-default);
+    --mt-brand-theme-secondary-action-color: var(--mt-color-text-action-default);
 }
 
 .mt2023 .mmm-brand-theme3 {
