@@ -28,14 +28,13 @@
     --mt-color-surface-danger-default: #a41d16;
     --mt-color-surface-danger-no-fill: #ffffff;
     --mt-color-surface-danger-no-fill-hover: #f9d6d4;
-    --mt-color-text-neutral-default: #3f3e3e;
+    --mt-color-text-neutral-default: var(--mt-granskog);
     --mt-color-text-neutral-on-inverted: #ffffff;
-    --mt-color-text-action-default: #075b7a;
+    --mt-color-text-action-default: var(--mt-mork-granskog);
     --mt-color-text-danger-default: #3f3e3e;
     --mt-color-text-success-default: #3f3e3e;
     --mt-color-text-status-warning: #3f3e3e;
-    --mt-color-border-action-default: #348ba3;
-    --mt-color-border-action-active: #075b7a;
+    --mt-color-border-action-active: var(--mt-granskog);
     --mt-color-border-neutral-default: #afab89800;
     --mt-color-border-info-default: #3f3e3e;
     --mt-color-border-success-default: #b0c87c;
