@@ -1,5 +1,6 @@
 (ns matvaretabellen.layout
-  (:require [matvaretabellen.crumbs :as crumbs]
+  (:require [clojure.java.io :as io]
+            [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.button :refer [Button]]
@@ -19,6 +20,17 @@ window.onerror = function(message) {
   xhr.send();
 };
 ")
+
+(defn render-illustration [illustration]
+  [:svg.mvt-illustration
+   {:viewBox (->> illustration
+                  (str "public")
+                  io/resource
+                  slurp
+                  (re-find #"viewBox=\"([^\"]+)\"")
+                  last)
+    :xmlns "http://www.w3.org/2000/svg"}
+   [:use {:xlink:href (str illustration "#illustration")}]])
 
 (defn layout [context _page head body]
   [:html {:class [:mmm (:app/theme (:app/config context))]}

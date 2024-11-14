@@ -136,7 +136,7 @@
                         :secondary? true})])]
            (when (and desc illustration) ;; looks horrible without text
              [:aside.mmm-desktop {:style {:flex-basis "40%"}}
-              [:img {:src illustration :width 300}]])]])]
+              (layout/render-illustration illustration)])]])]
 
       (when (seq foods)
         (let [sidebar (render-sidebar (:app/db context) nutrient foods locale)]

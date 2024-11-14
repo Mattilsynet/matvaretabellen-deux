@@ -52,9 +52,8 @@
                     :inline? true
                     :secondary? true})]]
          [:aside.mmm-desktop {:style {:flex-basis "40%"}}
-          [:img {:src "/images/illustrations/alle-matvaregrupper.svg"
-                 :width 300}]]]]]
-      [:div.mmm-themed.mmm-brand-theme2
+          (layout/render-illustration "/images/illustrations/alle-matvaregrupper.svg")]]]]
+      [:div.mmm-themed.mmm-brand-theme2b
        (for [[category groups] (->> (group-by :food-group/category food-groups)
                                     (sort-by (comp :category/order first)))]
          [:div.mmm-container.mmm-section.mmm-vert-layout-s.mmm-mobile-phn

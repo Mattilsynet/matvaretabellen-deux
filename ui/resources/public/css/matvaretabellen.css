@@ -265,3 +265,8 @@
     width: 16px;
     margin-left: 16px;
 }
+
+.mvt-illustration {
+    width: 300px;
+    color: var(--mt-color-illustration-fill);
+}

@@ -72,6 +72,7 @@
     --mt-color-icon-primary: var(--mt-color-blue-900);
     --mt-color-icon-primary-inverted: var(--mt-color-white);
     --mt-color-icon-status-danger: var(--mt-color-red-500);
+    --mt-color-illustration-fill: #2A5473;
     --mt-color-border-status-success: var(--mt-color-green-500);
     --mt-color-border-status-warning: var(--mt-color-orange-500);
     --mt-color-border-status-info: var(--mt-color-blue-500);

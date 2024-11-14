@@ -117,8 +117,7 @@
                     :inline? true
                     :secondary? true})]]
          [:aside.mmm-desktop {:style {:flex-basis "40%"}}
-          [:img {:src (:food-group/illustration details)
-                 :width 300}]]]]]
+          (layout/render-illustration (:food-group/illustration details))]]]]
 
       (let [sidebar (render-sidebar (:app/db context) food-group foods locale)]
         [:div.mmm-container.mmm-section.mmm-mobile-phn

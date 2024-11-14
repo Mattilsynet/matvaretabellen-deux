@@ -52,6 +52,7 @@
     --mt-color-icon-primary: var(--mt-color-blue-900); 
     --mt-color-icon-primary-inverted: #ffffff;
     --mt-color-icon-status-danger: #a41d16;
+    --mt-color-illustration-fill: var(--mt-granskog);
     --mt-color-border-status-success: #b0c87c;
     --mt-color-border-status-warning: #efa60b;
     --mt-color-border-status-info: #075b7a;
