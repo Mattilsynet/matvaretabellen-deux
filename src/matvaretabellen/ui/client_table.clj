@@ -114,7 +114,7 @@
       (icons/render :fontawesome.solid/arrow-down-short-wide {:class [:mmm-svg :mvt-asc]})]
      (->> (prepare-foods-table nutrients opt)
           food-page/render-table)
-     [:div.mmm-buttons.mmm-mvm
+     [:div.mmm-buttons.mmm-mvm.mmm-mls
       (Button
        {:text [:i18n ::prev]
         :class [:mvt-prev :mmm-hidden]
