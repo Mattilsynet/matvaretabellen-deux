@@ -1502,8 +1502,8 @@ a.mmm-button-secondary:link {
 
 .mmm-tabs {
     display: inline-flex;
-    background: var(--mt-brand-theme-secondary-bg);
-    color: var(--mt-brand-theme-secondary-color);
+    background: var(--mt-component-tabs-bg);
+    color: var(--mt-component-tabs-color);
     border-radius: 0.25em 0.25em 0 0;
     padding: 2px;
     gap: 2px;
@@ -1519,9 +1519,9 @@ a.mmm-button-secondary:link {
 }
 
 .mmm-tabs .tab.selected {
-    background: var(--mt-brand-theme-main-bg);
+    background: var(--mt-component-tabs-selected-bg);
     border-radius: 0.18em 0.18em 0 0;
-    color: var(--mt-brand-theme-color);
+    color: var(--mt-component-tabs-selected-color);
     cursor: default;
     margin-bottom: -2px;
 }

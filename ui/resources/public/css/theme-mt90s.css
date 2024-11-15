@@ -279,6 +279,11 @@
     --mt-component-table-tbody-th-font-size: var(--mt-typography-small-font-size);
     --mt-component-table-tbody-th-font-weight: var(--mt-font-weight-normal);
 
+    --mt-component-tabs-bg: var(--mt-color-blue-500);
+    --mt-component-tabs-color: var(--mt-color-white);
+    --mt-component-tabs-selected-bg: var(--mt-color-white);
+    --mt-component-tabs-selected-color: var(--mt-color-text-neutral-default);
+
     --mt-component-toc-icon-color: var(--mt-color-blue-200);
     --mt-component-toc-border-color: var(--mt-color-beige-500);
 

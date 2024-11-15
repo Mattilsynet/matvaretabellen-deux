@@ -142,13 +142,12 @@
     [:div.mmm-container.mmm-mobile-mtn.mmm-mobile-pan
      [:div.mmm-mvl
       [:div.mmm-flex.mmm-desktop
-       [:div.mmm-brand-theme2
-        (PillTabs
-         {:tabs [{:text [:i18n ::columnwise]
-                  :selected? true
-                  :data-tab-target "#columnwise"}
-                 {:text [:i18n ::rowwise]
-                  :data-tab-target "#rowwise"}]})]
+       (PillTabs
+        {:tabs [{:text [:i18n ::columnwise]
+                 :selected? true
+                 :data-tab-target "#columnwise"}
+                {:text [:i18n ::rowwise]
+                 :data-tab-target "#rowwise"}]})
        [:p.mmm-p.mmm-desktop.mmm-flex.mmm-flex-gap
         (client-table/render-download-csv-button)
         (render-share-button (:page/locale page))]]]]
