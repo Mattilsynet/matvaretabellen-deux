@@ -310,7 +310,7 @@
     --mt-brand-theme-secondary-action-color: var(--mt-color-text-action-default);
 }
 
-.mt2023 .mmm-brand-theme2b {
+.mt2023 .mmm-brand-theme3 {
     --mt-brand-theme-bg: var(--mt-color-background-default);
     --mt-brand-theme-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-main-bg: #ffffff;
@@ -319,17 +319,6 @@
     --mt-brand-theme-secondary-bg: #ffffff;
     --mt-brand-theme-secondary-color: var(--mt-color-text-neutral-default);
     --mt-brand-theme-secondary-action-color: var(--mt-color-text-action-default);
-}
-
-.mt2023 .mmm-brand-theme3 {
-    --mt-brand-theme-bg: #dfe9cb;
-    --mt-brand-theme-color: var(--mt-color-text-neutral-default);
-    --mt-brand-theme-main-bg: #ffffff;
-    --mt-brand-theme-main-color: var(--mt-color-text-neutral-default);
-    --mt-brand-theme-main-action-color: var(--mt-color-text-action-default);
-    --mt-brand-theme-secondary-bg: #b0c87c;
-    --mt-brand-theme-secondary-color: var(--mt-color-text-neutral-default);
-    --mt-brand-theme-secondary-action-color: var(--mt-color-text-neutral-default);
 }
 
 .mt2023 .mmm-brand-theme4 {

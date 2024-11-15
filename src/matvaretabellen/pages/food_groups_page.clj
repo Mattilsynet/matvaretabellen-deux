@@ -53,7 +53,7 @@
                     :secondary? true})]]
          [:aside.mmm-desktop {:style {:flex-basis "40%"}}
           (layout/render-illustration "/images/illustrations/alle-matvaregrupper.svg")]]]]
-      [:div.mmm-themed.mmm-brand-theme2b
+      [:div.mmm-themed.mmm-brand-theme3
        (for [[category groups] (->> (group-by :food-group/category food-groups)
                                     (sort-by (comp :category/order first)))]
          [:div.mmm-container.mmm-section.mmm-vert-layout-s.mmm-mobile-phn

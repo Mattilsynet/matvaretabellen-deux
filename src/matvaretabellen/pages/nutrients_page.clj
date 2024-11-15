@@ -43,7 +43,7 @@
                 {:count (count nutrients)}]]]]
          [:aside.mmm-desktop {:style {:flex-basis "40%"}}
           (layout/render-illustration "/images/illustrations/alle-naeringsstoffer.svg")]]]]
-      [:div.mmm-themed.mmm-brand-theme2b
+      [:div.mmm-themed.mmm-brand-theme3
        (for [[category groups] (->> nutrients
                                     (filter :nutrient/category)
                                     (group-by :nutrient/category)
