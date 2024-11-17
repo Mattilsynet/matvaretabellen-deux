@@ -209,7 +209,7 @@
 
     --mt-component-checkbox-inactive-bg: #ffffff;
     --mt-component-checkbox-inactive-color: #afab89800;
-    --mt-component-checkbox-active-color: #075b7a;
+    --mt-component-checkbox-active-color: var(--mt-granskog);
     --mt-component-checkbox-border-color: var(--mt-granskog);
     --mt-component-checkbox-size: 24px;
     --mt-component-checkbox-size-s: 16px;
@@ -261,7 +261,7 @@
 
     --mt-component-table-background: #fdfbf9;
     --mt-component-table-background-zebra: #fdfbf9;
-    --mt-component-table-background-hover: var(--mt-sand);
+    --mt-component-table-background-hover: var(--mt-lav);
     --mt-component-table-background-highlight: #cde5f2;
     --mt-component-table-cell-padding: var(--mt-spacing-x1_4);
     --mt-component-table-cell-border-color: #b0c1c0;
