@@ -41,9 +41,7 @@ window.onerror = function(message) {
    (into
     body
     (list
-     [:div.mmm-themed.mmm-brand-theme4
-      [:div.mmm-container
-       (CompactSiteFooter (:app/config context))]
+     [:div.mmm-themed.mmm-brand-theme4.mmm-ase
       [:img {:data-src (str "https://mattilsynet.matomo.cloud/matomo.php?idsite="
                             (:matomo/site-id context)
                             "&rec=1"
@@ -53,7 +51,9 @@ window.onerror = function(message) {
                             "&urlref={referrer}")
              :id "mvt-tracking-pixel"
              :style "border:0"
-             :alt ""}]]))])
+             :alt ""}]
+      [:div.mmm-container
+       (CompactSiteFooter (:app/config context))]]))])
 
 (defn prepare-header-links [locale get-current-url]
   (let [current-url (get-current-url locale)]

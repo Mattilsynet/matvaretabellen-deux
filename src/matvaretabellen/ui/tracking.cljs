@@ -4,14 +4,14 @@
 (defn track [url title]
   (when-let [pixel (js/document.getElementById "mvt-tracking-pixel")]
     (let [template (.cloneNode pixel)]
-      (set! (.-id template) nil)
+      (.removeAttribute template "id")
       (set! (.-src template)
             (-> (.getAttribute template "data-src")
                 (.replace "{url}" (js/encodeURIComponent url))
                 (.replace "{title}" (js/encodeURIComponent title))
                 (.replace "{ua}" (js/encodeURIComponent js/navigator.userAgent))
                 (.replace "{referrer}" (js/encodeURIComponent js/document.referrer))))
-      (.appendChild js/document.body template)
+      (.insertBefore (.-parentNode pixel) template pixel)
       (println "track" url title 'referrer js/document.referrer 'UA js/navigator.userAgent))))
 
 (defn track-page-view []
