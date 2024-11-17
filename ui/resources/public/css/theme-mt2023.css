@@ -28,45 +28,12 @@
 
     --mt-color-background-default: var(--mt-gaasunge);
     --mt-color-surface-default: #ffffff;
-    --mt-color-surface-subtle: #f9f6f1;
     --mt-color-surface-action-default: var(--mt-granskog);
-    --mt-color-surface-action-hover: #3f3e3e;
-    --mt-color-surface-success-subtle: #dfe9cb;
-    --mt-color-surface-success-default: #b0c87c;
-    --mt-color-surface-info-subtle: #d6e8ed;
-    --mt-color-surface-info-default: #075b7a;
-    --mt-color-surface-warning-subtle: #fae4b6;
-    --mt-color-surface-warning-default: #efa60b;
-    --mt-color-surface-danger-subtle: #f9d6d4;
-    --mt-color-surface-danger-default: #a41d16;
-    --mt-color-surface-danger-no-fill: #ffffff;
-    --mt-color-surface-danger-no-fill-hover: #f9d6d4;
     --mt-color-text-neutral-default: var(--mt-granskog);
     --mt-color-text-neutral-on-inverted: #ffffff;
     --mt-color-text-action-default: var(--mt-mork-granskog);
-    --mt-color-text-danger-default: #3f3e3e;
-    --mt-color-text-success-default: #3f3e3e;
-    --mt-color-text-status-warning: #3f3e3e;
     --mt-color-border-action-active: var(--mt-granskog);
-    --mt-color-border-neutral-default: #afab89800;
-    --mt-color-border-info-default: #3f3e3e;
-    --mt-color-border-success-default: #b0c87c;
-    --mt-color-border-danger-default: #a41d16;
-    --mt-color-border-warning-default: #efa60b;
-    --mt-color-border-on-inverted-default: #ffffff;
-    --mt-color-border-on-inverted-hover: #ffffff;
-    --mt-color-border-on-inverted-active: #afab89800;
-    --mt-color-border-input-default: #afab89800;
-    --mt-color-border-input-hover: #075b7a;
-    --mt-color-border-input-active: #348ba3;
-    --mt-color-icon: #3f3e3e;
-    --mt-color-icon-primary: var(--mt-color-blue-900); 
-    --mt-color-icon-primary-inverted: #ffffff;
-    --mt-color-icon-status-danger: #a41d16;
     --mt-color-illustration-fill: var(--mt-granskog);
-    --mt-color-border-status-success: #b0c87c;
-    --mt-color-border-status-warning: #efa60b;
-    --mt-color-border-status-info: #075b7a;
 
     --mt-typography-small-font-size: 16px;
     --mt-typography-base-font-size: 18px;
@@ -195,7 +162,7 @@
 
     --mt-component-button-background: var(--mt-color-surface-action-default);
     --mt-component-button-color: var(--mt-color-text-neutral-on-inverted);
-    --mt-component-button-disabled-background: #348ba3;
+    --mt-component-button-disabled-background: rgba(5, 68, 73, 0.10);
     --mt-component-button-disabled-color: var(--mt-color-text-neutral-on-inverted);
     --mt-component-button-font-size: 1.125rem;
     --mt-component-button-border-radius: 0.25em;
@@ -248,7 +215,7 @@
     --mt-component-icon-button-size-small: 32px;
     --mt-component-icon-button-size-medium: 48px;
     --mt-component-icon-button-border-radius: var(--mt-border-radius-s);
-    --mt-component-icon-button-active-color: #075b7a;
+    --mt-component-icon-button-active-color: var(--mt-granskog);
     --mt-component-icon-button-active-background: var(--mt-lav);
 
     --mt-component-list-nested-margin-top: 0.25em;
@@ -278,7 +245,7 @@
     --mt-component-tabs-selected-bg: #ffffff;
     --mt-component-tabs-selected-color: var(--mt-color-text-neutral-default);
 
-    --mt-component-toc-icon-color: #348ba3;
+    --mt-component-toc-icon-color: var(--mt-granskog);
     --mt-component-toc-border-color: #afab89800;
 
     --mt-component-legend-color-outline: #3f3e3e;
