@@ -32,8 +32,7 @@
             (constantly (:page/uri page))))
       (layout/render-toolbar
        {:locale locale
-        :crumbs [{:text [:i18n :i18n/search-label]
-                  :url (urls/get-base-url locale)}]})
+        :crumbs []})
       [:div.mmm-container-medium.mmm-section.mmm-text.mmm-vert-layout-m
        (-> (:page/body page)
            (replace-placeholders food-db locale infos)
