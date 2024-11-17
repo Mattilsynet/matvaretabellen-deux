@@ -329,7 +329,7 @@ table.mmm-table-zebra tr.mmm-highlight {
     border-right: var(--mt-component-table-cell-border-h-width) solid var(--mt-component-table-cell-border-color);
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 779px) {
     .mmm {
         --mt-component-table-cell-padding: var(--mt-spacing-x1)
     }
@@ -603,7 +603,7 @@ tbody td.mmm-sticky-hor {
     --mt-grid-column-width: var(--mt-grid-mobile-column-width);
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 780px) {
     .mmm-mobile-scroll {
         overflow-x: scroll;
     }
@@ -613,7 +613,7 @@ tbody td.mmm-sticky-hor {
     }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 779px) {
     .mmm .mmm-mobile {
         display: none;
     }
@@ -674,7 +674,7 @@ tbody td.mmm-sticky-hor {
     flex-basis: 80%;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 780px) {
     .mmm-cols-d3m2 {
         flex-basis: 30%;
     }
@@ -740,7 +740,7 @@ tbody td.mmm-sticky-hor {
     justify-content: space-between;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 780px) {
     .mmm-flex-desktop {
         display: flex;
         justify-content: space-between;
@@ -795,7 +795,7 @@ tbody td.mmm-sticky-hor {
     gap: var(--mt-column-gap);
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 780px) {
     .mmm-media-d {
         flex-direction: row;
         align-items: center;
@@ -803,7 +803,7 @@ tbody td.mmm-sticky-hor {
     }
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 779px) {
     .mmm-media-stamp {
         display: block;
     }
@@ -889,7 +889,7 @@ tbody td.mmm-sticky-hor {
     flex-grow: 3;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 780px) {
     .mmm-threecol,
     .mmm-cols {
         flex-direction: row;
@@ -920,7 +920,7 @@ tbody td.mmm-sticky-hor {
     justify-content: space-between;
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 779px) {
     .mmm-mobile-vert-layout-m {
         display: flex;
         flex-direction: column;
@@ -1040,7 +1040,7 @@ tbody td.mmm-sticky-hor {
     text-decoration: none;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 780px) {
     .mmm-banner-media-buttons .mmm-container {
         flex-direction: row;
     }
@@ -1092,7 +1092,7 @@ tbody td.mmm-sticky-hor {
 .mmm-pan, .mmm-pvn, .mmm-ptn {padding-top: 0;}
 .mmm-pan, .mmm-pvn, .mmm-pbn {padding-bottom: 0;}
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 779px) {
     .mmm-mobile-pan, .mmm-mobile-phn, .mmm-mobile-pln {padding-left: 0;}
     .mmm-mobile-pan, .mmm-mobile-phn, .mmm-mobile-prn {padding-right: 0;}
     .mmm-mobile-pan, .mmm-mobile-pvn, .mmm-mobile-ptn {padding-top: 0;}
@@ -1361,7 +1361,7 @@ a.mmm-button-secondary:link {
     flex-grow: 1;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 780px) {
     .mmm-footer {
         flex-direction: row;
         padding: 3.3rem 0 3rem;
