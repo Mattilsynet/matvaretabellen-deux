@@ -28,8 +28,17 @@
 body.mmm {
     background: var(--mt-color-background-default);
     color: var(--mt-color-text-neutral-default);
+    display: flex;
     margin: 0;
+    min-height: 100vh;
     font-size: 1rem;
+    flex-direction: column;
+    align-items: baseline;
+}
+
+.mmm body > *,
+body.mmm > * {
+    width: 100%;
 }
 
 /************************

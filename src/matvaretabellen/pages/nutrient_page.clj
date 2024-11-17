@@ -106,7 +106,7 @@
        {:locale locale
         :app/config (:app/config context)}
        #(urls/get-nutrient-url % nutrient))
-      [:div.mmm-themed.mmm-brand-theme1
+      [:div.mmm-themed.mmm-brand-theme1.mmm-flex-grow
        (layout/render-toolbar
         {:locale locale
          :crumbs [{:text [:i18n ::crumbs/all-nutrients]

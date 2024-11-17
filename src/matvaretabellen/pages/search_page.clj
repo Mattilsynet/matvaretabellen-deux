@@ -33,7 +33,7 @@
      (client-table/render-download-csv-button)
      [:p.mmm-p.mmm-mts.mmm-small.mvt-clear-downloads.mmm-hidden
       [:a.mmm-link [:i18n ::clear-download]]]]
-    [:div.mmm-mobile-phn
+    [:div.mmm-mobile-phn.mmm-flex-grow
      (client-table/render-column-settings (:foods/db context))
      (client-table/render-food-group-settings context page)
      [:div.mmm-container-spacing.mmm-mtm
