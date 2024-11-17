@@ -229,6 +229,9 @@
     --mt-component-drawer-background: var(--mt-color-white);
     --mt-component-drawer-border-color: var(--mt-color-red-200);
 
+    --mt-component-fadeout-background-from: rgba(214, 232, 237, 1);
+    --mt-component-fadeout-background-to: rgba(214, 232, 237, 0);
+
     --mt-component-form-field-border: var(--mt-color-beige-500);
     --mt-component-form-field-background: var(--mt-color-white);
     --mt-component-form-field-padding-h: 0.75em;

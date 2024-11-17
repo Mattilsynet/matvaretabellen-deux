@@ -1306,11 +1306,11 @@ a.mmm-button-secondary:link {
 
 @keyframes fadeout {
     0% {
-        background-color: rgba(214, 232, 237, 1);
+        background-color: var(--mt-component-fadeout-background-from);
     }
 
     100% {
-        background-color: rgba(214, 232, 237, 0);
+        background-color: var(--mt-component-fadeout-background-to);
     }
 }
 

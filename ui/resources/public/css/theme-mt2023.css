@@ -220,6 +220,9 @@
     --mt-component-drawer-background: #ffffff;
     --mt-component-drawer-border-color: var(--mt-granskog);
 
+    --mt-component-fadeout-background-from: #e2f1dfff;
+    --mt-component-fadeout-background-to: #e2f1df00;
+
     --mt-component-form-field-border: var(--mt-granskog);
     --mt-component-form-field-background: #ffffff;
     --mt-component-form-field-padding-h: 0.75em;
