@@ -152,6 +152,9 @@
     --mt-component-ac-background: var(--mt-component-form-field-background);
     --mt-component-ac-border-color: var(--mt-component-form-field-border);
     --mt-component-ac-active-background: var(--mt-lav);
+    --mt-component-ac-result-font-size: 0.9em;
+    --mt-component-ac-result-padding-h: 0.75em;
+    --mt-component-ac-result-padding-v: 0.5em;
 
     --mt-component-banner-media-buttons-button-border-radius: 8px;
     --mt-component-banner-media-buttons-container-border-radius: 8px;

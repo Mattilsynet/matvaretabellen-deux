@@ -539,6 +539,10 @@ tbody td.mmm-sticky-hor {
     border-bottom-right-radius: 0;
 }
 
+.mmm-action-input:has(~ u-datalist:not([hidden]) u-option) :first-child {
+    border-bottom-left-radius: 0;
+}
+
 .mmm-action-input :last-child {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -564,11 +568,11 @@ tbody td.mmm-sticky-hor {
     left: 0;
     list-style-type: none;
     margin-block-start: 0;
-    margin-top: -2px;
+    margin-top: -1px;
     padding-inline-start: 0;
-    padding-top: 3px;
     position: absolute;
     right: 0;
+    z-index: 10;
 }
 
 .mmm-ac-result {
@@ -580,7 +584,8 @@ tbody td.mmm-sticky-hor {
 u-option.mmm-ac-result,
 option.mmm-ac-result {
     display: block;
-    padding: var(--mt-component-form-field-padding-h);
+    font-size: var(--mt-component-ac-result-font-size);
+    padding: var(--mt-component-ac-result-padding-h) var(--mt-component-ac-result-padding-v);
     text-decoration: none;
     font-weight: inherit;
     color: inherit;
