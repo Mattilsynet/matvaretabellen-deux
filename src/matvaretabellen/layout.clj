@@ -41,7 +41,7 @@ window.onerror = function(message) {
    (into
     body
     (list
-     [:div.mmm-themed.mmm-brand-theme4.mmm-ase
+     [:div.mmm-themed.mmm-brand-theme4
       [:img {:data-src (str "https://mattilsynet.matomo.cloud/matomo.php?idsite="
                             (:matomo/site-id context)
                             "&rec=1"
