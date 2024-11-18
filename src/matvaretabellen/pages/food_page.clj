@@ -545,11 +545,13 @@
          [:li [:i18n ::food-id {:id (:food/id food)}]]
          (when-let [latin-name (not-empty (:food/latin-name food))]
            [:li [:i18n ::scientific-name {:name latin-name}]])]
-        [:p [:i18n ::classification-intro
-             {:langual-url "https://www.langual.org/"}]]
-        (->> (food/get-langual-codes food)
-             prepare-langual-table
-             render-table)]]
+        (when-let [langual-codes (seq (food/get-langual-codes food))]
+          (list
+           [:p [:i18n ::classification-intro
+                {:langual-url "https://www.langual.org/"}]]
+           (->> langual-codes
+                prepare-langual-table
+                render-table)))]]
 
       [:div.mmm-container.mmm-section-spaced
        [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
