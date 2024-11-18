@@ -576,7 +576,9 @@ tbody td.mmm-sticky-hor {
     border-bottom: 1px solid var(--mt-component-ac-border-color);
 }
 
-.mmm-ac-result a {
+.mmm-ac-result a,
+u-option.mmm-ac-result,
+option.mmm-ac-result {
     display: block;
     padding: var(--mt-component-form-field-padding-h);
     text-decoration: none;
@@ -584,8 +586,10 @@ tbody td.mmm-sticky-hor {
     color: inherit;
 }
 
-.mmm-ac-selected a {
+.mmm-ac-selected a,
+u-option.mmm-ac-result:focus {
     background: var(--mt-component-ac-active-background);
+    outline-color: var(--mt-component-ac-border-color);
 }
 
 .mmm-search-input-compact .mmm-ac-results {

@@ -19,6 +19,8 @@
 /.clj-kondo/magnars.com/
 /.clj-kondo/no.cjohansen/
 /ui/resources/fontawesome-icons/
+/ui/resources/public/js/compiled
 /tracer/.cpcache/
 /tracer/target/
 /docker/tracer.jar
+/dev-resources/dev-assets/

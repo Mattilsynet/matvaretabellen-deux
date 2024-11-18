@@ -99,57 +99,33 @@
                                       (remove-watch search-engine id)))))
     (f)))
 
-(defn handle-autocomplete-input-event [e element locale]
-  (let [q (.-value (.-target e))
-        n (or (some-> (.-target e) (.getAttribute "data-suggestions") js/parseInt) 10)]
-    (if (< (.-length q) 3)
-      (do
-        (set! (.-innerHTML element) "")
-        (dom/hide element))
-      (do
-        (dom/show element)
-        (if (waiting?)
-          (do (set! (.-innerHTML element) "<li class='mmm-ac-result tac'><span class='mmm-loader'></span></li>")
-              (add-watch search-engine ::waiting-for-load
-                         #(when-not (waiting?)
-                            (remove-watch search-engine ::waiting-for-load)
-                            (handle-autocomplete-input-event e element locale))))
-          (set! (.-innerHTML element)
-                (str/join
-                 (flatten
-                  (for [{:keys [url text]} (take n (search @search-engine q locale))]
-                    ["<li class='mmm-ac-result'>"
-                     ["<a href='" url "'>" text "</a>"]
-                     "</li>"])))))))))
-
-(defn get-target-element [results selected d]
-  (when (< 0 (.-length results))
-    (cond
-      (and selected (= :down d))
-      (.-nextSibling selected)
-
-      (and selected (= :up d))
-      (.-previousSibling selected)
-
-      (= :down d)
-      (aget results 0)
-
-      (= :up d)
-      (aget results (dec (.-length results))))))
-
-(defn navigate-results [element d]
-  (let [selected (.querySelector element ".mmm-ac-selected")
-        target-element (get-target-element (.querySelectorAll element ".mmm-ac-result") selected d)]
-    (when target-element
-      (when selected
-        (.remove (.-classList selected) "mmm-ac-selected"))
-      (.add (.-classList target-element) "mmm-ac-selected"))))
-
-(defn handle-autocomplete-key-event [e element]
-  (case (.-key e)
-    "ArrowUp" (navigate-results element :up)
-    "ArrowDown" (navigate-results element :down)
-    nil))
+(defn handle-autocomplete-input-event [e input element locale]
+  (if-let [url (when-not (.-inputType e)
+                 (some-> e .-target .-value))]
+    (do
+      (set! (.-value input) "")
+      (set! (.. js/window -location -href) url))
+    (let [q (.-value (.-target e))
+          n (or (some-> (.-target e) (.getAttribute "data-suggestions") js/parseInt) 10)]
+      (if (< (.-length q) 3)
+        (do
+          (set! (.-innerHTML element) "")
+          (dom/hide element))
+        (do
+          (dom/show element)
+          (if (waiting?)
+            (do (set! (.-innerHTML element) "<u-option class='mmm-ac-result tac'><span class='mmm-loader'></span></u-option>")
+                (add-watch search-engine ::waiting-for-load
+                           #(when-not (waiting?)
+                              (remove-watch search-engine ::waiting-for-load)
+                              (handle-autocomplete-input-event e input element locale))))
+            (set! (.-innerHTML element)
+                  (str/join
+                   (flatten
+                    (for [{:keys [url text]} (take n (search @search-engine q locale))]
+                      ["<u-option class='mmm-ac-result' value='" url "'>"
+                       text
+                       "</u-option>"]))))))))))
 
 (defn handle-autocomplete-submit-event [e]
   (when-let [selected (.querySelector (.-target e) ".mmm-ac-selected a")]
@@ -159,14 +135,13 @@
 (defn initialize-foods-autocomplete [dom-element locale initial-query]
   (when-let [input (dom/qs dom-element "input")]
     (let [element (dom/qs dom-element ".mmm-ac-results")]
-      (.addEventListener dom-element "input" #(handle-autocomplete-input-event % element locale))
-      (.addEventListener dom-element "keyup" #(handle-autocomplete-key-event % element))
+      (.addEventListener dom-element "input" #(handle-autocomplete-input-event % input element locale))
       (when-let [form (.closest dom-element "form")]
         (.addEventListener form "submit" #(handle-autocomplete-submit-event %)))
       (when (and initial-query (empty? (.-value input)))
         (set! (.-value input) initial-query))
       (when (seq (.-value input))
-        (handle-autocomplete-input-event #js {:target input} element locale)))))
+        (handle-autocomplete-input-event #js {:target input} input element locale)))))
 
 (comment
   (reset! search-engine {:index-status :pending

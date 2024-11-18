@@ -36,7 +36,8 @@
 
                                "/app.js"
                                {:public-dir "public"
-                                :paths ["/js/compiled/app.js"]}}
+                                :paths ["/js/u-datalist.js"
+                                        "/js/compiled/app.js"]}}
 
              :powerpack/build-dir "docker/build"
              :powerpack/content-dir "resources/content"
