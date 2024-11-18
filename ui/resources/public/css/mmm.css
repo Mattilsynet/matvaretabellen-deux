@@ -308,7 +308,9 @@ ol.mmm-unadorned-list li {
 }
 
 .mmm-table-hover tbody tr:hover,
-.mmm-table-hover > tr:hover {
+.mmm-table-hover tbody tr.mmm-highlight:hover,
+.mmm-table-hover > tr:hover,
+.mmm-table-hover > tr.mmm-highlight:hover {
     background-color: var(--mt-component-table-background-hover);
 }
 
