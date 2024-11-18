@@ -151,7 +151,7 @@
 
     --mt-component-ac-background: var(--mt-component-form-field-background);
     --mt-component-ac-border-color: var(--mt-component-form-field-border);
-    --mt-component-ac-active-background: #d6e8ed;
+    --mt-component-ac-active-background: var(--mt-lav);
 
     --mt-component-banner-media-buttons-button-border-radius: 8px;
     --mt-component-banner-media-buttons-container-border-radius: 8px;
