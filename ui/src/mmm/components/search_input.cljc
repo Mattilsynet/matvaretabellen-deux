@@ -13,18 +13,16 @@
        (:name input)
        (assoc :id (:name input))
 
-       (and autocomplete-id
-            (seq results))
+       autocomplete-id
        (assoc :aria-autocomplete "list"
               :autocomplete "off"
               :aria-controls autocomplete-id
               :aria-haspopup "menu")))
     (Button (assoc button :type "submit" :inline? true :size size))]
-   (when (seq results)
-     [:ol.mmm-ac-results {:id autocomplete-id}
-      (for [result results]
-        [:li.mmm-ac-result
-         (when (:selected? result)
-           {:class "mmm-ac-selected"})
-         [:a {:href (:href result)}
-          (:text result)]])])])
+   [:ol.mmm-ac-results.mmm-hidden {:id autocomplete-id}
+    (for [result results]
+      [:u-option.mmm-ac-result
+       (when (:selected? result)
+         {:class "mmm-ac-selected"})
+       [:a {:href (:href result)}
+        (:text result)]])]])

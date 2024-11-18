@@ -103,22 +103,24 @@
   (let [q (.-value (.-target e))
         n (or (some-> (.-target e) (.getAttribute "data-suggestions") js/parseInt) 10)]
     (if (< (.-length q) 3)
-      (set! (.-innerHTML element) "")
-      (if (waiting?)
-        (do (set! (.-innerHTML element) "<ol class='mmm-ac-results'><li class='mmm-ac-result tac'><span class='mmm-loader'></span></li></ol>")
-            (add-watch search-engine ::waiting-for-load
-                       #(when-not (waiting?)
-                          (remove-watch search-engine ::waiting-for-load)
-                          (handle-autocomplete-input-event e element locale))))
-        (set! (.-innerHTML element)
-              (str/join
-               (flatten
-                ["<ol class='mmm-ac-results'>"
-                 (for [{:keys [url text]} (take n (search @search-engine q locale))]
-                   ["<li class='mmm-ac-result'>"
-                    ["<a href='" url "'>" text "</a>"]
-                    "</li>"])
-                 "</ol>"])))))))
+      (do
+        (set! (.-innerHTML element) "")
+        (dom/hide element))
+      (do
+        (dom/show element)
+        (if (waiting?)
+          (do (set! (.-innerHTML element) "<li class='mmm-ac-result tac'><span class='mmm-loader'></span></li>")
+              (add-watch search-engine ::waiting-for-load
+                         #(when-not (waiting?)
+                            (remove-watch search-engine ::waiting-for-load)
+                            (handle-autocomplete-input-event e element locale))))
+          (set! (.-innerHTML element)
+                (str/join
+                 (flatten
+                  (for [{:keys [url text]} (take n (search @search-engine q locale))]
+                    ["<li class='mmm-ac-result'>"
+                     ["<a href='" url "'>" text "</a>"]
+                     "</li>"])))))))))
 
 (defn get-target-element [results selected d]
   (when (< 0 (.-length results))
@@ -156,8 +158,7 @@
 
 (defn initialize-foods-autocomplete [dom-element locale initial-query]
   (when-let [input (dom/qs dom-element "input")]
-    (let [element (js/document.createElement "div")]
-      (.appendChild dom-element element)
+    (let [element (dom/qs dom-element ".mmm-ac-results")]
       (.addEventListener dom-element "input" #(handle-autocomplete-input-event % element locale))
       (.addEventListener dom-element "keyup" #(handle-autocomplete-key-event % element))
       (when-let [form (.closest dom-element "form")]
