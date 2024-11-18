@@ -1205,7 +1205,7 @@
       "parentId": "",
       "structuralLevel": "",
       "id": "Vit A",
-      "name": "Vitamin A",
+      "name": "Vitamin A (RAE)",
       "shortName": "Vit A",
       "euroFIR": "VITA",
       "euroFIRname": "vitamin A; retinol equiv from retinol and carotenoid activities",
@@ -4284,7 +4284,7 @@
     },
     {
       "id": "619",
-      "text": "Jacobsen, J., Danielsen, M., Langwagen, M., Svarc, P.L., Poulsen, A., Trolle, E. Nutrient content in plant-based beverages. DTU Fødevareinstitutet, 2022. Nettversjon, https://www.food.dtu.dk/-/media/institutter/foedevareinstituttet/publikationer/pub-2023/rapport-om-plantedrikke-final_221205.pdf",
+      "text": "Jacobsen, J., Danielsen, M., Langwagen, M., Svarc, P.L., Poulsen, A., Trolle, E. Nutrient content in plant-based beverages. DTU Fødevareinstitutet, 2022. Online version, https://www.food.dtu.dk/-/media/institutter/foedevareinstituttet/publikationer/pub-2023/rapport-om-plantedrikke-final_221205.pdf",
       "referenceType": "R (Report)",
       "acquisitionType": "D (Independent laboratory)",
       "publicationYear": ""
@@ -4312,7 +4312,7 @@
     },
     {
       "id": "623",
-      "text": "Arnemo, M., Mattisson, I., Staffas, A., Strandler, HS. Älgkött - analys av näringsämnen [Rapport 18-2008]. Livsmedelsverket, Uppsala 2008. Nettversjon, https://www.livsmedelsverket.se/globalassets/publikationsdatabas/rapporter/2008/2008_livsmedelsverket_-naringsamnen_i_algkott_.pdf",
+      "text": "Arnemo, M., Mattisson, I., Staffas, A., Strandler, HS. Älgkött - analys av näringsämnen [Rapport 18-2008]. Livsmedelsverket, Uppsala 2008. Online version, https://www.livsmedelsverket.se/globalassets/publikationsdatabas/rapporter/2008/2008_livsmedelsverket_-naringsamnen_i_algkott_.pdf",
       "referenceType": "R (Report)",
       "acquisitionType": "D (Independent laboratory)",
       "publicationYear": "2008"
