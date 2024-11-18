@@ -39,6 +39,8 @@
                                 :paths ["/js/u-datalist.js"
                                         "/js/compiled/app.js"]}}
 
+             :optimus/options {:minify-js-assets? false}
+
              :powerpack/build-dir "docker/build"
              :powerpack/content-dir "resources/content"
              :powerpack/source-dirs ["src" "ui/src" "dev"]
