@@ -335,6 +335,7 @@
 
 .mmm-banner-title {
     text-decoration: underline;
+    font-weight: 600;
 }
 
 .mmm-banner-title:hover {
