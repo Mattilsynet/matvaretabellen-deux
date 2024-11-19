@@ -163,7 +163,7 @@
             :sort-id "FatSolubleVitamins"
             :options
             [{:sort-id "Vit A"
-              :label [:i18n :i18n/lookup {:nb "Vitamin A", :en "Vitamin A"}]
+              :label [:i18n :i18n/lookup {:nb "Vitamin A (RAE)", :en "Vitamin A (RAE)"}]
               :data-filter-id "Vit A"
               :checked? false}
              {:label [:i18n :i18n/lookup {:nb "Vitamin A (RE)", :en "Vitamin A (RE)"}]
