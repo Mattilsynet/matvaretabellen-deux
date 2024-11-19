@@ -8,7 +8,6 @@
     --mt-gaasunge: #faf6f3;
     --mt-granskog: #054449;
     --mt-lys-furu: #9bcab9;
-    --mt-mork-granskog: #032C30;
     --mt-lav: #e2f1df;
     --mt-bekk: #cde5f2;
     --mt-nype: #f9c4aa;
@@ -35,7 +34,7 @@
     --mt-color-surface-action-default: var(--mt-granskog);
     --mt-color-text-neutral-default: var(--mt-granskog);
     --mt-color-text-neutral-on-inverted: #ffffff;
-    --mt-color-text-action-default: var(--mt-mork-granskog);
+    --mt-color-text-action-default: var(--mt-granskog);
     --mt-color-border-action-active: var(--mt-granskog);
     --mt-color-illustration-fill: var(--mt-granskog);
 
