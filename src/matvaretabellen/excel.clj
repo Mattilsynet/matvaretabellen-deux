@@ -88,9 +88,7 @@
    (d/entity db [:nutrient/id "Alko"])])
 
 (defn get-all-food-fields [db locale]
-  (->> (d/q '[:find [?e ...] :where [?e :nutrient/id]]
-            db)
-       (map #(d/entity db %))
+  (->> (nutrient/get-used-nutrients db)
        (remove (comp empty? :nutrient/unit))
        (nutrient/sort-by-preference)
        (into [{:title "Matvare ID" :path [:food/id]}
