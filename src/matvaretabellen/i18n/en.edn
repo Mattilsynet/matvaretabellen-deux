@@ -56,7 +56,7 @@
   :columnwise "Column wise"
   :compare-foods ("Compare" [:span.mmm-desktop " foods"])
   :composition "Composition"
-  :diff-intro "Compare foods nutrient by nutrient. The most marked differences are highlighted with a blue background."
+  :diff-intro "Compare foods nutrient by nutrient."
   :edible-part "Edible part"
   :energy-summary "These foods have ${rating} energy content. There is as much energy in ${reference} as in ${comparisons}."
   :page-title "Compare foods"

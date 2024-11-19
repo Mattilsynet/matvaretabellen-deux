@@ -56,7 +56,7 @@
   :columnwise "Kolonnevis"
   :compare-foods ("Sammenlign" [:span.mmm-desktop " matvarer"])
   :composition "Sammensetning"
-  :diff-intro "Sammenlign matvarer næringsstoff for næringsstoff. De største forskjellene er uthevet med blå bakgrunn."
+  :diff-intro "Sammenlign matvarer næringsstoff for næringsstoff."
   :edible-part "Spiselig del"
   :energy-summary "Disse matvarene har ${rating} energiinnhold. Det er like mye energi i ${reference} som i ${comparisons}."
   :page-title "Sammenlign matvarer"

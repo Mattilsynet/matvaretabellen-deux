@@ -160,10 +160,12 @@
 (defn init-columnwise-comparison [foods table]
   ;; Highlight notably different cells first, so the template will be aptly
   ;; highlighted
-  (highlight-notable-differences table (get-notably-different-nutrients foods))
+  ;; (highlight-notable-differences table (get-notably-different-nutrients foods))
+  ;; Highlights where not well understood by the designers, so disabled for now.
   (doseq [row (dom/qsa table ".mvtc-comparison")]
     ;; Highlight absolutely compared values (energy numbers)
-    (when-let [attr (some-> row (.getAttribute "data-compare-abs") keyword)]
+    ;; Highlights where not well understood by the designers, so disabled for now.
+    #_(when-let [attr (some-> row (.getAttribute "data-compare-abs") keyword)]
       (let [ns (sort (map attr foods))]
         (when (< 1.5 (/ (last ns) (first ns)))
           (dom/add-class row "mmm-highlight"))))
