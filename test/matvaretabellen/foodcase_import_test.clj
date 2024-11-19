@@ -113,7 +113,7 @@
               :measurement/source [:source/id "MI0142"]}
              {:constituent/nutrient [:nutrient/id "Vit A RE"]
               :measurement/source [:source/id "MI0322"]
-              :measurement/quantity #broch/quantity[60.0 "µg-RE"]}
+              :measurement/quantity #broch/quantity[60 "µg-RE"]}
              {:constituent/nutrient [:nutrient/id "Vit A"]
               :measurement/source [:source/id "MI0114"]
               :measurement/quantity #broch/quantity[23.0 "µg-RE"]}

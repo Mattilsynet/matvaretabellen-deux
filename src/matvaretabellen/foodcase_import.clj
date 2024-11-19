@@ -67,7 +67,7 @@
         cartb (get-nutrient-quantity "B-karo"  constituents)]
     (when (and (some-> retol b/num)
                (some-> cartb b/num))
-      (b/quantity #broch/quantity [0 "µg-RE"] (b/num (b/+ retol (b// cartb 6)))))))
+      (b/quantity #broch/quantity [0 "µg-RE"] (int (b/num (b/+ retol (b// cartb 6))))))))
 
 (defn get-vitamin-a-2024 [constituents]
   (let [quantity (calculate-vitamin-a-quantity-2024 constituents)]
