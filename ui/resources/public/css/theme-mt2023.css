@@ -44,22 +44,22 @@
 
     --mt-typograhy-heading-xxs-font-weight: var(--mt-font-weight-bold);
     --mt-typography-heading-xxs-font-size: 1rem;
-    --mt-typography-heading-xxs-line-height: var(--mt-font-line-height-tight);
+    --mt-typography-heading-xxs-line-height: var(--mt-font-line-height-normal);
 
     --mt-typography-heading-xs-font-size: 1.125rem;
-    --mt-typography-heading-xs-line-height: var(--mt-font-line-height-tight);
+    --mt-typography-heading-xs-line-height: var(--mt-font-line-height-normal);
     --mt-typography-heading-xs-font-weight: var(--mt-font-weight-bold);
 
     --mt-typography-heading-s-font-size: 1.25rem;
-    --mt-typography-heading-s-line-height: var(--mt-font-line-height-tight);
-    --mt-typography-heading-s-font-weight: var(--mt-font-weight-normal);
+    --mt-typography-heading-s-line-height: var(--mt-font-line-height-normal);
+    --mt-typography-heading-s-font-weight: var(--mt-font-weight-bold);
 
     --mt-typography-heading-m-font-size: 1.75rem;
-    --mt-typography-heading-m-line-height: var(--mt-font-line-height-tight);
+    --mt-typography-heading-m-line-height: var(--mt-font-line-height-normal);
     --mt-typography-heading-m-font-weight: var(--mt-font-weight-light);
 
     --mt-typography-heading-l-font-size: 2.5rem;
-    --mt-typography-heading-l-line-height: var(--mt-font-line-height-tight);
+    --mt-typography-heading-l-line-height: var(--mt-font-line-height-normal);
     --mt-typography-heading-l-font-weight: var(--mt-font-weight-light);
 
     --mt-typography-preamble-s-font-size: 1.5rem;
