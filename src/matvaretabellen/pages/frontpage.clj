@@ -76,7 +76,7 @@
        {:locale locale
         :app/config (:app/config context)}
        urls/get-base-url)
-      [:form.mmm-container-narrow.mmm-section.mmm-mbxxl.mmm-mtxl
+      [:form.mmm-container-narrow.mmm-section.mmm-mbxl.mmm-mtxl
        {:action (urls/get-search-url locale)
         :method :get}
        [:h1.mmm-h2.mmm-mbm [:i18n :i18n/search-label]]
