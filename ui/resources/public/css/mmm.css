@@ -677,6 +677,13 @@ u-option.mmm-ac-result:focus {
     text-decoration: underline;
 }
 
+.mmm-card.mmm-link .mmm-text h1,
+.mmm-card.mmm-link .mmm-text h2,
+.mmm-card.mmm-link .mmm-text h3,
+.mmm-card.mmm-link .mmm-text h4 {
+    text-decoration: underline;
+}
+
 .mmm-cols-d3m2 { /* 3 on desktop, 2 on mobile */
     flex-basis: 40%;
 }
