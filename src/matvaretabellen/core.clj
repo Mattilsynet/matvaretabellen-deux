@@ -24,7 +24,8 @@
              :datomic/schema-file "resources/app-schema.edn"
 
              :optimus/assets [{:public-dir "public"
-                               :paths [#"/images/*.*"]}]
+                               :paths [#"/images/*.*"
+                                       #"/fonts/*.*"]}]
 
              :optimus/bundles {"styles.css"
                                {:public-dir "public"
