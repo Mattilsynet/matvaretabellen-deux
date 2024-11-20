@@ -186,7 +186,7 @@ jobs:
         with:
           project_id: matvaretabellen-b327
           region: europe-north1
-          service: mvt-next
+          service: matvaretabellen
           image: europe-north1-docker.pkg.dev/artifacts-352708/mat/matvaretabellen:${{ needs.configure.outputs.sha }}
 
   notify-success:
