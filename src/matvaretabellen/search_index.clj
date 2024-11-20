@@ -1,5 +1,6 @@
 (ns matvaretabellen.search-index
   (:require [datomic-type-extensions.api :as d]
+            [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.search :as search]))
 
 (defn index-document
@@ -65,11 +66,7 @@
                index)))
 
 (defn index-nutrients [schema db & [index]]
-  (->> (d/q '[:find [?nutrient ...]
-              :where
-              [?nutrient :nutrient/id]]
-            db)
-       (map #(d/entity db %))
+  (->> (nutrient/get-used-nutrients db)
        (reduce (fn [index nutrient]
                  (index-document index schema (:nutrient/id nutrient) nutrient))
                index)))
