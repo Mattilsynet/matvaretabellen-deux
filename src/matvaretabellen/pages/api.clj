@@ -56,7 +56,7 @@
    :energyKj (some-> food :food/energy :measurement/quantity b/num int)
    :energyKcal (some-> food :food/calories :measurement/observation parse-long)
    :ediblePart (:measurement/percent (:food/edible-part food))
-   :constituents (->> (for [constituent (:food/constituents food)]
+   :constituents (->> (for [constituent (filter :measurement/quantity (:food/constituents food))]
                         [(-> constituent :constituent/nutrient :nutrient/id)
                          (let [quantity (some-> constituent :measurement/quantity b/num)]
                            {:quantity [quantity (or (some-> constituent :measurement/quantity b/symbol) "g")]})])
