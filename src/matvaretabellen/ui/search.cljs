@@ -100,7 +100,7 @@
     (f)))
 
 (defn handle-autocomplete-input-event [e input element locale]
-  (if-let [url (when-not (.-inputType e)
+  (if-let [url (when (and (not (.-inputType e)) (.-type e))
                  (some-> e .-target .-value))]
     (do
       (set! (.-value input) "")
@@ -138,10 +138,11 @@
       (.addEventListener dom-element "input" #(handle-autocomplete-input-event % input element locale))
       (when-let [form (.closest dom-element "form")]
         (.addEventListener form "submit" #(handle-autocomplete-submit-event %)))
-      (when (and initial-query (empty? (.-value input)))
+      (when (and initial-query (some-> input .-value empty?))
         (set! (.-value input) initial-query))
       (when (seq (.-value input))
-        (handle-autocomplete-input-event #js {:target input} input element locale)))))
+        (handle-autocomplete-input-event #js {:target input} input element locale)
+        (js/requestAnimationFrame #(.focus input))))))
 
 (comment
   (reset! search-engine {:index-status :pending
