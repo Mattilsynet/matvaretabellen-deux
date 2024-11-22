@@ -95,8 +95,9 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
 
     ```
     clj -M:dev
-    (require 'matvaretabellen.dev)
-    (matvaretabellen.dev/start)
+    (require 'powerpack.dev)
+    (powerpack.dev/start)
+
     ```
 
 ### Emacs ❤️
