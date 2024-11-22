@@ -86,8 +86,9 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
 
     ```
     clj -M:dev
-    (require '[matvaretabellen.foodcase-import :as foodcase-import])
-    (foodcase-import/create-database-from-scratch (:foods/datomic-uri config))
+    (require '[matvaretabellen.dev :as dev]
+             '[matvaretabellen.foodcase-import :as foodcase-import])
+    (foodcase-import/create-database-from-scratch (:foods/datomic-uri (dev/load-local-config)))
     ```
 
 - Start backenden:
