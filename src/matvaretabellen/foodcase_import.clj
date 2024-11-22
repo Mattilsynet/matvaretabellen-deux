@@ -379,7 +379,7 @@
   (d/delete-database uri)
   (let [conn (create-database uri)]
     (doseq [tx (create-foodcase-transactions (d/db conn) (load-locale->datas))]
-      @(d/transact conn tx))
+      @(d/transact-async conn tx))
     conn))
 
 (defn create-data-txes [db]
