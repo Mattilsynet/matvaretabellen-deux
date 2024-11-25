@@ -223,12 +223,14 @@ ol.mmm-unadorned-list li {
     color: var(--mt-color-text-action-default);
     cursor: pointer;
     text-decoration: var(--mt-typography-decoration-action-default);
+    text-decoration-thickness: var(--mt-typography-decoration-action-thickness);
 }
 
 .mmm-text a:hover,
 .mmm-link:hover {
     color: var(--mt-color-border-action-active);
     text-decoration: var(--mt-typography-decoration-action-active);
+    text-decoration-thickness: var(--mt-typography-decoration-action-active-thickness);
 }
 
 .mmm-fc {
