@@ -70,6 +70,11 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
 
 - [Se på UI-komponentene med Portfolio](http://localhost:5054/)
 
+- Legg på config-hemmeligheten i `secrets/dev.txt`. Denne får du av en av
+  utviklerne på teamet, og trengs for å dekryptere FoodCase-tokenet i configen.
+  Dette er kun nødvendig for å laste ned nye data fra FoodCase. Om du ikke har
+  secreten kan du opprette en tom fil på samme sti.
+
 - Kopier eksempelkonfigurasjonen:
 
     ```
