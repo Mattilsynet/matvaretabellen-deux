@@ -1,3 +1,5 @@
+@import url(./albert-sans.css);
+
 /************************************
  *** "Global" (within .mmm) rules ***
  ************************************/
@@ -479,6 +481,13 @@ tbody td.mmm-sticky-hor {
 
 .figtree {
     font-family: 'Figtree', Helvetica, Arial, ui-sans-serif, system-ui, sans-serif;
+}
+
+.albert {
+    font-family: "Albert Sans", Helvetica, Arial, ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: always;
 }
 
 .mmm-input-m {

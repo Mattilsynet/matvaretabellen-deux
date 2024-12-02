@@ -51,8 +51,10 @@
 (defn choose-font []
   (when-let [font (second (re-find #"font=(.*)" js/location.search))]
     (dom/set-local-json "font" font))
-  (when (= "figtree" (dom/get-local-json "font"))
-    (.add (.-classList js/document.body) "figtree")))
+  (case (dom/get-local-json "font")
+    "figtree" (.add (.-classList js/document.body) "figtree")
+    "albert" (.add (.-classList js/document.body) "albert")
+    nil))
 
 (defn boot []
   (main)
