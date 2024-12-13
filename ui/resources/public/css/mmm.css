@@ -1,3 +1,5 @@
+@import url(./albert-sans.css);
+
 /************************************
  *** "Global" (within .mmm) rules ***
  ************************************/
@@ -223,12 +225,14 @@ ol.mmm-unadorned-list li {
     color: var(--mt-color-text-action-default);
     cursor: pointer;
     text-decoration: var(--mt-typography-decoration-action-default);
+    text-decoration-thickness: var(--mt-typography-decoration-action-thickness);
 }
 
 .mmm-text a:hover,
 .mmm-link:hover {
     color: var(--mt-color-border-action-active);
     text-decoration: var(--mt-typography-decoration-action-active);
+    text-decoration-thickness: var(--mt-typography-decoration-action-active-thickness);
 }
 
 .mmm-fc {
@@ -477,6 +481,13 @@ tbody td.mmm-sticky-hor {
 
 .figtree {
     font-family: 'Figtree', Helvetica, Arial, ui-sans-serif, system-ui, sans-serif;
+}
+
+.albert {
+    font-family: "Albert Sans", Helvetica, Arial, ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: always;
 }
 
 .mmm-input-m {
@@ -800,6 +811,11 @@ u-option.mmm-ac-result:focus {
 .mmm-flex {
     display: flex;
     justify-content: space-between;
+}
+
+.mmm-flex-center {
+    display: flex;
+    justify-content: center;
 }
 
 @media only screen and (min-width: 780px) {

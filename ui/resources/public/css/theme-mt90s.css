@@ -129,6 +129,8 @@
     --mt-layout-vertical-spacing-spacey: var(--mt-spacing-x3_6);
     --mt-typography-decoration-action-default: none;
     --mt-typography-decoration-action-active: underline;
+    --mt-typography-decoration-action-thickness: 1px;
+    --mt-typography-decoration-action-active-thickness: 2px;
 
     --mt-breakpoint-xs-lower: 0px;
     --mt-breakpoint-xs-upper: 599px;

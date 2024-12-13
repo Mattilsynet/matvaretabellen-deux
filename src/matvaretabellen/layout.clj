@@ -71,7 +71,7 @@ window.onerror = function(message) {
         (dissoc :url)))))
 
 (defn render-header [{:keys [locale app/config]} get-current-url]
-  [:div
+  [:div#header
    [:script {:type "text/javascript"}
     "document.body.classList.add(\"mmm-js-enabled\");"]
    (SiteHeader
