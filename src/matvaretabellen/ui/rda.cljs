@@ -12,6 +12,17 @@
 (defn update-rda-values [profile]
   (doseq [el (dom/qsa ".mvt-rda")]
     (let [nutrient-id (.getAttribute el "data-nutrient-id")]
+      (when (= "Vit A RE" nutrient-id)
+        (js/console.log el)
+        (prn (-> (.closest el "tr")
+                 (.querySelector "[data-portion]")
+                 (.getAttribute "data-value"))
+             (-> (.closest el "tr")
+                 (.querySelector "[data-portion]")
+                 (.getAttribute "data-value")
+                 js/parseFloat)
+             (get-recommended-amount profile nutrient-id)))
+
       (set! (.-innerHTML el)
             (-> (.closest el "tr")
                 (.querySelector "[data-portion]")
