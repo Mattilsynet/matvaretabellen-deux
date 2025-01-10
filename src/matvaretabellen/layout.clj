@@ -37,7 +37,10 @@ window.onerror = function(message) {
   [:html {:class [:mmm (:app/theme (:app/config context))]}
    (into
     head
-    (list [:script {:type "text/javascript"} report-errors-to-tracer]))
+    (list [:script {:type "text/javascript"} report-errors-to-tracer]
+          [:link {:rel "icon" :href "/mtds/favicon.svg" :type "image/svg+xml"}]
+          [:link {:rel "icon" :href "/mtds/favicon.ico" :media "(prefers-color-scheme: light)"}]
+          [:link {:rel "icon" :href "/mtds/favicon-dark.ico" :media "(prefers-color-scheme: dark)"}]))
    (into
     body
     (list

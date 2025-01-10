@@ -25,7 +25,10 @@
 
              :optimus/assets [{:public-dir "public"
                                :paths [#"/images/*.*"
-                                       #"/fonts/*.*"]}]
+                                       #"/fonts/*.*"
+                                       "/mtds/favicon.svg"
+                                       "/mtds/favicon.ico"
+                                       "/mtds/favicon-dark.ico"]}]
 
              :optimus/bundles {"styles.css"
                                {:public-dir "public"
