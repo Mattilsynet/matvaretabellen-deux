@@ -4,7 +4,7 @@ locals {
 }
 
 module "matvaretabellen-ui" {
-  source = "git@github.com:Mattilsynet/map-tf-cloudrun?ref=v0.7.3"
+  source = "git@github.com:Mattilsynet/map-tf-cloudrun?ref=v0.12.0"
 
   create_cloudrun_service_account_only = false
   service_name = local.service_name
