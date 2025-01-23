@@ -34,7 +34,7 @@ module "matvaretabellen-ui" {
 }
 
 module "matvaretabellen-lb" {
-  source = "github.com/Mattilsynet/map-tf-cloudrun-shared-lb?ref=v1.5.0"
+  source = "github.com/Mattilsynet/map-tf-cloudrun-shared-lb?ref=v1.6.0"
   lb_name = "matvaretabellen-shared-lb"
   lb_project_id = var.project_id
   managed_zone_name = "matvaretabellen-dns-zone"
