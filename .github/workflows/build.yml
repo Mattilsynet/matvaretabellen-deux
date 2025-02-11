@@ -202,7 +202,7 @@ jobs:
         with:
           channel-id: C06192XRMNW
           message-id: ${{ needs.configure.outputs.slack-message }}
-          text: ":clojure-spin: Ferdig og måtelig fornøyd"
+          text: ":bar_chart: Ferdig og måtelig fornøyd"
 
   notify-failure:
     runs-on: ubuntu-latest
