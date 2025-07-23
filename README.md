@@ -103,7 +103,7 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
     (matvaretabellen.dev/start)
     ```
 
-### Emacs ❤️
+### Emacs ❤️❤️
 
 Dersom du bruker Emacs - noe vi anbefaler på det aller varmeste - er det
 `cider-jack-in` og deretter `cider-connect-sibling-cljs` som gjelder for å få
