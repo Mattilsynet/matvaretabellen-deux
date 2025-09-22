@@ -100,7 +100,7 @@
   :nutrition-title "Næringsinnhold"
   :open-graph-description [:fn/str "{{:food-name}} har {{:energy}} og inneholder " [:fn/enumerate [:fn/get :macros]] " per 100g. Les mer og sammenlign med andre matvarer på matvaretabellen.no"]
   :portion-size "Porsjonsstørrelse:"
-  :rda-explanation "Anbefalt Dagdinntak"
+  :rda-explanation "Anbefalt Dagsinntak"
   :rda-pct "% av AI"
   :rda-select-label "Anbefalt dagsinntak (AI)"
   :scientific-name ([:strong "Vitenskapelig navn:"] " " [:fn/get :name])
