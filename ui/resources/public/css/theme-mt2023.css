@@ -332,7 +332,7 @@
 }
 
 .mt2023 .mmm-table {
-    --mt-color-background-default: transparent;
+    --mt-color-background-default: var(--mt-component-table-background-zebra);
 }
 
 .mmm-banner-title {
