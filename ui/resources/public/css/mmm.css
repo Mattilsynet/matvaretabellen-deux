@@ -1428,10 +1428,6 @@ a.mmm-button-secondary:link {
     justify-self: end;
 }
 
-.mmm-footer .mtds-logo {
-    font-size: 1.25rem;
-}
-
 .mmm-footer .mmm-h2,
 .mmm-footer .mmm-h3,
 .mmm-footer .mmm-h6 {
@@ -1473,10 +1469,6 @@ a.mmm-button-secondary:link {
 .mmm-header .mmm-svg {
     color: var(--mt-component-header-logo-color);
     height: 28.8px;
-}
-
-.mmm-header .mtds-logo {
-    font-size: 1.72rem;
 }
 
 /***********************************

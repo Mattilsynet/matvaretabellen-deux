@@ -6,8 +6,9 @@
   [:header.mmm-header
    [:div.mmm-container {:style {:justify-content "space-between"}}
     (if (= "mt2023" theme)
-      [:a {:class (mtds/classes :logo :mtds-logo)
-           :href home-url}]
+      [:a {:class (mtds/classes :logo :mtds-logo :mt-ds)
+           :href home-url}
+       "Matvaretabellen"]
       [:a.mmm-fc {:href home-url}
        (MattilsynetLogoSimple {:class :mmm-svg})])
     (when extra-link
