@@ -70,11 +70,7 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
 
 - [Se på UI-komponentene med Portfolio](http://localhost:5054/)
 
-- Last ned config-hemmeligheten:
-
-    ```
-    gcloud secrets versions access latest --project matvaretabellen-b327 --secret foodcase-bearer-token > secrets/dev.txt
-    ```
+- Spør en kollega om å få config-hemmeligheteen, lagre den i `secrets/dev.txt`.
 
 - Kopier eksempelkonfigurasjonen:
 
