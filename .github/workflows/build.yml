@@ -5,6 +5,13 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '**/README.md'
+      - 'adr/**'
+      - 'dev/**'
+      - 'dev-resources/**'
+      - 'org/**'
+      - 'tf/**'
   schedule:
     - cron: '0 3 * * *'
 
