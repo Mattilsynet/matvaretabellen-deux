@@ -5,14 +5,14 @@
         org.clojure/data.json {:mvn/version "2.4.0"}
         cjohansen/courier {:mvn/version "2021.12.08"}
         cjohansen/dumdom {:mvn/version "2023.11.06"}
-        com.datomic/peer {:mvn/version "1.0.6726"}
+        com.datomic/peer {:mvn/version "1.0.7387"}
         com.magnars/confair {:mvn/version "2024.05.31"}
         datomic-type-extensions/datomic-type-extensions {:mvn/version "2025.01.15"}
         datoms-differ/datoms-differ {:mvn/version "2020-08-09"}
-        io.mattilsynet/design {:mvn/version "2.1.8.38"}
+        io.mattilsynet/design {:mvn/version "2.2.24.38"}
         lambdaisland/uri {:mvn/version "1.16.134"}
         no.anteo/broch {:mvn/version "2023.11.09"}
-        no.cjohansen/fontawesome-clj {:mvn/version "2023.10.26"}
+        no.cjohansen/fontawesome-clj {:mvn/version "2025.11.1"}
         no.cjohansen/powerpack {:mvn/version "2024.12.29"}
         org.apache.poi/poi {:mvn/version "5.2.0"}
         org.apache.poi/poi-ooxml {:mvn/version "5.2.0"}
