@@ -19,7 +19,7 @@ statiske sider med HTML i et byggesteg. Da får vi:
 Når vi i tillegg bygger dette opp som krysslenka innholdssider på egen URL, får
 vi også:
 
-- være treff på søkemotorer
+- våre treff på søkemotorer
 - lettere å lenke til
 - lettere å bokmerke
 
@@ -62,7 +62,7 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
     make prepare-dev
     ```
 
-- Start ClojureScript-bygget (Emacs-brukere kan se nedenfor)
+- Start ClojureScript-bygget (Emacs-brukere kan se nedenfor):
 
     ```
     clj -M:dev -m figwheel.main -b dev -r
@@ -70,10 +70,11 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
 
 - [Se på UI-komponentene med Portfolio](http://localhost:5054/)
 
-- Legg på config-hemmeligheten i `secrets/dev.txt`. Denne får du av en av
-  utviklerne på teamet, og trengs for å dekryptere FoodCase-tokenet i configen.
-  Dette er kun nødvendig for å laste ned nye data fra FoodCase. Om du ikke har
-  secreten kan du opprette en tom fil på samme sti.
+- Last ned config-hemmeligheten:
+
+    ```
+    gcloud secrets versions access latest --project matvaretabellen-b327 --secret foodcase-bearer-token > secrets/dev.txt
+    ```
 
 - Kopier eksempelkonfigurasjonen:
 
@@ -81,7 +82,7 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
     cp config/local-config.sample.edn config/local-config.edn
     ```
 
-- Kjør opp databasen
+- Kjør opp databasen:
 
     ```
     make start-transactor
@@ -92,7 +93,7 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
     ```
     clj -M:dev
     (require '[matvaretabellen.foodcase-import :as foodcase-import])
-    (foodcase-import/create-database-from-scratch (:foods/datomic-uri config))
+    (foodcase-import/create-database-from-scratch "datomic:dev://localhost:4334/foods")
     ```
 
 - Start backenden:
