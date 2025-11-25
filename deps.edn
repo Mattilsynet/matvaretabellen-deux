@@ -2,6 +2,8 @@
  :deps {org.clojure/clojure {:mvn/version "1.12.3"}
         org.clojure/clojurescript {:mvn/version "1.12.116"}
         org.clojure/data.json {:mvn/version "2.4.0"}
+        org.clojure/data.xml {:mvn/version "0.0.8"}
+        babashka/fs {:mvn/version "0.5.30"}
         cjohansen/courier {:mvn/version "2024.03.15"}
         cjohansen/dumdom {:mvn/version "2023.11.06"}
         com.datomic/peer {:mvn/version "1.0.7469"}
@@ -13,9 +15,9 @@
         no.anteo/broch {:mvn/version "2025.10.27"}
         no.cjohansen/phosphor-clj {:mvn/version "2025.04.16"}
         no.cjohansen/powerpack {:mvn/version "2025.10.22"}
+        org.apache.logging.log4j/log4j-core  {:mvn/version "2.25.2"} ;; kjeften på rei, du maser jo som et lokomotiv
         org.apache.poi/poi {:mvn/version "5.5.0"}
         org.apache.poi/poi-ooxml {:mvn/version "5.4.0"}
-        org.apache.logging.log4j/log4j-core  {:mvn/version "2.25.2"} ;; kjeften på rei, du maser jo som et lokomotiv
         superstring/superstring {:mvn/version "3.2.1"}}
  :aliases
  {:dev {:extra-paths ["dev" "dev-resources" "test" "ui/test" "ui/dev-resources" "ui/portfolio"]
