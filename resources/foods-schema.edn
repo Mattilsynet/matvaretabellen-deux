@@ -191,4 +191,47 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
 
+ ;; FoodEx2
+ ;;
+ ;; Et artig, og mer komplisert klassifiseringssystem for matvarer og deres fasetter.
+ {:db/ident :foodex2.facet/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity}
+
+ {:db/ident :foodex2.facet/name
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :foodex2.term/code
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity}
+
+ {:db/ident :foodex2.term/name
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :foodex2.term/note
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :foodex2/term
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :foodex2/facet
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :foodex2/aspects
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many
+  :db/isComponent true}
+
+ {:db/ident :foodex2/classification
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/isComponent true}
+
 ]

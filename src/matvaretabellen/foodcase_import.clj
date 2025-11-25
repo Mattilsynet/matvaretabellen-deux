@@ -118,8 +118,18 @@
     (catch Exception e
       (throw (ex-info "Can't get me no edible part" {:ref ref :value value} e)))))
 
+(defn parse-foodex2-classification [code]
+  (let [[base-code & aspect-strs] (str/split code #"[#$\.]")]
+    {:foodex2/term {:foodex2.term/code base-code}
+     :foodex2/aspects
+     (into #{}
+           (map (fn [[id code]]
+                  {:foodex2/facet {:foodex2.facet/id id}
+                   :foodex2/term {:foodex2.term/code code}}))
+           (partition 2 aspect-strs))}))
+
 (defn foodcase-food->food [{:strs [id name groupId synonym latinName Netto
-                                   langualCodes Energi1 Energi2 Portion] :as food}
+                                   langualCodes Energi1 Energi2 Portion foodEx2] :as food}
                            {:keys [id->nutrient id->portion-kind]}]
   (try
     (->> {:food/id (if (and (#{"Brød, halvgrovt (25-50 %), kjøpt, Odelsbrød"
@@ -139,7 +149,8 @@
           :food/constituents (let [constituents (get-constituents food id->nutrient)]
                                (conj constituents (get-vitamin-a-2024 constituents)))
           :food/portions (get-portions Portion id->portion-kind)
-          :food/edible-part (get-edible-part Netto)}
+          :food/edible-part (get-edible-part Netto)
+          :foodex2/classification (some-> foodEx2 parse-foodex2-classification)}
          (remove (comp nil? second))
          (into {}))
     (catch Exception e
@@ -343,6 +354,9 @@
 
      ;; langual-codes
      (map foodcase-langualcode->langual-code (get (first (vals locale->datas)) "langualcodes"))
+
+     ;; foodex2 facets
+     (read-string (slurp (io/file "data/foodex2-facets.edn")))
 
      ;; portion-kinds
      portion-kinds
