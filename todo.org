@@ -1,31 +1,23 @@
-* Ønskeliste til søket [0/2]
-** TODO Benevnede tall (eks "4 mnd") kan kanskje få leve som tokens i indeksen?
-** TODO Redusere score på lange navn
-* Tickets [9/13]
-** DONE [M] Respekter antall desimaler på tall i Excel-arket
-** DONE Redirect fra ikke til www
-** DONE Om Matvaretabellen-side
-** DONE API: Matvaregrupper
-** DONE API: Kilder
-** TODO Vis matvare-lister på faux næringsstoffer
-** TODO Stolpediagrammer
-** TODO Ta en runde med ipad-bredde 800px
-** DONE Sorter høyt/lavt på søkesiden
-** DONE Søk på næringsstoff
-** TODO Trigge analytics-events på interaksjoner
-** DONE Flere lenker i headeren, "Matvaregrupper", "Næringsstoffer", "Om Matvaretabellen" (og "In English") (må skjules på mobil, evnt lage hamburger)
-** DONE Flytt alle Excel-arkene ut av bygget for å redusere byggtid med 25 minutter (sparer ikke tid på dette de siste få dagene)
-* To-DONT
-** DONT Vis "Sist oppdatert" på matvare (har ikke datoen i datasettet vårt)
-* 2024 [9/9]
-** DONE Nytt næringsstoff: fritt sukker
-** DONE NIAEQ
-** DONE Oppdatere anbefalt daglig inntak
-** DONE Deploye testversjon
-** DONE VITA - skal beregnes
-Navn på gammel Vitamin A: Vitamin A (RAE)
-Navn på ny Vitamin A: Vitamin A (RE)
-** DONE Matfett redirecte til Spisefett
-** DONE Oppdatere vanlige matvaresøk
-** DONE Oppdatere nytt i MVT24
-** DONE Les inn nye data
+* 2026 [0/15]
+Matvarer
+Næringsstoffer
+Matvaregrupper
+** TODO Metadata om næringsstoffverdier i designsystemet-popup
+** TODO Få inn FoodEx2 i databasen
+** TODO Lag tabell som viser FoodEx2-kategorier for en gitt matvare
+** TODO Nye næringsstoffer
+** TODO Legg figure rundt den store tabellen, med max-height 90vh
+** TODO Putt stor "last ned Excel-ark" på tabell-siden
+** TODO Endre rekkefølgen på næringsstoffer
+** TODO Næringsstoffsider: vis matvarer med null innhold
+** TODO Næringsstoffsider: sorter kolonner
+** TODO Bytt ut redaksjonelt innhold om næringsstoffer
+** TODO Fiks matvaregruppefilter på næringsstoffsiden
+** TODO Bytt Energi% til Energiprosent på bred skjerm
+** TODO Putt sum for hvert næringsstoff i tabell-header på matvaresiden
+
+** TODO Default-verdien på "anbefalt dagsinntak"-siden skal være Generell 18-70
+** TODO µg-RE skal bli til µg
+
+** TODO Omformuler brukerspørsmål
+** TODO Ny forside
