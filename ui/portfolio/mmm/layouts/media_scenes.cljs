@@ -14,7 +14,7 @@
      [:h4 "Visste du at..."]
      [:p "Banan er den frukten med høyest innhold av karbohydrater blant
     fruktene i Matvaretabellen. Den har også et høyt innhold av magnesium."]
-     [:p [:a {:href "#"} "Les mer om bananen her"]]]]))
+     [:p [:a {:href "#"} "Se næringsinnholdet i bananen"]]]]))
 
 (defscene media-anchor-top
   "`.mmm-media-d.mmm-media-at` ankrer teksten mot toppen av media-komponenten, i
@@ -27,7 +27,7 @@
      [:h4 "Visste du at..."]
      [:p "Banan er den frukten med høyest innhold av karbohydrater blant
     fruktene i Matvaretabellen. Den har også et høyt innhold av magnesium."]
-     [:p [:a {:href "#"} "Les mer om bananen her"]]]]))
+     [:p [:a {:href "#"} "Se næringsinnholdet i bananen"]]]]))
 
 (defscene media-stamp
   "`.mmm-media-d.mmm-media-stamp` flytter `aside` til å flyte som et lite frimerke
@@ -40,4 +40,4 @@
      [:h4 "Visste du at..."]
      [:p "Banan er den frukten med høyest innhold av karbohydrater blant
     fruktene i Matvaretabellen. Den har også et høyt innhold av magnesium."]
-     [:p [:a {:href "#"} "Les mer om bananen her"]]]]))
+     [:p [:a {:href "#"} "Se næringsinnholdet i bananen"]]]]))

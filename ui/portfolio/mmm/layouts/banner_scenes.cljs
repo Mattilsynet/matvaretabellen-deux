@@ -13,7 +13,7 @@
      [:h4 "Visste du at..."]
      [:p "Banan er den frukten med høyest innhold av karbohydrater blant
     fruktene i Matvaretabellen. Den har også et høyt innhold av magnesium."]
-     [:p [:a {:href "#"} "Les mer om bananen her"]]]]
+     [:p [:a {:href "#"} "Se næringsinnholdet i bananen"]]]]
    [:div.mmm-buttons.mmm-text.mmm-tight
     [:a.mmm-banner-button {:href "/matvaregrupper/"}
      [:p "Alle matvaregrupper →"]
