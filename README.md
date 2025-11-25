@@ -19,7 +19,7 @@ statiske sider med HTML i et byggesteg. Da får vi:
 Når vi i tillegg bygger dette opp som krysslenka innholdssider på egen URL, får
 vi også:
 
-- våre treff på søkemotorer
+- være treff på søkemotorer
 - lettere å lenke til
 - lettere å bokmerke
 
