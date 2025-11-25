@@ -1,23 +1,22 @@
 {:paths ["src" "resources" "ui/src" "ui/resources" "tracer/src"]
- :deps {org.clojure/clojure {:mvn/version "1.11.1"}
-        org.clojure/clojurescript {:git/url "https://github.com/clojure/clojurescript.git"
-                                   :sha "0c5ecd7b8030b610c979b06bc85ff0991d882f69"}
+ :deps {org.clojure/clojure {:mvn/version "1.12.3"}
+        org.clojure/clojurescript {:mvn/version "1.12.116"}
         org.clojure/data.json {:mvn/version "2.4.0"}
-        cjohansen/courier {:mvn/version "2021.12.08"}
+        cjohansen/courier {:mvn/version "2024.03.15"}
         cjohansen/dumdom {:mvn/version "2023.11.06"}
-        com.datomic/peer {:mvn/version "1.0.7387"}
-        com.magnars/confair {:mvn/version "2024.05.31"}
-        datomic-type-extensions/datomic-type-extensions {:mvn/version "2025.01.15"}
-        datoms-differ/datoms-differ {:mvn/version "2020-08-09"}
+        com.datomic/peer {:mvn/version "1.0.7469"}
+        com.magnars/confair {:mvn/version "2025.11.12"}
+        datomic-type-extensions/datomic-type-extensions {:mvn/version "2025.01.24"}
+        datoms-differ/datoms-differ {:mvn/version "2025-11-14"}
         io.mattilsynet/design {:mvn/version "2.2.24.38"}
-        lambdaisland/uri {:mvn/version "1.16.134"}
-        no.anteo/broch {:mvn/version "2023.11.09"}
+        lambdaisland/uri {:mvn/version "1.19.155"}
+        no.anteo/broch {:mvn/version "2025.10.27"}
         no.cjohansen/phosphor-clj {:mvn/version "2025.04.16"}
-        no.cjohansen/powerpack {:mvn/version "2024.12.29"}
-        org.apache.poi/poi {:mvn/version "5.2.0"}
-        org.apache.poi/poi-ooxml {:mvn/version "5.2.0"}
-        org.apache.logging.log4j/log4j-core  {:mvn/version "2.17.1"} ;; kjeften på rei, du maser jo som et lokomotiv
-        superstring/superstring {:mvn/version "3.2.0"}}
+        no.cjohansen/powerpack {:mvn/version "2025.10.22"}
+        org.apache.poi/poi {:mvn/version "5.5.0"}
+        org.apache.poi/poi-ooxml {:mvn/version "5.4.0"}
+        org.apache.logging.log4j/log4j-core  {:mvn/version "2.25.2"} ;; kjeften på rei, du maser jo som et lokomotiv
+        superstring/superstring {:mvn/version "3.2.1"}}
  :aliases
  {:dev {:extra-paths ["dev" "dev-resources" "test" "ui/test" "ui/dev-resources" "ui/portfolio"]
         :extra-deps {cider/piggieback {:mvn/version "0.5.3"}
@@ -25,11 +24,10 @@
                                                 :sha "df756e460f4370e5351872cd50e73b7817b6cd2c"
                                                 :exclusions [org.clojure/clojurescript]}
                      kaocha-noyoda/kaocha-noyoda {:mvn/version "2019-06-03"}
-                     lambdaisland/kaocha {:mvn/version "1.87.1366"}
-                     no.cjohansen/portfolio {:mvn/version "2024.03.18"}
-                     org.clojars.abhinav/snitch {:mvn/version "0.1.14"}}}
+                     lambdaisland/kaocha {:mvn/version "1.91.1392"}
+                     no.cjohansen/portfolio {:mvn/version "2025.11.2"}
+                     org.clojars.abhinav/snitch {:mvn/version "0.1.16"}}}
   :build {:extra-paths ["target"]
-          :extra-deps {com.bhauman/figwheel-main {:git/url "https://github.com/cjohansen/figwheel-main"
-                                                  :sha "df756e460f4370e5351872cd50e73b7817b6cd2c"
+          :extra-deps {com.bhauman/figwheel-main {:mvn/version "0.2.20"
                                                   :exclusions [org.clojure/clojurescript]}}
           :exec-fn matvaretabellen.export/export}}}
