@@ -21,18 +21,18 @@
                                :icon :phosphor.regular/arrow-down})}
                       {:text (list [:i18n ::food]
                                    [:span.mvt-sort-icon
-                                    (icons/render :phosphor.regular/sort {:class :mmm-svg})])
+                                    (icons/render :phosphor.regular/caret-up-down {:class :mmm-svg})])
                        :class [:mmm-nbr :mmm-sticky-hor]
                        :data-id "foodName"}
                       {:text (list [:i18n ::energy]
                                    [:span.mvt-sort-icon
-                                    (icons/render :phosphor.regular/sort {:class :mmm-svg})])
+                                    (icons/render :phosphor.regular/caret-up-down {:class :mmm-svg})])
                        :class [:mmm-nbr]
                        :data-id "energy"}]
                      (for [nutrient nutrients]
                        {:text (list [:i18n :i18n/lookup (:nutrient/name nutrient)]
                                     [:span.mvt-sort-icon
-                                     (icons/render :phosphor.regular/sort {:class :mmm-svg})])
+                                     (icons/render :phosphor.regular/caret-up-down {:class :mmm-svg})])
                         :data-id (:nutrient/id nutrient)
                         :class (if (not (default-checked (:nutrient/id nutrient)))
                                  [:mmm-nbr :mmm-tar :mmm-hidden]
@@ -109,9 +109,9 @@
                        nutrient/sort-by-preference)]
     [:div.mmm-sidescroller.mmm-col
      [:div.mmm-hidden
-      (icons/render :phosphor.regular/sort {:class [:mmm-svg :mvt-sort]})
-      (icons/render :phosphor.regular/arrow-up-wide-short {:class [:mmm-svg :mvt-desc]})
-      (icons/render :phosphor.regular/arrow-down-short-wide {:class [:mmm-svg :mvt-asc]})]
+      (icons/render :phosphor.regular/caret-up-down {:class [:mmm-svg :mvt-sort]})
+      (icons/render :phosphor.regular/sort-descending {:class [:mmm-svg :mvt-desc]})
+      (icons/render :phosphor.regular/sort-ascending {:class [:mmm-svg :mvt-asc]})]
      (->> (prepare-foods-table nutrients opt)
           food-page/render-table)
      [:div.mmm-buttons.mmm-mvm.mmm-mls
@@ -120,13 +120,13 @@
         :class [:mvt-prev :mmm-hidden]
         :secondary? true
         :inline? true
-        :icon :phosphor.regular/chevron-left})
+        :icon :phosphor.regular/caret-left})
       (Button
        {:text [:i18n ::next]
         :class [:mvt-next :mmm-hidden]
         :secondary? true
         :inline? true
-        :icon :phosphor.regular/chevron-right
+        :icon :phosphor.regular/caret-right
         :icon-position :after})]]))
 
 (defn render-food-groups-toggle []

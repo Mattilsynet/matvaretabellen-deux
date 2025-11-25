@@ -107,7 +107,7 @@ window.onerror = function(message) {
     {:text [:i18n ::filter]
      :class [:mvt-sidebar-toggle]
      :data-sidebar-target (str "#" target-id)
-     :icon :phosphor.regular/filter
+     :icon :phosphor.regular/funnel
      :inline? true
      :secondary? true})])
 
