@@ -1,7 +1,7 @@
 (ns mmm.components.button-scenes
-  (:require [fontawesome.icons :as icons]
-            [mmm.components.button :refer [Button]]
+  (:require [mmm.components.button :refer [Button]]
             [mmm.elements :as e]
+            [phosphor.icons :as icons]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
 (portfolio/configure-scenes
@@ -33,20 +33,20 @@
   (e/p
    (Button {:text "Trykk på knappen"
             :href "/hello"
-            :icon (icons/icon :fontawesome.solid/magnifying-glass)})))
+            :icon (icons/icon :phosphor.regular/magnifying-glass)})))
 
 (defscene inline-button-with-icon
   (e/p
    (Button {:text "Trykk på knappen"
             :href "/hello"
-            :icon (icons/icon :fontawesome.solid/magnifying-glass)
+            :icon (icons/icon :phosphor.regular/magnifying-glass)
             :inline? true})))
 
 (defscene secondary-inline-button-with-icon
   (e/p
    (Button {:text "Trykk på knappen"
             :href "/hello"
-            :icon (icons/icon :fontawesome.solid/arrow-down)
+            :icon (icons/icon :phosphor.regular/arrow-down)
             :inline? true
             :secondary? true})))
 
@@ -54,6 +54,6 @@
   (e/p
    (Button {:text "Trykk på knappen"
             :href "/hello"
-            :icon (icons/icon :fontawesome.solid/magnifying-glass)
+            :icon (icons/icon :phosphor.regular/magnifying-glass)
             :inline? true
             :size :large})))

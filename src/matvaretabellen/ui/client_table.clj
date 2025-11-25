@@ -1,13 +1,13 @@
 (ns matvaretabellen.ui.client-table
   (:require [broch.core :as b]
-            [fontawesome.icons :as icons]
             [matvaretabellen.food :as food]
             [matvaretabellen.food-group :as food-group]
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
             [mmm.components.button :refer [Button]]
             [mmm.components.checkbox :refer [Checkbox]]
-            [mmm.components.icon-button :refer [IconButton]]))
+            [mmm.components.icon-button :refer [IconButton]]
+            [phosphor.icons :as icons]))
 
 (def default-checked #{"Fett" "Karbo" "Protein" "Fiber"})
 
@@ -18,21 +18,21 @@
                        :text (IconButton
                               {:class [:mvt-add-to-list]
                                :title [:i18n ::stage-for-download]
-                               :icon :fontawesome.solid/arrow-down})}
+                               :icon :phosphor.regular/arrow-down})}
                       {:text (list [:i18n ::food]
                                    [:span.mvt-sort-icon
-                                    (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
+                                    (icons/render :phosphor.regular/sort {:class :mmm-svg})])
                        :class [:mmm-nbr :mmm-sticky-hor]
                        :data-id "foodName"}
                       {:text (list [:i18n ::energy]
                                    [:span.mvt-sort-icon
-                                    (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
+                                    (icons/render :phosphor.regular/sort {:class :mmm-svg})])
                        :class [:mmm-nbr]
                        :data-id "energy"}]
                      (for [nutrient nutrients]
                        {:text (list [:i18n :i18n/lookup (:nutrient/name nutrient)]
                                     [:span.mvt-sort-icon
-                                     (icons/render :fontawesome.solid/sort {:class :mmm-svg})])
+                                     (icons/render :phosphor.regular/sort {:class :mmm-svg})])
                         :data-id (:nutrient/id nutrient)
                         :class (if (not (default-checked (:nutrient/id nutrient)))
                                  [:mmm-nbr :mmm-tar :mmm-hidden]
@@ -45,7 +45,7 @@
              [{:text (IconButton
                       {:class [:mvt-add-to-list]
                        :title [:i18n ::stage-for-download]
-                       :icon :fontawesome.solid/arrow-down})
+                       :icon :phosphor.regular/arrow-down})
                :class [:mmm-tac :mmm-pas]
                :data-id "download"}
               {:text [:a.mmm-link]
@@ -109,9 +109,9 @@
                        nutrient/sort-by-preference)]
     [:div.mmm-sidescroller.mmm-col
      [:div.mmm-hidden
-      (icons/render :fontawesome.solid/sort {:class [:mmm-svg :mvt-sort]})
-      (icons/render :fontawesome.solid/arrow-up-wide-short {:class [:mmm-svg :mvt-desc]})
-      (icons/render :fontawesome.solid/arrow-down-short-wide {:class [:mmm-svg :mvt-asc]})]
+      (icons/render :phosphor.regular/sort {:class [:mmm-svg :mvt-sort]})
+      (icons/render :phosphor.regular/arrow-up-wide-short {:class [:mmm-svg :mvt-desc]})
+      (icons/render :phosphor.regular/arrow-down-short-wide {:class [:mmm-svg :mvt-asc]})]
      (->> (prepare-foods-table nutrients opt)
           food-page/render-table)
      [:div.mmm-buttons.mmm-mvm.mmm-mls
@@ -120,26 +120,26 @@
         :class [:mvt-prev :mmm-hidden]
         :secondary? true
         :inline? true
-        :icon :fontawesome.solid/chevron-left})
+        :icon :phosphor.regular/chevron-left})
       (Button
        {:text [:i18n ::next]
         :class [:mvt-next :mmm-hidden]
         :secondary? true
         :inline? true
-        :icon :fontawesome.solid/chevron-right
+        :icon :phosphor.regular/chevron-right
         :icon-position :after})]]))
 
 (defn render-food-groups-toggle []
   (IconButton
    {:label [:i18n ::food-groups]
     :data-toggle-target "#food-group-panel"
-    :icon :fontawesome.solid/gear}))
+    :icon :phosphor.regular/gear}))
 
 (defn render-nutrients-toggle []
   (IconButton
    {:label [:i18n ::columns]
     :data-toggle-target "#columns-panel"
-    :icon :fontawesome.solid/table}))
+    :icon :phosphor.regular/table}))
 
 (defn render-download-csv-button []
   (Button
@@ -149,4 +149,4 @@
     :download [:i18n ::file-name]
     :href "#"
     :class [:mmm-button-small :mvt-download :mmm-hidden]
-    :icon :fontawesome.solid/arrow-down}))
+    :icon :phosphor.regular/arrow-down}))

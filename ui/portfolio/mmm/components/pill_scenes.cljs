@@ -1,5 +1,5 @@
 (ns mmm.components.pill-scenes
-  (:require [fontawesome.icons :as icons]
+  (:require [phosphor.icons :as icons]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
 (portfolio/configure-scenes
@@ -8,23 +8,23 @@
 (defscene basic-pill
   [:a.mmm-pill.mmm-actionable
    "Pilletekst"
-   (icons/render (icons/icon :fontawesome.solid/x) {:class :mmm-svg})])
+   (icons/render (icons/icon :phosphor.regular/x) {:class :mmm-svg})])
 
 (defscene list-of-pills
   [:ul.mmm-ul.mmm-horizontal-list.mmm-pills
    [:li
     [:a.mmm-pill.mmm-actionable
      "Brød"
-     (icons/render (icons/icon :fontawesome.solid/x) {:class :mmm-svg})]]
+     (icons/render (icons/icon :phosphor.regular/x) {:class :mmm-svg})]]
    [:li
     [:a.mmm-pill.mmm-actionable
      "Epler"
-     (icons/render (icons/icon :fontawesome.solid/x) {:class :mmm-svg})]]
+     (icons/render (icons/icon :phosphor.regular/x) {:class :mmm-svg})]]
    [:li
     [:a.mmm-pill.mmm-actionable
      "Bananer"
-     (icons/render (icons/icon :fontawesome.solid/x) {:class :mmm-svg})]]
+     (icons/render (icons/icon :phosphor.regular/x) {:class :mmm-svg})]]
    [:li
     [:a.mmm-pill.mmm-actionable
      "Piller"
-     (icons/render (icons/icon :fontawesome.solid/x) {:class :mmm-svg})]]])
+     (icons/render (icons/icon :phosphor.regular/x) {:class :mmm-svg})]]])

@@ -11,16 +11,10 @@ datomic-transactor:
 start-transactor: datomic-transactor
 	cd datomic-transactor/datomic-pro-$(DATOMIC_VERSION) && ./bin/transactor config/transactor.properties
 
-ui/resources/fontawesome-icons:
-	clojure -Sdeps "{:deps {no.cjohansen/fontawesome-clj {:mvn/version \"2023.10.26\"} \
-	clj-http/clj-http {:mvn/version \"3.12.3\"} \
-	hickory/hickory {:mvn/version \"0.7.1\"}}}" \
-	-M -m fontawesome.import :download ui/resources 6.4.2
-
-target/public/js/compiled/app.js: ui/resources/fontawesome-icons
+target/public/js/compiled/app.js:
 	clojure -M:build -m figwheel.main -bo prod
 
-docker/build: target/public/js/compiled/app.js ui/resources/fontawesome-icons
+docker/build: target/public/js/compiled/app.js
 	env GIT_SHA=$(VERSION) clojure -X:build
 
 tracer/target: tracer/src/matvaretabellen/*.clj
@@ -35,13 +29,11 @@ docker: docker/build docker/tracer.jar
 publish:
 	docker push $(IMAGE)
 
-test: ui/resources/fontawesome-icons
+test:
 	clojure -M:dev -m kaocha.runner
-
-prepare-dev: ui/resources/fontawesome-icons
 
 clean:
 	rm -f datomic-pro-$(DATOMIC_VERSION).zip
 	rm -fr target docker/build dev-resources/public/js/compiled tracer/target docker/tracer.jar
 
-.PHONY: start-transactor docker publish test clean prepare-dev
+.PHONY: start-transactor docker publish test clean

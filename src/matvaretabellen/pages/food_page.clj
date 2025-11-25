@@ -380,7 +380,7 @@
   (Button (merge {:class [:mmm-hidden :mvt-compare-food]
                   :text [:i18n ::compare-food]
                   :secondary? true
-                  :icon :fontawesome.solid/code-compare
+                  :icon :phosphor.regular/git-diff
                   :data-food-id (:food/id food)
                   :data-food-name [:i18n :i18n/lookup (:food/name food)]}
                  opts)))

@@ -1,5 +1,5 @@
 (ns mmm.components.toc
-  (:require [fontawesome.icons :as icons]))
+  (:require [phosphor.icons :as icons]))
 
 (defn Toc [{:keys [title icon contents class]}]
   [:div.mmm-toc.mmm-vert-layout-m {:class class}

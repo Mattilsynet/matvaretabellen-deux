@@ -1,5 +1,5 @@
 (ns mmm.components.icon-button
-  (:require [fontawesome.icons :as icons]))
+  (:require [phosphor.icons :as icons]))
 
 (defn IconButton [{:keys [icon label] :as attrs}]
   [:span.mmm-icon-button.mmm-actionable

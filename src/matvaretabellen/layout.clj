@@ -107,7 +107,7 @@ window.onerror = function(message) {
     {:text [:i18n ::filter]
      :class [:mvt-sidebar-toggle]
      :data-sidebar-target (str "#" target-id)
-     :icon :fontawesome.solid/filter
+     :icon :phosphor.regular/filter
      :inline? true
      :secondary? true})])
 
@@ -116,4 +116,4 @@ window.onerror = function(message) {
    {:title [:i18n ::close-sidebar]
     :class :mvt-sidebar-toggle
     :data-sidebar-target (str "#" target-id)
-    :icon :fontawesome.solid/x}))
+    :icon :phosphor.regular/x}))

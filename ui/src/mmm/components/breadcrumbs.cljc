@@ -1,8 +1,8 @@
 (ns mmm.components.breadcrumbs
-  (:require [fontawesome.icons :as icons]))
+  (:require [phosphor.icons :as icons]))
 
-(def arrow #?(:cljs (icons/icon :fontawesome.solid/angle-right)
-              :clj :fontawesome.solid/angle-right))
+(def arrow #?(:cljs (icons/icon :phosphor.regular/caret-right)
+              :clj :phosphor.regular/caret-right))
 
 (defn Breadcrumbs [{:keys [links]}]
   [:nav.mmm-breadcrumbs {:aria-label "breadcrumbs"}

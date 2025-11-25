@@ -28,7 +28,7 @@
             :href (urls/get-comparison-url locale)
             :data-receipt "#share-receipt"
             :secondary? true
-            :icon :fontawesome.solid/share-from-square
+            :icon :phosphor.regular/share-from-square
             :inline? true
             :class [:mvtc-share :mmm-button-small]})
    [:span.mmm-hidden#share-receipt [:i18n ::url-copied]]))

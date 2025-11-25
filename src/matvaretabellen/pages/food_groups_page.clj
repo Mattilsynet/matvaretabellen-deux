@@ -48,7 +48,7 @@
           [:div
            (Button {:text [:i18n ::download-everything]
                     :href (urls/get-foods-excel-url locale)
-                    :icon :fontawesome.solid/arrow-down
+                    :icon :phosphor.regular/arrow-down
                     :inline? true
                     :secondary? true})]]
          [:aside.mmm-desktop {:style {:flex-basis "40%"}}

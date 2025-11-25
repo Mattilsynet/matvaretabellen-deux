@@ -131,7 +131,7 @@
               [:div
                (Button {:text [:i18n ::download-these]
                         :href (urls/get-nutrient-excel-url locale nutrient)
-                        :icon :fontawesome.solid/arrow-down
+                        :icon :phosphor.regular/arrow-down
                         :inline? true
                         :secondary? true})])]
            (when (and desc illustration) ;; looks horrible without text

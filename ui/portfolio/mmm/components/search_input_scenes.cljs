@@ -1,7 +1,7 @@
 (ns mmm.components.search-input-scenes
-  (:require [fontawesome.icons :as icons]
-            [mmm.components.search-input :refer [SearchInput]]
+  (:require [mmm.components.search-input :refer [SearchInput]]
             [mmm.elements :as e]
+            [phosphor.icons :as icons]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
 (portfolio/configure-scenes
@@ -12,7 +12,7 @@
    (SearchInput
     {:label "Søk i Matvaretabellen"
      :button {:text "Søk"
-              :icon (icons/icon :fontawesome.solid/magnifying-glass)}
+              :icon (icons/icon :phosphor.regular/magnifying-glass)}
      :input {:name "my-search"}})))
 
 (defscene small-search
@@ -20,7 +20,7 @@
    (SearchInput
     {:label "Søk i Matvaretabellen"
      :button {:text "Søk"
-              :icon (icons/icon :fontawesome.solid/magnifying-glass)}
+              :icon (icons/icon :phosphor.regular/magnifying-glass)}
      :input {:name "my-search"}
      :size :small})))
 
@@ -29,7 +29,7 @@
    (SearchInput
     {:label "Søk i Matvaretabellen"
      :button {:text "Søk"
-              :icon (icons/icon :fontawesome.solid/magnifying-glass)}
+              :icon (icons/icon :phosphor.regular/magnifying-glass)}
      :input {:name "my-search" :value "epl"}
      :results [{:href "#" :text "Eple, tørket"}
                {:href "#" :text "Eple, rått"}
@@ -40,7 +40,7 @@
            (SearchInput
             {:label "Søk i Matvaretabellen"
              :button {:text "Søk"
-                      :icon (icons/icon :fontawesome.solid/magnifying-glass)}
+                      :icon (icons/icon :phosphor.regular/magnifying-glass)}
              :input {:name "my-search" :value "epl"}
              :size :small
              :results [{:href "#" :text "Eple, tørket"}
@@ -52,7 +52,7 @@
    (SearchInput
     {:label "Søk i Matvaretabellen"
      :button {:text "Søk"
-              :icon (icons/icon :fontawesome.solid/magnifying-glass)}
+              :icon (icons/icon :phosphor.regular/magnifying-glass)}
      :input {:name "my-search" :value "epl"}
      :results [{:href "#" :text "Eple, tørket"}
                {:href "#" :text "Eple, rått" :selected? true}

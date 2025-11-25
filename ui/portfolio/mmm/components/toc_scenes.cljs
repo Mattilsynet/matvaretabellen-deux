@@ -1,6 +1,6 @@
 (ns mmm.components.toc-scenes
-  (:require [fontawesome.icons :as icons]
-            [mmm.components.toc :refer [Toc]]
+  (:require [mmm.components.toc :refer [Toc]]
+            [phosphor.icons :as icons]
             [portfolio.dumdom :as portfolio :refer [defscene]]))
 
 (portfolio/configure-scenes
@@ -9,7 +9,7 @@
 (defscene basic-toc
   (Toc
    {:title "Innhold"
-    :icon (icons/icon :fontawesome.solid/circle-info)
+    :icon (icons/icon :phosphor.regular/info)
     :contents [{:title "Næringsinnhold"
                 :href "#naeringsinnhold"
                 :contents [{:title "Energigivende næringsstoffer"

@@ -18,7 +18,6 @@
 /.clj-kondo/inline-configs/
 /.clj-kondo/magnars.com/
 /.clj-kondo/no.cjohansen/
-/ui/resources/fontawesome-icons/
 /ui/resources/public/js/compiled
 /tracer/.cpcache/
 /tracer/target/

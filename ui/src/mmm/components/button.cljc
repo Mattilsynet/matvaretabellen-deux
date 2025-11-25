@@ -1,5 +1,5 @@
 (ns mmm.components.button
-  (:require [fontawesome.icons :as icons]))
+  (:require [phosphor.icons :as icons]))
 
 (def sizes
   {:large :mmm-button-large

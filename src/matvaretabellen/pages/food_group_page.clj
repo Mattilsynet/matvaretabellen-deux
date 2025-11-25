@@ -113,7 +113,7 @@
           [:div
            (Button {:text [:i18n ::download-these]
                     :href (urls/get-food-group-excel-url locale food-group)
-                    :icon :fontawesome.solid/arrow-down
+                    :icon :phosphor.regular/arrow-down
                     :inline? true
                     :secondary? true})]]
          [:aside.mmm-desktop {:style {:flex-basis "40%"}}
