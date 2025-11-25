@@ -1,4 +1,4 @@
-* 2026 [0/15]
+* 2026 [0/19]
 Matvarer
 Næringsstoffer
 Matvaregrupper
@@ -6,6 +6,7 @@ Matvaregrupper
 ** TODO Få inn FoodEx2 i databasen
 ** TODO Lag tabell som viser FoodEx2-kategorier for en gitt matvare
 ** TODO Nye næringsstoffer
+Vitamin K (flere) (finnes anbefalinger for inntak)
 ** TODO Legg figure rundt den store tabellen, med max-height 90vh
 ** TODO Putt stor "last ned Excel-ark" på tabell-siden
 ** TODO Endre rekkefølgen på næringsstoffer
@@ -15,9 +16,9 @@ Matvaregrupper
 ** TODO Fiks matvaregruppefilter på næringsstoffsiden
 ** TODO Bytt Energi% til Energiprosent på bred skjerm
 ** TODO Putt sum for hvert næringsstoff i tabell-header på matvaresiden
-
 ** TODO Default-verdien på "anbefalt dagsinntak"-siden skal være Generell 18-70
 ** TODO µg-RE skal bli til µg
-
 ** TODO Omformuler brukerspørsmål
 ** TODO Ny forside
+** TODO Samle nedlasting på Matvaretabellen og legge ned egen nedlastingsside på mattilsynet.no (og kanskje bare ha lenke på data.norge.no)
+** TODO Ny footer
