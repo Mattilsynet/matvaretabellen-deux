@@ -2946,6 +2946,13 @@
       "publicationYear": ""
     },
     {
+      "id": "118a",
+      "text": "Data levert av industrien til Matvaretabellen 2026",
+      "referenceType": "F (File or Database)",
+      "acquisitionType": "L (Food label, product information)",
+      "publicationYear": ""
+    },
+    {
       "id": "120",
       "text": "Produktinformasjon, verdi hentet fra næringsdeklarasjon/produsentens nettside, 2009/2010.",
       "referenceType": "L (Product label)",
@@ -3102,6 +3109,13 @@
     {
       "id": "150",
       "text": "Produktinformasjon, verdi hentet fra næringsdeklarasjon/produsentenes nettside, 2024",
+      "referenceType": "L (Product label)",
+      "acquisitionType": "L (Food label, product information)",
+      "publicationYear": ""
+    },
+    {
+      "id": "151",
+      "text": "Produktinformasjon, verdi hentet fra næringsdeklarasjon/produsentenes nettside, 2025",
       "referenceType": "L (Product label)",
       "acquisitionType": "L (Food label, product information)",
       "publicationYear": ""
@@ -3416,7 +3430,14 @@
     },
     {
       "id": "235",
-      "text": "Mattilsynet. Analyseprosjekt 2024. Næringsstoff- og tungmetallanalyser i grønnsaker. Internt notat.",
+      "text": "Mattilsynet. Analyseprosjekt 2024. Næringsstoff- og tungmetallanalyser i grønnsaker. Publisert rapport (2024): \"Analyser av næringsstoffer i norske og importerte grønnsaker\". https://mattilsynet-xp7prod.enonic.cloud/_/attachment/inline/94a783e7-5eda-4c92-9452-c3a7b4b6a466:833bd863d5ac2692557c90ebad14348c5a663440/Analyser%20av%20n%C3%A6ringsstoffer,%20tungmetaller,%20PFAS,%20nitrat%20og%20nitritt%20i%20gr%C3%B8nnsaker%20.pdf",
+      "referenceType": "R (Report)",
+      "acquisitionType": "O (In-house or affiliated laboratory)",
+      "publicationYear": ""
+    },
+    {
+      "id": "236",
+      "text": "Mattilsynet. Analyseprosjekt Jodberikningsprogrammet 2025. Foreløpig upublisert rapport",
       "referenceType": "R (Report)",
       "acquisitionType": "O (In-house or affiliated laboratory)",
       "publicationYear": ""
@@ -3674,6 +3695,13 @@
       "publicationYear": ""
     },
     {
+      "id": "321i",
+      "text": "Havforskningsinstituttet, Sjømatdata, 2025, https://sjomatdata.hi.no",
+      "referenceType": "F (File or Database)",
+      "acquisitionType": "D (Independent laboratory)",
+      "publicationYear": ""
+    },
+    {
       "id": "322",
       "text": "Triumf, EC., Purchas, RW., Mielnik, M., Maehre, HK., Elvevoll, E., Slinde, E., Egelandsdal, B. Composition and some quality characteristics of the longissimus muscle of reindeer in Norway compared to farmed New Zealand red deer. Meat Science 90(2012), 122-129.",
       "referenceType": "AJ (Article in Journal)",
@@ -3863,6 +3891,13 @@
       "publicationYear": ""
     },
     {
+      "id": "400m",
+      "text": "Livsmedelsverket. Livsmedelsdatabas, versjon 2025-06-09. Nettversjon, https://soknaringsinnehall.livsmedelsverket.se/",
+      "referenceType": "WW (Webpage)",
+      "acquisitionType": "F (Food composition table)",
+      "publicationYear": ""
+    },
+    {
       "id": "410a",
       "text": "Institutet för hälsa och välfärd. Fineli livsmedelsdatabasen, versjon 9 (2008).",
       "referenceType": "WW (Webpage)",
@@ -3970,6 +4005,13 @@
     {
       "id": "420j",
       "text": "Fødevareinstituttet. Fødevaredatabanken, Frida versjon 5.2. (2024). Nettversjon, http://frida.fooddata.dk",
+      "referenceType": "WW (Webpage)",
+      "acquisitionType": "F (Food composition table)",
+      "publicationYear": ""
+    },
+    {
+      "id": "420k",
+      "text": "Fødevareinstituttet. Fødevaredatabanken, Frida versjon 5.4. (2025). Nettversjon, http://frida.fooddata.dk",
       "referenceType": "WW (Webpage)",
       "acquisitionType": "F (Food composition table)",
       "publicationYear": ""
@@ -4122,6 +4164,13 @@
       "publicationYear": ""
     },
     {
+      "id": "480b",
+      "text": "Swiss Federal Office of Public Health. Swiss Food Composition Database. Versjon 7.0. (2025). Nettversjon, http://www.naehrwertdaten.ch",
+      "referenceType": "WW (Webpage)",
+      "acquisitionType": "F (Food composition table)",
+      "publicationYear": ""
+    },
+    {
       "id": "490a",
       "text": "Instituto Nazionale di Recerca per gli Alimenti e la Nutrizione. Tabelle dicomposizione degli alimenti. Nettversjon, http://nut.entecra.it/646/tabelle_di_composizione_degli_alimenti.html",
       "referenceType": "WW (Webpage)",
@@ -4138,6 +4187,41 @@
     {
       "id": "510a",
       "text": "Spanish Food Composition Database. BEDCA v.2.1. Nettversjon, https://www.bedca.net/bdpub/index_en.php",
+      "referenceType": "WW (Webpage)",
+      "acquisitionType": "F (Food composition table)",
+      "publicationYear": ""
+    },
+    {
+      "id": "520a",
+      "text": "New Zealand Food Composition Database 2024. New Zealand Food Composition Database Online Search. The New Zealand Institute for Plant & Food Research Limited and Ministry of Health. https://www.foodcomposition.co.nz/search",
+      "referenceType": "WW (Webpage)",
+      "acquisitionType": "F (Food composition table)",
+      "publicationYear": ""
+    },
+    {
+      "id": "530a",
+      "text": "NutriData food composition database, version 13, tka.nutridata.ee, 2024.",
+      "referenceType": "WW (Webpage)",
+      "acquisitionType": "F (Food composition table)",
+      "publicationYear": ""
+    },
+    {
+      "id": "530b",
+      "text": "NutriData food composition database, version 15, tka.nutridata.ee, 2025.",
+      "referenceType": "WW (Webpage)",
+      "acquisitionType": "F (Food composition table)",
+      "publicationYear": ""
+    },
+    {
+      "id": "540a",
+      "text": "Czech Centre for Food Composition Database: Czech Food Composition Database, Version 9.24, http://www.nutridatabaze.cz/",
+      "referenceType": "WW (Webpage)",
+      "acquisitionType": "F (Food composition table)",
+      "publicationYear": ""
+    },
+    {
+      "id": "550a",
+      "text": "Food Composition Database for Epidemiological Studies in Italy (BDA V1-2022), https://bda.ieo.it/?page_id=23&lang=en",
       "referenceType": "WW (Webpage)",
       "acquisitionType": "F (Food composition table)",
       "publicationYear": ""
@@ -4316,6 +4400,20 @@
       "referenceType": "R (Report)",
       "acquisitionType": "D (Independent laboratory)",
       "publicationYear": "2008"
+    },
+    {
+      "id": "624",
+      "text": "Arnemo, M., Jorhem, L., Johansson, S., Mattisson, I., Wretling, S., Åstrand, C. Nutrient analysis of dairy products and vegetarian dishes [Rapport 6-2007]. Livsmedelsverket, Uppsala, 2007. Nettversjon, https://www.livsmedelsverket.se/contentassets/7c1f7557aff542ebb0ac6f0941248150/2007_06_nutrient_analysis_of_dairy_foods_and_vegetarian_dishes.pdf",
+      "referenceType": "R (Report)",
+      "acquisitionType": "D (Independent laboratory)",
+      "publicationYear": ""
+    },
+    {
+      "id": "625",
+      "text": "Axelsson, C., Siponen, J. P. Mejeri 2016. Analys av näringsämnen. Livsmedelsverket, Uppsala. Nettversjon, https://www.livsmedelsverket.se/globalassets/publikationsdatabas/pm/2020/pm-2020-mejeri-2016.pdf",
+      "referenceType": "R (Report)",
+      "acquisitionType": "D (Independent laboratory)",
+      "publicationYear": ""
     },
     {
       "id": "988",
