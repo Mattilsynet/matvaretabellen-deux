@@ -64,7 +64,11 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
 
 - [Se på UI-komponentene med Portfolio](http://localhost:5054/)
 
-- Spør en kollega om å få config-hemmeligheteen, lagre den i `secrets/dev.txt`.
+- Last ned secret så du kan dekryptere configen.
+
+    ```
+    gcloud secrets versions access latest --project matvaretabellen-b327 --secret config-secret > secrets/dev.txt
+    ```
 
 - Kopier eksempelkonfigurasjonen:
 
@@ -112,8 +116,7 @@ opp både backenden og frontenden.
 - Logg inn med gcloud:
 
     ```
-    gcloud auth login
-    gcloud auth application-default login
+    gcloud auth login && gcloud auth application-default login
     ```
 
 - Importer FoodCASE-data:
