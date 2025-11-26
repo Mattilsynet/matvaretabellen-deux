@@ -48,25 +48,25 @@ jobs:
       - configure
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
       - name: Install clojure tools
-        uses: DeLaGuardo/setup-clojure@12.1
+        uses: DeLaGuardo/setup-clojure@13.4
         with:
-          cli: 1.11.1.1413
+          cli: 1.12.1.1550
       - name: Cache maven build deps
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-clojure-test-${{ hashFiles('deps.edn') }}
           restore-keys: |
             ${{ runner.os }}-clojure-test
       - name: Cache gitlibs
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.gitlibs
           key: ${{ runner.os }}-gitlibs-test-${{ hashFiles('deps.edn') }}
@@ -98,25 +98,25 @@ jobs:
           channel-id: C06192XRMNW
           message-id: ${{ needs.configure.outputs.slack-message }}
           text: ":male-construction-worker: Bygger docker image …"
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
       - name: Install clojure tools
-        uses: DeLaGuardo/setup-clojure@12.1
+        uses: DeLaGuardo/setup-clojure@13.4
         with:
-          cli: 1.11.1.1155
+          cli: 1.12.1.1550
       - name: Cache maven build deps
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-clojure-build-${{ hashFiles('deps.edn') }}
           restore-keys: |
             ${{ runner.os }}-clojure-build
       - name: Cache gitlibs
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.gitlibs
           key: ${{ runner.os }}-gitlibs-build-${{ hashFiles('deps.edn') }}
@@ -134,7 +134,7 @@ jobs:
         run: make docker
       - id: auth
         name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v1
+        uses: google-github-actions/auth@v2
         with:
           token_format: access_token
           create_credentials_file: true
@@ -166,7 +166,7 @@ jobs:
     name: Deployer vha Cloud Run
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
       - id: auth
         name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
