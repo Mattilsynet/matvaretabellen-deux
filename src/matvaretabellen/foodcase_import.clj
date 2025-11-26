@@ -1,8 +1,6 @@
 (ns matvaretabellen.foodcase-import
-  (:require [babashka.fs :as fs]
-            [broch.core :as b]
+  (:require [broch.core :as b]
             [clojure.data.json :as json]
-            [clojure.data.xml :as xml]
             [clojure.java.io :as io]
             [clojure.set :as set]
             [clojure.string :as str]
@@ -11,44 +9,6 @@
             [matvaretabellen.db :as db]
             [matvaretabellen.misc :as misc]
             [matvaretabellen.nutrient :as nutrient]))
-
-(import '(javax.xml.parsers DocumentBuilderFactory)
-        '(javax.xml.xpath XPathFactory))
-
-(defn slurp-zipped [zipfile entry]
-  (let [tempdir (fs/create-temp-dir)]
-    (fs/delete-on-exit tempdir)
-    (fs/unzip zipfile tempdir)
-    (fs/list-dir tempdir)
-    (slurp (fs/file tempdir entry))))
-
-(defn create-xpath [xml-str]
-  (let [factory (DocumentBuilderFactory/newInstance)
-        builder (.newDocumentBuilder factory)
-        doc (.parse builder (java.io.ByteArrayInputStream. (.getBytes xml-str "UTF-8")))
-        xpath (.newXPath (XPathFactory/newInstance))]
-    (fn [query]
-      (.evaluate xpath query doc))))
-
-(comment
-  ;; Med clojure.data.xml får vi fin Clojure-data, men ikke noen grei måte å
-  ;; gjøre spørringer på XML-en på.
-  (def mtx (xml/parse-str (slurp-zipped "data/MTX.ecf" "MTX.xml")))
-  (->> mtx :tag)
-  (->> mtx :content (map :tag))
-  (->> mtx :content first :content (map :tag))
-  (->> mtx :content (map :tag))
-
-  )
-
-(comment
-  ;; Java-XPath lar oss spørre direkte på XML-en men returnerer strings
-  (def query (create-xpath (slurp-zipped "data/MTX.ecf" "MTX.xml")))
-
-  (query "//catalogueTerms/term/termDesc/termCode")
-  ;; => "A0MNA"
-
-  )
 
 (defn load-json [file-name]
   (-> (io/file file-name)
