@@ -32,7 +32,7 @@
   (p/exec "tmux attach-session -t" session-name))
 
 (defn preview []
-  (tmux-multi "matvaretabellen" ["make start-transactor" "clj -X:dev matnyttig.dev/start"]))
+  (tmux-multi "matvaretabellen" ["make start-transactor" "clj -X:dev matvaretabellen.dev/start"]))
 
 (comment
   ((requiring-resolve 'clojure.repl.deps/sync-deps))
