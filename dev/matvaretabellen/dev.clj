@@ -14,15 +14,18 @@
             [powerpack.dev :as dev]
             [snitch.core]))
 
-(defn start [] (powerpack.dev/start))
-(defn reset [] (powerpack.dev/start))
+(defn start []
+  (set! *print-namespace-maps* false)
+  (powerpack.dev/start))
+
+(defn reset []
+  (powerpack.dev/start))
 
 (defn load-local-config []
   (-> (config/from-file "./config/local-config.edn")
       (config/mask-config)))
 
 (defmethod dev/configure! :default []
-  (set! *print-namespace-maps* false)
   (repl/set-refresh-dirs "src" "dev" "test" "ui/src")
   (matvaretabellen/create-dev-app (load-local-config)))
 
