@@ -41,10 +41,11 @@
 (intern 'clojure.core (with-meta 'e->map (meta #'e->map)) #'e->map)
 
 (comment
-
-  (def app-db (d/db (:datomic/conn (dev/get-app))))
-  (def config (load-local-config))
-  (def conn (d/connect (:foods/datomic-uri config)))
+  (do
+    (def app-db (d/db (:datomic/conn (dev/get-app))))
+    (def config (load-local-config))
+    (def conn (d/connect (:foods/datomic-uri config)))
+    (def foods-db (d/db conn)))
 
   ;; If your database is empty ("Could not find foods in catalog")
   ;; Remember to `make start-transactor`
