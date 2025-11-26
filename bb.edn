@@ -1,0 +1,3 @@
+{:paths ["dev"]
+ :tasks
+ {preview ((requiring-resolve (quote easy/preview)))}}

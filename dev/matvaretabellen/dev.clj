@@ -14,9 +14,11 @@
             [powerpack.dev :as dev]
             [snitch.core]))
 
-(defn start []
-  (set! *print-namespace-maps* false)
-  (powerpack.dev/start))
+(defn start
+  ([] (start {}))
+  ([_]
+   (set! *print-namespace-maps* false)
+   (powerpack.dev/start)))
 
 (defn reset []
   (powerpack.dev/reset))

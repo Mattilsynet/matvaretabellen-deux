@@ -21,7 +21,8 @@
         superstring/superstring {:mvn/version "3.2.1"}}
  :aliases
  {:dev {:extra-paths ["dev" "dev-resources" "test" "ui/test" "ui/dev-resources" "ui/portfolio"]
-        :extra-deps {cider/piggieback {:mvn/version "0.5.3"}
+        :extra-deps {babashka/process {:mvn/version "0.6.23"}
+                     cider/piggieback {:mvn/version "0.5.3"}
                      com.bhauman/figwheel-main {:git/url "https://github.com/cjohansen/figwheel-main"
                                                 :sha "df756e460f4370e5351872cd50e73b7817b6cd2c"
                                                 :exclusions [org.clojure/clojurescript]}
