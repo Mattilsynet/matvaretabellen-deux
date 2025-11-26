@@ -19,7 +19,7 @@
   (powerpack.dev/start))
 
 (defn reset []
-  (powerpack.dev/start))
+  (powerpack.dev/reset))
 
 (defn load-local-config []
   (-> (config/from-file "./config/local-config.edn")
