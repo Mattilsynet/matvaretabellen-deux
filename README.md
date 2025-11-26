@@ -45,24 +45,13 @@ Disse legger opp til en JavaScript-løsning. Vi valgte den bort til fordel for e
 ClojureScript-løsning for at klienten kunne dele tokenizing-koden med backenden
 (som er skrevet i Clojure) - et kritisk punkt for at søket skal fungere.
 
-## Hvordan kjører jeg dette lokalt?
-
-Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer om
-[hvordan dette er skrudd sammen](#arkitektur) lenger ned.
+## Førstegangsoppsett
 
 - Skaff Clojure
 
     ```
     brew install clojure
     ```
-
-- Start ClojureScript-bygget (Emacs-brukere kan se nedenfor):
-
-    ```
-    clj -M:dev -m figwheel.main -b dev -r
-    ```
-
-- [Se på UI-komponentene med Portfolio](http://localhost:5054/)
 
 - Last ned secret så du kan dekryptere configen.
 
@@ -76,12 +65,6 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
     cp config/local-config.sample.edn config/local-config.edn
     ```
 
-- Kjør opp databasen:
-
-    ```
-    make start-transactor
-    ```
-
 - Last inn FoodCASE-data i databasen (trenger kun å gjøres første gang):
 
     ```
@@ -90,19 +73,41 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
     (foodcase-import/create-database-from-scratch "datomic:dev://localhost:4334/foods")
     ```
 
-- Start backenden:
+## Kjør lokalt uten REPL
+
+1. Installer Babashka og TMUX
+
+2. Start systemet
 
     ```
-    clj -M:dev
-    (require 'matvaretabellen.dev)
-    (matvaretabellen.dev/start)
+    bb preview
     ```
 
-### Emacs ❤️❤️
+## Kjør lokalt med REPL i Emacs ❤️❤️
 
-Dersom du bruker Emacs - noe vi anbefaler på det aller varmeste - er det
-`cider-jack-in` og deretter `cider-connect-sibling-cljs` som gjelder for å få
-opp både backenden og frontenden.
+1. Sørg for at du har en Datomic-transactor kjørende:
+
+    ```
+    make start-transactor
+    ```
+
+2. Start REPL
+
+3. Start systemet
+
+    ```clojure
+    ((requiring-resovle 'matnyttig.dev/start))
+    ```
+
+4. Hvis du vil jobbe med klient-side Javascript kompilert fra Clojurescript, kan
+   du få deg et CLJS-REPL:
+
+    ```
+    M-x cider-connect-sibling-cljs
+    ```
+
+    Men husk: Matvaretabellen trykkes opp som rå HTML, og du trenger ikke
+    ClojureScript-bygget for å trykke opp ny HTML!
 
 <a id="import"></a>
 ## Nytt år, ny import av FoodCASE
