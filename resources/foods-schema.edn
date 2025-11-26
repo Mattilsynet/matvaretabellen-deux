@@ -216,6 +216,10 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
 
+ {:db/ident :foodex2.term/note-links
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/many}
+
  {:db/ident :foodex2/term
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one}

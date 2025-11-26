@@ -8,6 +8,7 @@
             [datomic-type-extensions.api :as d]
             [matvaretabellen.db :as db]
             [matvaretabellen.misc :as misc]
+            [matvaretabellen.mtx :as mtx]
             [matvaretabellen.nutrient :as nutrient]))
 
 (defn load-json [file-name]
@@ -333,43 +334,50 @@
   (let [i18n-attrs (db/get-i18n-attrs db)
         nutrients (load-nutrients i18n-attrs locale->datas)
         portion-kinds (map foodcase-portiontype->portion-kind (get (first (vals locale->datas)) "portiontypes"))]
-    [;; food-groups
-     (combine-i18n-sources
-      (update-vals locale->datas #(keep foodcase-foodgroup->food-group (get % "foodgroups")))
-      i18n-attrs)
+    (concat
+     [;; food-groups
+      (combine-i18n-sources
+       (update-vals locale->datas #(keep foodcase-foodgroup->food-group (get % "foodgroups")))
+       i18n-attrs)
 
-     ;; nutrients
-     nutrients
+      ;; nutrients
+      nutrients
 
-     ;; faux nutrient groups
-     (nutrient/get-apriori-groups)
+      ;; faux nutrient groups
+      (nutrient/get-apriori-groups)
 
-     ;; sources (FoodCASE calls them references, but trust me - they're sources)
-     (combine-i18n-sources
-      (update-vals locale->datas #(map foodcase-reference->source (get % "references")))
-      i18n-attrs)
+      ;; sources (FoodCASE calls them references, but trust me - they're sources)
+      (combine-i18n-sources
+       (update-vals locale->datas #(map foodcase-reference->source (get % "references")))
+       i18n-attrs)
 
-     ;; A priori sources
-     apriori-sources
+      ;; A priori sources
+      apriori-sources
 
-     ;; langual-codes
-     (map foodcase-langualcode->langual-code (get (first (vals locale->datas)) "langualcodes"))
+      ;; langual-codes
+      (map foodcase-langualcode->langual-code (get (first (vals locale->datas)) "langualcodes"))
 
-     ;; foodex2 facets
-     (read-string (slurp (io/file "data/foodex2-facets.edn")))
+      ;; foodex2 facets
+      (read-string (slurp (io/file "data/foodex2-facets.edn")))
 
-     ;; portion-kinds
-     portion-kinds
+      ;; portion-kinds
+      portion-kinds
 
-     ;; foods
-     (let [opt {:id->nutrient (into {} (map (juxt :nutrient/id identity) nutrients))
-                :id->portion-kind (into {} (map (juxt :portion-kind/id identity) portion-kinds))}]
-       (validate-foods
-        (combine-i18n-sources
-         (update-vals
-          locale->datas
-          #(map (fn [food] (foodcase-food->food food opt)) (get % "foods")))
-         i18n-attrs)))]))
+      ;; foods
+      (let [opt {:id->nutrient (into {} (map (juxt :nutrient/id identity) nutrients))
+                 :id->portion-kind (into {} (map (juxt :portion-kind/id identity) portion-kinds))}]
+        (validate-foods
+         (combine-i18n-sources
+          (update-vals
+           locale->datas
+           #(map (fn [food] (foodcase-food->food food opt)) (get % "foods")))
+          i18n-attrs)))]
+
+     ;; FoodEx2 codes
+     (->> (mtx/load-from-zip "data/MTX.ecf" "MTX.xml")
+          mtx/find-terms
+          (map mtx/parse-term)
+          (partition-all 1000)))))
 
 (defn get-content-hash []
   (hash (for [file ["data/foodcase-data-en.json"
@@ -447,5 +455,9 @@
        (map summarize-food))
 
   (find-new-food-ids "data/foodcase-food-nb.json" "data/foodcase-food-nb.old.json")
+
+  ;; FoodEx2-koder
+  (e->map (d/entity db [:foodex2.term/code "A0MNA"]))
+  (e->map (d/entity db [:foodex2.term/code "A16YT"]))
 
   )

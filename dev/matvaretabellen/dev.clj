@@ -57,6 +57,11 @@
   (start)
   (reset)
 
+  (->> (d/entity (d/db conn) [:food/id "05.448"])
+       :foodex2/classification
+       :foodex2/aspects
+       (map e->map))
+
   (export/export)
 
   (d/q '[:find [(pull ?p [:nutrient/id :nutrient/name]) ...]
