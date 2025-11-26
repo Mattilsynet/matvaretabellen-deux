@@ -1,8 +1,8 @@
 (ns matvaretabellen.mtx-test
-  (:require [clojure.test :refer [deftest is]]
+  (:require [clojure.test :refer [deftest is testing]]
             [matvaretabellen.mtx :as mtx]))
 
-(def term
+(def red-sea-houndfish-xml
   '{:tag :term,
     :attrs {},
     :content
@@ -97,12 +97,30 @@
           :attrs {},
           :content ({:tag :attributeValue, :attrs {}, :content ("E")})})})})})
 
+(def mammals-offals-xml
+  '{:tag :term,
+    :attrs {},
+    :content
+    ({:tag :termDesc,
+      :attrs {},
+      :content
+      ({:tag :termCode, :attrs {}, :content ("A16YT")}
+       {:tag :termExtendedName,
+        :attrs {},
+        :content
+        ("Mammals offals and slaughtering products (other than liver)")})})})
+
 (deftest parse-term
-  (is (= (mtx/parse-term term)
+  (is (= (mtx/parse-term red-sea-houndfish-xml)
          {:foodex2.term/code "A0MNA"
           :foodex2.term/name "Red Sea houndfish (as animal)"
-          :foodex2.term/note "Live animal of the taxonomic species Tylosurus choram, within the Family Belonidae. The organisms are commonly known as Red Sea houndfish. The part considered is by default the whole living organism.£http://www.fishbase.se/summary/Tylosurus-choram.html£http://www.marinespecies.org/aphia.php?p=taxlist&tName=Tylosurus choram"})))
+          :foodex2.term/note "Live animal of the taxonomic species Tylosurus choram, within the Family Belonidae. The organisms are commonly known as Red Sea houndfish. The part considered is by default the whole living organism."
+          :foodex2.term/note-links #{"http://www.fishbase.se/summary/Tylosurus-choram.html"
+                                     "http://www.marinespecies.org/aphia.php?p=taxlist&tName=Tylosurus choram"}}))
 
-(comment
-  (set! *print-namespace-maps* false)
+  (testing "not all terms have notes!"
+    (is (= (mtx/parse-term mammals-offals-xml)
+           {:foodex2.term/code "A16YT"
+            :foodex2.term/name "Mammals offals and slaughtering products (other than liver)"})))
+
   )
