@@ -138,7 +138,11 @@
                 first)
            {:sort-id "Fiber"
             :options
-            [{:label [:i18n :i18n/lookup {:nb "Kostfiber", :en "Dietary fibre"}]
+            [{:label [:i18n :i18n/lookup {:nb "Vann", :en "Water"}]
+              :data-filter-id "Vann"
+              :checked? false
+              :sort-id "Vann"}
+             {:label [:i18n :i18n/lookup {:nb "Kostfiber", :en "Dietary fibre"}]
               :data-filter-id "Fiber"
               :checked? true
               :sort-id "Fiber"}
@@ -146,10 +150,6 @@
               :data-filter-id "Protein"
               :checked? true
               :sort-id "Protein"}
-             {:label [:i18n :i18n/lookup {:nb "Vann", :en "Water"}]
-              :data-filter-id "Vann"
-              :checked? false
-              :sort-id "Vann"}
              {:label [:i18n :i18n/lookup {:nb "Alkohol", :en "Alcohol"}]
               :data-filter-id "Alko"
               :checked? false
@@ -170,13 +170,13 @@
               :sort-id "Vit A RE"
               :data-filter-id "Vit A RE"
               :checked? false
-              :options [{:label [:i18n :i18n/lookup {:nb "Betakaroten", :en "Beta-carotene"}]
-                         :sort-id "B-karo"
-                         :data-filter-id "B-karo"
-                         :checked? false}
-                        {:label [:i18n :i18n/lookup {:nb "Retinol", :en "Retinol"}]
+              :options [{:label [:i18n :i18n/lookup {:nb "Retinol", :en "Retinol"}]
                          :sort-id "Retinol"
                          :data-filter-id "Retinol"
+                         :checked? false}
+                        {:label [:i18n :i18n/lookup {:nb "Betakaroten", :en "Beta-carotene"}]
+                         :sort-id "B-karo"
+                         :data-filter-id "B-karo"
                          :checked? false}]}
              {:label [:i18n :i18n/lookup {:nb "Vitamin D", :en "Vitamin D"}]
               :sort-id "Vit D"
@@ -222,24 +222,24 @@
                ["Kolest"]]]
              ["TraceElements"
               [["Fe"]
-               ["Cu"]
                ["Zn"]
                ["Se"]
+               ["Cu"]
                ["I"]]]]
             [["Karbo"
               [["Stivel"]
                ["Mono+Di"]
                ["Sukker"]
                ["SUGAN"]]]
-             [[["Fiber"]
+             [[["Vann"]
+               ["Fiber"]
                ["Protein"]
-               ["Vann"]
                ["Alko"]]]
              ["FatSolubleVitamins"
               [["Vit A"]
                ["Vit A RE"
-                [["B-karo"]
-                 ["Retinol"]]]
+                [["Retinol"]
+                 ["B-karo"]]]
                ["Vit D"]
                ["Vit E"]]]
              ["WaterSolubleVitamins"
@@ -252,9 +252,9 @@
                ["Vit B12"]
                ["Vit C"]]]
              ["Minerals"
-              [["Ca"]
-               ["K"]
+              [["NaCl"]
+               ["Ca"]
                ["Na"]
-               ["NaCl"]
-               ["P"]
-               ["Mg"]]]]]))))
+               ["K"]
+               ["Mg"]
+               ["P"]]]]]))))

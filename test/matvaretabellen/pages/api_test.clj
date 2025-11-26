@@ -362,38 +362,39 @@
                 {:page/format :edn
                  :page/locale :nb})
                (update-in [:body :nutrients] #(take 4 %)))
-           {:content-type :edn,
+           {:content-type :edn
             :body
             {:nutrients
-             [{:page/uri "https://mvt.no/fett/"
+             [{:nutrient/decimal-precision 0
+               :nutrient/euro-fir-id "WATER"
+               :nutrient/euro-fir-name "water"
+               :nutrient/id "Vann"
+               :nutrient/name "Vann"
+               :nutrient/unit "g"
+               :page/uri "https://mvt.no/vann/"}
+              {:page/uri "https://mvt.no/fett/"
                :nutrient/id "Fett"
                :nutrient/name "Fett"
                :nutrient/euro-fir-id "FAT"
                :nutrient/euro-fir-name "fat, total"
                :nutrient/unit "g"
                :nutrient/decimal-precision 1}
-              {:page/uri "https://mvt.no/karbohydrat/"
-               :nutrient/id "Karbo"
-               :nutrient/name "Karbohydrat"
-               :nutrient/euro-fir-id "CHO"
-               :nutrient/euro-fir-name "carbohydrate"
-               :nutrient/unit "g"
-               :nutrient/decimal-precision 1}
-              {:page/uri "https://mvt.no/kostfiber/"
-               :nutrient/id "Fiber"
-               :nutrient/name "Kostfiber"
-               :nutrient/euro-fir-id "FIBT"
-               :nutrient/euro-fir-name "fibre, total dietary"
-               :nutrient/unit "g"
-               :nutrient/decimal-precision 1}
-              {:page/uri "https://mvt.no/stivelse/"
-               :nutrient/id "Stivel"
-               :nutrient/name "Stivelse"
-               :nutrient/euro-fir-id "STARCH"
-               :nutrient/euro-fir-name "starch, total"
-               :nutrient/unit "g"
+              {:nutrient/name "Mettede fettsyrer"
+               :nutrient/euro-fir-name "fatty acids, total saturated"
+               :page/uri "https://mvt.no/mettede-fettsyrer/"
                :nutrient/decimal-precision 1
-               :nutrient/parent-id "Karbo"}]
+               :nutrient/id "Mettet"
+               :nutrient/unit "g"
+               :nutrient/parent-id "Fett"
+               :nutrient/euro-fir-id "FASAT"}
+              {:nutrient/name "C12:0 (laurinsyre)"
+               :nutrient/euro-fir-name "fatty acid 12:0 (lauric acid)"
+               :page/uri "https://mvt.no/c12-0-laurinsyre/"
+               :nutrient/decimal-precision 1
+               :nutrient/id "C12:0Laurinsyre"
+               :nutrient/unit "g"
+               :nutrient/parent-id "Mettet"
+               :nutrient/euro-fir-id "F12:0"}]
              :locale :nb}})))
 
   (testing "Returns JSON data"
@@ -406,35 +407,36 @@
            {:content-type :json
             :body
             {:nutrients
-             [{:uri "https://mvt.no/fett/"
+             [{:uri "https://mvt.no/vann/"
+               :nutrientId "Vann"
+               :name "Vann"
+               :euroFirId "WATER"
+               :euroFirName "water"
+               :unit "g"
+               :decimalPrecision 0}
+              {:uri "https://mvt.no/fett/"
                :nutrientId "Fett"
                :name "Fett"
                :euroFirId "FAT"
                :euroFirName "fat, total"
                :unit "g"
                :decimalPrecision 1}
-              {:uri "https://mvt.no/karbohydrat/"
-               :nutrientId "Karbo"
-               :name "Karbohydrat"
-               :euroFirId "CHO"
-               :euroFirName "carbohydrate"
-               :unit "g"
-               :decimalPrecision 1}
-              {:uri "https://mvt.no/kostfiber/"
-               :nutrientId "Fiber"
-               :name "Kostfiber"
-               :euroFirId "FIBT"
-               :euroFirName "fibre, total dietary"
-               :unit "g"
-               :decimalPrecision 1}
-              {:uri "https://mvt.no/stivelse/"
-               :nutrientId "Stivel"
-               :name "Stivelse"
-               :euroFirId "STARCH"
-               :euroFirName "starch, total"
-               :unit "g"
+              {:unit "g"
+               :euroFirName "fatty acids, total saturated"
+               :euroFirId "FASAT"
+               :name "Mettede fettsyrer"
                :decimalPrecision 1
-               :parentId "Karbo"}]
+               :uri "https://mvt.no/mettede-fettsyrer/"
+               :parentId "Fett"
+               :nutrientId "Mettet"}
+              {:unit "g"
+               :euroFirName "fatty acid 12:0 (lauric acid)"
+               :euroFirId "F12:0"
+               :name "C12:0 (laurinsyre)"
+               :decimalPrecision 1
+               :uri "https://mvt.no/c12-0-laurinsyre/"
+               :parentId "Mettet"
+               :nutrientId "C12:0Laurinsyre"}]
              :locale :nb}}))))
 
 (deftest langual-codes-api-test
