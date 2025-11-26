@@ -11,8 +11,11 @@
             [matvaretabellen.foodcase-import :as foodcase-import]
             [matvaretabellen.misc :as misc]
             [matvaretabellen.search-index :as index]
-            [powerpack.dev :as dev :refer [start reset]]
+            [powerpack.dev :as dev]
             [snitch.core]))
+
+(defn start [] (powerpack.dev/start))
+(defn reset [] (powerpack.dev/start))
 
 (defn load-local-config []
   (-> (config/from-file "./config/local-config.edn")
