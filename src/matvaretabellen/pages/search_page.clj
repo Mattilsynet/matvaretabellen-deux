@@ -1,8 +1,18 @@
 (ns matvaretabellen.pages.search-page
-  (:require [matvaretabellen.layout :as layout]
+  (:require [mattilsynet.design :as mtds]
+            [matvaretabellen.layout :as layout]
             [matvaretabellen.ui.client-table :as client-table]
             [matvaretabellen.urls :as urls]
+            [mmm.components.button :refer [Button]]
             [mmm.components.search-input :refer [SearchInput]]))
+
+(defn render-excel-download-button [locale]
+  (Button {:text [:i18n ::download-everything]
+           :href (urls/get-foods-excel-url locale)
+           :icon :phosphor.regular/arrow-down
+           :inline? true
+           :secondary? true
+           :class [:mmm-button-small]}))
 
 (defn render [context page]
   (layout/layout
@@ -29,10 +39,14 @@
      [:div.mmm-mts
       (client-table/render-food-groups-toggle)
       [:span.mmm-mlm (client-table/render-nutrients-toggle)]]]
-    [:div.mmm-section.mmm-container.mmm-flex.mmm-flex-jl.mmm-flex-gap
-     (client-table/render-download-csv-button)
-     [:p.mmm-p.mmm-mts.mmm-small.mvt-clear-downloads.mmm-hidden
-      [:a.mmm-link [:i18n ::clear-download]]]]
+    [:div.mmm-section.mmm-container
+     {:class (mtds/classes :flex)
+      :data-justify "space-between"}
+     [:div {:class (mtds/classes :flex)}
+      (client-table/render-download-csv-button)
+      [:p.mmm-p.mmm-mts.mmm-small.mvt-clear-downloads.mmm-hidden
+       [:a.mmm-link [:i18n ::clear-download]]]]
+     (render-excel-download-button (:page/locale page))]
     [:div.mmm-mobile-phn.mmm-flex-grow
      (client-table/render-column-settings (:foods/db context))
      (client-table/render-food-group-settings context page)

@@ -162,7 +162,8 @@
  #:matvaretabellen.pages.search-page
  {:clear-download "Tøm liste"
   :page-title "Søk i Matvaretabellen"
-  :open-graph-description "Søk, sorter og let i Matvaretabellen"}
+  :open-graph-description "Søk, sorter og let i Matvaretabellen"
+  :download-everything "Last ned hele Matvaretabellen (Excel)"}
 
  #:matvaretabellen.ui.client-table
  {:columns "Næringsstoffer"

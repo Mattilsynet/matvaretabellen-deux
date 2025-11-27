@@ -162,7 +162,8 @@
  #:matvaretabellen.pages.search-page
  {:clear-download "Clear list"
   :page-title "Search Matvaretabellen"
-  :open-graph-description "Search, sort and browse Matvaretabellen"}
+  :open-graph-description "Search, sort and browse Matvaretabellen"
+  :download-everything "Last ned hele Matvaretabellen (Excel)"}
 
  #:matvaretabellen.ui.client-table
  {:columns "Nutrients"
