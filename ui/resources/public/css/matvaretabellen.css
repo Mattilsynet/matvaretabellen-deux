@@ -271,3 +271,9 @@
     width: 300px;
     color: var(--mt-color-illustration-fill);
 }
+
+.mvt-classic {
+    max-height: 75vh;
+    overflow: scroll;
+    margin-bottom: 2rem;
+}

@@ -107,7 +107,7 @@
 (defn render-table-skeleton [foods-db & [opt]]
   (let [nutrients (->> (nutrient/get-used-nutrients foods-db)
                        nutrient/sort-by-preference)]
-    [:div.mmm-sidescroller.mmm-col
+    [:figure.mmm-sidescroller.mmm-col.mvt-classic
      [:div.mmm-hidden
       (icons/render :phosphor.regular/caret-up-down {:class [:mmm-svg :mvt-sort]})
       (icons/render :phosphor.regular/sort-descending {:class [:mmm-svg :mvt-desc]})

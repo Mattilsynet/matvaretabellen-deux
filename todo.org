@@ -1,11 +1,11 @@
-* 2026 [9/20]
+* 2026 [10/20]
 Matvarer
 Næringsstoffer
 Matvaregrupper
 ** TODO Metadata om næringsstoffverdier i designsystemet-popup
 ** DONE Få inn FoodEx2 i databasen
 ** TODO Lag tabell som viser FoodEx2-kategorier for en gitt matvare
-** TODO Legg figure rundt den store tabellen, med max-height 90vh
+** DONE Legg figure rundt den store tabellen, med max-height 90vh
 ** TODO Putt stor "last ned Excel-ark" på tabell-siden
 ** DONE Endre rekkefølgen på næringsstoffer
 ** DONE Legg inn energi i excel-arket på "Matvarer (alle næringsstoffer)
