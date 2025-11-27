@@ -95,7 +95,7 @@
 (defn food->api-data [locale food]
   (-> (into {:page/uri (urls/get-food-url locale food)} food)
       (update :food/name locale)
-      (dissoc :food/food-group)
+      (dissoc :food/food-group :foodex2/classification)
       (assoc :food-group/id (-> food :food/food-group :food-group/id))
       (update :food/search-keywords locale)
       (update :food/langual-codes #(set (map :langual-code/id %)))
