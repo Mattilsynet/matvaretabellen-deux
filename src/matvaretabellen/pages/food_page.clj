@@ -137,12 +137,16 @@
            {:data-nutrient-id nutrient-id}
            (pct (b// q v))])))))
 
-(defn prepare-nutrient-tables [db locale {:keys [food recommendations nutrients group]}]
+(defn prepare-nutrient-tables [db
+                               {:keys [locale show-header-sum?] :as opt}
+                               {:keys [food recommendations nutrients group]}]
   (->> (concat
         [{:headers (->> [{:text (get-nutrient-link db locale group)}
                          {:text [:i18n ::source]
                           :class "mvt-source"}
-                         {:text [:i18n ::amount]
+                         {:text (if show-header-sum?
+                                  (food/get-nutrient-quantity food (:nutrient/id group))
+                                  [:i18n ::amount])
                           :class "mvt-amount mmm-tar"}
                          (when recommendations
                            {:text [:abbr.mmm-abbr {:title [:i18n ::rda-explanation]}
@@ -164,7 +168,7 @@
          #(when-let [nutrients (food/get-nutrients food (:nutrient/id %))]
             (prepare-nutrient-tables
              db
-             locale
+             opt
              {:food food
               :nutrients nutrients
               :recommendations recommendations
@@ -506,13 +510,15 @@
       (passepartout
        (passepartout-title "karbohydrater" [:i18n ::carbohydrates-title] (get-source-toggle))
        (->> (food/get-nutrient-group food "Karbo")
-            (prepare-nutrient-tables (:app/db context) locale)
+            (prepare-nutrient-tables (:app/db context) {:locale locale
+                                                        :show-header-sum? true})
             (map render-table)))
 
       (passepartout
        (passepartout-title "fett" [:i18n ::fat-title] (get-source-toggle))
        (->> (food/get-nutrient-group food "Fett")
-            (prepare-nutrient-tables (:app/db context) locale)
+            (prepare-nutrient-tables (:app/db context) {:locale locale
+                                                        :show-header-sum? true})
             (map render-table)))
 
       (passepartout
@@ -524,7 +530,7 @@
             render-table)
        (->> (assoc (food/get-flattened-nutrient-group food "WaterSolubleVitamins")
                    :recommendations recommendations)
-            (prepare-nutrient-tables (:app/db context) locale)
+            (prepare-nutrient-tables (:app/db context) {:locale locale})
             (map render-table)))
 
       (passepartout
@@ -532,11 +538,11 @@
             (passepartout-title "mineraler-sporstoffer" [:i18n ::minerals-trace-elements-title]))
        (->> (assoc (food/get-flattened-nutrient-group food "Minerals")
                    :recommendations recommendations)
-            (prepare-nutrient-tables (:app/db context) locale)
+            (prepare-nutrient-tables (:app/db context) {:locale locale})
             (map #(render-table (assoc % :id "mineraler"))))
        (->> (assoc (food/get-flattened-nutrient-group food "TraceElements")
                    :recommendations recommendations)
-            (prepare-nutrient-tables (:app/db context) locale)
+            (prepare-nutrient-tables (:app/db context) {:locale locale})
             (map #(render-table (assoc % :id "sporstoffer")))))
 
       [:div.mmm-container.mmm-section-spaced
