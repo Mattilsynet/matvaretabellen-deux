@@ -63,7 +63,8 @@
                 :class "mvt-source"}
                {:text [:i18n ::amount]
                 :class "mvt-amount mmm-tar"}
-               {:text "Energi%"
+               {:text (list [:span.mmm-mobile "Energi%"]
+                            [:span.mmm-desktop "Energiprosent"])
                 :class "mvt-amount mmm-tar"}]
      :rows (for [id nutrition-table-row-ids]
              (let [constituent (food/get-nutrient-measurement food id)

@@ -1,4 +1,4 @@
-* 2026 [5/20]
+* 2026 [6/20]
 Matvarer
 Næringsstoffer
 Matvaregrupper
@@ -13,7 +13,7 @@ Matvaregrupper
 ** TODO Næringsstoffsider: sorter kolonner
 ** DONE Bytt ut redaksjonelt innhold om næringsstoffer
 ** TODO Fiks matvaregruppefilter på næringsstoffsiden
-** TODO Bytt Energi% til Energiprosent på bred skjerm
+** DONE Bytt Energi% til Energiprosent på bred skjerm
 ** TODO Putt sum for hvert næringsstoff i tabell-header på matvaresiden
 ** TODO Default-verdien på "anbefalt dagsinntak"-siden skal være Generell 18-70
 ** TODO µg-RE skal bli til µg
