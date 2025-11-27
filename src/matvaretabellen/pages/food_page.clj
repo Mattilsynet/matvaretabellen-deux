@@ -2,6 +2,7 @@
   (:require [broch.core :as b]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
+            [mattilsynet.design :as mtds]
             [matvaretabellen.components.comparison :as comparison]
             [matvaretabellen.components.legend :refer [Legend]]
             [matvaretabellen.components.pie-chart :refer [assoc-degrees PieChart]]
@@ -208,8 +209,8 @@
    :rows (mapcat #(get-nutrient-rows food % recommendations db locale) nutrients)})
 
 (defn render-table [{:keys [headers rows classes] :as attrs}]
-  [:table.mmm-table.mmm-table-zebra (merge {:class classes}
-                                           (dissoc attrs :classes :headers :rows))
+  [:table.mmm-table (merge {:class classes}
+                           (dissoc attrs :classes :headers :rows))
    [:thead
     (let [row (if (map? headers) headers {:cols headers})]
       [:tr (dissoc row :cols)

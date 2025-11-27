@@ -1,4 +1,4 @@
-* 2026 [11/20]
+* 2026 [12/20]
 Matvarer
 Næringsstoffer
 Matvaregrupper
@@ -16,7 +16,7 @@ Matvaregrupper
 ** DONE Bytt Energi% til Energiprosent på bred skjerm
 ** DONE Putt sum for hvert næringsstoff i tabell-header på matvaresiden
 ** DONE Default-verdien på "anbefalt dagsinntak"-siden skal være Generell 18-70
-** TODO µg-RE skal bli til µg
+** DONE µg-RE skal bli til RE og RAE(!!)
 ** TODO Omformuler brukerspørsmål
 ** TODO Ny forside
 ** TODO Samle nedlasting på Matvaretabellen og legge ned egen nedlastingsside på mattilsynet.no (og kanskje bare ha lenke på data.norge.no)

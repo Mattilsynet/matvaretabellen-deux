@@ -75,7 +75,7 @@
      :measurement/quantity #broch/quantity[0.04 "g"]}
     {:constituent/nutrient
      {:nutrient/id "Vit A" :nutrient/parent "FatSolubleVitamins"}
-     :measurement/quantity #broch/quantity[8.0 "µg-RE"]}
+     :measurement/quantity #broch/quantity[8.0 "RAE"]}
     {:constituent/nutrient {:nutrient/id "Na" :nutrient/parent "Minerals"}
      :measurement/quantity #broch/quantity[16.0 "mg"]}
     {:constituent/nutrient {:nutrient/id "Fiber"}
@@ -296,7 +296,7 @@
      :measurement/quantity nil}
     {:constituent/nutrient
      {:nutrient/id "Vit A" :nutrient/parent "FatSolubleVitamins"}
-     :measurement/quantity #broch/quantity[1077.0 "µg-RE"]}
+     :measurement/quantity #broch/quantity[1077.0 "RAE"]}
     {:constituent/nutrient {:nutrient/id "Na" :nutrient/parent "Minerals"}
      :measurement/quantity #broch/quantity[1.0 "mg"]}
     {:constituent/nutrient

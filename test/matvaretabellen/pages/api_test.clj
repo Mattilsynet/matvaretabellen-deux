@@ -147,11 +147,11 @@
                :source/id "30"}
               {:nutrient/id "Vit A RE"
                :quantity/number 5
-               :quantity/unit "µg-RE"
+               :quantity/unit "RE"
                :source/id "MI0322"}
               {:nutrient/id "Vit A"
                :quantity/number 3.0
-               :quantity/unit "µg-RE"
+               :quantity/unit "RAE"
                :source/id "MI0325"}
               {:nutrient/id "C14:0Myristinsyre"
                :quantity/number 0.01

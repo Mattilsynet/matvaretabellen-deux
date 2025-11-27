@@ -32,7 +32,7 @@
   {:id->nutrient
    {"Vann" {:nutrient/unit "g"}
     "Fett" {:nutrient/unit "g"}
-    "Vit A" {:nutrient/unit "µg-RE"}
+    "Vit A" {:nutrient/unit "RE"}
     "Retinol" {:nutrient/unit "µg"}
     "B-karo" {:nutrient/unit "µg"}}
 
@@ -113,10 +113,10 @@
               :measurement/source [:source/id "MI0142"]}
              {:constituent/nutrient [:nutrient/id "Vit A RE"]
               :measurement/source [:source/id "MI0322"]
-              :measurement/quantity #broch/quantity[60 "µg-RE"]}
+              :measurement/quantity #broch/quantity[60 "RE"]}
              {:constituent/nutrient [:nutrient/id "Vit A"]
               :measurement/source [:source/id "MI0114"]
-              :measurement/quantity #broch/quantity[23.0 "µg-RE"]}
+              :measurement/quantity #broch/quantity[23.0 "RE"]}
              {:constituent/nutrient [:nutrient/id "Retinol"]
               :measurement/source [:source/id "20"]
               :measurement/quantity #broch/quantity[30.0 "µg"]}

@@ -17,9 +17,9 @@
     {:constituent/nutrient [:nutrient/id "C18:3n-3AlfaLinolensyre"]
      :measurement/quantity #broch/quantity[0.04 "g"]}
     {:constituent/nutrient [:nutrient/id "Vit A"]
-     :measurement/quantity #broch/quantity[8.0 "µg-RE"]}
+     :measurement/quantity #broch/quantity[8.0 "RE"]}
     {:constituent/nutrient [:nutrient/id "Vit A RE"]
-     :measurement/quantity #broch/quantity[8.0 "µg-RE"]}
+     :measurement/quantity #broch/quantity[8.0 "RE"]}
     {:constituent/nutrient [:nutrient/id "Na"]
      :measurement/quantity #broch/quantity[16.0 "mg"]}
     {:constituent/nutrient [:nutrient/id "Fiber"]

@@ -102,7 +102,7 @@
                     :en "Vitamin A (RE)"}
     :nutrient/euro-fir-id "VITARE"
     :nutrient/euro-fir-name "vitamin A; retinol equiv from retinol and carotenoid activities"
-    :nutrient/unit "µg"
+    :nutrient/unit "RE"
     :nutrient/decimal-precision 0
     :nutrient/parent {:nutrient/id "FatSolubleVitamins"}}])
 

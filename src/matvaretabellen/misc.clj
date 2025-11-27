@@ -6,6 +6,8 @@
 (b/defunit-once kilojoules :energy "kJ" 1000 {b/joules 1})
 (b/defunit-once mg-ate :mass "mg-ATE" 1.0E-6)
 (b/defunit-once ug-re :mass "µg-RE" 1.0E-9)
+(b/defunit-once re :mass "RE" 1.0E-9)
+(b/defunit-once rae :mass "RAE" 1.0E-9)
 
 (def locales
   {:nb (Locale/forLanguageTag "nb-NO")
@@ -37,6 +39,8 @@
 
 (def synonyms
   {"µg-RE" #broch/quantity[nil "µg"]
+   "RE" #broch/quantity[nil "µg"]
+   "RAE" #broch/quantity[nil "µg"]
    "mg-ATE" #broch/quantity[nil "mg"]})
 
 (def synonym-lookup

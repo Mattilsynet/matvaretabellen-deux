@@ -68,7 +68,7 @@
         cartb (get-nutrient-quantity "B-karo"  constituents)]
     (when (and (some-> retol b/num)
                (some-> cartb b/num))
-      (b/quantity #broch/quantity [0 "µg-RE"] (int (b/num (b/+ retol (b// cartb 6))))))))
+      (b/quantity #broch/quantity [0 "RE"] (int (b/num (b/+ retol (b// cartb 6))))))))
 
 (defn get-vitamin-a-2024 [constituents]
   (let [quantity (calculate-vitamin-a-quantity-2024 constituents)]
@@ -242,7 +242,9 @@
                :nutrient/name name
                :nutrient/euro-fir-id euroFIR
                :nutrient/euro-fir-name euroFIRname
-               :nutrient/unit unit
+               :nutrient/unit (if (= "Vit A" id)
+                                "RAE"
+                                unit)
                :nutrient/decimal-precision (or (nutrient-id->decimal-precision id)
                                                (some-> decimals parse-long))}
         parent

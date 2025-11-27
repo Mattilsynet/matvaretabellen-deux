@@ -73,7 +73,7 @@
               {:rda.recommendation/nutrient-id "NaCl"
                :rda.recommendation/max-amount #broch/quantity[3.5 "g"]}
               {:rda.recommendation/nutrient-id "Vit A"
-               :rda.recommendation/average-amount #broch/quantity[400.0 "µg-RE"]}
+               :rda.recommendation/average-amount #broch/quantity[400.0 "RAE"]}
               {:rda.recommendation/nutrient-id "Vit D"
                :rda.recommendation/average-amount #broch/quantity[10.0 "µg"]}
               {:rda.recommendation/nutrient-id "Vit E"
@@ -191,7 +191,7 @@
              "Se" {:averageAmount [30.0 "µg"]}
              "Sukker" {:maxEnergyPct 10}
              "Trans" {:maxEnergyPct 1}
-             "Vit A" {:averageAmount [400.0 "µg-RE"]}
+             "Vit A" {:averageAmount [400.0 "RAE"]}
              "Vit B1" {:averageAmount [0.9 "mg"]}
              "Vit B12" {:averageAmount [1.3 "µg"]}
              "Vit B2" {:averageAmount [1.1 "mg"]}
