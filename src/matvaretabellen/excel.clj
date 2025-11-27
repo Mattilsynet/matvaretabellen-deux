@@ -92,7 +92,9 @@
        (remove (comp empty? :nutrient/unit))
        (nutrient/sort-by-preference)
        (into [{:title "Matvare ID" :path [:food/id]}
-              {:title "Matvare" :path [:food/name locale]}])))
+              {:title "Matvare" :path [:food/name locale]}
+              {:title "Kilojoule (kJ)" :path [:food/energy :measurement/quantity]}
+              {:title "Kilokalorier (kcal)" :path [:food/calories :measurement/observation]}])))
 
 (defn get-constituent [food nutrient-id]
   (some->> (:food/constituents food)
