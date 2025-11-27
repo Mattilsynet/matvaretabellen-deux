@@ -291,10 +291,10 @@
 (defn render-nutrient-foods [db year page]
   (let [nutrient (d/entity db [:nutrient/id (:page/nutrient-id page)])
         nutrient-name (str/lower-case (get (:nutrient/name nutrient) (:page/locale page)))
-        foods (nutrient/get-foods-by-nutrient-density nutrient)]
+        foods (nutrient/get-foods-by-nutrient-density nutrient (:page/locale page))]
     (render-some-foods db year page
-                       {:nb (str "Her finner du informasjon om de " (count foods) " matvarene med " nutrient-name " i Matvaretabellen.")
-                        :en (str "This document provides information about the " (count foods) " foods with " nutrient-name " listed in the Norwegian Food Composition Table.")}
+                       {:nb (str "Her finner du informasjon om de " (count foods) " matvarene med tall på " nutrient-name " i Matvaretabellen.")
+                        :en (str "This document provides information about the " (count foods) " foods with measurements of " nutrient-name " listed in the Norwegian Food Composition Table.")}
                        foods)))
 
 (comment

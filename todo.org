@@ -1,4 +1,4 @@
-* 2026 [6/20]
+* 2026 [7/20]
 Matvarer
 Næringsstoffer
 Matvaregrupper
@@ -9,7 +9,7 @@ Matvaregrupper
 ** TODO Putt stor "last ned Excel-ark" på tabell-siden
 ** DONE Endre rekkefølgen på næringsstoffer
 ** DONE Legg inn energi i excel-arket på "Matvarer (alle næringsstoffer)
-** TODO Næringsstoffsider: vis matvarer med null innhold
+** DONE Næringsstoffsider: vis matvarer med null innhold
 ** TODO Næringsstoffsider: sorter kolonner
 ** DONE Bytt ut redaksjonelt innhold om næringsstoffer
 ** TODO Fiks matvaregruppefilter på næringsstoffsiden

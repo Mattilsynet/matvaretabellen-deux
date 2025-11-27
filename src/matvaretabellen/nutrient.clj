@@ -2,7 +2,7 @@
   (:require [broch.core :as b]
             [datomic-type-extensions.api :as d]))
 
-(defn get-foods-by-nutrient-density [nutrient]
+(defn get-foods-by-nutrient-density [nutrient & [locale]]
   (when-let [db (some-> nutrient d/entity-db)]
     (->> (d/q '[:find ?f ?q
                 :in $ ?n
@@ -12,10 +12,11 @@
                 [?f :food/constituents ?c]]
               db
               (:db/id nutrient))
-         (filter #(< 0 (b/num (second %))))
-         (sort-by second)
-         reverse
-         (map #(d/entity db (first %))))))
+         (map (juxt #(d/entity db (first %)) second))
+         (sort-by (if locale
+                    (juxt (comp - b/num second) (comp locale :food/name first))
+                    (comp - b/num second)))
+         (map first))))
 
 (defn get-used-nutrients [food-db]
   (for [eid (d/q '[:find [?n ...]

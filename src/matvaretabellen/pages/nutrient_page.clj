@@ -95,7 +95,7 @@
   (let [nutrient (d/entity (:foods/db context) [:nutrient/id (:page/nutrient-id page)])
         locale (:page/locale page)
         nutrient-name (get (:nutrient/name nutrient) locale)
-        foods (nutrient/get-foods-by-nutrient-density nutrient)]
+        foods (nutrient/get-foods-by-nutrient-density nutrient locale)]
     (layout/layout
      context
      page
