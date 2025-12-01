@@ -82,6 +82,22 @@
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one}
 
+ {:db/ident :measurement/value-type
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :measurement/acquisition-type
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :measurement/method-type
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :measurement/method-indicator
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
  ;; Portion kind
  ;;
  ;; En matvare serveres gjerne i forskjellige porsjoner,

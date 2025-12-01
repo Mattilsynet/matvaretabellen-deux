@@ -76,16 +76,79 @@
       quantity (assoc :measurement/source [:source/id "MI0322"])
       quantity (assoc :measurement/quantity quantity))))
 
+(def method-types
+  {"A" :method.type/analytical-results
+   "AG" :method.type/analytical-generic
+   "AGR" :method.type/aggregation-of-contributing-values
+   "CG" :method.type/calculated-generic
+   "D" :method.type/aggregation-of-contributing-analytical-results
+   "E" :method.type/other
+   "G" :method.type/aggregated-from-contributing-foods
+   "I" :method.type/imputed-estimated-from-related-food
+   "IG" :method.type/imputed-estimated-generic
+   "K" :method.type/calculated-from-related-food
+   "O" :method.type/imputed-estimated-from-other-food-and-other-related-component
+   "P" :method.type/calculated-on-component-profile
+   "R" :method.type/calculated-as-recipe
+   "RN" :method.type/calculated-as-recipe-no-missing-values
+   "RX" :method.type/calculated-as-recipe-some-missing-values
+   "S" :method.type/summation-from-constituents
+   "T" :method.type/calculations-including-conversion-factors
+   "U" :method.type/estimated-according-to-logical-deduction
+   "X" :method.type/method-type-not-known})
+
+(def acquisition-types
+  {"A" :acquisition.type/authoritative-document
+   "C" :acquisition.type/scientific-communication
+   "D" :acquisition.type/independent-laboratory
+   "E" :acquisition.type/other
+   "F" :acquisition.type/food-composition-table
+   "I" :acquisition.type/industry-laboratory
+   "L" :acquisition.type/food-label-product-information
+   "O" :acquisition.type/in-house-or-affiliated-laboratory
+   "S" :acquisition.type/created-within-host-system
+   "X" :acquisition.type/not-known})
+
+(def value-types
+  {"AR" :value.type/as-reported
+   "AV" :value.type/average
+   "BE" :value.type/best-estimate
+   "BL" :value.type/below-limit-of-detection
+   "BLX" :value.type/below-limits-of-detection-or-quantification
+   "BQ" :value.type/below-limit-of-quantification
+   "LZ" :value.type/logical-zero
+   "MD" :value.type/median
+   "MN" :value.type/mean
+   "N" :value.type/missing
+   "NP" :value.type/not-processed
+   "TR" :value.type/trace
+   "W" :value.type/weighted
+   "X" :value.type/unknown})
+
 (defn get-constituents [food id->nutrient]
   (set
-   (for [[id {:strs [ref value]}] (->> (apply dissoc food (concat known-non-constituents ignored-nutrients))
-                                       (filter (fn [[_ v]] (get v "ref")))
-                                       (filter (comp id->nutrient first)))]
+   (for [[id {:strs [ref value valueType acquisitionType methodType methodIndicator]}]
+         (->> (apply dissoc food (concat known-non-constituents ignored-nutrients))
+              (filter (fn [[_ v]] (get v "ref")))
+              (filter (comp id->nutrient first)))]
      (let [amount (parse-double value)]
        (cond-> {:constituent/nutrient [:nutrient/id id]
                 :measurement/source [:source/id ref]}
-         amount (assoc :measurement/quantity
-                       (b/from-edn [amount (get-in id->nutrient [id :nutrient/unit])])))))))
+         amount
+         (assoc :measurement/quantity
+                (b/from-edn [amount (get-in id->nutrient [id :nutrient/unit])]))
+
+         (value-types valueType)
+         (assoc :measurement/value-type (value-types valueType))
+
+         (acquisition-types acquisitionType)
+         (assoc :measurement/acquisition-type (acquisition-types acquisitionType))
+
+         (method-types methodType)
+         (assoc :measurement/method-type (method-types methodType))
+
+         (not-empty methodIndicator)
+         (assoc :measurement/method-indicator {:source/id methodIndicator}))))))
 
 (defn get-portions [{:strs [ref value]} id->portion-kind]
   (->> (mapv (fn [portion-kind-id v]
