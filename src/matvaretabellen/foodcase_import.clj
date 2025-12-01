@@ -7,6 +7,7 @@
             [clojure.walk :as walk]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.db :as db]
+            [matvaretabellen.foodex2 :as foodex2]
             [matvaretabellen.misc :as misc]
             [matvaretabellen.mtx :as mtx]
             [matvaretabellen.nutrient :as nutrient]))
@@ -182,16 +183,6 @@
     (catch Exception e
       (throw (ex-info "Can't get me no edible part" {:ref ref :value value} e)))))
 
-(defn parse-foodex2-classification [code]
-  (let [[base-code & aspect-strs] (str/split code #"[#$\.]")]
-    {:foodex2/term {:foodex2.term/code base-code}
-     :foodex2/aspects
-     (into #{}
-           (map (fn [[id code]]
-                  {:foodex2/facet {:foodex2.facet/id id}
-                   :foodex2/term {:foodex2.term/code code}}))
-           (partition 2 aspect-strs))}))
-
 (defn foodcase-food->food [{:strs [id name groupId synonym latinName Netto
                                    langualCodes Energi1 Energi2 Portion foodEx2] :as food}
                            {:keys [id->nutrient id->portion-kind]}]
@@ -214,7 +205,7 @@
                                (conj constituents (get-vitamin-a-2024 constituents)))
           :food/portions (get-portions Portion id->portion-kind)
           :food/edible-part (get-edible-part Netto)
-          :foodex2/classification (some-> foodEx2 parse-foodex2-classification)}
+          :foodex2/classification (some-> foodEx2 foodex2/parse-classifier)}
          (remove (comp nil? second))
          (into {}))
     (catch Exception e

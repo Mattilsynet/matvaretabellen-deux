@@ -246,17 +246,3 @@
                               {"parentId" "Vit A"
                                "unit" "g"}))
            {:nutrient/id "Vit A"}))))
-
-(deftest parse-foodex2-classification
-  (testing "Parses classification"
-    (is (= (sut/parse-foodex2-classification "A01LH#F01.A064R$F02.A0ELC$F27.A01LH$F28.A07KQ")
-           {:foodex2/term {:foodex2.term/code "A01LH"}
-            :foodex2/aspects
-            #{{:foodex2/facet {:foodex2.facet/id "F01"}
-               :foodex2/term {:foodex2.term/code "A064R"}}
-              {:foodex2/facet {:foodex2.facet/id "F02"}
-               :foodex2/term {:foodex2.term/code "A0ELC"}}
-              {:foodex2/facet {:foodex2.facet/id "F27"}
-               :foodex2/term {:foodex2.term/code "A01LH"}}
-              {:foodex2/facet {:foodex2.facet/id "F28"}
-               :foodex2/term {:foodex2.term/code "A07KQ"}}}}))))
