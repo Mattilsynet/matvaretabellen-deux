@@ -456,6 +456,8 @@
      [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
       [:h3#foodex2 "FoodEx2: "
        [:abbr {:title kategori-beskrivelse} kategori-label]]
+      [:p {:style {:font-size "14px"}}
+       [:code (foodex2/make-classifier (:foodex2/classification food))]]
       (render-foodex2-facets food)]]))
 
 (comment

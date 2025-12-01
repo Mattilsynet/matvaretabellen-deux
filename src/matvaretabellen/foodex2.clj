@@ -16,3 +16,19 @@
                   {:foodex2/facet {:foodex2.facet/id id}
                    :foodex2/term {:foodex2.term/code code}}))
            (partition 2 aspect-strs))}))
+
+(defn make-classifier
+  [foodex2]
+  (str (-> foodex2 :foodex2/term :foodex2.term/code)
+       "#"
+       (str/join "$" (->> (:foodex2/aspects foodex2)
+                          (map (fn [aspect]
+                                 (str (-> aspect :foodex2/facet :foodex2.facet/id)
+                                      "."
+                                      (-> aspect :foodex2/term :foodex2.term/code))))
+                          ;; It's not entirely clear whether FoodEx2 aspects in
+                          ;; classifiers *must* be sorted. But we choose to,
+                          ;; because that gives us nice properties like
+                          ;; roundtripping. Also, the classifiers I've seen are
+                          ;; all of sorted aspects.
+                          sort))))
