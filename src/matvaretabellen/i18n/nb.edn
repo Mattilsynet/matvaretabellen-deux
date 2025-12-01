@@ -6,6 +6,55 @@
   :search-button "Søk"
   :search-label "Søk i Matvaretabellen"}
 
+ #:acquisition.type
+ {:authoritative-document "Autorativt dokument"
+  :scientific-communication "Vitenskapelig publikasjon"
+  :independent-laboratory "Uavhengig laboratorium"
+  :other "Annen kilde"
+  :food-composition-table "Annen matvaredatabase"
+  :industry-laboratory "Industrilaboratorium"
+  :food-label-product-information "Næringsdeklarasjon, produktinformasjon"
+  :in-house-or-affiliated-laboratory "Internt eller tilknyttet laboratorium"
+  :created-within-host-system "Verdien er beregnet/estimert i internt system"
+  :not-known "Ukjent kilde"}
+
+ #:method.type
+ {:analytical-results "Analyseresultat"
+  :analytical-generic "Analysedata, uspesifisert"
+  :aggregation-of-contributing-values "Aggregering av ulike verdier"
+  :calculated-generic "Beregnet verdi"
+  :aggregation-of-contributing-analytical-results "Aggregering av flere analyseresultater"
+  :other "Annen metodetype"
+  :aggregated-from-contributing-foods "Aggregert fra forskjellige matvarer"
+  :imputed-estimated-from-related-food "Lånt eller estimert fra lignende matvare"
+  :imputed-estimated-generic "Estimert verdi"
+  :calculated-from-related-food "Beregnet fra lignende matvare"
+  :imputed-estimated-from-other-food-and-other-related-component "Lånt eller estimert fra andre matvarer eller andre næringsstoffer"
+  :calculated-on-component-profile "Beregnet basert på næringsstoffprofilen i samme eller lignende matvare"
+  :calculated-as-recipe "Beregnet som oppskrift"
+  :calculated-as-recipe-no-missing-values "Beregnet som oppskrift, uten manglende verdier"
+  :calculated-as-recipe-some-missing-values "Beregnet som oppskrift, med manglende verdi for én eller flere ingredienser"
+  :summation-from-constituents "Summering av flere næringsstoffverdier"
+  :calculations-including-conversion-factors "Beregninger basert på omregningsfaktorer"
+  :estimated-according-to-logical-deduction "Estimert som en logisk nullverdi"
+  :method-type-not-known "Ukjent metodetype"}
+
+ #:value.type
+ {:as-reported "Som oppgitt i kilden"
+  :average "Gjennomsnittlig verdi"
+  :below-limit-of-detection "Under deteksjonsgrensen"
+  :below-limit-of-quantification "Under kvantifiseringsgrensen"
+  :below-limits-of-detection-or-quantification "Under deteksjons- eller kvantifiseringsgrensen"
+  :best-estimate "Beste estimat"
+  :logical-zero "Logisk nullverdi"
+  :mean "Gjennomsnittlig (aritmetisk) verdi"
+  :median "Median"
+  :missing "Manglende verdi"
+  :not-processed "Manglende verdi"
+  :trace "Minimal mengde"
+  :unknown "Ukjent verditype"
+  :weighted "Vektet verdi"}
+
  #:mmm.components.footer
  {:footer-title "Footer"
   :about-site "Om nettstedet"
@@ -65,7 +114,8 @@
   :url-copied "Vi har kopiert en lenke til denne siden, lim den inn der du vil dele den."}
 
  #:matvaretabellen.pages.food-page
- {:adi-title "Anbefalt dagsinntak (AI)"
+ {:acquisition-type "Kildetype"
+  :adi-title "Anbefalt dagsinntak (AI)"
   :amount "Mengde"
   :carbohydrates-title "Karbohydrater"
   :category [:fn/str "Kategori: {{:category}}"]
@@ -92,9 +142,12 @@
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
   :highlight-title [:fn/str "{{:nb}} →"]
   :kcal-content-title ("Energi (kcal) i " [:fn/get :portion])
+  :method-type "Metodetype"
+  :method-indicator "Metodekilde"
   :minerals-title "Mineraler"
   :minerals-trace-elements-title "Mineraler og sporstoffer"
   :more [:fn/str "Mer {{:categoryish}}:"]
+  :nutrient-source-popover-title [:fn/str "{{:nutrient}} i {{:food}}"]
   :nutrients "Næringsstoff"
   :nutrition-heading "Energigivende næringsstoffer"
   :nutrition-title "Næringsinnhold"
@@ -113,6 +166,7 @@
   :toc-title "Innhold"
   :total [:fn/str "{{:nb}}, total"]
   :trace-elements-title "Sporstoffer"
+  :value-type "Verditype"
   :vitamins-title "Vitaminer"
   }
 

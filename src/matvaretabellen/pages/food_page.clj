@@ -15,7 +15,22 @@
             [mmm.components.card :refer [DetailFocusCard]]
             [mmm.components.checkbox :refer [Checkbox]]
             [mmm.components.select :refer [Select]]
-            [mmm.components.toc :refer [Toc]]))
+            [mmm.components.toc :refer [Toc]]
+            [phosphor.icons :as icons]))
+
+(defn has-popover? [constituent]
+  (or (:measurement/value-type constituent)
+      (:measurement/acquisition-type constituent)
+      (:measurement/method-type constituent)
+      (:measurement/method-indicator constituent)))
+
+(defn ^{:indent 2} with-source-popover [food nutrient content]
+  (let [constituent (food/get-nutrient-measurement food (:nutrient/id nutrient))]
+    (if (has-popover? constituent)
+      [:button {:popoverTarget (:nutrient/id nutrient)
+                :data-popover "inline"}
+       content]
+      content)))
 
 (defn get-nutrient-link [db locale nutrient]
   (try
@@ -74,7 +89,8 @@
                [{:text (get-nutrient-link db locale nutrient)}
                 {:text (get-source food id)
                  :class "mvt-source"}
-                {:text (food/get-nutrient-quantity food id)
+                {:text (with-source-popover food nutrient
+                         (food/get-nutrient-quantity food id))
                  :class "mmm-tar mvt-amount"}
                 {:text (if (= id "Vann")
                          "-"
@@ -158,7 +174,8 @@
                   (->> [{:text (get-nutrient-link db locale nutrient)}
                         {:text (get-source food (:nutrient/id nutrient))
                          :class "mvt-source"}
-                        {:text (food/get-nutrient-quantity food (:nutrient/id nutrient))
+                        {:text (with-source-popover food nutrient
+                                 (food/get-nutrient-quantity food (:nutrient/id nutrient)))
                          :class "mmm-tar mvt-amount"}
                         (when recommendations
                           {:text (->> (food/get-nutrient-measurement food (:nutrient/id nutrient))
@@ -183,7 +200,8 @@
                   :level level}
                  {:text (get-source food (:nutrient/id nutrient))
                   :class "mvt-source"}
-                 {:text (food/get-nutrient-quantity food (:nutrient/id nutrient))
+                 {:text (with-source-popover food nutrient
+                          (food/get-nutrient-quantity food (:nutrient/id nutrient)))
                   :class "mmm-tar mvt-amount"}
                  (when recommendations
                    {:text (->> (food/get-nutrient-measurement food (:nutrient/id nutrient))
@@ -567,6 +585,48 @@
         (get-source-toggle [:i18n ::show-all-sources])
         (->> (food/get-sources food)
              (render-sources page))]]
+
+      (for [{:constituent/keys [nutrient] :as constituent} (:food/constituents food)]
+        (when (has-popover? constituent)
+          [:div.mmm-small {:class (mtds/classes :card :popover :prose)
+                           :data-size "sm"
+                           :popover "auto"
+                           :id (:nutrient/id nutrient)
+                           :style {:max-width "25rem"}}
+           [:button {:class (mtds/classes :button)
+                     :popovertargetaction "hide"
+                     :data-size "sm"
+                     :style {:position "absolute"
+                             :top "0.5rem"
+                             :right "0.5rem"}}
+            (icons/render :phosphor.regular/x {:style {:width "1rem" :height "1rem"}})]
+           [:h3 {:data-size "sm"}
+            [:i18n ::nutrient-source-popover-title
+             {:nutrient [:i18n :i18n/lookup (:nutrient/name nutrient)]
+              :food [:i18n :i18n/lookup (:food/name food)]}]]
+           [:table.mmm-small
+            {:class (mtds/classes :table)
+             :data-border "false"
+             :data-size "sm"}
+            [:tr
+             [:th [:strong [:i18n ::value-type]]]
+             [:td (when-let [value-type (:measurement/value-type constituent)]
+                    [:i18n value-type])]]
+
+            [:tr
+             [:th [:strong [:i18n ::acquisition-type]]]
+             [:td (when-let [acquisition-type (:measurement/acquisition-type constituent)]
+                    [:i18n acquisition-type])]]
+
+            [:tr
+             [:th [:strong [:i18n ::method-type]]]
+             [:td (when-let [method-type (:measurement/method-type constituent)]
+                    [:i18n method-type])]]
+
+            [:tr
+             [:th [:strong [:i18n ::method-indicator]]]
+             [:td (when-let [source (:measurement/method-indicator constituent)]
+                    [:i18n :i18n/lookup (:source/description source)])]]]]))
 
       [:script#food-data
        {:type "text/plain"

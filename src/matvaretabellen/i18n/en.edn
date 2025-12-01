@@ -6,6 +6,55 @@
   :search-button "Search"
   :search-label "Search in Matvaretabellen"}
 
+ #:acquisition.type
+ {:authoritative-document "Authoritative document"
+  :scientific-communication "Scientific communication"
+  :independent-laboratory "Independent laboratory"
+  :other "Other acquisition type"
+  :food-composition-table "Food composition table"
+  :industry-laboratory "Industry laboratory"
+  :food-label-product-information "Food label, product information"
+  :in-house-or-affiliated-laboratory "In-house or affiliated laboratory"
+  :created-within-host-system "Value created within host system"
+  :not-known "Not known"}
+
+ #:method.type
+ {:analytical-results "Analytical results"
+  :analytical-generic "Analytical, generic"
+  :aggregation-of-contributing-values "Aggregation of contributing values"
+  :calculated-generic "Calculated, generic"
+  :aggregation-of-contributing-analytical-results "Aggregation of contributing analytical results"
+  :other "Other method type"
+  :aggregated-from-contributing-foods "Aggregated from contributing food items"
+  :imputed-estimated-from-related-food "Imputed/estimated from related food"
+  :imputed-estimated-generic "Imputed/estimated, generic"
+  :calculated-from-related-food "Calculated from related food"
+  :imputed-estimated-from-other-food-and-other-related-component "Imputed estimated from other food and other related component"
+  :calculated-on-component-profile "Calculated on component profile"
+  :calculated-as-recipe "Calculated as recipe"
+  :calculated-as-recipe-no-missing-values "Calculated as recipe, no missing values"
+  :calculated-as-recipe-some-missing-values "Calculated as recipe, missing values for one or more ingredients"
+  :summation-from-constituents "Summation from constituent components"
+  :calculations-including-conversion-factors "Calculations including conversion factors"
+  :estimated-according-to-logical-deduction "Estimated according to logical deduction"
+  :method-type-not-known "Method type not known"}
+
+ #:value.type
+ {:as-reported "As reported"
+  :average "Average"
+  :below-limit-of-detection "Below limit of detection"
+  :below-limit-of-quantification "Below limit of quantification"
+  :below-limits-of-detection-or-quantification "Below limit of detection or quantification"
+  :best-estimate "Best estimate"
+  :logical-zero "Logical zero"
+  :mean "Mean"
+  :median "Median"
+  :missing "Unknown"
+  :not-processed "Not processed"
+  :trace "Trace"
+  :unknown "Type not known"
+  :weighted "Weighted"}
+
  #:mmm.components.footer
  {:footer-title "Footer"
   :about-site "About the site"
