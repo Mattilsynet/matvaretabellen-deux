@@ -437,10 +437,12 @@
 
 (defn render-foodex2-facets [food]
   (->> food :foodex2/classification :foodex2/aspects
-       (group-by (comp :foodex2.facet/name :foodex2/facet))
+       (group-by (comp (juxt :foodex2.facet/id :foodex2.facet/name) :foodex2/facet))
        (sort-by first)
-       (map (fn [[facet-name aspects]]
-              [:p [:strong facet-name]
+       (map (fn [[facet-info aspects]]
+              [:p [:strong (->> facet-info
+                                (remove nil?)
+                                (interpose " "))]
                ": "
                (interpose ", " (map foodex2/render-aspect aspects))
                "."]))))
@@ -457,25 +459,10 @@
       (render-foodex2-facets food)]]))
 
 (comment
-
   (do
     (def banankake (d/entity matvaretabellen.dev/foods-db [:food/id "05.448"]))
     (def julekake (d/entity matvaretabellen.dev/foods-db [:food/id "05.097"]))
     (def food banankake))
-
-  (select-keys food [:foodex2/classification])
-  (select-keys food [:food/id])
-  (dissoc (into {} food) :foodex2/classification :food/langual-codes :food/calories
-          :food/food-group)
-  (keys food)
-
-  ;; (1) Ta med "full klassifiseringsstreng"
-  ;; (2) Prøv å fjerne all fyllordene ("aspekt", "verdi", "ingrediens"),
-  [:abbr {:title "Full tittel"} "forkortelse"]
-
-  sorted-map
-  group-by
-
 
   )
 
