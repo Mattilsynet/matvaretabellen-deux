@@ -434,6 +434,32 @@
                :macros (->> ["Fett" "Karbo" "Protein"]
                             (map #(summarize-constituent food % locale)))}]}])
 
+(defn render-foodex2-classification [food]
+  [:div.mmm-container.mmm-section-spaced
+   [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
+    [:h3#foodex2-klassifisering "FoodEx2-klassifisering"]
+    ;; [:abbr {:title kategori-beskrivelse} kategori-label]
+    [:p (-> food :foodex2/classification :foodex2/term :foodex2.term/note)]
+    (when-let [the-aspects (seq (-> food :foodex2/classification :foodex2/aspects))]
+      (render-table {:headers [{:text "Aspekt"}
+                               {:text "Verdi"}]
+                     :rows (for [aspect the-aspects]
+                             [{:text (str (-> aspect :foodex2/term :foodex2.term/code)
+                                          " " (-> aspect :foodex2/term :foodex2.term/name))}
+                              {:text (str (-> aspect :foodex2/facet :foodex2.facet/id)
+                                          " " (-> aspect :foodex2/facet :foodex2.facet/name))}])}))]])
+
+(comment
+
+  (def food (d/entity matvaretabellen.dev/foods-db [:food/id "05.448"]))
+  (select-keys food [:foodex2/classification])
+
+  ;; (1) Ta med "full klassifiseringsstreng"
+  ;; (2) Prøv å fjerne all fyllordene ("aspekt", "verdi", "ingrediens"),
+  [:abbr {:title "Full tittel"} "forkortelse"]
+
+  )
+
 (defn render [context db page]
   (let [food (d/entity (:foods/db context) [:food/id (:page/food-id page)])
         locale (:page/locale page)
@@ -578,6 +604,8 @@
            (->> langual-codes
                 prepare-langual-table
                 render-table)))]]
+
+      (render-foodex2-classification food)
 
       [:div.mmm-container.mmm-section-spaced
        [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
