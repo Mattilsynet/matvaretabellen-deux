@@ -8,6 +8,7 @@
             [matvaretabellen.components.pie-chart :refer [assoc-degrees PieChart]]
             [matvaretabellen.food :as food]
             [matvaretabellen.food-name :as food-name]
+            [matvaretabellen.foodex2 :as foodex2]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.rda :as rda]
             [matvaretabellen.urls :as urls]
@@ -434,29 +435,47 @@
                :macros (->> ["Fett" "Karbo" "Protein"]
                             (map #(summarize-constituent food % locale)))}]}])
 
+(defn render-foodex2-facets [food]
+  (->> food :foodex2/classification :foodex2/aspects
+       (group-by (comp :foodex2.facet/name :foodex2/facet))
+       (sort-by first)
+       (map (fn [[facet-name aspects]]
+              [:p [:strong facet-name]
+               ": "
+               (interpose ", " (map foodex2/render-aspect aspects))
+               "."]))))
+
 (defn render-foodex2-classification [food]
-  [:div.mmm-container.mmm-section-spaced
-   [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
-    [:h3#foodex2-klassifisering "FoodEx2-klassifisering"]
-    ;; [:abbr {:title kategori-beskrivelse} kategori-label]
-    [:p (-> food :foodex2/classification :foodex2/term :foodex2.term/note)]
-    (when-let [the-aspects (seq (-> food :foodex2/classification :foodex2/aspects))]
-      (render-table {:headers [{:text "Aspekt"}
-                               {:text "Verdi"}]
-                     :rows (for [aspect the-aspects]
-                             [{:text (str (-> aspect :foodex2/term :foodex2.term/code)
-                                          " " (-> aspect :foodex2/term :foodex2.term/name))}
-                              {:text (str (-> aspect :foodex2/facet :foodex2.facet/id)
-                                          " " (-> aspect :foodex2/facet :foodex2.facet/name))}])}))]])
+  (let [kategori-label (str (-> food :foodex2/classification :foodex2/term :foodex2.term/code)
+                            " "
+                            (-> food :foodex2/classification :foodex2/term :foodex2.term/name))
+        kategori-beskrivelse (-> food :foodex2/classification :foodex2/term :foodex2.term/note)]
+    [:div.mmm-container.mmm-section-spaced
+     [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
+      [:h3#foodex2 "FoodEx2: "
+       [:abbr {:title kategori-beskrivelse} kategori-label]]
+      (render-foodex2-facets food)]]))
 
 (comment
 
-  (def food (d/entity matvaretabellen.dev/foods-db [:food/id "05.448"]))
+  (do
+    (def banankake (d/entity matvaretabellen.dev/foods-db [:food/id "05.448"]))
+    (def julekake (d/entity matvaretabellen.dev/foods-db [:food/id "05.097"]))
+    (def food banankake))
+
   (select-keys food [:foodex2/classification])
+  (select-keys food [:food/id])
+  (dissoc (into {} food) :foodex2/classification :food/langual-codes :food/calories
+          :food/food-group)
+  (keys food)
 
   ;; (1) Ta med "full klassifiseringsstreng"
   ;; (2) Prøv å fjerne all fyllordene ("aspekt", "verdi", "ingrediens"),
   [:abbr {:title "Full tittel"} "forkortelse"]
+
+  sorted-map
+  group-by
+
 
   )
 
