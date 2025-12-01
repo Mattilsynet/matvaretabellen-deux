@@ -39,10 +39,7 @@
              (comparison/render-toggle-cell food locale [:mmm-desktop])]})})
 
 (defn render-nutrient-foods-table
-  "Really, ALL of the foods on one page? Well, not all of them, just the ones that
-  have a non-zero amount of the nutrient in question.
-
-  The initial idea was to list a limit amount of foods - say 100. This made it
+  "The initial idea was to list a limit amount of foods - say 100. This made it
   clear that for some nutrients, food number 100 still had a high portion of
   said nutrient. So I was curious about number 101.
 
