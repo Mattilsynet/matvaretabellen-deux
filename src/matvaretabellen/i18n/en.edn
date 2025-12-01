@@ -114,7 +114,8 @@
   :url-copied "We have copied a link to this page, paste it wherever you want to share it."}
 
  #:matvaretabellen.pages.food-page
- {:adi-title "Recommended Daily Intake (ADI)"
+ {:acquisition-type "Acquisition type"
+  :adi-title "Recommended Daily Intake (ADI)"
   :amount "Quantity"
   :carbohydrates-title "Carbohydrates"
   :category [:fn/str "Category: {{:category}}"]
@@ -136,14 +137,17 @@
   :composition-title [:fn/str "{{:title}} composition"]
   :fat-title "Fatty acids"
   :food-id ([:strong "Food ID:"] " " [:fn/get :id])
+  :highlight-title [:fn/str "{{:en}} →"]
   :kcal-content-title ("Energy (kcal) in " [:fn/get :portion])
   :langual-code-label "LanguaL"
   :langual-description-label "Classification"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
-  :highlight-title [:fn/str "{{:en}} →"]
+  :method-type "Method type"
+  :method-indicator "Method indicator"
   :minerals-title "Minerals"
   :minerals-trace-elements-title "Minerals and trace elements"
   :more [:fn/str "More {{:categoryish}}:"]
+  :nutrient-source-popover-title [:fn/str "{{:nutrient}} in {{:food}}"]
   :nutrients "Nutrient"
   :nutrition-heading "Macro nutrients"
   :nutrition-title "Nutritional Information"
@@ -162,6 +166,7 @@
   :total [:fn/str "{{:en}}, total"]
   :toc-title "Contents"
   :trace-elements-title "Trace elements"
+  :value-type "Value type"
   :vitamins-title "Vitamins"
   }
 

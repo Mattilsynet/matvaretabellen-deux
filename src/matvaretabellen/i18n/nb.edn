@@ -137,11 +137,11 @@
   :composition-title [:fn/str "{{:title}}, sammensetning"]
   :fat-title "Fettsyrer"
   :food-id ([:strong "Matvare-ID:"] " " [:fn/get :id])
+  :highlight-title [:fn/str "{{:nb}} →"]
+  :kcal-content-title ("Energi (kcal) i " [:fn/get :portion])
   :langual-code-label "LanguaL"
   :langual-description-label "Klassifisering"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
-  :highlight-title [:fn/str "{{:nb}} →"]
-  :kcal-content-title ("Energi (kcal) i " [:fn/get :portion])
   :method-type "Metodetype"
   :method-indicator "Metodekilde"
   :minerals-title "Mineraler"
