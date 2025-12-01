@@ -9,18 +9,26 @@
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.urls :as urls]
-            [mmm.components.button :refer [Button]]))
+            [mmm.components.button :refer [Button]]
+            [phosphor.icons :as icons]))
 
 (def filter-panel-id "filter-panel")
 
-(defn prepare-foods-table [nutrient locale foods]
+(defn prepare-foods-table [nutrient {:page/keys [locale sort-order]} foods]
   {:headers [{:text [:i18n ::food]}
-             {:text [:i18n ::amount]
-              :class "mmm-tar mmm-td-min"}
+             {:text [:button
+                     [:i18n ::amount]
+                     (if (= :sort.order/desc sort-order)
+                       (icons/render :phosphor.regular/sort-descending {:class [:mmm-svg :mvt-sort-icon]})
+                       (icons/render :phosphor.regular/sort-ascending {:class [:mmm-svg :mvt-sort-icon]}))]
+              :class "mmm-tar mmm-td-min"
+              :data-sort-by "data-value"
+              :data-sort-order (name sort-order)
+              :data-sort-type "number"}
              {:text [:i18n ::compare]
               :class "mmm-td-min mmm-desktop"}]
    :id "filtered-table"
-   :classes [:mvt-filtered-table]
+   :classes [:mvt-filtered-table :mvt-sortable-table]
    :rows (for [food foods]
            {:data-id (:food-group/id (:food/food-group food))
             :cols
@@ -43,9 +51,9 @@
   making it impossible to find the food with the least amount.
 
   Thus: list of all foods containing the nutrient in question."
-  [nutrient foods locale]
+  [nutrient foods page]
   [:div.mmm-col
-   (->> (prepare-foods-table nutrient locale foods)
+   (->> (prepare-foods-table nutrient page foods)
         food-page/render-table)])
 
 (defn get-back-link [locale nutrient]
@@ -95,7 +103,7 @@
   (let [nutrient (d/entity (:foods/db context) [:nutrient/id (:page/nutrient-id page)])
         locale (:page/locale page)
         nutrient-name (get (:nutrient/name nutrient) locale)
-        foods (nutrient/get-foods-by-nutrient-density nutrient locale)]
+        foods (nutrient/get-foods-by-nutrient-density nutrient locale (:page/sort-order page))]
     (layout/layout
      context
      page
@@ -149,7 +157,11 @@
               {:nutrient (get-in nutrient [:nutrient/name locale])}]]]
            [:div.mmm-cols.mmm-cols-d1_2
             sidebar
-            (render-nutrient-foods-table nutrient foods locale)]]))
+            (render-nutrient-foods-table nutrient foods page)]]))
+
+      [:div.mmm-hidden
+       (icons/render :phosphor.regular/sort-descending {:class [:mmm-svg :mvt-desc :mvt-sort-icon]})
+       (icons/render :phosphor.regular/sort-ascending {:class [:mmm-svg :mvt-asc :mvt-sort-icon]})]
 
       (comparison/render-comparison-drawer locale)])))
 

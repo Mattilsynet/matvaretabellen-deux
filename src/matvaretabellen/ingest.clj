@@ -44,7 +44,8 @@
                [(-> {:page/uri (urls/get-nutrient-url locale nutrient-name)
                      :page/kind :page.kind/nutrient
                      :page/locale locale
-                     :page/nutrient-id id}
+                     :page/nutrient-id id
+                     :page/sort-order :sort.order/desc}
                     (with-open-graph
                       {:title nutrient-name
                        :description (get-in nutrient [:nutrient/short-description locale])

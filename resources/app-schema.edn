@@ -32,6 +32,10 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
 
+ {:db/ident :page/sort-order
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one}
+
  ;; Sesongvarer
  {:db/ident :season/id
   :db/valueType :db.type/string

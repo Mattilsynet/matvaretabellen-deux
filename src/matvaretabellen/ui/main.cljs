@@ -7,6 +7,7 @@
             [matvaretabellen.ui.rda :as rda]
             [matvaretabellen.ui.search :as search-ui]
             [matvaretabellen.ui.sidebar :as sidebar]
+            [matvaretabellen.ui.sortable-table :as sortable-table]
             [matvaretabellen.ui.sources :as sources]
             [matvaretabellen.ui.table :as table]
             [matvaretabellen.ui.tabs :as tabs]
@@ -108,6 +109,9 @@
           table (dom/qs ".mvt-filtered-table")]
       (when (and panel table)
         (filters/initialize-filter panel table))))
+
+  (doseq [table (dom/qsa ".mvt-sortable-table")]
+    (sortable-table/init table))
 
   (toggler/init)
   (tabs/init)
