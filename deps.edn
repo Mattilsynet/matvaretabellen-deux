@@ -22,6 +22,7 @@
  :aliases
  {:dev {:extra-paths ["dev" "dev-resources" "test" "ui/test" "ui/dev-resources" "ui/portfolio"]
         :extra-deps {babashka/process {:mvn/version "0.6.23"}
+                     cider/cider-nrepl {:mvn/version "0.58.0"}
                      cider/piggieback {:mvn/version "0.5.3"}
                      com.bhauman/figwheel-main {:git/url "https://github.com/cjohansen/figwheel-main"
                                                 :sha "df756e460f4370e5351872cd50e73b7817b6cd2c"
@@ -29,6 +30,7 @@
                      kaocha-noyoda/kaocha-noyoda {:mvn/version "2019-06-03"}
                      lambdaisland/kaocha {:mvn/version "1.91.1392"}
                      no.cjohansen/portfolio {:mvn/version "2025.11.2"}
+                     nrepl/nrepl {:mvn/version "1.5.1"}
                      org.clojars.abhinav/snitch {:mvn/version "0.1.16"}}}
   :build {:extra-paths ["target"]
           :extra-deps {com.bhauman/figwheel-main {:git/url "https://github.com/cjohansen/figwheel-main"

@@ -34,7 +34,14 @@
 (defn preview []
   (tmux-multi "matvaretabellen" ["make start-transactor" "clj -X:dev easy/start"]))
 
-(defn start [_]
+(defn start
+  {:targets #{:clj}}
+  [_]
+  (let [nrepl-port 8899]
+    (defonce !nrepl-server ((requiring-resolve 'nrepl.server/start-server)
+                            {:port nrepl-port}))
+    (println "nREPL-server kjører på" (str "localhost:" nrepl-port))
+    (spit ".nrepl-port" nrepl-port))
   ((requiring-resolve 'matvaretabellen.dev/start))
   (deref (promise)))
 
