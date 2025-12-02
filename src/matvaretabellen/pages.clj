@@ -9,6 +9,7 @@
             [matvaretabellen.pages.food-group-page :as food-group-page]
             [matvaretabellen.pages.food-groups-page :as food-groups-page]
             [matvaretabellen.pages.food-page :as food-page]
+            [matvaretabellen.pages.foodex2-term-page :as foodex2-term-page]
             [matvaretabellen.pages.frontpage :as frontpage]
             [matvaretabellen.pages.nutrient-page :as nutrient-page]
             [matvaretabellen.pages.nutrients-page :as nutrients-page]
@@ -154,10 +155,11 @@
       :page.kind/frontpage (frontpage/render context db page)
       :page.kind/food (food-page/render context db page)
       :page.kind/food-group (food-group-page/render context db page)
-      :page.kind/food-groups (food-groups-page/render context db page)
-      :page.kind/foods-excel (excel/render-all-foods db (get-latest-year) page)
       :page.kind/food-group-data (api/render-food-group-data context page)
       :page.kind/food-group-excel (excel/render-food-group-foods db (get-latest-year) page)
+      :page.kind/food-groups (food-groups-page/render context db page)
+      :page.kind/foodex2-term (foodex2-term-page/render context page)
+      :page.kind/foods-excel (excel/render-all-foods db (get-latest-year) page)
       :page.kind/langual-data (api/render-langual-data context page)
       :page.kind/nutrient-data (api/render-nutrient-data context page)
       :page.kind/nutrient-excel (excel/render-nutrient-foods db (get-latest-year) page)
@@ -167,7 +169,8 @@
       :page.kind/redirect {:status 301 :headers {"location" (:page/redirect-uri page)}}
       :page.kind/search-page (search-page/render context page)
       :page.kind/source-data (api/render-source-data context page)
-      :page.kind/tracer-proxy (tracer/handler context))))
+      :page.kind/tracer-proxy (tracer/handler context)
+      )))
 
 (comment
   (def conn matvaretabellen.dev/conn)

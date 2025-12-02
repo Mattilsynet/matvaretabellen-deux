@@ -30,6 +30,16 @@
                 (with-open-graph
                   {:title food-name})))))))
 
+(defn get-active-foodex2-term-pages
+  [food-db]
+  [;; active terms only!
+   { ;; A00BL Buns (eg Julekake)
+    ;; Norsk!
+    :page/uri "/foodex2/A00BL"
+    :page/kind :page.kind/foodex2-term
+    :foodex2.term/code "A00BL"}
+   ])
+
 (defn get-nutrient-pages [food-db app-db]
   (->> (d/q '[:find ?nutrient-id ?nutrient-name
               :where
@@ -122,13 +132,14 @@
         (assoc :page/etag etag)))))
 
 (defn on-started [foods-conn powerpack-app]
-  (let [db (d/db foods-conn)
+  (let [food-db (d/db foods-conn)
         app-db (d/db (:datomic/conn powerpack-app))
-        rda-profiles (rda/read-csv db (slurp (io/file "data/adi.csv")))]
+        rda-profiles (rda/read-csv food-db (slurp (io/file "data/adi.csv")))]
     (->> (concat (pages/get-static-pages)
-                 (get-food-pages db)
-                 (get-food-group-pages db app-db)
-                 (get-nutrient-pages db app-db))
+                 (get-food-pages food-db)
+                 (get-food-group-pages food-db app-db)
+                 (get-nutrient-pages food-db app-db)
+                 (get-active-foodex2-term-pages food-db))
          add-page-etags
          (ensure-unique-page-uris)
          (concat rda-profiles)
