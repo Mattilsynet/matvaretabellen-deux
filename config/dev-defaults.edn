@@ -1,5 +1,4 @@
-{:app/theme "mt2023"
- :foods/datomic-uri "datomic:dev://localhost:4334/foods"
+{:foods/datomic-uri "datomic:dev://localhost:4334/foods"
  :foodcase/base-url "https://foodcase.test.nfsa.foodcase-services.com/FoodCASE_API/api"
  :foodcase/bearer-token [:secret/dev "TlBZDvdYpGndNKrQ4md2yL/CsKx2iw63f8bmLDtKs+ASjVPonWLPJIB18OB6Kv+s/vU/C2SyOxRSKsh6EPxNjeSb5F+fIA=="]
  }

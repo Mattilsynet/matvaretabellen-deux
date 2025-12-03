@@ -33,7 +33,7 @@ window.onerror = function(message) {
      [:use {:xlink:href (str illustration "#illustration")}]]))
 
 (defn layout [context _page head body]
-  [:html {:class [:mmm (:app/theme (:app/config context))] :data-color-scheme "auto"}
+  [:html {:data-color-scheme "auto"}
    (into
     head
     (list [:script {:type "text/javascript"} report-errors-to-tracer]
