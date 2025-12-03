@@ -142,7 +142,7 @@
   :langual-description-label "Classification"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
   :method-type "Method type"
-  :method-indicator "Method indicator"
+  :method-indicator "Method"
   :minerals-title "Minerals"
   :minerals-trace-elements-title "Minerals and trace elements"
   :more [:fn/str "More {{:categoryish}}:"]

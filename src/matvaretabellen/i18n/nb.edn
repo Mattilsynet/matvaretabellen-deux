@@ -139,7 +139,7 @@
   :langual-description-label "Klassifisering"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
   :method-type "Metodetype"
-  :method-indicator "Metodekilde"
+  :method-indicator "Metode"
   :minerals-title "Mineraler"
   :minerals-trace-elements-title "Mineraler og sporstoffer"
   :more [:fn/str "Mer {{:categoryish}}:"]

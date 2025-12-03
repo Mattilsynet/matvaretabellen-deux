@@ -684,27 +684,27 @@
                :food [:i18n :i18n/lookup (:food/name food)]}]]
             [:table
              {:class (mtds/classes :table)
-              :data-border "false"
               :data-size "sm"}
-             [:tr
-              [:th [:strong [:i18n ::value-type]]]
-              [:td (when-let [value-type (:measurement/value-type constituent)]
-                     [:i18n value-type])]]
+             [:tbody
+              [:tr
+               [:td [:strong [:i18n ::value-type]]]
+               [:td (when-let [value-type (:measurement/value-type constituent)]
+                      [:i18n value-type])]]
 
-             [:tr
-              [:th [:strong [:i18n ::acquisition-type]]]
-              [:td (when-let [acquisition-type (:measurement/acquisition-type constituent)]
-                     [:i18n acquisition-type])]]
+              [:tr
+               [:td [:strong [:i18n ::acquisition-type]]]
+               [:td (when-let [acquisition-type (:measurement/acquisition-type constituent)]
+                      [:i18n acquisition-type])]]
 
-             [:tr
-              [:th [:strong [:i18n ::method-type]]]
-              [:td (when-let [method-type (:measurement/method-type constituent)]
-                     [:i18n method-type])]]
+              [:tr
+               [:td [:strong [:i18n ::method-type]]]
+               [:td (when-let [method-type (:measurement/method-type constituent)]
+                      [:i18n method-type])]]
 
-             [:tr
-              [:th [:strong [:i18n ::method-indicator]]]
-              [:td (when-let [source (:measurement/method-indicator constituent)]
-                     [:i18n :i18n/lookup (:source/description source)])]]]]))
+              [:tr
+               [:td [:strong [:i18n ::method-indicator]]]
+               [:td (when-let [source (:measurement/method-indicator constituent)]
+                      [:i18n :i18n/lookup (:source/description source)])]]]]]))
 
        [:script#food-data
         {:type "text/plain"
