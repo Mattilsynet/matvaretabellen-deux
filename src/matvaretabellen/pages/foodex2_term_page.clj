@@ -6,13 +6,6 @@
 (defonce !lctx (atom nil))
 (defonce !lpage (atom nil))
 
-(defn push [term structure]
-  [:pre [:code [:strong term "\n"]
-         (pr-str (cond->> structure
-                   (= datomic_type_extensions.entity.TypeExtendedEntityMap
-                      (type structure))
-                   (into {})))]])
-
 (defn render-facet [facet]
   (list (:foodex2.facet/id facet) " " (:foodex2.facet/name facet)))
 
@@ -48,21 +41,13 @@
 
      ;; Foods with this aspect
      (for [[facet foods] (->> (foodex2/term->aspected term)
-                              #_
                               (sort-by (comp (juxt :foodex2.facet/id :foodex2.facet/name)
                                              first)))]
-
        (list
         [:h2 (render-facet facet)]
         [:ul
          (for [food (sort-by (comp :en :food/name) foods)]
-           [:li (render-food food)])]))
-
-     #_#_#_
-     (push "Page" page)
-     (push "Term" term)
-     (push "Map?" (map? page))
-     ]))
+           [:li (render-food food)])]))]))
 
 (comment
   @!lpage
