@@ -3,7 +3,8 @@
             [datomic-type-extensions.api :as d]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.urls :as urls]
-            [powerpack.markdown :as md]))
+            [powerpack.markdown :as md]
+            [mattilsynet.design :as mtds]))
 
 (defn get-update-date [locale infos]
   (str (get-in infos [:month locale])
@@ -25,15 +26,17 @@
      page
      [:head
       [:title (:page/title page)]]
-     [:body
-      (layout/render-header {:locale locale
-                             :app/config (:app/config context)}
-        (or (:page/i18n-uris page)
-            (constantly (:page/uri page))))
-      (layout/render-toolbar
-       {:locale locale
-        :crumbs []})
-      [:div.mmm-container-medium.mmm-section.mmm-text.mmm-vert-layout-m
-       (-> (:page/body page)
-           (replace-placeholders food-db locale infos)
-           md/render-html)]])))
+     [:body {:data-size "lg"}
+      [:div {:class (mtds/classes :grid) :data-gap "12"}
+       (layout/render-header {:locale locale
+                              :app/config (:app/config context)}
+                             (or (:page/i18n-uris page)
+                                 (constantly (:page/uri page))))
+       (layout/render-toolbar
+        {:locale locale
+         :crumbs []})
+       [:div {:class (mtds/classes :grid) :data-center "md"}
+        [:div {:class (mtds/classes :prose)}
+         (-> (:page/body page)
+             (replace-placeholders food-db locale infos)
+             md/render-html)]]]])))

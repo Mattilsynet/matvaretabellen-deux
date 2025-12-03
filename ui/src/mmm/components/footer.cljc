@@ -2,61 +2,33 @@
   (:require [mmm.components.mattilsynet-logo :refer [MattilsynetLogo]]
             [mattilsynet.design :as mtds]))
 
-(defn Footer2023 [{:keys [cols]}]
-  [:footer.mmm-footer
-   [:div.mmm-footer-col
+(defn Footer [{:keys [cols]}]
+  [:footer.footer {:data-color "inverted"}
+   [:div {:class (mtds/classes :grid) :data-items "300" :data-align "start" :data-size "sm" :data-center "xl"}
     [:a {:href "https://www.mattilsynet.no"
-         :title "Mattilsynet"
-         :class (mtds/classes :logo :mtds-logo)}]]
-   (for [{:keys [title items text texts header-class]} cols]
-     [:div.mmm-footer-col.mmm-vert-layout-m
-      [:h3 {:class (or header-class "mmm-h3")} title]
-      (when text
-        [:p.mmm-p text])
-      (for [text texts]
-        [:p.mmm-p text])
+         :aria-label "Mattilsynet"
+         :class (mtds/classes :logo)}]
+   (for [{:keys [title items text texts]} cols]
+     [:div {:class (mtds/classes :grid)}
+      [:h2 {:class (mtds/classes :heading) :data-size "sm"} title]
       (when (seq items)
-        [:ul.mmm-ul.mmm-unadorned-list
+        [:ul {:class (mtds/classes :grid)}
          (for [{:keys [url text]} items]
            [:li (if url
-                  [:a.mmm-link {:href url} text]
-                  text)])])])])
-
-(defn Footer [{:keys [cols theme] :as data}]
-  (if (= "mt2023" theme)
-    (Footer2023 data)
-    [:footer.mmm-footer
-     (for [{:keys [title items text texts header-class]} cols]
-       [:div.mmm-footer-col.mmm-vert-layout-m
-        [:h3 {:class (or header-class "mmm-h3")} title]
-        (when text
-          [:p.mmm-p text])
-        (for [text texts]
-          [:p.mmm-p text])
-        (when (seq items)
-          [:ul.mmm-ul.mmm-unadorned-list
-           (for [{:keys [url text]} items]
-             [:li (if url
-                    [:a.mmm-link {:href url} text]
-                    text)])])])
-     [:a {:href "https://www.mattilsynet.no"
-          :title "Mattilsynet"}
-      (MattilsynetLogo {:class :mmm-logo})]]))
+                  [:a {:href url} text]
+                  text)])])])]])
 
 (defn CompactSiteFooter [config]
   (Footer
-   {:theme (:app/theme config)
-    :cols [{:title [:i18n ::about-site]
-            :header-class "mmm-h6"
-            :texts [[:i18n ::about-text]
-                    [:i18n ::api-text]]}
+   {:cols [{:title [:i18n ::shortcuts-title]
+            :items [{:url "/api/"
+                     :text [:i18n ::api-text]}
+                    {:url "https://www.mattilsynet.no/om-mattilsynet/personvernerklaering"
+                     :text [:i18n ::privacy-and-cookies]}
+                    {:url "https://www.mattilsynet.no/"
+                     :text "mattilsynet.no"}]}
            {:title [:i18n ::about-mattilsynet]
-            :header-class "mmm-h6"
             :items [{:url "https://www.mattilsynet.no/varsle"
                      :text [:i18n ::report-to-us]}
-                    {:url "https://www.mattilsynet.no/om-mattilsynet/personvernerklaering-og-informasjonskapsler"
-                     :text [:i18n ::privacy-and-cookies]}
-                    {:text [:i18n ::call-us]
-                     :url "tel:+4722400000"}
-                    {:url "https://www.mattilsynet.no/kontakt-oss"
-                     :text [:i18n ::contact-us]}]}]}))
+                    {:url "mailto:matvaretabellen@mattilsynet.no"
+                     :text "matvaretabellen@mattilsynet.no"}]}]}))

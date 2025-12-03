@@ -1,4 +1,4 @@
-^{:watch-dirs ["src" "portfolio"]}
+^{:watch-dirs ["src"]}
 {:main matvaretabellen.scenes
  :optimizations :none
  :pretty-print true

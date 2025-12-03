@@ -2,7 +2,8 @@
   (:require [clojure.data.json :as json]
             [clojure.set :as set]
             [datomic-type-extensions.api :as d]
-            [mmm.components.checkbox :refer [Checkbox]]))
+            [mmm.components.checkbox :refer [Checkbox]]
+            [mattilsynet.design :as mtds]))
 
 (defn get-food-group-paths [food-groups & [path]]
   (mapcat
@@ -32,10 +33,12 @@
   (cond->> (set (get-all-food-group-foods group))
     (seq foods) (set/intersection (set foods))))
 
+;; TODO EIRIK: Checkboxes does nothing now :D
+
 (defn render-food-group-list [app-db food-groups foods locale & [{:keys [class id]}]]
   (when (seq food-groups)
-    [:ul.mmm-ul.mmm-unadorned-list
-     (cond-> {:class class}
+    [:ul
+     (cond-> {:class  (mtds/classes :grid class) :data-gap "1"}
        id (assoc :data-filter-list-id id))
      (->> food-groups
           (sort-by #(food-group->sort-key app-db %))
@@ -43,13 +46,14 @@
           (remove (comp zero? second))
           (map (fn [[group n]]
                  [:li
-                  (Checkbox
-                   {:data-filter-id (:food-group/id group)
-                    :label (if foods
-                             [:i18n ::food-group
-                              {:food-group (get-in group [:food-group/name locale])
-                               :n n}]
-                             (get-in group [:food-group/name locale]))})
+                  [:div {:class (mtds/classes :field)}
+                   [:input {:class (mtds/classes :input) :name "filter-food-group" :value (:food-group/id group) :type "checkbox"}]
+                   [:label
+                    (if foods
+                      [:i18n ::food-group
+                       {:food-group (get-in group [:food-group/name locale])
+                        :n n}]
+                      (get-in group [:food-group/name locale]))]]
                   (render-food-group-list
                    app-db
                    (:food-group/_parent group)

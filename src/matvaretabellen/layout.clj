@@ -1,13 +1,14 @@
 (ns matvaretabellen.layout
+  (:require [mattilsynet.design :as mtds])
   (:require [clojure.java.io :as io]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
-            [mmm.components.button :refer [Button]]
             [mmm.components.footer :refer [CompactSiteFooter]]
-            [mmm.components.icon-button :refer [IconButton]]
             [mmm.components.search-input :refer [SearchInput]]
-            [mmm.components.site-header :refer [SiteHeader]]))
+            [mmm.components.site-header :refer [SiteHeader]]
+            [phosphor.icons :as icons]
+            [mattilsynet.design :as mtds]))
 
 (def report-errors-to-tracer
   "
@@ -34,7 +35,7 @@ window.onerror = function(message) {
      [:use {:xlink:href (str illustration "#illustration")}]]))
 
 (defn layout [context _page head body]
-  [:html {:class [:mmm (:app/theme (:app/config context))]}
+  [:html {:class [:mmm (:app/theme (:app/config context))] :data-color-scheme "auto"}
    (into
     head
     (list [:script {:type "text/javascript"} report-errors-to-tracer]
@@ -44,7 +45,6 @@ window.onerror = function(message) {
    (into
     body
     (list
-     [:div.mmm-themed.mmm-brand-theme4
       [:img {:data-src (str "https://mattilsynet.matomo.cloud/matomo.php?idsite="
                             (:matomo/site-id context)
                             "&rec=1"
@@ -55,19 +55,17 @@ window.onerror = function(message) {
              :id "mvt-tracking-pixel"
              :style "border:0"
              :alt ""}]
-      [:div.mmm-container
-       (CompactSiteFooter (:app/config context))]]))])
+       (CompactSiteFooter (:app/config context))))])
 
 (defn prepare-header-links [locale get-current-url]
   (let [current-url (get-current-url locale)]
     (for [link [{:text [:i18n ::food-groups]
                  :url (urls/get-food-groups-url locale)
-                 :class :mmm-desktop}
+                 :class :desktop}
                 {:text [:i18n ::nutrients]
                  :url (urls/get-nutrients-url locale)
-                 :class :mmm-desktop}
+                 :class :desktop}
                 {:text [:i18n :i18n/other-language]
-                 :class :mvt-other-lang
                  :url (get-current-url ({:en :nb :nb :en} locale))}]]
       (cond-> link
         (= current-url (:url link))
@@ -85,12 +83,13 @@ window.onerror = function(message) {
      :theme (:app/theme config)})])
 
 (defn render-toolbar [{:keys [locale crumbs]}]
-  [:div.mmm-container.mmm-section.mmm-flex-desktop.mmm-flex-desktop-middle.mmm-mobile-vert-layout-m
+  [:div {:class (mtds/classes :flex) :data-justify "space-between" :data-center "xl" :data-gap "6" :data-items "350"}
    (Breadcrumbs
     {:links (apply crumbs/crumble locale crumbs)})
-   [:form.mvt-aside-col.mvt-search-col
+   [:form
     {:action (urls/get-search-url locale)
-     :method :get}
+     :method :get
+     :data-fixed ""}
     [:div.mmm-js-required
      (SearchInput
       {:button {:text [:i18n :i18n/search-button]}
@@ -100,20 +99,3 @@ window.onerror = function(message) {
                :placeholder [:i18n :i18n/search-label]}
        :autocomplete-id "foods-results"
        :size :small})]]])
-
-(defn render-sidebar-filter-button [target-id]
-  [:p.mmm-p.mmm-mobile
-   (Button
-    {:text [:i18n ::filter]
-     :class [:mvt-sidebar-toggle]
-     :data-sidebar-target (str "#" target-id)
-     :icon :phosphor.regular/funnel
-     :inline? true
-     :secondary? true})])
-
-(defn render-sidebar-close-button [target-id]
-  (IconButton
-   {:title [:i18n ::close-sidebar]
-    :class :mvt-sidebar-toggle
-    :data-sidebar-target (str "#" target-id)
-    :icon :phosphor.regular/x}))

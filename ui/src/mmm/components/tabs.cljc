@@ -1,3 +1,4 @@
+;; TODO EIRIK: Not in use anymore
 (ns mmm.components.tabs)
 
 (defn Tabs [{:keys [tabs] :as attrs}]
@@ -7,6 +8,3 @@
       (-> (dissoc tab :selected? :text)
           (assoc :class (when selected? :selected)))
       text])])
-
-(defn PillTabs [params]
-  (Tabs (assoc params :class [:mmm-tabs-pill-mode])))

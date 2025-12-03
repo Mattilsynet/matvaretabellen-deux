@@ -1,17 +1,18 @@
 (ns mmm.components.toc
-  (:require [phosphor.icons :as icons]))
+  (:require [phosphor.icons :as icons]
+            [mattilsynet.design :as mtds]))
 
 (defn Toc [{:keys [title icon contents class]}]
-  [:div.mmm-toc.mmm-vert-layout-m {:class class}
-   [:h3.mmm-toc-title.mmm-h3
+  [:div {:class (mtds/classes :grid class)}
+   [:h3 {:class (mtds/classes :heading)}
     (when icon
-      [:span.mmm-toc-icon (icons/render icon)])
+      (icons/render icon))
     title]
-   [:ul.mmm-ul
+   [:ul {:class (mtds/classes :grid) :data-gap "1"}
     (for [{:keys [title href contents]} contents]
       [:li
-       [:a.mmm-link {:href href} title]
+       [:a {:href href} title]
        (when (seq contents)
-         [:ul.mmm-ul
+         [:ul {:class (mtds/classes :grid) :data-gap "1"}
           (for [{:keys [title href]} contents]
-            [:li [:a.mmm-link {:href href} title]])])])]])
+            [:li [:a {:href href} title]])])])]])

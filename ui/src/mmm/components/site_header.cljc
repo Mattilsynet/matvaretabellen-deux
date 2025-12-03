@@ -3,21 +3,21 @@
             [mattilsynet.design :as mtds]))
 
 (defn SiteHeader [{:keys [home-url extra-link extra-links theme]}]
-  [:header.mmm-header
-   [:div.mmm-container {:style {:justify-content "space-between"}}
+  [:header.header
+   [:div {:class (mtds/classes :flex) :data-center "xl" :data-justify "space-between" :data-align "center"}
     (if (= "mt2023" theme)
-      [:a {:class (mtds/classes :logo :mtds-logo :mt-ds)
+      [:a {:class (mtds/classes :logo)
            :href home-url}
        "Matvaretabellen"]
-      [:a.mmm-fc {:href home-url}
-       (MattilsynetLogoSimple {:class :mmm-svg})])
+      [:a {:href home-url}
+       (MattilsynetLogoSimple)])
     (when extra-link
-      [:a.mmm-link {:href (:url extra-link)}
+      [:a {:href (:url extra-link)}
        (:text extra-link)])
     (when extra-links
-      [:ul.mmm-horizontal-list.mmm-horizontal-list-wide
+      [:menu {:class (mtds/classes :flex) :data-gap "8"}
        (for [{:keys [url text class]} extra-links]
          [:li {:class class}
           (if url
-            [:a.mmm-link {:href url} text]
+            [:a {:href url} text]
             text)])])]])

@@ -1,15 +1,10 @@
 (ns mmm.components.breadcrumbs
-  (:require [phosphor.icons :as icons]))
+  (:require [mattilsynet.design :as mtds]))
 
-(def arrow #?(:cljs (icons/icon :phosphor.regular/caret-right)
-              :clj :phosphor.regular/caret-right))
-
+;; TODO EIRIK: All breadcrumbs should have url
 (defn Breadcrumbs [{:keys [links]}]
-  [:nav.mmm-breadcrumbs {:aria-label "breadcrumbs"}
-   [:ol.mmm-horizontal-list
+  [:nav {:class (mtds/classes :breadcrumbs) :aria-label "Du er her:" :data-size "sm"}
+   [:ol
     (for [{:keys [text url]} links]
-     [:li (if url
-            [:span.mmm-breadcrumb
-             [:a.mmm-link {:href url} text]
-             (icons/render arrow {:size 12})]
-            text)])]])
+     [:li
+      [:a {:href url} text]])]])

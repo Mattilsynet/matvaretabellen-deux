@@ -6,7 +6,8 @@
             [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.urls :as urls]
-            [mmm.components.button :refer [Button]]))
+            [phosphor.icons :as icons]
+            [mattilsynet.design :as mtds]))
 
 (def filter-panel-id "filter-panel")
 
@@ -14,13 +15,13 @@
   (when-let [food-groups (->> food-groups
                               (sort-by #(food-group/food-group->sort-key app-db %))
                               seq)]
-    [:ul.mmm-ul.mmm-unadorned-list
+    [:ul {:class (mtds/classes :grid) :data-gap "1"}
      (for [group food-groups]
        [:li
         (if (= group current)
           (list [:strong [:i18n :i18n/lookup (:food-group/name group)]]
                 (render-food-group-links app-db locale current (:food-group/_parent group)))
-          [:a.mmm-link {:href (urls/get-food-group-url locale group)}
+          [:a {:href (urls/get-food-group-url locale group)}
            [:i18n :i18n/lookup (:food-group/name group)]])])]))
 
 (defn render-filter-links [app-db locale target food-group]
@@ -37,8 +38,7 @@
 
 (defn render-sidebar [app-db food-group foods locale]
   (let [target (or (:food-group/parent food-group) food-group)]
-    [:div.mmm-col.mmm-desktop.mvt-food-group-filters {:id filter-panel-id}
-     [:div.mmm-sidebar-content
+    [:div.mvt-food-group-filters {:id filter-panel-id}
       ;; Sub groups don't make for interesting filtering options, as they don't
       ;; list any foods above their level in the hierarchy.
       ;;
@@ -49,29 +49,26 @@
       (if (or (:food-group/parent food-group)
               (empty? (:food-group/_parent food-group)))
         (when-let [links (render-filter-links app-db locale target food-group)]
-          [:div.mmm-divider.mmm-bottom-divider.mmm-vert-layout-m.mmm-mbm
-           [:div.mmm-mobile.mmm-pos-tr.mmm-mts
-            (layout/render-sidebar-close-button filter-panel-id)]
+          [:div {:class (mtds/classes :grid)}
            (let [{:keys [url text]} (get-back-link locale food-group)]
-             [:h2.mmm-h5 [:a.mmm-link {:href url} text]])
+             [:h2 {:class (mtds/classes :heading) :data-size "xs"}
+              [:a {:href url} text]])
            links])
-        [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider
-         [:div.mmm-mobile.mmm-pos-tr.mmm-mts
-          (layout/render-sidebar-close-button filter-panel-id)]
-         [:h2.mmm-h5
-          [:a.mmm-link {:href (urls/get-food-groups-url locale)}
+        [:div {:class (mtds/classes :grid)}
+         [:h2 {:class (mtds/classes :heading) :data-size "xs"}
+          [:a {:href (urls/get-food-groups-url locale)}
            [:i18n ::food-groups]]]
-         (food-group/render-food-group-filters app-db (:food-group/_parent food-group) foods locale)])]]))
+         (food-group/render-food-group-filters app-db (:food-group/_parent food-group) foods locale)])]))
 
 (defn prepare-foods-table [locale foods]
   {:headers [{:text [:i18n ::food]}
              {:text [:i18n ::compare]
-              :class :mmm-td-min}]
+              :style {:width "1px"}}]
    :id "filtered-table"
    :classes [:mvt-filtered-table]
    :rows (for [food foods]
            {:data-id (:food-group/id (:food/food-group food))
-            :cols [{:text [:a.mmm-link {:href (urls/get-food-url locale food)}
+            :cols [{:text [:a {:href (urls/get-food-url locale food)}
                            [:i18n :i18n/lookup (:food/name food)]]}
                    (comparison/render-toggle-cell food locale)]})})
 
@@ -88,46 +85,44 @@
      page
      [:head
       [:title (get-in food-group [:food-group/name locale])]]
-     [:body
+     [:body {:data-size "lg"}
       (layout/render-header
        {:locale locale
         :app/config (:app/config context)}
        #(urls/get-food-group-url % food-group))
-      [:div.mmm-themed.mmm-brand-theme1
-       (layout/render-toolbar
-        {:locale locale
-         :crumbs [{:text [:i18n :i18n/search-label]
-                   :url (urls/get-base-url locale)}
-                  food-group]})
-       [:div.mmm-container.mmm-section.mmm-mvxl
-        [:div.mmm-media
-         [:article.mmm-vert-layout-m
-          [:div [:h1.mmm-h1 (get-in food-group [:food-group/name locale])]
+      [:div {:class (mtds/classes :grid) :data-gap "12"}
+       [:div {:class (mtds/classes :grid :banner) :data-gap "8" :role "banner"}
+        (layout/render-toolbar
+         {:locale locale
+          :crumbs [{:text [:i18n :i18n/search-label]
+                    :url (urls/get-base-url locale)}
+                   food-group]})
+        [:div {:class (mtds/classes :flex) :data-center "xl" :data-align "center"}
+         [:div {:class (mtds/classes :prose) :data-self "500"}
+          [:h1 {:class (mtds/classes :heading) :data-size "xl"} (get-in food-group [:food-group/name locale])]
+          [:small
            [:i18n :i18n/number-of-foods
             {:count (count foods)}]]
-          [:div.mmm-text.mmm-preamble
-           [:p (mashdown/render
-                db locale
-                (or (get-in details [:food-group/long-description locale])
-                    (get-in details [:food-group/short-description locale])))]]
+          [:p {:data-size "lg"} (mashdown/render
+                                db locale
+                                 (or (get-in details [:food-group/long-description locale])
+                                     (get-in details [:food-group/short-description locale])))]
           [:div
-           (Button {:text [:i18n ::download-these]
-                    :href (urls/get-food-group-excel-url locale food-group)
-                    :icon :phosphor.regular/arrow-down
-                    :inline? true
-                    :secondary? true})]]
-         [:aside.mmm-desktop {:style {:flex-basis "40%"}}
-          (layout/render-illustration (:food-group/illustration details))]]]]
+           [:a {:class (mtds/classes :button)
+                :data-variant "secondary"
+                :data-size "md"
+                :href (urls/get-food-group-excel-url locale food-group)}
+            (icons/render :phosphor.regular/arrow-down)
+            [:i18n ::download-these]]]]
+         [:div.desktop {:data-self "300" :data-fixed ""}
+          (layout/render-illustration (:food-group/illustration details))]]]
 
-      (let [sidebar (render-sidebar (:app/db context) food-group foods locale)]
-        [:div.mmm-container.mmm-section.mmm-mobile-phn
-         [:div.mmm-flex.mmm-mobile-container-p.mmm-mbm
-          (when sidebar
-            (layout/render-sidebar-filter-button filter-panel-id))]
-         [:div.mmm-cols.mmm-cols-d1_2
-          sidebar
-          [:div.mmm-col
-           (->> (prepare-foods-table locale foods)
-                food-page/render-table)]]])
+       (let [sidebar (render-sidebar (:app/db context) food-group foods locale)]
+         [:div {:class (mtds/classes :flex) :data-items "300" :data-center "xl"}
+          [:div {:data-fixed "" :data-size "md"}
+           sidebar] 
+          [:div
+            (->> (prepare-foods-table locale foods)
+                 food-page/render-table)]])
 
-      (comparison/render-comparison-drawer locale)])))
+       (comparison/render-comparison-drawer locale)]])))

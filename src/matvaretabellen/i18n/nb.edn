@@ -57,20 +57,16 @@
 
  #:mmm.components.footer
  {:footer-title "Footer"
-  :about-site "Om nettstedet"
-  :about-text ("Matvaretabellen er en tjeneste fra Mattilsynet. "
-               [:a {:href "/om-oss/"} "Les mer om den her."]
-               " For øvrige tjenester, se " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
-  :api-text [:a {:href "/api/"} "Matvaretabellens API"]
+  :shortcuts-title "Snarveier"
+  :mattilsynet-web [:a {:href "https://mattilsynet.no"} "mattilsynet.no"]
+  :api-text "Matvaretabellens API"
   :newsletter "Nyhetsbrev"
   :privacy-and-cookies "Personvernerklæring og informasjonskapsler"
   :accessibility-statement "Tilgjengelegheitserklæring (uustatus.no)"
   :open-data "Åpne data (API)"
-  :about-mattilsynet "Om Mattilsynet"
+  :about-mattilsynet "Kontakt"
   :about-us "Om oss"
   :job-openings "Ledige stillinger"
-  :call-us "Ring oss på 22 40 00 00"
-  :contact-us "Kontakt oss"
   :report-to-us "Varsle oss"}
 
  #:matvaretabellen.components.comparison
@@ -103,7 +99,7 @@
  #:matvaretabellen.pages.comparison-page
  {:and "og"
   :columnwise "Kolonnevis"
-  :compare-foods ("Sammenlign" [:span.mmm-desktop " matvarer"])
+  :compare-foods ("Sammenlign" [:span.desktop " matvarer"])
   :composition "Sammensetning"
   :diff-intro "Sammenlign matvarer næringsstoff for næringsstoff."
   :edible-part "Spiselig del"
@@ -183,21 +179,21 @@
 
  #:matvaretabellen.pages.frontpage
  {:all-foods "Alle matvarer i tabellvisning →"
-  :all-food-groups "Matvaregrupper"
-  :all-nutrients "Næringsstoffer"
+  :card-about-title "Om Matvaretabellen"
+  :card-about-text "Les mer om Matvaretabellen og ta kontakt med de som arbeider med den"
+  :card-table-title "Tabellvisning"
+  :card-table-text "Se alle matvarene i tabellvisning"
   :common-food-searches "Vanlige matvaresøk"
   :did-you-know "Visste du ..."
   :new-in-food-table "Nytt i Matvaretabellen"
   :no-script-search-info [:span "Søket fungerer dessverre ikke uten JavaScript skrudd på, men du kan fortsatt finne matvarer kategorisert under "
-                          [:a.mmm-link {:href "/matvaregrupper/"} "matvaregrupper"]
+                          [:a {:href "/matvaregrupper/"} "matvaregrupper"]
                           " og "
-                          [:a.mmm-link {:href "/naeringstoffer/"} "næringsstoffer"] "."]
+                          [:a {:href "/naeringstoffer/"} "næringsstoffer"] "."]
   :open-graph-description "Informasjon om energi- og næringsinnholdet i tusenvis av matvarer. Søk opp spesifikke matvarer, sammenligne, og lære mer de forskjellige næringsstoffene."
   :open-graph-title "Matvaretabellen.no - en tjeneste fra Mattilsynet"
   :read-more-about [:fn/str "Se næringsinnholdet i {{:definite}}."]
-  :seasonal-goods "Sesongvarer"
-  :see-all-food-groups-overview "Oversikt over alle matvaregrupper."
-  :see-all-nutrients-overview "Oversikt over alle næringsstoffer."}
+  :seasonal-goods "Sesongvarer"}
 
  #:matvaretabellen.pages.nutrients-page
  {:all-nutrients "Næringsstoffer"

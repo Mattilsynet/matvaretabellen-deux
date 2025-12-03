@@ -1,19 +1,10 @@
-(ns mmm.components.checkbox)
+;; TODO EIRIK: Not in use anymore
+(ns mmm.components.checkbox
+  (:require [mattilsynet.design :as mtds]))
 
 (defn Checkbox [{:keys [checked? label] :as attrs}]
-  [:label.mmm-checkbox (dissoc attrs :checked? :label)
-   [:input {:type "checkbox" :checked (when checked? "true")}]
-   [:svg.mmm-svg.checkbox-marker
-    {:xmlns "http://www.w3.org/2000/svg"
-     :viewBox "0 0 24 24"}
-    [:rect {:x "0.5"
-            :y "0.5"
-            :width "23"
-            :height "23"
-            :rx "3.5"
-            :stroke "var(--mt-component-checkbox-border-color)"}]
-    [:svg {:x 5 :y 5}
-     [:path {:d "M1.82609 4.97933L0 7.36562L6.05115 12.5999L14 3.3002L12.078 1.3999L6.06382 8.86295L1.82609 4.97933Z"
-             :fill "white"
-             :stroke "none"}]]]
-   label])
+  [:div {:class (mtds/classes :field)}
+   [:input {:class (mtds/classes :input) :type "checkbox" :checked (when checked? "true")}]
+   [:label (dissoc attrs :checked? :label)
+    label]
+   ])

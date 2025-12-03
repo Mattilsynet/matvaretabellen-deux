@@ -25,22 +25,18 @@
 
              :optimus/assets [{:public-dir "public"
                                :paths [#"/images/*.*"
-                                       #"/fonts/*.*"
                                        "/mtds/favicon.svg"
                                        "/mtds/favicon.ico"
                                        "/mtds/favicon-dark.ico"]}]
 
              :optimus/bundles {"styles.css"
                                {:public-dir "public"
-                                :paths (cond-> [(str "/css/theme-" (:app/theme config) ".css")
-                                                "/css/mmm.css"
-                                                "/css/matvaretabellen.css"]
-                                         (= "mt2023" (:app/theme config))
-                                         (conj "/mtds/styles.css"))}
+                                :paths ["/css/matvaretabellen.css"
+                                        "/mtds/styles.css"]}
 
                                "/app.js"
                                {:public-dir "public"
-                                :paths ["/js/u-datalist.js"
+                                :paths ["/mtds/index.iife.js"
                                         "/js/compiled/app.js"]}}
 
              :optimus/options {:minify-js-assets? false}

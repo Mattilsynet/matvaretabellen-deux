@@ -1,3 +1,4 @@
+;; TODO EIRIK: Not in use anymore
 (ns mmm.elements)
 
 (defn ^:export h1 [& args]

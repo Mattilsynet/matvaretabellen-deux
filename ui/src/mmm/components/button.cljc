@@ -1,18 +1,21 @@
+;; TODO EIRIK: Not in use anymore
 (ns mmm.components.button
-  (:require [phosphor.icons :as icons]))
+  (:require [phosphor.icons :as icons]
+            [mattilsynet.design :as mtds]))
 
 (def sizes
-  {:large :mmm-button-large
-   :small :mmm-button-small})
+  {:large "lg"
+   :small "sm"})
 
 (defn Button [{:keys [href text inline? secondary? icon icon-position size] :as attrs}]
-  [(if href :a.mmm-button.mmm-focusable :button.mmm-button.mmm-focusable)
+  [(if href :a :button)
    (cond-> (dissoc attrs :inline? :size :text :secondary? :icon :icon-position)
-     inline? (update :class conj :mmm-button-inline)
-     secondary? (update :class conj :mmm-button-secondary)
-     (sizes size) (update :class conj (sizes size)))
+     true (update :class conj (mtds/classes :button))
+     secondary? (assoc :data-variant "secondary")
+     (not secondary?) (assoc :data-variant "primary")
+     (sizes size) (assoc :data-size (sizes size)))
    (when (and icon (not= :after icon-position))
-     (icons/render icon {:class :mmm-button-icon}))
+     (icons/render icon))
    [:span text]
    (when (and icon (= :after icon-position))
-     (icons/render icon {:class :mmm-button-icon}))])
+     (icons/render icon))])

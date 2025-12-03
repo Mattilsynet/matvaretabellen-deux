@@ -57,6 +57,7 @@
 
  #:mmm.components.footer
  {:footer-title "Footer"
+  :shortcuts-title "Shortcuts"
   :about-site "About the site"
   :about-text ("Matvaretabellen is a service from Mattilsynet. "
                [:a {:href "/about-us/"} "Read more about it here."]
@@ -69,8 +70,6 @@
   :about-mattilsynet "About Mattilsynet"
   :about-us "About Us"
   :job-openings "Job Openings"
-  :contact-us "Contact Us"
-  :call-us "Call us on +47 22 40 00 00"
   :report-to-us "Report to Us"}
 
  #:matvaretabellen.components.comparison
@@ -103,7 +102,7 @@
  #:matvaretabellen.pages.comparison-page
  {:and "and"
   :columnwise "Column wise"
-  :compare-foods ("Compare" [:span.mmm-desktop " foods"])
+  :compare-foods ("Compare" [:span.desktop " foods"])
   :composition "Composition"
   :diff-intro "Compare foods nutrient by nutrient."
   :edible-part "Edible part"
@@ -183,21 +182,21 @@
 
  #:matvaretabellen.pages.frontpage
  {:all-foods "All foods in table view →"
-  :all-food-groups "Food Groups →"
-  :all-nutrients "Nutrients →"
+  :card-about-title "About Matvaretabellen"
+  :card-about-text "Read more about Matvaretabellen and contact us."
+  :card-table-title "Table view"
+  :card-table-text "See all foods in table view"
   :common-food-searches "Common Searches"
   :did-you-know "Did you know ..."
   :new-in-food-table "New in Matvaretabellen"
   :no-script-search-info [:span "Unfortunately, the search does not work without JavaScript turned on, but you can still find food items categorized under "
-                          [:a.mmm-link {:href "/en/food-groups/"} "food groups"]
+                          [:a {:href "/en/food-groups/"} "food groups"]
                           " and "
-                          [:a.mmm-link {:href "/en/nutrients/"} "nutrients"] "."]
+                          [:a {:href "/en/nutrients/"} "nutrients"] "."]
   :open-graph-description "Information about the energy and nutritional content of thousands of foods. Search for foods, compare, and learn about nutrients."
   :open-graph-title "Matvaretabellen.no - a service from Mattilsynet"
   :read-more-about [:fn/str "See nutritional contents of {{:definite}}."]
-  :seasonal-goods "Seasonal Goods"
-  :see-all-food-groups-overview "Overview of all food groups."
-  :see-all-nutrients-overview "Overview of all nutrients."}
+  :seasonal-goods "Seasonal Goods"}
 
  #:matvaretabellen.pages.nutrients-page
  {:all-nutrients "Nutrients"

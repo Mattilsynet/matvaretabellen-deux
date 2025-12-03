@@ -136,8 +136,8 @@
   (when-let [input (dom/qs dom-element "input")]
     (let [element (dom/qs dom-element ".mmm-ac-results")]
       (.addEventListener dom-element "input" #(handle-autocomplete-input-event % input element locale))
-      (when-let [form (.closest dom-element "form")]
-        (.addEventListener form "submit" #(handle-autocomplete-submit-event %)))
+      (when-let [form (.closest dom-element "u-combobox")]
+        (.addEventListener form "comboboxbeforeselect" #(handle-autocomplete-submit-event %)))
       (when (and initial-query (some-> input .-value empty?))
         (set! (.-value input) initial-query))
       (when (seq (.-value input))

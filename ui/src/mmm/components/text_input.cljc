@@ -1,3 +1,4 @@
+;; TODO EIRIK: Not in use anymore
 (ns mmm.components.text-input)
 
 (def sizes

@@ -1,26 +1,32 @@
 (ns mmm.components.search-input
-  (:require [mmm.components.button :refer [Button]]
-            [mmm.components.text-input :refer [TextInput]]))
+  (:require [mattilsynet.design :as mtds]))
 
 (def size-classes
-  {:small :mmm-search-input-compact})
+  {:small "sm"})
 
 (defn SearchInput [{:keys [button input results autocomplete-id size class]}]
-  [:fieldset.mmm-search-input {:class [(size-classes size) class]}
-   [:div.mmm-action-input
-    (TextInput
-     (cond-> (assoc input :type "search" :size size :autocomplete "off")
+  [:div {:class (mtds/classes :flex class)
+         :data-items "100"
+         :data-nowrap ""
+         :data-size (size-classes size)}
+   [:div {:class (mtds/classes :field)}
+    [:input
+     (cond-> (assoc input :type "search" :class (mtds/classes :input))
        (:name input)
        (assoc :id (:name input))
-
        autocomplete-id
-       (assoc :list autocomplete-id)))
-    (Button (assoc button :type "submit" :inline? true :size size))]
-   [:u-datalist.mmm-ac-results.mmm-hidden
-    {:id autocomplete-id}
-    (for [result results]
-      [:u-option.mmm-ac-result
-       (when (:selected? result)
-         {:class "mmm-ac-selected"})
-       [:a {:href (:href result)}
-        (:text result)]])]])
+       (assoc :list autocomplete-id))]
+    [:u-combobox
+     [:u-datalis
+      {:id autocomplete-id}
+      (for [result results]
+        [:u-option
+         (when (:selected? result)
+           {:aria-selected "true"})
+         [:a {:href (:href result)}
+          (:text result)]])]]]
+    [:button {:class (mtds/classes :button)
+              :type "submit"
+              :data-fixed ""
+              :data-variant "primary"}
+     (:text button)]])
