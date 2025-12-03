@@ -666,11 +666,11 @@
 
        (for [{:constituent/keys [nutrient] :as constituent} (:food/constituents food)]
          (when (has-popover? constituent)
-           [:di {:class (mtds/classes :card :popover :prose
-                                      :data-size "sm"
-                                      :popover "auto"
-                                      :id (:nutrient/id nutrient)
-                                      :style {:max-width "25rem"})}
+           [:div {:class (mtds/classes :card :popover :prose)
+                  :data-size "sm"
+                  :popover "auto"
+                  :id (:nutrient/id nutrient)
+                  :style {:max-width "30rem"}}
             [:button {:class (mtds/classes :button)
                       :popovertargetaction "hide"
                       :data-size "sm"
