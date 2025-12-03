@@ -1,16 +1,12 @@
 (ns mmm.components.site-header
-  (:require [mmm.components.mattilsynet-logo :refer [MattilsynetLogoSimple]]
-            [mattilsynet.design :as mtds]))
+  (:require [mattilsynet.design :as mtds]))
 
 (defn SiteHeader [{:keys [home-url extra-link extra-links theme]}]
   [:header.header
    [:div {:class (mtds/classes :flex) :data-center "xl" :data-justify "space-between" :data-align "center"}
-    (if (= "mt2023" theme)
-      [:a {:class (mtds/classes :logo)
-           :href home-url}
-       "Matvaretabellen"]
-      [:a {:href home-url}
-       (MattilsynetLogoSimple)])
+    [:a {:class (mtds/classes :logo)
+         :href home-url}
+     "Matvaretabellen"]
     (when extra-link
       [:a {:href (:url extra-link)}
        (:text extra-link)])

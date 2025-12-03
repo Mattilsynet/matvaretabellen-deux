@@ -1,6 +1,5 @@
 (ns mmm.components.footer
-  (:require [mmm.components.mattilsynet-logo :refer [MattilsynetLogo]]
-            [mattilsynet.design :as mtds]))
+  (:require [mattilsynet.design :as mtds]))
 
 (defn Footer [{:keys [cols]}]
   [:footer.footer {:data-color "inverted"}
