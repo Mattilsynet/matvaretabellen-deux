@@ -164,4 +164,4 @@
          :where
          [_ :langual-code/description ?d]]
        (d/db conn))
-)
+  )

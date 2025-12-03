@@ -1,6 +1,7 @@
 (ns matvaretabellen.pages.comparison-page
   (:require [clojure.data.json :as json]
             [datomic-type-extensions.api :as d]
+            [mattilsynet.design :as mtds]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
             [matvaretabellen.layout :as layout]
@@ -10,16 +11,15 @@
             [matvaretabellen.ui.client-table :as client-table]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
-            [phosphor.icons :as icons]
-            [mattilsynet.design :as mtds]))
+            [phosphor.icons :as icons]))
 
 (defn render-breadcrumbs [locale]
   (Breadcrumbs
-    {:links (crumbs/crumble
-             locale
-             {:text [:i18n :i18n/search-label]
-              :url (urls/get-base-url locale)}
-             {:text [:i18n ::compare-foods]})}))
+   {:links (crumbs/crumble
+            locale
+            {:text [:i18n :i18n/search-label]
+             :url (urls/get-base-url locale)}
+            {:text [:i18n ::compare-foods]})}))
 
 (defn render-share-button [locale]
   (list
@@ -169,17 +169,17 @@
         (render-share-button (:page/locale page))]]] ;; TODO EIRIK: Use popover for share-message?
 
      [:div.mvtc-tab-target#columnwise {:class (mtds/classes :grid) :data-center "xl"}
-      [:p [:i18n ::diff-intro]] 
+      [:p [:i18n ::diff-intro]]
       [:figure
-        (render-columnwise-comparison context page)]]
+       (render-columnwise-comparison context page)]]
 
      [:div#rowwise.mmm-hidden.mvtc-tab-target {:class (mtds/classes :grid) :data-center "xl"}
       [:div {:data-size "sm"} (client-table/render-nutrients-toggle)]
-      (client-table/render-column-settings (:foods/db context)) 
+      (client-table/render-column-settings (:foods/db context))
       (client-table/render-table-skeleton
-        (:foods/db context)
-        {:data-table-dataset "comparison"
-         :id "rowwise-table"})]
+       (:foods/db context)
+       {:data-table-dataset "comparison"
+        :id "rowwise-table"})]
 
      (for [rating [:matvaretabellen.diff/similar
                    :matvaretabellen.diff/slight

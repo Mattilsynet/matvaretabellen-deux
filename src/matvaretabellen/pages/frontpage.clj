@@ -1,12 +1,12 @@
 (ns matvaretabellen.pages.frontpage
   (:require [clojure.string :as str]
             [datomic-type-extensions.api :as d]
+            [mattilsynet.design :as mtds]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.seeded-random :as rng]
             [matvaretabellen.urls :as urls]
             [mmm.components.search-input :refer [SearchInput]]
-            [mmm.components.toc :refer [Toc]]
-            [mattilsynet.design :as mtds])
+            [mmm.components.toc :refer [Toc]])
   (:import (java.time MonthDay)))
 
 (defn get-seasons [app-db]

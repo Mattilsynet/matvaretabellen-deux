@@ -1,14 +1,12 @@
 (ns matvaretabellen.layout
-  (:require [mattilsynet.design :as mtds])
   (:require [clojure.java.io :as io]
+            [mattilsynet.design :as mtds]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.urls :as urls]
             [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.search-input :refer [SearchInput]]
-            [mmm.components.site-header :refer [SiteHeader]]
-            [phosphor.icons :as icons]
-            [mattilsynet.design :as mtds]))
+            [mmm.components.site-header :refer [SiteHeader]]))
 
 (def report-errors-to-tracer
   "
@@ -45,17 +43,17 @@ window.onerror = function(message) {
    (into
     body
     (list
-      [:img {:data-src (str "https://mattilsynet.matomo.cloud/matomo.php?idsite="
-                            (:matomo/site-id context)
-                            "&rec=1"
-                            "&url={url}"
-                            "&action_name={title}"
-                            "&ua={ua}"
-                            "&urlref={referrer}")
-             :id "mvt-tracking-pixel"
-             :style "border:0"
-             :alt ""}]
-       (CompactSiteFooter (:app/config context))))])
+     [:img {:data-src (str "https://mattilsynet.matomo.cloud/matomo.php?idsite="
+                           (:matomo/site-id context)
+                           "&rec=1"
+                           "&url={url}"
+                           "&action_name={title}"
+                           "&ua={ua}"
+                           "&urlref={referrer}")
+            :id "mvt-tracking-pixel"
+            :style "border:0"
+            :alt ""}]
+     (CompactSiteFooter (:app/config context))))])
 
 (defn prepare-header-links [locale get-current-url]
   (let [current-url (get-current-url locale)]

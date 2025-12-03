@@ -7,17 +7,17 @@
     [:a {:href "https://www.mattilsynet.no"
          :aria-label "Mattilsynet"
          :class (mtds/classes :logo)}]
-   (for [{:keys [title items text texts]} cols]
-     [:div {:class (mtds/classes :grid)}
-      [:h2 {:class (mtds/classes :heading) :data-size "sm"} title]
-      (when (seq items)
-        [:ul {:class (mtds/classes :grid)}
-         (for [{:keys [url text]} items]
-           [:li (if url
-                  [:a {:href url} text]
-                  text)])])])]])
+    (for [{:keys [title items]} cols]
+      [:div {:class (mtds/classes :grid)}
+       [:h2 {:class (mtds/classes :heading) :data-size "sm"} title]
+       (when (seq items)
+         [:ul {:class (mtds/classes :grid)}
+          (for [{:keys [url text]} items]
+            [:li (if url
+                   [:a {:href url} text]
+                   text)])])])]])
 
-(defn CompactSiteFooter [config]
+(defn CompactSiteFooter [_]
   (Footer
    {:cols [{:title [:i18n ::shortcuts-title]
             :items [{:url "/api/"

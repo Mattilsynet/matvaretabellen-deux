@@ -1,10 +1,9 @@
 (ns matvaretabellen.pages.article-page
   (:require [clojure.string :as str]
             [datomic-type-extensions.api :as d]
+            [mattilsynet.design :as mtds]
             [matvaretabellen.layout :as layout]
-            [matvaretabellen.urls :as urls]
-            [powerpack.markdown :as md]
-            [mattilsynet.design :as mtds]))
+            [powerpack.markdown :as md]))
 
 (defn get-update-date [locale infos]
   (str (get-in infos [:month locale])

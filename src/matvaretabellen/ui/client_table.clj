@@ -1,11 +1,11 @@
 (ns matvaretabellen.ui.client-table
   (:require [broch.core :as b]
+            [mattilsynet.design :as mtds]
             [matvaretabellen.food :as food]
             [matvaretabellen.food-group :as food-group]
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
-            [phosphor.icons :as icons]
-            [mattilsynet.design :as mtds]))
+            [phosphor.icons :as icons]))
 
 (def default-checked #{"Fett" "Karbo" "Protein" "Fiber"})
 
@@ -101,7 +101,7 @@
 (defn render-column-settings [foods-db]
   [:div.mmm-hidden#columns-panel {:class (mtds/classes :grid :group) :data-items "350" :data-align "start" :data-size "md"}
    (->> (nutrient/prepare-filters foods-db {:columns 2})
-         (map render-nutrient-filter-column))])
+        (map render-nutrient-filter-column))])
 
 (defn render-food-group-settings [context page]
   [:div.mmm-hidden#food-group-panel {:class (mtds/classes :grid :group) :data-items "350" :data-align "start" :data-size "md"}
@@ -127,7 +127,7 @@
                 :data-variant "secondary"
                 :type "button"}
        (icons/render :phosphor.regular/caret-left)
-       [:i18n ::prev]] 
+       [:i18n ::prev]]
       [:button {:class (mtds/classes :button :mvt-next :mmm-hidden) ;; TODO EIRIK: mmm-class needed in JS
                 :data-variant "secondary"
                 :type "button"}
@@ -149,7 +149,7 @@
    [:i18n ::columns]])
 
 (defn render-download-csv-button []
-  [:a {:class (mtds/classes :button :mvt-download :mmm-hidden) 
+  [:a {:class (mtds/classes :button :mvt-download :mmm-hidden)
        :data-variant "secondary"
        :href "#"
        :download [:i18n ::file-name]}

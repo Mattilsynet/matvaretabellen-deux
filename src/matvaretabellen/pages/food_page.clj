@@ -151,8 +151,8 @@
         (when-let [v (or (:rda.recommendation/max-amount recommendation)
                          (:rda.recommendation/min-amount recommendation)
                          (:rda.recommendation/average-amount recommendation))]
-                         ;; Min/max/average energy percent not yet supported
-                         
+          ;; Min/max/average energy percent not yet supported
+
           [:span.mvt-rda
            {:data-nutrient-id nutrient-id}
            (pct (b// q v))])))))
@@ -342,7 +342,7 @@
              [:tr
               [:th [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]]
               [:td (Math/round (* 100 (/ value total)))]]))))]]])
-      
+
 
 (defn prepare-value-slices [food ids]
   (->> (for [id ids]
@@ -350,16 +350,16 @@
                                 (filter (comp #{id} :nutrient/id :constituent/nutrient))
                                 first)
                value (or (some-> constituent :measurement/quantity b/num) 0)]
-            {:value value}))))
-            ;;  :id (str id (hash ids))
-            ;;  :color (nutrient-id->color id)
-            ;;  :hover-content [:span
-            ;;                  [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]
-            ;;                  ": "
-            ;;                  [:strong
-            ;;                   (food/wrap-in-portion-span value {:decimals (-> constituent :constituent/nutrient :nutrient/decimal-precision)})
-            ;;                   (some->> constituent :measurement/quantity b/symbol (str " "))]]
-             
+           {:value value}))))
+;;  :id (str id (hash ids))
+;;  :color (nutrient-id->color id)
+;;  :hover-content [:span
+;;                  [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]
+;;                  ": "
+;;                  [:strong
+;;                   (food/wrap-in-portion-span value {:decimals (-> constituent :constituent/nutrient :nutrient/decimal-precision)})
+;;                   (some->> constituent :measurement/quantity b/symbol (str " "))]]
+
 
 (defn prepare-energy-content-slices [food ids]
   (let [constituents (filter (comp ids :nutrient/id :constituent/nutrient) (:food/constituents food))
@@ -667,10 +667,10 @@
        (for [{:constituent/keys [nutrient] :as constituent} (:food/constituents food)]
          (when (has-popover? constituent)
            [:di {:class (mtds/classes :card :popover :prose
-                            :data-size "sm"
-                            :popover "auto"
-                            :id (:nutrient/id nutrient)
-                            :style {:max-width "25rem"})}
+                                      :data-size "sm"
+                                      :popover "auto"
+                                      :id (:nutrient/id nutrient)
+                                      :style {:max-width "25rem"})}
             [:button {:class (mtds/classes :button)
                       :popovertargetaction "hide"
                       :data-size "sm"

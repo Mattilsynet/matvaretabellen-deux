@@ -166,9 +166,9 @@
     ;; Highlight absolutely compared values (energy numbers)
     ;; Highlights where not well understood by the designers, so disabled for now.
     #_(when-let [attr (some-> row (.getAttribute "data-compare-abs") keyword)]
-      (let [ns (sort (map attr foods))]
-        (when (< 1.5 (/ (last ns) (first ns)))
-          (dom/add-class row "mmm-highlight"))))
+        (let [ns (sort (map attr foods))]
+          (when (< 1.5 (/ (last ns) (first ns)))
+            (dom/add-class row "mmm-highlight"))))
     ;; Add placeholder columns for all foods
     (let [template (.-lastChild row)]
       (doseq [_ (next foods)]

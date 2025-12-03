@@ -1,11 +1,11 @@
 (ns matvaretabellen.pages.food-groups-page
   (:require [datomic-type-extensions.api :as d]
+            [mattilsynet.design :as mtds]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.urls :as urls]
-            [phosphor.icons :as icons]
-            [mattilsynet.design :as mtds]))
+            [phosphor.icons :as icons]))
 
 (defn embellish-food-group [food-group app-db]
   (-> (into {} food-group)

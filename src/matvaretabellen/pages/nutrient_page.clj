@@ -1,5 +1,6 @@
 (ns matvaretabellen.pages.nutrient-page
   (:require [datomic-type-extensions.api :as d]
+            [mattilsynet.design :as mtds]
             [matvaretabellen.components.comparison :as comparison]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
@@ -9,8 +10,7 @@
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.urls :as urls]
-            [phosphor.icons :as icons]
-            [mattilsynet.design :as mtds]))
+            [phosphor.icons :as icons]))
 
 (def filter-panel-id "filter-panel")
 
@@ -45,9 +45,9 @@
   making it impossible to find the food with the least amount.
 
   Thus: list of all foods containing the nutrient in question."
-  [nutrient foods page] 
+  [nutrient foods page]
   (->> (prepare-foods-table nutrient page foods)
-        food-page/render-table))
+       food-page/render-table))
 
 (defn get-back-link [locale nutrient]
   (if-let [parent (:nutrient/parent nutrient)]
@@ -72,21 +72,21 @@
 (defn render-sidebar [app-db nutrient foods locale]
   (let [target (or (:nutrient/parent nutrient) nutrient)]
     [:div {:class (mtds/classes :grid) :data-gap "8" :id filter-panel-id}
-      (when-let [links (render-nutrient-links locale target nutrient)]
-        [:div {:class (mtds/classes :grid)}
-         (let [{:keys [url text]} (get-back-link locale nutrient)]
-           [:h2 {:class (mtds/classes :heading) :data-size "xs"}
-            [:a {:href url} text]])
-         links])
-      [:div {:class (mtds/classes :grid)}
-       [:h2 {:class (mtds/classes :heading) :data-size "xs"}
-        [:a {:href (urls/get-food-groups-url locale)}
-         [:i18n ::food-groups]]]
-       (food-group/render-food-group-filters
-        app-db
-        (food-group/get-food-groups (d/entity-db nutrient))
-        foods
-        locale)]]))
+     (when-let [links (render-nutrient-links locale target nutrient)]
+       [:div {:class (mtds/classes :grid)}
+        (let [{:keys [url text]} (get-back-link locale nutrient)]
+          [:h2 {:class (mtds/classes :heading) :data-size "xs"}
+           [:a {:href url} text]])
+        links])
+     [:div {:class (mtds/classes :grid)}
+      [:h2 {:class (mtds/classes :heading) :data-size "xs"}
+       [:a {:href (urls/get-food-groups-url locale)}
+        [:i18n ::food-groups]]]
+      (food-group/render-food-group-filters
+       app-db
+       (food-group/get-food-groups (d/entity-db nutrient))
+       foods
+       locale)]]))
 
 (defn render [context db page]
   (let [nutrient (d/entity (:foods/db context) [:nutrient/id (:page/nutrient-id page)])
@@ -156,6 +156,3 @@
        nutrient/get-foods-by-nutrient-density
        (map (comp :nb :food/name))
        count))
-
-
-  
