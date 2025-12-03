@@ -2,7 +2,6 @@
   (:require [clojure.data.json :as json]
             [clojure.set :as set]
             [datomic-type-extensions.api :as d]
-            [mmm.components.checkbox :refer [Checkbox]]
             [mattilsynet.design :as mtds]))
 
 (defn get-food-group-paths [food-groups & [path]]
