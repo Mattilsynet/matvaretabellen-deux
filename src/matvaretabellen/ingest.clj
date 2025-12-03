@@ -32,13 +32,17 @@
 
 (defn get-active-foodex2-term-pages
   [food-db]
-  [;; active terms only!
-   { ;; A00BL Buns (eg Julekake)
-    ;; Norsk!
+  [;; only terms that describe foods.
+   {;; A00BL Buns
+    ;; Julekake er klassifisert som en "bun".
     :page/uri "/foodex2/A00BL"
     :page/kind :page.kind/foodex2-term
     :foodex2.term/code "A00BL"}
-   ])
+   {;; A01QC Candied fruit, orange peel
+    ;; En av ingrediensene i julekake er kandisert appelsinskall.
+    :page/uri "/foodex2/A01QC"
+    :page/kind :page.kind/foodex2-term
+    :foodex2.term/code "A01QC"}])
 
 (defn get-nutrient-pages [food-db app-db]
   (->> (d/q '[:find ?nutrient-id ?nutrient-name
