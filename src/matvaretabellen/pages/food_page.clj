@@ -442,29 +442,29 @@
         (-> aspect :foodex2/term :foodex2.term/name))])
 
 (defn render-foodex2-facets [locale food]
-  (->> food :foodex2/classification :foodex2/aspects
-       (group-by (comp (juxt :foodex2.facet/id :foodex2.facet/name) :foodex2/facet))
-       (sort-by first)
-       (map (fn [[facet-info aspects]]
-              [:p [:strong (->> facet-info
-                                (remove nil?)
-                                (interpose " "))]
-               ": "
-               (interpose ", " (map (partial render-foodex2-aspect locale) aspects))
-               "."]))))
+  [:ul
+   (->> food :foodex2/classification :foodex2/aspects
+        (group-by (comp (juxt :foodex2.facet/id :foodex2.facet/name) :foodex2/facet))
+        (sort-by first)
+        (map (fn [[facet-info aspects]]
+               [:li [:strong (->> facet-info
+                                  (remove nil?)
+                                  (interpose " "))]
+                ": "
+                (interpose ", " (map (partial render-foodex2-aspect locale) aspects))
+                "."])))])
 
 (defn render-foodex2-classification [locale food]
   (let [kategori-label (str (-> food :foodex2/classification :foodex2/term :foodex2.term/code)
                             " "
                             (-> food :foodex2/classification :foodex2/term :foodex2.term/name))]
-    [:div.mmm-container.mmm-section-spaced
-     [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
-      [:h3#foodex2 "FoodEx2: "
-       [:a {:href (urls/get-foodex-term-url locale (-> food :foodex2/classification :foodex2/term))}
-        kategori-label]]
-      [:p {:style {:font-size "14px"}}
-       [:code (foodex2/make-classifier (:foodex2/classification food))]]
-      (render-foodex2-facets locale food)]]))
+    [:div {:class (mtds/classes :prose)}
+     [:h3#foodex2 "FoodEx2: "
+      [:a {:href (urls/get-foodex-term-url locale (-> food :foodex2/classification :foodex2/term))}
+       kategori-label]]
+     [:p {:data-size "sm"}
+      [:code (foodex2/make-classifier (:foodex2/classification food))]]
+     (render-foodex2-facets locale food)]))
 
 (comment
   (do
@@ -611,6 +611,8 @@
          [:li [:i18n ::food-id {:id (:food/id food)}]]
          (when-let [latin-name (not-empty (:food/latin-name food))]
            [:li [:i18n ::scientific-name {:name latin-name}]])]
+        (render-foodex2-classification locale food)
+        [:h3 "LanguaL"]
         (when-let [langual-codes (seq (food/get-langual-codes food))]
           (list
            [:p [:i18n ::classification-intro
@@ -618,8 +620,6 @@
            (->> langual-codes
                 prepare-langual-table
                 render-table)))]]
-
-      (render-foodex2-classification locale food)
 
       [:div.mmm-container.mmm-section-spaced
        [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
