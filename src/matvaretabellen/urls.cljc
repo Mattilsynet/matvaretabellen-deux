@@ -96,7 +96,8 @@
 (defn get-foodex-term-url [locale term]
   (str (case locale :en "/en" :nb "")
        "/foodex2/"
-       (:foodex2.term/code term)))
+       (:foodex2.term/code term)
+       "/"))
 
 (defn get-table-url [locale]
   (str (get-base-url locale)
