@@ -435,7 +435,13 @@
                :macros (->> ["Fett" "Karbo" "Protein"]
                             (map #(summarize-constituent food % locale)))}]}])
 
-(defn render-foodex2-facets [food]
+(defn render-foodex2-aspect [locale aspect]
+  [:a {:href (urls/get-foodex-term-url locale (:foodex2/term aspect))}
+   (str (-> aspect :foodex2/term :foodex2.term/code)
+        " "
+        (-> aspect :foodex2/term :foodex2.term/name))])
+
+(defn render-foodex2-facets [locale food]
   (->> food :foodex2/classification :foodex2/aspects
        (group-by (comp (juxt :foodex2.facet/id :foodex2.facet/name) :foodex2/facet))
        (sort-by first)
@@ -444,7 +450,7 @@
                                 (remove nil?)
                                 (interpose " "))]
                ": "
-               (interpose ", " (map foodex2/render-aspect aspects))
+               (interpose ", " (map (partial render-foodex2-aspect locale) aspects))
                "."]))))
 
 (defn render-foodex2-classification [locale food]
@@ -454,11 +460,11 @@
     [:div.mmm-container.mmm-section-spaced
      [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
       [:h3#foodex2 "FoodEx2: "
-       [:a {:href (urls/get-foodex-term-url locale :no (-> food :foodex2/classification :foodex2/term))}
+       [:a {:href (urls/get-foodex-term-url locale (-> food :foodex2/classification :foodex2/term))}
         kategori-label]]
       [:p {:style {:font-size "14px"}}
        [:code (foodex2/make-classifier (:foodex2/classification food))]]
-      (render-foodex2-facets food)]]))
+      (render-foodex2-facets locale food)]]))
 
 (comment
   (do

@@ -1,8 +1,10 @@
 (ns matvaretabellen.ingest
   (:require [clojure.java.io :as io]
+            [clojure.set :as set]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.excel :as excel]
             [matvaretabellen.foodcase-import :as import]
+            [matvaretabellen.foodex2 :as foodex2]
             [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.pages :as pages]
             [matvaretabellen.rda :as rda]
@@ -31,31 +33,16 @@
                   {:title food-name})))))))
 
 (defn get-active-foodex2-term-pages
-  [food-db]
-  ;; only terms that describe foods.
-  [;; A00BL Buns
-   ;; Julekake er klassifisert som en "bun".
-   {:foodex2.term/code "A00BL"
-    :page/kind :page.kind/foodex2-term
-    :page/locale :nb
-    :page/uri "/foodex2/A00BL"}
-   {:foodex2.term/code "A00BL"
-    :page/kind :page.kind/foodex2-term
-    :page/locale :en
-    :page/uri "/en/foodex2/A00BL"}
-
-   ;; A01QC Candied fruit, orange peel
-   ;; En av ingrediensene i julekake er kandisert appelsinskall.
-   {:foodex2.term/code "A01QC"
-    :page/kind :page.kind/foodex2-term
-    :page/locale :nb
-    :page/uri "/foodex2/A01QC"}
-   {:foodex2.term/code "A01QC"
-    :page/kind :page.kind/foodex2-term
-    :page/locale :en
-    :page/uri "/en/foodex2/A01QC"}
-
-   ])
+  [foods-db]
+  (->> (set/union (foodex2/food-classification-terms foods-db)
+                  (foodex2/food-aspect-terms foods-db))
+       (mapcat (fn [[code]]
+                 (map (fn [locale]
+                        {:foodex2.term/code code
+                         :page/kind :page.kind/foodex2-term
+                         :page/locale locale
+                         :page/uri (urls/get-foodex-term-url locale {:foodex2.term/code code})})
+                      [:en :nb])))))
 
 (defn get-nutrient-pages [food-db app-db]
   (->> (d/q '[:find ?nutrient-id ?nutrient-name

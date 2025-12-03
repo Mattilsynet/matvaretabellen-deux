@@ -1,5 +1,7 @@
 (ns matvaretabellen.foodex2
-  (:require [clojure.string :as str]))
+  (:require [clojure.set :as set]
+            [clojure.string :as str]
+            [datomic-type-extensions.api :as d]))
 
 (defn render-aspect [aspect]
   [:abbr {:title (-> aspect :foodex2/term :foodex2.term/note)}
@@ -51,10 +53,26 @@
           {}
           (:foodex2/_term term)))
 
+(defn food-classification-terms [foods-db]
+  (d/q '[:find ?code
+         :where
+         [_ :foodex2/classification ?c]
+         [?c :foodex2/term ?t]
+         [?t :foodex2.term/code ?code]]
+       foods-db))
+
+(defn food-aspect-terms [foods-db]
+  (d/q '[:find ?code
+         :where
+         [_ :foodex2/classification ?c]
+         [?c :foodex2/aspects ?a]
+         [?a :foodex2/term ?t]
+         [?t :foodex2.term/code ?code]]
+       foods-db))
+
 (comment
   ;; Julekake klassifiseres som "Bun".
   (do
-    (require '[datomic-type-extensions.api :as d])
     (def foods-db matvaretabellen.dev/foods-db)
     (def julekake (d/entity foods-db [:food/id "05.097"]))
     (def bun (d/entity foods-db [:foodex2.term/code "A00BL"])))
@@ -69,5 +87,15 @@
       term->aspected
       (update-keys :foodex2.facet/name)
       (update-vals #(map (comp :nb :food/name) %)))
+
+  (count (set/union (food-classification-terms foods-db)
+                    (food-aspect-terms foods-db)))
+  ;; => 1498
+
+  (count (food-classification-terms foods-db))
+  ;; => 845
+
+  (count (food-aspect-terms foods-db))
+  ;; => 925
 
   )
