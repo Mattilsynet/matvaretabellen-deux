@@ -447,15 +447,15 @@
                (interpose ", " (map foodex2/render-aspect aspects))
                "."]))))
 
-(defn render-foodex2-classification [food]
+(defn render-foodex2-classification [locale food]
   (let [kategori-label (str (-> food :foodex2/classification :foodex2/term :foodex2.term/code)
                             " "
-                            (-> food :foodex2/classification :foodex2/term :foodex2.term/name))
-        kategori-beskrivelse (-> food :foodex2/classification :foodex2/term :foodex2.term/note)]
+                            (-> food :foodex2/classification :foodex2/term :foodex2.term/name))]
     [:div.mmm-container.mmm-section-spaced
      [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
       [:h3#foodex2 "FoodEx2: "
-       [:abbr {:title kategori-beskrivelse} kategori-label]]
+       [:a {:href (urls/get-foodex-term-url locale :no (-> food :foodex2/classification :foodex2/term))}
+        kategori-label]]
       [:p {:style {:font-size "14px"}}
        [:code (foodex2/make-classifier (:foodex2/classification food))]]
       (render-foodex2-facets food)]]))
@@ -613,7 +613,7 @@
                 prepare-langual-table
                 render-table)))]]
 
-      (render-foodex2-classification food)
+      (render-foodex2-classification locale food)
 
       [:div.mmm-container.mmm-section-spaced
        [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn

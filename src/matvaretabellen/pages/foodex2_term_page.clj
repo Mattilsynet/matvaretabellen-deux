@@ -1,7 +1,7 @@
 (ns matvaretabellen.pages.foodex2-term-page
-  (:require [clojure.string :as str]
-            [datomic-type-extensions.api :as d]
-            [matvaretabellen.foodex2 :as foodex2]))
+  (:require [datomic-type-extensions.api :as d]
+            [matvaretabellen.foodex2 :as foodex2]
+            [matvaretabellen.urls :as urls]))
 
 (defonce !lctx (atom nil))
 (defonce !lpage (atom nil))
@@ -9,13 +9,15 @@
 (defn render-facet [facet]
   (list (:foodex2.facet/id facet) " " (:foodex2.facet/name facet)))
 
-(defn render-food [food]
-  (:en (:food/name food)))
+(defn render-food-link [locale food]
+  [:a {:href (urls/get-food-url locale food)}
+   (get-in food [:food/name locale])])
 
 (defn render [context page]
   (reset! !lctx context)
   (reset! !lpage page)
-  (let [foods-db (:foods/db context)
+  (let [locale (:page/locale page)
+        foods-db (:foods/db context)
         code (:foodex2.term/code page)
         term (d/entity foods-db [:foodex2.term/code code])]
     [:div
@@ -23,7 +25,9 @@
      [:p (:foodex2.term/note term)]
      (when (seq (:foodex2.term/note-links term))
        (list
-        [:h2 "References"]
+        [:h2 (case locale
+               :nb "Referanser"
+               :en "References")]
         [:ul
          (->> (:foodex2.term/note-links term)
               (map (fn [link]
@@ -37,7 +41,7 @@
         [:ul
          (->> foods
               (map (fn [food]
-                     [:li (:en (:food/name food))])))]))
+                     [:li (render-food-link locale food)])))]))
 
      ;; Foods with this aspect
      (for [[facet foods] (->> (foodex2/term->aspected term)
@@ -46,13 +50,17 @@
        (list
         [:h2 (render-facet facet)]
         [:ul
-         (for [food (sort-by (comp :en :food/name) foods)]
-           [:li (render-food food)])]))]))
+         (for [food (sort-by (comp (:page/locale page) :food/name) foods)]
+           [:li (render-food-link locale food)])]))]))
 
 (comment
   @!lpage
 
   (def foods-db (:foods/db @!lctx))
   (def term (d/entity foods-db [:foodex2.term/code "A00BL"]))
+
+  (-> (foodex2/term->classified term)
+      first
+      :food/name)
 
   )
