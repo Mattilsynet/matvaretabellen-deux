@@ -28,12 +28,12 @@
 (defn get-lists [panel & [ids]]
   (if ids
     (keep #(dom/qs panel (str "ul[data-filter-list-id='" % "']")) ids)
-    (dom/qsa panel (str "ul[data-filter-list-id]"))))
+    (dom/qsa panel "ul[data-filter-list-id]")))
 
 (defn get-checkboxes [panel & [ids]]
   (if ids
     (keep #(dom/qs panel (str "label[data-filter-id='" % "'] input")) ids)
-    (dom/qsa panel (str "label[data-filter-id] input"))))
+    (dom/qsa panel "label[data-filter-id] input")))
 
 (defn get-rows [table ids]
   (mapcat #(dom/qsa table (str "tr[data-id='" % "']")) ids))
