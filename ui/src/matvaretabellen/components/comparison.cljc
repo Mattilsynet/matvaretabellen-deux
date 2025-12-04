@@ -4,7 +4,7 @@
             [mattilsynet.design :as mtds]))
 
 (defn render-comparison-drawer [locale]
-  [:div.mmm-drawer.mmm-drawer-closed.mvtc-drawer {:data-size "md"}
+  [:dialog.mvtc-drawer.drawer {:class (mtds/classes :dialog) :data-size "md"} ;; TODO EIRIK: Use native <dialog> JS
    [:div {:class (mtds/classes :grid)}
     [:div {:class (mtds/classes :flex) :data-justify "space-between" :data-align "center"}
      [:h2 {:class (mtds/classes :heading) :data-size "xs"} [:i18n ::compare-foods]]
@@ -18,11 +18,11 @@
           :data-variant "primary"
           :href (urls/get-comparison-url locale)}
       [:i18n ::compare-now]
-      (icons/render :phosphor.regular/arrow-right)]]]
-   [:div.mvtc-suggestions {:class (mtds/classes :grid) :data-size "sm"}
+      (icons/render :phosphor.regular/arrow-right)]]
+   [:div.mvtc-suggestions {:class (mtds/classes :grid) :data-size "sm" :data-gap "1"}
     [:strong [:i18n ::suggestions]]
     [:ul {:class (mtds/classes :flex)}
-     [:li [:a]]]]])
+     [:li [:a]]]]]])
 
 (defn render-toggle-button [food locale]
   [:button {:class (mtds/classes :button :mvt-compare-food)

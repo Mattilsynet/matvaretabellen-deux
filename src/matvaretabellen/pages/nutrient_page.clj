@@ -20,9 +20,10 @@
               :aria-sort "none"
               :data-sort-by "data-value"
               :data-sort-order (name sort-order)
-              :data-sort-type "number"}
+              :data-sort-type "number"
+              :style {:width "var(--mtds-30)"}}
              {:text [:i18n ::compare]
-              :style {:width "1px"}}]
+              :style {:width "var(--mtds-26)"}}]
    :id "filtered-table"
    :classes [:mvt-filtered-table :mvt-sortable-table]
    :rows (for [food foods]
@@ -139,7 +140,8 @@
            [:div {:class (mtds/classes :flex) :data-items "300" :data-center "xl"}
             [:div {:data-fixed "" :data-size "md"}
              sidebar]
-            (render-nutrient-foods-table nutrient foods page)]))
+            [:div
+             (render-nutrient-foods-table nutrient foods page)]]))
 
        ;; TODO EIRIK: Remove when fully using aria-sort
        [:div.mmm-hidden

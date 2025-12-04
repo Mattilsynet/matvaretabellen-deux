@@ -13,7 +13,7 @@
   (merge
    {:headers (concat [{:class [:mmm-hidden]
                        :data-id "download"
-                       :style {:width "1px"}
+                       :style {:width "var(--mtds-15)"}
                        :text [:button {:class (mtds/classes :button :mvt-add-to-list)
                                        :type "button"
                                        :aria-label [:i18n ::stage-for-download]
@@ -49,7 +49,7 @@
                                :data-size "sm"}
                       (icons/render :phosphor.regular/arrow-down)]
                :data-id "download"
-               :style {:width "1px"}}
+               :style {:width "var(--mtds-15)"}} ;; TODO EIRIK: Where is this in use?
               {:text [:a]
                :data-id "foodName"}
               {:text ""

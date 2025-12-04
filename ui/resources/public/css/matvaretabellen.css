@@ -16,13 +16,33 @@
     padding-block: var(--mtds-18) var(--mtds-22);
 }
 
-@media only screen and (max-width: 780px) {
-    .desktop {
-        display: none;
-    }
+:root {
+    --mtds-color-charts-chart-f: var(--mtds-color-info-surface-tinted); /* Add missing chart-color for "water" */
+    --mtdsc-chart-color-6: var(--mtds-color-charts-chart-f);
 }
 
-.mmm-drawer {
+.chart-legend li {
+    display: flex;
+    align-items: center;
+    gap: var(--mtds-2);
+}
+.chart-legend li::before {
+    content: "";
+    width: var(--mtds-4);
+    height: var(--mtds-4);
+    background-color: var(--color);
+    border-radius: 50%;
+    border: 1px solid;
+}
+
+@media (min-width: 781px) {
+    .mobile { display: none }
+}
+@media (max-width: 780px) {
+    .desktop { display: none }
+}
+
+.drawer {
     background: var(--mtds-color-surface-default);
     border-top: 2px solid;
     bottom: 0;
@@ -35,13 +55,6 @@
     z-index: 2;
 }
 
-.mmm-drawer-content {
-    padding: var(--mt-spacing-box-padding-m);
-}
-
-.mmm-drawer-closed {
-    display: none;
-}
 .mmm-hidden {
     display: none;
 }

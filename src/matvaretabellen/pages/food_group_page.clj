@@ -63,7 +63,7 @@
 (defn prepare-foods-table [locale foods]
   {:headers [{:text [:i18n ::food]}
              {:text [:i18n ::compare]
-              :style {:width "1px"}}]
+              :style {:width "var(--mtds-26)"}}]
    :id "filtered-table"
    :classes [:mvt-filtered-table]
    :rows (for [food foods]

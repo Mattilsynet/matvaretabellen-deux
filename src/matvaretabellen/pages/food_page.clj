@@ -173,7 +173,7 @@
                           :class "mvt-amount"
                           :style {:width "var(--mtds-30)"}}
                          (when recommendations
-                           {:text [:abbr.mmm-abbr {:title [:i18n ::rda-explanation]} ;; TODO EIRIK: popover-inline
+                           {:text [:button {:data-popover "inline" :data-tooltip [:i18n ::rda-explanation]}
                                    [:i18n ::rda-pct]]
                             :style {:width "var(--mtds-30)"}})]
                         (remove nil?))
@@ -258,7 +258,7 @@
            [(or (:tag cell) :td) (dissoc cell :text :level :tag)
             (cond->> (:text cell)
               (< 0 (or (:level cell) 0))
-              (conj [:span {:style {:margin-left (str "var(--mtds-" (* 4 (:level cell)) ")")}}]))])]))]]) ;; TODO EIRIK: What?
+              (conj [:span {:style {:margin-left (str "var(--mtds-" (* 4 (:level cell)) ")")}}]))])]))]])
 
 (def energy-label
   [:i18n ::energy-content-title
@@ -295,18 +295,18 @@
     sources)])
 
 (def slice-legend
-  [{:nutrient-id "Fett"    :color "var(--mt-color-fat)"}
-   {:nutrient-id "Karbo"   :color "var(--mt-color-carbs)"}
-   {:nutrient-id "Fiber"   :color "var(--mt-color-fiber)"}
-   {:nutrient-id "Protein" :color "var(--mt-color-protein)"}
-   {:nutrient-id "Alko"    :color "var(--mt-color-alco)"}
-   {:nutrient-id "Vann"    :color "var(--mt-color-water)"}])
+  [{:nutrient-id "Fett"    :color "var(--mtds-color-charts-chart-a)"}
+   {:nutrient-id "Karbo"   :color "var(--mtds-color-charts-chart-b)"}
+   {:nutrient-id "Protein" :color "var(--mtds-color-charts-chart-c)"}
+   {:nutrient-id "Fiber"   :color "var(--mtds-color-charts-chart-d)"}
+   {:nutrient-id "Alko"    :color "var(--mtds-color-charts-chart-e)"}
+   {:nutrient-id "Vann"    :color "var(--mtds-color-charts-chart-f)"}])
 
 (def nutrient-id->color
   (into {} (map (juxt :nutrient-id :color) slice-legend)))
 
 (defn render-composition-chart [food ids]
-  [:mtds-chart {:data-variant "pie" :data-legend "false"} ;; TODO EIRIK: Add color for water
+  [:mtds-chart {:data-variant "pie" :data-legend "false" :data-aspect "4/3"}
    [:table
     [:thead
      [:tr
@@ -323,7 +323,7 @@
           [:td value]]))]]])
 
 (defn render-energy-chart [food ids]
-  [:mtds-chart {:data-variant "pie" :data-legend "true"} ;; TODO EIRIK: Style to be placed next to chart
+  [:mtds-chart {:data-variant "pie" :data-legend "false" :data-aspect "4/3"}
    [:table
     [:thead
      [:tr
@@ -517,7 +517,7 @@
         [:div {:class (mtds/classes :flex) :data-center "xl" :data-items "350" :data-gap "12"}
          [:div {:class (mtds/classes :grid) :data-align "end"}
           [:h1 {:class (mtds/classes :heading) :data-size "xl" :style {:align-self "start"}} food-name]
-          [:h2 {:class (mtds/classes :heading) :data-size "2xs"} energy-label-mobile] ;; TODO EIRIK: Do we need this mobile/desktop-switch?
+          [:h2 {:class (mtds/classes :heading) :data-size "2xs"} energy-label-mobile]
           [:div {:class (mtds/classes :grid) :data-items "150"}
            (for [{:keys [title detail] :as attr} (prepare-macro-highlights food)]
              [:a
@@ -526,40 +526,44 @@
                          :data-gap "2"))
               [:span {:data-size "md"} title]
               [:div {:class (mtds/classes :heading) :data-size "md"} detail]])]
-          [:div {:hidden ""} (render-compare-button food) ;; TODO: Show on mobile
-           (when-let [related (seq (food/find-related-foods food locale))]
-             (let [categoryish (food/infer-food-kind food locale)]
-               [:div
-                [:strong [:i18n ::more {:categoryish (str/lower-case categoryish)}] " "]
-                [:ul
-                 (for [food related]
-                   [:li
-                    [:a {:href (urls/get-food-url locale food)
-                         :data-comparison-suggestion-id (:food/id food)
-                         :data-comparison-suggestion-name (get-in food [:food/name locale])}
-                     (food/get-variant-name food locale categoryish)]])]]))]]
+          [:div.mobile {:class (mtds/classes :grid)} (render-compare-button food)]]
          [:div {:data-fixed ""}
-          (render-toc {:contents (get-toc-items)})]]]
+          (render-toc {:contents (get-toc-items)})]]
+        (when-let [related (seq (food/find-related-foods food locale))]
+          (let [categoryish (food/infer-food-kind food locale)]
+            [:div {:class (mtds/classes :flex) :data-center "xl" :data-size "sm"}
+             [:strong [:i18n ::more {:categoryish (str/lower-case categoryish)}] " "]
+             [:ul {:class (mtds/classes :flex)}
+              (for [food related]
+                [:li
+                 [:a {:href (urls/get-food-url locale food)
+                      :data-comparison-suggestion-id (:food/id food)
+                      :data-comparison-suggestion-name (get-in food [:food/name locale])}
+                  (food/get-variant-name food locale categoryish)]])]]))]
 
        [:div {:class (mtds/classes :flex) :data-justify "space-between" :data-center "xl" :data-align "end"}
         [:h2#naringsinnhold {:class (mtds/classes :heading) :data-size "md"} [:i18n ::nutrition-title]]
         [:div {:class (mtds/classes :flex) :data-align "end"}
-         [:div (render-compare-button food)] ;; TODO EIRIK: Desktop only?
+         [:div.desktop (render-compare-button food)]
          (render-portion-select locale (:food/portions food))]]
 
        [:div {:class (mtds/classes :grid :card) :data-center "xl" :data-pad "10"}
         [:div {:class (mtds/classes :grid) :data-center "md" :data-gap "6"}
          [:h3#energi {:class (mtds/classes :heading) :data-size "xs"} [:i18n ::nutrition-heading]]
-         [:div {:class (mtds/classes :grid) :data-items "200" :data-gap "8"}
-          [:div
-           [:div.label [:i18n ::composition]]
+         [:div {:class (mtds/classes :flex) :data-items "200" :data-align "center" :data-gap "8"}
+          [:div {:class (mtds/classes :flex) :data-justify "center" :data-items "400"}
+           [:small {:data-self "auto" :data-fixed ""} [:i18n ::composition]]
            (render-composition-chart food ["Fett" "Karbo" "Protein" "Fiber" "Alko" "Vann"])]
-          [:div
-           [:div.label [:i18n ::energy-content]]
-           (render-energy-chart food ["Fett" "Karbo" "Protein" "Fiber" "Alko"])]]
+          [:div {:class (mtds/classes :flex) :data-justify "center" :data-items "400"}
+           [:small {:data-self "auto" :data-fixed ""} [:i18n ::energy-content]]
+           (render-energy-chart food ["Fett" "Karbo" "Protein" "Fiber" "Alko"])]
+          [:ul.chart-legend {:class (mtds/classes :grid) :data-gap "1" :data-size "md" :data-self "100"}
+           (for [entry slice-legend]
+             [:li {:style {:--color (:color entry)}} [:i18n :i18n/lookup
+                   (:nutrient/name (d/entity db [:nutrient/id (:nutrient-id entry)]))]])]]
 
          [:div {:class (mtds/classes :flex) :data-justify "space-between" :data-align "end" :data-size "md"}
-          [:ul {:class (mtds/classes :grid) :data-gap "1"}
+          [:ul {:class (mtds/classes :grid) :data-gap "0"}
            [:li energy-label ": " (energy food)]
            [:li [:i18n ::edible-part
                  {:pct (-> food :food/edible-part :measurement/percent)}]]]
