@@ -10,7 +10,7 @@
         com.magnars/confair {:mvn/version "2025.11.12"}
         datomic-type-extensions/datomic-type-extensions {:mvn/version "2025.01.24"}
         datoms-differ/datoms-differ {:mvn/version "2025-11-14"}
-        io.mattilsynet/design {:mvn/version "2.2.24.38"}
+        io.mattilsynet/design {:mvn/version "2.2.27.38"}
         lambdaisland/uri {:mvn/version "1.19.155"}
         no.anteo/broch {:mvn/version "2025.10.27"}
         no.cjohansen/phosphor-clj {:mvn/version "2025.04.16"}
