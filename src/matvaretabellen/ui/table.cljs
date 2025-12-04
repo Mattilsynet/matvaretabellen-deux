@@ -242,7 +242,7 @@
 
 (defn get-initial-table-columns [table]
   (->> (dom/qsa table "thead th")
-       (remove #(dom/has-class % "mmm-hidden"))
+       (remove dom/hidden?)
        (map #(.getAttribute % "data-id"))
        set))
 

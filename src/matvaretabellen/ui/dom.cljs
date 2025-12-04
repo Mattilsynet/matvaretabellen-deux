@@ -87,10 +87,14 @@
   (when el
     (.contains (.-classList el) class)))
 
+(defn hidden? [el]
+  (when el
+    (.hasAttribute el "hidden")))
+
 (defn show [el]
   (when el
-    (remove-class el "mmm-hidden")))
+    (.removeAttribute el "hidden")))
 
 (defn hide [el]
   (when el
-    (add-class el "mmm-hidden")))
+    (.setAttribute el "hidden" true)))

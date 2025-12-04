@@ -46,19 +46,3 @@
 @media (max-width: 780px) {
     .desktop { display: none }
 }
-
-/* .drawer {
-    background: var(--mtds-color-surface-default);
-    border-top: 2px solid;
-    bottom: 0;
-    left: 0;
-    padding: var(--mtds-5);
-    position: fixed;
-    right: 0;
-    transition: height 0.25s;
-    z-index: 2;
-} */
-
-.mmm-hidden {
-    display: none;
-}

@@ -92,7 +92,7 @@
                                                           equivalents)
                                                      enumerate)))]
         (set! (.-innerHTML summary) text))
-      (.remove (.-classList summary) "mmm-hidden"))))
+      (dom/show summary))))
 
 (defn food->diffable [food]
   [(:id food) (update-vals (:constituents food) (comp first :quantity))])
@@ -279,7 +279,7 @@
     (some-> (dom/qs drawer-selector) (initialize-drawer foods))
     (update-comparison-uis foods buttons-selector drawer-selector)
     (doseq [button (dom/qsa buttons-selector)]
-      (.remove (.-classList button) "mmm-hidden")
+      (dom/show button)
       (->> (fn [_e]
              (toggle-comparison foods (get-food-data button)))
            (.addEventListener button "click")))))

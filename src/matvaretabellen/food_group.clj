@@ -32,11 +32,13 @@
   (cond->> (set (get-all-food-group-foods group))
     (seq foods) (set/intersection (set foods))))
 
-(defn render-food-group-list [app-db food-groups foods locale & [{:keys [class id]}]]
+(defn render-food-group-list [app-db food-groups foods locale & [{:keys [class id hidden?]}]]
   (when (seq food-groups)
     [:ul
-     (cond-> {:class  (mtds/classes :grid :food-group-list class) :data-gap "1"}
-       id (assoc :data-filter-list-id id))
+     (cond-> {:class (mtds/classes :grid :food-group-list class)
+              :data-gap "1"}
+       id (assoc :data-filter-list-id id)
+       hidden? (assoc :hidden "true"))
      (->> food-groups
           (sort-by #(food-group->sort-key app-db %))
           (map (juxt identity #(count (get-foods-in-group % foods))))
@@ -44,7 +46,10 @@
           (map (fn [[group n]]
                  [:li
                   [:div {:class (mtds/classes :field)}
-                   [:input {:class (mtds/classes :input) :name "filter-food-group" :value (:food-group/id group) :type "checkbox"}]
+                   [:input {:class (mtds/classes :input)
+                            :name "filter-food-group"
+                            :value (:food-group/id group)
+                            :type "checkbox"}]
                    [:label
                     (if foods
                       [:i18n ::food-group
@@ -56,7 +61,7 @@
                    (:food-group/_parent group)
                    foods
                    locale
-                   {:class :mmm-hidden
+                   {:hidden? true
                     :id (:food-group/id group)})])))]))
 
 (defn get-food-groups [foods-db]

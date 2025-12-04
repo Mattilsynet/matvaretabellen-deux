@@ -46,7 +46,8 @@
             :data-center "xl"}
       [:div {:class (mtds/classes :flex) :data-align "center"}
        (client-table/render-download-csv-button)
-       [:p.mvt-clear-downloads.mmm-hidden
+       [:p.mvt-clear-downloads
+        {:hidden "true"}
         [:a {:class (mtds/classes :button)}
          (icons/render :phosphor.regular/x)
          [:i18n ::clear-download]]]]

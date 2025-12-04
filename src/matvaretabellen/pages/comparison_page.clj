@@ -169,7 +169,9 @@
       [:figure
        (render-columnwise-comparison context page)]]
 
-     [:div#rowwise.mmm-hidden.mvtc-tab-target {:class (mtds/classes :grid) :data-center "xl"}
+     [:div#rowwise.mvtc-tab-target {:class (mtds/classes :grid)
+                                    :data-center "xl"
+                                    :hidden "true"}
       [:div {:data-size "sm"} (client-table/render-nutrients-toggle)]
       (client-table/render-column-settings (:foods/db context))
       (client-table/render-table-skeleton

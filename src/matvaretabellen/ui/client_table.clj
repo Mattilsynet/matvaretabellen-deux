@@ -11,7 +11,7 @@
 
 (defn prepare-foods-table [nutrients opt]
   (merge
-   {:headers (concat [{:class [:mmm-hidden]
+   {:headers (concat [{:hidden "true"
                        :data-id "download"
                        :style {:width "var(--mtds-15)"}
                        :text [:button {:class (mtds/classes :button :mvt-add-to-list)
@@ -30,16 +30,15 @@
                        :data-nowrap ""
                        :data-id "energy"}]
                      (for [nutrient nutrients]
-                       {:text [:button {:type "button"}
-                               [:i18n :i18n/lookup (:nutrient/name nutrient)]]
-                        :data-id (:nutrient/id nutrient)
-                        :data-nowrap ""
-                        :aria-sort "none"
-                        :class (if (not (default-checked (:nutrient/id nutrient)))
-                                 [:mmm-hidden]
-                                 [])}))
+                       (cond-> {:text [:button {:type "button"}
+                                       [:i18n :i18n/lookup (:nutrient/name nutrient)]]
+                                :data-id (:nutrient/id nutrient)
+                                :data-nowrap ""
+                                :aria-sort "none"}
+                         (not (default-checked (:nutrient/id nutrient)))
+                         (assoc :hidden "true"))))
     :id "filtered-giant-table"
-    :classes [:mmm-hidden]
+    :hidden "true"
     :data-page-size 250
     :rows [{:cols
             (concat
@@ -57,16 +56,16 @@
                :data-numeric ""}]
              (mapv (fn [nutrient]
                      (try
-                       {:text (food/get-calculable-quantity
-                               {:measurement/quantity (b/from-edn [0 (:nutrient/unit nutrient)])}
-                               {:decimals (:nutrient/decimal-precision nutrient)})
-                        :class (cond-> [:mvt-amount]
-                                 (not (default-checked (:nutrient/id nutrient)))
-                                 (conj :mmm-hidden))
-                        :data-justify "end"
-                        :data-nowrap ""
-                        :data-numeric ""
-                        :data-id (:nutrient/id nutrient)}
+                       (cond-> {:text (food/get-calculable-quantity
+                                       {:measurement/quantity (b/from-edn [0 (:nutrient/unit nutrient)])}
+                                       {:decimals (:nutrient/decimal-precision nutrient)})
+                                :class [:mvt-amount]
+                                :data-justify "end"
+                                :data-nowrap ""
+                                :data-numeric ""
+                                :data-id (:nutrient/id nutrient)}
+                         (not (default-checked (:nutrient/id nutrient)))
+                         (assoc :hidden "true"))
                        (catch Exception e
                          (throw (ex-info "Failed to render nutrient"
                                          {:nutrient (into {} nutrient)}
@@ -98,12 +97,20 @@
             (remove nil?))))])
 
 (defn render-column-settings [foods-db]
-  [:div.mmm-hidden#columns-panel {:class (mtds/classes :grid :group) :data-items "350" :data-align "start" :data-size "md"}
+  [:div#columns-panel {:class (mtds/classes :grid :group)
+                       :data-items "350"
+                       :data-align "start"
+                       :data-size "md"
+                       :hidden "true"}
    (->> (nutrient/prepare-filters foods-db {:columns 2})
         (map render-nutrient-filter-column))])
 
 (defn render-food-group-settings [context page]
-  [:div.mmm-hidden#food-group-panel {:class (mtds/classes :grid :group) :data-items "350" :data-align "start" :data-size "md"}
+  [:div#food-group-panel {:class (mtds/classes :grid :group)
+                          :data-items "350"
+                          :data-align "start"
+                          :data-size "md"
+                          :hidden "true"}
    (food-group/render-food-group-filters
     (:app/db context)
     (food-group/get-food-groups (:foods/db context))
@@ -115,19 +122,21 @@
                        nutrient/sort-by-preference)]
     [:figure {:class (mtds/classes :grid) :data-gap "8"}
      ;; TODO EIRIK: Remove when fully using aria-sort
-     [:div.mmm-hidden
+     [:div {:hidden "true"}
       (icons/render :phosphor.regular/caret-up-down {:class [:mvt-sort]})
       (icons/render :phosphor.regular/sort-descending {:class [:mvt-desc]})
       (icons/render :phosphor.regular/sort-ascending {:class [:mvt-asc]})]
      (->> (prepare-foods-table nutrients opt)
           food-page/render-table)
      [:div {:class (mtds/classes :flex)}
-      [:button {:class (mtds/classes :button :mvt-prev :mmm-hidden) ;; TODO EIRIK: mmm-class needed in JS
+      [:button {:class (mtds/classes :button :mvt-prev)
+                :hidden "true"
                 :data-variant "secondary"
                 :type "button"}
        (icons/render :phosphor.regular/caret-left)
        [:i18n ::prev]]
-      [:button {:class (mtds/classes :button :mvt-next :mmm-hidden) ;; TODO EIRIK: mmm-class needed in JS
+      [:button {:class (mtds/classes :button :mvt-next)
+                :hidden "true"
                 :data-variant "secondary"
                 :type "button"}
        [:i18n ::next]
@@ -148,7 +157,8 @@
    [:i18n ::columns]])
 
 (defn render-download-csv-button []
-  [:a {:class (mtds/classes :button :mvt-download :mmm-hidden)
+  [:a {:class (mtds/classes :button :mvt-download)
+       :hidden "true"
        :data-variant "secondary"
        :href "#"
        :download [:i18n ::file-name]}

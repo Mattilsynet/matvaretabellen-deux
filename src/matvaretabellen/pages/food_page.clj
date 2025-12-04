@@ -410,8 +410,9 @@
      :class class})])
 
 (defn render-compare-button [food]
-  [:button {:class (mtds/classes :button :mmm-hidden :mvt-compare-food)
+  [:button {:class (mtds/classes :button :mvt-compare-food)
             :type "button"
+            :hidden "true"
             :data-size "md"
             :data-variant "secondary"
             :data-food-id (:food/id food)

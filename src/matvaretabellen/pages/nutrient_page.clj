@@ -144,7 +144,7 @@
              (render-nutrient-foods-table nutrient foods page)]]))
 
        ;; TODO EIRIK: Remove when fully using aria-sort
-       [:div.mmm-hidden
+       [:div {:hidden "true"}
         (icons/render :phosphor.regular/sort-descending {:class [:mvt-desc :mvt-sort-icon]})
         (icons/render :phosphor.regular/sort-ascending {:class [:mvt-asc :mvt-sort-icon]})]
 

@@ -9,7 +9,7 @@
 (defn init-toggler [toggler]
   (->> (fn [e]
          (when-let [[el target] (get-target (.-target e))]
-           (let [hidden? (dom/has-class target "mmm-hidden")]
+           (let [hidden? (dom/hidden? target)]
              ;; Toggle buttons primary/secondary
              (when (and hidden? (dom/has-class el "mmm-button-secondary"))
                (dom/remove-class el "mmm-button-secondary"))
