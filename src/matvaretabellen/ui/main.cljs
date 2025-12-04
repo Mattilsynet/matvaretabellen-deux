@@ -13,7 +13,6 @@
             [matvaretabellen.ui.tabs :as tabs]
             [matvaretabellen.ui.toggler :as toggler]
             [matvaretabellen.ui.tracking :as tracking]
-            [matvaretabellen.ui.user-background :as user-background]
             [matvaretabellen.urls :as urls]))
 
 (defn ^:after-load main []
@@ -105,7 +104,6 @@
 
   (toggler/init)
   (tabs/init)
-  (hoverable/set-up js/document)
-  (user-background/probe))
+  (hoverable/set-up js/document))
 
 (defonce ^:export kicking-out-the-jams (boot))
