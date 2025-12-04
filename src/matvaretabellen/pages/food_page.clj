@@ -343,42 +343,6 @@
               [:th [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]]
               [:td (Math/round (* 100 (/ value total)))]]))))]]])
 
-
-(defn prepare-value-slices [food ids]
-  (->> (for [id ids]
-         (let [constituent (->> (:food/constituents food)
-                                (filter (comp #{id} :nutrient/id :constituent/nutrient))
-                                first)
-               value (or (some-> constituent :measurement/quantity b/num) 0)]
-           {:value value}))))
-;;  :id (str id (hash ids))
-;;  :color (nutrient-id->color id)
-;;  :hover-content [:span
-;;                  [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]
-;;                  ": "
-;;                  [:strong
-;;                   (food/wrap-in-portion-span value {:decimals (-> constituent :constituent/nutrient :nutrient/decimal-precision)})
-;;                   (some->> constituent :measurement/quantity b/symbol (str " "))]]
-
-
-(defn prepare-energy-content-slices [food ids]
-  (let [constituents (filter (comp ids :nutrient/id :constituent/nutrient) (:food/constituents food))
-        total (apply + (keep get-constituent-energy constituents))]
-    (when (< 0 total)
-      (->> (for [constituent constituents]
-             (let [id (:nutrient/id (:constituent/nutrient constituent))
-                   value (get-constituent-energy constituent)]
-               (when value
-                 {:id (str id (hash ids))
-                  :value value
-                  :color (nutrient-id->color id)
-                  :hover-content [:span.mmm-tac
-                                  [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]
-                                  ": " [:strong (Math/round (* 100 (/ value total))) " E%"]]})))
-           (remove nil?)
-           (remove #(= 0.0 (:value %)))
-           (sort-by (comp - :value))))))
-
 (defn passepartout [& body]
   [:div {:class (mtds/classes :grid :card) :data-center "xl" :data-pad "10"}
    [:div {:class (mtds/classes :grid) :data-gap "8" :data-center "md"}
