@@ -283,7 +283,7 @@
            [{:text id} {:text (food/humanize-langual-classification description)}])})
 
 (defn render-sources [page sources]
-  [:dl.mmm-dl
+  [:dl
    (mapv
     (fn [{:source/keys [id description] :as source}]
       (try
@@ -292,7 +292,7 @@
           [:dt id]
           [:dd (-> (get description (:page/locale page))
                    food/hyperlink-string)]]]
-        (catch Exception e
+        (catch Exception _e
           (throw (ex-info "Failed to render source"
                           {:source (into {} source)
                            :uri (:page/uri page)})))))

@@ -99,6 +99,10 @@
   (when el
     (.setAttribute el attr v)))
 
+(defn remove-attr [el attr]
+  (when el
+    (.removeAttribute el attr)))
+
 (defn hidden? [el]
   (when el
     (.hasAttribute el "hidden")))

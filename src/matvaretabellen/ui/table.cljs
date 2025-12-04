@@ -287,10 +287,10 @@
             (dom/hide (.closest checkbox "li"))))))))
 
 (defn disable-button [el]
-  (dom/add-class el "mmm-button-disabled"))
+  (dom/set-attr el "disabled" "true"))
 
 (defn enable-button [el]
-  (dom/remove-class el "mmm-button-disabled"))
+  (dom/remove-attr el "disabled"))
 
 (defn render-download-button [foods button]
   (when-let [el (dom/qs button ".mvt-num-foods")]
@@ -370,7 +370,7 @@
 (defn init-download-button [store table button locale]
   (let [column-order (get-column-order table)]
     (->> (fn [e]
-           (if (dom/has-class button "mmm-button-disabled")
+           (if (dom/has-attr? button "disabled")
              (.preventDefault e)
              (set! (.-href button) (export-csv @store column-order locale))))
          (.addEventListener button "click")))
@@ -379,7 +379,7 @@
 
 (defn toggle-every-icon-button [ids active]
   (doseq [id ids]
-    (doseq [el (dom/qsa (str ".mmm-icon-button[data-food-id='" id "']"))]
+    (doseq [el (dom/qsa (str "button[data-food-id='" id "']"))]
       (toggler/toggle el active))))
 
 (defn init-stage-download-buttons [store table]
