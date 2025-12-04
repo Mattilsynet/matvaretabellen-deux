@@ -44,8 +44,8 @@
                              (filter (comp #{id} :nutrient/id :constituent/nutrient))
                              first
                              :measurement/source)]
-    [:a {:href (str "#" (:source/id source))
-         :title [:i18n :i18n/lookup (:source/description source)]}
+    [:button {:popoverTarget (:source/id source)
+              :data-popover "inline"}
      (:source/id source)]))
 
 (def nutrition-table-row-ids
@@ -282,21 +282,35 @@
    :rows (for [{:langual-code/keys [id description]} codes]
            [{:text id} {:text (food/humanize-langual-classification description)}])})
 
+(defn ^{:indent 1} render-popover [id & content]
+  [:div {:class (mtds/classes :card :popover :prose)
+         :data-size "sm"
+         :popover "auto"
+         :id id
+         :style {:max-width "30rem"}}
+   [:button {:class (mtds/classes :button)
+             :popovertargetaction "hide"
+             :data-size "sm"
+             :style {:position "absolute"
+                     :top "0.5rem"
+                     :right "0.5rem"}}
+    (icons/render :phosphor.regular/x {:style {:width "1rem" :height "1rem"}})]
+   content])
+
 (defn render-sources [page sources]
-  [:dl
-   (mapv
-    (fn [{:source/keys [id description] :as source}]
-      (try
-        [:div
-         [:div {:id id}
-          [:dt id]
-          [:dd (-> (get description (:page/locale page))
-                   food/hyperlink-string)]]]
-        (catch Exception _e
-          (throw (ex-info "Failed to render source"
-                          {:source (into {} source)
-                           :uri (:page/uri page)})))))
-    sources)])
+  (mapv
+   (fn [{:source/keys [id description] :as source}]
+     (try
+       (render-popover id
+         [:h3 {:data-size "sm"} id]
+         [:p {:data-size "sm"}
+          (-> (get description (:page/locale page))
+              food/hyperlink-string)])
+       (catch Exception _e
+         (throw (ex-info "Failed to render source"
+                         {:source (into {} source)
+                          :uri (:page/uri page)})))))
+   sources))
 
 (def slice-legend
   [{:nutrient-id "Fett"    :color "var(--mtds-color-charts-chart-a)"}
@@ -352,13 +366,6 @@
    [:div {:class (mtds/classes :grid) :data-gap "8" :data-center "md"}
     body]])
 
-(defn get-source-toggle [& [label]]
-  [:div.desktop
-   [:div {:class (mtds/classes :field :mvt-source-toggler) :data-size "md"}
-    [:input {:class (mtds/classes :input) :type "checkbox"}]
-    [:label
-     (or label [:i18n ::show-sources])]]])
-
 (defn passepartout-title [id title & rest]
   [:div {:class (mtds/classes :flex) :data-align "end" :data-justify "space-between"}
    [:h3 {:class (mtds/classes :heading) :data-size "xs" :id id} title]
@@ -402,9 +409,7 @@
    {:title [:i18n ::trace-elements-title]
     :href "#sporstoffer"}
    {:title [:i18n ::classification-title]
-    :href "#klassifisering"}
-   {:title [:i18n ::sources]
-    :href "#kilder"}])
+    :href "#klassifisering"}])
 
 (defn render-toc [{:keys [contents class]}]
   [:aside {:data-size "md"}
@@ -504,10 +509,6 @@
       [:title food-name]
       (get-open-graph-description food locale)]
      [:body {:data-size "lg"}
-      [:script {:type "text/javascript"}
-       (str "if (localStorage.getItem(\"show-sources\") != \"true\") {\n"
-            "  document.body.classList.add(\"mvt-source-hide\");\n"
-            "}")]
       (layout/render-header
        {:locale locale
         :app/config (:app/config context)}
@@ -571,19 +572,18 @@
           [:ul {:class (mtds/classes :grid) :data-gap "0"}
            [:li energy-label ": " (energy food)]
            [:li [:i18n ::edible-part
-                 {:pct (-> food :food/edible-part :measurement/percent)}]]]
-          (get-source-toggle)]
+                 {:pct (-> food :food/edible-part :measurement/percent)}]]]]
          (render-table (prepare-nutrition-table (:app/db context) locale food))]]
 
        (passepartout
-        (passepartout-title "karbohydrater" [:i18n ::carbohydrates-title] (get-source-toggle))
+        (passepartout-title "karbohydrater" [:i18n ::carbohydrates-title])
         (->> (food/get-nutrient-group food "Karbo")
              (prepare-nutrient-tables (:app/db context) {:locale locale
                                                          :show-header-sum? true})
              (map render-table)))
 
        (passepartout
-        (passepartout-title "fett" [:i18n ::fat-title] (get-source-toggle))
+        (passepartout-title "fett" [:i18n ::fat-title])
         (->> (food/get-nutrient-group food "Fett")
              (prepare-nutrient-tables (:app/db context) {:locale locale
                                                          :show-header-sum? true})
@@ -630,54 +630,40 @@
                  prepare-langual-table
                  render-table)))]]
 
-       [:div {:class (mtds/classes :grid) :data-center "xl"}
-        [:div
-         [:h3#kilder [:i18n ::sources]]
-         (get-source-toggle [:i18n ::show-all-sources])
-         (->> (food/get-sources food)
-              (render-sources page))]]
+       [:div
+        (->> (food/get-sources food)
+             (render-sources page))]
 
        (for [{:constituent/keys [nutrient] :as constituent} (:food/constituents food)]
          (when (has-popover? constituent)
-           [:div {:class (mtds/classes :card :popover :prose)
-                  :data-size "sm"
-                  :popover "auto"
-                  :id (:nutrient/id nutrient)
-                  :style {:max-width "30rem"}}
-            [:button {:class (mtds/classes :button)
-                      :popovertargetaction "hide"
-                      :data-size "sm"
-                      :style {:position "absolute"
-                              :top "0.5rem"
-                              :right "0.5rem"}}
-             (icons/render :phosphor.regular/x {:style {:width "1rem" :height "1rem"}})]
-            [:h3 {:data-size "sm"}
-             [:i18n ::nutrient-source-popover-title
-              {:nutrient [:i18n :i18n/lookup (:nutrient/name nutrient)]
-               :food [:i18n :i18n/lookup (:food/name food)]}]]
-            [:table
-             {:class (mtds/classes :table)
-              :data-size "sm"}
-             [:tbody
-              [:tr
-               [:td [:strong [:i18n ::value-type]]]
-               [:td (when-let [value-type (:measurement/value-type constituent)]
-                      [:i18n value-type])]]
+           (render-popover (:nutrient/id nutrient)
+             [:h3 {:data-size "sm"}
+              [:i18n ::nutrient-source-popover-title
+               {:nutrient [:i18n :i18n/lookup (:nutrient/name nutrient)]
+                :food [:i18n :i18n/lookup (:food/name food)]}]]
+             [:table
+              {:class (mtds/classes :table)
+               :data-size "sm"}
+              [:tbody
+               [:tr
+                [:td [:strong [:i18n ::value-type]]]
+                [:td (when-let [value-type (:measurement/value-type constituent)]
+                       [:i18n value-type])]]
 
-              [:tr
-               [:td [:strong [:i18n ::acquisition-type]]]
-               [:td (when-let [acquisition-type (:measurement/acquisition-type constituent)]
-                      [:i18n acquisition-type])]]
+               [:tr
+                [:td [:strong [:i18n ::acquisition-type]]]
+                [:td (when-let [acquisition-type (:measurement/acquisition-type constituent)]
+                       [:i18n acquisition-type])]]
 
-              [:tr
-               [:td [:strong [:i18n ::method-type]]]
-               [:td (when-let [method-type (:measurement/method-type constituent)]
-                      [:i18n method-type])]]
+               [:tr
+                [:td [:strong [:i18n ::method-type]]]
+                [:td (when-let [method-type (:measurement/method-type constituent)]
+                       [:i18n method-type])]]
 
-              [:tr
-               [:td [:strong [:i18n ::method-indicator]]]
-               [:td (when-let [source (:measurement/method-indicator constituent)]
-                      [:i18n :i18n/lookup (:source/description source)])]]]]]))
+               [:tr
+                [:td [:strong [:i18n ::method-indicator]]]
+                [:td (when-let [source (:measurement/method-indicator constituent)]
+                       [:i18n :i18n/lookup (:source/description source)])]]]])))
 
        [:script#food-data
         {:type "text/plain"

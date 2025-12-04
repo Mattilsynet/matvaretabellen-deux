@@ -160,8 +160,6 @@
   :source "Source"
   :sources "Sources"
   :scientific-name ([:strong "Scientific name:"] " " [:fn/get :name])
-  :show-all-sources "Show sources in all tables"
-  :show-sources "Show sources"
   :total [:fn/str "{{:en}}, total"]
   :toc-title "Contents"
   :trace-elements-title "Trace elements"

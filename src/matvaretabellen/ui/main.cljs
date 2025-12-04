@@ -8,7 +8,6 @@
             [matvaretabellen.ui.search :as search-ui]
             [matvaretabellen.ui.sidebar :as sidebar]
             [matvaretabellen.ui.sortable-table :as sortable-table]
-            [matvaretabellen.ui.sources :as sources]
             [matvaretabellen.ui.table :as table]
             [matvaretabellen.ui.tabs :as tabs]
             [matvaretabellen.ui.toggler :as toggler]
@@ -66,7 +65,6 @@
      (js/document.querySelectorAll ".js-portion-label")
      event-bus)
 
-    (sources/initialize-source-toggler ".mvt-source-toggler")
     (comparison/initialize-tooling ".mvt-compare-food" ".mvtc-drawer")
 
     (let [k (str "food-data-" (name locale))]

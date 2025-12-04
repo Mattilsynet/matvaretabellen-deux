@@ -71,8 +71,6 @@ window.onerror = function(message) {
 
 (defn render-header [{:keys [locale app/config]} get-current-url]
   [:div#header
-   [:script {:type "text/javascript"}
-    "document.body.classList.add(\"mmm-js-enabled\");"]
    (SiteHeader
     {:home-url (let [url (urls/get-base-url locale)]
                  (when-not (= url (get-current-url locale))
@@ -88,7 +86,7 @@ window.onerror = function(message) {
     {:action (urls/get-search-url locale)
      :method :get
      :data-fixed ""}
-    [:div.mmm-js-required
+    [:div
      (SearchInput
       {:button {:text [:i18n :i18n/search-button]}
        :class :mvt-autocomplete
