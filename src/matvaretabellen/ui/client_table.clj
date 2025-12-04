@@ -21,7 +21,7 @@
                               (icons/render :phosphor.regular/arrow-down)]}
                       {:text [:button {:type "button"}
                               [:i18n ::food]]
-                       :aria-sort "none"
+                       :aria-sort "ascending"
                        :data-nowrap ""
                        :data-id "foodName"}
                       {:text [:button {:type "button"}
@@ -121,11 +121,6 @@
   (let [nutrients (->> (nutrient/get-used-nutrients foods-db)
                        nutrient/sort-by-preference)]
     [:figure {:class (mtds/classes :grid) :data-gap "8"}
-     ;; TODO EIRIK: Remove when fully using aria-sort
-     [:div {:hidden "true"}
-      (icons/render :phosphor.regular/caret-up-down {:class [:mvt-sort]})
-      (icons/render :phosphor.regular/sort-descending {:class [:mvt-desc]})
-      (icons/render :phosphor.regular/sort-ascending {:class [:mvt-asc]})]
      (->> (prepare-foods-table nutrients opt)
           food-page/render-table)
      [:div {:class (mtds/classes :flex)}

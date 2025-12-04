@@ -170,18 +170,16 @@
         container (.-parentNode table)]
     (render-rows (dom/qs table "tbody") (.-rowTemplate table) data)
     (doseq [th (dom/qsa table "thead th")]
-      (let [id (.getAttribute th "data-id")]
-        (if (columns (.getAttribute th "data-id"))
+      (let [id (dom/get-attr th "data-id")]
+        (if (columns id)
           (dom/show th)
           (dom/hide th))
-        (when-let [icon (dom/qs th ".mvt-sort-icon")]
-          (let [selector (if (= sort-id id)
-                           (if (= sort-order :sort.order/asc)
-                             ".mvt-asc"
-                             ".mvt-desc")
-                           ".mvt-sort")]
-            (set! (.-innerHTML icon) "")
-            (.appendChild icon (.cloneNode (dom/qs container selector) true))))))
+        (when (dom/has-attr? th "aria-sort")
+          (dom/set-attr th "aria-sort"
+                        (cond
+                          (not= sort-id id) ""
+                          (= sort-order :sort.order/asc) "ascending"
+                          :else "descending")))))
     (dom/show table)
     (update-button (dom/qs container ".mvt-prev") (:prev current))
     (update-button (dom/qs container ".mvt-next") (:next current))))
@@ -201,7 +199,7 @@
 
 (defn change-sort [store e]
   (let [th (.closest (.-target e) "th")]
-    (when (dom/qs th ".mvt-sort-icon")
+    (when (dom/has-attr? th "aria-sort")
       (swap!
        store
        (fn [data]
