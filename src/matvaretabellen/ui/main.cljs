@@ -49,17 +49,8 @@
    k (urls/get-api-rda-json-url locale) f
    {:process-raw-data #(map-json-by "id" (aget % "profiles"))}))
 
-;; (defn choose-font []
-;;   (when-let [font (second (re-find #"font=(.*)" js/location.search))]
-;;     (dom/set-local-json "font" font))
-;;   (case (dom/get-local-json "font")
-;;     "figtree" (.add (.-classList js/document.body) "figtree")
-;;     "albert" (.add (.-classList js/document.body) "albert")
-;;     nil))
-
 (defn boot []
   (main)
-  ;; (choose-font)
   (let [locale (keyword js/document.documentElement.lang)
         event-bus (atom nil)]
     (tracking/track-page-view)
