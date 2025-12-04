@@ -14,12 +14,15 @@
 
 (def filter-panel-id "filter-panel")
 
+(def aria-sort-order
+  {:sort.order/asc "ascending"
+   :sort.order/desc "descending"})
+
 (defn prepare-foods-table [nutrient {:page/keys [locale sort-order]} foods]
   {:headers [{:text [:i18n ::food]}
              {:text [:button {:type "button"} [:i18n ::amount]]
-              :aria-sort "none"
+              :aria-sort (aria-sort-order sort-order)
               :data-sort-by "data-value"
-              :data-sort-order (name sort-order)
               :data-sort-type "number"
               :style {:width "var(--mtds-30)"}}
              {:text [:i18n ::compare]
@@ -142,11 +145,6 @@
              sidebar]
             [:div
              (render-nutrient-foods-table nutrient foods page)]]))
-
-       ;; TODO EIRIK: Remove when fully using aria-sort
-       [:div {:hidden "true"}
-        (icons/render :phosphor.regular/sort-descending {:class [:mvt-desc :mvt-sort-icon]})
-        (icons/render :phosphor.regular/sort-ascending {:class [:mvt-asc :mvt-sort-icon]})]
 
        (comparison/render-comparison-drawer locale)]])))
 
