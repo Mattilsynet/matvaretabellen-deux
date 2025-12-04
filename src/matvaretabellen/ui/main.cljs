@@ -68,7 +68,6 @@
      event-bus)
 
     (sources/initialize-source-toggler ".mvt-source-toggler")
-
     (comparison/initialize-tooling ".mvt-compare-food" ".mvtc-drawer")
 
     (let [k (str "food-data-" (name locale))]

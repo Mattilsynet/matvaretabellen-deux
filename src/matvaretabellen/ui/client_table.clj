@@ -48,8 +48,7 @@
                                :aria-label [:i18n ::stage-for-download]
                                :data-size "sm"}
                       (icons/render :phosphor.regular/arrow-down)]
-               :data-id "download"
-               :style {:width "var(--mtds-15)"}} ;; TODO EIRIK: Where is this in use?
+               :data-id "download"}
               {:text [:a]
                :data-id "foodName"}
               {:text ""

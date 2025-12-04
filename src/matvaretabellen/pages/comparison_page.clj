@@ -25,11 +25,13 @@
   (list
    [:a {:class (mtds/classes :button :mvtc-share)
         :data-variant "secondary"
-        :data-receipt "#share-receipt"
+        :popovertarget "share-receipt"
         :href (urls/get-comparison-url locale)}
     (icons/render :phosphor.regular/export)
     [:i18n ::share-comparison]]
-   [:span.mmm-hidden#share-receipt [:i18n ::url-copied]]))
+   [:div#share-receipt {:class (mtds/classes :popover)
+          :popover ""}
+    [:i18n ::url-copied]]))
 
 (defn render-top-banner [locale _context]
   [:div {:class (mtds/classes :grid :banner) :role "banner"}
@@ -158,15 +160,9 @@
         [:label
          [:input {:type "radio" :name "comparison-view" :value "#rowwise"}]
          [:i18n ::rowwise]]]
-       ;; TODO EIRIK: Remove when toggle group has gotten JS event listeners
-       [:div.mmm-tabs
-        [:div.tab.selected {:data-tab-target "#columnwise"}
-         [:i18n ::columnwise]]
-        [:div.tab {:data-tab-target "#rowwise"}
-         [:i18n ::rowwise]]]
        [:div {:class (mtds/classes :flex)}
         (client-table/render-download-csv-button)
-        (render-share-button (:page/locale page))]]] ;; TODO EIRIK: Use popover for share-message?
+        (render-share-button (:page/locale page))]]]
 
      [:div.mvtc-tab-target#columnwise {:class (mtds/classes :grid) :data-center "xl"}
       [:p [:i18n ::diff-intro]]

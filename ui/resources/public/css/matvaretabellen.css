@@ -21,6 +21,10 @@
     --mtdsc-chart-color-6: var(--mtds-color-charts-chart-f);
 }
 
+.food-group-list .food-group-list {
+    margin: var(--mtds-2) 0 var(--mtds-3) var(--mtds-4);
+}
+
 .chart-legend li {
     display: flex;
     align-items: center;
@@ -33,6 +37,7 @@
     background-color: var(--color);
     border-radius: 50%;
     border: 1px solid;
+    flex-shrink: 0;
 }
 
 @media (min-width: 781px) {
@@ -42,18 +47,17 @@
     .desktop { display: none }
 }
 
-.drawer {
+/* .drawer {
     background: var(--mtds-color-surface-default);
     border-top: 2px solid;
     bottom: 0;
-    height: auto!important; /* Overwrite deprecated transition */
     left: 0;
     padding: var(--mtds-5);
     position: fixed;
     right: 0;
     transition: height 0.25s;
     z-index: 2;
-}
+} */
 
 .mmm-hidden {
     display: none;

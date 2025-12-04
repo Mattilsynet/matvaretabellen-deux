@@ -35,7 +35,7 @@
 (defn render-food-group-list [app-db food-groups foods locale & [{:keys [class id]}]]
   (when (seq food-groups)
     [:ul
-     (cond-> {:class  (mtds/classes :grid class) :data-gap "1"}
+     (cond-> {:class  (mtds/classes :grid :food-group-list class) :data-gap "1"}
        id (assoc :data-filter-list-id id))
      (->> food-groups
           (sort-by #(food-group->sort-key app-db %))

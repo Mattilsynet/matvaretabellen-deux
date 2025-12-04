@@ -236,7 +236,7 @@
                    :class "mvt-amount"
                    :style {:width "var(--mtds-30)"}}
                   (when recommendations
-                    {:text [:abbr.mmm-abbr {:title [:i18n ::rda-explanation]}
+                    {:text [:button {:data-popover "inline" :data-tooltip [:i18n ::rda-explanation]}
                             [:i18n ::rda-pct]]
                      :style {:width "var(--mtds-30)"}})]
                  (remove nil?))

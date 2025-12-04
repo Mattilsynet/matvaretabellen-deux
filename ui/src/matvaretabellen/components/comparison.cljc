@@ -4,17 +4,16 @@
             [mattilsynet.design :as mtds]))
 
 (defn render-comparison-drawer [locale]
-  [:dialog.mvtc-drawer.drawer {:class (mtds/classes :dialog) :data-size "md"} ;; TODO EIRIK: Use native <dialog> JS
+  [:dialog.mvtc-drawer.drawer {:class (mtds/classes :dialog) :data-size "md"}
    [:div {:class (mtds/classes :grid)}
     [:div {:class (mtds/classes :flex) :data-justify "space-between" :data-align "center"}
      [:h2 {:class (mtds/classes :heading) :data-size "xs"} [:i18n ::compare-foods]]
-     [:button.mmm-icon-button {:class (mtds/classes :button) :type "button"} ;; TODO EIRIK: mmm-class needed in JS
+     [:button.mvtc-drawer-close {:class (mtds/classes :button) :type "button"}
       (icons/render :phosphor.regular/x)]]
     [:div {:class (mtds/classes :flex) :data-justify "space-between" :data-align "end"}
-     [:ul.mmm-pills {:class (mtds/classes :flex)} ;; TODO EIRIK: mmm-class needed in JS
-      [:li [:a.mmm-pill.mmm-actionable {:class (mtds/classes :chip) :data-removable ""}
-            [:span.mvtc-food-name]]]]
-     [:a {:class (mtds/classes :button :mmm-button) ;; TODO EIRIK: mmm-class needed in JS
+     [:ul.mvtc-drawer-foods {:class (mtds/classes :flex)}
+      [:li [:button {:class (mtds/classes :chip :mvtc-food-name) :data-removable "" :type "button"}]]]
+     [:a {:class (mtds/classes :button :mvtc-drawer-compare)
           :data-variant "primary"
           :href (urls/get-comparison-url locale)}
       [:i18n ::compare-now]
