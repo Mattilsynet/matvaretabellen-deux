@@ -32,8 +32,6 @@
   (cond->> (set (get-all-food-group-foods group))
     (seq foods) (set/intersection (set foods))))
 
-;; TODO EIRIK: Checkboxes does nothing now :D
-
 (defn render-food-group-list [app-db food-groups foods locale & [{:keys [class id]}]]
   (when (seq food-groups)
     [:ul
@@ -70,6 +68,6 @@
        (map #(d/entity foods-db %))))
 
 (defn render-food-group-filters [app-db food-groups foods locale]
-  (list
+  [:div {:class :mvt-food-group-filters}
    (render-filter-data food-groups)
-   (render-food-group-list app-db food-groups (some-> foods set) locale)))
+   (render-food-group-list app-db food-groups (some-> foods set) locale)])

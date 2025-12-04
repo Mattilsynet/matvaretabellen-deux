@@ -52,11 +52,10 @@
 (defn render-table [table prev next]
   (let [next-active (fd/get-active next)]
     (doall (map dom/show (get-rows table next-active)))
-    (doall (map dom/hide (get-rows table (remove next-active (fd/get-active prev)))))
+    (doall (map dom/hide (get-rows table (remove next-active (fd/get-active prev)))))))
 
 (defn get-filter-id [el]
-  (let [label (.closest el "label")]
-    (.getAttribute label "data-filter-id")))
+  (.-value el))
 
 (defn toggle-filter [e store]
   (when (= "checkbox" (some-> e .-target (.getAttribute "type")))
