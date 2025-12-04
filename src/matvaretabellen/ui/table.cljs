@@ -182,7 +182,6 @@
                            ".mvt-sort")]
             (set! (.-innerHTML icon) "")
             (.appendChild icon (.cloneNode (dom/qs container selector) true))))))
-    (dom/re-zebra-table table)
     (dom/show table)
     (update-button (dom/qs container ".mvt-prev") (:prev current))
     (update-button (dom/qs container ".mvt-next") (:next current))))

@@ -53,7 +53,6 @@
   (let [next-active (fd/get-active next)]
     (doall (map dom/show (get-rows table next-active)))
     (doall (map dom/hide (get-rows table (remove next-active (fd/get-active prev)))))
-    (dom/re-zebra-table table)))
 
 (defn get-filter-id [el]
   (let [label (.closest el "label")]
