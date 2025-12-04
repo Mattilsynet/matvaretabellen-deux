@@ -32,7 +32,7 @@ window.onerror = function(message) {
       :xmlns "http://www.w3.org/2000/svg"}
      [:use {:xlink:href (str illustration "#illustration")}]]))
 
-(defn layout [context _page head body]
+(defn layout [context page head body]
   [:html {:data-color-scheme "auto"}
    (into
     head
@@ -53,7 +53,7 @@ window.onerror = function(message) {
             :id "mvt-tracking-pixel"
             :style "border:0"
             :alt ""}]
-     (CompactSiteFooter (:app/config context))))])
+     (CompactSiteFooter (:app/config context) page)))])
 
 (defn prepare-header-links [locale get-current-url]
   (let [current-url (get-current-url locale)]

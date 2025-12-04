@@ -17,10 +17,12 @@
                    [:a {:href url} text]
                    text)])])])]])
 
-(defn CompactSiteFooter [_]
+(defn CompactSiteFooter [_ {:page/keys [locale]}]
   (Footer
    {:cols [{:title [:i18n ::shortcuts-title]
-            :items [{:url "/api/"
+            :items [{:url (if (= :en locale)
+                            "/en/api/"
+                            "/api/")
                      :text [:i18n ::api-text]}
                     {:url "https://www.mattilsynet.no/om-mattilsynet/personvernerklaering"
                      :text [:i18n ::privacy-and-cookies]}

@@ -56,18 +56,18 @@
   :weighted "Vektet verdi"}
 
  #:mmm.components.footer
- {:footer-title "Footer"
-  :shortcuts-title "Snarveier"
-  :mattilsynet-web [:a {:href "https://mattilsynet.no"} "mattilsynet.no"]
-  :api-text "Matvaretabellens API"
-  :newsletter "Nyhetsbrev"
-  :privacy-and-cookies "Personvernerklæring og informasjonskapsler"
-  :accessibility-statement "Tilgjengelegheitserklæring (uustatus.no)"
-  :open-data "Åpne data (API)"
-  :about-mattilsynet "Kontakt"
+ {:about-mattilsynet "Kontakt"
   :about-us "Om oss"
+  :accessibility-statement "Tilgjengelegheitserklæring (uustatus.no)"
+  :api-text "Matvaretabellens API"
+  :footer-title "Footer"
   :job-openings "Ledige stillinger"
-  :report-to-us "Varsle oss"}
+  :mattilsynet-web [:a {:href "https://mattilsynet.no"} "mattilsynet.no"]
+  :newsletter "Nyhetsbrev"
+  :open-data "Åpne data (API)"
+  :privacy-and-cookies "Personvernerklæring og informasjonskapsler"
+  :report-to-us "Varsle oss"
+  :shortcuts-title "Snarveier"}
 
  #:matvaretabellen.components.comparison
  {:compare-foods "Sammenlign matvarer"

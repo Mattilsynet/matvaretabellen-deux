@@ -56,21 +56,18 @@
   :weighted "Weighted"}
 
  #:mmm.components.footer
- {:footer-title "Footer"
-  :shortcuts-title "Shortcuts"
-  :about-site "About the site"
-  :about-text ("Matvaretabellen is a service from Mattilsynet. "
-               [:a {:href "/about-us/"} "Read more about it here."]
-               " For more services, see " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
-  :api-text [:a {:href "/en/api/"} "Food composition table API"]
-  :newsletter "Newsletter"
-  :privacy-and-cookies "Privacy Policy and Cookies"
-  :accessibility-statement "Accessibility Statement (uustatus.no)"
-  :open-data "Open Data (API)"
-  :about-mattilsynet "About Mattilsynet"
+ {:about-mattilsynet "About Mattilsynet"
   :about-us "About Us"
+  :accessibility-statement "Accessibility Statement (uustatus.no)"
+  :api-text "Food composition table API"
+  :footer-title "Footer"
   :job-openings "Job Openings"
-  :report-to-us "Report to Us"}
+  :mattilsynet-web [:a {:href "https://mattilsynet.no"} "mattilsynet.no"]
+  :newsletter "Newsletter"
+  :open-data "Open Data (API)"
+  :privacy-and-cookies "Privacy Policy and Cookies"
+  :report-to-us "Report to Us"
+  :shortcuts-title "Shortcuts"}
 
  #:matvaretabellen.components.comparison
  {:compare-foods "Compare foods"
