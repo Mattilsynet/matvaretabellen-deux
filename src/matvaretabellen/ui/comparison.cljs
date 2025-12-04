@@ -172,25 +172,22 @@
 
 (defn update-buttons [foods selector]
   (doseq [button (dom/qsa selector)]
-    (let [selected? (some (comp #{(.getAttribute button "data-food-id")} :id) foods)]
-      (cond
-        (.contains (.-classList button) "mmm-button")
-        (if selected?
-          (.remove (.-classList button) "mmm-button-secondary")
-          (.add (.-classList button) "mmm-button-secondary"))
-
-        (.contains (.-classList button) "mmm-icon-button")
-        (toggler/toggle-icon-button button selected?)))))
+    (when-not (dom/has-attr? button "data-original-variant")
+      (dom/set-attr button "data-original-variant" (dom/get-attr button "data-variant")))
+    (dom/set-attr button "data-variant"
+                  (if (some (comp #{(.getAttribute button "data-food-id")} :id) foods)
+                    "primary"
+                    (dom/get-attr button "data-original-variant")))))
 
 (defn get-pill-template [pills]
   (when-not (aget pills "template")
     (aset pills "template" (.-firstChild pills)))
   (aget pills "template"))
 
-(defn open-drawer [^js drawer {:keys [animate?]}]
+(defn open-drawer [^js drawer]
   (.showModal drawer))
 
-(defn close-drawer [^js drawer {:keys [animate?]}]
+(defn close-drawer [^js drawer]
   (.close drawer))
 
 (defn get-suggestions []
@@ -217,7 +214,7 @@
                (.addEventListener li "click"))
           (.appendChild list li))))))
 
-(defn update-drawer [foods selector opt]
+(defn update-drawer [foods selector]
   (when-let [drawer (js/document.querySelector selector)]
     (let [pills (.querySelector drawer ".mvtc-drawer-foods")
           template (get-pill-template pills)
@@ -239,17 +236,17 @@
            (remove (comp (set (map :id @foods)) :id))
            (update-suggestions (.querySelector drawer ".mvtc-suggestions") foods))
       (if (< 0 (count @foods))
-        (open-drawer drawer opt)
-        (close-drawer drawer opt)))))
+        (open-drawer drawer)
+        (close-drawer drawer)))))
 
 (defn get-food-data [el]
   (when-let [id (some-> el (.getAttribute "data-food-id"))]
     {:id id
      :foodName (.getAttribute el "data-food-name")}))
 
-(defn update-comparison-uis [foods buttons-selector drawer-selector & [opt]]
+(defn update-comparison-uis [foods buttons-selector drawer-selector]
   (update-buttons @foods buttons-selector)
-  (update-drawer foods drawer-selector opt))
+  (update-drawer foods drawer-selector))
 
 (defn toggle-comparison [foods data]
   (let [updated (if (some (comp #{(:id data)} :id) @foods)
@@ -274,7 +271,7 @@
   (let [foods (atom (get-foods-to-compare))]
     (->> (fn [_ _ _ new-foods]
            (stage-comparisons new-foods)
-           (update-comparison-uis foods buttons-selector drawer-selector {:animate? true}))
+           (update-comparison-uis foods buttons-selector drawer-selector))
          (add-watch foods ::director))
     (some-> (dom/qs drawer-selector) (initialize-drawer foods))
     (update-comparison-uis foods buttons-selector drawer-selector)

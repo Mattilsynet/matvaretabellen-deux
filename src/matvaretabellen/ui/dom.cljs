@@ -87,6 +87,18 @@
   (when el
     (.contains (.-classList el) class)))
 
+(defn has-attr? [el attr]
+  (when el
+    (.hasAttribute el attr)))
+
+(defn get-attr [el attr]
+  (when el
+    (.getAttribute el attr)))
+
+(defn set-attr [el attr v]
+  (when el
+    (.setAttribute el attr v)))
+
 (defn hidden? [el]
   (when el
     (.hasAttribute el "hidden")))
@@ -96,5 +108,4 @@
     (.removeAttribute el "hidden")))
 
 (defn hide [el]
-  (when el
-    (.setAttribute el "hidden" true)))
+  (set-attr el "hidden" true))
