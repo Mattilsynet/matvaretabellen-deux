@@ -6,32 +6,25 @@
     [el (dom/qs selector)]
     (some-> el .-parentNode get-target)))
 
+(defn toggle [el selected?]
+  (when-not (dom/has-attr? el "data-original-variant")
+    (dom/set-attr el "data-original-variant" (dom/get-attr el "data-variant")))
+  (dom/set-attr el "data-variant"
+                (if selected?
+                  "primary"
+                  (dom/get-attr el "data-original-variant"))))
+
 (defn init-toggler [toggler]
   (->> (fn [e]
          (when-let [[el target] (get-target (.-target e))]
            (let [hidden? (dom/hidden? target)]
-             ;; Toggle buttons primary/secondary
-             (when (and hidden? (dom/has-class el "mmm-button-secondary"))
-               (dom/remove-class el "mmm-button-secondary"))
-             (when (and (not hidden?) (dom/has-class el "mmm-button"))
-               (dom/add-class el "mmm-button-secondary"))
-
-             ;; Toggle icons buttons active/not
-             (when (and hidden? (dom/has-class el "mmm-icon-button"))
-               (dom/add-class el "mmm-icon-button-active"))
-             (when (and (not hidden?) (dom/has-class el "mmm-icon-button"))
-               (dom/remove-class el "mmm-icon-button-active"))
+             (toggle el (dom/hidden? target))
 
              ;; Show/hide
              (if hidden?
                (dom/show target)
                (dom/hide target)))))
        (.addEventListener toggler "click")))
-
-(defn toggle-icon-button [button selected?]
-  (if selected?
-    (dom/add-class button "mmm-icon-button-active")
-    (dom/remove-class button "mmm-icon-button-active")))
 
 (defn init []
   (doall (map init-toggler (dom/qsa "[data-toggle-target]"))))

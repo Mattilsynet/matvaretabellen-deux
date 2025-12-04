@@ -311,7 +311,7 @@
     (render-clear-download-button selected button))
   (doseq [button (dom/qsa table "tbody .mvt-add-to-list")]
     (->> (get selected (.getAttribute button "data-food-id"))
-         (toggler/toggle-icon-button button))))
+         (toggler/toggle button))))
 
 (defn on-update [store {:keys [table filter-panel] :as els} prev next]
   (when (filters/render-filters filter-panel prev next)
@@ -380,7 +380,7 @@
 (defn toggle-every-icon-button [ids active]
   (doseq [id ids]
     (doseq [el (dom/qsa (str ".mmm-icon-button[data-food-id='" id "']"))]
-      (toggler/toggle-icon-button el active))))
+      (toggler/toggle el active))))
 
 (defn init-stage-download-buttons [store table]
   (->> (fn [e]
@@ -393,7 +393,7 @@
                  selected? (every? selected ids)]
              (swap! store update ::selected (if selected? #(set (remove ids %)) #(into % ids)))
              (if id
-               (toggler/toggle-icon-button icon-button (not selected?))
+               (toggler/toggle icon-button (not selected?))
                (toggle-every-icon-button ids (not selected?))))))
        (.addEventListener table "click")))
 
