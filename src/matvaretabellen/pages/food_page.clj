@@ -288,7 +288,7 @@
     (fn [{:source/keys [id description] :as source}]
       (try
         [:div
-         [:div.mmm-focus {:id id}
+         [:div {:id id}
           [:dt id]
           [:dd (-> (get description (:page/locale page))
                    food/hyperlink-string)]]]
