@@ -43,7 +43,8 @@
                              (filter (comp #{id} :nutrient/id :constituent/nutrient))
                              first
                              :measurement/source)]
-    [:button {:popoverTarget (:source/id source)
+    [:button {:class "mvt-source-popover"
+              :popoverTarget (str "source-" (:source/id source))
               :data-popover "inline"}
      (:source/id source)]))
 
@@ -302,7 +303,7 @@
   (mapv
    (fn [{:source/keys [id description] :as source}]
      (try
-       (render-popover id
+       (render-popover (str "source-" id)
          [:h3 {:data-size "sm"} id]
          [:p {:data-size "sm"}
           (-> (get description (:page/locale page))

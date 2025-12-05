@@ -47,11 +47,24 @@
    k (urls/get-api-rda-json-url locale) f
    {:process-raw-data #(map-json-by "id" (aget % "profiles"))}))
 
+(defn duplicate-source-popovers [buttons]
+  (doall
+   (map-indexed
+    (fn [idx button]
+      (let [clone (.cloneNode (dom/qs (str "#" (dom/get-attr button "popovertarget"))) true)
+            id (str (.-id clone) "-" idx)]
+        (set! (.-id clone) id)
+        (js/document.body.appendChild clone)
+        (dom/set-attr button "popovertarget" id)))
+    buttons)))
+
 (defn boot []
   (main)
   (let [locale (keyword js/document.documentElement.lang)
         event-bus (atom nil)]
     (tracking/track-page-view)
+
+    (duplicate-source-popovers (dom/qsa ".mvt-source-popover"))
 
     (search-ui/initialize-foods-autocomplete
      (dom/qs ".mvt-autocomplete")
