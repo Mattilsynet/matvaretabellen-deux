@@ -4,13 +4,13 @@
             [mattilsynet.design :as mtds]))
 
 (defn render-comparison-drawer [locale]
-  [:dialog.mvtc-drawer.drawer {:class (mtds/classes :dialog) :data-size "md"}
-   [:div {:class (mtds/classes :grid)}
+  [:dialog.mvtc-drawer.drawer {:class (mtds/classes :dialog) :data-size "md" :data-modal "false"}
+   [:div {:class (mtds/classes :grid) :data-gap "2"}
     [:div {:class (mtds/classes :flex) :data-justify "space-between" :data-align "center"}
      [:h2 {:class (mtds/classes :heading) :data-size "xs"} [:i18n ::compare-foods]]
      [:button.mvtc-drawer-close {:class (mtds/classes :button) :type "button"}
       (icons/render :phosphor.regular/x)]]
-    [:div {:class (mtds/classes :flex) :data-justify "space-between" :data-align "end"}
+    [:div {:class (mtds/classes :flex) :data-justify "space-between" :data-align "center"}
      [:ul.mvtc-drawer-foods {:class (mtds/classes :flex)}
       [:li [:button {:class (mtds/classes :chip :mvtc-food-name) :data-removable "" :type "button"}]]]
      [:a {:class (mtds/classes :button :mvtc-drawer-compare)

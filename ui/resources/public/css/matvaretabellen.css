@@ -46,3 +46,11 @@
 @media (max-width: 780px) {
     .desktop { display: none }
 }
+
+.drawer {
+    border-radius: 0;
+    inset: auto 0 0;
+    max-width: none;
+    padding: var(--mtds-4);
+    transform: none;
+}

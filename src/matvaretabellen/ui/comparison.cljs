@@ -185,7 +185,7 @@
   (aget pills "template"))
 
 (defn open-drawer [^js drawer]
-  (.showModal drawer))
+  (.show drawer))
 
 (defn close-drawer [^js drawer]
   (.close drawer))
