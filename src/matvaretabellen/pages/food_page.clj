@@ -6,7 +6,6 @@
             [matvaretabellen.components.comparison :as comparison]
             [matvaretabellen.food :as food]
             [matvaretabellen.food-name :as food-name]
-            [matvaretabellen.foodex2 :as foodex2]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.rda :as rda]
             [matvaretabellen.urls :as urls]
@@ -487,9 +486,7 @@
           :data-gap "2"}
     [:h4#foodex2 "FoodEx2: "
      [:a {:href (urls/get-foodex-term-url locale (-> food :foodex2/classification :foodex2/term))}
-      (render-foodex2-term (-> food :foodex2/classification :foodex2/term))]]
-    #_[:p {:data-size "sm"}
-       [:code (foodex2/make-classifier (:foodex2/classification food))]]]
+      (render-foodex2-term (-> food :foodex2/classification :foodex2/term))]]]
    (render-foodex2-facets locale food)])
 
 (comment
