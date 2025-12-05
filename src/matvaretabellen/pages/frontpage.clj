@@ -89,7 +89,8 @@
         (SearchInput {:button {:text [:i18n :i18n/search-button]}
                       :class :mvt-autocomplete
                       :input {:name "q"}
-                      :autocomplete-id "foods-results"})
+                      :autocomplete-id "foods-results"
+                      :default-value [:i18n :i18n/search-default-value]})
         [:noscript
          [:div {:class (mtds/classes :alert)} [:i18n ::no-script-search-info]]
          [:img {:src "/tracer/no-script/" :height 0 :width 0}]]

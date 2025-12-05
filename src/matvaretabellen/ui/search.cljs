@@ -1,5 +1,6 @@
 (ns matvaretabellen.ui.search
   (:require [clojure.string :as str]
+            [mattilsynet.design :as mtds]
             [matvaretabellen.search :as search]
             [matvaretabellen.ui.dom :as dom]
             [matvaretabellen.ui.query-engine :as qe]
@@ -99,50 +100,43 @@
                                       (remove-watch search-engine id)))))
     (f)))
 
-(defn handle-autocomplete-input-event [e input element locale]
-  (if-let [url (when (and (not (.-inputType e)) (.-type e))
-                 (some-> e .-target .-value))]
-    (do
-      (set! (.-value input) "")
-      (set! (.. js/window -location -href) url))
-    (let [q (.-value (.-target e))
-          n (or (some-> (.-target e) (.getAttribute "data-suggestions") js/parseInt) 10)]
-      (if (< (.-length q) 3)
-        (do
-          (set! (.-innerHTML element) "")
-          (dom/hide element))
-        (do
-          (dom/show element)
-          (if (waiting?)
-            (do (set! (.-innerHTML element) "<u-option class='mmm-ac-result tac'><span class='mmm-loader'></span></u-option>")
-                (add-watch search-engine ::waiting-for-load
-                           #(when-not (waiting?)
-                              (remove-watch search-engine ::waiting-for-load)
-                              (handle-autocomplete-input-event e input element locale))))
-            (set! (.-innerHTML element)
-                  (str/join
-                   (flatten
-                    (for [{:keys [url text]} (take n (search @search-engine q locale))]
-                      ["<u-option class='mmm-ac-result' value='" url "'>"
-                       text
-                       "</u-option>"]))))))))))
+(defn handle-autocomplete-input-event [e locale empty-html]
+  (let [q (.-value (.-control (.-currentTarget e)))
+        n (or (some-> (.-currentTarget e) (.getAttribute "data-suggestions") js/parseInt) 10)
+        datalist (.-list (.-currentTarget e))]
+    (if (< (.-length q) 2)
+      (set! (.-innerHTML datalist) empty-html)
+      (if (waiting?)
+        (do (set! (.-innerHTML datalist) (str "<u-option><span class='" (str/join " " (mtds/classes :spinner)) "'></span></u-option>"))
+            (add-watch search-engine ::waiting-for-load
+                       #(when-not (waiting?)
+                          (remove-watch search-engine ::waiting-for-load)
+                          (handle-autocomplete-input-event e locale empty-html))))
+        (set! (.-innerHTML datalist)
+              (str/join
+               (flatten
+                (for [{:keys [url text]} (take n (search @search-engine q locale))]
+                  ["<u-option value='" url "'>"
+                   text
+                   "</u-option>"]))))))))
 
 (defn handle-autocomplete-submit-event [e]
-  (when-let [selected (.querySelector (.-target e) ".mmm-ac-selected a")]
+  (when-let [q-or-url (some-> e .-detail .-value)]
     (.preventDefault e)
-    (set! js/window.location (.-href selected))))
+    (if (= q-or-url (.-value (.-control (.-currentTarget e))))
+      ;;(.submit (.-form (.-control (.-currentTarget e))))
+      (some-> (.-currentTarget e) .-control (.closest "form") .submit)
+      (set! js/window.location q-or-url))))
 
 (defn initialize-foods-autocomplete [dom-element locale initial-query]
-  (when-let [input (dom/qs dom-element "input")]
-    (let [element (dom/qs dom-element ".mmm-ac-results")]
-      (.addEventListener dom-element "input" #(handle-autocomplete-input-event % input element locale))
-      (when-let [form (.closest dom-element "u-combobox")]
-        (.addEventListener form "comboboxbeforeselect" #(handle-autocomplete-submit-event %)))
-      (when (and initial-query (some-> input .-value empty?))
-        (set! (.-value input) initial-query))
-      (when (seq (.-value input))
-        (handle-autocomplete-input-event #js {:target input} input element locale)
-        (js/requestAnimationFrame #(.focus input))))))
+  (when-let [combobox (dom/qs dom-element "u-combobox")]
+    (let [empty-html (.-innerHTML (.-list combobox))]
+      (.addEventListener combobox "input" #(handle-autocomplete-input-event % locale empty-html)))
+
+    (when (and initial-query (some-> (.-control combobox) .-value empty?))
+      (set! (.-value (.-control combobox)) initial-query))
+
+    (.addEventListener combobox "comboboxbeforeselect" #(handle-autocomplete-submit-event %))))
 
 (comment
   (reset! search-engine {:index-status :pending

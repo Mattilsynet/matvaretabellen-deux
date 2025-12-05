@@ -4,7 +4,8 @@
   :number-of-foods ([:fn/get :count] " matvarer.")
   :number [:fn/num [:fn/get :n] [:fn/param]]
   :search-button "Søk"
-  :search-label "Søk i Matvaretabellen"}
+  :search-label "Søk i Matvaretabellen"
+  :search-default-value "Skriv navnet på en matvare, en ingrediens eller et næringsstoff"}
 
  #:acquisition.type
  {:authoritative-document "Autorativt dokument"

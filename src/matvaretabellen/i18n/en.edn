@@ -4,7 +4,8 @@
   :number-of-foods ([:fn/get :count] " food items.")
   :number [:fn/num [:fn/get :n] [:fn/param]]
   :search-button "Search"
-  :search-label "Search in Matvaretabellen"}
+  :search-label "Search in Matvaretabellen"
+  :search-default-value "Type the name of a food, ingredient or nutrient"}
 
  #:acquisition.type
  {:authoritative-document "Authoritative document"
