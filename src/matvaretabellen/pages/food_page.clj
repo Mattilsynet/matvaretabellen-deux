@@ -249,11 +249,12 @@
                   :data-size "sm"
                   :data-align "center"}
                  (dissoc attrs :classes :headers :rows))
-   [:thead
-    (let [row (if (map? headers) headers {:cols headers})]
-      [:tr (dissoc row :cols)
-       (for [header (:cols row)]
-         [:th (dissoc header :text) (:text header)])])]
+   (when headers
+     [:thead
+      (let [row (if (map? headers) headers {:cols headers})]
+        [:tr (dissoc row :cols)
+         (for [header (:cols row)]
+           [:th (dissoc header :text) (:text header)])])])
    [:tbody
     (for [row rows]
       (let [row (if (map? row) row {:cols row})]
@@ -277,7 +278,8 @@
    {:portion [:span.js-portion-label "100 g"]}])
 
 (defn prepare-langual-table [codes]
-  {:headers [{:text [:i18n ::langual-code-label]}
+  {:headers [{:text [:i18n ::langual-code-label]
+              :style {:width "12rem"}}
              {:text [:i18n ::langual-description-label]}]
    :rows (for [{:langual-code/keys [id description]} codes]
            [{:text id} {:text (food/humanize-langual-classification description)}])})
@@ -454,36 +456,41 @@
                :macros (->> ["Fett" "Karbo" "Protein"]
                             (map #(summarize-constituent food % locale)))}]}])
 
+(defn render-foodex2-term [term]
+  (str (:foodex2.term/name term) " (" (:foodex2.term/code term) ")"))
+
 (defn render-foodex2-aspect [locale aspect]
   [:a {:href (urls/get-foodex-term-url locale (:foodex2/term aspect))}
-   (str (-> aspect :foodex2/term :foodex2.term/code)
-        " "
-        (-> aspect :foodex2/term :foodex2.term/name))])
+   (render-foodex2-term (:foodex2/term aspect))])
 
 (defn render-foodex2-facets [locale food]
-  [:ul
-   (->> food :foodex2/classification :foodex2/aspects
-        (group-by (comp (juxt :foodex2.facet/id :foodex2.facet/name) :foodex2/facet))
-        (sort-by first)
-        (map (fn [[facet-info aspects]]
-               [:li [:strong (->> facet-info
-                                  (remove nil?)
-                                  (interpose " "))]
-                ": "
-                (interpose ", " (map (partial render-foodex2-aspect locale) aspects))
-                "."])))])
+  (render-table
+   {:headers [{:text [:i18n ::foodex2-facets-th]
+               :style {:width "12rem"}}
+              {:text ""}]
+    :rows
+    (->> food :foodex2/classification :foodex2/aspects
+         (group-by (comp (juxt :foodex2.facet/id :foodex2.facet/name) :foodex2/facet))
+         (sort-by first)
+         (map (fn [[facet-info aspects]]
+                [{:style {:width "12rem"}
+                  :text
+                  (->> facet-info
+                       (remove nil?)
+                       (interpose " "))}
+                 {:text (interpose ", " (map (partial render-foodex2-aspect locale) aspects))}])))}))
 
 (defn render-foodex2-classification [locale food]
-  (let [kategori-label (str (-> food :foodex2/classification :foodex2/term :foodex2.term/code)
-                            " "
-                            (-> food :foodex2/classification :foodex2/term :foodex2.term/name))]
-    [:div {:class (mtds/classes :prose)}
-     [:h3#foodex2 "FoodEx2: "
-      [:a {:href (urls/get-foodex-term-url locale (-> food :foodex2/classification :foodex2/term))}
-       kategori-label]]
-     [:p {:data-size "sm"}
-      [:code (foodex2/make-classifier (:foodex2/classification food))]]
-     (render-foodex2-facets locale food)]))
+  [:div {:class (mtds/classes :grid)
+         :data-gap "6"}
+   [:div {:class (mtds/classes :grid)
+          :data-gap "2"}
+    [:h4#foodex2 "FoodEx2: "
+     [:a {:href (urls/get-foodex-term-url locale (-> food :foodex2/classification :foodex2/term))}
+      (render-foodex2-term (-> food :foodex2/classification :foodex2/term))]]
+    #_[:p {:data-size "sm"}
+       [:code (foodex2/make-classifier (:foodex2/classification food))]]]
+   (render-foodex2-facets locale food)])
 
 (comment
   (do
@@ -613,22 +620,26 @@
              (prepare-nutrient-tables (:app/db context) {:locale locale})
              (map #(render-table (assoc % :id "sporstoffer")))))
 
-       [:div {:class (mtds/classes :grid) :data-center "xl"}
-        [:div
-         [:h3#klassifisering [:i18n ::classification-title]]
-         [:ul
-          [:li [:i18n ::food-id {:id (:food/id food)}]]
-          (when-let [latin-name (not-empty (:food/latin-name food))]
-            [:li [:i18n ::scientific-name {:name latin-name}]])]
-         (render-foodex2-classification locale food)
-         (when-let [langual-codes (seq (food/get-langual-codes food))]
-           (list
-            [:h3 "LanguaL"]
-            [:p [:i18n ::classification-intro
-                 {:langual-url "https://www.langual.org/"}]]
-            (->> langual-codes
-                 prepare-langual-table
-                 render-table)))]]
+       [:div {:class (mtds/classes :grid)
+              :data-gap "6"
+              :data-center "xl"}
+        [:div {:class (mtds/classes :prose)}
+         [:h3#klassifisering {:class (mtds/classes :heading)
+                              :data-size "lg"}
+          [:i18n ::classification-title]]
+         [:p [:i18n ::food-id {:id (:food/id food)}]]
+         (when-let [latin-name (not-empty (:food/latin-name food))]
+           [:p [:i18n ::scientific-name {:name latin-name}]])]
+        (render-foodex2-classification locale food)
+        (when-let [langual-codes (seq (food/get-langual-codes food))]
+          [:div {:class (mtds/classes :grid)
+                 :data-gap "2"}
+           [:h4 "LanguaL"]
+           [:p [:i18n ::classification-intro
+                {:langual-url "https://www.langual.org/"}]]
+           (->> langual-codes
+                prepare-langual-table
+                render-table)])]
 
        [:div
         (->> (food/get-sources food)

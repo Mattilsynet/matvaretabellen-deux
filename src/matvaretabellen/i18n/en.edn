@@ -133,6 +133,7 @@
   :energy-title "Composition and energy"
   :composition-title [:fn/str "{{:title}} composition"]
   :fat-title "Fatty acids"
+  :foodex2-facets-th "Facets"
   :food-id ([:strong "Food ID:"] " " [:fn/get :id])
   :highlight-title [:fn/str "{{:en}} →"]
   :kcal-content-title ("Energy (kcal) in " [:fn/get :portion])

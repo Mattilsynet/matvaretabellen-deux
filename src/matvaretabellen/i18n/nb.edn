@@ -133,6 +133,7 @@
   :energy-title "Energigivende næringsstoffer"
   :composition-title [:fn/str "{{:title}}, sammensetning"]
   :fat-title "Fettsyrer"
+  :foodex2-facets-th "Fasetter"
   :food-id ([:strong "Matvare-ID:"] " " [:fn/get :id])
   :highlight-title [:fn/str "{{:nb}} →"]
   :kcal-content-title ("Energi (kcal) i " [:fn/get :portion])
