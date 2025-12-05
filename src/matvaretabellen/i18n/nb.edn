@@ -177,6 +177,10 @@
   :food "Matvare"
   :food-groups "Matvaregrupper"}
 
+ #:matvaretabellen.pages.foodex2-term-page
+ {:classified-as [:fn/str "Matvarer klassifisert som {{:foodex2.term/name}}"]
+  :references "Referanser"}
+
  #:matvaretabellen.pages.frontpage
  {:all-foods "Alle matvarer i tabellvisning →"
   :card-about-title "Om Matvaretabellen"

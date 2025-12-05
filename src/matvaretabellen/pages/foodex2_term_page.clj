@@ -1,11 +1,9 @@
 (ns matvaretabellen.pages.foodex2-term-page
   (:require [datomic-type-extensions.api :as d]
+            [mattilsynet.design :as mtds]
             [matvaretabellen.foodex2 :as foodex2]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.urls :as urls]))
-
-(defonce !lctx (atom nil))
-(defonce !lpage (atom nil))
 
 (defn render-facet [facet]
   (list (:foodex2.facet/id facet) " " (:foodex2.facet/name facet)))
@@ -15,8 +13,6 @@
    (get-in food [:food/name locale])])
 
 (defn render [context page]
-  (reset! !lctx context)
-  (reset! !lpage page)
   (let [locale (:page/locale page)
         foods-db (:foods/db context)
         code (:foodex2.term/code page)
@@ -26,50 +22,63 @@
      page
      [:head
       [:title (:foodex2.term/code term) " " (:foodex2.term/name term)]]
-     [:body
+     [:body {:data-size "lg"}
       (layout/render-header
        {:locale (:page/locale page)
         :app/config (:app/config context)}
        #(urls/get-foodex-term-url % term))
-      (layout/render-toolbar
-       {:locale (:page/locale page)})
-      [:div
-       [:h1 (:foodex2.term/code term) " " (:foodex2.term/name term)]
-       [:p (:foodex2.term/note term)]
-       (when (seq (:foodex2.term/note-links term))
-         (list
-          [:h2 (case locale
-                 :nb "Referanser"
-                 :en "References")]
-          [:ul
-           (->> (:foodex2.term/note-links term)
-                (map (fn [link]
-                       [:li [:a {:href link} link]])))]))
+      [:div {:class (mtds/classes :grid) :data-gap "12"}
+       [:div {:class (mtds/classes :grid :banner) :data-gap "8" :role "banner"}
+        (layout/render-toolbar
+         {:locale (:page/locale page)
+          :crumbs [{:text [:i18n :i18n/search-label]
+                    :url (urls/get-base-url locale)}
+                   {:text (:foodex2.term/code term)}]})
+        [:div {:class (mtds/classes :flex)
+               :data-center "xl"
+               :data-align "center"}
+         [:div {:class (mtds/classes :prose)
+                :data-self "500"}
+          [:h1 (:foodex2.term/code term) " " (:foodex2.term/name term)]
+          [:p {:data-size "lg"} (:foodex2.term/note term)]]]]
 
-       ;; Foods classified as this
-       (when-let [foods (some->> (seq (foodex2/term->classified term))
-                                 (sort-by (comp :en :food/name)))]
-         (list
-          [:h2 "Foods classified as " (:foodex2.term/name term)]
-          [:ul
-           (->> foods
-                (map (fn [food]
-                       [:li (render-food-link locale food)])))]))
+       [:div {:class (mtds/classes :grid)
+              :data-center "xl"}
 
-       ;; Foods with this aspect
-       (for [[facet foods] (->> (foodex2/term->aspected term)
-                                (sort-by (comp (juxt :foodex2.facet/id :foodex2.facet/name)
-                                               first)))]
-         (list
-          [:h2 (render-facet facet)]
-          [:ul
-           (for [food (sort-by (comp (:page/locale page) :food/name) foods)]
-             [:li (render-food-link locale food)])]))]])))
+        ;; Foods classified as this
+        (when-let [foods (some->> (seq (foodex2/term->classified term))
+                                  (sort-by (comp :en :food/name)))]
+          [:div {:class (mtds/classes :card)}
+           [:h2 [:i18n ::classified-as term]]
+           [:ul
+            (->> foods
+                 (map (fn [food]
+                        [:li (render-food-link locale food)])))]])
+
+        ;; Foods with this aspect
+        (for [[facet foods] (->> (foodex2/term->aspected term)
+                                 (sort-by (comp (juxt :foodex2.facet/id :foodex2.facet/name)
+                                                first)))]
+          [:div {:class (mtds/classes :card)}
+           [:h2 (render-facet facet)]
+           [:ul
+            (for [food (sort-by (comp (:page/locale page) :food/name) foods)]
+              [:li (render-food-link locale food)])]])
+
+        (when (seq (:foodex2.term/note-links term))
+          [:div {:class (mtds/classes :card)}
+           [:h2 [:i18n ::references]]
+           [:ul
+            (->> (:foodex2.term/note-links term)
+                 (map (fn [link]
+                        [:li [:a {:href link} link]])))]])]]])))
 
 (comment
-  @!lpage
+  (do
+    (def config (matvaretabellen.dev/load-local-config))
+    (def conn (d/connect (:foods/datomic-uri config)))
+    (def foods-db (d/db conn)))
 
-  (def foods-db (:foods/db @!lctx))
   (def term (d/entity foods-db [:foodex2.term/code "A00BL"]))
 
   (-> (foodex2/term->classified term)

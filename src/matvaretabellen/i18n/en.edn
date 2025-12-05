@@ -177,6 +177,10 @@
   :food "Food"
   :food-groups "Food groups"}
 
+ #:matvaretabellen.pages.foodex2-term-page
+ {:classified-as [:fn/str "Foods classified as {{:foodex2.term/name}}"]
+  :references "References"}
+
  #:matvaretabellen.pages.frontpage
  {:all-foods "All foods in table view →"
   :card-about-title "About Matvaretabellen"
