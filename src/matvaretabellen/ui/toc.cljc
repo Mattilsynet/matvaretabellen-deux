@@ -1,4 +1,4 @@
-(ns mmm.components.toc
+(ns matvaretabellen.ui.toc
   (:require [phosphor.icons :as icons]
             [mattilsynet.design :as mtds]))
 

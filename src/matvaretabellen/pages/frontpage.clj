@@ -5,8 +5,8 @@
             [matvaretabellen.layout :as layout]
             [matvaretabellen.seeded-random :as rng]
             [matvaretabellen.ui.search-input :refer [SearchInput]]
-            [matvaretabellen.urls :as urls]
-            [mmm.components.toc :refer [Toc]])
+            [matvaretabellen.ui.toc :refer [Toc]]
+            [matvaretabellen.urls :as urls])
   (:import (java.time MonthDay)))
 
 (defn get-seasons [app-db]

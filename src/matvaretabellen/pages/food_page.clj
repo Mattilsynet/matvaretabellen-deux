@@ -8,8 +8,8 @@
             [matvaretabellen.food-name :as food-name]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.rda :as rda]
+            [matvaretabellen.ui.toc :refer [Toc]]
             [matvaretabellen.urls :as urls]
-            [mmm.components.toc :refer [Toc]]
             [phosphor.icons :as icons]))
 
 (defn has-popover? [constituent]
