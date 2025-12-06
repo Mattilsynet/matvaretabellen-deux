@@ -63,6 +63,9 @@ window.onerror = function(message) {
                 {:text [:i18n ::nutrients]
                  :url (urls/get-nutrients-url locale)
                  :class :desktop}
+                {:text [:i18n ::download]
+                 :url "https://www.mattilsynet.no/mat-og-drikke/matvaretabellen/last-ned"
+                 :class :desktop}
                 {:text [:i18n :i18n/other-language]
                  :url (get-current-url ({:en :nb :nb :en} locale))}]]
       (cond-> link

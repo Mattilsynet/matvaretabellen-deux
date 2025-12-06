@@ -93,6 +93,7 @@
 
  #:matvaretabellen.layout
  {:close-sidebar "Lukk"
+  :download "Nedlasting"
   :filter "Filter"
   :food-groups "Matvaregrupper"
   :nutrients "Næringsstoffer"}

@@ -93,6 +93,7 @@
 
  #:matvaretabellen.layout
  {:close-sidebar "Close"
+  :download "Download"
   :filter "Filter"
   :food-groups "Food groups"
   :nutrients "Nutrients"}
