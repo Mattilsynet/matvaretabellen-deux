@@ -8,9 +8,9 @@
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
             [matvaretabellen.statistics :as statistics]
+            [matvaretabellen.ui.breadcrumbs :refer [Breadcrumbs]]
             [matvaretabellen.ui.client-table :as client-table]
             [matvaretabellen.urls :as urls]
-            [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [phosphor.icons :as icons]))
 
 (defn render-breadcrumbs [locale]

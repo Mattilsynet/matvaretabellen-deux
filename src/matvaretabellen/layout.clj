@@ -2,8 +2,8 @@
   (:require [clojure.java.io :as io]
             [mattilsynet.design :as mtds]
             [matvaretabellen.crumbs :as crumbs]
+            [matvaretabellen.ui.breadcrumbs :refer [Breadcrumbs]]
             [matvaretabellen.urls :as urls]
-            [mmm.components.breadcrumbs :refer [Breadcrumbs]]
             [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.search-input :refer [SearchInput]]
             [mmm.components.site-header :refer [SiteHeader]]))

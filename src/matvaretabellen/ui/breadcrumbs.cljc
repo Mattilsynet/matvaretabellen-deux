@@ -1,4 +1,4 @@
-(ns mmm.components.breadcrumbs
+(ns matvaretabellen.ui.breadcrumbs
   (:require [mattilsynet.design :as mtds]))
 
 (defn Breadcrumbs [{:keys [links]}]
