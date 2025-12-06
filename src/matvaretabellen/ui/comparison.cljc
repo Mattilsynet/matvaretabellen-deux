@@ -1,4 +1,4 @@
-(ns matvaretabellen.components.comparison
+(ns matvaretabellen.ui.comparison
   (:require [matvaretabellen.urls :as urls]
             [phosphor.icons :as icons]
             [mattilsynet.design :as mtds]))

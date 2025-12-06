@@ -70,7 +70,7 @@
   :report-to-us "Varsle oss"
   :shortcuts-title "Snarveier"}
 
- #:matvaretabellen.components.comparison
+ #:matvaretabellen.ui.comparison
  {:compare-foods "Sammenlign matvarer"
   :compare-now "Sammenlign nå"
   :stage-for-comparison "Legg til for sammenligning"

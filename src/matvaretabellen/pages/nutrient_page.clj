@@ -1,7 +1,6 @@
 (ns matvaretabellen.pages.nutrient-page
   (:require [datomic-type-extensions.api :as d]
             [mattilsynet.design :as mtds]
-            [matvaretabellen.components.comparison :as comparison]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
             [matvaretabellen.food-group :as food-group]
@@ -9,6 +8,7 @@
             [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
+            [matvaretabellen.ui.comparison :as comparison]
             [matvaretabellen.urls :as urls]
             [phosphor.icons :as icons]))
 

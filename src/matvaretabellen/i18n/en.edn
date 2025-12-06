@@ -70,7 +70,7 @@
   :report-to-us "Report to Us"
   :shortcuts-title "Shortcuts"}
 
- #:matvaretabellen.components.comparison
+ #:matvaretabellen.ui.comparison
  {:compare-foods "Compare foods"
   :compare-now "Compare now"
   :stage-for-comparison "Add for comparison"

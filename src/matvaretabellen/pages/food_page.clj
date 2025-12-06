@@ -3,11 +3,11 @@
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [mattilsynet.design :as mtds]
-            [matvaretabellen.components.comparison :as comparison]
             [matvaretabellen.food :as food]
             [matvaretabellen.food-name :as food-name]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.rda :as rda]
+            [matvaretabellen.ui.comparison :as comparison]
             [matvaretabellen.ui.toc :refer [Toc]]
             [matvaretabellen.urls :as urls]
             [phosphor.icons :as icons]))

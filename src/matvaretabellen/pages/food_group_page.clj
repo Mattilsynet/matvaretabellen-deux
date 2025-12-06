@@ -1,11 +1,11 @@
 (ns matvaretabellen.pages.food-group-page
   (:require [datomic-type-extensions.api :as d]
             [mattilsynet.design :as mtds]
-            [matvaretabellen.components.comparison :as comparison]
             [matvaretabellen.food-group :as food-group]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.pages.food-page :as food-page]
+            [matvaretabellen.ui.comparison :as comparison]
             [matvaretabellen.urls :as urls]
             [phosphor.icons :as icons]))
 
