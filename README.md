@@ -1,6 +1,6 @@
 # matvaretabellen.no
 
-2023-utgaven av Matvaretabellen, en løsning som [så dagens
+2026-utgaven av Matvaretabellen, en løsning som [så dagens
 lys](https://www.idunn.no/doi/full/10.18261/ntfe.12.1.4) i form av publikasjonen
 "Norske Næringsmidler" allerede i 1945.
 
