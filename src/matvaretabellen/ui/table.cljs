@@ -170,19 +170,16 @@
         container (.-parentNode table)]
     (render-rows (dom/qs table "tbody") (.-rowTemplate table) data)
     (doseq [th (dom/qsa table "thead th")]
-      (let [id (.getAttribute th "data-id")]
-        (if (columns (.getAttribute th "data-id"))
+      (let [id (dom/get-attr th "data-id")]
+        (if (columns id)
           (dom/show th)
           (dom/hide th))
-        (when-let [icon (dom/qs th ".mvt-sort-icon")]
-          (let [selector (if (= sort-id id)
-                           (if (= sort-order :sort.order/asc)
-                             ".mvt-asc"
-                             ".mvt-desc")
-                           ".mvt-sort")]
-            (set! (.-innerHTML icon) "")
-            (.appendChild icon (.cloneNode (dom/qs container selector) true))))))
-    (dom/re-zebra-table table)
+        (when (dom/has-attr? th "aria-sort")
+          (dom/set-attr th "aria-sort"
+                        (cond
+                          (not= sort-id id) ""
+                          (= sort-order :sort.order/asc) "ascending"
+                          :else "descending")))))
     (dom/show table)
     (update-button (dom/qs container ".mvt-prev") (:prev current))
     (update-button (dom/qs container ".mvt-next") (:next current))))
@@ -202,7 +199,7 @@
 
 (defn change-sort [store e]
   (let [th (.closest (.-target e) "th")]
-    (when (dom/qs th ".mvt-sort-icon")
+    (when (dom/has-attr? th "aria-sort")
       (swap!
        store
        (fn [data]
@@ -243,7 +240,7 @@
 
 (defn get-initial-table-columns [table]
   (->> (dom/qsa table "thead th")
-       (remove #(dom/has-class % "mmm-hidden"))
+       (remove dom/hidden?)
        (map #(.getAttribute % "data-id"))
        set))
 
@@ -290,10 +287,10 @@
             (dom/hide (.closest checkbox "li"))))))))
 
 (defn disable-button [el]
-  (dom/add-class el "mmm-button-disabled"))
+  (dom/set-attr el "disabled" "true"))
 
 (defn enable-button [el]
-  (dom/remove-class el "mmm-button-disabled"))
+  (dom/remove-attr el "disabled"))
 
 (defn render-download-button [foods button]
   (when-let [el (dom/qs button ".mvt-num-foods")]
@@ -314,7 +311,7 @@
     (render-clear-download-button selected button))
   (doseq [button (dom/qsa table "tbody .mvt-add-to-list")]
     (->> (get selected (.getAttribute button "data-food-id"))
-         (toggler/toggle-icon-button button))))
+         (toggler/toggle button))))
 
 (defn on-update [store {:keys [table filter-panel] :as els} prev next]
   (when (filters/render-filters filter-panel prev next)
@@ -373,7 +370,7 @@
 (defn init-download-button [store table button locale]
   (let [column-order (get-column-order table)]
     (->> (fn [e]
-           (if (dom/has-class button "mmm-button-disabled")
+           (if (dom/has-attr? button "disabled")
              (.preventDefault e)
              (set! (.-href button) (export-csv @store column-order locale))))
          (.addEventListener button "click")))
@@ -382,8 +379,8 @@
 
 (defn toggle-every-icon-button [ids active]
   (doseq [id ids]
-    (doseq [el (dom/qsa (str ".mmm-icon-button[data-food-id='" id "']"))]
-      (toggler/toggle-icon-button el active))))
+    (doseq [el (dom/qsa (str "button[data-food-id='" id "']"))]
+      (toggler/toggle el active))))
 
 (defn init-stage-download-buttons [store table]
   (->> (fn [e]
@@ -396,7 +393,7 @@
                  selected? (every? selected ids)]
              (swap! store update ::selected (if selected? #(set (remove ids %)) #(into % ids)))
              (if id
-               (toggler/toggle-icon-button icon-button (not selected?))
+               (toggler/toggle icon-button (not selected?))
                (toggle-every-icon-button ids (not selected?))))))
        (.addEventListener table "click")))
 
