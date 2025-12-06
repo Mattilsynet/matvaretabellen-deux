@@ -4,8 +4,8 @@
             [mattilsynet.design :as mtds]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.seeded-random :as rng]
+            [matvaretabellen.ui.search-input :refer [SearchInput]]
             [matvaretabellen.urls :as urls]
-            [mmm.components.search-input :refer [SearchInput]]
             [mmm.components.toc :refer [Toc]])
   (:import (java.time MonthDay)))
 

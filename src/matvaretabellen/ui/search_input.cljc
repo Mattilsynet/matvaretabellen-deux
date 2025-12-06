@@ -1,4 +1,4 @@
-(ns mmm.components.search-input
+(ns matvaretabellen.ui.search-input
   (:require [mattilsynet.design :as mtds]))
 
 (def size-classes

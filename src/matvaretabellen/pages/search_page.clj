@@ -2,8 +2,8 @@
   (:require [mattilsynet.design :as mtds]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.ui.client-table :as client-table]
+            [matvaretabellen.ui.search-input :refer [SearchInput]]
             [matvaretabellen.urls :as urls]
-            [mmm.components.search-input :refer [SearchInput]]
             [phosphor.icons :as icons]))
 
 (defn render-excel-download-button [locale]

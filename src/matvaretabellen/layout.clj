@@ -3,8 +3,8 @@
             [mattilsynet.design :as mtds]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.ui.breadcrumbs :refer [Breadcrumbs]]
+            [matvaretabellen.ui.search-input :refer [SearchInput]]
             [matvaretabellen.urls :as urls]
-            [mmm.components.search-input :refer [SearchInput]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
 (def report-errors-to-tracer
