@@ -4,7 +4,6 @@
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.ui.breadcrumbs :refer [Breadcrumbs]]
             [matvaretabellen.urls :as urls]
-            [mmm.components.footer :refer [CompactSiteFooter]]
             [mmm.components.search-input :refer [SearchInput]]
             [mmm.components.site-header :refer [SiteHeader]]))
 
@@ -32,6 +31,39 @@ window.onerror = function(message) {
       :xmlns "http://www.w3.org/2000/svg"}
      [:use {:xlink:href (str illustration "#illustration")}]]))
 
+(defn Footer [{:keys [cols]}]
+  [:footer.footer {:data-color "inverted"}
+   [:div {:class (mtds/classes :grid) :data-items "300" :data-align "start" :data-size "sm" :data-center "xl"}
+    [:a {:href "https://www.mattilsynet.no"
+         :aria-label "Mattilsynet"
+         :class (mtds/classes :logo)}]
+    (for [{:keys [title items]} cols]
+      [:div {:class (mtds/classes :grid)}
+       [:h2 {:class (mtds/classes :heading) :data-size "sm"} title]
+       (when (seq items)
+         [:ul {:class (mtds/classes :grid)}
+          (for [{:keys [url text]} items]
+            [:li (if url
+                   [:a {:href url} text]
+                   text)])])])]])
+
+(defn CompactSiteFooter [{:page/keys [locale]}]
+  (Footer
+   {:cols [{:title [:i18n ::shortcuts-title]
+            :items [{:url (if (= :en locale)
+                            "/en/api/"
+                            "/api/")
+                     :text [:i18n ::api-text]}
+                    {:url "https://www.mattilsynet.no/om-mattilsynet/personvernerklaering"
+                     :text [:i18n ::privacy-and-cookies]}
+                    {:url "https://www.mattilsynet.no/"
+                     :text "mattilsynet.no"}]}
+           {:title [:i18n ::about-mattilsynet]
+            :items [{:url "https://www.mattilsynet.no/varsle"
+                     :text [:i18n ::report-to-us]}
+                    {:url "mailto:matvaretabellen@mattilsynet.no"
+                     :text "matvaretabellen@mattilsynet.no"}]}]}))
+
 (defn layout [context page head body]
   [:html {:data-color-scheme "auto"}
    (into
@@ -53,7 +85,7 @@ window.onerror = function(message) {
             :id "mvt-tracking-pixel"
             :style "border:0"
             :alt ""}]
-     (CompactSiteFooter (:app/config context) page)))])
+     (CompactSiteFooter page)))])
 
 (defn prepare-header-links [locale get-current-url]
   (let [current-url (get-current-url locale)]
