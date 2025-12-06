@@ -285,19 +285,20 @@
            [{:text id} {:text (food/humanize-langual-classification description)}])})
 
 (defn ^{:indent 1} render-popover [id & content]
-  [:div {:class (mtds/classes :card :popover :prose)
+  [:div {:class (mtds/classes :card :popover)
          :data-size "sm"
          :popover "auto"
          :id id
          :style {:max-width "30rem"}}
+   [:div {:class (mtds/classes :prose)}
+    content]
    [:button {:class (mtds/classes :button)
              :popovertargetaction "hide"
              :data-size "sm"
              :style {:position "absolute"
                      :top "0.5rem"
                      :right "0.5rem"}}
-    (icons/render :phosphor.regular/x {:style {:width "1rem" :height "1rem"}})]
-   content])
+    (icons/render :phosphor.regular/x {:style {:width "1rem" :height "1rem"}})]])
 
 (defn render-sources [page sources]
   (mapv
