@@ -5,8 +5,7 @@
             [matvaretabellen.ui.dom :as dom]
             [matvaretabellen.ui.food :as food]
             [matvaretabellen.ui.table :as table]
-            [matvaretabellen.ui.tabs :as tabs]
-            [matvaretabellen.ui.toggler :as toggler]))
+            [matvaretabellen.ui.tabs :as tabs]))
 
 (defn with-short-names [foods]
   (map (fn [food name]
@@ -131,10 +130,6 @@
       (initialize-share-button share-button url))))
 
 (defn init-columnwise-comparison [foods table]
-  ;; Highlight notably different cells first, so the template will be aptly
-  ;; highlighted
-  ;; (highlight-notable-differences table (get-notably-different-nutrients foods))
-  ;; Highlights where not well understood by the designers, so disabled for now.
   (doseq [row (dom/qsa table ".mvtc-comparison")]
     ;; Add placeholder columns for all foods
     (let [template (.-lastChild row)]
