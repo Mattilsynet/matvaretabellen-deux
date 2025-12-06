@@ -5,5 +5,5 @@
   [:nav {:class (mtds/classes :breadcrumbs) :aria-label "Du er her:" :data-size "sm"}
    [:ol
     (for [{:keys [text url]} links]
-     [:li
-      [:a {:href url} text]])]])
+      [:li
+       [:a {:href url} text]])]])

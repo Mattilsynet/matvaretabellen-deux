@@ -121,7 +121,7 @@
   :classification-intro
   ("Matvarene i Matvaretabellen beskrives ved hjelp
   av et klassifiseringssystem som heter " [:a {:href [:fn/get :langual-url]} "LanguaL"]
-        ". LanguaL står for “" [:strong "Langua aL"] "imentaria” eller “language of
+   ". LanguaL står for “" [:strong "Langua aL"] "imentaria” eller “language of
   food”. Språket gjør det mulig å gi standardiserte beskrivelser av matvarene.")
   :compare-food "Sammenlign"
   :composition "Sammensetning"

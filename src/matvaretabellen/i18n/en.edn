@@ -121,7 +121,7 @@
   :classification-intro
   ("The foods in Matvaretabellen are described using a classification
   system called " [:a {:href [:fn/get :langual-url]} "LanguaL"]
-        ". LanguaL stands for \"" [:strong "Langua aL"] "imentaria\" or \"language of
+   ". LanguaL stands for \"" [:strong "Langua aL"] "imentaria\" or \"language of
    food\". This language enables standardized descriptions of foods.")
   :compare-food "Compare"
   :composition "Composition"

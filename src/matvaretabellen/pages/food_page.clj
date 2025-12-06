@@ -572,8 +572,8 @@
            (render-energy-chart food ["Fett" "Karbo" "Protein" "Fiber" "Alko"])]
           [:ul.chart-legend {:class (mtds/classes :grid) :data-gap "1" :data-size "md" :data-self "100"}
            (for [entry slice-legend]
-             [:li {:style {:--color (:color entry)}} [:i18n :i18n/lookup
-                   (:nutrient/name (d/entity db [:nutrient/id (:nutrient-id entry)]))]])]]
+             [:li {:style {:--color (:color entry)}}
+              [:i18n :i18n/lookup (:nutrient/name (d/entity db [:nutrient/id (:nutrient-id entry)]))]])]]
 
          [:div {:class (mtds/classes :flex) :data-justify "space-between" :data-align "end" :data-size "md"}
           [:ul {:class (mtds/classes :grid) :data-gap "0"}

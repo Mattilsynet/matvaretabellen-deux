@@ -30,7 +30,7 @@
     (icons/render :phosphor.regular/export)
     [:i18n ::share-comparison]]
    [:div#share-receipt {:class (mtds/classes :popover)
-          :popover ""}
+                        :popover ""}
     [:i18n ::url-copied]]))
 
 (defn render-top-banner [locale _context]

@@ -1,6 +1,6 @@
 (ns matvaretabellen.ui.toc
-  (:require [phosphor.icons :as icons]
-            [mattilsynet.design :as mtds]))
+  (:require [mattilsynet.design :as mtds]
+            [phosphor.icons :as icons]))
 
 (defn Toc [{:keys [title icon contents class]}]
   [:div {:class (mtds/classes :grid class)}

@@ -1,7 +1,7 @@
 (ns matvaretabellen.ui.comparison
-  (:require [matvaretabellen.urls :as urls]
-            [phosphor.icons :as icons]
-            [mattilsynet.design :as mtds]))
+  (:require [mattilsynet.design :as mtds]
+            [matvaretabellen.urls :as urls]
+            [phosphor.icons :as icons]))
 
 (defn render-comparison-drawer [locale]
   [:dialog.mvtc-drawer.drawer {:class (mtds/classes :dialog) :data-size "md" :data-modal "false"}
@@ -18,10 +18,10 @@
           :href (urls/get-comparison-url locale)}
       [:i18n ::compare-now]
       (icons/render :phosphor.regular/arrow-right)]]
-   [:div.mvtc-suggestions {:class (mtds/classes :grid) :data-size "sm" :data-gap "1"}
-    [:strong [:i18n ::suggestions]]
-    [:ul {:class (mtds/classes :flex)}
-     [:li [:a]]]]]])
+    [:div.mvtc-suggestions {:class (mtds/classes :grid) :data-size "sm" :data-gap "1"}
+     [:strong [:i18n ::suggestions]]
+     [:ul {:class (mtds/classes :flex)}
+      [:li [:a]]]]]])
 
 (defn render-toggle-button [food locale]
   [:button {:class (mtds/classes :button :mvt-compare-food)
