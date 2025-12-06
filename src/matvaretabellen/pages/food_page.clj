@@ -465,21 +465,22 @@
    (render-foodex2-term (:foodex2/term aspect))])
 
 (defn render-foodex2-facets [locale food]
-  (render-table
-   {:headers [{:text [:i18n ::foodex2-facets-th]
-               :style {:width "12rem"}}
-              {:text ""}]
-    :rows
-    (->> food :foodex2/classification :foodex2/aspects
-         (group-by (comp (juxt :foodex2.facet/id :foodex2.facet/name) :foodex2/facet))
-         (sort-by first)
-         (map (fn [[facet-info aspects]]
-                [{:style {:width "12rem"}
-                  :text
-                  (->> facet-info
-                       (remove nil?)
-                       (interpose " "))}
-                 {:text (interpose ", " (map (partial render-foodex2-aspect locale) aspects))}])))}))
+  (when-let [facets (->> food :foodex2/classification :foodex2/aspects seq)]
+    (render-table
+     {:headers [{:text [:i18n ::foodex2-facets-th]
+                 :style {:width "12rem"}}
+                {:text ""}]
+      :rows
+      (->> facets
+           (group-by (comp (juxt :foodex2.facet/id :foodex2.facet/name) :foodex2/facet))
+           (sort-by first)
+           (map (fn [[facet-info aspects]]
+                  [{:style {:width "12rem"}
+                    :text
+                    (->> facet-info
+                         (remove nil?)
+                         (interpose " "))}
+                   {:text (interpose ", " (map (partial render-foodex2-aspect locale) aspects))}])))})))
 
 (defn render-foodex2-classification [locale food]
   [:div {:class (mtds/classes :grid)
@@ -622,7 +623,8 @@
        [:div {:class (mtds/classes :grid)
               :data-gap "6"
               :data-center "xl"}
-        [:div {:class (mtds/classes :prose)}
+        [:div {:class (mtds/classes :grid)
+               :data-gap "0"}
          [:h3#klassifisering {:class (mtds/classes :heading)
                               :data-size "lg"}
           [:i18n ::classification-title]]
