@@ -43,8 +43,8 @@
 
              :powerpack/build-dir "docker/build"
              :powerpack/content-dir "resources/content"
-             :powerpack/source-dirs ["src" "ui/src" "dev"]
-             :powerpack/resource-dirs ["resources" "ui/resources"]
+             :powerpack/source-dirs ["src" "dev"]
+             :powerpack/resource-dirs ["resources"]
              :powerpack/port 5053
              :powerpack/log-level :debug
              :powerpack/create-ingest-tx #'ingest/create-tx
