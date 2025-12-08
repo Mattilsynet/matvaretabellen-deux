@@ -35,7 +35,7 @@
       [:h1 {:class (mtds/classes :heading) :data-size "md"} [:i18n :i18n/search-label]]
       (SearchInput
        {:button {:text [:i18n :i18n/search-button]}
-        :input {:name "q"}
+        :input {:name "q" :autocomplete "off"}
         :class :mvt-filter-search})
       [:div {:class (mtds/classes :flex) :data-size "sm"}
        (client-table/render-food-groups-toggle)

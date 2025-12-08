@@ -13,15 +13,16 @@
     [:u-combobox
      {:data-creatable ""}
      [:input (assoc input :type "search" :class (mtds/classes :input))]
-     [:u-datalist
-      {:data-nofilter ""}
-      [:u-option {:value ""} default-value]
-      (for [result results]
-        [:u-option
-         (when (:selected? result)
-           {:aria-selected "true"})
-         [:a {:href (:href result)}
-          (:text result)]])]]]
+     (when default-value
+       [:u-datalist
+        {:data-nofilter ""}
+        [:u-option {:value ""} default-value]
+        (for [result results]
+          [:u-option
+           (when (:selected? result)
+             {:aria-selected "true"})
+           [:a {:href (:href result)}
+            (:text result)]])])]]
    [:button {:class (mtds/classes :button)
              :type "submit"
              :data-fixed ""

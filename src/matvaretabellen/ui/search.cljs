@@ -121,12 +121,18 @@
                    "</u-option>"]))))))))
 
 (defn handle-autocomplete-submit-event [e]
-  (when-let [q-or-url (some-> e .-detail .-value)]
+  (when-let [option (some-> e .-target (.closest "u-option"))]
     (.preventDefault e)
-    (if (= q-or-url (.-value (.-control (.-currentTarget e))))
-      ;;(.submit (.-form (.-control (.-currentTarget e))))
-      (some-> (.-currentTarget e) .-control (.closest "form") .submit)
-      (set! js/window.location q-or-url))))
+    (if (or (.-metaKey e) (.-ctrlKey e))
+      (js/window.open (.-value option))
+      (set! js/window.location (.-value option)))))
+
+(defn handle-autocomplete-keydown-event [e]
+  (when (= "Enter" (.-key e))
+    (let [input (.-target e)
+          form (.closest input "form")]
+      (set! js/window.location
+            (str (.-action form) "?" (.-name input) "=" (js/encodeURIComponent (.-value input)))))))
 
 (defn initialize-foods-autocomplete [dom-element locale initial-query]
   (when-let [combobox (dom/qs dom-element "u-combobox")]
@@ -136,7 +142,8 @@
     (when (and initial-query (some-> (.-control combobox) .-value empty?))
       (set! (.-value (.-control combobox)) initial-query))
 
-    (.addEventListener combobox "comboboxbeforeselect" #(handle-autocomplete-submit-event %))))
+    (.addEventListener combobox "click" #(handle-autocomplete-submit-event %))
+    (.addEventListener (.-control combobox) "keydown" #(handle-autocomplete-keydown-event %))))
 
 (comment
   (reset! search-engine {:index-status :pending
