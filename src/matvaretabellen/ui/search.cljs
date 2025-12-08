@@ -100,10 +100,10 @@
                                       (remove-watch search-engine id)))))
     (f)))
 
-(defn handle-autocomplete-input-event [e locale empty-html]
-  (let [q (.-value (.-control (.-currentTarget e)))
-        n (or (some-> (.-currentTarget e) (.getAttribute "data-suggestions") js/parseInt) 10)
-        datalist (.-list (.-currentTarget e))]
+(defn perform-autocomplete [combobox locale empty-html]
+  (let [q (.-value (.-control combobox))
+        n (or (some-> combobox (.getAttribute "data-suggestions") js/parseInt) 10)
+        datalist (.-list combobox)]
     (if (< (.-length q) 2)
       (set! (.-innerHTML datalist) empty-html)
       (if (waiting?)
@@ -111,7 +111,7 @@
             (add-watch search-engine ::waiting-for-load
                        #(when-not (waiting?)
                           (remove-watch search-engine ::waiting-for-load)
-                          (handle-autocomplete-input-event e locale empty-html))))
+                          (perform-autocomplete combobox locale empty-html))))
         (set! (.-innerHTML datalist)
               (str/join
                (flatten
@@ -119,6 +119,9 @@
                   ["<u-option value='" url "'>"
                    text
                    "</u-option>"]))))))))
+
+(defn handle-autocomplete-input-event [e locale empty-html]
+  (perform-autocomplete (.-currentTarget e) locale empty-html))
 
 (defn handle-autocomplete-submit-event [e]
   (when-let [option (some-> e .-target (.closest "u-option"))]
@@ -137,10 +140,12 @@
 (defn initialize-foods-autocomplete [dom-element locale initial-query]
   (when-let [combobox (dom/qs dom-element "u-combobox")]
     (let [empty-html (.-innerHTML (.-list combobox))]
-      (.addEventListener combobox "input" #(handle-autocomplete-input-event % locale empty-html)))
+      (.addEventListener combobox "input" #(handle-autocomplete-input-event % locale empty-html))
 
-    (when (and initial-query (some-> (.-control combobox) .-value empty?))
-      (set! (.-value (.-control combobox)) initial-query))
+      (when (and initial-query (some-> (.-control combobox) .-value empty?))
+        (set! (.-value (.-control combobox)) initial-query)
+        (perform-autocomplete combobox locale empty-html)
+        (js/setTimeout #(.focus (.-control combobox)) 200)))
 
     (.addEventListener combobox "click" #(handle-autocomplete-submit-event %))
     (.addEventListener (.-control combobox) "keydown" #(handle-autocomplete-keydown-event %))))
