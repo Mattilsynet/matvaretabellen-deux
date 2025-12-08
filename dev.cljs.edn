@@ -1,5 +1,5 @@
-^{:watch-dirs ["src" "ui/src"]
-  :css-dirs ["ui/resources/public/css"]}
+^{:watch-dirs ["src"]
+  :css-dirs ["resources/public/css"]}
 {:main matvaretabellen.ui.main
  :optimizations :none
  :pretty-print true

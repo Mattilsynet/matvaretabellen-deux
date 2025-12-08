@@ -482,16 +482,6 @@
                          (interpose " "))}
                    {:text (interpose ", " (map (partial render-foodex2-aspect locale) aspects))}])))})))
 
-(defn render-foodex2-classification [locale food]
-  [:div {:class (mtds/classes :grid)
-         :data-gap "6"}
-   [:div {:class (mtds/classes :grid)
-          :data-gap "2"}
-    [:h4#foodex2 "FoodEx2: "
-     [:a {:href (urls/get-foodex-term-url locale (-> food :foodex2/classification :foodex2/term))}
-      (render-foodex2-term (-> food :foodex2/classification :foodex2/term))]]]
-   (render-foodex2-facets locale food)])
-
 (comment
   (do
     (def banankake (d/entity matvaretabellen.dev/foods-db [:food/id "05.448"]))
@@ -621,26 +611,31 @@
              (map #(render-table (assoc % :id "sporstoffer")))))
 
        [:div {:class (mtds/classes :grid)
-              :data-gap "6"
               :data-center "xl"}
-        [:div {:class (mtds/classes :grid)
-               :data-gap "0"}
+        [:div {:class (mtds/classes :prose)}
          [:h3#klassifisering {:class (mtds/classes :heading)
                               :data-size "lg"}
           [:i18n ::classification-title]]
-         [:p [:i18n ::food-id {:id (:food/id food)}]]
-         (when-let [latin-name (not-empty (:food/latin-name food))]
-           [:p [:i18n ::scientific-name {:name latin-name}]])]
-        (render-foodex2-classification locale food)
-        (when-let [langual-codes (seq (food/get-langual-codes food))]
-          [:div {:class (mtds/classes :grid)
-                 :data-gap "2"}
-           [:h4 "LanguaL"]
-           [:p [:i18n ::classification-intro
-                {:langual-url "https://www.langual.org/"}]]
-           (->> langual-codes
-                prepare-langual-table
-                render-table)])]
+         [:div {:class (mtds/classes :grid)
+                :data-gap "0"}
+          [:p [:i18n ::food-id {:id (:food/id food)}]]
+          (when-let [latin-name (not-empty (:food/latin-name food))]
+            [:p [:i18n ::scientific-name {:name latin-name}]])]
+         (list
+          [:h4#foodex2 {:class (mtds/classes :heading)
+                        :data-size "xs"} "FoodEx2: "
+           [:a {:href (urls/get-foodex-term-url locale (-> food :foodex2/classification :foodex2/term))}
+            (render-foodex2-term (-> food :foodex2/classification :foodex2/term))]]
+          (render-foodex2-facets locale food))
+         (when-let [langual-codes (seq (food/get-langual-codes food))]
+           (list
+            [:h4 {:class (mtds/classes :heading)
+                  :data-size "xs"} "LanguaL"]
+            [:p [:i18n ::classification-intro
+                 {:langual-url "https://www.langual.org/"}]]
+            (->> langual-codes
+                 prepare-langual-table
+                 render-table)))]]
 
        [:div
         (->> (food/get-sources food)

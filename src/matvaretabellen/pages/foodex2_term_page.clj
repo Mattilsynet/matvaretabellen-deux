@@ -43,12 +43,14 @@
           [:p {:data-size "lg"} (:foodex2.term/note term)]]]]
 
        [:div {:class (mtds/classes :grid)
-              :data-center "xl"}
+              :data-center "xl"
+              :data-gap "8"}
 
         ;; Foods classified as this
         (when-let [foods (some->> (seq (foodex2/term->classified term))
                                   (sort-by (comp :en :food/name)))]
-          [:div {:class (mtds/classes :card)}
+          [:div {:class (mtds/classes :card :prose)
+                 :data-pad "8"}
            [:h2 [:i18n ::classified-as term]]
            [:ul
             (->> foods
@@ -59,14 +61,16 @@
         (for [[facet foods] (->> (foodex2/term->aspected term)
                                  (sort-by (comp (juxt :foodex2.facet/id :foodex2.facet/name)
                                                 first)))]
-          [:div {:class (mtds/classes :card)}
+          [:div {:class (mtds/classes :card :prose)
+                 :data-pad "8"}
            [:h2 (render-facet facet)]
            [:ul
             (for [food (sort-by (comp (:page/locale page) :food/name) foods)]
               [:li (render-food-link locale food)])]])
 
         (when (seq (:foodex2.term/note-links term))
-          [:div {:class (mtds/classes :card)}
+          [:div {:class (mtds/classes :card :prose)
+                 :data-pad "8"}
            [:h2 [:i18n ::references]]
            [:ul
             (->> (:foodex2.term/note-links term)

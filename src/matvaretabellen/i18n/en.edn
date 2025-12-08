@@ -56,20 +56,6 @@
   :unknown "Type not known"
   :weighted "Weighted"}
 
- #:mmm.components.footer
- {:about-mattilsynet "About Mattilsynet"
-  :about-us "About Us"
-  :accessibility-statement "Accessibility Statement (uustatus.no)"
-  :api-text "Food composition table API"
-  :footer-title "Footer"
-  :job-openings "Job Openings"
-  :mattilsynet-web [:a {:href "https://mattilsynet.no"} "mattilsynet.no"]
-  :newsletter "Newsletter"
-  :open-data "Open Data (API)"
-  :privacy-and-cookies "Privacy Policy and Cookies"
-  :report-to-us "Report to Us"
-  :shortcuts-title "Shortcuts"}
-
  #:matvaretabellen.ui.comparison
  {:compare-foods "Compare foods"
   :compare-now "Compare now"
@@ -92,11 +78,23 @@
  {:food-group [:fn/str "{{:food-group}} ({{:n}})"]}
 
  #:matvaretabellen.layout
- {:close-sidebar "Close"
+ {:about-mattilsynet "About Mattilsynet"
+  :about-us "About Us"
+  :accessibility-statement "Accessibility Statement (uustatus.no)"
+  :api-text "Food composition table API"
+  :close-sidebar "Close"
   :download "Download"
   :filter "Filter"
   :food-groups "Food groups"
-  :nutrients "Nutrients"}
+  :footer-title "Footer"
+  :job-openings "Job Openings"
+  :mattilsynet-web [:a {:href "https://mattilsynet.no"} "mattilsynet.no"]
+  :newsletter "Newsletter"
+  :nutrients "Nutrients"
+  :open-data "Open Data (API)"
+  :privacy-and-cookies "Privacy Policy and Cookies"
+  :report-to-us "Report to Us"
+  :shortcuts-title "Shortcuts"}
 
  #:matvaretabellen.pages.comparison-page
  {:and "and"

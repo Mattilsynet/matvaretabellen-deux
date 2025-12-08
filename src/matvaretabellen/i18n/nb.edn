@@ -56,20 +56,6 @@
   :unknown "Ukjent verditype"
   :weighted "Vektet verdi"}
 
- #:mmm.components.footer
- {:about-mattilsynet "Kontakt"
-  :about-us "Om oss"
-  :accessibility-statement "Tilgjengelegheitserklæring (uustatus.no)"
-  :api-text "Matvaretabellens API"
-  :footer-title "Footer"
-  :job-openings "Ledige stillinger"
-  :mattilsynet-web [:a {:href "https://mattilsynet.no"} "mattilsynet.no"]
-  :newsletter "Nyhetsbrev"
-  :open-data "Åpne data (API)"
-  :privacy-and-cookies "Personvernerklæring og informasjonskapsler"
-  :report-to-us "Varsle oss"
-  :shortcuts-title "Snarveier"}
-
  #:matvaretabellen.ui.comparison
  {:compare-foods "Sammenlign matvarer"
   :compare-now "Sammenlign nå"
@@ -92,11 +78,23 @@
  {:food-group [:fn/str "{{:food-group}} ({{:n}})"]}
 
  #:matvaretabellen.layout
- {:close-sidebar "Lukk"
+ {:about-mattilsynet "Kontakt"
+  :about-us "Om oss"
+  :accessibility-statement "Tilgjengelegheitserklæring (uustatus.no)"
+  :api-text "Matvaretabellens API"
+  :close-sidebar "Lukk"
   :download "Nedlasting"
   :filter "Filter"
   :food-groups "Matvaregrupper"
-  :nutrients "Næringsstoffer"}
+  :footer-title "Footer"
+  :job-openings "Ledige stillinger"
+  :mattilsynet-web [:a {:href "https://mattilsynet.no"} "mattilsynet.no"]
+  :newsletter "Nyhetsbrev"
+  :nutrients "Næringsstoffer"
+  :open-data "Åpne data (API)"
+  :privacy-and-cookies "Personvernerklæring og informasjonskapsler"
+  :report-to-us "Varsle oss"
+  :shortcuts-title "Snarveier"}
 
  #:matvaretabellen.pages.comparison-page
  {:and "og"
