@@ -145,4 +145,5 @@ window.onerror = function(message) {
                :data-suggestions "8"
                :placeholder [:i18n :i18n/search-label]}
        :autocomplete-id "foods-results"
+       :default-value [:i18n :i18n/search-default-value]
        :size :small})]]])
