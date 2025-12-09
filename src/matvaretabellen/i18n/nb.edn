@@ -200,7 +200,7 @@
 
  #:matvaretabellen.pages.nutrients-page
  {:all-nutrients "Næringsstoffer"
-  :prose "I Matvaretabellen finnes det 9 ulike kategorier av næringsstoffer. Næringsstoffer er kjemiske forbindelser og byggeklossene i matvarene som tilfører energi og/eller næring."}
+  :prose "Næringsstoffer er kjemiske forbindelser og byggeklossene i matvarene som tilfører energi og/eller næring."}
 
  #:matvaretabellen.pages.nutrient-page
  {:amount "Mengde"
