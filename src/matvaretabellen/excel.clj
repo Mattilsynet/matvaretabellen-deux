@@ -3,6 +3,7 @@
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.food-group :as food-group]
+            [matvaretabellen.foodex2 :as foodex2]
             [matvaretabellen.misc :as misc]
             [matvaretabellen.nutrient :as nutrient])
   (:import (java.io ByteArrayOutputStream FileOutputStream)
@@ -88,13 +89,16 @@
    (d/entity db [:nutrient/id "Alko"])])
 
 (defn get-all-food-fields [db locale]
-  (->> (nutrient/get-used-nutrients db)
-       (remove (comp empty? :nutrient/unit))
-       (nutrient/sort-by-preference)
-       (into [{:title "Matvare ID" :path [:food/id]}
-              {:title "Matvare" :path [:food/name locale]}
-              {:title "Kilojoule (kJ)" :path [:food/energy :measurement/quantity]}
-              {:title "Kilokalorier (kcal)" :path [:food/calories :measurement/observation]}])))
+  (conj (->> (nutrient/get-used-nutrients db)
+             (remove (comp empty? :nutrient/unit))
+             (nutrient/sort-by-preference)
+             (into [{:title "Matvare ID" :path [:food/id]}
+                    {:title "Matvare" :path [:food/name locale]}
+                    {:title "Kilojoule (kJ)" :path [:food/energy :measurement/quantity]}
+                    {:title "Kilokalorier (kcal)" :path [:food/calories :measurement/observation]}]))
+        {:title "FoodEx2-klassifisering"
+         :path [:foodex2/classification]
+         :f foodex2/make-classifier}))
 
 (defn get-constituent [food nutrient-id]
   (some->> (:food/constituents food)
@@ -131,15 +135,17 @@
 
 (defn prepare-food-cells [fields food]
   (for [{:keys [path measurement] :as f} fields]
-    {:text (str (cond
-                  path (get-scalar-at-path food path)
-                  measurement (get-measurement-number
-                               (get-in food (:path measurement))
-                               (:field measurement)
-                               (:decimal-precision measurement))
-                  (:nutrient/id f) (get-measurement-number
-                                    (get-constituent food (:nutrient/id f))
-                                    :measurement/quantity)))}))
+    (let [convert-f (:f f)]
+      {:text (str (cond
+                    path (cond-> (get-scalar-at-path food path)
+                           convert-f convert-f)
+                    measurement (get-measurement-number
+                                 (get-in food (:path measurement))
+                                 (:field measurement)
+                                 (:decimal-precision measurement))
+                    (:nutrient/id f) (get-measurement-number
+                                      (get-constituent food (:nutrient/id f))
+                                      :measurement/quantity)))})))
 
 (defn prepare-reference-cells [fields food]
   (for [{:keys [path measurement] :as f} fields]
