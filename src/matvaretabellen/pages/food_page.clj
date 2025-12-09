@@ -611,8 +611,7 @@
              (prepare-nutrient-tables (:app/db context) {:locale locale})
              (map #(render-table (assoc % :id "sporstoffer")))))
 
-       [:div {:class (mtds/classes :grid)
-              :data-center "xl"}
+       (passepartout
         [:div {:class (mtds/classes :prose)}
          [:h3#klassifisering {:class (mtds/classes :heading)
                               :data-size "lg"}
@@ -636,7 +635,7 @@
                  {:langual-url "https://www.langual.org/"}]]
             (->> langual-codes
                  prepare-langual-table
-                 render-table)))]]
+                 render-table)))])
 
        [:div
         (->> (food/get-sources food)
