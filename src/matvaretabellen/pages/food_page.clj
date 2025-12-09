@@ -568,8 +568,9 @@
          [:div {:class (mtds/classes :flex) :data-justify "space-between" :data-align "end" :data-size "md"}
           [:ul {:class (mtds/classes :grid) :data-gap "0"}
            [:li energy-label ": " (energy food)]
-           [:li [:i18n ::edible-part
-                 {:pct (-> food :food/edible-part :measurement/percent)}]]]]
+           (when-let [edible-part (-> food :food/edible-part :measurement/percent)]
+             [:li [:i18n ::edible-part
+                   {:pct edible-part}]])]]
          (render-table (prepare-nutrition-table (:app/db context) locale food))]]
 
        (passepartout
