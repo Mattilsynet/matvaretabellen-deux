@@ -58,9 +58,7 @@ window.onerror = function(message) {
                     {:url "https://www.mattilsynet.no/"
                      :text "mattilsynet.no"}]}
            {:title [:i18n ::about-mattilsynet]
-            :items [{:url "https://www.mattilsynet.no/varsle"
-                     :text [:i18n ::report-to-us]}
-                    {:url "mailto:matvaretabellen@mattilsynet.no"
+            :items [{:url "mailto:matvaretabellen@mattilsynet.no"
                      :text "matvaretabellen@mattilsynet.no"}]}]}))
 
 (defn layout [context page head body]
