@@ -210,7 +210,7 @@
         nutrients (get-top-level-nutrients foods-db)
         has-children? (comp boolean seq :nutrient/_parent)
         by-children (group-by has-children? nutrients)]
-    (conj (map #(assoc (->filter-option selectable? %) :class :mmm-h6) (get by-children true))
+    (conj (map #(->filter-option selectable? %) (get by-children true))
           (let [nutrients (get by-children false)]
             {:sort-id (:nutrient/id (first nutrients))
              :options (->> (sort-by-preference nutrients)
@@ -249,4 +249,4 @@
   (def conn matvaretabellen.dev/conn)
   (get-nutrient-statistics (d/db conn) matvaretabellen.statistics/get-median)
 
-)
+  )

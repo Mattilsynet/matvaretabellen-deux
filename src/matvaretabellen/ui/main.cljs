@@ -8,12 +8,10 @@
             [matvaretabellen.ui.search :as search-ui]
             [matvaretabellen.ui.sidebar :as sidebar]
             [matvaretabellen.ui.sortable-table :as sortable-table]
-            [matvaretabellen.ui.sources :as sources]
             [matvaretabellen.ui.table :as table]
             [matvaretabellen.ui.tabs :as tabs]
             [matvaretabellen.ui.toggler :as toggler]
             [matvaretabellen.ui.tracking :as tracking]
-            [matvaretabellen.ui.user-background :as user-background]
             [matvaretabellen.urls :as urls]))
 
 (defn ^:after-load main []
@@ -49,20 +47,24 @@
    k (urls/get-api-rda-json-url locale) f
    {:process-raw-data #(map-json-by "id" (aget % "profiles"))}))
 
-(defn choose-font []
-  (when-let [font (second (re-find #"font=(.*)" js/location.search))]
-    (dom/set-local-json "font" font))
-  (case (dom/get-local-json "font")
-    "figtree" (.add (.-classList js/document.body) "figtree")
-    "albert" (.add (.-classList js/document.body) "albert")
-    nil))
+(defn duplicate-source-popovers [buttons]
+  (doall
+   (map-indexed
+    (fn [idx button]
+      (let [clone (.cloneNode (dom/qs (str "#" (dom/get-attr button "popovertarget"))) true)
+            id (str (.-id clone) "-" idx)]
+        (set! (.-id clone) id)
+        (js/document.body.appendChild clone)
+        (dom/set-attr button "popovertarget" id)))
+    buttons)))
 
 (defn boot []
   (main)
-  (choose-font)
   (let [locale (keyword js/document.documentElement.lang)
         event-bus (atom nil)]
     (tracking/track-page-view)
+
+    (duplicate-source-popovers (dom/qsa ".mvt-source-popover"))
 
     (search-ui/initialize-foods-autocomplete
      (dom/qs ".mvt-autocomplete")
@@ -75,8 +77,6 @@
      (js/document.querySelectorAll "[data-portion]")
      (js/document.querySelectorAll ".js-portion-label")
      event-bus)
-
-    (sources/initialize-source-toggler ".mvt-source-toggler")
 
     (comparison/initialize-tooling ".mvt-compare-food" ".mvtc-drawer")
 
@@ -115,7 +115,6 @@
 
   (toggler/init)
   (tabs/init)
-  (hoverable/set-up js/document)
-  (user-background/probe))
+  (hoverable/set-up js/document))
 
 (defonce ^:export kicking-out-the-jams (boot))
