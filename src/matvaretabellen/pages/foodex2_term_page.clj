@@ -66,16 +66,7 @@
            [:h2 (render-facet facet)]
            [:ul
             (for [food (sort-by (comp (:page/locale page) :food/name) foods)]
-              [:li (render-food-link locale food)])]])
-
-        (when (seq (:foodex2.term/note-links term))
-          [:div {:class (mtds/classes :card :prose)
-                 :data-pad "8"}
-           [:h2 [:i18n ::references]]
-           [:ul
-            (->> (:foodex2.term/note-links term)
-                 (map (fn [link]
-                        [:li [:a {:href link} link]])))]])]]])))
+              [:li (render-food-link locale food)])]])]]])))
 
 (comment
   (do
