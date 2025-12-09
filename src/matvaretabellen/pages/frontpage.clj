@@ -102,7 +102,10 @@
                    (map #(d/entity app-db %)
                         (d/q '[:find [?e ...] :where [?e :trivia/food-id]]
                              app-db))))
-       [:div {:class (mtds/classes :grid) :data-center "xl" :data-items "300"}
+       [:div {:class (mtds/classes :grid)
+              :data-center "xl"
+              :data-items "300"
+              :data-align "start"}
         (let [new-foods (:new-foods (:page/details page))]
           (Toc {:title (list [:i18n ::new-in-food-table] " " (:year new-foods))
                 :contents (->> (:food-ids new-foods)
