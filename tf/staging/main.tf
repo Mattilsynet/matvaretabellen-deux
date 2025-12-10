@@ -1,6 +1,6 @@
 locals {
   service_name = "matvaretabellen-next"
-  fqdn = "matvaretabellen2026.mattilsynet.io"
+  fqdn = "2026.matvaretabellen.mattilsynet.io"
 }
 
 module "matvaretabellen-ui" {
@@ -28,7 +28,7 @@ module "matvaretabellen-ui" {
   ingress = "internal-and-cloud-load-balancing"
 
   dedicated_lb = {
-    managed_zone_name = "mvt-next-dns-zone"
+    managed_zone_name = "matvaretabellen-dns-managed-zone"
     fqdn = local.fqdn
   }
 }
