@@ -27,7 +27,8 @@ window.onerror = function(message) {
                                last)]
     [:svg.mvt-illustration
      {:viewBox view-box
-      :xmlns "http://www.w3.org/2000/svg"}
+      :xmlns "http://www.w3.org/2000/svg"
+      :style {:color "var(--mtds-color-base-default)"}}
      [:use {:xlink:href (str illustration "#illustration")}]]))
 
 (defn Footer [{:keys [cols]}]
