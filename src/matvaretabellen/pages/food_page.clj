@@ -96,7 +96,7 @@
                          "-"
                          (str (if (zero? total)
                                 0
-                                (int (* 100 (/ value total)))) "%"))
+                                (int (* 100 (/ value total)))) " E%"))
                  :class "mvt-amount"
                  :data-justify "end"
                  :data-nowrap ""
