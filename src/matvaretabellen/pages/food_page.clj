@@ -622,12 +622,12 @@
           [:p [:i18n ::food-id {:id (:food/id food)}]]
           (when-let [latin-name (not-empty (:food/latin-name food))]
             [:p [:i18n ::scientific-name {:name latin-name}]])]
-         (list
+         [:div {:class (mtds/classes :prose)}
           [:h4#foodex2 {:class (mtds/classes :heading)
                         :data-size "xs"} "FoodEx2: "
            [:a {:href (urls/get-foodex-term-url locale (-> food :foodex2/classification :foodex2/term))}
             (render-foodex2-term (-> food :foodex2/classification :foodex2/term))]]
-          (render-foodex2-facets locale food))
+          (render-foodex2-facets locale food)]
          (when-let [langual-codes (seq (food/get-langual-codes food))]
            (list
             [:h4 {:class (mtds/classes :heading)
