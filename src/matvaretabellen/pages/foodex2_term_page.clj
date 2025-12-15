@@ -59,6 +59,7 @@
 
         ;; Foods with this aspect
         (for [[facet foods] (->> (foodex2/term->aspected term)
+                                 (remove (comp #{"F27"} :foodex2.facet/id first))
                                  (sort-by (comp (juxt :foodex2.facet/id :foodex2.facet/name)
                                                 first)))]
           [:div {:class (mtds/classes :card :prose)
