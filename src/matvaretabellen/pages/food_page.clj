@@ -175,7 +175,8 @@
                          (when recommendations
                            {:text [:button {:data-popover "inline" :data-tooltip [:i18n ::rda-explanation]}
                                    [:i18n ::rda-pct]]
-                            :style {:width "var(--mtds-30)"}})]
+                            :style {:width "var(--mtds-30)"}
+                            :data-justify "end"})]
                         (remove nil?))
           :rows (for [nutrient nutrients]
                   (->> [{:text (get-nutrient-link db locale nutrient)}
@@ -234,11 +235,13 @@
                    :style {:width "var(--mtds-30)"}}
                   {:text [:i18n ::amount]
                    :class "mvt-amount"
+                   :data-justify "end"
                    :style {:width "var(--mtds-30)"}}
                   (when recommendations
                     {:text [:button {:data-popover "inline" :data-tooltip [:i18n ::rda-explanation]}
                             [:i18n ::rda-pct]]
-                     :style {:width "var(--mtds-30)"}})]
+                     :style {:width "var(--mtds-30)"}
+                     :data-justify "end"})]
                  (remove nil?))
    :rows (mapcat #(get-nutrient-rows food % recommendations db locale) nutrients)})
 
