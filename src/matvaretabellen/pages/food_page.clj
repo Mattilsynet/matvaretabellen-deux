@@ -576,15 +576,13 @@
        (passepartout
         (passepartout-title "karbohydrater" [:i18n ::carbohydrates-title])
         (->> (food/get-nutrient-group food "Karbo")
-             (prepare-nutrient-tables (:app/db context) {:locale locale
-                                                         :show-header-sum? true})
+             (prepare-nutrient-tables (:app/db context) {:locale locale})
              (map render-table)))
 
        (passepartout
         (passepartout-title "fett" [:i18n ::fat-title])
         (->> (food/get-nutrient-group food "Fett")
-             (prepare-nutrient-tables (:app/db context) {:locale locale
-                                                         :show-header-sum? true})
+             (prepare-nutrient-tables (:app/db context) {:locale locale})
              (map render-table)))
 
        (passepartout
