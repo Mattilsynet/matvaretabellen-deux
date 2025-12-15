@@ -415,7 +415,9 @@
    {:title [:i18n ::trace-elements-title]
     :href "#sporstoffer"}
    {:title [:i18n ::classification-title]
-    :href "#klassifisering"}])
+    :href "#klassifisering"}
+   {:title [:i18n ::sources]
+    :href "#kilder"}])
 
 (defn render-toc [{:keys [contents class]}]
   [:aside {:data-size "md"}
@@ -492,6 +494,23 @@
     (def food banankake))
 
   )
+
+(defn render-source-list [page sources]
+  (mapv
+   (fn [{:source/keys [id description] :as source}]
+     (try
+       [:div {:class (mtds/classes :grid)
+              :data-gap "0"}
+        [:h3 {:id id
+              :class (mtds/classes :heading)
+              :data-size "xs"} id]
+        [:p (-> (get description (:page/locale page))
+                food/hyperlink-string)]]
+       (catch Exception _e
+         (throw (ex-info "Failed to render source"
+                         {:source (into {} source)
+                          :uri (:page/uri page)})))))
+   sources))
 
 (defn render [context db page]
   (let [food (d/entity (:foods/db context) [:food/id (:page/food-id page)])
@@ -637,6 +656,12 @@
             (->> langual-codes
                  prepare-langual-table
                  render-table)))])
+
+       (passepartout
+        [:div {:class (mtds/classes :prose)}
+         [:h3#kilder {:class (mtds/classes :heading)} [:i18n ::sources]]
+         (->> (food/get-sources food)
+              (render-source-list page))])
 
        [:div
         (->> (food/get-sources food)
