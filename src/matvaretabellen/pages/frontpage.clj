@@ -105,7 +105,8 @@
        [:div {:class (mtds/classes :grid)
               :data-center "xl"
               :data-items "300"
-              :data-align "start"}
+              :data-align "start"
+              :data-gap "8"}
         (let [new-foods (:new-foods (:page/details page))]
           (Toc {:title (list [:i18n ::new-in-food-table] " " (:year new-foods))
                 :contents (->> (:food-ids new-foods)
