@@ -15,8 +15,7 @@
       (reset! timer (js/setTimeout #(apply f args) timeout)))))
 
 (defn get-column-id [el]
-  (some-> el .-parentNode
-          (.getAttribute "data-filter-id")))
+  (some-> el .-name))
 
 (defn init-column-settings [store filter-panel]
   (let [columns (::columns @store)]

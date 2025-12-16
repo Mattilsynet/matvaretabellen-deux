@@ -80,7 +80,10 @@
        [:li
         [:div {:class (mtds/classes :grid) :data-gap "1"}
          [:div {:class (mtds/classes :field)}
-          [:input {:class (mtds/classes :input) :type "checkbox" :checked (when (:checked? filter-m) "true")}]
+          [:input {:class (mtds/classes :input)
+                   :type "checkbox"
+                   :name (:data-filter-id filter-m)
+                   :checked (when (:checked? filter-m) "true")}]
           [:label (dissoc filter-m :checked? :label)
            (:label filter-m)]]
          [:div {:style {:margin-left "var(--mtds-8)"}}
