@@ -70,18 +70,24 @@
     (.write workbook stream)
     (.toByteArray stream)))
 
+(def kilojoule-measurement
+  {:path [:food/energy]
+   :field :measurement/quantity
+   :decimal-precision 0})
+
+(def kcal-measurement
+  {:path [:food/calories]
+   :field :measurement/observation
+   :decimal-precision 0})
+
 (defn get-basic-food-fields [db locale]
   [{:title "Matvare ID" :path [:food/id]}
    {:title "Matvare" :path [:food/name locale]}
    {:title "Spiselig del (%)" :measurement {:path [:food/edible-part]
                                             :field :measurement/percent}}
    (d/entity db [:nutrient/id "Vann"])
-   {:title "Kilojoule (kJ)" :measurement {:path [:food/energy]
-                                          :field :measurement/quantity
-                                          :decimal-precision 0}}
-   {:title "Kilokalorier (kcal)" :measurement {:path [:food/calories]
-                                               :field :measurement/observation
-                                               :decimal-precision 0}}
+   {:title "Kilojoule (kJ)" :measurement kilojoule-measurement}
+   {:title "Kilokalorier (kcal)" :measurement kcal-measurement}
    (d/entity db [:nutrient/id "Fett"])
    (d/entity db [:nutrient/id "Karbo"])
    (d/entity db [:nutrient/id "Fiber"])
@@ -94,8 +100,10 @@
              (nutrient/sort-by-preference)
              (into [{:title "Matvare ID" :path [:food/id]}
                     {:title "Matvare" :path [:food/name locale]}
-                    {:title "Kilojoule (kJ)" :path [:food/energy :measurement/quantity]}
-                    {:title "Kilokalorier (kcal)" :path [:food/calories :measurement/observation]}]))
+                    {:title "Kilojoule (kJ)"
+                     :measurement kilojoule-measurement}
+                    {:title "Kilokalorier (kcal)"
+                     :measurement kcal-measurement}]))
         {:title "FoodEx2-klassifisering"
          :path [:foodex2/classification]
          :f foodex2/make-classifier}))
