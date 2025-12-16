@@ -40,6 +40,7 @@
     :id "filtered-giant-table"
     :hidden "true"
     :data-page-size 250
+    :data-fixed false
     :rows [{:cols
             (concat
              [{:text [:button {:class (mtds/classes :button :mvt-add-to-list)

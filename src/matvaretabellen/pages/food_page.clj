@@ -246,12 +246,12 @@
    :rows (mapcat #(get-nutrient-rows food % recommendations db locale) nutrients)})
 
 (defn render-table [{:keys [headers rows classes] :as attrs}]
-  [:table (merge {:class (mtds/classes :table classes)
-                  :data-fixed ""
-                  :data-border ""
-                  :data-size "sm"
-                  :data-align "center"}
-                 (dissoc attrs :classes :headers :rows))
+  [:table (merge (cond-> {:class (mtds/classes :table classes)
+                          :data-border ""
+                          :data-size "sm"
+                          :data-align "center"}
+                   (not (false? (:data-fixed attrs))) (assoc :data-fixed ""))
+                 (dissoc attrs :classes :headers :rows :data-fixed))
    (when headers
      [:thead
       (let [row (if (map? headers) headers {:cols headers})]
