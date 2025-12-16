@@ -183,7 +183,7 @@
  #:matvaretabellen.pages.frontpage
  {:all-foods "All foods in table view →"
   :card-about-title "About Matvaretabellen"
-  :card-about-text "Read more about Matvaretabellen and contact us."
+  :card-about-text "Read more about Matvaretabellen"
   :card-table-title "Table view"
   :card-table-text "See all foods in table view"
   :common-food-searches "Common Searches"
