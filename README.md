@@ -1,6 +1,6 @@
 # matvaretabellen.no
 
-2023-utgaven av Matvaretabellen, en løsning som [så dagens
+2026-utgaven av Matvaretabellen, en løsning som [så dagens
 lys](https://www.idunn.no/doi/full/10.18261/ntfe.12.1.4) i form av publikasjonen
 "Norske Næringsmidler" allerede i 1945.
 
@@ -237,6 +237,29 @@ Docker-prosessen også får være med på moroa:
 ```sh
 gcloud auth login
 gcloud auth configure-docker europe-north1-docker.pkg.dev
+```
+
+### Deploye til testmiljøet
+
+Start med å sjekke at det er oppe:
+
+```sh
+cd tf/staging
+terraform init
+terraform apply
+```
+
+Bygg og publiser Docker image:
+
+```sh
+gcloud auth login
+gcloud auth configure-docker europe-north1-docker.pkg.dev
+make docker
+make publish
+gcloud run deploy matvaretabellen-next \
+    --image=europe-north1-docker.pkg.dev/artifacts-352708/mat/matvaretabellen:$(git rev-parse --short=10 HEAD) \
+    --project=matvaretabellen-b327 \
+    --region=europe-north1
 ```
 
 ## Arkitektur

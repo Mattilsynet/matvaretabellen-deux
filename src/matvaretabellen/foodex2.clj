@@ -22,17 +22,18 @@
 (defn make-classifier
   [foodex2]
   (str (-> foodex2 :foodex2/term :foodex2.term/code)
-       "#"
-       (str/join "$" (->> (:foodex2/aspects foodex2)
-                          (map (fn [aspect]
-                                 (str (-> aspect :foodex2/facet :foodex2.facet/id)
-                                      "."
-                                      (-> aspect :foodex2/term :foodex2.term/code))))
-                          ;; It's not clear whether FoodEx2 requires sorted aspects.
-                          ;;
-                          ;; We, however, create sorted aspects.
-                          ;; This gives us string-comparable classifiers.
-                          sort))))
+       (when-let [aspects (seq (:foodex2/aspects foodex2))]
+         (str "#"
+              (str/join "$" (->> aspects
+                                 (map (fn [aspect]
+                                        (str (-> aspect :foodex2/facet :foodex2.facet/id)
+                                             "."
+                                             (-> aspect :foodex2/term :foodex2.term/code))))
+                                 ;; It's not clear whether FoodEx2 requires sorted aspects.
+                                 ;;
+                                 ;; We, however, create sorted aspects.
+                                 ;; This gives us string-comparable classifiers.
+                                 sort))))))
 
 (defn term->classified
   "Foods classified as this term"

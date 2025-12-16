@@ -5,8 +5,7 @@
             [matvaretabellen.ui.dom :as dom]
             [matvaretabellen.ui.food :as food]
             [matvaretabellen.ui.table :as table]
-            [matvaretabellen.ui.tabs :as tabs]
-            [matvaretabellen.ui.toggler :as toggler]))
+            [matvaretabellen.ui.tabs :as tabs]))
 
 (defn with-short-names [foods]
   (map (fn [food name]
@@ -24,12 +23,6 @@
            not-empty
            js/JSON.parse
            (map food/from-js)))
-
-(defn get-abbreviated-name [food]
-  (let [short (:shortName food)]
-    (if (not= (:foodName food) short)
-      (str "<abbr class=\"mmm-abbr\" title=\"" (:foodName food) "\">" short "</abbr>")
-      short)))
 
 (defn set-energy [el food]
   (when-let [kj (.querySelector el ".mvt-kj")]
@@ -51,8 +44,9 @@
 (defn prepare-comparison-el [el food]
   (or
    (when (.contains (.-classList el) "mvtc-food-name")
-     (set! (.-innerHTML el) (str "<a class=\"mmm-link\" href=\"" (:url food) "\">"
-                                 (get-abbreviated-name food)
+     (set! (.-innerHTML el) (str "<a href=\"" (:url food) "\"" (when-not (= (:shortName food) (:foodName food))
+                                                                 (str " data-tooltip=\"" (:foodName food) "\"")) ">"
+                                 (:shortName food)
                                  "</a>")))
 
    (when (.contains (.-classList el) "mvtc-energy")
@@ -97,7 +91,7 @@
                                                           equivalents)
                                                      enumerate)))]
         (set! (.-innerHTML summary) text))
-      (.remove (.-classList summary) "mmm-hidden"))))
+      (dom/show summary))))
 
 (defn food->diffable [food]
   [(:id food) (update-vals (:constituents food) (comp first :quantity))])
@@ -110,13 +104,7 @@
 (defn initialize-share-button [button url]
   (->> (fn [e]
          (.preventDefault e)
-         (js/navigator.clipboard.writeText (str js/window.location.origin url))
-         (when-let [receipt (some-> button
-                                    (.getAttribute "data-receipt")
-                                    dom/qs)]
-           (.remove (.-classList receipt) "mmm-hidden")
-           (.add (.-classList receipt) "mmm-flash")
-           (.removeChild (.-parentNode button) button)))
+         (js/navigator.clipboard.writeText (str js/window.location.origin url)))
        (.addEventListener button "click")))
 
 (defn init-rowwise-comparison [data foods locale table]
@@ -141,34 +129,8 @@
     (doseq [share-button (dom/qsa ".mvtc-share")]
       (initialize-share-button share-button url))))
 
-(defn get-notably-different-nutrients [foods]
-  (let [statistics (some-> (dom/qs ".mvtc-statistics")
-                           .-innerText
-                           js/JSON.parse
-                           js->clj)]
-    (->> (map food->diffable foods)
-         (diff/diff-constituents statistics)
-         (diff/find-notable-diffs 0.5)
-         keys
-         set)))
-
-(defn highlight-notable-differences [table notably-different]
-  (doseq [id notably-different]
-    (doseq [el (dom/qsa table (str "[data-nutrient-id='" id "']"))]
-      (dom/add-class el "mmm-highlight"))))
-
 (defn init-columnwise-comparison [foods table]
-  ;; Highlight notably different cells first, so the template will be aptly
-  ;; highlighted
-  ;; (highlight-notable-differences table (get-notably-different-nutrients foods))
-  ;; Highlights where not well understood by the designers, so disabled for now.
   (doseq [row (dom/qsa table ".mvtc-comparison")]
-    ;; Highlight absolutely compared values (energy numbers)
-    ;; Highlights where not well understood by the designers, so disabled for now.
-    #_(when-let [attr (some-> row (.getAttribute "data-compare-abs") keyword)]
-      (let [ns (sort (map attr foods))]
-        (when (< 1.5 (/ (last ns) (first ns)))
-          (dom/add-class row "mmm-highlight"))))
     ;; Add placeholder columns for all foods
     (let [template (.-lastChild row)]
       (doseq [_ (next foods)]
@@ -205,56 +167,29 @@
 
 (defn update-buttons [foods selector]
   (doseq [button (dom/qsa selector)]
-    (let [selected? (some (comp #{(.getAttribute button "data-food-id")} :id) foods)]
-      (cond
-        (.contains (.-classList button) "mmm-button")
-        (if selected?
-          (.remove (.-classList button) "mmm-button-secondary")
-          (.add (.-classList button) "mmm-button-secondary"))
-
-        (.contains (.-classList button) "mmm-icon-button")
-        (toggler/toggle-icon-button button selected?)))))
+    (when-not (dom/has-attr? button "data-original-variant")
+      (dom/set-attr button "data-original-variant" (dom/get-attr button "data-variant")))
+    (dom/set-attr button "data-variant"
+                  (if (some (comp #{(.getAttribute button "data-food-id")} :id) foods)
+                    "primary"
+                    (dom/get-attr button "data-original-variant")))))
 
 (defn get-pill-template [pills]
   (when-not (aget pills "template")
     (aset pills "template" (.-firstChild pills)))
   (aget pills "template"))
 
-(defn animate-height [el from to & [callback]]
-  (.add (.-classList el) "mmm-init-height-transition")
-  (set! (.-height (.-style el)) from)
-  (js/requestAnimationFrame
-   (fn []
-     (.remove (.-classList el) "mmm-init-height-transition")
-     (.add (.-classList el) "mmm-height-transition")
-     (->> (fn cleanup []
-            (set! (.-height (.-style el)) nil)
-            (.remove (.-classList el) "mmm-height-transition")
-            (when (ifn? callback)
-              (callback))
-            (.removeEventListener el "transitionend" cleanup))
-          (.addEventListener el "transitionend"))
-     (js/requestAnimationFrame #(set! (.-height (.-style el)) to)))))
+(defn open-drawer [^js drawer]
+  (.show drawer))
 
-(defn get-height [el]
-  (.-height (.getBoundingClientRect el)))
-
-(defn open-drawer [drawer {:keys [animate?]}]
-  (when (.contains (.-classList drawer) "mmm-drawer-closed")
-    (.remove (.-classList drawer) "mmm-drawer-closed")
-    (when animate?
-      (animate-height drawer "0" (str (get-height drawer) "px")))))
-
-(defn close-drawer [drawer {:keys [animate?]}]
-  (when-not (.contains (.-classList drawer) "mmm-drawer-closed")
-    (if-not animate?
-      (.add (.-classList drawer) "mmm-drawer-closed")
-      (animate-height drawer (str (get-height drawer) "px") "0" #(.add (.-classList drawer) "mmm-drawer-closed")))))
+(defn close-drawer [^js drawer]
+  (.close drawer))
 
 (defn get-suggestions []
   (for [el (dom/qsa "[data-comparison-suggestion-id]")]
     {:id (.getAttribute el "data-comparison-suggestion-id")
-     :foodName (.getAttribute el "data-comparison-suggestion-name")}))
+     :foodName (.getAttribute el "data-comparison-suggestion-name")
+     :shortName (.-textContent el)}))
 
 (defn update-suggestions [el foods suggestions]
   (if-not (seq suggestions)
@@ -265,24 +200,28 @@
       (set! (.-innerHTML list) "")
       (doseq [suggestion suggestions]
         (let [li (.cloneNode template true)]
-          (set! (.-innerHTML (.-firstChild li)) (:foodName suggestion))
+          (set! (.-innerHTML (.-firstChild li)) (:shortName suggestion))
+          (when-not (= (:shortName suggestion) (:foodName suggestion))
+            (.setAttribute (.-firstChild li) "data-tooltip" (:foodName suggestion)))
           (->> (fn [_e]
                  (->> (conj (get-foods-to-compare) suggestion)
                       (update-food-store foods)))
                (.addEventListener li "click"))
           (.appendChild list li))))))
 
-(defn update-drawer [foods selector opt]
+(defn update-drawer [foods selector]
   (when-let [drawer (js/document.querySelector selector)]
-    (let [pills (.querySelector drawer ".mmm-pills")
+    (let [pills (.querySelector drawer ".mvtc-drawer-foods")
           template (get-pill-template pills)
-          button (.querySelector drawer ".mmm-button")]
+          button (.querySelector drawer ".mvtc-drawer-compare")]
       (set! (.-href button) (str (first (str/split (.-href button) #"\?"))
                                  "?food-ids=" (str/join "," (map :id @foods))))
       (set! (.-innerHTML pills) "")
       (doseq [food @foods]
         (let [pill (.cloneNode template true)]
-          (set! (.-innerHTML (.querySelector pill ".mvtc-food-name")) (get-abbreviated-name food))
+          (set! (.-innerHTML (.querySelector pill ".mvtc-food-name")) (:shortName food))
+          (when-not (= (:shortName food) (:foodName food))
+            (.setAttribute pill "data-tooltip" (:foodName food)))
           (.addEventListener pill "click" (fn [_e]
                                             (->> (get-foods-to-compare)
                                                  (remove #(= (:id food) (:id %)))
@@ -292,17 +231,17 @@
            (remove (comp (set (map :id @foods)) :id))
            (update-suggestions (.querySelector drawer ".mvtc-suggestions") foods))
       (if (< 0 (count @foods))
-        (open-drawer drawer opt)
-        (close-drawer drawer opt)))))
+        (open-drawer drawer)
+        (close-drawer drawer)))))
 
 (defn get-food-data [el]
   (when-let [id (some-> el (.getAttribute "data-food-id"))]
     {:id id
      :foodName (.getAttribute el "data-food-name")}))
 
-(defn update-comparison-uis [foods buttons-selector drawer-selector & [opt]]
+(defn update-comparison-uis [foods buttons-selector drawer-selector]
   (update-buttons @foods buttons-selector)
-  (update-drawer foods drawer-selector opt))
+  (update-drawer foods drawer-selector))
 
 (defn toggle-comparison [foods data]
   (let [updated (if (some (comp #{(:id data)} :id) @foods)
@@ -313,12 +252,12 @@
 (defn initialize-drawer [drawer foods]
   (->> (fn [_e]
          (update-food-store foods nil))
-       (.addEventListener (.querySelector drawer ".mmm-icon-button") "click"))
+       (.addEventListener (.querySelector drawer ".mvtc-drawer-close") "click"))
   (when-let [page-food (get-food-data (dom/qs "#food-data"))]
     (->> (fn [_e]
            (when-not ((set (map :id @foods)) (:id page-food))
              (update-food-store foods (conj @foods page-food))))
-         (.addEventListener (dom/qs drawer ".mmm-button") "click"))))
+         (.addEventListener (dom/qs drawer ".mvtc-drawer-compare") "click"))))
 
 (defn initialize-tooling
   "Initialize the compare button and the comparison drawer on pages that are not
@@ -327,12 +266,12 @@
   (let [foods (atom (get-foods-to-compare))]
     (->> (fn [_ _ _ new-foods]
            (stage-comparisons new-foods)
-           (update-comparison-uis foods buttons-selector drawer-selector {:animate? true}))
+           (update-comparison-uis foods buttons-selector drawer-selector))
          (add-watch foods ::director))
     (some-> (dom/qs drawer-selector) (initialize-drawer foods))
     (update-comparison-uis foods buttons-selector drawer-selector)
     (doseq [button (dom/qsa buttons-selector)]
-      (.remove (.-classList button) "mmm-hidden")
+      (dom/show button)
       (->> (fn [_e]
              (toggle-comparison foods (get-food-data button)))
            (.addEventListener button "click")))))

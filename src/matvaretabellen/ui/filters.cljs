@@ -28,12 +28,12 @@
 (defn get-lists [panel & [ids]]
   (if ids
     (keep #(dom/qs panel (str "ul[data-filter-list-id='" % "']")) ids)
-    (dom/qsa panel (str "ul[data-filter-list-id]"))))
+    (dom/qsa panel "ul[data-filter-list-id]")))
 
 (defn get-checkboxes [panel & [ids]]
   (if ids
     (keep #(dom/qs panel (str "label[data-filter-id='" % "'] input")) ids)
-    (dom/qsa panel (str "label[data-filter-id] input"))))
+    (dom/qsa panel "label[data-filter-id] input")))
 
 (defn get-rows [table ids]
   (mapcat #(dom/qsa table (str "tr[data-id='" % "']")) ids))
@@ -52,12 +52,10 @@
 (defn render-table [table prev next]
   (let [next-active (fd/get-active next)]
     (doall (map dom/show (get-rows table next-active)))
-    (doall (map dom/hide (get-rows table (remove next-active (fd/get-active prev)))))
-    (dom/re-zebra-table table)))
+    (doall (map dom/hide (get-rows table (remove next-active (fd/get-active prev)))))))
 
 (defn get-filter-id [el]
-  (let [label (.closest el "label")]
-    (.getAttribute label "data-filter-id")))
+  (.-value el))
 
 (defn toggle-filter [e store]
   (when (= "checkbox" (some-> e .-target (.getAttribute "type")))

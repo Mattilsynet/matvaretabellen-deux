@@ -185,14 +185,7 @@
              {:label [:i18n :i18n/lookup {:nb "Vitamin E", :en "Vitamin E"}]
               :sort-id "Vit E"
               :data-filter-id "Vit E"
-              :checked? false}]
-            :class :mmm-h6})))
-
-  (testing "Marks top-level selectables with heading-class"
-    (is (= (->> (sut/create-filters (fdb/get-food-data-db [dried-apple]))
-                (filter :data-filter-id)
-                (map :class))
-           [:mmm-h6 :mmm-h6])))
+              :checked? false}]})))
 
   (testing "Prepares filters in balanced columns"
     (is (= (->> (sut/prepare-filters (fdb/get-food-data-db [dried-apple]) {:columns 2})

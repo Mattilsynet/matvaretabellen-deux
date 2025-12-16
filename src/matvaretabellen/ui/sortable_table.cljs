@@ -3,16 +3,12 @@
 
 (defn get-sort-params [^js th]
   {:attribute (.-sortBy (.-dataset th))
-   :current-order (.-sortOrder (.-dataset th))
+   :current-order (dom/get-attr th "aria-sort")
    :type (.-sortType (.-dataset th))})
 
 (def next-order
-  {"asc" "desc"
-   "desc" "asc"})
-
-(def order->icon-selector
-  {"asc" ".mvt-asc"
-   "desc" ".mvt-desc"})
+  {"ascending" "descending"
+   "descending" "ascending"})
 
 (defn sort-rows [rows {:keys [attribute type]} order]
   (let [coerce (if (= "number" type)
@@ -25,16 +21,13 @@
                              coerce)
                      0)])
           (seq rows))
-         (sort-by second (if (= order "asc") < >)))))
+         (sort-by second (if (= order "ascending") < >)))))
 
 (defn sort-table [table th params]
   (let [target-order (next-order (:current-order params))
-        icon (dom/qs (order->icon-selector target-order))
-        button (dom/qs th "button")
         rows (dom/qsa table "tbody tr")
         tbody (dom/qs table "tbody")]
-    (.replaceChild button (.cloneNode icon true) (dom/qs button "svg"))
-    (set! (.-sortOrder (.-dataset th)) target-order)
+    (dom/set-attr th "aria-sort" target-order)
     (doseq [[idx] (sort-rows rows params target-order)]
       (.appendChild tbody (nth rows idx)))))
 

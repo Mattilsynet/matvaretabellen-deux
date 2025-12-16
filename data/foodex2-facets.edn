@@ -26,10 +26,24 @@
   :foodex2.facet/name "Final-preparation"}
  {:foodex2.facet/id "F15"
   :foodex2.facet/name "Preservation-technique"}
+ {:foodex2.facet/id "F16"
+  :foodex2.facet/name "Structural-treatment"}
  {:foodex2.facet/id "F17"
   :foodex2.facet/name "Extent-of-cooking"}
  {:foodex2.facet/id "F18"
   :foodex2.facet/name "Packaging-format"}
+ {:foodex2.facet/id "F19"
+  :foodex2.facet/name "Packaging-material"}
+ {:foodex2.facet/id "F20"
+  :foodex2.facet/name "Part-consumed-analysed"}
+ {:foodex2.facet/id "F21"
+  :foodex2.facet/name "Production-method"}
+ {:foodex2.facet/id "F22"
+  :foodex2.facet/name "Preparation-production-place"}
+ {:foodex2.facet/id "F23"
+  :foodex2.facet/name "Target-consumer"}
+ {:foodex2.facet/id "F24"
+  :foodex2.facet/name "Intended-use"}
  {:foodex2.facet/id "F25"
   :foodex2.facet/name "Risky-ingredient"}
  {:foodex2.facet/id "F26"
@@ -48,6 +62,4 @@
   :foodex2.facet/name "Gender"}
  {:foodex2.facet/id "F33"
   :foodex2.facet/name "Legislative-classes"}
- {:foodex2.facet/id "F16"
-  :foodex2.facet/name "Structural-treatment"}
 ]

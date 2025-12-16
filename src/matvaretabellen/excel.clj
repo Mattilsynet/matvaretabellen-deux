@@ -3,6 +3,7 @@
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.food-group :as food-group]
+            [matvaretabellen.foodex2 :as foodex2]
             [matvaretabellen.misc :as misc]
             [matvaretabellen.nutrient :as nutrient])
   (:import (java.io ByteArrayOutputStream FileOutputStream)
@@ -15,7 +16,7 @@
 ;; time on the data files. In other words: code changes will not automatically
 ;; be reflected in the export. Change this version string when you need for new
 ;; Excel files to be generated.
-(def version "2023.11.22.2")
+(def version "2025.12.10")
 
 (defn add-index [coll]
   (map-indexed (fn [i m] (assoc m :index i)) coll))
@@ -69,18 +70,24 @@
     (.write workbook stream)
     (.toByteArray stream)))
 
+(def kilojoule-measurement
+  {:path [:food/energy]
+   :field :measurement/quantity
+   :decimal-precision 0})
+
+(def kcal-measurement
+  {:path [:food/calories]
+   :field :measurement/observation
+   :decimal-precision 0})
+
 (defn get-basic-food-fields [db locale]
   [{:title "Matvare ID" :path [:food/id]}
    {:title "Matvare" :path [:food/name locale]}
    {:title "Spiselig del (%)" :measurement {:path [:food/edible-part]
                                             :field :measurement/percent}}
    (d/entity db [:nutrient/id "Vann"])
-   {:title "Kilojoule (kJ)" :measurement {:path [:food/energy]
-                                          :field :measurement/quantity
-                                          :decimal-precision 0}}
-   {:title "Kilokalorier (kcal)" :measurement {:path [:food/calories]
-                                               :field :measurement/observation
-                                               :decimal-precision 0}}
+   {:title "Kilojoule (kJ)" :measurement kilojoule-measurement}
+   {:title "Kilokalorier (kcal)" :measurement kcal-measurement}
    (d/entity db [:nutrient/id "Fett"])
    (d/entity db [:nutrient/id "Karbo"])
    (d/entity db [:nutrient/id "Fiber"])
@@ -88,13 +95,18 @@
    (d/entity db [:nutrient/id "Alko"])])
 
 (defn get-all-food-fields [db locale]
-  (->> (nutrient/get-used-nutrients db)
-       (remove (comp empty? :nutrient/unit))
-       (nutrient/sort-by-preference)
-       (into [{:title "Matvare ID" :path [:food/id]}
-              {:title "Matvare" :path [:food/name locale]}
-              {:title "Kilojoule (kJ)" :path [:food/energy :measurement/quantity]}
-              {:title "Kilokalorier (kcal)" :path [:food/calories :measurement/observation]}])))
+  (conj (->> (nutrient/get-used-nutrients db)
+             (remove (comp empty? :nutrient/unit))
+             (nutrient/sort-by-preference)
+             (into [{:title "Matvare ID" :path [:food/id]}
+                    {:title "Matvare" :path [:food/name locale]}
+                    {:title "Kilojoule (kJ)"
+                     :measurement kilojoule-measurement}
+                    {:title "Kilokalorier (kcal)"
+                     :measurement kcal-measurement}]))
+        {:title "FoodEx2-klassifisering"
+         :path [:foodex2/classification]
+         :f foodex2/make-classifier}))
 
 (defn get-constituent [food nutrient-id]
   (some->> (:food/constituents food)
@@ -131,15 +143,17 @@
 
 (defn prepare-food-cells [fields food]
   (for [{:keys [path measurement] :as f} fields]
-    {:text (str (cond
-                  path (get-scalar-at-path food path)
-                  measurement (get-measurement-number
-                               (get-in food (:path measurement))
-                               (:field measurement)
-                               (:decimal-precision measurement))
-                  (:nutrient/id f) (get-measurement-number
-                                    (get-constituent food (:nutrient/id f))
-                                    :measurement/quantity)))}))
+    (let [convert-f (:f f)]
+      {:text (str (cond
+                    path (cond-> (get-scalar-at-path food path)
+                           convert-f convert-f)
+                    measurement (get-measurement-number
+                                 (get-in food (:path measurement))
+                                 (:field measurement)
+                                 (:decimal-precision measurement))
+                    (:nutrient/id f) (get-measurement-number
+                                      (get-constituent food (:nutrient/id f))
+                                      :measurement/quantity)))})))
 
 (defn prepare-reference-cells [fields food]
   (for [{:keys [path measurement] :as f} fields]
