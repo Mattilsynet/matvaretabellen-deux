@@ -123,9 +123,12 @@
 (defn render-table-skeleton [foods-db & [opt]]
   (let [nutrients (->> (nutrient/get-used-nutrients foods-db)
                        nutrient/sort-by-preference)]
-    [:figure {:class (mtds/classes :grid) :data-gap "8"}
-     (->> (prepare-foods-table nutrients opt)
-          food-page/render-table)
+    [:figure {:class (mtds/classes :grid)
+              :data-gap "8"}
+     [:div {:style {:max-height "80vh"
+                    :overflow "scroll"}}
+      (->> (prepare-foods-table nutrients opt)
+           food-page/render-table)]
      [:div {:class (mtds/classes :flex)}
       [:button {:class (mtds/classes :button :mvt-prev)
                 :hidden "true"
