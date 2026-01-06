@@ -651,11 +651,13 @@
            (list
             [:h4 {:class (mtds/classes :heading)
                   :data-size "xs"} "LanguaL"]
-            [:p [:i18n ::classification-intro
-                 {:langual-url "https://www.langual.org/"}]]
             (->> langual-codes
                  prepare-langual-table
-                 render-table)))])
+                 render-table)))
+         [:div {:class (mtds/classes :prose)}
+          [:i18n ::classification-intro
+           {:langual-url "https://www.langual.org/"
+            :foodex-url "https://www.efsa.europa.eu/en/data/data-standardisation"}]]])
 
        (passepartout
         [:div {:class (mtds/classes :prose)}
