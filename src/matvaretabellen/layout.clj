@@ -54,6 +54,8 @@ window.onerror = function(message) {
                             "/en/api/"
                             "/api/")
                      :text [:i18n ::api-text]}
+                    {:text [:i18n ::about-us]
+                     :url "https://www.mattilsynet.no/mat-og-drikke/matvaretabellen"}
                     {:url "https://www.mattilsynet.no/om-mattilsynet/personvernerklaering"
                      :text [:i18n ::privacy-and-cookies]}
                     {:url "https://www.mattilsynet.no/"
@@ -92,9 +94,6 @@ window.onerror = function(message) {
                  :class :desktop}
                 {:text [:i18n ::nutrients]
                  :url (urls/get-nutrients-url locale)
-                 :class :desktop}
-                {:text [:i18n ::download]
-                 :url "https://www.mattilsynet.no/mat-og-drikke/matvaretabellen/last-ned"
                  :class :desktop}
                 {:text [:i18n :i18n/other-language]
                  :url (get-current-url ({:en :nb :nb :en} locale))}]]

@@ -79,7 +79,7 @@
 
  #:matvaretabellen.layout
  {:about-mattilsynet "About Mattilsynet"
-  :about-us "About Us"
+  :about-us "About Matvaretabellen"
   :accessibility-statement "Accessibility Statement (uustatus.no)"
   :api-text "Food composition table API"
   :close-sidebar "Close"

@@ -79,7 +79,7 @@
 
  #:matvaretabellen.layout
  {:about-mattilsynet "Kontakt"
-  :about-us "Om oss"
+  :about-us "Om Matvaretabellen"
   :accessibility-statement "Tilgjengelegheitserklæring (uustatus.no)"
   :api-text "Matvaretabellens API"
   :close-sidebar "Lukk"
