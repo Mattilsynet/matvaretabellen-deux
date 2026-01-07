@@ -10,7 +10,7 @@
 
  {:nutrient/id "Protein"
   :nutrient/category {:db/ident :nutrient.category/macro}
-  :nutrient/photo "/images/nutrients/proteiner/photo.jpg"
+  :nutrient/photo "/images/nutrients/proteiner/photo.avif"
   :nutrient/illustration "/images/nutrients/proteiner/illustration.svg"
   :nutrient/short-description {:nb "Kilder til protein er blant annet kjøtt, fisk, belgfrukter og meieriprodukter."
                                :en "Sources of protein include meat, fish, legumes, and dairy products."}
@@ -24,7 +24,7 @@
 
  {:nutrient/id "Fett"
   :nutrient/category {:db/ident :nutrient.category/macro}
-  :nutrient/photo "/images/nutrients/fett/photo.jpg"
+  :nutrient/photo "/images/nutrients/fett/photo.avif"
   :nutrient/illustration "/images/nutrients/fett/illustration.svg"
   :nutrient/short-description {:nb "Mettede, enumettede og flerumettede fettsyrer, og transfett og kolesterol."
                                :en "Saturated, monounsaturated, and polyunsaturated fatty acids, as well as trans fat and cholesterol."}
@@ -42,7 +42,7 @@
 
  {:nutrient/id "Alko"
   :nutrient/category {:db/ident :nutrient.category/macro}
-  :nutrient/photo "/images/nutrients/alkohol/photo.jpg"
+  :nutrient/photo "/images/nutrients/alkohol/photo.avif"
   :nutrient/illustration "/images/nutrients/alkohol/illustration.svg"
   :nutrient/short-description {:nb "Alkoholholdige drikkevarer som øl, vin og brennevin."
                                :en "Alcoholic beverages such as beer, wine, and spirits."}
@@ -54,7 +54,7 @@
 
  {:nutrient/id "Karbo"
   :nutrient/category {:db/ident :nutrient.category/macro}
-  :nutrient/photo "/images/nutrients/karbohydrater/photo.jpg"
+  :nutrient/photo "/images/nutrients/karbohydrater/photo.avif"
   :nutrient/illustration "/images/nutrients/karbohydrater/illustration.svg"
   :nutrient/short-description {:nb "Stivelse, tilsatt sukker og sukkerarter."
                                :en "Starch, sugars, and added sugars."}
@@ -68,7 +68,7 @@
 
  {:nutrient/id "Fiber"
   :nutrient/category {:db/ident :nutrient.category/macro}
-  :nutrient/photo "/images/nutrients/kostfiber/photo.jpg"
+  :nutrient/photo "/images/nutrients/kostfiber/photo.avif"
   :nutrient/illustration "/images/nutrients/kostfiber/illustration.svg"
   :nutrient/short-description {:nb "Kilder til kostfiber er blant annet grove kornprodukter, belgfrukter og grønnsaker."
                                :en "Sources of dietary fiber include whole grain products, legumes, and vegetables."}
@@ -81,7 +81,7 @@
  {:nutrient/id "WaterSolubleVitamins"
   :category/order 0
   :nutrient/category {:db/ident :nutrient.category/micro}
-  :nutrient/photo "/images/nutrients/vannloselige-vitaminer/photo.jpg"
+  :nutrient/photo "/images/nutrients/vannloselige-vitaminer/photo.avif"
   :nutrient/illustration "/images/nutrients/vannloselige-vitaminer/illustration.svg"
   :nutrient/short-description {:nb "Vitamin C og B-vitaminer, som folat og kobalamin (B12)."
                                :en "Vitamin C and a range of B-vitamins, such as folate and cobalamin (B12)."}
@@ -98,7 +98,7 @@
  {:nutrient/id "FatSolubleVitamins"
   :category/order 1
   :nutrient/category {:db/ident :nutrient.category/micro}
-  :nutrient/photo "/images/nutrients/fettloselige-vitaminer/photo.jpg"
+  :nutrient/photo "/images/nutrients/fettloselige-vitaminer/photo.avif"
   :nutrient/illustration "/images/nutrients/fettloselige-vitaminer/illustration.svg"
   :nutrient/short-description {:nb "Vitamin A (retinol og betakaroten), vitamin D og vitamin E."
                                :en "Vitamin A (retinol and beta-carotene), vitamin D, and vitamin E."}
@@ -111,7 +111,7 @@
  {:nutrient/id "Minerals"
   :category/order 2
   :nutrient/category {:db/ident :nutrient.category/micro}
-  :nutrient/photo "/images/nutrients/mineraler/photo.jpg"
+  :nutrient/photo "/images/nutrients/mineraler/photo.avif"
   :nutrient/illustration "/images/nutrients/mineraler/illustration.svg"
   :nutrient/short-description {:nb "Fosfor, kalsium, kalium, magnesium og salt (natrium)."
                                :en "Phosphorus, calcium, potassium, magnesium, and salt (sodium)."}
@@ -126,7 +126,7 @@
  {:nutrient/id "TraceElements"
   :category/order 3
   :nutrient/category {:db/ident :nutrient.category/micro}
-  :nutrient/photo "/images/nutrients/sporstoffer/photo.jpg"
+  :nutrient/photo "/images/nutrients/sporstoffer/photo.avif"
   :nutrient/illustration "/images/nutrients/sporstoffer/illustration.svg"
   :nutrient/short-description {:nb "Jern, jod, kobber, sink og selen."
                                :en "Iron, iodine, copper, zinc, and selenium."}

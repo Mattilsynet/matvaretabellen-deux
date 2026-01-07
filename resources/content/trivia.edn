@@ -1,78 +1,78 @@
 [{:trivia/food-id "06.525"
   :trivia/definite {:nb "bananen" :en "the banana"}
-  :trivia/photo "/images/trivia/banan.jpg"
+  :trivia/photo "/images/trivia/banan.avif"
   :trivia/prose {:nb "at banan er en av fruktene med høyest innhold av vitamin B6 og kalium?"
                  :en "that bananas are among the fruits with the highest content of vitamin B6 and potassium?"}}
 
  {:trivia/food-id "06.048"
   :trivia/definite {:nb "paprikaen" :en "the sweet pepper"}
-  :trivia/photo "/images/trivia/paprika.jpg"
+  :trivia/photo "/images/trivia/paprika.avif"
   :trivia/prose {:nb "at paprika, uansett farge, er den grønnsaken som har høyest innhold av vitamin C i Matvaretabellen? Den inneholder også mye betakaroten."
                  :en "that bell peppers, regardless of color, are the vegetable with the highest content of vitamin C in Matvaretabellen? They also contain a lot of beta-carotene."}}
 
  {:trivia/food-id "05.003"
   :trivia/definite {:nb "havregryn" :en "rolled oats"}
-  :trivia/photo "/images/trivia/havregryn.jpg"
+  :trivia/photo "/images/trivia/havregryn.avif"
   :trivia/prose {:nb "at havregryn er en god kilde til kostfiber? Havregryn har et høyere innhold av vitamin B1 og flere mineraler sammenlignet med flere andre kornarter."
                  :en "that oats are a good source of dietary fiber? Oats have a higher content of vitamin B1 and several minerals compared to many other grains."}}
 
  {:trivia/food-id "02.001"
   :trivia/definite {:nb "egget" :en "the egg"}
-  :trivia/photo "/images/trivia/egg.jpg"
+  :trivia/photo "/images/trivia/egg.avif"
   :trivia/prose {:nb "at egg inneholder alle vitaminer og mineraler, utenom vitamin C? Egg er også en god kilde til protein."
                  :en " that eggs contain all vitamins and minerals except vitamin C? Eggs are also a good source of protein."}}
 
  {:trivia/food-id "06.504"
   :trivia/definite {:nb "jordbæret" :en "the strawberry"}
-  :trivia/photo "/images/trivia/jordbaer.jpg"
+  :trivia/photo "/images/trivia/jordbaer.avif"
   :trivia/prose {:nb "jordbær har et høyere innhold av vitamin C enn appelsin? Jordbæret er også rikt på folat."
                  :en "that strawberries have a higher content of vitamin C than oranges? Strawberries are also rich in folate."}}
 
  {:trivia/food-id "04.220"
   :trivia/definite {:nb "laksen" :en "salmon"}
-  :trivia/photo "/images/trivia/laks.jpg"
+  :trivia/photo "/images/trivia/laks.avif"
   :trivia/prose {:nb "at en porsjon ovnsstekt laks dekker halvparten av dagsbehovet for vitamin D? Laks er også en god kilde til omega-3-fettsyrer."
                  :en "that a serving of oven-baked salmon covers half of the daily requirement for vitamin D? Salmon is also a good source of omega-3 fatty acids."}}
 
  {:trivia/food-id "06.003"
   :trivia/definite {:nb "poteten" :en "the potato"}
-  :trivia/photo "/images/trivia/potet.jpg"
+  :trivia/photo "/images/trivia/potet.avif"
   :trivia/prose {:nb "at poteten har det høyeste innholdet av kalium og vitamin C sammenlignet med andre stivelsesrike matvarer?"
                  :en "that potatoes have the highest content of potassium and vitamin C compared to other starchy foods?"}}
 
  {:trivia/food-id "06.064"
   :trivia/definite {:nb "spinaten" :en "spinach"}
-  :trivia/photo "/images/trivia/spinat.jpg"
+  :trivia/photo "/images/trivia/spinat.avif"
   :trivia/prose {:nb "at spinat har det høyeste innholdet av folat blant grønnsaker? Det er også en av grønnsakene som har høyest innhold av jern, kalsium, magnesium, sink og kalium."
                  :en "that spinach has the highest folate content among vegetables? It is also one of the vegetables with the highest levels of iron, calcium, magnesium, zinc, and potassium."}}
 
  {:trivia/food-id "06.560"
   :trivia/definite {:nb "valnøtten" :en "the walnut"}
-  :trivia/photo "/images/trivia/valnott.jpg"
+  :trivia/photo "/images/trivia/valnott.avif"
   :trivia/prose {:nb "at valnøtter inneholder mer omega-3-fettsyrer enn laks og makrell i tomat? Den er også den nøttetypen som har den høyeste andelen av omega-3-fettsyrer."
                  :en "that walnuts contain more omega-3 fatty acids than salmon and mackerel in tomato sauce? They are also the type of nut with the highest proportion of omega-3 fatty acids."}}
 
  {:trivia/food-id "01.186"
   :trivia/definite {:nb "brunosten" :en "whey cheese"}
-  :trivia/photo "/images/trivia/brunost.jpg"
+  :trivia/photo "/images/trivia/brunost.avif"
   :trivia/prose {:nb "at brunost er et av meieriproduktene som har høyest innhold av kalium, magnesium og jod? Den er også en av matvarene i Matvaretabellen som har høyest innhold av kalsium."
                  :en "that brown cheese is one of the dairy products with the highest content of potassium, magnesium, and iodine? It is also one of the foods in Matvaretabellen with the highest calcium content."}}
 
  {:trivia/food-id "06.035"
   :trivia/definite {:nb "grønnkålen" :en "kale"}
-  :trivia/photo "/images/trivia/gronnkaal.jpg"
+  :trivia/photo "/images/trivia/gronnkaal.avif"
   :trivia/prose {:nb "at grønnkål er en nesten like god kilde til betakaroten som gulrot? Den inneholder også flere B-vitaminer, vitamin C og jern."
                  :en "that kale is almost as good a source of beta-carotene as carrots? It also contains several B vitamins, vitamin C, and iron."}}
 
  {:trivia/food-id "06.546"
   :trivia/definite {:nb "pæren" :en "the pear"}
-  :trivia/photo "/images/trivia/paere.jpg"
+  :trivia/photo "/images/trivia/paere.avif"
   :trivia/prose {:nb "at pære inneholder like mye fiber som grovt brød? Det er også en av fruktene med høyest innhold av fiber i Matvaretabellen."
                  :en "that pears contain as much fiber as whole-grain bread? They are also one of the fruits with the highest fiber content in Matvaretabellen."}}
 
  {:trivia/food-id "04.039"
   :trivia/definite {:nb "torsken" :en "cod"}
-  :trivia/photo "/images/trivia/torsk.jpg"
+  :trivia/photo "/images/trivia/torsk.avif"
   :trivia/prose {:nb "at torsk er en av matvarene med høyest innhold av jod i Matvaretabellen?"
                  :en "that cod is one of the foods with the highest iodine content in Matvaretabellen?"}}
  ]

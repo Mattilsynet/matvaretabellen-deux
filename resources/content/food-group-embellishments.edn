@@ -17,7 +17,7 @@
  ;; "Meieriprodukter"
  {:food-group/id "1"
   :food-group/category {:db/ident :food-group.category/animal}
-  :food-group/photo "/images/food-groups/meieriprodukter/photo.jpg"
+  :food-group/photo "/images/food-groups/meieriprodukter/photo.avif"
   :food-group/illustration "/images/food-groups/meieriprodukter/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer melk, ost, fløte, rømme og yoghurt. De er en kilde til [protein], [kalsium|Ca], [vitamin B12|Vit B12] og [jod|I]."
                                 :en "This food group includes milk, cheese, cream, sour cream, and yogurt. They are a source of [protein], [calcium|Ca], [vitamin B12|Vit B12], and [iodine|I]."}
@@ -27,7 +27,7 @@
  ;; "Egg"
  {:food-group/id "2"
   :food-group/category {:db/ident :food-group.category/animal}
-  :food-group/photo "/images/food-groups/egg/photo.jpg"
+  :food-group/photo "/images/food-groups/egg/photo.avif"
   :food-group/illustration "/images/food-groups/egg/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer egg og retter av egg. Egg har et høyt innhold av [protein] og inneholder nesten alle vitaminer og mineraler."
                                 :en "This food group includes eggs and egg-based dishes. Eggs are high in [protein] and contain nearly all vitamins and minerals."}
@@ -37,7 +37,7 @@
  ;; "Kjøtt og fjørfe"
  {:food-group/id "3"
   :food-group/category {:db/ident :food-group.category/animal}
-  :food-group/photo "/images/food-groups/kjott-og-fjorfe/photo.jpg"
+  :food-group/photo "/images/food-groups/kjott-og-fjorfe/photo.avif"
   :food-group/illustration "/images/food-groups/kjott-og-fjorfe/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen består av råvarer, retter og produkter med storfe, svin, lam, fjørfe og viltkjøtt. Kjøtt og fjørfe har ofte et høyt innhold av [protein], [jern|Fe], [vitamin B12|Vit B12] og andre B-vitaminer."
                                 :en "This food group consists of raw materials, dishes, and products with beef, pork, lamb, poultry, and game meat. Meat and poultry often have a high content of [protein], [iron|Fe], [vitamin B12|Vit B12], and other B vitamins."}
@@ -47,7 +47,7 @@
  ;; "Fisk og skalldyr"
  {:food-group/id "4"
   :food-group/category {:db/ident :food-group.category/animal}
-  :food-group/photo "/images/food-groups/fisk-og-skalldyr/photo.jpg"
+  :food-group/photo "/images/food-groups/fisk-og-skalldyr/photo.avif"
   :food-group/illustration "/images/food-groups/fisk-og-skalldyr/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer råvarer, retter og produkter med fisk og skalldyr. De fleste fiskearter har ofte et høyt innhold av [protein], og kan være kilder til [flerumettede fettsyrer|Flerum], [vitamin D|Vit D] eller [jod|I]."
                                 :en "This food group includes raw materials, dishes, and products with fish and shellfish. Most fish species are often high in [protein] and can be sources of [polyunsaturated fatty acids|Flerum], [vitamin D|Vit D], or [iodine|I]."}
@@ -57,7 +57,7 @@
  ;; "Korn- og bakevarer"
  {:food-group/id "5"
   :food-group/category {:db/ident :food-group.category/vegetarian}
-  :food-group/photo "/images/food-groups/korn-og-bakevarer/photo.jpg"
+  :food-group/photo "/images/food-groups/korn-og-bakevarer/photo.avif"
   :food-group/illustration "/images/food-groups/korn-og-bakevarer/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer kornvarer, brød, bakverk og kornbaserte retter. Matvarene i denne gruppen har ofte et høyt innhold av [karbohydrater|Karbo]. De grove produktene inneholder ofte mye [kostfiber|Fiber] og mineraler."
                                 :en "This food group includes cereals, bread, pastries, and grain-based dishes. Foods in this group often have a high content of [carbohydrates|Karbo]. The whole grain products frequently contain a lot of [dietary fiber|Fiber] and minerals."}
@@ -67,17 +67,17 @@
  ;; "Grønnsaker"
  {:food-group/id "6"
   :food-group/category {:db/ident :food-group.category/vegetarian}
-  :food-group/photo "/images/food-groups/gronnsaker/photo.jpg"
+  :food-group/photo "/images/food-groups/gronnsaker/photo.avif"
   :food-group/illustration "/images/food-groups/gronnsaker/illustration.svg"
-  :food-group/long-description {:nb "Denne matvaregruppen inkluderer grønnsaker og grønnsaksprodukter. Grønnsaker inneholder lite energi, men er rike på vitaminer og mineraler. "
+  :food-group/long-description {:nb "Denne matvaregruppen inkluderer grønnsaker og produkter av grønnsaker. Grønnsaker inneholder lite energi, men er rike på vitaminer og mineraler. "
                                 :en "This food group includes vegetables and vegetable products. Vegetables contain little energy but are rich in vitamins and minerals."}
-  :food-group/short-description {:nb "Grønnsaker og grønnsaksprodukter."
+  :food-group/short-description {:nb "Grønnsaker og produkter av grønnsaker."
                                  :en "Vegetables and vegetable products."}}
 
  ;; "Sukker og søte produkter"
  {:food-group/id "7"
   :food-group/category {:db/ident :food-group.category/other}
-  :food-group/photo "/images/food-groups/sukker-og-sote-produkter/photo.jpg"
+  :food-group/photo "/images/food-groups/sukker-og-sote-produkter/photo.avif"
   :food-group/illustration "/images/food-groups/sukker-og-sote-produkter/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer sukker, honning, desserter, sjokolade og godteri. Matvarene har ofte et høyt innhold av [karbohydrater|Karbo]."
                                 :en "This food group includes sugar, honey, desserts, chocolate, and candy. These foods often have a high content of [carbohydrates|Karbo]."}
@@ -87,7 +87,7 @@
  ;; "Matfett"
  {:food-group/id "8"
   :food-group/category {:db/ident :food-group.category/other}
-  :food-group/photo "/images/food-groups/matfett/photo.jpg"
+  :food-group/photo "/images/food-groups/matfett/photo.avif"
   :food-group/illustration "/images/food-groups/matfett/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer smør, margarin, matoljer, og andre fettholdige produkter. Fett kan være enten av animalsk eller vegetabilsk opprinnelse, noe som vil gi ulik sammensetning av mettede og umettede fettsyrer."
                                 :en "This food group includes butter, margarine, cooking oils, and other fatty products. Fats can be either of animal or vegetable origin, which results in different compositions of saturated and unsaturated fatty acids."}
@@ -97,7 +97,7 @@
  ;; "Drikke"
  {:food-group/id "9"
   :food-group/category {:db/ident :food-group.category/vegetarian}
-  :food-group/photo "/images/food-groups/drikke/photo.jpg"
+  :food-group/photo "/images/food-groups/drikke/photo.avif"
   :food-group/illustration "/images/food-groups/drikke/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer blant annet kaffe, brus, plantebasert og alkoholholdig drikke."
                                 :en "This food group includes coffee, tea, smoothies, juice, water, soda, plant-based drinks, and alcoholic beverages."}
@@ -107,7 +107,7 @@
  ;; "Diverse matvarer og retter"
  {:food-group/id "10"
   :food-group/category {:db/ident :food-group.category/other}
-  :food-group/photo "/images/food-groups/diverse-matvarer-og-retter/photo.jpg"
+  :food-group/photo "/images/food-groups/diverse-matvarer-og-retter/photo.avif"
   :food-group/illustration "/images/food-groups/diverse-matvarer-og-retter/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer ulike typer retter, produkter og ingredienser - slikt som pizza, snacks, middagstilbehør og vegetarprodukter."
                                 :en "This food group includes various types of dishes, products, and ingredients - such as pizza, snacks, dinner accompaniments, and vegetarian products."}
@@ -117,7 +117,7 @@
  ;; "Spedbarnsmat"
  {:food-group/id "11"
   :food-group/category {:db/ident :food-group.category/other}
-  :food-group/photo "/images/food-groups/spedbarnsmat/photo.jpg"
+  :food-group/photo "/images/food-groups/spedbarnsmat/photo.avif"
   :food-group/illustration "/images/food-groups/spedbarnsmat/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer barnegrøt, barnemat, morsmelkerstatninger og tilskuddsblandinger."
                                 :en "This food group includes baby porridge, baby food, infant formula, and supplement mixes."}
@@ -127,7 +127,7 @@
  ;; "Belgvekster"
  {:food-group/id "12"
   :food-group/category {:db/ident :food-group.category/vegetarian}
-  :food-group/photo "/images/food-groups/belgvekster/photo.jpg"
+  :food-group/photo "/images/food-groups/belgvekster/photo.avif"
   :food-group/illustration "/images/food-groups/belgvekster/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer erter, bønner og linser. Matvaregruppen inneholder lite [fett] og er i tillegg en god kilde til [protein] og [kostfiber|Fiber]."
                                 :en "This food group includes peas, beans, and lentils. This food group contains little [fat|Fett] and is also a good source of [protein] and [dietary fiber|Fiber]."}
@@ -137,7 +137,7 @@
  ;; "Frukt og bær"
  {:food-group/id "13"
   :food-group/category {:db/ident :food-group.category/vegetarian}
-  :food-group/photo "/images/food-groups/frukt-og-bar/photo.jpg"
+  :food-group/photo "/images/food-groups/frukt-og-bar/photo.avif"
   :food-group/illustration "/images/food-groups/frukt-og-bar/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer frukt og bær. De har ofte et lavt fettinnhold og er en god kilde til flere vitaminer og mineraler."
                                 :en "This food group includes fruits and berries. They often have a low fat content and are a good source of various vitamins and minerals."}
@@ -147,7 +147,7 @@
  ;; "Nøtter og frø"
  {:food-group/id "14"
   :food-group/category {:db/ident :food-group.category/vegetarian}
-  :food-group/photo "/images/food-groups/notter-og-fro/photo.jpg"
+  :food-group/photo "/images/food-groups/notter-og-fro/photo.avif"
   :food-group/illustration "/images/food-groups/notter-og-fro/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer nøtter og frø. Nøtter og frø er en kilde til [umettet fett|Fett] og [kostfiber|Fiber]. De er også rike på vitaminer og mineraler. "
                                 :en "This food group includes nuts and seeds. Nuts and seeds are a source of [unsaturated fats|Fett] and [dietary fiber|Fiber]. They are also rich in vitamins and minerals."}
@@ -157,7 +157,7 @@
  ;; "Poteter"
  {:food-group/id "15"
   :food-group/category {:db/ident :food-group.category/vegetarian}
-  :food-group/photo "/images/food-groups/poteter/photo.jpg"
+  :food-group/photo "/images/food-groups/poteter/photo.avif"
   :food-group/illustration "/images/food-groups/poteter/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer produkter og retter med poteter. Poteter har lavt fettinnhold og er en kilde til [vitamin C|Vit C], [kalium|K] og [kostfiber|Fiber]."
                                 :en "This food group includes products and dishes made with potatoes. Potatoes have a low fat content and are a source of [vitamin C|Vit C], [potassium|K], and [dietary fiber|Fiber]."}
@@ -167,7 +167,7 @@
  ;; "Urter og krydder"
  {:food-group/id "16"
   :food-group/category {:db/ident :food-group.category/vegetarian}
-  :food-group/photo "/images/food-groups/urter-og-krydder/photo.jpg"
+  :food-group/photo "/images/food-groups/urter-og-krydder/photo.avif"
   :food-group/illustration "/images/food-groups/urter-og-krydder/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer urter og krydder, som enten er rå eller tørket. Matvarene i denne gruppen brukes ofte som smakstilsetninger."
                                 :en "This food group includes herbs and spices, either raw or dried. The foods in this group are often used as flavor enhancers."}
