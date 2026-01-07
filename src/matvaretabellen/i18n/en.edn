@@ -117,10 +117,17 @@
   :category [:fn/str "Category: {{:category}}"]
   :classification-title "Classification"
   :classification-intro
-  ("The foods in Matvaretabellen are described using a classification
-  system called " [:a {:href [:fn/get :langual-url]} "LanguaL"]
-   ". LanguaL stands for \"" [:strong "Langua aL"] "imentaria\" or \"language of
-   food\". This language enables standardized descriptions of foods.")
+  ([:p "The foods in the Food Composition Table are described using two classification systems."]
+   [:p
+    [:a {:href [:fn/get :foodex-url]} "FoodEx2"]
+    " is a classification and standardization system for foods and feed developed by the "
+    "European Food Safety Authority (EFSA). The system consists of a main code that describes the type of food. In addition, there are "
+    "facets that provide more detailed information about the food, for example about ingredients, packaging, or method of preparation."]
+   [:p
+    [:a {:href [:fn/get :langual-url]} "LanguaL"]
+    " is a similar system. LanguaL stands for “"
+    [:strong "Langua aL"]
+    "imentaria”, or “language of food”. It also consists of a description of the type of food, and facets with additional information."])
   :compare-food "Compare"
   :composition "Composition"
   :edible-part [:fn/str "Edible part: {{:pct}} %"]
