@@ -63,7 +63,10 @@
            (for [food-group groups]
              (let [the-name (get-in food-group [:food-group/name locale])]
                [:a {:class (mtds/classes :card :flex) :data-nowrap "" :data-gap "5" :data-items "200" :data-align "center" :href (urls/get-food-group-url locale the-name)}
-                [:img {:src (:food-group/photo food-group) :alt "" :data-fixed ""}]
+                [:img {:src (:food-group/photo food-group)
+                       :alt ""
+                       :data-fixed ""
+                       :style {:border-radius "var(--mtds-border-radius-md)"}}]
                 [:div {:class (mtds/classes :prose)}
                  [:h3 {:class (mtds/classes :heading) :data-size "xs"} the-name]
                  [:p (mashdown/strip

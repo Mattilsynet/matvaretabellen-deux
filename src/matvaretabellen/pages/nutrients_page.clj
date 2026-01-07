@@ -54,7 +54,10 @@
            (for [nutrient (sort-by :category/order groups)]
              (let [the-name (get-in nutrient [:nutrient/name locale])]
                [:a {:class (mtds/classes :card :flex) :data-nowrap "" :data-gap "5" :data-items "200" :data-align "center" :href (urls/get-nutrient-url locale the-name)}
-                [:img {:src (:nutrient/photo nutrient) :alt "" :data-fixed ""}]
+                [:img {:src (:nutrient/photo nutrient)
+                       :alt ""
+                       :data-fixed ""
+                       :style {:border-radius "var(--mtds-border-radius-md)"}}]
                 [:div {:class (mtds/classes :prose)}
                  [:h3 {:class (mtds/classes :heading) :data-size "xs"} the-name]
                  [:p (get-in nutrient [:nutrient/short-description locale])]]]))]])]])))
