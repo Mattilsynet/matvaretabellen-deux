@@ -6,7 +6,8 @@
             [matvaretabellen.seeded-random :as rng]
             [matvaretabellen.ui.search-input :refer [SearchInput]]
             [matvaretabellen.ui.toc :refer [Toc]]
-            [matvaretabellen.urls :as urls])
+            [matvaretabellen.urls :as urls]
+            [phosphor.icons :as icons])
   (:import (java.time MonthDay)))
 
 (defn get-seasons [app-db]
@@ -30,29 +31,50 @@
        :href (urls/get-food-url locale food-name)})
     (prn "Sesongmatvaren med id" id "finnes ikke! Rydd opp i season-foods.edn")))
 
+(defn info-box [url icon title content]
+  [:a {:class (mtds/classes :card :flex)
+       :href url}
+   (icons/render icon {:size "2rem"})
+   [:div {:class (mtds/classes :prose)}
+    [:h2 {:class (mtds/classes :heading)
+          :data-size "xs"}
+     title]
+    content]])
+
 (defn TriviaBox [locale food-db trivia]
-  [:div {:class (mtds/classes :grid :banner)}
-   [:div {:class (mtds/classes :flex) :data-center "xl"}
-    [:a {:class (mtds/classes :card :flex)
-         :href (:href (get-food-info locale food-db (:trivia/food-id trivia)))
-         :data-align "center"
-         :data-items "200"
-         :data-self "500"}
-     [:img {:src (:trivia/photo trivia) :data-fixed "" :alt ""}]
-     [:div {:class (mtds/classes :prose)}
-      [:h2 {:class (mtds/classes :heading) :data-size "xs"} [:i18n ::did-you-know]]
+  [:div {:class (mtds/classes :grid :banner)
+         :data-gap "8"}
+   [:div {:class (mtds/classes :grid)
+          :data-items "400"
+          :data-center "xl"
+          :data-column-gap "8"
+          :data-row-gap "3"}
+    (info-box
+     (urls/get-food-groups-url locale)
+     :phosphor.regular/shapes
+     [:i18n ::food-groups]
+     [:p [:i18n ::card-about-text]])
+    (info-box
+     (urls/get-nutrients-url locale)
+     :phosphor.regular/grains
+     [:i18n ::all-nutrients]
+     [:p [:i18n ::card-table-text]])]
+   [:div {:class (mtds/classes :flex)
+          :data-center "xl"}
+    [:div {:class (mtds/classes :grid)
+           :data-align "center"
+           :data-items "400"
+           :data-gap "8"}
+     [:a {:href (:href (get-food-info locale food-db (:trivia/food-id trivia)))}
+      [:img {:src (:trivia/photo trivia)
+             :alt ""
+             :style {:width "100%"
+                     :border-radius "var(--mtds-border-radius-lg)"}}]]
+     [:div {:class (mtds/classes :prose :didyaknow)}
+      [:h2 {:class (mtds/classes :heading) :data-size "lg"} [:i18n ::did-you-know]]
       [:p (get-in trivia [:trivia/prose locale])]
-      [:p [:span {:class (mtds/classes :link)}
-           [:i18n ::read-more-about {:definite (get-in trivia [:trivia/definite locale])}]]]]]
-    [:div {:class (mtds/classes :grid) :data-self "200"}
-     [:a {:class (mtds/classes :card :prose)
-          :href "https://www.mattilsynet.no/mat-og-drikke/matvaretabellen"}
-      [:h2 {:class (mtds/classes :heading) :data-size "2xs"} [:i18n ::card-about-title]]
-      [:p [:i18n ::card-about-text]]]
-     [:a {:class (mtds/classes :card :prose)
-          :href (urls/get-search-url locale)}
-      [:h2 {:class (mtds/classes :heading) :data-size "2xs"} [:i18n ::card-table-title]]
-      [:p [:i18n ::card-table-text]]]]]])
+      [:p [:a {:href (:href (get-food-info locale food-db (:trivia/food-id trivia)))}
+           [:i18n ::read-more-about {:definite (get-in trivia [:trivia/definite locale])}]]]]]]])
 
 (def popular-search-terms
   [{:nb "Egg" :en "Egg"}
@@ -76,26 +98,40 @@
       [:meta {:property "og:title" :content [:i18n ::open-graph-title]}]
       [:meta {:property "og:description" :content [:i18n ::open-graph-description]}]]
      [:body {:data-size "lg"}
-      [:div {:class (mtds/classes :grid) :data-gap "12"}
+      [:div {:class (mtds/classes :grid) :data-gap "8"}
        (layout/render-header
         {:locale locale
          :app/config (:app/config context)}
         urls/get-base-url)
-       [:form {:class (mtds/classes :grid)
-               :data-center "sm"
-               :action (urls/get-search-url locale)
-               :method :get}
-        [:h1 {:class (mtds/classes :heading) :data-size "md"} [:i18n :i18n/search-label]]
-        (SearchInput {:button {:text [:i18n :i18n/search-button]}
-                      :class :mvt-autocomplete
-                      :input {:name "q"}
-                      :autocomplete-id "foods-results"
-                      :default-value [:i18n :i18n/search-default-value]})
-        [:noscript
-         [:div {:class (mtds/classes :alert)} [:i18n ::no-script-search-info]]
-         [:img {:src "/tracer/no-script/" :height 0 :width 0}]]
-        [:a {:href (urls/get-search-url (:page/locale page)) :data-size "sm"}
-         [:i18n ::all-foods]]]
+       [:div {:class (mtds/classes :flex)
+              :data-center "xl"
+              :data-items "400"
+              :data-column-gap "8"
+              :data-row-gap "12"}
+        [:form {:class (mtds/classes :grid)
+                :action (urls/get-search-url locale)
+                :method :get}
+         [:h1 {:class (mtds/classes :heading) :data-size "md"} [:i18n :i18n/search-label]]
+         (SearchInput {:button {:text [:i18n :i18n/search-button]}
+                       :class :mvt-autocomplete
+                       :input {:name "q"}
+                       :autocomplete-id "foods-results"
+                       :default-value [:i18n :i18n/search-default-value]})
+         [:noscript
+          [:div {:class (mtds/classes :alert)} [:i18n ::no-script-search-info]]
+          [:img {:src "/tracer/no-script/" :height 0 :width 0}]]]
+        [:div {:class (mtds/classes :flex)
+               :data-justify "end"
+               :data-color "inverted"}
+         [:a {:class (mtds/classes :card :prose :table-box)
+              :data-self "auto"
+              :data-fixed ""
+              :href (urls/get-search-url (:page/locale page))
+              :style {:padding-right "4rem"}}
+          [:h2 {:class (mtds/classes :heading)
+                :data-size "xs"}
+           "Matvaretabellen"]
+          [:p {:class (mtds/classes :link)} [:i18n ::all-foods]]]]]
        (TriviaBox locale food-db
                   (rng/rand-nth*
                    (/ (.getEpochSecond (:time/instant context)) 17)
@@ -105,20 +141,23 @@
        [:div {:class (mtds/classes :grid)
               :data-center "xl"
               :data-items "300"
-              :data-align "start"
-              :data-gap "8"}
-        (let [new-foods (:new-foods (:page/details page))]
-          (Toc {:title (list [:i18n ::new-in-food-table] " " (:year new-foods))
+              :data-column-gap "8"
+              :data-row-gap "3"}
+        (Toc (let [new-foods (:new-foods (:page/details page))]
+               {:class (mtds/classes :card)
+                :title (list [:i18n ::new-in-food-table] " " (:year new-foods))
                 :contents (->> (:food-ids new-foods)
                                (rng/shuffle* (/ (.getEpochSecond (:time/instant context)) 5))
                                (take 5)
                                (keep #(get-food-info locale food-db %)))}))
-        (Toc {:title [:i18n ::seasonal-goods]
+        (Toc {:class (mtds/classes :card)
+              :title [:i18n ::seasonal-goods]
               :contents (->> (get-season-food-ids (:app/db context) (MonthDay/now))
                              (rng/shuffle* (/ (.getEpochSecond (:time/instant context)) 7))
                              (take 5)
                              (keep #(get-food-info locale food-db %)))})
-        (Toc {:title [:i18n ::common-food-searches]
+        (Toc {:class (mtds/classes :card)
+              :title [:i18n ::common-food-searches]
               :contents (->> (for [m popular-search-terms]
                                (let [term (get m locale)]
                                  {:title term

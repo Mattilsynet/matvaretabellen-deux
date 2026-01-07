@@ -103,7 +103,10 @@ window.onerror = function(message) {
 
 (defn SiteHeader [{:keys [home-url extra-link extra-links]}]
   [:header.header
-   [:div {:class (mtds/classes :flex) :data-center "xl" :data-justify "space-between" :data-align "center"}
+   [:div {:class (mtds/classes :flex)
+          :data-center "xl"
+          :data-justify "space-between"
+          :data-align "center"}
     [:a {:class (mtds/classes :logo)
          :href home-url}
      "Matvaretabellen"]
@@ -111,12 +114,16 @@ window.onerror = function(message) {
       [:a {:href (:url extra-link)}
        (:text extra-link)])
     (when extra-links
-      [:menu {:class (mtds/classes :flex) :data-gap "8"}
+      [:menu {:class (mtds/classes :flex)}
        (for [{:keys [url text class]} extra-links]
          [:li {:class class}
           (if url
-            [:a {:href url} text]
-            text)])])]])
+            [:a {:href url
+                 :class (mtds/classes :button)
+                 :data-variant "tertiary"} text]
+            [:span {:class (mtds/classes :button)
+                    :data-variant "tertiary"
+                    :aria-current "page"} text])])])]])
 
 (defn render-header [{:keys [locale app/config]} get-current-url]
   [:div#header

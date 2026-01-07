@@ -79,7 +79,7 @@
 
  #:matvaretabellen.layout
  {:about-mattilsynet "About Mattilsynet"
-  :about-us "About Matvaretabellen"
+  :about-us "Information about Matvaretabellen"
   :accessibility-statement "Accessibility Statement (uustatus.no)"
   :api-text "Food composition table API"
   :close-sidebar "Close"
@@ -182,12 +182,14 @@
 
  #:matvaretabellen.pages.frontpage
  {:all-foods "All foods in table view →"
+  :all-nutrients "Nutrients"
   :card-about-title "About Matvaretabellen"
   :card-about-text "Read more about Matvaretabellen"
   :card-table-title "Table view"
   :card-table-text "See all foods in table view"
   :common-food-searches "Common Searches"
-  :did-you-know "Did you know ..."
+  :did-you-know "Did you know that ..."
+  :food-groups "Food groups"
   :new-in-food-table "New in Matvaretabellen"
   :no-script-search-info [:span "Unfortunately, the search does not work without JavaScript turned on, but you can still find food items categorized under "
                           [:a {:href "/en/food-groups/"} "food groups"]
@@ -195,7 +197,7 @@
                           [:a {:href "/en/nutrients/"} "nutrients"] "."]
   :open-graph-description "Information about the energy and nutritional content of thousands of foods. Search for foods, compare, and learn about nutrients."
   :open-graph-title "Matvaretabellen.no - a service from Mattilsynet"
-  :read-more-about [:fn/str "See nutritional contents of {{:definite}}."]
+  :read-more-about [:fn/str "See nutritional contents of {{:definite}} →"]
   :seasonal-goods "Seasonal Goods"}
 
  #:matvaretabellen.pages.nutrients-page

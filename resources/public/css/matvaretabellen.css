@@ -1,6 +1,5 @@
 /* EIRIK STUFF: */
 .header {
-    background: var(--mtds-color-surface-default);
     color: var(--mtds-color-text-default);
     padding-block: var(--mtds-5);
 }
@@ -12,7 +11,7 @@
 .footer {
     background: var(--mtds-color-background-default);
     color: var(--mtds-color-text-subtle);
-    margin-top: var(--mtds-18);
+    margin-top: var(--mtds-6);
     padding-block: var(--mtds-18) var(--mtds-22);
 }
 
@@ -45,6 +44,20 @@
 }
 @media (max-width: 780px) {
     .desktop { display: none }
+
+    .didyaknow {
+        padding-inline: calc(var(--mtds-5) + 1px);
+    }
+
+    .footer {
+        margin-top: var(--mtds-6);
+        padding-block: var(--mtds-8) var(--mtds-8);
+        padding-inline: calc(var(--mtds-5) + 1px);
+    }
+
+    .table-box {
+        width: 100%;
+    }
 }
 
 .drawer {

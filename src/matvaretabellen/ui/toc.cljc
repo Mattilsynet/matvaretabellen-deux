@@ -3,7 +3,8 @@
             [phosphor.icons :as icons]))
 
 (defn Toc [{:keys [title icon contents class]}]
-  [:div {:class (mtds/classes :grid class)}
+  [:div {:class (mtds/classes :grid class)
+         :data-align-content "start"}
    [:h3 {:class (mtds/classes :heading)}
     (when icon
       (icons/render icon))

@@ -79,7 +79,7 @@
 
  #:matvaretabellen.layout
  {:about-mattilsynet "Kontakt"
-  :about-us "Om Matvaretabellen"
+  :about-us "Informasjon om Matvaretabellen"
   :accessibility-statement "Tilgjengelegheitserklæring (uustatus.no)"
   :api-text "Matvaretabellens API"
   :close-sidebar "Lukk"
@@ -184,12 +184,14 @@
 
  #:matvaretabellen.pages.frontpage
  {:all-foods "Alle matvarer i tabellvisning →"
+  :all-nutrients "Næringsstoffer"
   :card-about-title "Om Matvaretabellen"
   :card-about-text "Les mer om Matvaretabellen"
   :card-table-title "Tabellvisning"
   :card-table-text "Se alle matvarene i tabellvisning"
   :common-food-searches "Vanlige matvaresøk"
-  :did-you-know "Visste du ..."
+  :did-you-know "Visste du at ..."
+  :food-groups "Matvaregrupper"
   :new-in-food-table "Nytt i Matvaretabellen"
   :no-script-search-info [:span "Søket fungerer dessverre ikke uten JavaScript skrudd på, men du kan fortsatt finne matvarer kategorisert under "
                           [:a {:href "/matvaregrupper/"} "matvaregrupper"]
@@ -197,7 +199,7 @@
                           [:a {:href "/naeringstoffer/"} "næringsstoffer"] "."]
   :open-graph-description "Informasjon om energi- og næringsinnholdet i tusenvis av matvarer. Søk opp spesifikke matvarer, sammenligne, og lære mer de forskjellige næringsstoffene."
   :open-graph-title "Matvaretabellen.no - en tjeneste fra Mattilsynet"
-  :read-more-about [:fn/str "Se næringsinnholdet i {{:definite}}."]
+  :read-more-about [:fn/str "Se næringsinnholdet i {{:definite}} →"]
   :seasonal-goods "Sesongvarer"}
 
  #:matvaretabellen.pages.nutrients-page
