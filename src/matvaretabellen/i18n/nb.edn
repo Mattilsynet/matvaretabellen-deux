@@ -185,6 +185,7 @@
  #:matvaretabellen.pages.frontpage
  {:all-foods "Alle matvarer i tabellvisning →"
   :all-nutrients "Næringsstoffer"
+  :all-nutrients-more "Se oversikt over alle næringsstoffer →"
   :card-about-title "Om Matvaretabellen"
   :card-about-text "Les mer om Matvaretabellen"
   :card-table-title "Tabellvisning"
@@ -192,6 +193,7 @@
   :common-food-searches "Vanlige matvaresøk"
   :did-you-know "Visste du at ..."
   :food-groups "Matvaregrupper"
+  :food-groups-more "Se oversikt over alle matvaregrupper →"
   :new-in-food-table "Nytt i Matvaretabellen"
   :no-script-search-info [:span "Søket fungerer dessverre ikke uten JavaScript skrudd på, men du kan fortsatt finne matvarer kategorisert under "
                           [:a {:href "/matvaregrupper/"} "matvaregrupper"]

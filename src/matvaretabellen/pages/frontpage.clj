@@ -53,12 +53,12 @@
      (urls/get-food-groups-url locale)
      :phosphor.regular/shapes
      [:i18n ::food-groups]
-     [:p [:i18n ::card-about-text]])
+     [:p [:i18n ::food-groups-more]])
     (info-box
      (urls/get-nutrients-url locale)
      :phosphor.regular/grains
      [:i18n ::all-nutrients]
-     [:p [:i18n ::card-table-text]])]
+     [:p [:i18n ::all-nutrients-more]])]
    [:div {:class (mtds/classes :flex)
           :data-center "xl"}
     [:div {:class (mtds/classes :grid)

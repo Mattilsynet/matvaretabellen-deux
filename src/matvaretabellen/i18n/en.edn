@@ -190,6 +190,7 @@
  #:matvaretabellen.pages.frontpage
  {:all-foods "All foods in table view →"
   :all-nutrients "Nutrients"
+  :all-nutrients-more "See all nutrients →"
   :card-about-title "About Matvaretabellen"
   :card-about-text "Read more about Matvaretabellen"
   :card-table-title "Table view"
@@ -197,6 +198,7 @@
   :common-food-searches "Common Searches"
   :did-you-know "Did you know that ..."
   :food-groups "Food groups"
+  :food-groups-more "See all food groups →"
   :new-in-food-table "New in Matvaretabellen"
   :no-script-search-info [:span "Unfortunately, the search does not work without JavaScript turned on, but you can still find food items categorized under "
                           [:a {:href "/en/food-groups/"} "food groups"]
