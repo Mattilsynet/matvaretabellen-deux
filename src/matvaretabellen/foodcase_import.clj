@@ -49,7 +49,7 @@
 (def ignored-nutrients
   "Nutrients for which we have measurements, but still isn't desired displayed at
   this time."
-  #{"TRP" "PANTAC" "ASH"})
+  #{"TRP" "PANTAC" "ASH" "MN"})
 
 (defn parse-doublish [x]
   (when-not (#{"" "M" nil} x)
@@ -290,7 +290,9 @@
       (assoc :food-group/parent {:food-group/id parentId}))))
 
 (defn foodcase-nutrient->nutrient [{:strs [id name euroFIR euroFIRname unit decimals parentId]}]
-  (when (and (not (known-non-constituents id)) (not-empty unit))
+  (when (and (not (known-non-constituents id))
+             (not (ignored-nutrients id))
+             (not-empty unit))
     (let [parent (nutrient/get-parent id parentId)]
       (cond-> {:nutrient/id id
                :nutrient/name name
