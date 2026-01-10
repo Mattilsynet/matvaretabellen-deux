@@ -185,7 +185,7 @@
         (fn [[group foods]]
           (into [{:merged? true :title? true
                   :cells [{:text (get-in group [:food-group/name locale])}]}]
-                (for [food (sort-by :food/id foods)]
+                (for [food (sort-by (comp locale :food/name) foods)]
                   {:cells (prep fields food)}))))))
 
 (defn prepare-foods-sheet [locale title fields foods]
