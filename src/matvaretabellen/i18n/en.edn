@@ -5,7 +5,7 @@
   :number [:fn/num [:fn/get :n] [:fn/param]]
   :search-button "Search"
   :search-label "Search in Matvaretabellen"
-  :search-default-value "Type the name of a food, ingredient or nutrient"}
+  :search-default-value "Type the name of a food or nutrient"}
 
  #:acquisition.type
  {:authoritative-document "Authoritative document"
