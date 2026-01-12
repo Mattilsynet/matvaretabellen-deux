@@ -78,8 +78,9 @@
  {:food-group [:fn/str "{{:food-group}} ({{:n}})"]}
 
  #:matvaretabellen.layout
- {:about-mattilsynet "About Mattilsynet"
+ {:about-mattilsynet "Contact us"
   :about-us "Information about Matvaretabellen"
+  :about-url "https://www.mattilsynet.no/en/food-and-beverages/matvaretabellen"
   :accessibility-statement "Accessibility Statement (uustatus.no)"
   :api-text "Food composition table API"
   :close-sidebar "Close"
@@ -147,7 +148,7 @@
   :langual-description-label "Classification"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
   :method-type "Method type"
-  :method-indicator "Method"
+  :method-indicator "Method indicator"
   :minerals-title "Minerals"
   :minerals-trace-elements-title "Minerals and trace elements"
   :more [:fn/str "More {{:categoryish}}:"]
@@ -227,7 +228,7 @@
  {:clear-download "Clear list"
   :page-title "Search Matvaretabellen"
   :open-graph-description "Search, sort and browse Matvaretabellen"
-  :download-everything "Last ned hele Matvaretabellen (Excel)"}
+  :download-everything "Download the full table (Excel)"}
 
  #:matvaretabellen.ui.client-table
  {:columns "Nutrients"

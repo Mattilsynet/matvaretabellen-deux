@@ -112,7 +112,7 @@
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer ulike typer retter, produkter og ingredienser - slikt som pizza, snacks, middagstilbehør og vegetarprodukter."
                                 :en "This food group includes various types of dishes, products, and ingredients - such as pizza, snacks, dinner accompaniments, and vegetarian products."}
   :food-group/short-description {:nb "Pizza, snacks, middagstilbehør og vegetarprodukter med mer."
-                                 :en "Pizza, snacks, dinner accompaniments, and vegetarian products and more."}}
+                                 :en "Pizza and other dishes, snacks, vegetarian products and more."}}
 
  ;; "Spedbarnsmat"
  {:food-group/id "11"
@@ -120,9 +120,9 @@
   :food-group/photo "/images/food-groups/spedbarnsmat/photo.avif"
   :food-group/illustration "/images/food-groups/spedbarnsmat/illustration.svg"
   :food-group/long-description {:nb "Denne matvaregruppen inkluderer barnegrøt, barnemat, morsmelkerstatninger og tilskuddsblandinger."
-                                :en "This food group includes baby porridge, baby food, infant formula, and supplement mixes."}
+                                :en "Baby food and infant formulas."}
   :food-group/short-description {:nb "Barnegrøt, barnemat, morsmelkerstatninger og tilskuddsblandinger."
-                                 :en "Baby porridge, baby food, infant formula, and supplement mixes."}}
+                                 :en "Baby food and infant formulas."}}
 
  ;; "Belgvekster"
  {:food-group/id "12"

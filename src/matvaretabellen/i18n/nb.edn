@@ -80,6 +80,7 @@
  #:matvaretabellen.layout
  {:about-mattilsynet "Kontakt"
   :about-us "Informasjon om Matvaretabellen"
+  :about-url "https://www.mattilsynet.no/mat-og-drikke/matvaretabellen"
   :accessibility-statement "Tilgjengelegheitserklæring (uustatus.no)"
   :api-text "Matvaretabellens API"
   :close-sidebar "Lukk"
@@ -118,8 +119,8 @@
   :classification-title "Klassifisering"
   :classification-intro
   ([:p "Matvarene i Matvaretabellen beskrives ved hjelp av to klassifiseringssystemer."]
-   [:p [:a {:href [:fn/get :foodex-url]} "FoodEx2"] " er et klassifiserings- og standardiseringssystem for matvarer og fôr som det "
-    "europeiske mattilsynet (EFSA) står bak. Systemet består av en hovedkode som beskriver type matvare. I tillegg finnes det "
+   [:p [:a {:href [:fn/get :foodex-url]} "FoodEx2"] " er et klassifiserings- og standardiseringssystem for matvarer og fôr som den "
+    "europeiske myndighet for næringsmiddeltrygghet (EFSA) står bak. Systemet består av en hovedkode som beskriver type matvare. I tillegg finnes det "
     "fasetter som gir mer detaljert informasjon om matvaren, for eksempel om ingredienser, emballasje eller tilberedningsmetode. "]
    [:p [:a {:href [:fn/get :langual-url]} "LanguaL"] " er et lignende system . LanguaL står for “" [:strong "Langua aL"] "imentaria” "
     "eller “language of food”. Det består også av en beskrivelse av type matvare, og fasetter med mer informasjon."])

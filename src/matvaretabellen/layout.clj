@@ -55,7 +55,7 @@ window.onerror = function(message) {
                             "/api/")
                      :text [:i18n ::api-text]}
                     {:text [:i18n ::about-us]
-                     :url "https://www.mattilsynet.no/mat-og-drikke/matvaretabellen"}
+                     :url [:i18n ::about-url]}
                     {:url "https://www.mattilsynet.no/om-mattilsynet/personvernerklaering"
                      :text [:i18n ::privacy-and-cookies]}
                     {:url "https://www.mattilsynet.no/"
