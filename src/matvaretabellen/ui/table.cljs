@@ -82,12 +82,16 @@
 
 (defn init-filter-search [store input]
   (when input
-    (let [f (debounce #(swap! store (fn [state]
-                                      (let [q (.-value (.-target %))]
-                                        (possibly-update-url q)
-                                        (-> state
-                                            (assoc ::current (filter-by-query state q))
-                                            fd/clear)))) 250)]
+    (let [f (debounce (fn [^js e]
+                        ;; For some insane reason, the production build produces
+                        ;; an event during loading...
+                        ;; (when (< 500 (or (.-timeStamp e) 1000)))
+                        (swap! store (fn [state]
+                                       (let [q (.-value (.-target e))]
+                                         (possibly-update-url q)
+                                         (-> state
+                                             (assoc ::current (filter-by-query state q))
+                                             fd/clear))))) 250)]
       (.addEventListener input "input" f))))
 
 (defn render-food [el food columns lang]
@@ -422,9 +426,9 @@
     (init-download-buttons store els locale)
     store))
 
-(defn select-initial-dataset [store search-input params]
+(defn select-initial-dataset [store ^js combobox params]
   (if-let [query (not-empty (get params "q"))]
-    (when search-input
+    (when-let [search-input (.-control combobox)]
       (set! (.-value search-input) query)
       (search/on-ready (fn []
                          (swap! store #(assoc % ::current (filter-by-query % query))))))
@@ -434,7 +438,7 @@
   (doseq [el (dom/qsa (:table els) "th[data-id='download']")]
     (dom/show el))
   (let [store (init-components data locale els)]
-    (select-initial-dataset store (dom/qs ".mvt-filter-search input") params)
+    (js/setTimeout #(select-initial-dataset store (dom/qs ".mvt-filter-search u-combobox") params) 250)
     (render-downloads els (::selected @store))
     (add-watch store ::save-selected (fn [_ _ old next]
                                        (when-not (= (::selected old) (::selected next))

@@ -130,22 +130,25 @@
       (js/window.open (.-value option))
       (set! js/window.location (.-value option)))))
 
-(defn handle-autocomplete-keydown-event [e]
+(defn handle-autocomplete-keydown-event [^js e]
   (when (= "Enter" (.-key e))
+    (.preventDefault e)
     (let [input (.-target e)
           form (.closest input "form")]
       (set! js/window.location
             (str (.-action form) "?" (.-name input) "=" (js/encodeURIComponent (.-value input)))))))
 
 (defn initialize-foods-autocomplete [dom-element locale initial-query]
-  (when-let [combobox (dom/qs dom-element "u-combobox")]
+  (when-let [combobox ^js (dom/qs dom-element "u-combobox")]
     (let [empty-html (.-innerHTML (.-list combobox))]
       (.addEventListener combobox "input" #(handle-autocomplete-input-event % locale empty-html))
 
       (when (and initial-query (some-> (.-control combobox) .-value empty?))
-        (set! (.-value (.-control combobox)) initial-query)
-        (perform-autocomplete combobox locale empty-html)
-        (js/setTimeout #(.focus (.-control combobox)) 200)))
+        (on-ready
+         (fn []
+           (set! (.-value (.-control combobox)) initial-query)
+           (perform-autocomplete combobox locale empty-html)
+           (js/setTimeout #(.focus (.-control combobox)) 250)))))
 
     (.addEventListener combobox "click" #(handle-autocomplete-submit-event %))
     (.addEventListener (.-control combobox) "keydown" #(handle-autocomplete-keydown-event %))))
