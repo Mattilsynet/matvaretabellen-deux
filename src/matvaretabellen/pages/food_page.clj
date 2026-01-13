@@ -2,7 +2,7 @@
   (:require [broch.core :as b]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
-            [mattilsynet.design :as mtds]
+            [mattilsynet.design :as m]
             [matvaretabellen.food :as food]
             [matvaretabellen.food-name :as food-name]
             [matvaretabellen.layout :as layout]
@@ -246,7 +246,7 @@
    :rows (mapcat #(get-nutrient-rows food % recommendations db locale) nutrients)})
 
 (defn render-table [{:keys [headers rows classes] :as attrs}]
-  [:table (merge (cond-> {:class (mtds/classes :table classes)
+  [:table (merge (cond-> {:class (m/c :table classes)
                           :data-border ""
                           :data-size "sm"
                           :data-align "center"}
@@ -288,14 +288,14 @@
            [{:text id} {:text (food/humanize-langual-classification description)}])})
 
 (defn ^{:indent 1} render-popover [id & content]
-  [:div {:class (mtds/classes :card :popover)
+  [:div {:class (m/c :card :popover)
          :data-size "sm"
          :popover "auto"
          :id id
          :style {:max-width "30rem"}}
-   [:div {:class (mtds/classes :prose)}
+   [:div {:class (m/c :prose)}
     content]
-   [:button {:class (mtds/classes :button)
+   [:button {:class (m/c :button)
              :popovertargetaction "hide"
              :data-size "sm"
              :style {:position "absolute"
@@ -368,20 +368,20 @@
               [:td (Math/round (* 100 (/ value total)))]]))))]]])
 
 (defn passepartout [& body]
-  [:div {:class (mtds/classes :grid :card) :data-center "xl" :data-pad "10"}
-   [:div {:class (mtds/classes :grid) :data-gap "8" :data-center "md"}
+  [:div {:class (m/c :grid :card) :data-center "xl" :data-pad "10"}
+   [:div {:class (m/c :grid) :data-gap "8" :data-center "md"}
     body]])
 
 (defn passepartout-title [id title & rest]
-  [:div {:class (mtds/classes :flex) :data-align "end" :data-justify "space-between"}
-   [:h3 {:class (mtds/classes :heading) :data-size "xs" :id id} title]
+  [:div {:class (m/c :flex) :data-align "end" :data-justify "space-between"}
+   [:h3 {:class (m/c :heading) :data-size "xs" :id id} title]
    rest])
 
 (defn render-rda-select [db selected]
   (let [profiles (rda/get-profiles-per-demographic db)]
-    [:div {:class (mtds/classes :field) :data-size "md"}
+    [:div {:class (m/c :field) :data-size "md"}
      [:label [:i18n ::rda-select-label]]
-     [:select {:class (mtds/classes :input :mvt-rda-selector)}
+     [:select {:class (m/c :input :mvt-rda-selector)}
       (for [profile profiles]
         [:option (cond-> {:value (:rda/id profile)}
                    (= (:rda/id selected) (:rda/id profile))
@@ -389,9 +389,9 @@
          [:i18n :i18n/lookup (:rda/demographic profile)]])]]))
 
 (defn render-portion-select [locale portions]
-  [:div {:class (mtds/classes :field) :data-size "md"}
+  [:div {:class (m/c :field) :data-size "md"}
    [:label [:i18n ::portion-size]]
-   [:select {:class (mtds/classes :input) :id "portion-selector"}
+   [:select {:class (m/c :input) :id "portion-selector"}
     (into [[:option {:value "100"} [:i18n ::select-grams {:value 100}]]]
           (for [portion portions]
             (let [grams (b/num (:portion/quantity portion))]
@@ -427,7 +427,7 @@
      :class class})])
 
 (defn render-compare-button [food]
-  [:button {:class (mtds/classes :button :mvt-compare-food)
+  [:button {:class (m/c :button :mvt-compare-food)
             :type "button"
             :hidden "true"
             :data-size "md"
@@ -499,10 +499,10 @@
   (mapv
    (fn [{:source/keys [id description] :as source}]
      (try
-       [:div {:class (mtds/classes :grid)
+       [:div {:class (m/c :grid)
               :data-gap "0"}
         [:h3 {:id id
-              :class (mtds/classes :heading)
+              :class (m/c :heading)
               :data-size "xs"} id]
         [:p (-> (get description (:page/locale page))
                 food/hyperlink-string)]]
@@ -532,33 +532,33 @@
        {:locale locale
         :app/config (:app/config context)}
        #(urls/get-food-url % food))
-      [:div {:class (mtds/classes :grid) :data-gap "12"}
-       [:div {:class (mtds/classes :grid :banner) :data-gap "8" :role "banner"}
+      [:div {:class (m/c :grid) :data-gap "12"}
+       [:div {:class (m/c :grid :banner) :data-gap "8" :role "banner"}
         (layout/render-toolbar
          {:locale locale
           :crumbs [(:food/food-group food)
                    {:text (->> (get-in food [:food/name locale])
                                food-name/shorten-name)}]})
-        [:div {:class (mtds/classes :flex) :data-center "xl" :data-items "350" :data-gap "12"}
-         [:div {:class (mtds/classes :grid) :data-align "end"}
-          [:h1 {:class (mtds/classes :heading) :data-size "xl" :style {:align-self "start"}} food-name]
-          [:h2 {:class (mtds/classes :heading) :data-size "2xs"} energy-label-mobile]
-          [:div {:class (mtds/classes :grid) :data-items "150"}
+        [:div {:class (m/c :flex) :data-center "xl" :data-items "350" :data-gap "12"}
+         [:div {:class (m/c :grid) :data-align "end"}
+          [:h1 {:class (m/c :heading) :data-size "xl" :style {:align-self "start"}} food-name]
+          [:h2 {:class (m/c :heading) :data-size "2xs"} energy-label-mobile]
+          [:div {:class (m/c :grid) :data-items "150"}
            (for [{:keys [title detail] :as attr} (prepare-macro-highlights food)]
              [:a
               (-> (dissoc attr :title :detail)
-                  (assoc :class (mtds/classes :card :grid)
+                  (assoc :class (m/c :card :grid)
                          :data-gap "2"))
               [:span {:data-size "md"} title]
-              [:div {:class (mtds/classes :heading) :data-size "md"} detail]])]
-          [:div.mobile {:class (mtds/classes :grid)} (render-compare-button food)]]
+              [:div {:class (m/c :heading) :data-size "md"} detail]])]
+          [:div.mobile {:class (m/c :grid)} (render-compare-button food)]]
          [:div {:data-fixed ""}
           (render-toc {:contents (get-toc-items)})]]
         (when-let [related (seq (food/find-related-foods food locale))]
           (let [categoryish (food/infer-food-kind food locale)]
-            [:div {:class (mtds/classes :flex) :data-center "xl" :data-size "sm"}
+            [:div {:class (m/c :flex) :data-center "xl" :data-size "sm"}
              [:strong [:i18n ::more {:categoryish (str/lower-case categoryish)}] " "]
-             [:ul {:class (mtds/classes :flex)}
+             [:ul {:class (m/c :flex)}
               (for [food related]
                 [:li
                  [:a {:href (urls/get-food-url locale food)
@@ -566,29 +566,29 @@
                       :data-comparison-suggestion-name (get-in food [:food/name locale])}
                   (food/get-variant-name food locale categoryish)]])]]))]
 
-       [:div {:class (mtds/classes :flex) :data-justify "space-between" :data-center "xl" :data-align "end"}
-        [:h2#naringsinnhold {:class (mtds/classes :heading) :data-size "md"} [:i18n ::nutrition-title]]
-        [:div {:class (mtds/classes :flex) :data-align "end"}
+       [:div {:class (m/c :flex) :data-justify "space-between" :data-center "xl" :data-align "end"}
+        [:h2#naringsinnhold {:class (m/c :heading) :data-size "md"} [:i18n ::nutrition-title]]
+        [:div {:class (m/c :flex) :data-align "end"}
          [:div.desktop (render-compare-button food)]
          (render-portion-select locale (:food/portions food))]]
 
-       [:div {:class (mtds/classes :grid :card) :data-center "xl" :data-pad "10"}
-        [:div {:class (mtds/classes :grid) :data-center "md" :data-gap "6"}
-         [:h3#energi {:class (mtds/classes :heading) :data-size "xs"} [:i18n ::nutrition-heading]]
-         [:div {:class (mtds/classes :flex) :data-items "200" :data-align "center" :data-gap "8"}
-          [:div {:class (mtds/classes :flex) :data-justify "center" :data-items "400"}
+       [:div {:class (m/c :grid :card) :data-center "xl" :data-pad "10"}
+        [:div {:class (m/c :grid) :data-center "md" :data-gap "6"}
+         [:h3#energi {:class (m/c :heading) :data-size "xs"} [:i18n ::nutrition-heading]]
+         [:div {:class (m/c :flex) :data-items "200" :data-align "center" :data-gap "8"}
+          [:div {:class (m/c :flex) :data-justify "center" :data-items "400"}
            [:small {:data-self "auto" :data-fixed ""} [:i18n ::composition]]
            (render-composition-chart food ["Fett" "Karbo" "Protein" "Fiber" "Alko" "Vann"])]
-          [:div {:class (mtds/classes :flex) :data-justify "center" :data-items "400"}
+          [:div {:class (m/c :flex) :data-justify "center" :data-items "400"}
            [:small {:data-self "auto" :data-fixed ""} [:i18n ::energy-content]]
            (render-energy-chart food ["Fett" "Karbo" "Protein" "Fiber" "Alko"])]
-          [:ul.chart-legend {:class (mtds/classes :grid) :data-gap "1" :data-size "md" :data-self "100"}
+          [:ul.chart-legend {:class (m/c :grid) :data-gap "1" :data-size "md" :data-self "100"}
            (for [entry slice-legend]
              [:li {:style {:--color (:color entry)}}
               [:i18n :i18n/lookup (:nutrient/name (d/entity db [:nutrient/id (:nutrient-id entry)]))]])]]
 
-         [:div {:class (mtds/classes :flex) :data-justify "space-between" :data-align "end" :data-size "md"}
-          [:ul {:class (mtds/classes :grid) :data-gap "0"}
+         [:div {:class (m/c :flex) :data-justify "space-between" :data-align "end" :data-size "md"}
+          [:ul {:class (m/c :grid) :data-gap "0"}
            [:li energy-label ": " (energy food)]
            (when-let [edible-part (-> food :food/edible-part :measurement/percent)]
              [:li [:i18n ::edible-part
@@ -632,36 +632,36 @@
              (map #(render-table (assoc % :id "sporstoffer")))))
 
        (passepartout
-        [:div {:class (mtds/classes :prose)}
-         [:h3#klassifisering {:class (mtds/classes :heading)
+        [:div {:class (m/c :prose)}
+         [:h3#klassifisering {:class (m/c :heading)
                               :data-size "lg"}
           [:i18n ::classification-title]]
-         [:div {:class (mtds/classes :grid)
+         [:div {:class (m/c :grid)
                 :data-gap "0"}
           [:p [:i18n ::food-id {:id (:food/id food)}]]
           (when-let [latin-name (not-empty (:food/latin-name food))]
             [:p [:i18n ::scientific-name {:name latin-name}]])]
-         [:div {:class (mtds/classes :prose)}
-          [:h4#foodex2 {:class (mtds/classes :heading)
+         [:div {:class (m/c :prose)}
+          [:h4#foodex2 {:class (m/c :heading)
                         :data-size "xs"} "FoodEx2: "
            [:a {:href (urls/get-foodex-term-url locale (-> food :foodex2/classification :foodex2/term))}
             (render-foodex2-term (-> food :foodex2/classification :foodex2/term))]]
           (render-foodex2-facets locale food)]
          (when-let [langual-codes (seq (food/get-langual-codes food))]
            (list
-            [:h4 {:class (mtds/classes :heading)
+            [:h4 {:class (m/c :heading)
                   :data-size "xs"} "LanguaL"]
             (->> langual-codes
                  prepare-langual-table
                  render-table)))
-         [:div {:class (mtds/classes :prose)}
+         [:div {:class (m/c :prose)}
           [:i18n ::classification-intro
            {:langual-url "https://www.langual.org/"
             :foodex-url "https://www.efsa.europa.eu/en/data/data-standardisation"}]]])
 
        (passepartout
-        [:div {:class (mtds/classes :prose)}
-         [:h3#kilder {:class (mtds/classes :heading)} [:i18n ::sources]]
+        [:div {:class (m/c :prose)}
+         [:h3#kilder {:class (m/c :heading)} [:i18n ::sources]]
          (->> (food/get-sources food)
               (render-source-list page))])
 
@@ -677,7 +677,7 @@
                {:nutrient [:i18n :i18n/lookup (:nutrient/name nutrient)]
                 :food [:i18n :i18n/lookup (:food/name food)]}]]
              [:table
-              {:class (mtds/classes :table)
+              {:class (m/c :table)
                :data-size "sm"}
               [:tbody
                [:tr

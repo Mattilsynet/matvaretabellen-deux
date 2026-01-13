@@ -2,7 +2,7 @@
   (:require [clojure.data.json :as json]
             [clojure.set :as set]
             [datomic-type-extensions.api :as d]
-            [mattilsynet.design :as mtds]))
+            [mattilsynet.design :as m]))
 
 (defn get-food-group-paths [food-groups & [path]]
   (mapcat
@@ -35,7 +35,7 @@
 (defn render-food-group-list [app-db food-groups foods locale & [{:keys [class id hidden?]}]]
   (when (seq food-groups)
     [:ul
-     (cond-> {:class (mtds/classes :grid :food-group-list class)
+     (cond-> {:class (m/c :grid :food-group-list class)
               :data-gap "1"}
        id (assoc :data-filter-list-id id)
        hidden? (assoc :hidden "true"))
@@ -45,8 +45,8 @@
           (remove (comp zero? second))
           (map (fn [[group n]]
                  [:li
-                  [:div {:class (mtds/classes :field)}
-                   [:input {:class (mtds/classes :input)
+                  [:div {:class (m/c :field)}
+                   [:input {:class (m/c :input)
                             :name "filter-food-group"
                             :value (:food-group/id group)
                             :type "checkbox"}]

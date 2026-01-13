@@ -1,6 +1,6 @@
 (ns matvaretabellen.pages.nutrient-page
   (:require [datomic-type-extensions.api :as d]
-            [mattilsynet.design :as mtds]
+            [mattilsynet.design :as m]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
             [matvaretabellen.food-group :as food-group]
@@ -64,7 +64,7 @@
   (when-let [nutrients (->> (:nutrient/_parent parent)
                             nutrient/sort-by-preference
                             seq)]
-    [:ul {:class (mtds/classes :grid) :data-gap "1"}
+    [:ul {:class (m/c :grid) :data-gap "1"}
      (for [n nutrients]
        [:li
         (if (= n current)
@@ -75,15 +75,15 @@
 
 (defn render-sidebar [app-db nutrient foods locale]
   (let [target (or (:nutrient/parent nutrient) nutrient)]
-    [:div {:class (mtds/classes :grid) :data-gap "8" :id filter-panel-id}
+    [:div {:class (m/c :grid) :data-gap "8" :id filter-panel-id}
      (when-let [links (render-nutrient-links locale target nutrient)]
-       [:div {:class (mtds/classes :grid)}
+       [:div {:class (m/c :grid)}
         (let [{:keys [url text]} (get-back-link locale nutrient)]
-          [:h2 {:class (mtds/classes :heading) :data-size "xs"}
+          [:h2 {:class (m/c :heading) :data-size "xs"}
            [:a {:href url} text]])
         links])
-     [:div {:class (mtds/classes :grid)}
-      [:h2 {:class (mtds/classes :heading) :data-size "xs"}
+     [:div {:class (m/c :grid)}
+      [:h2 {:class (m/c :heading) :data-size "xs"}
        [:a {:href (urls/get-food-groups-url locale)}
         [:i18n ::food-groups]]]
       (food-group/render-food-group-filters
@@ -107,9 +107,9 @@
        {:locale locale
         :app/config (:app/config context)}
        #(urls/get-nutrient-url % nutrient))
-      [:div {:class (mtds/classes :grid) :data-gap "12"}
+      [:div {:class (m/c :grid) :data-gap "12"}
        [:div.screen-sm-inline-pad
-        {:class (mtds/classes :grid :banner)
+        {:class (m/c :grid :banner)
          :data-gap "8"
          :role "banner"}
         (layout/render-toolbar
@@ -120,11 +120,11 @@
         (let [details (d/entity (:app/db context) [:nutrient/id (:nutrient/id nutrient)])
               desc (get-in details [:nutrient/long-description locale])
               illustration (:nutrient/illustration details)]
-          [:div {:class (mtds/classes :flex)
+          [:div {:class (m/c :flex)
                  :data-center "xl"
                  :data-align "center"}
-           [:div {:class (mtds/classes :prose) :data-self "500"}
-            [:h1 {:class (mtds/classes :heading) :data-size "xl"} nutrient-name]
+           [:div {:class (m/c :prose) :data-self "500"}
+            [:h1 {:class (m/c :heading) :data-size "xl"} nutrient-name]
             (when (seq foods)
               [:small [:i18n :i18n/number-of-foods {:count (count foods)}]])
             (when desc
@@ -133,7 +133,7 @@
                                       desc)])
             (when (seq foods)
               [:div
-               [:a {:class (mtds/classes :button)
+               [:a {:class (m/c :button)
                     :data-variant "secondary"
                     :data-size "md"
                     :href (urls/get-nutrient-excel-url locale nutrient)}
@@ -145,7 +145,7 @@
 
        (when (seq foods)
          (let [sidebar (render-sidebar (:app/db context) nutrient foods locale)]
-           [:div {:class (mtds/classes :flex) :data-items "300" :data-center "xl"}
+           [:div {:class (m/c :flex) :data-items "300" :data-center "xl"}
             [:div {:data-fixed "" :data-size "md"}
              sidebar]
             [:div

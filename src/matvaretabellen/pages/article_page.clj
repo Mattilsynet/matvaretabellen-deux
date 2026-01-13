@@ -1,7 +1,7 @@
 (ns matvaretabellen.pages.article-page
   (:require [clojure.string :as str]
             [datomic-type-extensions.api :as d]
-            [mattilsynet.design :as mtds]
+            [mattilsynet.design :as m]
             [matvaretabellen.layout :as layout]
             [powerpack.markdown :as md]))
 
@@ -26,7 +26,7 @@
      [:head
       [:title (:page/title page)]]
      [:body {:data-size "lg"}
-      [:div {:class (mtds/classes :grid) :data-gap "12"}
+      [:div {:class (m/c :grid) :data-gap "12"}
        (layout/render-header {:locale locale
                               :app/config (:app/config context)}
                              (or (:page/i18n-uris page)
@@ -34,8 +34,8 @@
        (layout/render-toolbar
         {:locale locale
          :crumbs []})
-       [:div {:class (mtds/classes :grid) :data-center "md"}
-        [:div {:class (mtds/classes :prose)}
+       [:div {:class (m/c :grid) :data-center "md"}
+        [:div {:class (m/c :prose)}
          (-> (:page/body page)
              (replace-placeholders food-db locale infos)
              md/render-html)]]]])))

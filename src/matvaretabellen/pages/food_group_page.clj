@@ -1,6 +1,6 @@
 (ns matvaretabellen.pages.food-group-page
   (:require [datomic-type-extensions.api :as d]
-            [mattilsynet.design :as mtds]
+            [mattilsynet.design :as m]
             [matvaretabellen.food-group :as food-group]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.mashdown :as mashdown]
@@ -15,7 +15,7 @@
   (when-let [food-groups (->> food-groups
                               (sort-by #(food-group/food-group->sort-key app-db %))
                               seq)]
-    [:ul {:class (mtds/classes :grid) :data-gap "1"}
+    [:ul {:class (m/c :grid) :data-gap "1"}
      (for [group food-groups]
        [:li
         (if (= group current)
@@ -49,13 +49,13 @@
      (if (or (:food-group/parent food-group)
              (empty? (:food-group/_parent food-group)))
        (when-let [links (render-filter-links app-db locale target food-group)]
-         [:div {:class (mtds/classes :grid)}
+         [:div {:class (m/c :grid)}
           (let [{:keys [url text]} (get-back-link locale food-group)]
-            [:h2 {:class (mtds/classes :heading) :data-size "xs"}
+            [:h2 {:class (m/c :heading) :data-size "xs"}
              [:a {:href url} text]])
           links])
-       [:div {:class (mtds/classes :grid)}
-        [:h2 {:class (mtds/classes :heading) :data-size "xs"}
+       [:div {:class (m/c :grid)}
+        [:h2 {:class (m/c :heading) :data-size "xs"}
          [:a {:href (urls/get-food-groups-url locale)}
           [:i18n ::food-groups]]]
         (food-group/render-food-group-filters app-db (:food-group/_parent food-group) foods locale)])]))
@@ -90,9 +90,9 @@
        {:locale locale
         :app/config (:app/config context)}
        #(urls/get-food-group-url % food-group))
-      [:div {:class (mtds/classes :grid) :data-gap "12"}
+      [:div {:class (m/c :grid) :data-gap "12"}
        [:div.screen-sm-inline-pad
-        {:class (mtds/classes :grid :banner)
+        {:class (m/c :grid :banner)
          :data-gap "8"
          :role "banner"}
         (layout/render-toolbar
@@ -100,9 +100,9 @@
           :crumbs [{:text [:i18n :i18n/search-label]
                     :url (urls/get-base-url locale)}
                    food-group]})
-        [:div {:class (mtds/classes :flex) :data-center "xl" :data-align "center"}
-         [:div {:class (mtds/classes :prose) :data-self "500"}
-          [:h1 {:class (mtds/classes :heading) :data-size "xl"} (get-in food-group [:food-group/name locale])]
+        [:div {:class (m/c :flex) :data-center "xl" :data-align "center"}
+         [:div {:class (m/c :prose) :data-self "500"}
+          [:h1 {:class (m/c :heading) :data-size "xl"} (get-in food-group [:food-group/name locale])]
           [:small
            [:i18n :i18n/number-of-foods
             {:count (count foods)}]]
@@ -111,7 +111,7 @@
                                  (or (get-in details [:food-group/long-description locale])
                                      (get-in details [:food-group/short-description locale])))]
           [:div
-           [:a {:class (mtds/classes :button)
+           [:a {:class (m/c :button)
                 :data-variant "secondary"
                 :data-size "md"
                 :href (urls/get-food-group-excel-url locale food-group)}
@@ -121,7 +121,7 @@
           (layout/render-illustration (:food-group/illustration details))]]]
 
        (let [sidebar (render-sidebar (:app/db context) food-group foods locale)]
-         [:div {:class (mtds/classes :flex) :data-items "300" :data-center "xl"}
+         [:div {:class (m/c :flex) :data-items "300" :data-center "xl"}
           [:div {:data-fixed "" :data-size "md"}
            sidebar]
           [:div

@@ -1,6 +1,6 @@
 (ns matvaretabellen.layout
   (:require [clojure.java.io :as io]
-            [mattilsynet.design :as mtds]
+            [mattilsynet.design :as m]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.ui.breadcrumbs :refer [Breadcrumbs]]
             [matvaretabellen.ui.search-input :refer [SearchInput]]
@@ -33,15 +33,15 @@ window.onerror = function(message) {
 
 (defn Footer [{:keys [cols]}]
   [:footer.footer.screen-sm-inline-pad {:data-color "inverted"}
-   [:div {:class (mtds/classes :grid) :data-items "300" :data-align "start" :data-size "sm" :data-center "xl"}
+   [:div {:class (m/c :grid) :data-items "300" :data-align "start" :data-size "sm" :data-center "xl"}
     [:a {:href "https://www.mattilsynet.no"
          :aria-label "Mattilsynet"
-         :class (mtds/classes :logo)}]
+         :class (m/c :logo)}]
     (for [{:keys [title items]} cols]
-      [:div {:class (mtds/classes :grid)}
-       [:h2 {:class (mtds/classes :heading) :data-size "sm"} title]
+      [:div {:class (m/c :grid)}
+       [:h2 {:class (m/c :heading) :data-size "sm"} title]
        (when (seq items)
-         [:ul {:class (mtds/classes :grid)}
+         [:ul {:class (m/c :grid)}
           (for [{:keys [url text]} items]
             [:li (if url
                    [:a {:href url} text]
@@ -103,25 +103,25 @@ window.onerror = function(message) {
 
 (defn SiteHeader [{:keys [home-url extra-link extra-links]}]
   [:header.header
-   [:div {:class (mtds/classes :flex)
+   [:div {:class (m/c :flex)
           :data-center "xl"
           :data-justify "space-between"
           :data-align "center"}
-    [:a {:class (mtds/classes :logo)
+    [:a {:class (m/c :logo)
          :href home-url}
      "Matvaretabellen"]
     (when extra-link
       [:a {:href (:url extra-link)}
        (:text extra-link)])
     (when extra-links
-      [:menu {:class (mtds/classes :flex)}
+      [:menu {:class (m/c :flex)}
        (for [{:keys [url text class]} extra-links]
          [:li {:class class}
           (if url
             [:a {:href url
-                 :class (mtds/classes :button)
+                 :class (m/c :button)
                  :data-variant "tertiary"} text]
-            [:span {:class (mtds/classes :button)
+            [:span {:class (m/c :button)
                     :data-variant "tertiary"
                     :aria-current "page"} text])])])]])
 
@@ -135,7 +135,7 @@ window.onerror = function(message) {
      :theme (:app/theme config)})])
 
 (defn render-toolbar [{:keys [locale crumbs]}]
-  [:div {:class (mtds/classes :flex) :data-justify "space-between" :data-center "xl" :data-gap "6" :data-items "350"}
+  [:div {:class (m/c :flex) :data-justify "space-between" :data-center "xl" :data-gap "6" :data-items "350"}
    (Breadcrumbs
     {:links (apply crumbs/crumble locale crumbs)})
    [:form

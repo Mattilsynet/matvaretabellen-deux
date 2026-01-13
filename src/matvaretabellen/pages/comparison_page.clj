@@ -1,7 +1,7 @@
 (ns matvaretabellen.pages.comparison-page
   (:require [clojure.data.json :as json]
             [datomic-type-extensions.api :as d]
-            [mattilsynet.design :as mtds]
+            [mattilsynet.design :as m]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
             [matvaretabellen.layout :as layout]
@@ -23,21 +23,21 @@
 
 (defn render-share-button [locale]
   (list
-   [:a {:class (mtds/classes :button :mvtc-share)
+   [:a {:class (m/c :button :mvtc-share)
         :data-variant "secondary"
         :popovertarget "share-receipt"
         :href (urls/get-comparison-url locale)}
     (icons/render :phosphor.regular/export)
     [:i18n ::share-comparison]]
-   [:div#share-receipt {:class (mtds/classes :popover)
+   [:div#share-receipt {:class (m/c :popover)
                         :popover ""}
     [:i18n ::url-copied]]))
 
 (defn render-top-banner [locale _context]
-  [:div {:class (mtds/classes :grid :banner) :role "banner"}
-   [:div {:class (mtds/classes :grid) :data-center "xl" :data-gap "8"}
+  [:div {:class (m/c :grid :banner) :role "banner"}
+   [:div {:class (m/c :grid) :data-center "xl" :data-gap "8"}
     (render-breadcrumbs locale)
-    [:h1 {:class (mtds/classes :heading) :data-size "xl"}
+    [:h1 {:class (m/c :heading) :data-size "xl"}
      [:i18n ::compare-foods]]]])
 
 (defn prepare-energy-rows [food]
@@ -145,31 +145,31 @@
      {:locale (:page/locale page)
       :app/config (:app/config context)}
      urls/get-comparison-url)
-    [:div {:class (mtds/classes :grid) :data-gap "12"}
+    [:div {:class (m/c :grid) :data-gap "12"}
      (render-top-banner (:page/locale page) context)
 
-     [:div {:class (mtds/classes :grid) :data-center "xl"}
-      [:div {:class (mtds/classes :flex)
+     [:div {:class (m/c :grid) :data-center "xl"}
+      [:div {:class (m/c :flex)
              :data-align "center"
              :data-justify "space-between"
              :data-size "md"}
-       [:fieldset {:class (mtds/classes :togglegroup)}
+       [:fieldset {:class (m/c :togglegroup)}
         [:label
          [:input {:type "radio" :name "comparison-view" :value "#columnwise" :checked ""}]
          [:i18n ::columnwise]]
         [:label
          [:input {:type "radio" :name "comparison-view" :value "#rowwise"}]
          [:i18n ::rowwise]]]
-       [:div {:class (mtds/classes :flex)}
+       [:div {:class (m/c :flex)}
         (client-table/render-download-csv-button)
         (render-share-button (:page/locale page))]]]
 
-     [:div.mvtc-tab-target#columnwise {:class (mtds/classes :grid) :data-center "xl"}
+     [:div.mvtc-tab-target#columnwise {:class (m/c :grid) :data-center "xl"}
       [:p [:i18n ::diff-intro]]
       [:figure
        (render-columnwise-comparison context page)]]
 
-     [:div#rowwise.mvtc-tab-target {:class (mtds/classes :grid)
+     [:div#rowwise.mvtc-tab-target {:class (m/c :grid)
                                     :data-center "xl"
                                     :hidden "true"}
       [:div {:data-size "sm"} (client-table/render-nutrients-toggle)]

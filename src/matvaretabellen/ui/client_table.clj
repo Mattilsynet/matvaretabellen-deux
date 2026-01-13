@@ -1,6 +1,6 @@
 (ns matvaretabellen.ui.client-table
   (:require [broch.core :as b]
-            [mattilsynet.design :as mtds]
+            [mattilsynet.design :as m]
             [matvaretabellen.food :as food]
             [matvaretabellen.food-group :as food-group]
             [matvaretabellen.nutrient :as nutrient]
@@ -14,7 +14,7 @@
    {:headers (concat [{:hidden "true"
                        :data-id "download"
                        :style {:width "var(--mtds-15)"}
-                       :text [:button {:class (mtds/classes :button :mvt-add-to-list)
+                       :text [:button {:class (m/c :button :mvt-add-to-list)
                                        :type "button"
                                        :aria-label [:i18n ::stage-for-download]
                                        :data-size "sm"}
@@ -43,7 +43,7 @@
     :data-fixed false
     :rows [{:cols
             (concat
-             [{:text [:button {:class (mtds/classes :button :mvt-add-to-list)
+             [{:text [:button {:class (m/c :button :mvt-add-to-list)
                                :type "button"
                                :aria-label [:i18n ::stage-for-download]
                                :data-size "sm"}
@@ -76,12 +76,12 @@
 
 (defn render-filter-list [options]
   (when (seq options)
-    [:ul {:class (mtds/classes :grid) :data-gap "1"}
+    [:ul {:class (m/c :grid) :data-gap "1"}
      (for [filter-m options]
        [:li
-        [:div {:class (mtds/classes :grid) :data-gap "1"}
-         [:div {:class (mtds/classes :field)}
-          [:input {:class (mtds/classes :input)
+        [:div {:class (m/c :grid) :data-gap "1"}
+         [:div {:class (m/c :field)}
+          [:input {:class (m/c :input)
                    :type "checkbox"
                    :name (:data-filter-id filter-m)
                    :checked (when (:checked? filter-m) "true")}]
@@ -94,7 +94,7 @@
           (render-filter-list (:options filter-m))]]])]))
 
 (defn render-nutrient-filter-column [filters]
-  [:div {:class (mtds/classes :grid)}
+  [:div {:class (m/c :grid)}
    (for [filter-m filters]
      (if (:data-filter-id filter-m)
        (render-filter-list [filter-m])
@@ -104,7 +104,7 @@
             (remove nil?))))])
 
 (defn render-column-settings [foods-db]
-  [:div#columns-panel {:class (mtds/classes :grid :group)
+  [:div#columns-panel {:class (m/c :grid :group)
                        :data-items "350"
                        :data-align "start"
                        :data-size "md"
@@ -113,7 +113,7 @@
         (map render-nutrient-filter-column))])
 
 (defn render-food-group-settings [context page]
-  [:div#food-group-panel {:class (mtds/classes :grid :group)
+  [:div#food-group-panel {:class (m/c :grid :group)
                           :data-items "350"
                           :data-align "start"
                           :data-size "md"
@@ -127,20 +127,20 @@
 (defn render-table-skeleton [foods-db & [opt]]
   (let [nutrients (->> (nutrient/get-used-nutrients foods-db)
                        nutrient/sort-by-preference)]
-    [:figure {:class (mtds/classes :grid)
+    [:figure {:class (m/c :grid)
               :data-gap "8"}
      [:div {:style {:max-height "80vh"
                     :overflow "scroll"}}
       (->> (prepare-foods-table nutrients opt)
            food-page/render-table)]
-     [:div {:class (mtds/classes :flex)}
-      [:button {:class (mtds/classes :button :mvt-prev)
+     [:div {:class (m/c :flex)}
+      [:button {:class (m/c :button :mvt-prev)
                 :hidden "true"
                 :data-variant "secondary"
                 :type "button"}
        (icons/render :phosphor.regular/caret-left)
        [:i18n ::prev]]
-      [:button {:class (mtds/classes :button :mvt-next)
+      [:button {:class (m/c :button :mvt-next)
                 :hidden "true"
                 :data-variant "secondary"
                 :type "button"}
@@ -148,21 +148,21 @@
        (icons/render :phosphor.regular/caret-right)]]]))
 
 (defn render-food-groups-toggle []
-  [:button {:class (mtds/classes :button :mvt-add-to-list)
+  [:button {:class (m/c :button :mvt-add-to-list)
             :data-toggle-target "#food-group-panel"
             :type "button"}
    (icons/render :phosphor.regular/gear)
    [:i18n ::food-groups]])
 
 (defn render-nutrients-toggle []
-  [:button {:class (mtds/classes :button :mvt-add-to-list)
+  [:button {:class (m/c :button :mvt-add-to-list)
             :data-toggle-target "#columns-panel"
             :type "button"}
    (icons/render :phosphor.regular/table)
    [:i18n ::columns]])
 
 (defn render-download-csv-button []
-  [:a {:class (mtds/classes :button :mvt-download)
+  [:a {:class (m/c :button :mvt-download)
        :hidden "true"
        :data-variant "secondary"
        :href "#"

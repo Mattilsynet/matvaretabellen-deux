@@ -1,6 +1,6 @@
 (ns matvaretabellen.pages.foodex2-term-page
   (:require [datomic-type-extensions.api :as d]
-            [mattilsynet.design :as mtds]
+            [mattilsynet.design :as m]
             [matvaretabellen.foodex2 :as foodex2]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.urls :as urls]))
@@ -27,29 +27,29 @@
        {:locale (:page/locale page)
         :app/config (:app/config context)}
        #(urls/get-foodex-term-url % term))
-      [:div {:class (mtds/classes :grid) :data-gap "12"}
-       [:div {:class (mtds/classes :grid :banner) :data-gap "8" :role "banner"}
+      [:div {:class (m/c :grid) :data-gap "12"}
+       [:div {:class (m/c :grid :banner) :data-gap "8" :role "banner"}
         (layout/render-toolbar
          {:locale (:page/locale page)
           :crumbs [{:text [:i18n :i18n/search-label]
                     :url (urls/get-base-url locale)}
                    {:text (:foodex2.term/code term)}]})
-        [:div {:class (mtds/classes :flex)
+        [:div {:class (m/c :flex)
                :data-center "xl"
                :data-align "center"}
-         [:div {:class (mtds/classes :prose)
+         [:div {:class (m/c :prose)
                 :data-self "500"}
           [:h1 (:foodex2.term/code term) " " (:foodex2.term/name term)]
           [:p {:data-size "lg"} (:foodex2.term/note term)]]]]
 
-       [:div {:class (mtds/classes :grid)
+       [:div {:class (m/c :grid)
               :data-center "xl"
               :data-gap "8"}
 
         ;; Foods classified as this
         (when-let [foods (some->> (seq (foodex2/term->classified term))
                                   (sort-by (comp :en :food/name)))]
-          [:div {:class (mtds/classes :card :prose)
+          [:div {:class (m/c :card :prose)
                  :data-pad "8"}
            [:h2 [:i18n ::classified-as term]]
            [:ul
@@ -62,7 +62,7 @@
                                  (remove (comp #{"F27"} :foodex2.facet/id first))
                                  (sort-by (comp (juxt :foodex2.facet/id :foodex2.facet/name)
                                                 first)))]
-          [:div {:class (mtds/classes :card :prose)
+          [:div {:class (m/c :card :prose)
                  :data-pad "8"}
            [:h2 (render-facet facet)]
            [:ul

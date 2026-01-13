@@ -1,6 +1,6 @@
 (ns matvaretabellen.ui.search
   (:require [clojure.string :as str]
-            [mattilsynet.design :as mtds]
+            [mattilsynet.design :as m]
             [matvaretabellen.search :as search]
             [matvaretabellen.ui.dom :as dom]
             [matvaretabellen.ui.query-engine :as qe]
@@ -107,7 +107,7 @@
     (if (< (.-length q) 2)
       (set! (.-innerHTML datalist) empty-html)
       (if (waiting?)
-        (do (set! (.-innerHTML datalist) (str "<u-option><span class='" (str/join " " (mtds/classes :spinner)) "'></span></u-option>"))
+        (do (set! (.-innerHTML datalist) (str "<u-option><span class='" (str/join " " (m/c :spinner)) "'></span></u-option>"))
             (add-watch search-engine ::waiting-for-load
                        #(when-not (waiting?)
                           (remove-watch search-engine ::waiting-for-load)
