@@ -86,7 +86,10 @@
                    :name (:data-filter-id filter-m)
                    :checked (when (:checked? filter-m) "true")}]
           [:label (dissoc filter-m :checked? :label)
-           (:label filter-m)]]
+           (if (#{"Fett" "Karbo"} (:data-filter-id filter-m))
+             [:h3 {:style {:display "inline"
+                           :margin "0"}} (:label filter-m)]
+             (:label filter-m))]]
          [:div {:style {:margin-left "var(--mtds-8)"}}
           (render-filter-list (:options filter-m))]]])]))
 
