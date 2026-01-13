@@ -306,6 +306,52 @@
         parent
         (assoc :nutrient/parent parent)))))
 
+(def nb-source-texts
+  {"MI0142" "Vann beregnet ved differanse"
+   "MI0217" "Beregnet som summen av transfettsyrer"
+   "MI0210" "Beregnet som summen av enumettede fettsyrer"
+   "MI1305" "ICP-AES"
+   "MIR002" "Beregningsmetode, ingen ytterligere informasjon om metoden er tilgjengelig"
+   "MIR009" "Annen metode"
+   "MI0325" "Beregnet som summen av retinol + 1/12 betakaroten."
+   "MI0231" "Verdien er beregnet fra andre verdier for samme matvare"
+   "MIR007" "Estimert verdi"
+   "MI0202" "Beregnet som summen av fettsyrer"
+   "MI0216" "Beregnet som summen av omega-3-fettsyrer"
+   "MI0208" "Beregnet som summen av mettede fettsyrer"
+   "MI0512" "Beregnet ut fra summering av individuelle mono- og disakkarider."
+   "MI0421" "Beregnet som summen av preformert niacin og niacinaktivitet fra tryptofan."
+   "MI0219" "Beregnet som summen av omega-3-fettsyrer"
+   "MI1137" "HPLC-fluorescens"
+   "MI0218" "Beregnet som summen av omega-6-fettsyrer"
+   "MI1205" "Gass-kromatografi"
+   "MI0181" "Beregnet ut fra summering av stivelse og mono- og disakkarider."
+   "MI1044" "Polarimetri"
+   "MI1138" "UPLC-fluorescens"
+   "MI1002" "Spektroskopi"
+   "MIR001" "Analysemetode"
+   "MI0141" "Vann beregnet ved differanse (fra tørrstoff)"
+   "MI0257" "Beregnet som summen av mettede fettsyrer"
+   "MIR006" "Summering"
+   "MI1039" "Kjeldahls metode"
+   "MIR008" "Oppskriften er beregnet, beregningsmetode ukjent"
+   "MIR011" "Oppskriften er beregnet med aktorer"
+   "MIR004" "Beregnet ved differanse"
+   "MIR003" "Ukjent metode"
+   "MIR010" "Oppskriften er beregnet uten faktorer"
+   "MI0002" "Oppskriften er beregnet etter EuroFIRs retningslinjer for oppskriftsberegning"
+   "MI1209" "ICP-MS"
+   "MI1401" "Analysemetode ukjent"
+   "MI0368" "Beregnet som d-alfatokoferol"
+   "MI_SUGAR_NO" "Beregnet ut fra summering av mono- og disakkarider"
+   "MI0120" "Beregnet som innholdet av natrium x 2,5 /1000"
+   "MI1144" "Kromatografi"
+   "MI1006" "Atomic absorption spectroscopy"
+   "MI1202" "Gravimetrisk metode med syrehydrolyse"
+   "MI0232" "Verdien er beregnet fra annen matvare"
+   "MI0212" "Beregnet som summen av flerumettede fettsyrer"
+   "MI0258" "Beregnet som summen av umettede fettsyrer"})
+
 (defn foodcase-reference->source [{:strs [id text]}]
   {:source/id id
    :source/description text})
@@ -388,6 +434,10 @@
     i18n-attrs)
    nutrient/apriori-nutrients))
 
+(defn localize-sources [sources]
+  (for [source sources]
+    (update-in source [:source/description :nb] #(or (get nb-source-texts (:source/id source)) %))))
+
 (defn create-foodcase-transactions [db locale->datas]
   (let [i18n-attrs (db/get-i18n-attrs db)
         nutrients (load-nutrients i18n-attrs locale->datas)
@@ -405,9 +455,10 @@
       (nutrient/get-apriori-groups)
 
       ;; sources (FoodCASE calls them references, but trust me - they're sources)
-      (combine-i18n-sources
-       (update-vals locale->datas #(map foodcase-reference->source (get % "references")))
-       i18n-attrs)
+      (localize-sources
+       (combine-i18n-sources
+        (update-vals locale->datas #(map foodcase-reference->source (get % "references")))
+        i18n-attrs))
 
       ;; A priori sources
       apriori-sources
