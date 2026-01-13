@@ -108,7 +108,10 @@
         :app/config (:app/config context)}
        #(urls/get-nutrient-url % nutrient))
       [:div {:class (mtds/classes :grid) :data-gap "12"}
-       [:div {:class (mtds/classes :grid :banner) :data-gap "8" :role "banner"}
+       [:div.screen-sm-inline-pad
+        {:class (mtds/classes :grid :banner)
+         :data-gap "8"
+         :role "banner"}
         (layout/render-toolbar
          {:locale locale
           :crumbs [{:text [:i18n ::crumbs/all-nutrients]
@@ -117,7 +120,9 @@
         (let [details (d/entity (:app/db context) [:nutrient/id (:nutrient/id nutrient)])
               desc (get-in details [:nutrient/long-description locale])
               illustration (:nutrient/illustration details)]
-          [:div {:class (mtds/classes :flex) :data-center "xl" :data-align "center"}
+          [:div {:class (mtds/classes :flex)
+                 :data-center "xl"
+                 :data-align "center"}
            [:div {:class (mtds/classes :prose) :data-self "500"}
             [:h1 {:class (mtds/classes :heading) :data-size "xl"} nutrient-name]
             (when (seq foods)

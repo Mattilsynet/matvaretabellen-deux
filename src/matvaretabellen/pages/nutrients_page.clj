@@ -30,7 +30,9 @@
         :app/config (:app/config context)}
        urls/get-nutrients-url)
       [:div {:class (mtds/classes :grid) :data-gap "12"}
-       [:div {:class (mtds/classes :grid :banner) :data-gap "8" :role "banner"}
+       [:div {:class (mtds/classes :grid :banner :screen-sm-inline-pad)
+              :data-gap "8"
+              :role "banner"}
         (layout/render-toolbar
          {:locale locale
           :crumbs [{:text [:i18n :i18n/search-label]

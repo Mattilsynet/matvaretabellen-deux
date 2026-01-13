@@ -45,14 +45,13 @@
 @media (max-width: 780px) {
     .desktop { display: none }
 
-    .didyaknow {
+    .screen-sm-inline-pad {
         padding-inline: calc(var(--mtds-5) + 1px);
     }
 
     .footer {
         margin-top: var(--mtds-6);
         padding-block: var(--mtds-8) var(--mtds-8);
-        padding-inline: calc(var(--mtds-5) + 1px);
     }
 
     .table-box {

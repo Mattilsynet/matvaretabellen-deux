@@ -32,7 +32,7 @@ window.onerror = function(message) {
      [:use {:xlink:href (str illustration "#illustration")}]]))
 
 (defn Footer [{:keys [cols]}]
-  [:footer.footer {:data-color "inverted"}
+  [:footer.footer.screen-sm-inline-pad {:data-color "inverted"}
    [:div {:class (mtds/classes :grid) :data-items "300" :data-align "start" :data-size "sm" :data-center "xl"}
     [:a {:href "https://www.mattilsynet.no"
          :aria-label "Mattilsynet"

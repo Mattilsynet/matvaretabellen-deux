@@ -32,7 +32,7 @@
         :app/config (:app/config context)}
        urls/get-food-groups-url)
       [:div {:class (mtds/classes :grid) :data-gap "12"}
-       [:div {:class (mtds/classes :grid :banner) :data-gap "8" :role "banner"}
+       [:div.screen-sm-inline-pad {:class (mtds/classes :grid :banner) :data-gap "8" :role "banner"}
         (layout/render-toolbar
          {:locale locale
           :crumbs [{:text [:i18n :i18n/search-label]

@@ -70,7 +70,7 @@
              :alt ""
              :style {:width "100%"
                      :border-radius "var(--mtds-border-radius-lg)"}}]]
-     [:div {:class (mtds/classes :prose :didyaknow)}
+     [:div {:class (mtds/classes :prose :screen-sm-inline-pad)}
       [:h2 {:class (mtds/classes :heading) :data-size "lg"} [:i18n ::did-you-know]]
       [:p (get-in trivia [:trivia/prose locale])]
       [:p [:a {:href (:href (get-food-info locale food-db (:trivia/food-id trivia)))}
