@@ -3,6 +3,7 @@
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
             [matvaretabellen.food-group :as food-group]
+            [matvaretabellen.foodex2 :as foodex2]
             [matvaretabellen.misc :as misc]
             [matvaretabellen.nutrient :as nutrient])
   (:import (java.io ByteArrayOutputStream FileOutputStream)
@@ -15,7 +16,7 @@
 ;; time on the data files. In other words: code changes will not automatically
 ;; be reflected in the export. Change this version string when you need for new
 ;; Excel files to be generated.
-(def version "2023.11.22.2")
+(def version "2025.12.10")
 
 (defn add-index [coll]
   (map-indexed (fn [i m] (assoc m :index i)) coll))
@@ -69,18 +70,24 @@
     (.write workbook stream)
     (.toByteArray stream)))
 
+(def kilojoule-measurement
+  {:path [:food/energy]
+   :field :measurement/quantity
+   :decimal-precision 0})
+
+(def kcal-measurement
+  {:path [:food/calories]
+   :field :measurement/observation
+   :decimal-precision 0})
+
 (defn get-basic-food-fields [db locale]
   [{:title "Matvare ID" :path [:food/id]}
    {:title "Matvare" :path [:food/name locale]}
    {:title "Spiselig del (%)" :measurement {:path [:food/edible-part]
                                             :field :measurement/percent}}
    (d/entity db [:nutrient/id "Vann"])
-   {:title "Kilojoule (kJ)" :measurement {:path [:food/energy]
-                                          :field :measurement/quantity
-                                          :decimal-precision 0}}
-   {:title "Kilokalorier (kcal)" :measurement {:path [:food/calories]
-                                               :field :measurement/observation
-                                               :decimal-precision 0}}
+   {:title "Kilojoule (kJ)" :measurement kilojoule-measurement}
+   {:title "Kilokalorier (kcal)" :measurement kcal-measurement}
    (d/entity db [:nutrient/id "Fett"])
    (d/entity db [:nutrient/id "Karbo"])
    (d/entity db [:nutrient/id "Fiber"])
@@ -88,13 +95,18 @@
    (d/entity db [:nutrient/id "Alko"])])
 
 (defn get-all-food-fields [db locale]
-  (->> (nutrient/get-used-nutrients db)
-       (remove (comp empty? :nutrient/unit))
-       (nutrient/sort-by-preference)
-       (into [{:title "Matvare ID" :path [:food/id]}
-              {:title "Matvare" :path [:food/name locale]}
-              {:title "Kilojoule (kJ)" :path [:food/energy :measurement/quantity]}
-              {:title "Kilokalorier (kcal)" :path [:food/calories :measurement/observation]}])))
+  (conj (->> (nutrient/get-used-nutrients db)
+             (remove (comp empty? :nutrient/unit))
+             (nutrient/sort-by-preference)
+             (into [{:title "Matvare ID" :path [:food/id]}
+                    {:title "Matvare" :path [:food/name locale]}
+                    {:title "Kilojoule (kJ)"
+                     :measurement kilojoule-measurement}
+                    {:title "Kilokalorier (kcal)"
+                     :measurement kcal-measurement}]))
+        {:title "FoodEx2-klassifisering"
+         :path [:foodex2/classification]
+         :f foodex2/make-classifier}))
 
 (defn get-constituent [food nutrient-id]
   (some->> (:food/constituents food)
@@ -131,15 +143,17 @@
 
 (defn prepare-food-cells [fields food]
   (for [{:keys [path measurement] :as f} fields]
-    {:text (str (cond
-                  path (get-scalar-at-path food path)
-                  measurement (get-measurement-number
-                               (get-in food (:path measurement))
-                               (:field measurement)
-                               (:decimal-precision measurement))
-                  (:nutrient/id f) (get-measurement-number
-                                    (get-constituent food (:nutrient/id f))
-                                    :measurement/quantity)))}))
+    (let [convert-f (:f f)]
+      {:text (str (cond
+                    path (cond-> (get-scalar-at-path food path)
+                           convert-f convert-f)
+                    measurement (get-measurement-number
+                                 (get-in food (:path measurement))
+                                 (:field measurement)
+                                 (:decimal-precision measurement))
+                    (:nutrient/id f) (get-measurement-number
+                                      (get-constituent food (:nutrient/id f))
+                                      :measurement/quantity)))})))
 
 (defn prepare-reference-cells [fields food]
   (for [{:keys [path measurement] :as f} fields]
@@ -164,25 +178,33 @@
     (get-top-group parent)
     food-group))
 
-(defn prepare-food-rows [locale fields foods prep]
+(defn category-order [app-db food-group]
+  [(->> [:food-group/id (:food-group/id food-group)]
+        (d/entity app-db)
+        :food-group/category
+        (d/entity app-db)
+        :category/order)
+   (:food-group/id food-group)])
+
+(defn prepare-food-rows [app-db locale fields foods prep]
   (->> (group-by (comp get-top-group :food/food-group) foods)
-       (sort-by (comp :food-group/id first))
+       (sort-by #(category-order app-db (first %)))
        (mapcat
         (fn [[group foods]]
           (into [{:merged? true :title? true
                   :cells [{:text (get-in group [:food-group/name locale])}]}]
-                (for [food (sort-by :food/id foods)]
+                (for [food (sort-by (comp locale :food/name) foods)]
                   {:cells (prep fields food)}))))))
 
-(defn prepare-foods-sheet [locale title fields foods]
+(defn prepare-foods-sheet [app-db locale title fields foods]
   {:title title
    :rows (into [(prepare-foods-header-row fields locale)]
-               (prepare-food-rows locale fields foods prepare-food-cells))})
+               (prepare-food-rows app-db locale fields foods prepare-food-cells))})
 
-(defn prepare-reference-sheet [locale title fields foods]
+(defn prepare-reference-sheet [app-db locale title fields foods]
   {:title title
    :rows (into [(prepare-foods-header-row fields locale)]
-               (prepare-food-rows locale fields foods prepare-reference-cells))})
+               (prepare-food-rows app-db locale fields foods prepare-reference-cells))})
 
 (defn prepare-reference-lookup-sheet [db locale title reference-sheet]
   {:title title
@@ -252,53 +274,55 @@
                  (map? line) line)
                (update-in [:cells 0 :text] str/replace "{:year}" (str year))))})
 
-(defn prepare-food-sheets [db locale year preamble foods]
-  (let [basic-fields (get-basic-food-fields db locale)
-        all-fields (get-all-food-fields db locale)
-        reference-sheet (prepare-reference-sheet locale (-> i18n :sources-all-nutrientes locale) all-fields foods)]
+(defn prepare-food-sheets [context locale year preamble foods]
+  (let [basic-fields (get-basic-food-fields (:foods/db context) locale)
+        all-fields (get-all-food-fields (:foods/db context) locale)
+        reference-sheet (prepare-reference-sheet (:app/db context) locale (-> i18n :sources-all-nutrientes locale) all-fields foods)]
     [(prepare-foods-cover-sheet locale year preamble)
-     (prepare-foods-sheet locale (-> i18n :foods locale) basic-fields foods)
-     (prepare-reference-sheet locale (-> i18n :sources locale) basic-fields foods)
-     (prepare-foods-sheet locale (-> i18n :foods-all-nutrients locale) all-fields foods)
+     (prepare-foods-sheet (:app/db context) locale (-> i18n :foods locale) basic-fields foods)
+     (prepare-reference-sheet (:app/db context) locale (-> i18n :sources locale) basic-fields foods)
+     (prepare-foods-sheet (:app/db context) locale (-> i18n :foods-all-nutrients locale) all-fields foods)
      reference-sheet
-     (prepare-reference-lookup-sheet db locale (-> i18n :source-lookup locale) reference-sheet)]))
+     (prepare-reference-lookup-sheet (:foods/db context) locale (-> i18n :source-lookup locale) reference-sheet)]))
 
-(defn render-some-foods [db year page preamble foods]
+(defn render-some-foods [context year page preamble foods]
   (let [locale (:page/locale page)]
     {:status 200
      :headers {"Content-Type" "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}
      :body (create-excel-byte-array
             (create-workbook
-             (prepare-food-sheets db locale year (get preamble locale) foods)))}))
+             (prepare-food-sheets context locale year (get preamble locale) foods)))}))
 
-(defn render-all-foods [db year page]
-  (let [foods (for [eid (d/q '[:find [?e ...] :where [?e :food/id]] db)]
-                (d/entity db eid))]
-    (render-some-foods db year page
+(defn render-all-foods [context year page]
+  (let [foods (for [eid (d/q '[:find [?e ...] :where [?e :food/id]] (:foods/db context))]
+                (d/entity (:foods/db context) eid))]
+    (render-some-foods context year page
                        {:nb (str "Her finner du informasjon om alle " (count foods) " matvarene i Matvaretabellen.")
                         :en (str "This document provides information about all " (count foods) " foods listed in the Norwegian Food Composition Table.")}
                        foods)))
 
-(defn render-food-group-foods [db year page]
-  (let [food-group (d/entity db [:food-group/id (:page/food-group-id page)])
+(defn render-food-group-foods [context year page]
+  (let [food-group (d/entity (:foods/db context) [:food-group/id (:page/food-group-id page)])
         food-group-name (get-in food-group [:food-group/name (:page/locale page)])
         foods (food-group/get-all-food-group-foods food-group)]
-    (render-some-foods db year page
+    (render-some-foods context year page
                        {:nb (str "Her finner du informasjon om de " (count foods) " matvarene under " food-group-name " i Matvaretabellen.")
                         :en (str "This document provides information about the " (count foods) " foods under " food-group-name " listed in the Norwegian Food Composition Table.")}
                        foods)))
 
-(defn render-nutrient-foods [db year page]
-  (let [nutrient (d/entity db [:nutrient/id (:page/nutrient-id page)])
+(defn render-nutrient-foods [context year page]
+  (let [nutrient (d/entity (:foods/db context) [:nutrient/id (:page/nutrient-id page)])
         nutrient-name (str/lower-case (get (:nutrient/name nutrient) (:page/locale page)))
         foods (nutrient/get-foods-by-nutrient-density nutrient (:page/locale page))]
-    (render-some-foods db year page
+    (render-some-foods context year page
                        {:nb (str "Her finner du informasjon om de " (count foods) " matvarene med tall på " nutrient-name " i Matvaretabellen.")
                         :en (str "This document provides information about the " (count foods) " foods with measurements of " nutrient-name " listed in the Norwegian Food Composition Table.")}
                        foods)))
 
 (comment
+  (require 'powerpack.dev)
 
+  (def context {:app/db (d/db (:datomic/conn (powerpack.dev/get-app)))})
   (def db (d/db matvaretabellen.dev/conn))
   (def food (d/entity db [:food/id "06.531"]))
   (def locale :nb)
@@ -320,11 +344,13 @@
   (def foods (for [eid (d/q '[:find [?e ...] :where [?e :food/id]] db)]
                (d/entity db eid)))
 
-  (set (keep :source/id (mapcat :cells (:rows (prepare-reference-sheet locale "Referanser" fields foods)))))
+  (set (keep :source/id (mapcat :cells (:rows (prepare-reference-sheet (:app/db context) locale "Referanser" fields foods)))))
 
-  (prepare-foods-sheet locale "Matvarer" (get-basic-food-fields db locale) foods)
-  (prepare-foods-sheet locale "Matvarer (alle næringsstoffer)" (get-all-food-fields db locale) foods)
+  (prepare-foods-sheet (:app/db context) locale "Matvarer" (get-basic-food-fields db locale) foods)
+  (prepare-foods-sheet (:app/db context) locale "Matvarer (alle næringsstoffer)" (get-all-food-fields db locale) foods)
 
-  (create-excel-file "test.xlsx" (create-workbook (prepare-food-sheets db locale 2023 "" foods)))
+  (->> (prepare-food-sheets context locale 2023 "" foods)
+       create-workbook
+       (create-excel-file "test.xlsx"))
 
   )

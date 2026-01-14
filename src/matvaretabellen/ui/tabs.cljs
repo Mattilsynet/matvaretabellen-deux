@@ -2,29 +2,23 @@
   (:require [matvaretabellen.ui.dom :as dom]))
 
 (defn get-target [el]
-  (if-let [selector (some-> el (.getAttribute "data-tab-target"))]
-    [el (dom/qs selector)]
-    (some-> el .-parentNode get-target)))
+  (some-> el .-value dom/qs))
 
 (defn select-tab [tab]
-  (when-let [[el target] (get-target tab)]
-    (when-not (dom/has-class el "selected")
-      (when-let [[current current-target] (some-> (.-parentNode el)
-                                                  (dom/qs ".selected.tab")
-                                                  get-target)]
-        (dom/remove-class current "selected")
-        (dom/hide current-target))
-      (dom/add-class el "selected")
-      (dom/show target))))
+  (when-let [target (get-target tab)]
+    (doseq [current-target (->> (dom/qsa "input[name=\"comparison-view\"]:not(:checked)")
+                                (map get-target))]
+      (dom/hide current-target))
+    (dom/show target)))
 
 (defn get-tab [target-selector]
-  (dom/qs (str ".mmm-tabs .tab[data-tab-target='" target-selector "']")))
+  (dom/qs (str "input[name=\"comparison-view\"][value='" target-selector "']")))
 
-(defn init-tabs [tabs]
-  (when (dom/qs tabs "[data-tab-target]")
+(defn init-tabs []
+  (doseq [tab (dom/qsa "input[name=\"comparison-view\"]")]
     (->> (fn [e]
            (select-tab (.-target e)))
-         (.addEventListener tabs "click"))))
+         (.addEventListener tab "change"))))
 
 (defn init []
-  (doall (map init-tabs (dom/qsa ".mmm-tabs"))))
+  (init-tabs))

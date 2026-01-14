@@ -24,3 +24,5 @@
 /docker/tracer.jar
 /dev-resources/dev-assets/
 /.clj-kondo/imports/
+/.calva
+/data/*.old.*

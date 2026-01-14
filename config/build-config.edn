@@ -1,2 +1,1 @@
-{:app/theme "mt2023"
- :foods/datomic-uri "datomic:mem://foods-export"}
+{:foods/datomic-uri "datomic:mem://foods-export"}

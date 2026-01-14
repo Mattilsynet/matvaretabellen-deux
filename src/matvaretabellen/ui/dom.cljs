@@ -87,19 +87,29 @@
   (when el
     (.contains (.-classList el) class)))
 
+(defn has-attr? [el attr]
+  (when el
+    (.hasAttribute el attr)))
+
+(defn get-attr [el attr]
+  (when el
+    (.getAttribute el attr)))
+
+(defn set-attr [el attr v]
+  (when el
+    (.setAttribute el attr v)))
+
+(defn remove-attr [el attr]
+  (when el
+    (.removeAttribute el attr)))
+
+(defn hidden? [el]
+  (when el
+    (.hasAttribute el "hidden")))
+
 (defn show [el]
   (when el
-    (remove-class el "mmm-hidden")))
+    (.removeAttribute el "hidden")))
 
 (defn hide [el]
-  (when el
-    (add-class el "mmm-hidden")))
-
-(defn re-zebra-table [table]
-  (remove-class table "mmm-table-zebra")
-  (doseq [[i tr] (->> (qsa table "tbody tr")
-                      (remove #(has-class % "mmm-hidden"))
-                      (map vector (range)))]
-    (if (= 0 (mod i 2))
-      (add-class tr "mmm-zebra-strip")
-      (remove-class tr "mmm-zebra-strip"))))
+  (set-attr el "hidden" true))

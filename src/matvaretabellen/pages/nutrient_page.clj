@@ -1,6 +1,6 @@
 (ns matvaretabellen.pages.nutrient-page
   (:require [datomic-type-extensions.api :as d]
-            [matvaretabellen.components.comparison :as comparison]
+            [mattilsynet.design :as m]
             [matvaretabellen.crumbs :as crumbs]
             [matvaretabellen.food :as food]
             [matvaretabellen.food-group :as food-group]
@@ -8,35 +8,36 @@
             [matvaretabellen.mashdown :as mashdown]
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
+            [matvaretabellen.ui.comparison :as comparison]
             [matvaretabellen.urls :as urls]
-            [mmm.components.button :refer [Button]]
             [phosphor.icons :as icons]))
 
 (def filter-panel-id "filter-panel")
 
+(def aria-sort-order
+  {:sort.order/asc "ascending"
+   :sort.order/desc "descending"})
+
 (defn prepare-foods-table [nutrient {:page/keys [locale sort-order]} foods]
   {:headers [{:text [:i18n ::food]}
-             {:text [:button
-                     [:i18n ::amount]
-                     (if (= :sort.order/desc sort-order)
-                       (icons/render :phosphor.regular/sort-descending {:class [:mmm-svg :mvt-sort-icon]})
-                       (icons/render :phosphor.regular/sort-ascending {:class [:mmm-svg :mvt-sort-icon]}))]
-              :class "mmm-tar mmm-td-min"
+             {:text [:button {:type "button"} [:i18n ::amount]]
+              :aria-sort (aria-sort-order sort-order)
               :data-sort-by "data-value"
-              :data-sort-order (name sort-order)
-              :data-sort-type "number"}
+              :data-sort-type "number"
+              :style {:width "var(--mtds-30)"}}
              {:text [:i18n ::compare]
-              :class "mmm-td-min mmm-desktop"}]
+              :style {:width "var(--mtds-26)"}}]
    :id "filtered-table"
    :classes [:mvt-filtered-table :mvt-sortable-table]
    :rows (for [food foods]
            {:data-id (:food-group/id (:food/food-group food))
             :cols
-            [{:text [:a.mmm-link {:href (urls/get-food-url locale food)}
+            [{:text [:a {:href (urls/get-food-url locale food)}
                      [:i18n :i18n/lookup (:food/name food)]]}
              {:text (food/get-nutrient-quantity food (:nutrient/id nutrient))
-              :class "mmm-tar mmm-nbr"}
-             (comparison/render-toggle-cell food locale [:mmm-desktop])]})})
+              :data-justify "end"
+              :data-numeric ""}
+             (comparison/render-toggle-cell food locale)]})})
 
 (defn render-nutrient-foods-table
   "The initial idea was to list a limit amount of foods - say 100. This made it
@@ -49,9 +50,8 @@
 
   Thus: list of all foods containing the nutrient in question."
   [nutrient foods page]
-  [:div.mmm-col
-   (->> (prepare-foods-table nutrient page foods)
-        food-page/render-table)])
+  (->> (prepare-foods-table nutrient page foods)
+       food-page/render-table))
 
 (defn get-back-link [locale nutrient]
   (if-let [parent (:nutrient/parent nutrient)]
@@ -64,37 +64,33 @@
   (when-let [nutrients (->> (:nutrient/_parent parent)
                             nutrient/sort-by-preference
                             seq)]
-    [:ul.mmm-ul.mmm-unadorned-list
+    [:ul {:class (m/c :grid) :data-gap "1"}
      (for [n nutrients]
        [:li
         (if (= n current)
           (list [:strong [:i18n :i18n/lookup (:nutrient/name n)]]
                 (render-nutrient-links locale n current))
-          [:a.mmm-link {:href (urls/get-nutrient-url locale n)}
+          [:a {:href (urls/get-nutrient-url locale n)}
            [:i18n :i18n/lookup (:nutrient/name n)]])])]))
 
 (defn render-sidebar [app-db nutrient foods locale]
   (let [target (or (:nutrient/parent nutrient) nutrient)]
-    [:div.mmm-col.mmm-desktop {:id filter-panel-id}
-     [:div.mmm-sidebar-content
-      (when-let [links (render-nutrient-links locale target nutrient)]
-        [:div.mmm-divider.mmm-vert-layout-m.mmm-mbm
-         [:div.mmm-mobile.mmm-pos-tr.mmm-mts
-          (layout/render-sidebar-close-button filter-panel-id)]
-         (let [{:keys [url text]} (get-back-link locale nutrient)]
-           [:h2.mmm-h5 [:a.mmm-link {:href url} text]])
-         links])
-      [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider.mvt-food-group-filters
-       [:div.mmm-mobile.mmm-pos-tr.mmm-mts
-        (layout/render-sidebar-close-button filter-panel-id)]
-       [:h2.mmm-h5
-        [:a.mmm-link {:href (urls/get-food-groups-url locale)}
-         [:i18n ::food-groups]]]
-       (food-group/render-food-group-filters
-        app-db
-        (food-group/get-food-groups (d/entity-db nutrient))
-        foods
-        locale)]]]))
+    [:div {:class (m/c :grid) :data-gap "8" :id filter-panel-id}
+     (when-let [links (render-nutrient-links locale target nutrient)]
+       [:div {:class (m/c :grid)}
+        (let [{:keys [url text]} (get-back-link locale nutrient)]
+          [:h2 {:class (m/c :heading) :data-size "xs"}
+           [:a {:href url} text]])
+        links])
+     [:div {:class (m/c :grid)}
+      [:h2 {:class (m/c :heading) :data-size "xs"}
+       [:a {:href (urls/get-food-groups-url locale)}
+        [:i18n ::food-groups]]]
+      (food-group/render-food-group-filters
+       app-db
+       (food-group/get-food-groups (d/entity-db nutrient))
+       foods
+       locale)]]))
 
 (defn render [context db page]
   (let [nutrient (d/entity (:foods/db context) [:nutrient/id (:page/nutrient-id page)])
@@ -106,61 +102,56 @@
      page
      [:head
       [:title nutrient-name]]
-     [:body
+     [:body {:data-size "lg"}
       (layout/render-header
        {:locale locale
         :app/config (:app/config context)}
        #(urls/get-nutrient-url % nutrient))
-      [:div.mmm-themed.mmm-brand-theme1.mmm-flex-grow
-       (layout/render-toolbar
-        {:locale locale
-         :crumbs [{:text [:i18n ::crumbs/all-nutrients]
-                   :url (urls/get-nutrients-url locale)}
-                  {:text nutrient-name}]})
-       (let [details (d/entity (:app/db context) [:nutrient/id (:nutrient/id nutrient)])
-             desc (get-in details [:nutrient/long-description locale])
-             illustration (:nutrient/illustration details)]
-         [:div.mmm-container.mmm-section
-          [:div.mmm-media
-           [:article.mmm-vert-layout-m
-            [:div.mmm-vert-layout-s
-             [:h1.mmm-h1 nutrient-name]
-             (when (seq foods)
-               [:p.mmm-p [:i18n :i18n/number-of-foods {:count (count foods)}]])]
+      [:div {:class (m/c :grid) :data-gap "12"}
+       [:div.screen-sm-inline-pad
+        {:class (m/c :grid :banner)
+         :data-gap "8"
+         :role "banner"}
+        (layout/render-toolbar
+         {:locale locale
+          :crumbs [{:text [:i18n ::crumbs/all-nutrients]
+                    :url (urls/get-nutrients-url locale)}
+                   {:text nutrient-name}]})
+        (let [details (d/entity (:app/db context) [:nutrient/id (:nutrient/id nutrient)])
+              desc (get-in details [:nutrient/long-description locale])
+              illustration (:nutrient/illustration details)]
+          [:div {:class (m/c :flex)
+                 :data-center "xl"
+                 :data-align "center"}
+           [:div {:class (m/c :prose) :data-self "500"}
+            [:h1 {:class (m/c :heading) :data-size "xl"} nutrient-name]
+            (when (seq foods)
+              [:small [:i18n :i18n/number-of-foods {:count (count foods)}]])
             (when desc
-              [:div.mmm-text.mmm-preamble
-               [:p (if (string? desc)
-                     (mashdown/render db locale desc)
-                     desc)]])
+              [:p {:data-size "lg"} (if (string? desc)
+                                      (mashdown/render db locale desc)
+                                      desc)])
             (when (seq foods)
               [:div
-               (Button {:text [:i18n ::download-these]
-                        :href (urls/get-nutrient-excel-url locale nutrient)
-                        :icon :phosphor.regular/arrow-down
-                        :inline? true
-                        :secondary? true})])]
+               [:a {:class (m/c :button)
+                    :data-variant "secondary"
+                    :data-size "md"
+                    :href (urls/get-nutrient-excel-url locale nutrient)}
+                (icons/render :phosphor.regular/arrow-down)
+                [:i18n ::download-these]]])]
            (when (and desc illustration) ;; looks horrible without text
-             [:aside.mmm-desktop {:style {:flex-basis "40%"}}
-              (layout/render-illustration illustration)])]])]
+             [:div.desktop {:data-self "300" :data-fixed ""}
+              (layout/render-illustration illustration)])])]
 
-      (when (seq foods)
-        (let [sidebar (render-sidebar (:app/db context) nutrient foods locale)]
-          [:div.mmm-container.mmm-section.mmm-mobile-phn
-           [:div.mmm-flex.mmm-flex-middle.mmm-mobile-container-p.mmm-mbm
-            (when sidebar
-              (layout/render-sidebar-filter-button filter-panel-id))
-            [:p.mmm-p.mmm-tar.mmm-flex-grow
-             [:i18n ::per-100g
-              {:nutrient (get-in nutrient [:nutrient/name locale])}]]]
-           [:div.mmm-cols.mmm-cols-d1_2
-            sidebar
-            (render-nutrient-foods-table nutrient foods page)]]))
+       (when (seq foods)
+         (let [sidebar (render-sidebar (:app/db context) nutrient foods locale)]
+           [:div {:class (m/c :flex) :data-items "300" :data-center "xl"}
+            [:div {:data-fixed "" :data-size "md"}
+             sidebar]
+            [:div
+             (render-nutrient-foods-table nutrient foods page)]]))
 
-      [:div.mmm-hidden
-       (icons/render :phosphor.regular/sort-descending {:class [:mmm-svg :mvt-desc :mvt-sort-icon]})
-       (icons/render :phosphor.regular/sort-ascending {:class [:mmm-svg :mvt-asc :mvt-sort-icon]})]
-
-      (comparison/render-comparison-drawer locale)])))
+       (comparison/render-comparison-drawer locale)]])))
 
 (comment
 
@@ -169,7 +160,4 @@
   (->> (d/entity (d/db conn) [:nutrient/id "Fiber"])
        nutrient/get-foods-by-nutrient-density
        (map (comp :nb :food/name))
-       count)
-
-
-  )
+       count))

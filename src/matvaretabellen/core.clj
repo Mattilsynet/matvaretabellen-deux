@@ -25,30 +25,26 @@
 
              :optimus/assets [{:public-dir "public"
                                :paths [#"/images/*.*"
-                                       #"/fonts/*.*"
                                        "/mtds/favicon.svg"
                                        "/mtds/favicon.ico"
                                        "/mtds/favicon-dark.ico"]}]
 
              :optimus/bundles {"styles.css"
                                {:public-dir "public"
-                                :paths (cond-> [(str "/css/theme-" (:app/theme config) ".css")
-                                                "/css/mmm.css"
-                                                "/css/matvaretabellen.css"]
-                                         (= "mt2023" (:app/theme config))
-                                         (conj "/mtds/styles.css"))}
+                                :paths ["/css/matvaretabellen.css"
+                                        "/mtds/styles.css"]}
 
                                "/app.js"
                                {:public-dir "public"
-                                :paths ["/js/u-datalist.js"
+                                :paths ["/mtds/index.iife.js"
                                         "/js/compiled/app.js"]}}
 
              :optimus/options {:minify-js-assets? false}
 
              :powerpack/build-dir "docker/build"
              :powerpack/content-dir "resources/content"
-             :powerpack/source-dirs ["src" "ui/src" "dev"]
-             :powerpack/resource-dirs ["resources" "ui/resources"]
+             :powerpack/source-dirs ["src" "dev"]
+             :powerpack/resource-dirs ["resources"]
              :powerpack/port 5053
              :powerpack/log-level :debug
              :powerpack/create-ingest-tx #'ingest/create-tx

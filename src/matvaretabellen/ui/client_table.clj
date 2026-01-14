@@ -1,68 +1,72 @@
 (ns matvaretabellen.ui.client-table
   (:require [broch.core :as b]
+            [mattilsynet.design :as m]
             [matvaretabellen.food :as food]
             [matvaretabellen.food-group :as food-group]
             [matvaretabellen.nutrient :as nutrient]
             [matvaretabellen.pages.food-page :as food-page]
-            [mmm.components.button :refer [Button]]
-            [mmm.components.checkbox :refer [Checkbox]]
-            [mmm.components.icon-button :refer [IconButton]]
             [phosphor.icons :as icons]))
 
 (def default-checked #{"Fett" "Karbo" "Protein" "Fiber"})
 
 (defn prepare-foods-table [nutrients opt]
   (merge
-   {:headers (concat [{:class [:mmm-tac :mmm-pas :mmm-hidden]
+   {:headers (concat [{:hidden "true"
                        :data-id "download"
-                       :text (IconButton
-                              {:class [:mvt-add-to-list]
-                               :title [:i18n ::stage-for-download]
-                               :icon :phosphor.regular/arrow-down})}
-                      {:text (list [:i18n ::food]
-                                   [:span.mvt-sort-icon
-                                    (icons/render :phosphor.regular/caret-up-down {:class :mmm-svg})])
-                       :class [:mmm-nbr :mmm-sticky-hor]
+                       :style {:width "var(--mtds-15)"}
+                       :text [:button {:class (m/c :button :mvt-add-to-list)
+                                       :type "button"
+                                       :aria-label [:i18n ::stage-for-download]
+                                       :data-size "sm"}
+                              (icons/render :phosphor.regular/arrow-down)]}
+                      {:text [:button {:type "button"}
+                              [:i18n ::food]]
+                       :aria-sort "ascending"
+                       :data-nowrap ""
                        :data-id "foodName"}
-                      {:text (list [:i18n ::energy]
-                                   [:span.mvt-sort-icon
-                                    (icons/render :phosphor.regular/caret-up-down {:class :mmm-svg})])
-                       :class [:mmm-nbr]
+                      {:text [:button {:type "button"}
+                              [:i18n ::energy]]
+                       :aria-sort "none"
+                       :data-nowrap ""
                        :data-id "energy"}]
                      (for [nutrient nutrients]
-                       {:text (list [:i18n :i18n/lookup (:nutrient/name nutrient)]
-                                    [:span.mvt-sort-icon
-                                     (icons/render :phosphor.regular/caret-up-down {:class :mmm-svg})])
-                        :data-id (:nutrient/id nutrient)
-                        :class (if (not (default-checked (:nutrient/id nutrient)))
-                                 [:mmm-nbr :mmm-tar :mmm-hidden]
-                                 [:mmm-nbr :mmm-tar])}))
+                       (cond-> {:text [:button {:type "button"}
+                                       [:i18n :i18n/lookup (:nutrient/name nutrient)]]
+                                :data-id (:nutrient/id nutrient)
+                                :data-nowrap ""
+                                :aria-sort "none"}
+                         (not (default-checked (:nutrient/id nutrient)))
+                         (assoc :hidden "true"))))
     :id "filtered-giant-table"
-    :classes [:mmm-hidden :mmm-elastic-table]
+    :hidden "true"
     :data-page-size 250
+    :data-fixed false
     :rows [{:cols
             (concat
-             [{:text (IconButton
-                      {:class [:mvt-add-to-list]
-                       :title [:i18n ::stage-for-download]
-                       :icon :phosphor.regular/arrow-down})
-               :class [:mmm-tac :mmm-pas]
+             [{:text [:button {:class (m/c :button :mvt-add-to-list)
+                               :type "button"
+                               :aria-label [:i18n ::stage-for-download]
+                               :data-size "sm"}
+                      (icons/render :phosphor.regular/arrow-down)]
                :data-id "download"}
-              {:text [:a.mmm-link]
-               :class [:mmm-sticky-hor :mmm-et-wrap]
+              {:text [:a]
                :data-id "foodName"}
               {:text ""
-               :class [:mmm-tar :mmm-nbr]
-               :data-id "energy"}]
+               :data-id "energy"
+               :data-justify "end"
+               :data-numeric ""}]
              (mapv (fn [nutrient]
                      (try
-                       {:text (food/get-calculable-quantity
-                               {:measurement/quantity (b/from-edn [0 (:nutrient/unit nutrient)])}
-                               {:decimals (:nutrient/decimal-precision nutrient)})
-                        :class (cond-> [:mmm-tar :mmm-nbr :mvt-amount]
-                                 (not (default-checked (:nutrient/id nutrient)))
-                                 (conj :mmm-hidden))
-                        :data-id (:nutrient/id nutrient)}
+                       (cond-> {:text (food/get-calculable-quantity
+                                       {:measurement/quantity (b/from-edn [0 (:nutrient/unit nutrient)])}
+                                       {:decimals (:nutrient/decimal-precision nutrient)})
+                                :class [:mvt-amount]
+                                :data-justify "end"
+                                :data-nowrap ""
+                                :data-numeric ""
+                                :data-id (:nutrient/id nutrient)}
+                         (not (default-checked (:nutrient/id nutrient)))
+                         (assoc :hidden "true"))
                        (catch Exception e
                          (throw (ex-info "Failed to render nutrient"
                                          {:nutrient (into {} nutrient)}
@@ -72,14 +76,25 @@
 
 (defn render-filter-list [options]
   (when (seq options)
-    [:ul.mmm-ul.mmm-unadorned-list
+    [:ul {:class (m/c :grid) :data-gap "1"}
      (for [filter-m options]
        [:li
-        (Checkbox filter-m)
-        (render-filter-list (:options filter-m))])]))
+        [:div {:class (m/c :grid) :data-gap "1"}
+         [:div {:class (m/c :field)}
+          [:input {:class (m/c :input)
+                   :type "checkbox"
+                   :name (:data-filter-id filter-m)
+                   :checked (when (:checked? filter-m) "true")}]
+          [:label (dissoc filter-m :checked? :label)
+           (if (#{"Fett" "Karbo"} (:data-filter-id filter-m))
+             [:h3 {:style {:display "inline"
+                           :margin "0"}} (:label filter-m)]
+             (:label filter-m))]]
+         [:div {:style {:margin-left "var(--mtds-8)"}}
+          (render-filter-list (:options filter-m))]]])]))
 
 (defn render-nutrient-filter-column [filters]
-  [:div.mmm-col.mmm-vert-layout-m
+  [:div {:class (m/c :grid)}
    (for [filter-m filters]
      (if (:data-filter-id filter-m)
        (render-filter-list [filter-m])
@@ -89,64 +104,69 @@
             (remove nil?))))])
 
 (defn render-column-settings [foods-db]
-  [:div.mmm-container
-   [:div.mmm-divider.mmm-vert-layout-m.mmm-bottom-divider.mmm-hidden#columns-panel
-    [:div.mmm-cols.mmm-twocols
-     (->> (nutrient/prepare-filters foods-db {:columns 2})
-          (map render-nutrient-filter-column))]]])
+  [:div#columns-panel {:class (m/c :grid :group)
+                       :data-items "350"
+                       :data-align "start"
+                       :data-size "md"
+                       :hidden "true"}
+   (->> (nutrient/prepare-filters foods-db {:columns 2})
+        (map render-nutrient-filter-column))])
 
 (defn render-food-group-settings [context page]
-  [:div.mmm-container
-   [:div.mmm-divider.mmm-vert-layout-m.mmm-col.mmm-hidden#food-group-panel
-    (food-group/render-food-group-filters
-     (:app/db context)
-     (food-group/get-food-groups (:foods/db context))
-     nil
-     (:page/locale page))]])
+  [:div#food-group-panel {:class (m/c :grid :group)
+                          :data-items "350"
+                          :data-align "start"
+                          :data-size "md"
+                          :hidden "true"}
+   (food-group/render-food-group-filters
+    (:app/db context)
+    (food-group/get-food-groups (:foods/db context))
+    nil
+    (:page/locale page))])
 
 (defn render-table-skeleton [foods-db & [opt]]
   (let [nutrients (->> (nutrient/get-used-nutrients foods-db)
                        nutrient/sort-by-preference)]
-    [:figure.mmm-sidescroller.mmm-col.mvt-classic
-     [:div.mmm-hidden
-      (icons/render :phosphor.regular/caret-up-down {:class [:mmm-svg :mvt-sort]})
-      (icons/render :phosphor.regular/sort-descending {:class [:mmm-svg :mvt-desc]})
-      (icons/render :phosphor.regular/sort-ascending {:class [:mmm-svg :mvt-asc]})]
-     (->> (prepare-foods-table nutrients opt)
-          food-page/render-table)
-     [:div.mmm-buttons.mmm-mvm.mmm-mls
-      (Button
-       {:text [:i18n ::prev]
-        :class [:mvt-prev :mmm-hidden]
-        :secondary? true
-        :inline? true
-        :icon :phosphor.regular/caret-left})
-      (Button
-       {:text [:i18n ::next]
-        :class [:mvt-next :mmm-hidden]
-        :secondary? true
-        :inline? true
-        :icon :phosphor.regular/caret-right
-        :icon-position :after})]]))
+    [:figure {:class (m/c :grid)
+              :data-gap "8"}
+     [:div {:style {:max-height "80vh"
+                    :overflow "scroll"}}
+      (->> (prepare-foods-table nutrients opt)
+           food-page/render-table)]
+     [:div {:class (m/c :flex)}
+      [:button {:class (m/c :button :mvt-prev)
+                :hidden "true"
+                :data-variant "secondary"
+                :type "button"}
+       (icons/render :phosphor.regular/caret-left)
+       [:i18n ::prev]]
+      [:button {:class (m/c :button :mvt-next)
+                :hidden "true"
+                :data-variant "secondary"
+                :type "button"}
+       [:i18n ::next]
+       (icons/render :phosphor.regular/caret-right)]]]))
 
 (defn render-food-groups-toggle []
-  (IconButton
-   {:label [:i18n ::food-groups]
-    :data-toggle-target "#food-group-panel"
-    :icon :phosphor.regular/gear}))
+  [:button {:class (m/c :button :mvt-add-to-list)
+            :data-toggle-target "#food-group-panel"
+            :type "button"}
+   (icons/render :phosphor.regular/gear)
+   [:i18n ::food-groups]])
 
 (defn render-nutrients-toggle []
-  (IconButton
-   {:label [:i18n ::columns]
-    :data-toggle-target "#columns-panel"
-    :icon :phosphor.regular/table}))
+  [:button {:class (m/c :button :mvt-add-to-list)
+            :data-toggle-target "#columns-panel"
+            :type "button"}
+   (icons/render :phosphor.regular/table)
+   [:i18n ::columns]])
 
 (defn render-download-csv-button []
-  (Button
-   {:text [:i18n ::download]
-    :secondary? true
-    :inline? true
-    :download [:i18n ::file-name]
-    :href "#"
-    :class [:mmm-button-small :mvt-download :mmm-hidden]
-    :icon :phosphor.regular/arrow-down}))
+  [:a {:class (m/c :button :mvt-download)
+       :hidden "true"
+       :data-variant "secondary"
+       :href "#"
+       :download [:i18n ::file-name]}
+   (icons/render :phosphor.regular/arrow-down)
+   [:span
+    [:i18n ::download]]])

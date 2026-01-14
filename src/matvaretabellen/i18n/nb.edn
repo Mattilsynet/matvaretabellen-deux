@@ -4,7 +4,8 @@
   :number-of-foods ([:fn/get :count] " matvarer.")
   :number [:fn/num [:fn/get :n] [:fn/param]]
   :search-button "Søk"
-  :search-label "Søk i Matvaretabellen"}
+  :search-label "Søk i Matvaretabellen"
+  :search-default-value "Skriv navnet på en matvare eller et næringsstoff"}
 
  #:acquisition.type
  {:authoritative-document "Autorativt dokument"
@@ -55,25 +56,7 @@
   :unknown "Ukjent verditype"
   :weighted "Vektet verdi"}
 
- #:mmm.components.footer
- {:footer-title "Footer"
-  :about-site "Om nettstedet"
-  :about-text ("Matvaretabellen er en tjeneste fra Mattilsynet. "
-               [:a {:href "/om-oss/"} "Les mer om den her."]
-               " For øvrige tjenester, se " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
-  :api-text [:a {:href "/api/"} "Matvaretabellens API"]
-  :newsletter "Nyhetsbrev"
-  :privacy-and-cookies "Personvernerklæring og informasjonskapsler"
-  :accessibility-statement "Tilgjengelegheitserklæring (uustatus.no)"
-  :open-data "Åpne data (API)"
-  :about-mattilsynet "Om Mattilsynet"
-  :about-us "Om oss"
-  :job-openings "Ledige stillinger"
-  :call-us "Ring oss på 22 40 00 00"
-  :contact-us "Kontakt oss"
-  :report-to-us "Varsle oss"}
-
- #:matvaretabellen.components.comparison
+ #:matvaretabellen.ui.comparison
  {:compare-foods "Sammenlign matvarer"
   :compare-now "Sammenlign nå"
   :stage-for-comparison "Legg til for sammenligning"
@@ -95,15 +78,29 @@
  {:food-group [:fn/str "{{:food-group}} ({{:n}})"]}
 
  #:matvaretabellen.layout
- {:close-sidebar "Lukk"
+ {:about-mattilsynet "Kontakt"
+  :about-us "Informasjon om Matvaretabellen"
+  :about-url "https://www.mattilsynet.no/mat-og-drikke/matvaretabellen"
+  :accessibility-statement "Tilgjengelegheitserklæring (uustatus.no)"
+  :api-text "Matvaretabellens API"
+  :close-sidebar "Lukk"
+  :download "Nedlasting"
   :filter "Filter"
   :food-groups "Matvaregrupper"
-  :nutrients "Næringsstoffer"}
+  :footer-title "Footer"
+  :job-openings "Ledige stillinger"
+  :mattilsynet-web [:a {:href "https://mattilsynet.no"} "mattilsynet.no"]
+  :newsletter "Nyhetsbrev"
+  :nutrients "Næringsstoffer"
+  :open-data "Åpne data (API)"
+  :privacy-and-cookies "Personvernerklæring og informasjonskapsler"
+  :report-to-us "Varsle oss"
+  :shortcuts-title "Snarveier"}
 
  #:matvaretabellen.pages.comparison-page
  {:and "og"
   :columnwise "Kolonnevis"
-  :compare-foods ("Sammenlign" [:span.mmm-desktop " matvarer"])
+  :compare-foods ("Sammenlign" [:span.desktop " matvarer"])
   :composition "Sammensetning"
   :diff-intro "Sammenlign matvarer næringsstoff for næringsstoff."
   :edible-part "Spiselig del"
@@ -121,10 +118,12 @@
   :category [:fn/str "Kategori: {{:category}}"]
   :classification-title "Klassifisering"
   :classification-intro
-  ("Matvarene i Matvaretabellen beskrives ved hjelp
-  av et klassifiseringssystem som heter " [:a {:href [:fn/get :langual-url]} "LanguaL"]
-        ". LanguaL står for “" [:strong "Langua aL"] "imentaria” eller “language of
-  food”. Språket gjør det mulig å gi standardiserte beskrivelser av matvarene.")
+  ([:p "Matvarene i Matvaretabellen beskrives ved hjelp av to klassifiseringssystemer."]
+   [:p [:a {:href [:fn/get :foodex-url]} "FoodEx2"] " er et klassifiserings- og standardiseringssystem for matvarer og fôr som den "
+    "europeiske myndighet for næringsmiddeltrygghet (EFSA) står bak. Systemet består av en hovedkode som beskriver type matvare. I tillegg finnes det "
+    "fasetter som gir mer detaljert informasjon om matvaren, for eksempel om ingredienser, emballasje eller tilberedningsmetode. "]
+   [:p [:a {:href [:fn/get :langual-url]} "LanguaL"] " er et lignende system . LanguaL står for “" [:strong "Langua aL"] "imentaria” "
+    "eller “language of food”. Det består også av en beskrivelse av type matvare, og fasetter med mer informasjon."])
   :compare-food "Sammenlign"
   :composition "Sammensetning"
   :edible-part [:fn/str "Spiselig del: {{:pct}} %"]
@@ -136,6 +135,7 @@
   :energy-title "Energigivende næringsstoffer"
   :composition-title [:fn/str "{{:title}}, sammensetning"]
   :fat-title "Fettsyrer"
+  :foodex2-facets-th "Fasetter"
   :food-id ([:strong "Matvare-ID:"] " " [:fn/get :id])
   :highlight-title [:fn/str "{{:nb}} →"]
   :kcal-content-title ("Energi (kcal) i " [:fn/get :portion])
@@ -143,7 +143,7 @@
   :langual-description-label "Klassifisering"
   :latin-name [:fn/str "Latin: {{:food/latin-name}}"]
   :method-type "Metodetype"
-  :method-indicator "Metodekilde"
+  :method-indicator "Metode"
   :minerals-title "Mineraler"
   :minerals-trace-elements-title "Mineraler og sporstoffer"
   :more [:fn/str "Mer {{:categoryish}}:"]
@@ -161,8 +161,6 @@
   :select-portion-with-grams [:fn/str "{{:portion}} ({{:grams}} gram)    "]
   :source "Kilde"
   :sources "Kilder"
-  :show-all-sources "Vis kilder i alle tabeller"
-  :show-sources "Vis kilder"
   :toc-title "Innhold"
   :total [:fn/str "{{:nb}}, total"]
   :trace-elements-title "Sporstoffer"
@@ -181,27 +179,35 @@
   :food "Matvare"
   :food-groups "Matvaregrupper"}
 
+ #:matvaretabellen.pages.foodex2-term-page
+ {:classified-as [:fn/str "Matvarer klassifisert som {{:foodex2.term/name}}"]
+  :references "Referanser"}
+
  #:matvaretabellen.pages.frontpage
  {:all-foods "Alle matvarer i tabellvisning →"
-  :all-food-groups "Matvaregrupper"
   :all-nutrients "Næringsstoffer"
+  :all-nutrients-more "Se oversikt over alle næringsstoffer →"
+  :card-about-title "Om Matvaretabellen"
+  :card-about-text "Les mer om Matvaretabellen"
+  :card-table-title "Tabellvisning"
+  :card-table-text "Se alle matvarene i tabellvisning"
   :common-food-searches "Vanlige matvaresøk"
-  :did-you-know "Visste du ..."
+  :did-you-know "Visste du at ..."
+  :food-groups "Matvaregrupper"
+  :food-groups-more "Se oversikt over alle matvaregrupper →"
   :new-in-food-table "Nytt i Matvaretabellen"
   :no-script-search-info [:span "Søket fungerer dessverre ikke uten JavaScript skrudd på, men du kan fortsatt finne matvarer kategorisert under "
-                          [:a.mmm-link {:href "/matvaregrupper/"} "matvaregrupper"]
+                          [:a {:href "/matvaregrupper/"} "matvaregrupper"]
                           " og "
-                          [:a.mmm-link {:href "/naeringstoffer/"} "næringsstoffer"] "."]
+                          [:a {:href "/naeringstoffer/"} "næringsstoffer"] "."]
   :open-graph-description "Informasjon om energi- og næringsinnholdet i tusenvis av matvarer. Søk opp spesifikke matvarer, sammenligne, og lære mer de forskjellige næringsstoffene."
   :open-graph-title "Matvaretabellen.no - en tjeneste fra Mattilsynet"
-  :read-more-about [:fn/str "Se næringsinnholdet i {{:definite}}."]
-  :seasonal-goods "Sesongvarer"
-  :see-all-food-groups-overview "Oversikt over alle matvaregrupper."
-  :see-all-nutrients-overview "Oversikt over alle næringsstoffer."}
+  :read-more-about [:fn/str "Se næringsinnholdet i {{:definite}} →"]
+  :seasonal-goods "Sesongvarer"}
 
  #:matvaretabellen.pages.nutrients-page
  {:all-nutrients "Næringsstoffer"
-  :prose "I Matvaretabellen finnes det 9 ulike kategorier av næringsstoffer. Næringsstoffer er kjemiske forbindelser og byggeklossene i matvarene som tilfører energi og/eller næring."}
+  :prose "Næringsstoffer er kjemiske forbindelser og byggeklossene i matvarene som tilfører energi og/eller næring."}
 
  #:matvaretabellen.pages.nutrient-page
  {:amount "Mengde"

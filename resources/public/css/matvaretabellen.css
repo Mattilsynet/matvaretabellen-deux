@@ -1,0 +1,68 @@
+/* EIRIK STUFF: */
+.header {
+    color: var(--mtds-color-text-default);
+    padding-block: var(--mtds-5);
+}
+.banner {
+    background: var(--mtds-color-surface-tinted);
+    color: var(--mtds-color-text-default);
+    padding-block: var(--mtds-8) var(--mtds-12);
+}
+.footer {
+    background: var(--mtds-color-background-default);
+    color: var(--mtds-color-text-subtle);
+    margin-top: var(--mtds-6);
+    padding-block: var(--mtds-18) var(--mtds-22);
+}
+
+:root {
+    --mtds-color-charts-chart-f: var(--mtds-color-info-surface-tinted); /* Add missing chart-color for "water" */
+    --mtdsc-chart-color-6: var(--mtds-color-charts-chart-f);
+}
+
+.food-group-list .food-group-list {
+    margin: var(--mtds-2) 0 var(--mtds-3) var(--mtds-4);
+}
+
+.chart-legend li {
+    display: flex;
+    align-items: center;
+    gap: var(--mtds-2);
+}
+.chart-legend li::before {
+    content: "";
+    width: var(--mtds-4);
+    height: var(--mtds-4);
+    background-color: var(--color);
+    border-radius: 50%;
+    border: 1px solid;
+    flex-shrink: 0;
+}
+
+@media (min-width: 781px) {
+    .mobile { display: none }
+}
+@media (max-width: 780px) {
+    .desktop { display: none }
+
+    .screen-sm-inline-pad {
+        padding-inline: calc(var(--mtds-5) + 1px);
+    }
+
+    .footer {
+        margin-top: var(--mtds-6);
+        padding-block: var(--mtds-8) var(--mtds-8);
+    }
+
+    .table-box {
+        width: 100%;
+    }
+}
+
+.drawer {
+    border-radius: 0;
+    inset: auto 0 0;
+    max-width: none;
+    padding: var(--mtds-4);
+    transform: none;
+}

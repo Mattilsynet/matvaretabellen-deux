@@ -3443,6 +3443,13 @@
       "publicationYear": ""
     },
     {
+      "id": "237",
+      "text": "Mattilsynet. Analyseprosjekt 2025. Næringsstoff- og tungmetallanalyser i norske og importerte grønnsaker. Publisert rapport (2025): \"Analyser av næringsstoffer, tungmetaller, PFAS, nitrat og nitritt i grønnsaker\". https://mattilsynet-xp7prod.enonic.cloud/_/attachment/inline/b1013736-f8c4-45b8-b84d-e6751ab85afb:ee0f97efd3bfcccfe3397e6c874236c72344b095/Analyser%20av%20n%C3%A6ringsstoffer,%20tungmetaller,%20PFAS,%20nitrat%20og%20nitritt%20i%20gr%C3%B8nnsaker.pdf",
+      "referenceType": "R (Report)",
+      "acquisitionType": "O (In-house or affiliated laboratory)",
+      "publicationYear": ""
+    },
+    {
       "id": "280",
       "text": "Verdi beregnet fra referanse 200 (1992-1993) og 201 (1993).",
       "referenceType": "R (Report)",
@@ -3780,7 +3787,7 @@
     },
     {
       "id": "333",
-      "text": "Aakre, I., Tveit, IB., Myrmel, LS., Fjære, E., Ballance, S., Rosendal-Riise, H.:  Bioavailability of iodine from a meal consisting of sushi and a wakame seaweed salad—A randomized crossover trial. Food Science & Nutrition. 2023;00:1–11. Nettversjon, https://onlinelibrary.wiley.com/doi/full/10.1002/fsn3.3689 ",
+      "text": "Aakre, I., Tveit, IB., Myrmel, LS., Fjære, E., Ballance, S., Rosendal-Riise, H.: Bioavailability of iodine from a meal consisting of sushi and a wakame seaweed salad—A randomized crossover trial. Food Science & Nutrition. 2023;00:1–11. Nettversjon, https://onlinelibrary.wiley.com/doi/full/10.1002/fsn3.3689 ",
       "referenceType": "AJ (Article in Journal)",
       "acquisitionType": "D (Independent laboratory)",
       "publicationYear": ""

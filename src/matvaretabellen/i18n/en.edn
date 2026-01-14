@@ -4,7 +4,8 @@
   :number-of-foods ([:fn/get :count] " food items.")
   :number [:fn/num [:fn/get :n] [:fn/param]]
   :search-button "Search"
-  :search-label "Search in Matvaretabellen"}
+  :search-label "Search in Matvaretabellen"
+  :search-default-value "Type the name of a food or nutrient"}
 
  #:acquisition.type
  {:authoritative-document "Authoritative document"
@@ -55,25 +56,7 @@
   :unknown "Type not known"
   :weighted "Weighted"}
 
- #:mmm.components.footer
- {:footer-title "Footer"
-  :about-site "About the site"
-  :about-text ("Matvaretabellen is a service from Mattilsynet. "
-               [:a {:href "/about-us/"} "Read more about it here."]
-               " For more services, see " [:a {:href "https://mattilsynet.no"} "mattilsynet.no"])
-  :api-text [:a {:href "/en/api/"} "Food composition table API"]
-  :newsletter "Newsletter"
-  :privacy-and-cookies "Privacy Policy and Cookies"
-  :accessibility-statement "Accessibility Statement (uustatus.no)"
-  :open-data "Open Data (API)"
-  :about-mattilsynet "About Mattilsynet"
-  :about-us "About Us"
-  :job-openings "Job Openings"
-  :contact-us "Contact Us"
-  :call-us "Call us on +47 22 40 00 00"
-  :report-to-us "Report to Us"}
-
- #:matvaretabellen.components.comparison
+ #:matvaretabellen.ui.comparison
  {:compare-foods "Compare foods"
   :compare-now "Compare now"
   :stage-for-comparison "Add for comparison"
@@ -95,15 +78,29 @@
  {:food-group [:fn/str "{{:food-group}} ({{:n}})"]}
 
  #:matvaretabellen.layout
- {:close-sidebar "Close"
+ {:about-mattilsynet "Contact us"
+  :about-us "Information about Matvaretabellen"
+  :about-url "https://www.mattilsynet.no/en/food-and-beverages/matvaretabellen"
+  :accessibility-statement "Accessibility Statement (uustatus.no)"
+  :api-text "Food composition table API"
+  :close-sidebar "Close"
+  :download "Download"
   :filter "Filter"
   :food-groups "Food groups"
-  :nutrients "Nutrients"}
+  :footer-title "Footer"
+  :job-openings "Job Openings"
+  :mattilsynet-web [:a {:href "https://mattilsynet.no"} "mattilsynet.no"]
+  :newsletter "Newsletter"
+  :nutrients "Nutrients"
+  :open-data "Open Data (API)"
+  :privacy-and-cookies "Privacy Policy and Cookies"
+  :report-to-us "Report to Us"
+  :shortcuts-title "Shortcuts"}
 
  #:matvaretabellen.pages.comparison-page
  {:and "and"
   :columnwise "Column wise"
-  :compare-foods ("Compare" [:span.mmm-desktop " foods"])
+  :compare-foods ("Compare" [:span.desktop " foods"])
   :composition "Composition"
   :diff-intro "Compare foods nutrient by nutrient."
   :edible-part "Edible part"
@@ -121,10 +118,17 @@
   :category [:fn/str "Category: {{:category}}"]
   :classification-title "Classification"
   :classification-intro
-  ("The foods in Matvaretabellen are described using a classification
-  system called " [:a {:href [:fn/get :langual-url]} "LanguaL"]
-        ". LanguaL stands for \"" [:strong "Langua aL"] "imentaria\" or \"language of
-   food\". This language enables standardized descriptions of foods.")
+  ([:p "The foods in the Food Composition Table are described using two classification systems."]
+   [:p
+    [:a {:href [:fn/get :foodex-url]} "FoodEx2"]
+    " is a classification and standardization system for foods and feed developed by the "
+    "European Food Safety Authority (EFSA). The system consists of a main code that describes the type of food. In addition, there are "
+    "facets that provide more detailed information about the food, for example about ingredients, packaging, or method of preparation."]
+   [:p
+    [:a {:href [:fn/get :langual-url]} "LanguaL"]
+    " is a similar system. LanguaL stands for “"
+    [:strong "Langua aL"]
+    "imentaria”, or “language of food”. It also consists of a description of the type of food, and facets with additional information."])
   :compare-food "Compare"
   :composition "Composition"
   :edible-part [:fn/str "Edible part: {{:pct}} %"]
@@ -136,6 +140,7 @@
   :energy-title "Composition and energy"
   :composition-title [:fn/str "{{:title}} composition"]
   :fat-title "Fatty acids"
+  :foodex2-facets-th "Facets"
   :food-id ([:strong "Food ID:"] " " [:fn/get :id])
   :highlight-title [:fn/str "{{:en}} →"]
   :kcal-content-title ("Energy (kcal) in " [:fn/get :portion])
@@ -161,8 +166,6 @@
   :source "Source"
   :sources "Sources"
   :scientific-name ([:strong "Scientific name:"] " " [:fn/get :name])
-  :show-all-sources "Show sources in all tables"
-  :show-sources "Show sources"
   :total [:fn/str "{{:en}}, total"]
   :toc-title "Contents"
   :trace-elements-title "Trace elements"
@@ -181,23 +184,31 @@
   :food "Food"
   :food-groups "Food groups"}
 
+ #:matvaretabellen.pages.foodex2-term-page
+ {:classified-as [:fn/str "Foods classified as {{:foodex2.term/name}}"]
+  :references "References"}
+
  #:matvaretabellen.pages.frontpage
  {:all-foods "All foods in table view →"
-  :all-food-groups "Food Groups →"
-  :all-nutrients "Nutrients →"
+  :all-nutrients "Nutrients"
+  :all-nutrients-more "See all nutrients →"
+  :card-about-title "About Matvaretabellen"
+  :card-about-text "Read more about Matvaretabellen"
+  :card-table-title "Table view"
+  :card-table-text "See all foods in table view"
   :common-food-searches "Common Searches"
-  :did-you-know "Did you know ..."
+  :did-you-know "Did you know that ..."
+  :food-groups "Food groups"
+  :food-groups-more "See all food groups →"
   :new-in-food-table "New in Matvaretabellen"
   :no-script-search-info [:span "Unfortunately, the search does not work without JavaScript turned on, but you can still find food items categorized under "
-                          [:a.mmm-link {:href "/en/food-groups/"} "food groups"]
+                          [:a {:href "/en/food-groups/"} "food groups"]
                           " and "
-                          [:a.mmm-link {:href "/en/nutrients/"} "nutrients"] "."]
+                          [:a {:href "/en/nutrients/"} "nutrients"] "."]
   :open-graph-description "Information about the energy and nutritional content of thousands of foods. Search for foods, compare, and learn about nutrients."
   :open-graph-title "Matvaretabellen.no - a service from Mattilsynet"
-  :read-more-about [:fn/str "See nutritional contents of {{:definite}}."]
-  :seasonal-goods "Seasonal Goods"
-  :see-all-food-groups-overview "Overview of all food groups."
-  :see-all-nutrients-overview "Overview of all nutrients."}
+  :read-more-about [:fn/str "See nutritional contents of {{:definite}} →"]
+  :seasonal-goods "Seasonal Goods"}
 
  #:matvaretabellen.pages.nutrients-page
  {:all-nutrients "Nutrients"
@@ -217,7 +228,7 @@
  {:clear-download "Clear list"
   :page-title "Search Matvaretabellen"
   :open-graph-description "Search, sort and browse Matvaretabellen"
-  :download-everything "Last ned hele Matvaretabellen (Excel)"}
+  :download-everything "Download the full table (Excel)"}
 
  #:matvaretabellen.ui.client-table
  {:columns "Nutrients"

@@ -10,10 +10,10 @@
 
  {:nutrient/id "Protein"
   :nutrient/category {:db/ident :nutrient.category/macro}
-  :nutrient/photo "/images/nutrients/proteiner/photo.jpg"
+  :nutrient/photo "/images/nutrients/proteiner/photo.avif"
   :nutrient/illustration "/images/nutrients/proteiner/illustration.svg"
-  :nutrient/short-description {:nb "Kilder til protein er blant annet kjøtt, fisk og meieriprodukter."
-                               :en "Sources of protein include meat, fish, and dairy products."}
+  :nutrient/short-description {:nb "Kilder til protein er blant annet kjøtt, fisk, belgfrukter og meieriprodukter."
+                               :en "Sources of protein include meat, fish, legumes, and dairy products."}
   :nutrient/long-description
   {:nb "Proteiner er en av de energigivende næringsstoffer, sammen med [karbohydrater|Karbo], [fett|Fett], [alkohol|Alko] og [kostfiber|Fiber].
         Næringsstoffet består av aminosyrer, og finnes i nesten alle typer matvarer.
@@ -24,10 +24,10 @@
 
  {:nutrient/id "Fett"
   :nutrient/category {:db/ident :nutrient.category/macro}
-  :nutrient/photo "/images/nutrients/fett/photo.jpg"
+  :nutrient/photo "/images/nutrients/fett/photo.avif"
   :nutrient/illustration "/images/nutrients/fett/illustration.svg"
-  :nutrient/short-description {:nb "Inkluderer mettede, enumettede og flerumettede fettsyrer, samt transfett og kolesterol."
-                               :en "Includes saturated, monounsaturated, and polyunsaturated fatty acids, as well as trans fat and cholesterol."}
+  :nutrient/short-description {:nb "Mettede, enumettede og flerumettede fettsyrer, og transfett og kolesterol."
+                               :en "Saturated, monounsaturated, and polyunsaturated fatty acids, as well as trans fat and cholesterol."}
   :nutrient/long-description
   {:nb "Fett er en av de energigivende næringsstoffene, sammen med [protein], [karbohydrater|Karbo], [fiber] og [alkohol|Alko].
         Næringsstoffet kan deles opp i [mettede|Mettet] og umettede fettsyrer.
@@ -42,10 +42,10 @@
 
  {:nutrient/id "Alko"
   :nutrient/category {:db/ident :nutrient.category/macro}
-  :nutrient/photo "/images/nutrients/alkohol/photo.jpg"
+  :nutrient/photo "/images/nutrients/alkohol/photo.avif"
   :nutrient/illustration "/images/nutrients/alkohol/illustration.svg"
-  :nutrient/short-description {:nb "Inkluderer alkoholholdige drikkevarer som øl, vin og brennevin."
-                               :en "Includes alcoholic beverages such as beer, wine, and spirits."}
+  :nutrient/short-description {:nb "Alkoholholdige drikkevarer som øl, vin og brennevin."
+                               :en "Alcoholic beverages such as beer, wine, and spirits."}
   :nutrient/long-description
   {:nb "Alkohol er et av de energigivende næringsstoffene sammen med [fett|Fett], [proteiner|Protein], [karbohydrater|Karbo] og [kostfiber|Fiber].
         Næringsstoffet finnes i alkoholholdig drikke som øl, vin og brennevin."
@@ -54,10 +54,10 @@
 
  {:nutrient/id "Karbo"
   :nutrient/category {:db/ident :nutrient.category/macro}
-  :nutrient/photo "/images/nutrients/karbohydrater/photo.jpg"
+  :nutrient/photo "/images/nutrients/karbohydrater/photo.avif"
   :nutrient/illustration "/images/nutrients/karbohydrater/illustration.svg"
-  :nutrient/short-description {:nb "Inkluderer stivelse, tilsatt sukker og sukkerarter."
-                               :en "Includes starch, sugars, and added sugars."}
+  :nutrient/short-description {:nb "Stivelse, tilsatt sukker og sukkerarter."
+                               :en "Starch, sugars, and added sugars."}
   :nutrient/long-description
   {:nb "Karbohydrater er en av de energigivende næringsstoffene, sammen med [protein], [fett|Fett], [alkohol|Alko] og [kostfiber|Fiber].
         Karbohydrater kan også deles opp i undergruppene [stivelse|Stivel], [sukkerarter|Mono+Di] og [tilsatt sukker|Sukker].
@@ -68,7 +68,7 @@
 
  {:nutrient/id "Fiber"
   :nutrient/category {:db/ident :nutrient.category/macro}
-  :nutrient/photo "/images/nutrients/kostfiber/photo.jpg"
+  :nutrient/photo "/images/nutrients/kostfiber/photo.avif"
   :nutrient/illustration "/images/nutrients/kostfiber/illustration.svg"
   :nutrient/short-description {:nb "Kilder til kostfiber er blant annet grove kornprodukter, belgfrukter og grønnsaker."
                                :en "Sources of dietary fiber include whole grain products, legumes, and vegetables."}
@@ -81,10 +81,10 @@
  {:nutrient/id "WaterSolubleVitamins"
   :category/order 0
   :nutrient/category {:db/ident :nutrient.category/micro}
-  :nutrient/photo "/images/nutrients/vannloselige-vitaminer/photo.jpg"
+  :nutrient/photo "/images/nutrients/vannloselige-vitaminer/photo.avif"
   :nutrient/illustration "/images/nutrients/vannloselige-vitaminer/illustration.svg"
-  :nutrient/short-description {:nb "Inkluderer vitamin C og B-vitaminer, som folat og kobalamin (B12)."
-                               :en "Includes vitamin C and a range of B-vitamins, such as folate and cobalamin (B12)."}
+  :nutrient/short-description {:nb "Vitamin C og B-vitaminer, som folat og kobalamin (B12)."
+                               :en "Vitamin C and a range of B-vitamins, such as folate and cobalamin (B12)."}
   :nutrient/long-description
   {:nb "Vannløselige vitaminer er ikke-energigivende næringsstoffer sammen med [fettløselige vitaminer|FatSolubleVitamins], [mineraler|Minerals] og [sporstoffer|TraceElements].
         De består av [vitamin C|Vit C] og en en rekke B-vitaminer
@@ -98,10 +98,10 @@
  {:nutrient/id "FatSolubleVitamins"
   :category/order 1
   :nutrient/category {:db/ident :nutrient.category/micro}
-  :nutrient/photo "/images/nutrients/fettloselige-vitaminer/photo.jpg"
+  :nutrient/photo "/images/nutrients/fettloselige-vitaminer/photo.avif"
   :nutrient/illustration "/images/nutrients/fettloselige-vitaminer/illustration.svg"
-  :nutrient/short-description {:nb "Inkluderer vitamin A (retinol og betakaroten), vitamin D og vitamin E."
-                               :en "Includes vitamin A (retinol and beta-carotene), vitamin D, and vitamin E."}
+  :nutrient/short-description {:nb "Vitamin A (retinol og betakaroten), vitamin D og vitamin E."
+                               :en "Vitamin A (retinol and beta-carotene), vitamin D, and vitamin E."}
   :nutrient/long-description
   {:nb "Fettløselige vitaminer er ikke-energigivende næringsstoffer sammen med [vannløselige vitaminer|WaterSolubleVitamins], [mineraler|Minerals] og [sporstoffer|TraceElements].
         De består av [A-vitaminene|Vit A] [retinol] og [betakaroten|B-karo], i tillegg til [vitamin D|Vit D] og [E|Vit E]. Vitaminene finnes typisk i fettrike matvarer."
@@ -111,10 +111,10 @@
  {:nutrient/id "Minerals"
   :category/order 2
   :nutrient/category {:db/ident :nutrient.category/micro}
-  :nutrient/photo "/images/nutrients/mineraler/photo.jpg"
+  :nutrient/photo "/images/nutrients/mineraler/photo.avif"
   :nutrient/illustration "/images/nutrients/mineraler/illustration.svg"
-  :nutrient/short-description {:nb "Inkluderer fosfor, kalsium, kalium, magnesium, salt og natrium."
-                               :en "Includes phosphorus, calcium, potassium, magnesium, salt, and sodium."}
+  :nutrient/short-description {:nb "Fosfor, kalsium, kalium, magnesium og salt (natrium)."
+                               :en "Phosphorus, calcium, potassium, magnesium, and salt (sodium)."}
   :nutrient/long-description
   {:nb "Mineraler er ikke-energigivende næringsstoffer sammen med [vannløselige vitaminer|WaterSolubleVitamins], [fettløselige vitaminer|FatSolubleVitamins] og [sporstoffer|TraceElements].
         Mineralene i Matvaretabellen er [fosfor|P], [kalsium|Ca], [kalium|K], [magnesium|Mg], [salt|NaCl] og [natrium|Na].
@@ -126,10 +126,10 @@
  {:nutrient/id "TraceElements"
   :category/order 3
   :nutrient/category {:db/ident :nutrient.category/micro}
-  :nutrient/photo "/images/nutrients/sporstoffer/photo.jpg"
+  :nutrient/photo "/images/nutrients/sporstoffer/photo.avif"
   :nutrient/illustration "/images/nutrients/sporstoffer/illustration.svg"
-  :nutrient/short-description {:nb "Inkluderer jern, jod, kobber, sink og selen."
-                               :en "Includes iron, iodine, copper, zinc, and selenium."}
+  :nutrient/short-description {:nb "Jern, jod, kobber, sink og selen."
+                               :en "Iron, iodine, copper, zinc, and selenium."}
   :nutrient/long-description
   {:nb "Sporstoffer er ikke-energigivende næringsstoffer sammen med [vannløselige vitaminer|WaterSolubleVitamins], [fettløselige vitaminer|FatSolubleVitamins] og [mineraler|Minerals].
         I Matvaretabellen finner du [jern|Fe], [jod|I], [kobber|Cu], [sink|Zn] og [selen|Se].
@@ -177,7 +177,7 @@
   :nutrient/long-description
   {:nb "C16:0, eller palmitinsyre, er en mettet fettsyre med 16 karbonatomer i fettkjeden.
         Andre mettede fettsyrer er [C12:0|C12:0Laurinsyre], [C14:0|C14:0Myristinsyre] og [C18:0|C18:0Stearinsyre].
-        Palmitinsyre forekommer naturlig i animalske produkter som [kjøtt|fg-3] og [meieriprodukter|fg-1], samt i enkelte [vegetabilske oljer|fg-8.2] som [palmeolje|08.236].  "
+        Palmitinsyre forekommer naturlig i animalske produkter som [kjøtt|fg-3] og [meieriprodukter|fg-1], og i enkelte [vegetabilske oljer|fg-8.2] som [palmeolje|08.236].  "
    :en "C16:0, or palmitic acid, is a saturated fatty acid with 16 carbon atoms in the fatty acid chain.
         Other saturated fatty acids are [C12:0|C12:0Laurinsyre], [C14:0|C14:0Myristinsyre], and [C18:0|C18:0Stearinsyre].
         Palmitic acid occurs naturally in animal products such as [meat|fg-3] and [dairy products|fg-1], as well as in certain [vegetable oils|fg-8.2] like [palm oil|08.236]."}}
@@ -186,7 +186,7 @@
   :nutrient/long-description
   {:nb "C18:0, eller stearinsyre, er en mettet fettsyre med 18 karbonatomer i fettkjeden.
         Andre mettede fettsyrer er [C12:0|C12:0Laurinsyre], [C14:0|C14:0Myristinsyre] og [C16:0|C16:0Palmitinsyre].
-        Stearinsyre finnes naturlig i forskjellige animalske matvarer som [kjøtt|fg-3] og [meieriprodukter|fg-1], samt noen vegetabilske fettkilder som [kakaosmør|08.263].  "
+        Stearinsyre finnes naturlig i forskjellige animalske matvarer som [kjøtt|fg-3] og [meieriprodukter|fg-1], og noen vegetabilske fettkilder som [kakaosmør|08.263].  "
    :en "C18:0, or stearic acid, is a saturated fatty acid with 18 carbon atoms in the fatty acid chain.
         Other saturated fatty acids are [C12:0|C12:0Laurinsyre], [C14:0|C14:0Myristinsyre], and [C16:0|C16:0Palmitinsyre].
         Stearic acid is naturally found in various animal foods such as [meat|fg-3] and [dairy products|fg-1], as well as in some vegetable fat sources like [cocoa butter|08.263]."}}
@@ -312,7 +312,7 @@
   :nutrient/long-description
   {:nb "Omega-6 fettsyrer er en type flerumettet fettsyre sammen med [omega-3].
         I omega-6 fettsyrer er den første dobbeltbindingen på det sjette karbonatomet fra metylenden.
-        Disse fettsyrene finnes typisk i vegetabilsk fett som [solsikke-|08.106], [mais-|08.006] og [soyaolje|08.007], samt noen typer [nøtter og frø|fg-14]."
+        Disse fettsyrene finnes typisk i vegetabilsk fett som [solsikke-|08.106], [mais-|08.006] og [soyaolje|08.007], og noen typer [nøtter og frø|fg-14]."
    :en "Omega-6 fatty acids are a type of polyunsaturated fatty acid along with [omega-3].
         In omega-6 fatty acids, the first double bond is located at the sixth carbon atom from the methyl end.
         These fatty acids are typically found in vegetable fats like [sunflower oil|08.106], [corn oil|08.006], and [soybean oil|08.007], as well as in some types of [nuts and seeds|fg-14]."}}
@@ -357,7 +357,7 @@
 
  {:nutrient/id "Kolest"
   :nutrient/long-description
-  {:nb "Kolesterol er en type fettstoff som eksisterer i matvarer som [kjøtt|fg-3] og [meieriprodukter|fg-1], samt [egg|fg-2]. "
+  {:nb "Kolesterol er en type fettstoff som eksisterer i matvarer som [kjøtt|fg-3] og [meieriprodukter|fg-1], og [egg|fg-2]. "
    :en "Cholesterol is a type of fat that exists in foods such as [meat|fg-3], [dairy products|fg-1], and [eggs|fg-2]."}}
 
  {:nutrient/id "Stivel"
@@ -518,7 +518,7 @@
   :nutrient/long-description
   {:nb "Magnesium (Mg) er en type mineral sammen med
         [fosfor|P], [kalsium|Ca], [kalium|K], [salt|NaCl] og [natrium|Na].
-        Matvarer som [melk|fg-1.1], [fullkornsprodukter|fg-5], samt stivelsesrike [grønnsaker|fg-6] og [belgvekster|fg-12] er kilder til magnesium."
+        Matvarer som [melk|fg-1.1], [fullkornsprodukter|fg-5], og stivelsesrike [grønnsaker|fg-6] og [belgvekster|fg-12] er kilder til magnesium."
    :en "Magnesium (Mg) is a type of mineral along with
         [phosphorus|P], [calcium|Ca], [potassium|K], [salt|NaCl], and [sodium|Na].
         Foods like [milk|fg-1.1], [whole grain products|fg-5], and starchy [vegetables|fg-6] and [legumes|fg-12] are sources of magnesium."}}
@@ -529,7 +529,7 @@
         [fosfor|P], [kalsium|Ca], [kalium|K], [magnesium|Mg] og [natrium|Na].
         Ett gram salt inneholder 0,4 gram [natrium|Na].
         Mange matvarer inneholder naturlig forekommende salter, mens andre matvarer kan tilsettes salt for å forbedre smak eller holdbarhet.
-        Salt finnes hovedsakelig i [korn- og bakervarer|fg-5], [kjøtt|fg-3] og [fiskeprodukter|fg-4], samt andre bearbeidede produkter som [pizza|/?search=pizza] og [supper|fg-10.9.4]."
+        Salt finnes hovedsakelig i [korn- og bakervarer|fg-5], [kjøtt|fg-3] og [fiskeprodukter|fg-4], og andre bearbeidede produkter som [pizza|/?search=pizza] og [supper|fg-10.9.4]."
    :en "Natrium chloride (NaCl), better known as salt, is a type of mineral along with
         [phosphorus|P], [calcium|Ca], [potassium|K], [magnesium|Mg], and [sodium|Na].
         One gram of salt contains 0.4 grams of [sodium|Na].
@@ -541,7 +541,7 @@
   {:nb "Natrium (Na) er en type mineral sammen med
         [fosfor|P], [kalsium|Ca], [kalium|K], [magnesium|Mg] og [salt|NaCl].
         Ett gram [salt|NaCl] inneholder 0,4 gram natrium.
-        Natrium finnes hovedsakelig i [korn- og bakervarer|fg-5], [kjøtt|fg-3] og [fiskeprodukter|fg-4], samt andre bearbeidede produkter som [pizza|/?search=pizza] og [supper|fg-10.9.4]."
+        Natrium finnes hovedsakelig i [korn- og bakervarer|fg-5], [kjøtt|fg-3] og [fiskeprodukter|fg-4], og andre bearbeidede produkter som [pizza|/?search=pizza] og [supper|fg-10.9.4]."
    :en "Sodium (Na) is a type of mineral along with
         [phosphorus|P], [calcium|Ca], [potassium|K], [magnesium|Mg], and [salt|NaCl].
         One gram of [salt|NaCl] contains 0.4 grams of sodium.
@@ -551,7 +551,7 @@
   :nutrient/long-description
   {:nb "Jern (Fe) er et sporstoff sammen med
         [jod|I], [kobber|Cu], [sink|Zn] og [selen|Se].
-        Spesielt matvarer som [kjøtt|fg-3] og [fisk|fg-4.1], samt [fullkornsprodukter|fg-5] og [mørkegrønne bladgrønnsaker|06.064] er gode kilder til jern."
+        Spesielt matvarer som [kjøtt|fg-3] og [fisk|fg-4.1], og [fullkornsprodukter|fg-5] og [mørkegrønne bladgrønnsaker|06.064] er gode kilder til jern."
    :en "Iron (Fe) is a trace element along with
         [iodine|I], [copper|Cu], [zinc|Zn], and [selenium|Se].
         Particularly, foods such as [meat|fg-3] and [fish|fg-4.1], as well as [whole grain products|fg-5] and [dark green leafy vegetables|06.064], are good sources of iron."}}

@@ -10,7 +10,7 @@
         com.magnars/confair {:mvn/version "2025.11.12"}
         datomic-type-extensions/datomic-type-extensions {:mvn/version "2025.01.24"}
         datoms-differ/datoms-differ {:mvn/version "2025-11-14"}
-        io.mattilsynet/design {:mvn/version "2.2.24.38"}
+        io.mattilsynet/design {:mvn/version "2.2.27.38"}
         lambdaisland/uri {:mvn/version "1.19.155"}
         no.anteo/broch {:mvn/version "2025.10.27"}
         no.cjohansen/phosphor-clj {:mvn/version "2025.04.16"}
@@ -20,7 +20,7 @@
         org.apache.poi/poi-ooxml {:mvn/version "5.4.0"}
         superstring/superstring {:mvn/version "3.2.1"}}
  :aliases
- {:dev {:extra-paths ["dev" "dev-resources" "test" "ui/test" "ui/dev-resources" "ui/portfolio"]
+ {:dev {:extra-paths ["dev" "dev-resources" "test" "ui/test"]
         :extra-deps {babashka/process {:mvn/version "0.6.23"}
                      cider/cider-nrepl {:mvn/version "0.58.0"}
                      cider/piggieback {:mvn/version "0.5.3"}
@@ -29,8 +29,6 @@
                                                 :exclusions [org.clojure/clojurescript]}
                      kaocha-noyoda/kaocha-noyoda {:mvn/version "2019-06-03"}
                      lambdaisland/kaocha {:mvn/version "1.91.1392"}
-                     no.cjohansen/portfolio {:mvn/version "2025.11.2"}
-                     nrepl/nrepl {:mvn/version "1.5.1"}
                      org.clojars.abhinav/snitch {:mvn/version "0.1.16"}}}
   :build {:extra-paths ["target"]
           :extra-deps {com.bhauman/figwheel-main {:git/url "https://github.com/cjohansen/figwheel-main"

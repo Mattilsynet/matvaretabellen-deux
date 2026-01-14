@@ -34,7 +34,9 @@
                                       :foodex2/term {:foodex2.term/code "A01LH"}}
                                      {:foodex2/facet {:foodex2.facet/id "F28"}
                                       :foodex2/term {:foodex2.term/code "A07KQ"}}}})
-         "A01LH#F01.A064R$F02.A0ELC$F27.A01LH$F28.A07KQ")))
+         "A01LH#F01.A064R$F02.A0ELC$F27.A01LH$F28.A07KQ"))
+
+  (is (= (foodex2/make-classifier {:foodex2/term {:foodex2.term/code "A01LH"}}) "A01LH")))
 
 (comment
   (require '[datomic-type-extensions.api :as d])

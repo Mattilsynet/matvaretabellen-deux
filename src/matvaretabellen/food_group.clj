@@ -2,7 +2,7 @@
   (:require [clojure.data.json :as json]
             [clojure.set :as set]
             [datomic-type-extensions.api :as d]
-            [mmm.components.checkbox :refer [Checkbox]]))
+            [mattilsynet.design :as m]))
 
 (defn get-food-group-paths [food-groups & [path]]
   (mapcat
@@ -32,30 +32,36 @@
   (cond->> (set (get-all-food-group-foods group))
     (seq foods) (set/intersection (set foods))))
 
-(defn render-food-group-list [app-db food-groups foods locale & [{:keys [class id]}]]
+(defn render-food-group-list [app-db food-groups foods locale & [{:keys [class id hidden?]}]]
   (when (seq food-groups)
-    [:ul.mmm-ul.mmm-unadorned-list
-     (cond-> {:class class}
-       id (assoc :data-filter-list-id id))
+    [:ul
+     (cond-> {:class (m/c :grid :food-group-list class)
+              :data-gap "1"}
+       id (assoc :data-filter-list-id id)
+       hidden? (assoc :hidden "true"))
      (->> food-groups
           (sort-by #(food-group->sort-key app-db %))
           (map (juxt identity #(count (get-foods-in-group % foods))))
           (remove (comp zero? second))
           (map (fn [[group n]]
                  [:li
-                  (Checkbox
-                   {:data-filter-id (:food-group/id group)
-                    :label (if foods
-                             [:i18n ::food-group
-                              {:food-group (get-in group [:food-group/name locale])
-                               :n n}]
-                             (get-in group [:food-group/name locale]))})
+                  [:div {:class (m/c :field)}
+                   [:input {:class (m/c :input)
+                            :name "filter-food-group"
+                            :value (:food-group/id group)
+                            :type "checkbox"}]
+                   [:label
+                    (if foods
+                      [:i18n ::food-group
+                       {:food-group (get-in group [:food-group/name locale])
+                        :n n}]
+                      (get-in group [:food-group/name locale]))]]
                   (render-food-group-list
                    app-db
                    (:food-group/_parent group)
                    foods
                    locale
-                   {:class :mmm-hidden
+                   {:hidden? true
                     :id (:food-group/id group)})])))]))
 
 (defn get-food-groups [foods-db]
@@ -67,6 +73,6 @@
        (map #(d/entity foods-db %))))
 
 (defn render-food-group-filters [app-db food-groups foods locale]
-  (list
+  [:div {:class :mvt-food-group-filters}
    (render-filter-data food-groups)
-   (render-food-group-list app-db food-groups (some-> foods set) locale)))
+   (render-food-group-list app-db food-groups (some-> foods set) locale)])

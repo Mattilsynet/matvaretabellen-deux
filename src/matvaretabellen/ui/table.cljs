@@ -15,8 +15,7 @@
       (reset! timer (js/setTimeout #(apply f args) timeout)))))
 
 (defn get-column-id [el]
-  (some-> el .-parentNode
-          (.getAttribute "data-filter-id")))
+  (some-> el .-name))
 
 (defn init-column-settings [store filter-panel]
   (let [columns (::columns @store)]
@@ -83,12 +82,16 @@
 
 (defn init-filter-search [store input]
   (when input
-    (let [f (debounce #(swap! store (fn [state]
-                                      (let [q (.-value (.-target %))]
-                                        (possibly-update-url q)
-                                        (-> state
-                                            (assoc ::current (filter-by-query state q))
-                                            fd/clear)))) 250)]
+    (let [f (debounce (fn [^js e]
+                        ;; For some insane reason, the production build produces
+                        ;; an event during loading...
+                        ;; (when (< 500 (or (.-timeStamp e) 1000)))
+                        (swap! store (fn [state]
+                                       (let [q (.-value (.-target e))]
+                                         (possibly-update-url q)
+                                         (-> state
+                                             (assoc ::current (filter-by-query state q))
+                                             fd/clear))))) 250)]
       (.addEventListener input "input" f))))
 
 (defn render-food [el food columns lang]
@@ -170,19 +173,16 @@
         container (.-parentNode table)]
     (render-rows (dom/qs table "tbody") (.-rowTemplate table) data)
     (doseq [th (dom/qsa table "thead th")]
-      (let [id (.getAttribute th "data-id")]
-        (if (columns (.getAttribute th "data-id"))
+      (let [id (dom/get-attr th "data-id")]
+        (if (columns id)
           (dom/show th)
           (dom/hide th))
-        (when-let [icon (dom/qs th ".mvt-sort-icon")]
-          (let [selector (if (= sort-id id)
-                           (if (= sort-order :sort.order/asc)
-                             ".mvt-asc"
-                             ".mvt-desc")
-                           ".mvt-sort")]
-            (set! (.-innerHTML icon) "")
-            (.appendChild icon (.cloneNode (dom/qs container selector) true))))))
-    (dom/re-zebra-table table)
+        (when (dom/has-attr? th "aria-sort")
+          (dom/set-attr th "aria-sort"
+                        (cond
+                          (not= sort-id id) ""
+                          (= sort-order :sort.order/asc) "ascending"
+                          :else "descending")))))
     (dom/show table)
     (update-button (dom/qs container ".mvt-prev") (:prev current))
     (update-button (dom/qs container ".mvt-next") (:next current))))
@@ -202,7 +202,7 @@
 
 (defn change-sort [store e]
   (let [th (.closest (.-target e) "th")]
-    (when (dom/qs th ".mvt-sort-icon")
+    (when (dom/has-attr? th "aria-sort")
       (swap!
        store
        (fn [data]
@@ -243,7 +243,7 @@
 
 (defn get-initial-table-columns [table]
   (->> (dom/qsa table "thead th")
-       (remove #(dom/has-class % "mmm-hidden"))
+       (remove dom/hidden?)
        (map #(.getAttribute % "data-id"))
        set))
 
@@ -290,10 +290,10 @@
             (dom/hide (.closest checkbox "li"))))))))
 
 (defn disable-button [el]
-  (dom/add-class el "mmm-button-disabled"))
+  (dom/set-attr el "disabled" "true"))
 
 (defn enable-button [el]
-  (dom/remove-class el "mmm-button-disabled"))
+  (dom/remove-attr el "disabled"))
 
 (defn render-download-button [foods button]
   (when-let [el (dom/qs button ".mvt-num-foods")]
@@ -314,7 +314,7 @@
     (render-clear-download-button selected button))
   (doseq [button (dom/qsa table "tbody .mvt-add-to-list")]
     (->> (get selected (.getAttribute button "data-food-id"))
-         (toggler/toggle-icon-button button))))
+         (toggler/toggle button))))
 
 (defn on-update [store {:keys [table filter-panel] :as els} prev next]
   (when (filters/render-filters filter-panel prev next)
@@ -373,7 +373,7 @@
 (defn init-download-button [store table button locale]
   (let [column-order (get-column-order table)]
     (->> (fn [e]
-           (if (dom/has-class button "mmm-button-disabled")
+           (if (dom/has-attr? button "disabled")
              (.preventDefault e)
              (set! (.-href button) (export-csv @store column-order locale))))
          (.addEventListener button "click")))
@@ -382,8 +382,8 @@
 
 (defn toggle-every-icon-button [ids active]
   (doseq [id ids]
-    (doseq [el (dom/qsa (str ".mmm-icon-button[data-food-id='" id "']"))]
-      (toggler/toggle-icon-button el active))))
+    (doseq [el (dom/qsa (str "button[data-food-id='" id "']"))]
+      (toggler/toggle el active))))
 
 (defn init-stage-download-buttons [store table]
   (->> (fn [e]
@@ -396,7 +396,7 @@
                  selected? (every? selected ids)]
              (swap! store update ::selected (if selected? #(set (remove ids %)) #(into % ids)))
              (if id
-               (toggler/toggle-icon-button icon-button (not selected?))
+               (toggler/toggle icon-button (not selected?))
                (toggle-every-icon-button ids (not selected?))))))
        (.addEventListener table "click")))
 
@@ -426,9 +426,9 @@
     (init-download-buttons store els locale)
     store))
 
-(defn select-initial-dataset [store search-input params]
+(defn select-initial-dataset [store ^js combobox params]
   (if-let [query (not-empty (get params "q"))]
-    (when search-input
+    (when-let [search-input (.-control combobox)]
       (set! (.-value search-input) query)
       (search/on-ready (fn []
                          (swap! store #(assoc % ::current (filter-by-query % query))))))
@@ -438,7 +438,7 @@
   (doseq [el (dom/qsa (:table els) "th[data-id='download']")]
     (dom/show el))
   (let [store (init-components data locale els)]
-    (select-initial-dataset store (dom/qs ".mvt-filter-search input") params)
+    (js/setTimeout #(select-initial-dataset store (dom/qs ".mvt-filter-search u-combobox") params) 250)
     (render-downloads els (::selected @store))
     (add-watch store ::save-selected (fn [_ _ old next]
                                        (when-not (= (::selected old) (::selected next))

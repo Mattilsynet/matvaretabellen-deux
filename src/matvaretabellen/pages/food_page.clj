@@ -2,21 +2,14 @@
   (:require [broch.core :as b]
             [clojure.string :as str]
             [datomic-type-extensions.api :as d]
-            [mattilsynet.design :as mtds]
-            [matvaretabellen.components.comparison :as comparison]
-            [matvaretabellen.components.legend :refer [Legend]]
-            [matvaretabellen.components.pie-chart :refer [assoc-degrees PieChart]]
+            [mattilsynet.design :as m]
             [matvaretabellen.food :as food]
             [matvaretabellen.food-name :as food-name]
-            [matvaretabellen.foodex2 :as foodex2]
             [matvaretabellen.layout :as layout]
             [matvaretabellen.rda :as rda]
+            [matvaretabellen.ui.comparison :as comparison]
+            [matvaretabellen.ui.toc :refer [Toc]]
             [matvaretabellen.urls :as urls]
-            [mmm.components.button :refer [Button]]
-            [mmm.components.card :refer [DetailFocusCard]]
-            [mmm.components.checkbox :refer [Checkbox]]
-            [mmm.components.select :refer [Select]]
-            [mmm.components.toc :refer [Toc]]
             [phosphor.icons :as icons]))
 
 (defn has-popover? [constituent]
@@ -38,7 +31,7 @@
     (let [label [:i18n :i18n/lookup (:nutrient/name nutrient)]
           url (urls/get-nutrient-url locale nutrient)]
       (if (d/entity db [:page/uri url])
-        [:a.mmm-link {:href (urls/get-nutrient-url locale nutrient)} label]
+        [:a {:href (urls/get-nutrient-url locale nutrient)} label]
         label))
     (catch Exception _
       (throw (ex-info "Can't get me no nutrient link"
@@ -50,8 +43,9 @@
                              (filter (comp #{id} :nutrient/id :constituent/nutrient))
                              first
                              :measurement/source)]
-    [:a.mmm-link {:href (str "#" (:source/id source))
-                  :title [:i18n :i18n/lookup (:source/description source)]}
+    [:button {:class "mvt-source-popover"
+              :popoverTarget (str "source-" (:source/id source))
+              :data-popover "inline"}
      (:source/id source)]))
 
 (def nutrition-table-row-ids
@@ -77,12 +71,14 @@
         total (apply + (keep get-constituent-energy constituents))]
     {:headers [{:text [:i18n ::nutrients]}
                {:text [:i18n ::source]
-                :class "mvt-source"}
+                :class "mvt-source"
+                :style {:width "var(--mtds-30)"}}
                {:text [:i18n ::amount]
-                :class "mvt-amount mmm-tar"}
-               {:text (list [:span.mmm-mobile "Energi%"]
-                            [:span.mmm-desktop "Energiprosent"])
-                :class "mvt-amount mmm-tar"}]
+                :class "mvt-amount"
+                :style {:width "var(--mtds-30)"}}
+               {:text "Energiprosent"
+                :class "mvt-amount"
+                :style {:width "var(--mtds-30)"}}]
      :rows (for [id nutrition-table-row-ids]
              (let [constituent (food/get-nutrient-measurement food id)
                    nutrient (:constituent/nutrient constituent)
@@ -92,13 +88,19 @@
                  :class "mvt-source"}
                 {:text (with-source-popover food nutrient
                          (food/get-nutrient-quantity food id))
-                 :class "mmm-tar mvt-amount"}
+                 :class "mvt-amount"
+                 :data-justify "end"
+                 :data-nowrap ""
+                 :data-numeric ""}
                 {:text (if (= id "Vann")
                          "-"
                          (str (if (zero? total)
                                 0
-                                (int (* 100 (/ value total)))) "%"))
-                 :class "mmm-tar mvt-amount"}]))}))
+                                (int (* 100 (/ value total)))) " E%"))
+                 :class "mvt-amount"
+                 :data-justify "end"
+                 :data-nowrap ""
+                 :data-numeric ""}]))}))
 
 (defn get-kj [food & [opt]]
   (when (:measurement/quantity (:food/energy food))
@@ -117,12 +119,12 @@
 (defn prepare-macro-highlights [food]
   (into
    [{:title [:i18n ::energy-highlight-title]
-     :detail [:span (get-kj food)
+     :detail [:div (get-kj food)
               (when-let [formatted-kcal (get-kcal food)]
-                [:div.small formatted-kcal])]
-     :href "#naringsinnhold"
-     :class "mmm-mobile"
-     :aria-hidden "true"}]
+                [:small {:style {:display "block"
+                                 :font-size "var(--mtds-body-md-font-size)"
+                                 :font-weight "normal"}} formatted-kcal])]
+     :href "#naringsinnhold"}]
    (for [[id anchor] [["Fett" "fett"] ["Protein" "energi"] ["Karbo" "karbohydrater"]]]
      (let [constituent (->> (:food/constituents food)
                             (filter (comp #{id} :nutrient/id :constituent/nutrient))
@@ -148,9 +150,9 @@
       (when-not (#{"NaCl" "Na"} nutrient-id)
         (when-let [v (or (:rda.recommendation/max-amount recommendation)
                          (:rda.recommendation/min-amount recommendation)
-                         (:rda.recommendation/average-amount recommendation)
-                         ;; Min/max/average energy percent not yet supported
-                         )]
+                         (:rda.recommendation/average-amount recommendation))]
+          ;; Min/max/average energy percent not yet supported
+
           [:span.mvt-rda
            {:data-nutrient-id nutrient-id}
            (pct (b// q v))])))))
@@ -161,15 +163,20 @@
   (->> (concat
         [{:headers (->> [{:text (get-nutrient-link db locale group)}
                          {:text [:i18n ::source]
-                          :class "mvt-source"}
+                          :class "mvt-source"
+                          :style {:width "var(--mtds-30)"}}
                          {:text (if show-header-sum?
                                   (food/get-nutrient-quantity food (:nutrient/id group))
                                   [:i18n ::amount])
-                          :class "mvt-amount mmm-tar"}
+                          :data-numeric ""
+                          :data-justify "end"
+                          :class "mvt-amount"
+                          :style {:width "var(--mtds-30)"}}
                          (when recommendations
-                           {:text [:abbr.mmm-abbr {:title [:i18n ::rda-explanation]}
+                           {:text [:button {:data-popover "inline" :data-tooltip [:i18n ::rda-explanation]}
                                    [:i18n ::rda-pct]]
-                            :class "mmm-td-min mmm-tar"})]
+                            :style {:width "var(--mtds-30)"}
+                            :data-justify "end"})]
                         (remove nil?))
           :rows (for [nutrient nutrients]
                   (->> [{:text (get-nutrient-link db locale nutrient)}
@@ -177,11 +184,16 @@
                          :class "mvt-source"}
                         {:text (with-source-popover food nutrient
                                  (food/get-nutrient-quantity food (:nutrient/id nutrient)))
-                         :class "mmm-tar mvt-amount"}
+                         :class "mvt-amount"
+                         :data-justify "end"
+                         :data-nowrap ""
+                         :data-numeric ""}
                         (when recommendations
                           {:text (->> (food/get-nutrient-measurement food (:nutrient/id nutrient))
                                       (get-recommended-daily-allowance recommendations))
-                           :class "mmm-tar"})]
+                           :data-justify "end"
+                           :data-nowrap ""
+                           :data-numeric ""})]
                        (remove nil?)))}]
         (mapcat
          #(when-let [nutrients (food/get-nutrients food (:nutrient/id %))]
@@ -203,11 +215,13 @@
                   :class "mvt-source"}
                  {:text (with-source-popover food nutrient
                           (food/get-nutrient-quantity food (:nutrient/id nutrient)))
-                  :class "mmm-tar mvt-amount"}
+                  :class "mvt-amount"}
                  (when recommendations
                    {:text (->> (food/get-nutrient-measurement food (:nutrient/id nutrient))
                                (get-recommended-daily-allowance recommendations))
-                    :class "mmm-tar"})]
+                    :data-justify "end"
+                    :data-nowrap ""
+                    :data-numeric ""})]
                 (remove nil?))]
           (let [level (inc level)]
             (->> (:nutrient/id nutrient)
@@ -217,24 +231,33 @@
 (defn prepare-nested-nutrient-table [db locale {:keys [food nutrients group recommendations]}]
   {:headers (->> [{:text (get-nutrient-link db locale group)}
                   {:text [:i18n ::source]
-                   :class "mvt-source"}
+                   :class "mvt-source"
+                   :style {:width "var(--mtds-30)"}}
                   {:text [:i18n ::amount]
-                   :class "mvt-amount mmm-tar"}
+                   :class "mvt-amount"
+                   :data-justify "end"
+                   :style {:width "var(--mtds-30)"}}
                   (when recommendations
-                    {:text [:abbr.mmm-abbr {:title [:i18n ::rda-explanation]}
+                    {:text [:button {:data-popover "inline" :data-tooltip [:i18n ::rda-explanation]}
                             [:i18n ::rda-pct]]
-                     :class "mmm-td-min mmm-tar"})]
+                     :style {:width "var(--mtds-30)"}
+                     :data-justify "end"})]
                  (remove nil?))
    :rows (mapcat #(get-nutrient-rows food % recommendations db locale) nutrients)})
 
 (defn render-table [{:keys [headers rows classes] :as attrs}]
-  [:table.mmm-table (merge {:class classes}
-                           (dissoc attrs :classes :headers :rows))
-   [:thead
-    (let [row (if (map? headers) headers {:cols headers})]
-      [:tr (dissoc row :cols)
-       (for [header (:cols row)]
-         [:th (dissoc header :text) (:text header)])])]
+  [:table (merge (cond-> {:class (m/c :table classes)
+                          :data-border ""
+                          :data-size "sm"
+                          :data-align "center"}
+                   (not (false? (:data-fixed attrs))) (assoc :data-fixed ""))
+                 (dissoc attrs :classes :headers :rows :data-fixed))
+   (when headers
+     [:thead
+      (let [row (if (map? headers) headers {:cols headers})]
+        [:tr (dissoc row :cols)
+         (for [header (:cols row)]
+           [:th (dissoc header :text) (:text header)])])])
    [:tbody
     (for [row rows]
       (let [row (if (map? row) row {:cols row})]
@@ -243,10 +266,7 @@
            [(or (:tag cell) :td) (dissoc cell :text :level :tag)
             (cond->> (:text cell)
               (< 0 (or (:level cell) 0))
-              (conj [:span {:class (case (:level cell)
-                                     1 "mmm-mlm"
-                                     2 "mmm-mll"
-                                     "mmm-mlxl")}]))])]))]])
+              (conj [:span {:style {:margin-left (str "var(--mtds-" (* 4 (:level cell)) ")")}}]))])]))]])
 
 (def energy-label
   [:i18n ::energy-content-title
@@ -261,120 +281,125 @@
    {:portion [:span.js-portion-label "100 g"]}])
 
 (defn prepare-langual-table [codes]
-  {:headers [{:text [:i18n ::langual-code-label]}
+  {:headers [{:text [:i18n ::langual-code-label]
+              :style {:width "12rem"}}
              {:text [:i18n ::langual-description-label]}]
    :rows (for [{:langual-code/keys [id description]} codes]
            [{:text id} {:text (food/humanize-langual-classification description)}])})
 
+(defn ^{:indent 1} render-popover [id & content]
+  [:div {:class (m/c :card :popover)
+         :data-size "sm"
+         :popover "auto"
+         :id id
+         :style {:max-width "30rem"}}
+   [:div {:class (m/c :prose)}
+    content]
+   [:button {:class (m/c :button)
+             :popovertargetaction "hide"
+             :data-size "sm"
+             :style {:position "absolute"
+                     :top "0.5rem"
+                     :right "0.5rem"}}
+    (icons/render :phosphor.regular/x {:style {:width "1rem" :height "1rem"}})]])
+
 (defn render-sources [page sources]
-  [:dl.mmm-dl
-   (mapv
-    (fn [{:source/keys [id description] :as source}]
-      (try
-        [:div
-         [:div.mmm-focus {:id id}
-          [:dt id]
-          [:dd (-> (get description (:page/locale page))
-                   food/hyperlink-string)]]]
-        (catch Exception e
-          (throw (ex-info "Failed to render source"
-                          {:source (into {} source)
-                           :uri (:page/uri page)})))))
-    sources)])
+  (mapv
+   (fn [{:source/keys [id description] :as source}]
+     (try
+       (render-popover (str "source-" id)
+         [:h3 {:data-size "sm"} id]
+         [:p {:data-size "sm"}
+          (-> (get description (:page/locale page))
+              food/hyperlink-string)])
+       (catch Exception _e
+         (throw (ex-info "Failed to render source"
+                         {:source (into {} source)
+                          :uri (:page/uri page)})))))
+   sources))
 
 (def slice-legend
-  [{:nutrient-id "Fett"    :color "var(--mt-color-fat)"}
-   {:nutrient-id "Karbo"   :color "var(--mt-color-carbs)"}
-   {:nutrient-id "Fiber"   :color "var(--mt-color-fiber)"}
-   {:nutrient-id "Protein" :color "var(--mt-color-protein)"}
-   {:nutrient-id "Alko"    :color "var(--mt-color-alco)"}
-   {:nutrient-id "Vann"    :color "var(--mt-color-water)"}])
+  [{:nutrient-id "Fett"    :color "var(--mtds-color-charts-chart-a)"}
+   {:nutrient-id "Karbo"   :color "var(--mtds-color-charts-chart-b)"}
+   {:nutrient-id "Protein" :color "var(--mtds-color-charts-chart-c)"}
+   {:nutrient-id "Fiber"   :color "var(--mtds-color-charts-chart-d)"}
+   {:nutrient-id "Alko"    :color "var(--mtds-color-charts-chart-e)"}
+   {:nutrient-id "Vann"    :color "var(--mtds-color-charts-chart-f)"}])
 
 (def nutrient-id->color
   (into {} (map (juxt :nutrient-id :color) slice-legend)))
 
-(defn prepare-value-slices [food ids]
-  (->> (for [id ids]
-         (let [constituent (->> (:food/constituents food)
-                                (filter (comp #{id} :nutrient/id :constituent/nutrient))
-                                first)
-               value (some-> constituent :measurement/quantity b/num)]
-           (when value
-             {:id (str id (hash ids))
-              :value value
-              :color (nutrient-id->color id)
-              :hover-content [:span
-                              [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]
-                              ": "
-                              [:strong
-                               (food/wrap-in-portion-span value {:decimals (-> constituent :constituent/nutrient :nutrient/decimal-precision)})
-                               (some->> constituent :measurement/quantity b/symbol (str " "))]]})))
-       (remove nil?)
-       (remove #(= 0.0 (:value %)))
-       (sort-by (comp - :value))))
+(defn render-composition-chart [food ids]
+  [:mtds-chart {:data-variant "pie" :data-legend "false" :data-aspect "4/3"}
+   [:table
+    [:thead
+     [:tr
+      [:th [:i18n ::composition]]
+      [:th "gram"]]]
+    [:tbody
+     (for [id ids]
+       (let [constituent (->> (:food/constituents food)
+                              (filter (comp #{id} :nutrient/id :constituent/nutrient))
+                              first)
+             value (or (some-> constituent :measurement/quantity b/num) 0)]
+         [:tr
+          [:td [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]]
+          [:td value]]))]]])
 
-(defn prepare-energy-content-slices [food ids]
-  (let [constituents (filter (comp ids :nutrient/id :constituent/nutrient) (:food/constituents food))
-        total (apply + (keep get-constituent-energy constituents))]
-    (when (< 0 total)
-      (->> (for [constituent constituents]
-             (let [id (:nutrient/id (:constituent/nutrient constituent))
-                   value (get-constituent-energy constituent)]
-               (when value
-                 {:id (str id (hash ids))
-                  :value value
-                  :color (nutrient-id->color id)
-                  :hover-content [:span.mmm-tac
-                                  [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]
-                                  ": " [:strong (Math/round (* 100 (/ value total))) " E%"]]})))
-           (remove nil?)
-           (remove #(= 0.0 (:value %)))
-           (sort-by (comp - :value))))))
+(defn render-energy-chart [food ids]
+  [:mtds-chart {:data-variant "pie" :data-legend "false" :data-aspect "4/3"}
+   [:table
+    [:thead
+     [:tr
+      [:th [:i18n ::energy-content]]
+      [:th "energiprosent"]]]
+    [:tbody
+     (let [constituents (->> (:food/constituents food)
+                             (filter (comp (set ids) :nutrient/id :constituent/nutrient))
+                             (map (juxt (comp :nutrient/id :constituent/nutrient) identity))
+                             (into {}))
+           total (apply + (keep get-constituent-energy (vals constituents)))]
+       (when (< 0 total)
+         (for [id ids]
+           (let [constituent (constituents id)
+                 value (or (get-constituent-energy constituent) 0)]
+             [:tr
+              [:th [:i18n :i18n/lookup (:nutrient/name (:constituent/nutrient constituent))]]
+              [:td (Math/round (* 100 (/ value total)))]]))))]]])
 
 (defn passepartout [& body]
-  [:div.mmm-container.mmm-section.mmm-mobile-phn.mmm-mobile-mvn
-   [:div.mmm-passepartout
-    [:div.mmm-container-medium.mmm-vert-layout-m.mmm-mobile-phn
-     body]]])
-
-(defn get-source-toggle [& [label]]
-  [:p.mmm-p.mmm-desktop
-   (Checkbox {:label (or label [:i18n ::show-sources])
-              :class :mvt-source-toggler})])
+  [:div {:class (m/c :grid :card) :data-center "xl" :data-pad "10"}
+   [:div {:class (m/c :grid) :data-gap "8" :data-center "md"}
+    body]])
 
 (defn passepartout-title [id title & rest]
-  [:div.mmm-flex.mmm-flex-bottom.mmm-mobile-container-p
-   [:h3.mmm-h3 {:id id} title]
+  [:div {:class (m/c :flex) :data-align "end" :data-justify "space-between"}
+   [:h3 {:class (m/c :heading) :data-size "xs" :id id} title]
    rest])
 
 (defn render-rda-select [db selected]
   (let [profiles (rda/get-profiles-per-demographic db)]
-    [:div.mmm-flex.mmm-flex-jr
-     [:div.mmm-vert-layout-s.mmm-alr
-      [:p [:i18n ::rda-select-label]]
-      (Select
-       {:size :m
-        :class [:mmm-input-m :mvt-rda-selector]
-        :options (for [profile profiles]
-                   [:option (cond-> {:value (:rda/id profile)}
-                              (= (:rda/id selected) (:rda/id profile))
-                              (assoc :selected "true"))
-                    [:i18n :i18n/lookup (:rda/demographic profile)]])})]]))
+    [:div {:class (m/c :field) :data-size "md"}
+     [:label [:i18n ::rda-select-label]]
+     [:select {:class (m/c :input :mvt-rda-selector)}
+      (for [profile profiles]
+        [:option (cond-> {:value (:rda/id profile)}
+                   (= (:rda/id selected) (:rda/id profile))
+                   (assoc :selected "true"))
+         [:i18n :i18n/lookup (:rda/demographic profile)]])]]))
 
 (defn render-portion-select [locale portions]
-  [:div.mmm-vert-layout-s
-   [:p [:i18n ::portion-size]]
-   (Select
-    {:id "portion-selector"
-     :class "mmm-input-m"
-     :options (into [[:option {:value "100"} [:i18n ::select-grams {:value 100}]]]
-                    (for [portion portions]
-                      (let [grams (b/num (:portion/quantity portion))]
-                        [:option {:value grams}
-                         [:i18n ::select-portion-with-grams
-                          {:portion (str "1 " (str/lower-case
-                                               (get-in portion [:portion/kind :portion-kind/name locale])))
-                           :grams [:i18n :i18n/number {:n grams}]}]])))})])
+  [:div {:class (m/c :field) :data-size "md"}
+   [:label [:i18n ::portion-size]]
+   [:select {:class (m/c :input) :id "portion-selector"}
+    (into [[:option {:value "100"} [:i18n ::select-grams {:value 100}]]]
+          (for [portion portions]
+            (let [grams (b/num (:portion/quantity portion))]
+              [:option {:value grams}
+               [:i18n ::select-portion-with-grams
+                {:portion (str "1 " (str/lower-case
+                                     (get-in portion [:portion/kind :portion-kind/name locale])))
+                 :grams [:i18n :i18n/number {:n grams}]}]])))]])
 
 (defn get-toc-items []
   [{:title [:i18n ::energy-title]
@@ -395,20 +420,22 @@
     :href "#kilder"}])
 
 (defn render-toc [{:keys [contents class]}]
-  [:aside.mvt-aside-col
+  [:aside {:data-size "md"}
    (Toc
     {:title [:i18n ::toc-title]
      :contents contents
      :class class})])
 
-(defn render-compare-button [food opts]
-  (Button (merge {:class [:mmm-hidden :mvt-compare-food]
-                  :text [:i18n ::compare-food]
-                  :secondary? true
-                  :icon :phosphor.regular/git-diff
-                  :data-food-id (:food/id food)
-                  :data-food-name [:i18n :i18n/lookup (:food/name food)]}
-                 opts)))
+(defn render-compare-button [food]
+  [:button {:class (m/c :button :mvt-compare-food)
+            :type "button"
+            :hidden "true"
+            :data-size "md"
+            :data-variant "secondary"
+            :data-food-id (:food/id food)
+            :data-food-name [:i18n :i18n/lookup (:food/name food)]}
+   (icons/render :phosphor.regular/git-diff)
+   [:i18n ::compare-food]])
 
 (defn summarize-constituent [food id locale]
   (let [c (food/get-nutrient-measurement food id)]
@@ -435,36 +462,30 @@
                :macros (->> ["Fett" "Karbo" "Protein"]
                             (map #(summarize-constituent food % locale)))}]}])
 
+(defn render-foodex2-term [term]
+  (str (:foodex2.term/name term) " (" (:foodex2.term/code term) ")"))
+
 (defn render-foodex2-aspect [locale aspect]
   [:a {:href (urls/get-foodex-term-url locale (:foodex2/term aspect))}
-   (str (-> aspect :foodex2/term :foodex2.term/code)
-        " "
-        (-> aspect :foodex2/term :foodex2.term/name))])
+   (render-foodex2-term (:foodex2/term aspect))])
 
 (defn render-foodex2-facets [locale food]
-  [:ul
-   (->> food :foodex2/classification :foodex2/aspects
-        (group-by (comp (juxt :foodex2.facet/id :foodex2.facet/name) :foodex2/facet))
-        (sort-by first)
-        (map (fn [[facet-info aspects]]
-               [:li [:strong (->> facet-info
-                                  (remove nil?)
-                                  (interpose " "))]
-                ": "
-                (interpose ", " (map (partial render-foodex2-aspect locale) aspects))
-                "."])))])
-
-(defn render-foodex2-classification [locale food]
-  (let [kategori-label (str (-> food :foodex2/classification :foodex2/term :foodex2.term/code)
-                            " "
-                            (-> food :foodex2/classification :foodex2/term :foodex2.term/name))]
-    [:div {:class (mtds/classes :prose)}
-     [:h3#foodex2 "FoodEx2: "
-      [:a {:href (urls/get-foodex-term-url locale (-> food :foodex2/classification :foodex2/term))}
-       kategori-label]]
-     [:p {:data-size "sm"}
-      [:code (foodex2/make-classifier (:foodex2/classification food))]]
-     (render-foodex2-facets locale food)]))
+  (when-let [facets (->> food :foodex2/classification :foodex2/aspects seq)]
+    (render-table
+     {:headers [{:text [:i18n ::foodex2-facets-th]
+                 :style {:width "12rem"}}
+                {:text ""}]
+      :rows
+      (->> facets
+           (group-by (comp (juxt :foodex2.facet/id :foodex2.facet/name) :foodex2/facet))
+           (sort-by first)
+           (map (fn [[facet-info aspects]]
+                  [{:style {:width "12rem"}
+                    :text
+                    (->> facet-info
+                         (remove nil?)
+                         (interpose " "))}
+                   {:text (interpose ", " (map (partial render-foodex2-aspect locale) aspects))}])))})))
 
 (comment
   (do
@@ -473,6 +494,23 @@
     (def food banankake))
 
   )
+
+(defn render-source-list [page sources]
+  (mapv
+   (fn [{:source/keys [id description] :as source}]
+     (try
+       [:div {:class (m/c :grid)
+              :data-gap "0"}
+        [:h3 {:id id
+              :class (m/c :heading)
+              :data-size "xs"} id]
+        [:p (-> (get description (:page/locale page))
+                food/hyperlink-string)]]
+       (catch Exception _e
+         (throw (ex-info "Failed to render source"
+                         {:source (into {} source)
+                          :uri (:page/uri page)})))))
+   sources))
 
 (defn render [context db page]
   (let [food (d/entity (:foods/db context) [:food/id (:page/food-id page)])
@@ -489,190 +527,182 @@
      [:head
       [:title food-name]
       (get-open-graph-description food locale)]
-     [:body
-      [:script {:type "text/javascript"}
-       (str "if (localStorage.getItem(\"show-sources\") != \"true\") {\n"
-            "  document.body.classList.add(\"mvt-source-hide\");\n"
-            "}")]
+     [:body {:data-size "lg"}
       (layout/render-header
        {:locale locale
         :app/config (:app/config context)}
        #(urls/get-food-url % food))
-      [:div.mmm-themed.mmm-brand-theme1
-       (layout/render-toolbar
-        {:locale locale
-         :crumbs [(:food/food-group food)
-                  {:text (->> (get-in food [:food/name locale])
-                              food-name/shorten-name)}]})
-       [:div.mmm-container.mmm-section
-        [:div.mmm-media-d.mmm-media-at
-         [:article.mmm-vert-layout-spread
-          [:h1.mmm-h1 food-name]
-          [:div.mmm-mtm.mmm-vert-layout-s
-           [:div.mmm-flex
-            [:div.mmm-vert-layout-s
-             [:h2.mmm-p.mmm-desktop energy-label]
-             [:h2.mmm-p.mmm-mobile.mmm-mbs {:aria-hidden "true"}
-              energy-label-mobile]
-             [:p.mmm-h3.mmm-mbs.mmm-desktop (energy food)]]]
-           [:div.mmm-cards
-            (->> (prepare-macro-highlights food)
-                 (map DetailFocusCard))]
-           [:div.mmm-mobile.mmm-mtm (render-compare-button food {:inline? false})]
-           (when-let [related (seq (food/find-related-foods food locale))]
-             (let [categoryish (food/infer-food-kind food locale)]
-               [:div.mmm-inline.mmm-mtm.mmm-small
-                [:strong [:i18n ::more {:categoryish (str/lower-case categoryish)}] " "]
-                [:ul.mmm-horizontal-list.mmm-hl-slash
-                 (for [food related]
-                   [:li
-                    [:a.mmm-link {:href (urls/get-food-url locale food)
-                                  :data-comparison-suggestion-id (:food/id food)
-                                  :data-comparison-suggestion-name (get-in food [:food/name locale])}
-                     (food/get-variant-name food locale categoryish)]])]]))]]
-         (render-toc {:contents (get-toc-items)})]]]
+      [:div {:class (m/c :grid) :data-gap "12"}
+       [:div {:class (m/c :grid :banner) :data-gap "8" :role "banner"}
+        (layout/render-toolbar
+         {:locale locale
+          :crumbs [(:food/food-group food)
+                   {:text (->> (get-in food [:food/name locale])
+                               food-name/shorten-name)}]})
+        [:div {:class (m/c :flex) :data-center "xl" :data-items "350" :data-gap "12"}
+         [:div {:class (m/c :grid) :data-align "end"}
+          [:h1 {:class (m/c :heading) :data-size "xl" :style {:align-self "start"}} food-name]
+          [:h2 {:class (m/c :heading) :data-size "2xs"} energy-label-mobile]
+          [:div {:class (m/c :grid) :data-items "150"}
+           (for [{:keys [title detail] :as attr} (prepare-macro-highlights food)]
+             [:a
+              (-> (dissoc attr :title :detail)
+                  (assoc :class (m/c :card :grid)
+                         :data-gap "2"))
+              [:span {:data-size "md"} title]
+              [:div {:class (m/c :heading) :data-size "md"} detail]])]
+          [:div.mobile {:class (m/c :grid)} (render-compare-button food)]]
+         [:div {:data-fixed ""}
+          (render-toc {:contents (get-toc-items)})]]
+        (when-let [related (seq (food/find-related-foods food locale))]
+          (let [categoryish (food/infer-food-kind food locale)]
+            [:div {:class (m/c :flex) :data-center "xl" :data-size "sm"}
+             [:strong [:i18n ::more {:categoryish (str/lower-case categoryish)}] " "]
+             [:ul {:class (m/c :flex)}
+              (for [food related]
+                [:li
+                 [:a {:href (urls/get-food-url locale food)
+                      :data-comparison-suggestion-id (:food/id food)
+                      :data-comparison-suggestion-name (get-in food [:food/name locale])}
+                  (food/get-variant-name food locale categoryish)]])]]))]
 
-      [:div.mmm-container.mmm-section
-       [:div.mmm-flex-desktop.mmm-flex-bottom.mmm-mbl
-        [:h2.mmm-h2.mmm-mbn#naringsinnhold [:i18n ::nutrition-title]]
-        [:div.mmm-flex.mmm-flex-bottom.mmm-flex-gap.mmm-js-required
-         [:div.mmm-desktop (render-compare-button food {:inline? true})]
-         (render-portion-select locale (:food/portions food))]]]
+       [:div {:class (m/c :flex) :data-justify "space-between" :data-center "xl" :data-align "end"}
+        [:h2#naringsinnhold {:class (m/c :heading) :data-size "md"} [:i18n ::nutrition-title]]
+        [:div {:class (m/c :flex) :data-align "end"}
+         [:div.desktop (render-compare-button food)]
+         (render-portion-select locale (:food/portions food))]]
 
-      [:div.mmm-container.mmm-section.mmm-mobile-phn.mmm-mobile-mvn
-       [:div.mmm-passepartout
-        [:div.mmm-container-medium.mmm-vert-layout-m
-         [:h3.mmm-h3#energi.mmm-mbm [:i18n ::nutrition-heading]]
-         [:div.mvt-cols-2-1-labeled.mmm-mbxl
-          [:div.col-2
-           [:div.label [:i18n ::composition]]
-           (PieChart {:slices (assoc-degrees 70 (prepare-value-slices food #{"Fett" "Karbo" "Protein" "Vann" "Fiber" "Alko"}))
-                      :hoverable? true})]
-          [:div.col-2
-           [:div.label [:i18n ::energy-content]]
-           (PieChart {:slices (assoc-degrees 30 (prepare-energy-content-slices food #{"Fett" "Karbo" "Protein" "Fiber" "Alko"}))
-                      :hoverable? true})]
-          [:div.col-1
-           (Legend {:entries (for [entry slice-legend]
-                               (assoc entry :label [:i18n :i18n/lookup
-                                                    (:nutrient/name (d/entity db [:nutrient/id (:nutrient-id entry)]))]))})]]]
+       [:div {:class (m/c :grid :card) :data-center "xl" :data-pad "10"}
+        [:div {:class (m/c :grid) :data-center "md" :data-gap "6"}
+         [:h3#energi {:class (m/c :heading) :data-size "xs"} [:i18n ::nutrition-heading]]
+         [:div {:class (m/c :flex) :data-items "200" :data-align "center" :data-gap "8"}
+          [:div {:class (m/c :flex) :data-justify "center" :data-items "400"}
+           [:small {:data-self "auto" :data-fixed ""} [:i18n ::composition]]
+           (render-composition-chart food ["Fett" "Karbo" "Protein" "Fiber" "Alko" "Vann"])]
+          [:div {:class (m/c :flex) :data-justify "center" :data-items "400"}
+           [:small {:data-self "auto" :data-fixed ""} [:i18n ::energy-content]]
+           (render-energy-chart food ["Fett" "Karbo" "Protein" "Fiber" "Alko"])]
+          [:ul.chart-legend {:class (m/c :grid) :data-gap "1" :data-size "md" :data-self "100"}
+           (for [entry slice-legend]
+             [:li {:style {:--color (:color entry)}}
+              [:i18n :i18n/lookup (:nutrient/name (d/entity db [:nutrient/id (:nutrient-id entry)]))]])]]
 
-        [:div.mmm-container-medium.mmm-vert-layout-m.mmm-mobile-phn
-         [:div.mmm-flex.mmm-flex-bottom.mmm-mobile-container-p
-          [:ul.mmm-ul.mmm-unadorned-list
+         [:div {:class (m/c :flex) :data-justify "space-between" :data-align "end" :data-size "md"}
+          [:ul {:class (m/c :grid) :data-gap "0"}
            [:li energy-label ": " (energy food)]
-           [:li [:i18n ::edible-part
-                 {:pct (-> food :food/edible-part :measurement/percent)}]]]
-          (get-source-toggle)]
-         (render-table (prepare-nutrition-table (:app/db context) locale food))]]]
+           (when-let [edible-part (-> food :food/edible-part :measurement/percent)]
+             [:li [:i18n ::edible-part
+                   {:pct edible-part}]])]]
+         (render-table (prepare-nutrition-table (:app/db context) locale food))]]
 
-      (passepartout
-       (passepartout-title "karbohydrater" [:i18n ::carbohydrates-title] (get-source-toggle))
-       (->> (food/get-nutrient-group food "Karbo")
-            (prepare-nutrient-tables (:app/db context) {:locale locale
-                                                        :show-header-sum? true})
-            (map render-table)))
+       (passepartout
+        (passepartout-title "karbohydrater" [:i18n ::carbohydrates-title])
+        (->> (food/get-nutrient-group food "Karbo")
+             (prepare-nutrient-tables (:app/db context) {:locale locale})
+             (map render-table)))
 
-      (passepartout
-       (passepartout-title "fett" [:i18n ::fat-title] (get-source-toggle))
-       (->> (food/get-nutrient-group food "Fett")
-            (prepare-nutrient-tables (:app/db context) {:locale locale
-                                                        :show-header-sum? true})
-            (map render-table)))
+       (passepartout
+        (passepartout-title "fett" [:i18n ::fat-title])
+        (->> (food/get-nutrient-group food "Fett")
+             (prepare-nutrient-tables (:app/db context) {:locale locale})
+             (map render-table)))
 
-      (passepartout
-       (->> (render-rda-select (:app/db context) rda-profile)
-            (passepartout-title "vitaminer" [:i18n ::vitamins-title]))
-       (->> (assoc (food/get-nutrient-group food "FatSolubleVitamins")
-                   :recommendations recommendations)
-            (prepare-nested-nutrient-table (:app/db context) locale)
-            render-table)
-       (->> (assoc (food/get-flattened-nutrient-group food "WaterSolubleVitamins")
-                   :recommendations recommendations)
-            (prepare-nutrient-tables (:app/db context) {:locale locale})
-            (map render-table)))
+       (passepartout
+        (->> (render-rda-select (:app/db context) rda-profile)
+             (passepartout-title "vitaminer" [:i18n ::vitamins-title]))
+        (->> (assoc (food/get-nutrient-group food "FatSolubleVitamins")
+                    :recommendations recommendations)
+             (prepare-nested-nutrient-table (:app/db context) locale)
+             render-table)
+        (->> (assoc (food/get-flattened-nutrient-group food "WaterSolubleVitamins")
+                    :recommendations recommendations)
+             (prepare-nutrient-tables (:app/db context) {:locale locale})
+             (map render-table)))
 
-      (passepartout
-       (->> (render-rda-select (:app/db context) rda-profile)
-            (passepartout-title "mineraler-sporstoffer" [:i18n ::minerals-trace-elements-title]))
-       (->> (assoc (food/get-flattened-nutrient-group food "Minerals")
-                   :recommendations recommendations)
-            (prepare-nutrient-tables (:app/db context) {:locale locale})
-            (map #(render-table (assoc % :id "mineraler"))))
-       (->> (assoc (food/get-flattened-nutrient-group food "TraceElements")
-                   :recommendations recommendations)
-            (prepare-nutrient-tables (:app/db context) {:locale locale})
-            (map #(render-table (assoc % :id "sporstoffer")))))
+       (passepartout
+        (->> (render-rda-select (:app/db context) rda-profile)
+             (passepartout-title "mineraler-sporstoffer" [:i18n ::minerals-trace-elements-title]))
+        (->> (assoc (food/get-flattened-nutrient-group food "Minerals")
+                    :recommendations recommendations)
+             (prepare-nutrient-tables (:app/db context) {:locale locale})
+             (map #(render-table (assoc % :id "mineraler"))))
+        (->> (assoc (food/get-flattened-nutrient-group food "TraceElements")
+                    :recommendations recommendations)
+             (prepare-nutrient-tables (:app/db context) {:locale locale})
+             (map #(render-table (assoc % :id "sporstoffer")))))
 
-      [:div.mmm-container.mmm-section-spaced
-       [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
-        [:h3#klassifisering [:i18n ::classification-title]]
-        [:ul.mmm-unadorned-list
-         [:li [:i18n ::food-id {:id (:food/id food)}]]
-         (when-let [latin-name (not-empty (:food/latin-name food))]
-           [:li [:i18n ::scientific-name {:name latin-name}]])]
-        (render-foodex2-classification locale food)
-        [:h3 "LanguaL"]
-        (when-let [langual-codes (seq (food/get-langual-codes food))]
-          (list
-           [:p [:i18n ::classification-intro
-                {:langual-url "https://www.langual.org/"}]]
-           (->> langual-codes
-                prepare-langual-table
-                render-table)))]]
+       (passepartout
+        [:div {:class (m/c :prose)}
+         [:h3#klassifisering {:class (m/c :heading)
+                              :data-size "lg"}
+          [:i18n ::classification-title]]
+         [:div {:class (m/c :grid)
+                :data-gap "0"}
+          [:p [:i18n ::food-id {:id (:food/id food)}]]
+          (when-let [latin-name (not-empty (:food/latin-name food))]
+            [:p [:i18n ::scientific-name {:name latin-name}]])]
+         [:div {:class (m/c :prose)}
+          [:h4#foodex2 {:class (m/c :heading)
+                        :data-size "xs"} "FoodEx2: "
+           [:a {:href (urls/get-foodex-term-url locale (-> food :foodex2/classification :foodex2/term))}
+            (render-foodex2-term (-> food :foodex2/classification :foodex2/term))]]
+          (render-foodex2-facets locale food)]
+         (when-let [langual-codes (seq (food/get-langual-codes food))]
+           (list
+            [:h4 {:class (m/c :heading)
+                  :data-size "xs"} "LanguaL"]
+            (->> langual-codes
+                 prepare-langual-table
+                 render-table)))
+         [:div {:class (m/c :prose)}
+          [:i18n ::classification-intro
+           {:langual-url "https://www.langual.org/"
+            :foodex-url "https://www.efsa.europa.eu/en/data/data-standardisation"}]]])
 
-      [:div.mmm-container.mmm-section-spaced
-       [:div.mmm-container-medium.mmm-vert-layout-m.mmm-text.mmm-mobile-phn
-        [:h3#kilder [:i18n ::sources]]
-        (get-source-toggle [:i18n ::show-all-sources])
+       (passepartout
+        [:div {:class (m/c :prose)}
+         [:h3#kilder {:class (m/c :heading)} [:i18n ::sources]]
+         (->> (food/get-sources food)
+              (render-source-list page))])
+
+       [:div
         (->> (food/get-sources food)
-             (render-sources page))]]
+             (render-sources page))]
 
-      (for [{:constituent/keys [nutrient] :as constituent} (:food/constituents food)]
-        (when (has-popover? constituent)
-          [:div.mmm-small {:class (mtds/classes :card :popover :prose)
-                           :data-size "sm"
-                           :popover "auto"
-                           :id (:nutrient/id nutrient)
-                           :style {:max-width "25rem"}}
-           [:button {:class (mtds/classes :button)
-                     :popovertargetaction "hide"
-                     :data-size "sm"
-                     :style {:position "absolute"
-                             :top "0.5rem"
-                             :right "0.5rem"}}
-            (icons/render :phosphor.regular/x {:style {:width "1rem" :height "1rem"}})]
-           [:h3 {:data-size "sm"}
-            [:i18n ::nutrient-source-popover-title
-             {:nutrient [:i18n :i18n/lookup (:nutrient/name nutrient)]
-              :food [:i18n :i18n/lookup (:food/name food)]}]]
-           [:table.mmm-small
-            {:class (mtds/classes :table)
-             :data-border "false"
-             :data-size "sm"}
-            [:tr
-             [:th [:strong [:i18n ::value-type]]]
-             [:td (when-let [value-type (:measurement/value-type constituent)]
-                    [:i18n value-type])]]
+       (for [{:constituent/keys [nutrient] :as constituent} (:food/constituents food)]
+         (when (has-popover? constituent)
+           (render-popover (:nutrient/id nutrient)
+             [:h3 {:data-size "sm"}
+              [:i18n ::nutrient-source-popover-title
+               {:nutrient [:i18n :i18n/lookup (:nutrient/name nutrient)]
+                :food [:i18n :i18n/lookup (:food/name food)]}]]
+             [:table
+              {:class (m/c :table)
+               :data-size "sm"}
+              [:tbody
+               [:tr
+                [:td [:strong [:i18n ::value-type]]]
+                [:td (when-let [value-type (:measurement/value-type constituent)]
+                       [:i18n value-type])]]
 
-            [:tr
-             [:th [:strong [:i18n ::acquisition-type]]]
-             [:td (when-let [acquisition-type (:measurement/acquisition-type constituent)]
-                    [:i18n acquisition-type])]]
+               [:tr
+                [:td [:strong [:i18n ::acquisition-type]]]
+                [:td (when-let [acquisition-type (:measurement/acquisition-type constituent)]
+                       [:i18n acquisition-type])]]
 
-            [:tr
-             [:th [:strong [:i18n ::method-type]]]
-             [:td (when-let [method-type (:measurement/method-type constituent)]
-                    [:i18n method-type])]]
+               [:tr
+                [:td [:strong [:i18n ::method-type]]]
+                [:td (when-let [method-type (:measurement/method-type constituent)]
+                       [:i18n method-type])]]
 
-            [:tr
-             [:th [:strong [:i18n ::method-indicator]]]
-             [:td (when-let [source (:measurement/method-indicator constituent)]
-                    [:i18n :i18n/lookup (:source/description source)])]]]]))
+               [:tr
+                [:td [:strong [:i18n ::method-indicator]]]
+                [:td (when-let [source (:measurement/method-indicator constituent)]
+                       [:i18n :i18n/lookup (:source/description source)])]]]])))
 
-      [:script#food-data
-       {:type "text/plain"
-        :data-food-id (:food/id food)
-        :data-food-name [:i18n :i18n/lookup (:food/name food)]}]
+       [:script#food-data
+        {:type "text/plain"
+         :data-food-id (:food/id food)
+         :data-food-name [:i18n :i18n/lookup (:food/name food)]}]
 
-      (comparison/render-comparison-drawer locale)])))
+       (comparison/render-comparison-drawer locale)]])))
