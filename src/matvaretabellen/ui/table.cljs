@@ -51,7 +51,7 @@
      :action [::browse-foods offset]}))
 
 (defn filter-by-query [data q]
-  (-> (if (<= 3 (.-length q))
+  (-> (if (<= 2 (.-length q))
         (let [results (search/search-foods q)
               cutoff (* 0.1 (:score (first results)))
               foods (for [x (->> results
