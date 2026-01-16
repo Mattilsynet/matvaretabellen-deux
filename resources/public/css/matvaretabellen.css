@@ -1,13 +1,14 @@
-/* EIRIK STUFF: */
 .header {
     color: var(--mtds-color-text-default);
     padding-block: var(--mtds-5);
 }
+
 .banner {
     background: var(--mtds-color-surface-tinted);
     color: var(--mtds-color-text-default);
     padding-block: var(--mtds-8) var(--mtds-12);
 }
+
 .footer {
     background: var(--mtds-color-background-default);
     color: var(--mtds-color-text-subtle);

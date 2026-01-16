@@ -33,7 +33,12 @@ window.onerror = function(message) {
 
 (defn Footer [{:keys [cols]}]
   [:footer.footer.screen-sm-inline-pad {:data-color "inverted"}
-   [:div {:class (m/c :grid) :data-items "300" :data-align "start" :data-size "sm" :data-center "xl"}
+   [:div {:class (m/c :grid)
+          :data-items "300"
+          :data-align "start"
+          :data-size "sm"
+          :data-center "xl"
+          :data-gap "8"}
     [:a {:href "https://www.mattilsynet.no"
          :aria-label "Mattilsynet"
          :class (m/c :logo)}]
