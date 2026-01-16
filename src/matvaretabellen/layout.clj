@@ -36,14 +36,14 @@ window.onerror = function(message) {
    [:div {:class (m/c :grid)
           :data-items "300"
           :data-align "start"
-          :data-size "sm"
           :data-center "xl"
           :data-gap "8"}
     [:a {:href "https://www.mattilsynet.no"
          :aria-label "Mattilsynet"
          :class (m/c :logo)}]
     (for [{:keys [title items]} cols]
-      [:div {:class (m/c :grid)}
+      [:div {:class (m/c :grid)
+             :data-size "sm"}
        [:h2 {:class (m/c :heading) :data-size "sm"} title]
        (when (seq items)
          [:ul {:class (m/c :grid)}
