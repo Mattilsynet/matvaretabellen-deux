@@ -131,7 +131,7 @@ jobs:
           restore-keys: |
             exported-files-
       - name: Build docker image
-        run: make docker
+        run: JAVA_TOOL_OPTIONS=-Xmx12g make docker
       - id: auth
         name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
