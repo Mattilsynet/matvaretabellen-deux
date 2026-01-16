@@ -249,7 +249,8 @@
   [:table (merge (cond-> {:class (m/c :table classes)
                           :data-border ""
                           :data-size "sm"
-                          :data-align "center"}
+                          :data-align "center"
+                          :data-mobile "divided"}
                    (not (false? (:data-fixed attrs))) (assoc :data-fixed ""))
                  (dissoc attrs :classes :headers :rows :data-fixed))
    (when headers
