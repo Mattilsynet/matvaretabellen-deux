@@ -69,7 +69,8 @@
                                    :constituent/nutrient)
                              (:food/constituents food))
         total (apply + (keep get-constituent-energy constituents))]
-    {:headers [{:text [:i18n ::nutrients]}
+    {:data-mobile "divided"
+     :headers [{:text [:i18n ::nutrients]}
                {:text [:i18n ::source]
                 :class "mvt-source"
                 :style {:width "var(--mtds-30)"}}
@@ -161,7 +162,8 @@
                                {:keys [locale show-header-sum?] :as opt}
                                {:keys [food recommendations nutrients group]}]
   (->> (concat
-        [{:headers (->> [{:text (get-nutrient-link db locale group)}
+        [{:data-mobile "divided"
+          :headers (->> [{:text (get-nutrient-link db locale group)}
                          {:text [:i18n ::source]
                           :class "mvt-source"
                           :style {:width "var(--mtds-30)"}}
@@ -229,7 +231,8 @@
                  (mapcat #(get-nutrient-rows food % recommendations db locale level)))))))
 
 (defn prepare-nested-nutrient-table [db locale {:keys [food nutrients group recommendations]}]
-  {:headers (->> [{:text (get-nutrient-link db locale group)}
+  {:data-mobile "divided"
+   :headers (->> [{:text (get-nutrient-link db locale group)}
                   {:text [:i18n ::source]
                    :class "mvt-source"
                    :style {:width "var(--mtds-30)"}}
@@ -249,8 +252,7 @@
   [:table (merge (cond-> {:class (m/c :table classes)
                           :data-border ""
                           :data-size "sm"
-                          :data-align "center"
-                          :data-mobile "divided"}
+                          :data-align "center"}
                    (not (false? (:data-fixed attrs))) (assoc :data-fixed ""))
                  (dissoc attrs :classes :headers :rows :data-fixed))
    (when headers
