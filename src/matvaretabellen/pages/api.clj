@@ -88,7 +88,7 @@
 
 (defn ->api-portion [locale portion]
   (merge
-   {:portion-kind/id (:portion-kind/id (:portion/kind portion))
+   {:portion-kind/id (subs (str (:portion-kind/id (:portion/kind portion))) 1)
     :portion-kind/name (get-in (:portion/kind portion) [:portion-kind/name locale])
     :portion-kind/unit (:portion-kind/unit (:portion/kind portion))}
    (->api-quantity (:portion/quantity portion))))

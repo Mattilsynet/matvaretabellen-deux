@@ -26,11 +26,13 @@
             :food/calories {:quantity/number 375
                             :quantity/unit "kcal"
                             :source/id "MI0115"}
-            :food/portions #{{:portion-kind/name "porsjon"
+            :food/portions #{{:portion-kind/id "porsjon"
+                              :portion-kind/name "porsjon"
                               :portion-kind/unit "stk"
                               :quantity/number 95.0
                               :quantity/unit "g"}
-                             {:portion-kind/name "desiliter"
+                             {:portion-kind/id "dl"
+                              :portion-kind/name "desiliter"
                               :portion-kind/unit "dl"
                               :quantity/number 60.0
                               :quantity/unit "g"}}
@@ -294,11 +296,13 @@
                                      :nutrient/id "Alko"}}
                :food/edible-part {:measurement/percent 100
                                   :source/id "0"}
-               :food/portions #{{:portion-kind/name "desiliter"
+               :food/portions #{{:portion-kind/id "dl"
+                                 :portion-kind/name "desiliter"
                                  :portion-kind/unit "dl"
                                  :quantity/number 60.0
                                  :quantity/unit "g"}
-                                {:portion-kind/name "porsjon"
+                                {:portion-kind/id "porsjon"
+                                 :portion-kind/name "porsjon"
                                  :portion-kind/unit "stk"
                                  :quantity/number 95.0
                                  :quantity/unit "g"}}
@@ -344,11 +348,13 @@
                :latinName "Cicer arietinum L."
                :langualCodes #{"N0001" "G0003" "M0001" "K0003" "E0106" "B1172" "F0003"
                                "C0155" "H0138" "J0116" "A0149" "P0024" "A0813"}
-               :portions #{{:portionName "porsjon"
+               :portions #{{:id "porsjon"
+                            :portionName "porsjon"
                             :portionUnit "stk"
                             :quantity 95.0
                             :unit "g"}
-                           {:portionName "desiliter"
+                           {:id "dl"
+                            :portionName "desiliter"
                             :portionUnit "dl"
                             :quantity 60.0
                             :unit "g"}}}]
